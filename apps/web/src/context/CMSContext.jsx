@@ -116,20 +116,26 @@ export const CMSProvider = ({ children }) => {
             }
             link.href = cmsState.settings.faviconUrl;
         }
+    }, [cmsState]);
 
-        // Guardado en la Nube con "Debounce" (espera 2 segundos de inactividad para no saturar Supabase)
+    const syncToCloud = async () => {
+        try {
+            const content = JSON.stringify(cmsState);
+            await supabase.storage.from('media').upload('cms-state.json', content, {
+                contentType: 'application/json',
+                upsert: true
+            });
+            console.log("Cambios de diseño guardados (FORZADO) en la Nube.");
+        } catch (err) {
+            console.error("Error subiendo Cambios a la Nube", err);
+        }
+    };
+
+    // Guardado en la Nube con "Debounce" (espera 2.5 segundos de inactividad para no saturar Supabase)
+    useEffect(() => {
         if (isEditorMode && isLoadedFromCloud) {
-            const uploadTimeout = setTimeout(async () => {
-                try {
-                    const content = JSON.stringify(cmsState);
-                    await supabase.storage.from('media').upload('cms-state.json', content, {
-                        contentType: 'application/json',
-                        upsert: true
-                    });
-                    console.log("Cambios de diseño guardados en la Nube.");
-                } catch (err) {
-                    console.error("Error subiendo Cambios a la Nube", err);
-                }
+            const uploadTimeout = setTimeout(() => {
+                syncToCloud();
             }, 2500);
 
             return () => clearTimeout(uploadTimeout);
@@ -190,7 +196,8 @@ export const CMSProvider = ({ children }) => {
             updatePageModule,
             isEditorMode,
             setIsEditorMode,
-            syncFromCloud
+            syncFromCloud,
+            syncToCloud
         }}>
             {children}
         </CMSContext.Provider>
