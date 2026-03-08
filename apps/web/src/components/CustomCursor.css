@@ -1,4 +1,3 @@
-
 /* CustomCursor.css */
 
 body.custom-cursor-active,
@@ -14,12 +13,13 @@ body.custom-cursor-active * {
   height: 10px;
   background-color: #C6FF00;
   border-radius: 50%;
-  z-index: 9999;
+  z-index: 9999999;
   pointer-events: none;
   transform: translate(-50%, -50%);
   box-shadow: 0 0 6px rgba(198, 255, 0, 0.9), 0 0 12px rgba(198, 255, 0, 0.6);
   transition: box-shadow 0.2s ease-in-out;
   animation: cursorPulse 1.4s infinite ease-in-out;
+  will-change: transform, left, top;
 }
 
 .custom-cursor-dot.expanded {
@@ -35,12 +35,13 @@ body.custom-cursor-active * {
   border: 1px solid rgba(255, 255, 255, 0.6);
   background-color: transparent;
   border-radius: 50%;
-  z-index: 9998;
+  z-index: 9999998;
   pointer-events: none;
   opacity: 0.8;
   transform: translate(-50%, -50%);
   transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
   animation: cursorPulse 1.4s infinite ease-in-out;
+  will-change: transform, left, top;
 }
 
 .custom-cursor-halo.expanded {
@@ -53,10 +54,12 @@ body.custom-cursor-active * {
     transform: translate(-50%, -50%) scale(1);
     opacity: 0.9;
   }
+
   50% {
     transform: translate(-50%, -50%) scale(1.15);
     opacity: 0.5;
   }
+
   100% {
     transform: translate(-50%, -50%) scale(1);
     opacity: 0.9;
@@ -64,10 +67,12 @@ body.custom-cursor-active * {
 }
 
 @media (max-width: 1024px) {
+
   .custom-cursor-dot,
   .custom-cursor-halo {
     display: none !important;
   }
+
   body.custom-cursor-active,
   body.custom-cursor-active * {
     cursor: auto !important;

@@ -6,7 +6,7 @@ const CustomCursor = () => {
   const dotRef = useRef(null);
   const haloRef = useRef(null);
   const requestRef = useRef(null);
-  
+
   const [isHovering, setIsHovering] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isDesktop, setIsDesktop] = useState(true);
@@ -44,7 +44,7 @@ const CustomCursor = () => {
     const onMouseMove = (e) => {
       mouse.current = { x: e.clientX, y: e.clientY };
       if (!isVisible) setIsVisible(true);
-      
+
       // Update dot immediately
       if (dotRef.current) {
         dotRef.current.style.left = `${e.clientX}px`;
@@ -62,8 +62,8 @@ const CustomCursor = () => {
     // Animation loop for halo trailing effect
     const updateHalo = () => {
       // Lerp (Linear Interpolation) for smooth trailing
-      halo.current.x += (mouse.current.x - halo.current.x) * 0.15;
-      halo.current.y += (mouse.current.y - halo.current.y) * 0.15;
+      halo.current.x += (mouse.current.x - halo.current.x) * 0.3;
+      halo.current.y += (mouse.current.y - halo.current.y) * 0.3;
 
       if (haloRef.current) {
         haloRef.current.style.left = `${halo.current.x}px`;
@@ -77,7 +77,7 @@ const CustomCursor = () => {
 
     // Interactive elements detection
     const interactiveSelectors = 'a, button, [role="button"], .btn, [data-interactive], input[type="submit"], input[type="button"], .card, [data-card], .hover-expand';
-    
+
     const handleMouseOver = (e) => {
       if (e.target.closest(interactiveSelectors)) {
         setIsHovering(true);

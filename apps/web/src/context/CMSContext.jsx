@@ -4,7 +4,8 @@ const CMSContext = createContext();
 
 const initialCMSState = {
     settings: {
-        logoUrl: null,
+        logoUrl: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1772916101912_LOGO%20ALUMINIO%20SMQ%20LIMPIO.png',
+        faviconUrl: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1772938478587_FAVICON%20SMQ.png',
         logoSize: 75,
         headerHeight: 100,
         headerOpacity: 60,
@@ -60,6 +61,17 @@ export const CMSProvider = ({ children }) => {
 
     useEffect(() => {
         localStorage.setItem('smqCMS', JSON.stringify(cmsState));
+
+        // Actualizar favicon en vivo para todos los visitantes
+        if (cmsState.settings.faviconUrl) {
+            let link = document.querySelector("link[rel~='icon']");
+            if (!link) {
+                link = document.createElement('link');
+                link.rel = 'icon';
+                document.head.appendChild(link);
+            }
+            link.href = cmsState.settings.faviconUrl;
+        }
     }, [cmsState]);
 
     useEffect(() => {
@@ -86,12 +98,17 @@ export const CMSProvider = ({ children }) => {
         setCmsState(prev => {
             const pages = prev.pages.map(page => {
                 if (page.id === pageId) {
+                    let found = false;
                     const modules = page.modules.map(mod => {
                         if (mod.id === moduleId) {
+                            found = true;
                             return { ...mod, data: { ...mod.data, ...newData } };
                         }
                         return mod;
                     });
+                    if (!found) {
+                        modules.push({ id: moduleId, type: moduleId, data: newData });
+                    }
                     return { ...page, modules };
                 }
                 return page;

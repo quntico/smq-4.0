@@ -1,8 +1,16 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const IndustriesMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
+  const [openSubMenus, setOpenSubMenus] = useState({});
+
+  const toggleSubMenu = (e, menuKey) => {
+    e.preventDefault();
+    setOpenSubMenus(prev => ({ ...prev, [menuKey]: !prev[menuKey] }));
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -19,9 +27,32 @@ const IndustriesMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
             <div>
               <h3 className="text-white font-bold mb-4 text-[15px]">Reciclaje y Plásticos</h3>
               <ul className="space-y-2">
-                <li><a href="#extrusion" className="block text-white/90 text-[13px] hover:text-[#FFD700] transition-colors duration-200">Extrusión</a></li>
-                <li><a href="#pelletizado" className="block text-white/90 text-[13px] hover:text-[#FFD700] transition-colors duration-200">Pelletizado</a></li>
-                <li><a href="#lavado" className="block text-white/90 text-[13px] hover:text-[#FFD700] transition-colors duration-200">Lavado de plástico</a></li>
+                <li>
+                  <button
+                    onClick={(e) => toggleSubMenu(e, 'extrusion')}
+                    className="flex items-center justify-between w-full text-left text-white/90 text-[13px] hover:text-[#FFD700] transition-colors duration-200"
+                  >
+                    <span>Extrusión</span>
+                    <svg className={`w-3 h-3 transition-transform ${openSubMenus['extrusion'] ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  <AnimatePresence>
+                    {openSubMenus['extrusion'] && (
+                      <motion.ul
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="pl-3 mt-2 border-l border-white/10 space-y-2 overflow-hidden"
+                      >
+                        <li><Link to="/extrusion" className="block text-white/70 text-[12px] hover:text-white transition-colors duration-200">Extrusión</Link></li>
+                        <li><Link to="/coextrusion" className="block text-white/70 text-[12px] hover:text-white transition-colors duration-200">Coextrusión</Link></li>
+                      </motion.ul>
+                    )}
+                  </AnimatePresence>
+                </li>
+                <li><Link to="/pelletizado" className="block text-white/90 text-[13px] hover:text-[#FFD700] transition-colors duration-200">Pelletizado</Link></li>
+                <li><Link to="/lavado" className="block text-white/90 text-[13px] hover:text-[#FFD700] transition-colors duration-200">Lavado de plástico</Link></li>
               </ul>
             </div>
             <div>

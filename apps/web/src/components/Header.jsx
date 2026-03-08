@@ -110,28 +110,48 @@ const Header = () => {
           backgroundColor: `rgba(10, 15, 20, ${headerOpacity / 100})`
         }}
       >
-        {/* Logo */}
-        <button
-          onClick={handleLogoClick}
-          className="focus:outline-none flex items-center select-none ml-[114px]"
-          aria-label="Go to home"
-        >
-          {logoUrl ? (
-            <img
-              src={logoUrl}
-              alt="Logo SMQ"
-              className="object-contain transition-all duration-300"
-              style={{ maxHeight: `${logoSize}px` }}
-            />
-          ) : (
-            <span
-              className="text-white font-bold tracking-wider transition-all duration-300"
-              style={{ fontSize: `${logoSize * 0.5}px` }}
-            >
-              SMQ
+        {/* Left Section: Logo & Version */}
+        <div className="flex items-center gap-8 ml-[114px]">
+          {/* Logo */}
+          <button
+            onClick={handleLogoClick}
+            className="focus:outline-none flex items-center select-none"
+            aria-label="Go to home"
+          >
+            {logoUrl ? (
+              <img
+                src={logoUrl}
+                alt="Logo SMQ"
+                className="object-contain transition-all duration-300"
+                style={{ maxHeight: `${logoSize}px` }}
+              />
+            ) : (
+              <span
+                className="text-white font-bold tracking-wider transition-all duration-300"
+                style={{ fontSize: `${logoSize * 0.5}px` }}
+              >
+                SMQ
+              </span>
+            )}
+          </button>
+
+          {/* Admin Version Button */}
+          <button
+            onClick={() => setIsAdminOpen(true)}
+            title="Abrir Panel de Administrador"
+            className="flex items-center gap-3 bg-[#0a0a0a] border border-white/10 rounded-full px-4 py-1.5 hover:bg-[#151515] transition-all shadow-[inset_0_1px_3px_rgba(255,255,255,0.05),_0_0_10px_rgba(0,0,0,0.5)] cursor-pointer group"
+          >
+            {/* LED Indicator */}
+            <div className="relative flex items-center justify-center w-3 h-3">
+              <div className="absolute w-full h-full bg-[#39FF14] rounded-full animate-ping opacity-60 group-hover:opacity-100"></div>
+              <div className="relative w-2.5 h-2.5 bg-[#39FF14] rounded-full shadow-[0_0_10px_#39FF14]"></div>
+            </div>
+            {/* Text */}
+            <span className="text-white font-black text-[12px] tracking-[0.2em] uppercase mt-[1px]">
+              Ver 5.1
             </span>
-          )}
-        </button>
+          </button>
+        </div>
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center h-full gap-[40px]">
