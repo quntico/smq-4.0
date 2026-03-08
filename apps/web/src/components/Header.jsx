@@ -21,7 +21,7 @@ const Header = () => {
   const navigate = useNavigate();
   const [activeMenu, setActiveMenu] = useState(null);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
-  const { cmsState, isEditorMode, setIsEditorMode, updateMenus, syncFromCloud } = useCMS();
+  const { cmsState, isEditorMode, setIsEditorMode, updateMenus, syncFromCloud, syncToCloud } = useCMS();
   const { logoUrl, logoSize, headerHeight, headerOpacity } = cmsState.settings;
   const timeoutRef = useRef(null);
 

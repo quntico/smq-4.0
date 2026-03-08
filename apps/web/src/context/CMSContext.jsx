@@ -98,7 +98,15 @@ export const CMSProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        syncFromCloud();
+        // Prevenir que una recarga o el Hot-Reload local borre el trabajo no guardado del Editor.
+        const saved = localStorage.getItem('smqCMS');
+        if (!isEditorMode || !saved) {
+            syncFromCloud();
+        } else {
+            console.log("LocalHost/Editor detectado: reteniendo cambios locales no subidos. Usa el botón 'Bajar' para forzar sincronización de Nube.");
+            setIsLoadedFromCloud(true);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // 2. Guardar cambios en LocalStorage y EN LA NUBE (Solo si es editor)
