@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { supabase } from '@/lib/supabase.js';
 
 const CMSContext = createContext();
 
@@ -66,7 +67,42 @@ export const CMSProvider = ({ children }) => {
         return localStorage.getItem('editorMode') === 'true';
     });
 
+    const [isLoadedFromCloud, setIsLoadedFromCloud] = useState(false);
+
+    // 1. Cargar estado global desde Nube al arrancar
     useEffect(() => {
+        async function loadCloudState() {
+            try {
+                // Agregar cache-busting time a la URL si fuera fetch directo, o confiar en Supabase lib
+                const { data, error } = await supabase.storage.from('media').download('cms-state.json');
+                if (data && !error) {
+                    const text = await data.text();
+                    const parsed = JSON.parse(text);
+                    const parsedSettings = parsed.settings || {};
+                    const cloudState = {
+                        settings: {
+                            ...initialCMSState.settings,
+                            ...parsedSettings,
+                            logoUrl: parsedSettings.logoUrl || initialCMSState.settings.logoUrl,
+                            faviconUrl: parsedSettings.faviconUrl || initialCMSState.settings.faviconUrl
+                        },
+                        menus: parsed.menus || initialCMSState.menus,
+                        pages: parsed.pages || initialCMSState.pages
+                    };
+                    setCmsState(cloudState);
+                }
+            } catch (e) {
+                console.error("No se pudo cargar el CMS desde la nube:", e);
+            } finally {
+                setIsLoadedFromCloud(true);
+            }
+        }
+        loadCloudState();
+    }, []);
+
+    // 2. Guardar cambios en LocalStorage y EN LA NUBE (Solo si es editor)
+    useEffect(() => {
+        // Guardado local inmediato
         localStorage.setItem('smqCMS', JSON.stringify(cmsState));
 
         // Actualizar favicon en vivo para todos los visitantes
@@ -79,7 +115,27 @@ export const CMSProvider = ({ children }) => {
             }
             link.href = cmsState.settings.faviconUrl;
         }
-    }, [cmsState]);
+
+        // Guardado en la Nube con "Debounce" (espera 2 segundos de inactividad para no saturar Supabase)
+        if (isEditorMode && isLoadedFromCloud) {
+            const uploadTimeout = setTimeout(async () => {
+                try {
+                    const content = JSON.stringify(cmsState);
+                    await supabase.storage.from('media').upload('cms-state.json', content, {
+                        contentType: 'application/json',
+                        upsert: true
+                    });
+                    console.log("Cambios de diseño guardados en la Nube.");
+                } catch (err) {
+                    console.error("Error subiendo Cambios a la Nube", err);
+                }
+            }, 2500);
+
+            return () => clearTimeout(uploadTimeout);
+        }
+    }, [cmsState, isEditorMode, isLoadedFromCloud]);
+
+
 
     useEffect(() => {
         localStorage.setItem('editorMode', isEditorMode.toString());
