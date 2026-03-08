@@ -148,7 +148,7 @@ const Header = () => {
             </div>
             {/* Text */}
             <span className="text-white font-black text-[12px] tracking-[0.2em] uppercase mt-[1px]">
-              Ver 5.1
+              Ver 5.2
             </span>
           </button>
         </div>
