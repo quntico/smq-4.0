@@ -1,7 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Info, Plus, Trash2, Image as ImageIcon, Box, X, Maximize2 } from 'lucide-react';
+import { Info, Plus, Trash2, Image as ImageIcon, Box, X, Maximize2, Lock, Unlock } from 'lucide-react';
 import { Html, TransformControls } from '@react-three/drei';
 
 import { useCMS } from '@/context/CMSContext.jsx';
@@ -21,7 +21,7 @@ function DraggableHotspot3D({ spot, isEditorMode, onUpdate, children }) {
 
   return (
     <>
-      {isEditorMode && (
+      {isEditorMode && !spot.locked && (
         <TransformControls
           object={ref}
           mode="translate"
@@ -117,8 +117,10 @@ const PlantVisualizerSection = () => {
   const handlePointerDown = (e, id) => {
     if (!isEditorMode) return;
     e.stopPropagation();
-    e.preventDefault();
     setActiveHotspot(id);
+
+    const hotspot = activeHotspots.find(h => h.id === id);
+    if (hotspot?.locked) return;
 
     const container = containerRef.current;
     if (!container) return;
@@ -211,7 +213,7 @@ const PlantVisualizerSection = () => {
   };
 
   const handleDialogPointerDown = (e, spot, isTopHalf) => {
-    if (!isEditorMode) return;
+    if (!isEditorMode || spot.locked) return;
     // Prevent dragging if interacting with inputs, buttons or editable text
     if (e.target.closest('input, button, p, h4, h3, [contenteditable="true"], .cursor-text, .accent-\\[\\#FFD700\\]')) return;
     e.stopPropagation();
@@ -364,31 +366,44 @@ const PlantVisualizerSection = () => {
                 <div className="mb-3 pb-3 border-b border-white/10 flex flex-col gap-2">
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-[10px] text-white/50 uppercase font-bold tracking-wider">Mover Y/X {in3D && '/Z'}</span>
-                    <button onClick={() => removeHotspot(spot.id)} className="text-red-400 hover:text-red-300 transition-colors" title="Borrar este marcador">
-                      <Trash2 size={14} />
-                    </button>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] text-white/40 w-4">X:</span>
-                    <input type="range" min="0" max="100" value={spot.x} onChange={(e) => updateHotspot(spot.id, 'x', Number(e.target.value))} className="w-full accent-[#FFD700]" />
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] text-white/40 w-4">Y:</span>
-                    <input type="range" min="0" max="100" value={spot.y} onChange={(e) => updateHotspot(spot.id, 'y', Number(e.target.value))} className="w-full accent-[#FFD700]" />
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] text-white/40 w-4">Z:</span>
-                    <input type="range" min="0" max="100" value={spot.z || 50} onChange={(e) => updateHotspot(spot.id, 'z', Number(e.target.value))} className="w-full accent-[#FFD700]" title="Profundidad en Modelo 3D" />
-                  </div>
-                  <div className="flex items-center gap-2 mt-1">
-                    <span className="text-[10px] text-[#FFD700] w-12 font-bold">L-Flecha:</span>
-                    <input type="range" min="0" max="300" value={spot.arrowLength || 0} onChange={(e) => updateHotspot(spot.id, 'arrowLength', Number(e.target.value))} className="w-full accent-[#FFD700]" title="Largo de la flecha indicadora" />
-                  </div>
-                  {(spot.arrowLength > 0) && (
-                    <div className="flex items-center gap-2">
-                      <span className="text-[10px] text-[#FFD700] w-12 font-bold">Ángulo:</span>
-                      <input type="range" min="0" max="360" value={spot.arrowAngle || 0} step="1" onChange={(e) => updateHotspot(spot.id, 'arrowAngle', Number(e.target.value))} className="w-full accent-[#FFD700]" title="Ángulo de la flecha" />
+                    <div className="flex gap-2 items-center">
+                      <button onClick={(e) => { e.stopPropagation(); updateHotspot(spot.id, 'locked', !spot.locked); }} className={`${spot.locked ? 'text-[#39FF14]' : 'text-gray-400 hover:text-white'} transition-colors`} title={spot.locked ? "Desbloquear Posición" : "Bloquear Posición (Evita mover por error)"}>
+                        {spot.locked ? <Lock size={14} /> : <Unlock size={14} />}
+                      </button>
+                      <button onClick={(e) => { e.stopPropagation(); removeHotspot(spot.id); }} className="text-red-400 hover:text-red-300 transition-colors" title="Borrar este marcador">
+                        <Trash2 size={14} />
+                      </button>
                     </div>
+                  </div>
+
+                  {!spot.locked && (
+                    <>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] text-white/40 w-4">X:</span>
+                        <input type="range" min="0" max="100" value={spot.x} onChange={(e) => updateHotspot(spot.id, 'x', Number(e.target.value))} className="w-full accent-[#FFD700]" />
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] text-white/40 w-4">Y:</span>
+                        <input type="range" min="0" max="100" value={spot.y} onChange={(e) => updateHotspot(spot.id, 'y', Number(e.target.value))} className="w-full accent-[#FFD700]" />
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] text-white/40 w-4">Z:</span>
+                        <input type="range" min="0" max="100" value={spot.z || 50} onChange={(e) => updateHotspot(spot.id, 'z', Number(e.target.value))} className="w-full accent-[#FFD700]" title="Profundidad en Modelo 3D" />
+                      </div>
+                      <div className="flex items-center gap-2 mt-1">
+                        <span className="text-[10px] text-[#FFD700] w-12 font-bold">L-Flecha:</span>
+                        <input type="range" min="0" max="300" value={spot.arrowLength || 0} onChange={(e) => updateHotspot(spot.id, 'arrowLength', Number(e.target.value))} className="w-full accent-[#FFD700]" title="Largo de la flecha indicadora" />
+                      </div>
+                      {(spot.arrowLength > 0) && (
+                        <div className="flex items-center gap-2">
+                          <span className="text-[10px] text-[#FFD700] w-12 font-bold">Ángulo:</span>
+                          <input type="range" min="0" max="360" value={spot.arrowAngle || 0} step="1" onChange={(e) => updateHotspot(spot.id, 'arrowAngle', Number(e.target.value))} className="w-full accent-[#FFD700]" title="Ángulo de la flecha" />
+                        </div>
+                      )}
+                    </>
+                  )}
+                  {spot.locked && (
+                    <span className="text-[10px] text-[#39FF14]/80 italic mt-1 bg-[#39FF14]/10 p-1 rounded px-2 w-max">Bloqueado para prevenir ediciones accidentales.</span>
                   )}
                 </div>
               )}
