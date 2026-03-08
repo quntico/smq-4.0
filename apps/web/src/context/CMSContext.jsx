@@ -69,35 +69,36 @@ export const CMSProvider = ({ children }) => {
 
     const [isLoadedFromCloud, setIsLoadedFromCloud] = useState(false);
 
-    // 1. Cargar estado global desde Nube al arrancar
-    useEffect(() => {
-        async function loadCloudState() {
-            try {
-                // Agregar cache-busting time a la URL si fuera fetch directo, o confiar en Supabase lib
-                const { data, error } = await supabase.storage.from('media').download('cms-state.json');
-                if (data && !error) {
-                    const text = await data.text();
-                    const parsed = JSON.parse(text);
-                    const parsedSettings = parsed.settings || {};
-                    const cloudState = {
-                        settings: {
-                            ...initialCMSState.settings,
-                            ...parsedSettings,
-                            logoUrl: parsedSettings.logoUrl || initialCMSState.settings.logoUrl,
-                            faviconUrl: parsedSettings.faviconUrl || initialCMSState.settings.faviconUrl
-                        },
-                        menus: parsed.menus || initialCMSState.menus,
-                        pages: parsed.pages || initialCMSState.pages
-                    };
-                    setCmsState(cloudState);
-                }
-            } catch (e) {
-                console.error("No se pudo cargar el CMS desde la nube:", e);
-            } finally {
-                setIsLoadedFromCloud(true);
+    // 1. Función para Descargar estado global desde Nube
+    const syncFromCloud = async () => {
+        try {
+            // Agregar cache-busting time a la URL si fuera fetch directo, o confiar en Supabase lib
+            const { data, error } = await supabase.storage.from('media').download('cms-state.json');
+            if (data && !error) {
+                const text = await data.text();
+                const parsed = JSON.parse(text);
+                const parsedSettings = parsed.settings || {};
+                const cloudState = {
+                    settings: {
+                        ...initialCMSState.settings,
+                        ...parsedSettings,
+                        logoUrl: parsedSettings.logoUrl || initialCMSState.settings.logoUrl,
+                        faviconUrl: parsedSettings.faviconUrl || initialCMSState.settings.faviconUrl
+                    },
+                    menus: parsed.menus || initialCMSState.menus,
+                    pages: parsed.pages || initialCMSState.pages
+                };
+                setCmsState(cloudState);
             }
+        } catch (e) {
+            console.error("No se pudo cargar el CMS desde la nube:", e);
+        } finally {
+            setIsLoadedFromCloud(true);
         }
-        loadCloudState();
+    };
+
+    useEffect(() => {
+        syncFromCloud();
     }, []);
 
     // 2. Guardar cambios en LocalStorage y EN LA NUBE (Solo si es editor)
@@ -188,7 +189,8 @@ export const CMSProvider = ({ children }) => {
             updatePages,
             updatePageModule,
             isEditorMode,
-            setIsEditorMode
+            setIsEditorMode,
+            syncFromCloud
         }}>
             {children}
         </CMSContext.Provider>
