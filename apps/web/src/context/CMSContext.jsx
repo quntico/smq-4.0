@@ -43,8 +43,15 @@ export const CMSProvider = ({ children }) => {
         if (saved) {
             try {
                 const parsed = JSON.parse(saved);
+                const parsedSettings = parsed.settings || {};
                 return {
-                    settings: { ...initialCMSState.settings, ...(parsed.settings || {}) },
+                    settings: {
+                        ...initialCMSState.settings,
+                        ...parsedSettings,
+                        // Forzar a usar las URLs predeterminadas si el usuario tenía "null" guardado en caché antiguo
+                        logoUrl: parsedSettings.logoUrl || initialCMSState.settings.logoUrl,
+                        faviconUrl: parsedSettings.faviconUrl || initialCMSState.settings.faviconUrl
+                    },
                     menus: parsed.menus || initialCMSState.menus,
                     pages: parsed.pages || initialCMSState.pages
                 };
