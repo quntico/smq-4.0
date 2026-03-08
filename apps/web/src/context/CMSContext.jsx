@@ -10,6 +10,7 @@ const initialCMSState = {
         logoSize: 75,
         headerHeight: 100,
         headerOpacity: 60,
+        appVersion: '5.3',
     },
     menus: [
         { id: '1', name: 'Industrias', componentName: 'IndustriesMenu', order: 1 },
@@ -51,7 +52,8 @@ export const CMSProvider = ({ children }) => {
                         ...parsedSettings,
                         // Forzar a usar las URLs predeterminadas si el usuario tenía "null" guardado en caché antiguo
                         logoUrl: parsedSettings.logoUrl || initialCMSState.settings.logoUrl,
-                        faviconUrl: parsedSettings.faviconUrl || initialCMSState.settings.faviconUrl
+                        faviconUrl: parsedSettings.faviconUrl || initialCMSState.settings.faviconUrl,
+                        appVersion: parsedSettings.appVersion || initialCMSState.settings.appVersion
                     },
                     menus: parsed.menus || initialCMSState.menus,
                     pages: parsed.pages || initialCMSState.pages

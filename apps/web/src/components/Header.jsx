@@ -21,7 +21,7 @@ const Header = () => {
   const navigate = useNavigate();
   const [activeMenu, setActiveMenu] = useState(null);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
-  const { cmsState, isEditorMode, setIsEditorMode, updateMenus, syncFromCloud, syncToCloud } = useCMS();
+  const { cmsState, isEditorMode, setIsEditorMode, updateMenus, syncFromCloud, syncToCloud, updateSettings } = useCMS();
   const { logoUrl, logoSize, headerHeight, headerOpacity } = cmsState.settings;
   const timeoutRef = useRef(null);
 
@@ -147,8 +147,17 @@ const Header = () => {
               <div className="relative w-2.5 h-2.5 bg-[#39FF14] rounded-full shadow-[0_0_10px_#39FF14]"></div>
             </div>
             {/* Text */}
-            <span className="text-white font-black text-[12px] tracking-[0.2em] uppercase mt-[1px]">
-              Ver 5.3
+            <span
+              className={`text-white font-black text-[12px] tracking-[0.2em] uppercase mt-[1px] ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 cursor-text px-1' : ''}`}
+              contentEditable={isEditorMode}
+              suppressContentEditableWarning={true}
+              onClick={(e) => { if (isEditorMode) e.stopPropagation(); }}
+              onBlur={(e) => {
+                const newVersion = e.target.innerText;
+                updateSettings({ appVersion: newVersion });
+              }}
+            >
+              {cmsState.settings.appVersion ? cmsState.settings.appVersion.toUpperCase() : "VER 5.3"}
             </span>
           </button>
         </div>
@@ -188,17 +197,16 @@ const Header = () => {
 
               <button
                 onClick={() => {
-                  syncToCloud().then(() => alert("Subida a la Nube Completa. Este diseño ahora es el oficial."));
+                  syncToCloud().then(() => alert(`¡Deploy Exitoso! La nube ha sido actualizada como versión ${cmsState.settings.appVersion || 'oficial'}.`));
                 }}
-                className="flex items-center gap-1.5 bg-green-500/20 text-green-400 border border-green-500/30 rounded-full px-3 py-1.5 hover:bg-green-500/30 hover:text-white transition-all text-[10px] font-bold uppercase tracking-wider shadow-lg"
-                title="Forzar Subida de este Diseño a la Nube"
+                className="flex items-center gap-1.5 bg-[#FFD700]/20 text-[#FFD700] border border-[#FFD700]/40 rounded-full px-4 py-1.5 hover:bg-[#FFD700]/40 hover:text-white transition-all text-[11px] font-black uppercase tracking-wider shadow-[0_0_15px_rgba(255,215,0,0.4)] animate-pulse hover:animate-none"
+                title="Lanzar este Diseño como la nueva versión de Producción"
               >
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                  <polyline points="17 8 12 3 7 8"></polyline>
-                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M13.5 10.5L21 3"></path>
+                  <polygon points="12 22 17 14 22 19 22 2 5 2 10 7 2 12 12 22"></polygon>
                 </svg>
-                Subir
+                Deploy
               </button>
             </div>
           )}
