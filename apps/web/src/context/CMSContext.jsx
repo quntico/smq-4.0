@@ -74,23 +74,32 @@ export const CMSProvider = ({ children }) => {
     // 1. Función para Descargar estado global desde Nube
     const syncFromCloud = async () => {
         try {
-            // Agregar cache-busting time a la URL si fuera fetch directo, o confiar en Supabase lib
-            const { data, error } = await supabase.storage.from('media').download('cms-state.json');
-            if (data && !error) {
-                const text = await data.text();
-                const parsed = JSON.parse(text);
-                const parsedSettings = parsed.settings || {};
-                const cloudState = {
-                    settings: {
-                        ...initialCMSState.settings,
-                        ...parsedSettings,
-                        logoUrl: parsedSettings.logoUrl || initialCMSState.settings.logoUrl,
-                        faviconUrl: parsedSettings.faviconUrl || initialCMSState.settings.faviconUrl
-                    },
-                    menus: parsed.menus || initialCMSState.menus,
-                    pages: parsed.pages || initialCMSState.pages
-                };
-                setCmsState(cloudState);
+            // Utilizamos la URL pública directa con cache-busting (timestamp) para forzar la actualización en Producción sin esperar horas de caché
+            const { data: urlData } = supabase.storage.from('media').getPublicUrl('cms-state.json');
+            const url = `${urlData.publicUrl}?t=${Date.now()}`;
+
+            const res = await fetch(url, { cache: 'no-store' });
+            if (res.ok) {
+                const text = await res.text();
+                // Check if not empty
+                if (text) {
+                    const parsed = JSON.parse(text);
+                    const parsedSettings = parsed.settings || {};
+                    const cloudState = {
+                        settings: {
+                            ...initialCMSState.settings,
+                            ...parsedSettings,
+                            logoUrl: parsedSettings.logoUrl || initialCMSState.settings.logoUrl,
+                            faviconUrl: parsedSettings.faviconUrl || initialCMSState.settings.faviconUrl,
+                            appVersion: parsedSettings.appVersion || initialCMSState.settings.appVersion
+                        },
+                        menus: parsed.menus || initialCMSState.menus,
+                        pages: parsed.pages || initialCMSState.pages
+                    };
+                    setCmsState(cloudState);
+                }
+            } else {
+                console.warn("CMS state no encontrado en nube o error. Cóodigo:", res.status);
             }
         } catch (e) {
             console.error("No se pudo cargar el CMS desde la nube:", e);
@@ -133,7 +142,8 @@ export const CMSProvider = ({ children }) => {
             const content = JSON.stringify(cmsState);
             await supabase.storage.from('media').upload('cms-state.json', content, {
                 contentType: 'application/json',
-                upsert: true
+                upsert: true,
+                cacheControl: '0'
             });
             console.log("Cambios de diseño guardados (FORZADO) en la Nube.");
         } catch (err) {
