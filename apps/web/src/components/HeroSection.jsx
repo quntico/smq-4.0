@@ -5,6 +5,34 @@ import { ChevronLeft, ChevronRight, Plus, Trash2, Image as ImageIcon } from 'luc
 import { useCMS } from '@/context/CMSContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
 
+const VideoBackground = ({ src, isActive }) => {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    if (isActive && videoRef.current) {
+      // Forzar la reproducción programáticamente (salta bloqueos de navegador y retrasos de render)
+      videoRef.current.play().catch(e => console.log('Autoplay prevent or delayed:', e));
+    } else if (!isActive && videoRef.current) {
+      videoRef.current.pause();
+    }
+  }, [isActive, src]);
+
+  // Se añade #t=0.001 para que Safari y Chrome carguen el primer cuadro INSTANTÁNEAMENTE antes de decodificar todo el buffer.
+  const optimizedSrc = src.includes('#') ? src : `${src}#t=0.001`;
+
+  return (
+    <video
+      ref={videoRef}
+      loop
+      muted
+      playsInline
+      preload={isActive ? "auto" : "metadata"}
+      className="w-full h-full object-cover"
+      src={optimizedSrc}
+    />
+  );
+};
+
 const HeroSection = () => {
   const { cmsState, isEditorMode, updatePageModule } = useCMS();
 
@@ -183,16 +211,7 @@ const HeroSection = () => {
             className={`absolute inset-0 bg-[#0a0f14] transition-opacity duration-1000 ease-in-out z-0 ${isActive ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
           >
             {isVideo ? (
-              <video
-                key={bgMedia}
-                autoPlay={isActive}
-                loop
-                muted
-                playsInline
-                preload={isActive ? "auto" : "metadata"}
-                className="w-full h-full object-cover"
-                src={bgMedia}
-              />
+              <VideoBackground src={bgMedia} isActive={isActive} />
             ) : (
               <div
                 className="w-full h-full"
