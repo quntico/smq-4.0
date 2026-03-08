@@ -3,7 +3,7 @@ import React, { Suspense, useState, useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { Canvas, useLoader } from '@react-three/fiber';
 import { OrbitControls, Stage, useGLTF, Grid, ContactShadows } from '@react-three/drei';
-import { Play, Pause, RotateCcw, BoxSelect } from 'lucide-react';
+import { Play, Pause, RotateCcw, BoxSelect, Lock, Unlock } from 'lucide-react';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 import { ColladaLoader } from 'three/examples/jsm/loaders/ColladaLoader.js';
@@ -118,7 +118,7 @@ const ModelContainer = ({ children, wireframe, fxMode }) => {
     return <group ref={groupRef}>{children}</group>;
 };
 
-const ModelViewer = ({ url, moduleData, updatePageModule, children }) => {
+const ModelViewer = ({ url, moduleData, updatePageModule, children, isEditorMode }) => {
     const defaultData = moduleData?.data || {};
 
     const [rotationY, setRotationY] = useState(defaultData.modelRotation ?? 0);
@@ -127,6 +127,7 @@ const ModelViewer = ({ url, moduleData, updatePageModule, children }) => {
     const [rpm, setRpm] = useState(defaultData.modelRpm ?? 0.5);
     const [wireframe, setWireframe] = useState(defaultData.modelWireframe ?? false);
     const [fxMode, setFxMode] = useState(defaultData.modelFxMode ?? false);
+    const [modelLocked, setModelLocked] = useState(defaultData.modelLocked ?? false);
     const extension = url.split('.').pop().toLowerCase();
 
     const saveToCMS = (key, value) => {
@@ -185,18 +186,32 @@ const ModelViewer = ({ url, moduleData, updatePageModule, children }) => {
             {/* Barra de Control inferior (Modo Editor / Usuario) */}
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#090b10]/95 backdrop-blur-xl rounded-2xl border border-white/5 flex flex-wrap items-center justify-center md:justify-between gap-4 md:gap-6 px-4 md:px-6 py-3 shadow-2xl z-50 w-[90%] md:w-auto">
                 <div className="flex items-center gap-4 md:gap-6">
-                    <div className="flex items-center gap-2 md:gap-3">
+                    {/* Lock/Unlock Button for Altitude and Rotation — only shown to editor */}
+                    {isEditorMode && (
+                        <button
+                            onClick={() => {
+                                const next = !modelLocked;
+                                setModelLocked(next);
+                                saveToCMS('modelLocked', next);
+                            }}
+                            className={`transition-all pointer-events-auto p-1.5 rounded-lg border ${modelLocked ? 'text-[#39FF14] border-[#39FF14]/40 bg-[#39FF14]/10' : 'text-gray-400 border-white/10 hover:text-white hover:border-white/30'}`}
+                            title={modelLocked ? 'Desbloquear Rotación y Altura' : 'Bloquear Rotación y Altura (Protege posición para Deploy)'}
+                        >
+                            {modelLocked ? <Lock size={15} /> : <Unlock size={15} />}
+                        </button>
+                    )}
+                    <div className={`flex items-center gap-2 md:gap-3 transition-opacity ${modelLocked ? 'opacity-40 pointer-events-none' : ''}`}>
                         <div className="flex flex-col">
                             <span className="text-[9px] text-[#00E5FF] font-bold uppercase tracking-wider mb-1">Rotación Y</span>
-                            <input type="range" min="-180" max="180" value={rotationY} onChange={(e) => setRotationY(e.target.value)} onPointerUp={(e) => saveToCMS('modelRotation', Number(e.target.value))} className="w-16 md:w-20 accent-white h-1 bg-white/20 rounded-full appearance-none outline-none cursor-pointer pointer-events-auto" />
+                            <input type="range" min="-180" max="180" value={rotationY} onChange={(e) => { if (!modelLocked) setRotationY(e.target.value); }} onPointerUp={(e) => { if (!modelLocked) saveToCMS('modelRotation', Number(e.target.value)); }} className="w-16 md:w-20 accent-white h-1 bg-white/20 rounded-full appearance-none outline-none cursor-pointer pointer-events-auto" />
                         </div>
                         <span className="text-[10px] text-[#00E5FF] w-6 text-right">{rotationY}°</span>
                     </div>
 
-                    <div className="flex items-center gap-2 md:gap-3">
+                    <div className={`flex items-center gap-2 md:gap-3 transition-opacity ${modelLocked ? 'opacity-40 pointer-events-none' : ''}`}>
                         <div className="flex flex-col">
                             <span className="text-[9px] text-[#00E5FF] font-bold uppercase tracking-wider mb-1">Altura</span>
-                            <input type="range" min="-10" max="10" step="0.1" value={altitude} onChange={(e) => setAltitude(e.target.value)} onPointerUp={(e) => saveToCMS('modelAltitude', Number(e.target.value))} className="w-16 md:w-20 accent-white h-1 bg-white/20 rounded-full appearance-none outline-none cursor-pointer pointer-events-auto" />
+                            <input type="range" min="-10" max="10" step="0.1" value={altitude} onChange={(e) => { if (!modelLocked) setAltitude(e.target.value); }} onPointerUp={(e) => { if (!modelLocked) saveToCMS('modelAltitude', Number(e.target.value)); }} className="w-16 md:w-20 accent-white h-1 bg-white/20 rounded-full appearance-none outline-none cursor-pointer pointer-events-auto" />
                         </div>
                         <span className="text-[10px] text-[#00E5FF] w-6 text-right">{Number(altitude).toFixed(1)}</span>
                     </div>

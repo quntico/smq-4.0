@@ -208,7 +208,15 @@ const PlantVisualizerSection = () => {
   };
 
   const updateHotspot = (id, key, value) => {
-    const newItems = activeHotspots.map(h => h.id === id ? { ...h, [key]: value } : h);
+    const newItems = activeHotspots.map(h => {
+      if (h.id === id) {
+        if (typeof key === 'object') {
+          return { ...h, ...key };
+        }
+        return { ...h, [key]: value };
+      }
+      return h;
+    });
     updatePageModule('home', 'visualizer', { hotspots: newItems });
   };
 
@@ -742,7 +750,7 @@ const PlantVisualizerSection = () => {
               />
             </motion.div>
             <div className="w-full h-full">
-              <ModelViewer url={model3DMedia} moduleData={moduleData} updatePageModule={updatePageModule}>
+              <ModelViewer url={model3DMedia} moduleData={moduleData} updatePageModule={updatePageModule} isEditorMode={isEditorMode}>
                 {activeHotspots.map(spot => (
                   <DraggableHotspot3D
                     key={spot.id}
