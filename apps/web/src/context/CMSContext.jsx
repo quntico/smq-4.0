@@ -131,19 +131,6 @@ export const CMSProvider = ({ children }) => {
         }
     };
 
-    // Guardado en la Nube con "Debounce" (espera 2.5 segundos de inactividad para no saturar Supabase)
-    useEffect(() => {
-        if (isEditorMode && isLoadedFromCloud) {
-            const uploadTimeout = setTimeout(() => {
-                syncToCloud();
-            }, 2500);
-
-            return () => clearTimeout(uploadTimeout);
-        }
-    }, [cmsState, isEditorMode, isLoadedFromCloud]);
-
-
-
     useEffect(() => {
         localStorage.setItem('editorMode', isEditorMode.toString());
         window.dispatchEvent(new Event('editorModeChangedGlobal'));
