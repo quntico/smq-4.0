@@ -5,7 +5,7 @@ export async function uploadFile(file, bucket = "media") {
 
     const { data, error } = await supabase.storage
         .from(bucket)
-        .upload(fileName, file)
+        .upload(fileName, file, { contentType: file.type })
 
     if (error) throw error
 

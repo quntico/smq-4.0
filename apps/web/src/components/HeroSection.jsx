@@ -174,21 +174,22 @@ const HeroSection = () => {
       {/* Background Media (All slides rendered, only active is visible) */}
       {slides.map((slide, index) => {
         const bgMedia = slide.backgroundMedia;
-        const isVideo = !!(bgMedia.match(/\.(mp4|webm|ogg)$/i) || bgMedia.includes('video/'));
+        const isVideo = !!(bgMedia.match(/\.(mp4|webm|ogg|mov|mkv)$/i) || bgMedia.includes('video/'));
         const isActive = index === activeIndex;
 
         return (
           <div
             key={slide.id}
-            className={`absolute inset-0 bg-black transition-opacity duration-1000 ease-in-out z-0 ${isActive ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+            className={`absolute inset-0 bg-[#0a0f14] transition-opacity duration-1000 ease-in-out z-0 ${isActive ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
           >
             {isVideo ? (
               <video
                 key={bgMedia}
-                autoPlay
+                autoPlay={isActive}
                 loop
                 muted
                 playsInline
+                preload={isActive ? "auto" : "metadata"}
                 className="w-full h-full object-cover"
                 src={bgMedia}
               />
