@@ -18,7 +18,14 @@ const AdminModal = ({ isOpen, onClose }) => {
     const [isMinimized, setIsMinimized] = useState(false);
 
     const { cmsState, updateSettings, isEditorMode, setIsEditorMode } = useCMS();
-    const { logoSize, headerHeight, headerOpacity } = cmsState.settings;
+    const { 
+        logoSize, 
+        headerHeight, 
+        headerOpacity,
+        globalImageSharpness,
+        globalFilterColor,
+        globalFilterOpacity
+    } = cmsState.settings;
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -315,6 +322,62 @@ const AdminModal = ({ isOpen, onClose }) => {
                                                         <div className="flex justify-between text-white/50 text-xs mt-1">
                                                             <span>Transparente</span>
                                                             <span>Sólido</span>
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Control global de Nitidez de Imágenes */}
+                                                    <div className="bg-white/5 border border-white/10 p-4 rounded-xl mt-4">
+                                                        <div className="flex justify-between text-white mb-2">
+                                                            <label className="font-medium text-sm">Nitidez Global de Imágenes</label>
+                                                            <span className="text-[#FFD700] font-bold text-sm">{globalImageSharpness ?? 100}%</span>
+                                                        </div>
+                                                        <input 
+                                                            type="range" 
+                                                            min="50" 
+                                                            max="200" 
+                                                            value={globalImageSharpness ?? 100} 
+                                                            onChange={(e) => updateSettings({ globalImageSharpness: Number(e.target.value) })} 
+                                                            className="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer accent-[#FFD700]" 
+                                                        />
+                                                        <div className="flex justify-between text-white/50 text-xs mt-1">
+                                                            <span>Difuso (50%)</span>
+                                                            <span>Máxima Nitidez (200%)</span>
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Control global de Color del Filtro */}
+                                                    <div className="bg-white/5 border border-white/10 p-4 rounded-xl mt-4">
+                                                        <div className="flex justify-between items-center text-white mb-2">
+                                                            <label className="font-medium text-sm">Color del Filtro Global</label>
+                                                            <div className="flex items-center gap-2">
+                                                                <span className="font-mono text-xs text-white/60">{globalFilterColor || '#000000'}</span>
+                                                                <input 
+                                                                    type="color" 
+                                                                    value={globalFilterColor || '#000000'} 
+                                                                    onChange={(e) => updateSettings({ globalFilterColor: e.target.value })} 
+                                                                    className="w-6 h-6 rounded border border-white/20 bg-transparent cursor-pointer" 
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Control global de Opacidad del Filtro */}
+                                                    <div className="bg-white/5 border border-white/10 p-4 rounded-xl mt-4">
+                                                        <div className="flex justify-between text-white mb-2">
+                                                            <label className="font-medium text-sm">Opacidad del Filtro Global</label>
+                                                            <span className="text-[#FFD700] font-bold text-sm">{globalFilterOpacity ?? 75}%</span>
+                                                        </div>
+                                                        <input 
+                                                            type="range" 
+                                                            min="0" 
+                                                            max="100" 
+                                                            value={globalFilterOpacity ?? 75} 
+                                                            onChange={(e) => updateSettings({ globalFilterOpacity: Number(e.target.value) })} 
+                                                            className="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer accent-[#FFD700]" 
+                                                        />
+                                                        <div className="flex justify-between text-white/50 text-xs mt-1">
+                                                            <span>Sin Filtro (0%)</span>
+                                                            <span>Opaco (100%)</span>
                                                         </div>
                                                     </div>
                                                 </motion.div>

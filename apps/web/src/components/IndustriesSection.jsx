@@ -141,9 +141,10 @@ const IndustriesSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
-          className="text-[#FFFFFF] font-[700] text-[28px] md:text-[36px] lg:text-[48px] text-center mb-[60px]"
+          className="font-black tracking-tighter text-4xl md:text-6xl lg:text-7xl leading-[1.05] text-center mb-[50px] uppercase"
         >
-          Sectores Industriales
+          <span className="text-white block">SECTORES</span>
+          <span className="text-[#F5C400] block">INDUSTRIALES</span>
         </motion.h2>
 
         <motion.div

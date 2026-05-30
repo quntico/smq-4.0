@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const MachineryMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
   return (
@@ -19,7 +20,7 @@ const MachineryMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
             <div>
               <h3 className="text-white font-bold mb-4 text-[15px]">Packaging</h3>
               <ul className="space-y-3">
-                <li><a href="#envasadoras" className="block text-white/90 text-[13px] hover:text-[#FFD700] hover:font-[600] transition-all duration-200">Envasadoras</a></li>
+                <li><Link to="/envasadoras" className="block text-white/90 text-[13px] hover:text-[#FFD700] hover:font-[600] transition-all duration-200">Envasadoras</Link></li>
                 <li><a href="#etiquetadoras" className="block text-white/90 text-[13px] hover:text-[#FFD700] hover:font-[600] transition-all duration-200">Etiquetadoras</a></li>
                 <li><a href="#encartonadoras" className="block text-white/90 text-[13px] hover:text-[#FFD700] hover:font-[600] transition-all duration-200">Encartonadoras</a></li>
                 <li><a href="#paletizadoras" className="block text-white/90 text-[13px] hover:text-[#FFD700] hover:font-[600] transition-all duration-200">Paletizadoras</a></li>

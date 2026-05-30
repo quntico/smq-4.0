@@ -74,3 +74,30 @@ body {
     box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
   }
 }
+
+/* Global Dynamic Image Filters (Nitidez / Contraste / Desenfoque) */
+img {
+  filter: contrast(var(--global-image-contrast, 100%)) blur(var(--global-image-blur, 0px));
+  transition: filter 0.3s ease;
+}
+
+/* Global Image Overlay Customization */
+.global-overlay {
+  background-color: var(--global-filter-color, #000000);
+  opacity: var(--global-filter-opacity, 0.75);
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+/* Global Paragraph and Text Justification */
+p, .text-justify {
+  text-align: justify;
+}
+
+/* Bulletproof Scrollbar Hidden Utility */
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none !important;
+}
+.scrollbar-hidden {
+  -ms-overflow-style: none !important;  /* IE and Edge */
+  scrollbar-width: none !important;  /* Firefox */
+}

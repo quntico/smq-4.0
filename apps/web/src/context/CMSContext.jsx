@@ -10,7 +10,10 @@ const initialCMSState = {
         logoSize: 75,
         headerHeight: 100,
         headerOpacity: 60,
-        appVersion: '5.3',
+        appVersion: '6.0',
+        globalImageSharpness: 100,
+        globalFilterColor: '#000000',
+        globalFilterOpacity: 75,
     },
     menus: [
         { id: '1', name: 'Industrias', componentName: 'IndustriesMenu', order: 1 },
@@ -32,6 +35,73 @@ const initialCMSState = {
                         title1: 'Soluciones Industriales',
                         title2: 'de Alta Ingeniería',
                         subtitle: 'Maquinaria avanzada para reciclaje, procesamiento de alimentos y automatización industrial.'
+                    }
+                },
+                {
+                    id: 'proyectos',
+                    type: 'proyectos',
+                    data: {
+                        title: 'Proyectos <span class="text-[#F5C400]">Destacados</span>',
+                        subtitle: 'Casos de éxito y plantas industriales implementadas por nuestro equipo.',
+                        items: [
+                            {
+                                id: 1,
+                                title: 'Planta de Procesamiento RSU 600 TPD',
+                                desc: 'Clasificación mecanizada, separación de reciclables y valorización de residuos sólidos urbanos para generación de combustibles alternativos.',
+                                specs: 'Capacidad: 600 Ton/Día | Ubicación: Monterrey, MX',
+                                image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png',
+                                image2: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png',
+                                specsTable: {
+                                    capacidad: '600 Toneladas / Día',
+                                    ubicacion: 'Monterrey, Nuevo León, MX',
+                                    aplicacion: 'Clasificación y Separación de Residuos Sólidos Urbanos (RSU)',
+                                    control: 'PLC Siemens S7-1500 + SCADA WinCC',
+                                    tecnologia: 'Separación Óptica (NIR) + Clasificación por IA',
+                                    material: 'Acero Anti-abrasión de Alta Resistencia',
+                                    consumo: '≈ 980 kW (Operación continua)',
+                                    eficiencia: '95.0% Disponibilidad Operativa',
+                                    estandares: 'CE • ISO 14001 • ISO 45001'
+                                }
+                            },
+                            {
+                                id: 2,
+                                title: 'Línea de Procesamiento de Chocolate',
+                                desc: 'Automatización integral para el control de temperatura, templado continuo y moldeado de chocolate de grado exportación.',
+                                specs: 'Capacidad: 2000 kg/h | Ubicación: Bogotá, CO',
+                                image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115231575_choco%20color%202.png',
+                                image2: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115213579_choco%20bN%202.png',
+                                specsTable: {
+                                    capacidad: '2,000 kg/h',
+                                    ubicacion: 'Bogotá, Colombia',
+                                    aplicacion: 'Atemperado y Moldeado de Chocolate',
+                                    control: 'PLC Siemens + HMI Industrial + SCADA',
+                                    tecnologia: 'Industria 4.0 / SCR700 + Telemetría IoT',
+                                    material: 'AISI 304 / 316L Food Grade',
+                                    consumo: '≈ 196 kW (Promedio de Operación)',
+                                    eficiencia: '98.5% (Disponibilidad Operativa)',
+                                    estandares: 'CE • HACCP • GMP'
+                                }
+                            },
+                            {
+                                id: 3,
+                                title: 'Planta de Pelletizado de Plástico',
+                                desc: 'Extrusión de alto rendimiento con desgasificación al vacío, filtrado hidráulico continuo y corte bajo agua.',
+                                specs: 'Capacidad: 1200 kg/h | Ubicación: Lima, PE',
+                                image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png',
+                                image2: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png',
+                                specsTable: {
+                                    capacidad: '1,200 kg/h (PTCS185)',
+                                    ubicacion: 'Lima, Perú',
+                                    aplicacion: 'Extrusión y Pelletizado de Alto Rendimiento',
+                                    control: 'PLC + HMI / 440 VAC, 3F, 60 Hz',
+                                    tecnologia: 'Doble Desgasificación / Vacío Activo',
+                                    material: 'Tornillo de 185 mm / Relación L/D 18-42',
+                                    consumo: '≈ 366 kW (Aproximado)',
+                                    eficiencia: 'Water Ring Die Face / Doble Pistón',
+                                    estandares: 'CE • ISO 9001 (Operadores: 2-4)'
+                                }
+                            }
+                        ]
                     }
                 }
             ]
@@ -136,6 +206,22 @@ export const CMSProvider = ({ children }) => {
             link.href = cmsState.settings.faviconUrl;
         }
     }, [cmsState]);
+
+    // 2.5 Inject Dynamic Global Image Filters and Overlay CSS custom variables
+    useEffect(() => {
+        const root = document.documentElement;
+        const sharpness = cmsState.settings.globalImageSharpness ?? 100;
+        
+        // If sharpness is 100%, blur is 0px. If less than 100%, we add soft blur.
+        const blurValue = sharpness < 100 ? Math.max(0, (100 - sharpness) / 10) : 0;
+        // Contrast scales up as sharpness is higher than 100%
+        const contrastValue = sharpness > 100 ? sharpness : 100;
+
+        root.style.setProperty('--global-image-blur', `${blurValue}px`);
+        root.style.setProperty('--global-image-contrast', `${contrastValue}%`);
+        root.style.setProperty('--global-filter-color', cmsState.settings.globalFilterColor || '#000000');
+        root.style.setProperty('--global-filter-opacity', `${(cmsState.settings.globalFilterOpacity ?? 75) / 100}`);
+    }, [cmsState.settings.globalImageSharpness, cmsState.settings.globalFilterColor, cmsState.settings.globalFilterOpacity]);
 
     const syncToCloud = async () => {
         try {

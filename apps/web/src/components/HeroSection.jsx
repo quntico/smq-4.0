@@ -5,33 +5,78 @@ import { ChevronLeft, ChevronRight, Plus, Trash2, Image as ImageIcon } from 'luc
 import { useCMS } from '@/context/CMSContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
 
-const VideoBackground = ({ src, isActive }) => {
+const VideoBackground = ({ src, isActive, poster }) => {
   const videoRef = useRef(null);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    if (isActive && videoRef.current) {
-      // Forzar la reproducción programáticamente (salta bloqueos de navegador y retrasos de render)
-      videoRef.current.play().catch(e => console.log('Autoplay prevent or delayed:', e));
-    } else if (!isActive && videoRef.current) {
-      videoRef.current.pause();
-    }
-  }, [isActive, src]);
+    setIsLoaded(false);
+  }, [src]);
 
-  // Se añade #t=0.001 para que Safari y Chrome carguen el primer cuadro INSTANTÁNEAMENTE antes de decodificar todo el buffer.
-  const optimizedSrc = src.includes('#') ? src : `${src}#t=0.001`;
+  useEffect(() => {
+    if (videoRef.current) {
+      if (isActive && isLoaded) {
+        videoRef.current.play().catch(e => {
+          console.log('Autoplay play error on activation:', e);
+        });
+      } else if (!isActive) {
+        videoRef.current.pause();
+      }
+    }
+  }, [isActive, isLoaded]);
+
+  const handleLoadedData = () => {
+    setIsLoaded(true);
+    if (isActive && videoRef.current) {
+      videoRef.current.play().catch(e => {
+        console.log('Autoplay play error on loaded data:', e);
+      });
+    }
+  };
+
+  // Removemos el seek #t=0.001 para evitar stutters y freezes al iniciar en Chrome
+  const optimizedSrc = src;
+  const defaultPoster = 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1920&q=50';
+  const posterUrl = poster || defaultPoster;
 
   return (
-    <video
-      ref={videoRef}
-      loop
-      muted
-      playsInline
-      preload={isActive ? "auto" : "metadata"}
-      className="w-full h-full object-cover"
-      src={optimizedSrc}
-    />
+    <div className="relative w-full h-full bg-[#0a0f14] overflow-hidden">
+      {/* 1. Miniatura Estática de Precarga (Sin filtro de brillo estático para que responda 100% al slider de opacidad general) */}
+      <div 
+        className={`absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out ${
+          isLoaded ? 'opacity-0 scale-95 blur-md pointer-events-none' : 'opacity-100 scale-100 blur-0'
+        }`}
+        style={{ 
+          backgroundImage: `url(${posterUrl})`
+        }}
+      />
+
+      {/* 2. Video de Fondo */}
+      <video
+        ref={videoRef}
+        loop
+        muted
+        playsInline
+        autoPlay={isActive}
+        preload={isActive ? "auto" : "metadata"}
+        onLoadedData={handleLoadedData}
+        className={`w-full h-full object-cover transition-all duration-1000 ease-out ${
+          isLoaded ? 'opacity-100 scale-100 blur-0' : 'opacity-0 scale-105 blur-sm'
+        }`}
+        src={optimizedSrc}
+      />
+
+      {/* 3. Indicador de Carga Optimizado (Pill de Esquina) */}
+      {!isLoaded && (
+        <div className="absolute bottom-6 right-6 z-10 flex items-center gap-2 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 select-none animate-pulse">
+          <div className="w-3.5 h-3.5 border-2 border-[#FFD700]/30 border-t-[#FFD700] rounded-full animate-spin"></div>
+          <span className="text-white/70 text-[10px] font-bold uppercase tracking-wider">Sincronizando...</span>
+        </div>
+      )}
+    </div>
   );
 };
+
 
 const HeroSection = () => {
   const { cmsState, isEditorMode, updatePageModule } = useCMS();
@@ -57,7 +102,18 @@ const HeroSection = () => {
 
   const [currentSlideIdx, setCurrentSlideIdx] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
+  const [isUploadingPoster, setIsUploadingPoster] = useState(false);
+  const [showIntro, setShowIntro] = useState(!isEditorMode);
   const fileInputRef = useRef(null);
+  const posterInputRef = useRef(null);
+
+  useEffect(() => {
+    if (isEditorMode) return;
+    const timer = setTimeout(() => {
+      setShowIntro(false);
+    }, 4200);
+    return () => clearTimeout(timer);
+  }, [isEditorMode]);
 
   // Ensure currentSlideIdx is valid
   const activeIndex = Math.min(currentSlideIdx, slides.length - 1 < 0 ? 0 : slides.length - 1);
@@ -102,6 +158,24 @@ const HeroSection = () => {
     }
   };
 
+  const handlePosterChange = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      try {
+        setIsUploadingPoster(true);
+        const url = await uploadFile(file, "media");
+        const newSlides = [...slides];
+        newSlides[activeIndex] = { ...activeSlide, posterUrl: url };
+        updateSlides(newSlides);
+      } catch (err) {
+        console.error("Error al subir poster:", err);
+        alert('No se pudo subir la miniatura. Verifica tu conexión.');
+      } finally {
+        setIsUploadingPoster(false);
+      }
+    }
+  };
+
   const addSlide = () => {
     const newSlide = {
       id: `slide-${Date.now()}`,
@@ -131,8 +205,76 @@ const HeroSection = () => {
     updateSlides(newSlides);
   };
 
+  const currentBgMedia = activeSlide?.backgroundMedia || '';
+  const isVideoCurrent = !!(currentBgMedia.match(/\.(mp4|webm|ogg|mov|mkv)$/i) || currentBgMedia.includes('video/'));
+
   return (
     <section id="inicio" className="relative w-full h-[500px] md:h-[600px] lg:h-[700px] flex items-center justify-center overflow-hidden">
+
+      {/* 0. CINEMATIC THINK DESIGN AUTOMATE INTRO OVERLAY */}
+      <AnimatePresence>
+        {showIntro && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+            className="absolute inset-0 bg-black z-[90] flex flex-col items-center justify-center select-none"
+          >
+            <div className="flex flex-col items-center gap-4 text-center">
+              {/* THINK. */}
+              <motion.h1
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.4, duration: 0.6, ease: "easeOut" }}
+                className="text-white font-black text-5xl md:text-7xl tracking-tighter uppercase leading-none m-0 p-0"
+              >
+                THINK.
+              </motion.h1>
+
+              {/* DESIGN. */}
+              <motion.h1
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.2, duration: 0.6, ease: "easeOut" }}
+                className="text-transparent bg-clip-text bg-gradient-to-b from-[#A1A8B3] via-[#8d94a0] to-[#606773] font-black text-5xl md:text-7xl tracking-tighter uppercase leading-none m-0 p-0"
+              >
+                DESIGN.
+              </motion.h1>
+
+              {/* AUTOMATE. + PULSING LED */}
+              <div className="flex items-center gap-4 relative justify-center">
+                <motion.h1
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 2.0, duration: 0.6, ease: "easeOut" }}
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#F5C400] via-yellow-400 to-[#F5C400] drop-shadow-[0_0_30px_rgba(245,196,0,0.25)] font-black text-5xl md:text-7xl tracking-tighter uppercase leading-none m-0 p-0"
+                >
+                  AUTOMATE.
+                </motion.h1>
+                
+                {/* Green Pulsing LED next to AUTOMATE. */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 2.3, duration: 0.4 }}
+                  className="relative flex items-center justify-center w-10 h-10 border border-white/10 rounded-full bg-black/60 shadow-xl"
+                >
+                  <div className="absolute w-4 h-4 bg-[#39FF14] rounded-full animate-ping opacity-60"></div>
+                  <div className="relative w-3.5 h-3.5 bg-[#39FF14] rounded-full shadow-[0_0_12px_#39FF14]"></div>
+                </motion.div>
+              </div>
+
+              {/* Sub-line bar indicator */}
+              <motion.div 
+                initial={{ width: 0, opacity: 0 }}
+                animate={{ width: 100, opacity: 1 }}
+                transition={{ delay: 2.6, duration: 0.6 }}
+                className="h-[2px] bg-[#F5C400] shadow-[0_0_8px_#F5C400] mt-6"
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Editor Upload Overlay */}
       {isEditorMode && (
@@ -165,6 +307,25 @@ const HeroSection = () => {
                 <span>Subir Fondo</span>
               </button>
             </div>
+
+            {isVideoCurrent && (
+              <div className="flex flex-col gap-1.5 mt-1 pt-2 border-t border-white/10 w-full">
+                <span className="text-white/50 text-[10px] uppercase font-bold tracking-wider">Miniatura de Precarga</span>
+                <input type="file" accept="image/*" className="hidden" ref={posterInputRef} onChange={handlePosterChange} />
+                <button
+                  onClick={() => posterInputRef.current?.click()}
+                  disabled={isUploadingPoster}
+                  className="bg-white/10 hover:bg-white/20 text-white px-3 py-1.5 rounded-lg transition-all font-bold text-xs flex items-center gap-2 justify-center w-full"
+                >
+                  {isUploadingPoster ? (
+                    <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                  ) : (
+                    <ImageIcon size={14} />
+                  )}
+                  <span>{activeSlide.posterUrl ? 'Cambiar Miniatura' : 'Subir Miniatura'}</span>
+                </button>
+              </div>
+            )}
 
             <div className="flex flex-col gap-1 mt-2">
               <span className="text-white/50 text-[10px] uppercase">Oscuridad ({activeSlide.overlayOpacity ?? 50}%)</span>
@@ -211,7 +372,7 @@ const HeroSection = () => {
             className={`absolute inset-0 bg-[#0a0f14] transition-opacity duration-1000 ease-in-out z-0 ${isActive ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
           >
             {isVideo ? (
-              <VideoBackground src={bgMedia} isActive={isActive} />
+              <VideoBackground src={bgMedia} isActive={isActive} poster={slide.posterUrl} />
             ) : (
               <div
                 className="w-full h-full"
@@ -224,7 +385,7 @@ const HeroSection = () => {
             )}
             {/* Dynamic Dark Overlay for each slide */}
             <div
-              className="absolute inset-0"
+              className="absolute inset-0 z-10 pointer-events-none"
               style={{ backgroundColor: `rgba(0, 0, 0, ${(slide.overlayOpacity ?? 50) / 100})` }}
             />
           </div>

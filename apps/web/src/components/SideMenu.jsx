@@ -110,16 +110,19 @@ const SideMenu = ({ isOpen, onClose }) => {
                           className="overflow-hidden"
                         >
                           <div className="flex flex-col py-2">
-                            {item.items.map((subItem, subIndex) => (
-                              <a
-                                key={subIndex}
-                                href={`#${subItem.toLowerCase().replace(/\s+/g, '-')}`}
-                                onClick={onClose}
-                                className="text-[16px] text-[#9CA3AF] py-[8px] pl-[20px] mt-[8px] cursor-pointer transition-colors duration-200 ease-out hover:text-[#0A84FF]"
-                              >
-                                {subItem}
-                              </a>
-                            ))}
+                            {item.items.map((subItem, subIndex) => {
+                              const isNosotros = subItem.toLowerCase() === 'nosotros';
+                              return (
+                                <a
+                                  key={subIndex}
+                                  href={isNosotros ? '/nosotros' : `#${subItem.toLowerCase().replace(/\s+/g, '-')}`}
+                                  onClick={onClose}
+                                  className="text-[16px] text-[#9CA3AF] py-[8px] pl-[20px] mt-[8px] cursor-pointer transition-colors duration-200 ease-out hover:text-[#0A84FF]"
+                                >
+                                  {subItem}
+                                </a>
+                              );
+                            })}
                           </div>
                         </motion.div>
                       )}

@@ -48,7 +48,7 @@ const Footer = () => {
               Soluciones industriales de alta ingeniería para reciclaje, procesamiento de alimentos y automatización.
             </p>
             <Button 
-              onClick={() => scrollToSection('#cotizador')}
+              onClick={() => scrollToSection('#contacto')}
               className="bg-primary text-white hover:bg-primary-hover font-semibold w-full sm:w-auto transition-colors duration-300"
             >
               Solicitar Cotización

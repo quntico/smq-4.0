@@ -100,16 +100,19 @@ const MobileMenu = ({ isOpen, onClose }) => {
                         className="overflow-hidden"
                       >
                         <div className="flex flex-col py-2 pl-4 space-y-3">
-                          {item.items.map((subItem, subIndex) => (
-                            <a
-                              key={subIndex}
-                              href={`#${subItem.toLowerCase().replace(/\s+/g, '-')}`}
-                              onClick={onClose}
-                              className="text-[15px] text-[#9CA3AF] hover:text-[#0A84FF] transition-colors"
-                            >
-                              {subItem}
-                            </a>
-                          ))}
+                          {item.items.map((subItem, subIndex) => {
+                            const isNosotros = subItem.toLowerCase() === 'nosotros';
+                            return (
+                              <a
+                                key={subIndex}
+                                href={isNosotros ? '/nosotros' : `#${subItem.toLowerCase().replace(/\s+/g, '-')}`}
+                                onClick={onClose}
+                                className="text-[15px] text-[#9CA3AF] hover:text-[#0A84FF] transition-colors"
+                              >
+                                {subItem}
+                              </a>
+                            );
+                          })}
                         </div>
                       </motion.div>
                     )}

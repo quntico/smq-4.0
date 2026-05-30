@@ -122,14 +122,11 @@ const CapabilitiesSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
-          className={`text-[#FFFFFF]  font-[700] text-[28px] md:text-[36px] lg:text-[48px] text-center mb-[40px] ${isEditorMode ? 'outline-dashed outline-2 outline-blue-400 cursor-text bg-black/20 p-2 rounded-lg' : ''}`}
-          dangerouslySetInnerHTML={{ __html: sectionTitle }}
-          onBlur={(e) => {
-            updatePageModule('home', 'capabilities', { title: e.target.innerHTML, items: activeCapabilities });
-          }}
-          contentEditable={isEditorMode}
-          suppressContentEditableWarning={true}
-        />
+          className={`font-black tracking-tighter text-4xl md:text-6xl lg:text-7xl leading-[1.05] text-center mb-[50px] uppercase ${isEditorMode ? 'outline-dashed outline-2 outline-blue-400 cursor-text bg-black/20 p-2 rounded-lg' : ''}`}
+        >
+          <span className="text-white block">NUESTRAS</span>
+          <span className="text-[#F5C400] block">CAPACIDADES</span>
+        </motion.h2>
 
         <motion.div
           variants={containerVariants}
