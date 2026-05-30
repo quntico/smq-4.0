@@ -290,9 +290,9 @@ const NosotrosSection = () => {
             </div>
 
             {/* Main Title */}
-            <h2 className="text-[28px] md:text-[36px] lg:text-[46px] font-black tracking-tighter leading-[1.08] uppercase">
-              <span className="text-white block">INGENIERÍA PARA EL</span>
-              <span className="text-[#F5C400] block">FUTURO INDUSTRIAL</span>
+            <h2 className="text-[20px] md:text-[28px] lg:text-[36px] font-black tracking-tighter leading-tight uppercase">
+              <span className="text-white">INGENIERÍA PARA EL </span>
+              <span className="text-[#F5C400]">FUTURO INDUSTRIAL</span>
             </h2>
 
             {/* Divider */}
@@ -501,9 +501,9 @@ const NosotrosSection = () => {
           
           <div className="flex flex-col items-center gap-4 text-center mb-16">
             <span className="text-[11px] font-black uppercase tracking-[0.3em] text-[#F5C400]">Propósito Corporativo</span>
-            <h3 className="text-4xl md:text-6xl font-black tracking-tighter uppercase leading-[1.05] text-center">
-              <span className="text-white block">NUESTRA</span>
-              <span className="text-[#F5C400] block">IDENTIDAD</span>
+            <h3 className="text-3xl md:text-5xl font-black tracking-tighter uppercase leading-tight text-center">
+              <span className="text-white">NUESTRA </span>
+              <span className="text-[#F5C400]">IDENTIDAD</span>
             </h3>
             <div className="w-24 h-[2px] bg-[#F5C400] shadow-[0_0_8px_#F5C400]" />
           </div>
