@@ -290,7 +290,7 @@ const NosotrosSection = () => {
             </div>
 
             {/* Main Title */}
-            <h2 className="text-[32px] md:text-[44px] lg:text-[68px] font-black tracking-tighter leading-[1.05] uppercase">
+            <h2 className="text-[28px] md:text-[36px] lg:text-[46px] font-black tracking-tighter leading-[1.08] uppercase">
               <span className="text-white block">INGENIERÍA PARA EL</span>
               <span className="text-[#F5C400] block">FUTURO INDUSTRIAL</span>
             </h2>
