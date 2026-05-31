@@ -107,6 +107,18 @@ const IndustriesSection = () => {
   const industriesModule = homePage?.modules.find(m => m.id === 'industries') || {};
   const activeIndustries = industriesModule.data?.items || industries;
 
+  // Preload all optimized images in parallel when the page starts initializing
+  React.useEffect(() => {
+    if (activeIndustries && activeIndustries.length > 0) {
+      activeIndustries.forEach((industry) => {
+        if (industry.image) {
+          const img = new Image();
+          img.src = getOptimizedImageUrl(industry.image);
+        }
+      });
+    }
+  }, [activeIndustries]);
+
   const handleTriggerUpload = (id) => {
     setActiveUploadId(id);
     if (fileInputRef.current) {
