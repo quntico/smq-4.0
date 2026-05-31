@@ -419,7 +419,7 @@ const HeroSection = () => {
             className="flex flex-col items-center pointer-events-auto"
           >
             {/* Title */}
-            <h1 className="font-bold text-[36px] md:text-[48px] lg:text-[72px] leading-[1.2] tracking-[-0.5px] m-0 p-0">
+            <h1 className="font-black text-[36px] md:text-[54px] lg:text-[76px] leading-[1.05] tracking-tighter uppercase m-0 p-0">
               <span
                 className={`text-white block ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 p-1 cursor-text' : ''}`}
                 contentEditable={isEditorMode}
