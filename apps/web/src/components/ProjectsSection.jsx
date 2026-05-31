@@ -5,6 +5,8 @@ import { AlignLeft, AlignCenter, AlignRight, AlignJustify, Image as ImageIcon, M
 import { useCMS } from '@/context/CMSContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
 
+import { getOptimizedImageUrl } from '@/lib/utils.js';
+
 const projects = [
   {
     id: 1,
@@ -196,7 +198,7 @@ const ProjectsSection = () => {
                 {/* Background Image */}
                 <div
                   className="absolute inset-0 bg-cover bg-center z-[1] transition-transform duration-250 ease-in-out group-hover:scale-105"
-                  style={{ backgroundImage: `url(${project.image})` }}
+                  style={{ backgroundImage: `url(${getOptimizedImageUrl(project.image, 600)})` }}
                 />
 
                 {/* Dark Overlay */}

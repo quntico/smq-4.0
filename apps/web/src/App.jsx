@@ -13,7 +13,51 @@ import DynamicPage from '@/pages/DynamicPage.jsx';
 import EnvasadoraDoypack from '@/pages/EnvasadoraDoypack.jsx';
 import Nosotros from '@/pages/Nosotros.jsx';
 
+import { useCMS } from '@/context/CMSContext.jsx';
+import { getOptimizedImageUrl } from '@/lib/utils.js';
+
 function AppContent() {
+  const { cmsState } = useCMS();
+
+  React.useEffect(() => {
+    // 1. Critical local images
+    const localImages = [
+      '/nosotros_industrial_hero.png',
+      '/nosotros_futuro_industrial.png',
+      '/nosotros_planta_moderna.png',
+      '/rotary_doypack_machine.png'
+    ];
+    
+    localImages.forEach(src => {
+      const img = new Image();
+      img.src = src;
+    });
+
+    // 2. Preload dynamic CMS images in parallel
+    if (cmsState?.pages) {
+      cmsState.pages.forEach(page => {
+        page.modules?.forEach(module => {
+          // Check lists (collages, cards, grids)
+          const items = module.data?.items || [];
+          items.forEach(item => {
+            const imgSrc = item.image || item.defaultImage || item.bgImage || item.imgUrl;
+            if (imgSrc && typeof imgSrc === 'string') {
+              const img = new Image();
+              img.src = getOptimizedImageUrl(imgSrc, 800);
+            }
+          });
+
+          // Check single dynamic images
+          const singleImage = module.data?.backgroundMedia || module.data?.image || module.data?.bgImage;
+          if (singleImage && typeof singleImage === 'string') {
+            const img = new Image();
+            img.src = getOptimizedImageUrl(singleImage, 1200);
+          }
+        });
+      });
+    }
+  }, [cmsState]);
+
   return (
     <>
       <CustomCursor />

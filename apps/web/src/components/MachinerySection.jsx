@@ -7,6 +7,8 @@ import { useToast } from '@/hooks/use-toast';
 import { useCMS } from '@/context/CMSContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
 
+import { getOptimizedImageUrl } from '@/lib/utils.js';
+
 const defaultMachinery = [
   {
     id: 1,
@@ -295,7 +297,7 @@ const MachinerySection = () => {
 
               <div className="relative h-56 overflow-hidden bg-black">
                 <img
-                  src={machine.image}
+                  src={getOptimizedImageUrl(machine.image, 600)}
                   alt={machine.title}
                   className={`w-full h-full object-cover transition-transform duration-500 ${isEditorMode ? '' : 'group-hover:scale-110'}`}
                 />
