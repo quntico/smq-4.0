@@ -122,6 +122,8 @@ const HeroSection = () => {
   const title1Lines = ((activeSlide && activeSlide.title1) || '').split('\n').filter(line => line.trim() !== '');
   const title2Lines = ((activeSlide && activeSlide.title2) || '').split('\n').filter(line => line.trim() !== '');
 
+  const slideDuration = heroModule.data?.slideDuration ?? 3;
+
   // Auto-play timer (only for images, suspended when active slide is a video)
   useEffect(() => {
     if (isEditorMode) return; // Disable auto-play in editor mode
@@ -136,9 +138,9 @@ const HeroSection = () => {
 
     const timer = setInterval(() => {
       setCurrentSlideIdx((prev) => (prev + 1) % slides.length);
-    }, 8000); // 8 seconds fallback for images
+    }, slideDuration * 1000);
     return () => clearInterval(timer);
-  }, [slides.length, isEditorMode, activeSlide]);
+  }, [slides.length, isEditorMode, activeSlide, slideDuration]);
 
   const handleVideoEnded = useCallback(() => {
     if (isEditorMode) return;
@@ -367,6 +369,22 @@ const HeroSection = () => {
                 onChange={(e) => handleSlideChange('overlayOpacity', Number(e.target.value))}
                 className="w-full h-1.5 bg-white/20 rounded-lg appearance-none cursor-pointer accent-[#FFD700]"
               />
+            </div>
+
+            <div className="flex flex-col gap-1 mt-2">
+              <span className="text-white/50 text-[10px] uppercase font-bold tracking-wider">Intervalo Banner ({slideDuration}s)</span>
+              <div className="flex items-center gap-2">
+                <input
+                  type="range"
+                  min="1" max="15" step="1"
+                  value={slideDuration}
+                  onChange={(e) => {
+                    updatePageModule('home', 'hero-1', { slideDuration: Number(e.target.value) });
+                  }}
+                  className="w-full h-1.5 bg-white/20 rounded-lg appearance-none cursor-pointer accent-[#FFD700]"
+                />
+                <span className="text-[#FFD700] text-xs font-bold w-6 text-right">{slideDuration}s</span>
+              </div>
             </div>
 
             <div className="w-full h-[1px] bg-white/10 my-1" />
