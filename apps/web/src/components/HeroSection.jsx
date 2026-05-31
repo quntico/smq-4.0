@@ -186,6 +186,27 @@ const HeroSection = () => {
         const newSlides = [...slides];
         newSlides[activeIndex] = { ...activeSlide, backgroundMedia: url };
         updateSlides(newSlides);
+        
+        // Auto-save instantly to cloud using the override state to bypass React async delay
+        const nextState = {
+          ...cmsState,
+          pages: cmsState.pages.map(page => {
+            if (page.id === 'home') {
+              return {
+                ...page,
+                modules: page.modules.map(mod => {
+                  if (mod.id === 'hero-1') {
+                    return { ...mod, data: { ...mod.data, slides: newSlides } };
+                  }
+                  return mod;
+                })
+              };
+            }
+            return page;
+          })
+        };
+        await syncToCloud(nextState);
+        alert("¡Archivo de fondo subido y guardado permanentemente en la nube!");
       } catch (err) {
         console.error("Error al subir video/imagen:", err);
         alert('No se pudo subir el archivo. Verifica tu conexión.');
@@ -204,6 +225,27 @@ const HeroSection = () => {
         const newSlides = [...slides];
         newSlides[activeIndex] = { ...activeSlide, posterUrl: url };
         updateSlides(newSlides);
+
+        // Auto-save instantly to cloud using the override state
+        const nextState = {
+          ...cmsState,
+          pages: cmsState.pages.map(page => {
+            if (page.id === 'home') {
+              return {
+                ...page,
+                modules: page.modules.map(mod => {
+                  if (mod.id === 'hero-1') {
+                    return { ...mod, data: { ...mod.data, slides: newSlides } };
+                  }
+                  return mod;
+                })
+              };
+            }
+            return page;
+          })
+        };
+        await syncToCloud(nextState);
+        alert("¡Miniatura subida y guardada permanentemente en la nube!");
       } catch (err) {
         console.error("Error al subir poster:", err);
         alert('No se pudo subir la miniatura. Verifica tu conexión.');
@@ -550,20 +592,7 @@ const HeroSection = () => {
               {activeSlide.subtitle}
             </motion.p>
 
-            {/* Buttons */}
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: (title1Lines.length + title2Lines.length) * 0.22 + 0.3 }}
-              className="flex flex-col md:flex-row gap-4 mt-10 flex-wrap justify-center"
-            >
-              <button className="bg-[#FFD700] text-black px-8 py-3.5 rounded-md font-semibold text-[14px] hover:brightness-110 transition-all duration-200 shadow-[0_0_20px_rgba(255,215,0,0.3)]">
-                Explorar Maquinaria →
-              </button>
-              <button className="bg-transparent border border-[#FFD700] text-[#FFD700] px-8 py-3.5 rounded-md font-semibold text-[14px] hover:bg-[#FFD700]/10 hover:border-white transition-all duration-200">
-                ⚙ Configurar Planta
-              </button>
-            </motion.div>
+
           </motion.div>
         </AnimatePresence>
       </div>

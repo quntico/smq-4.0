@@ -223,9 +223,10 @@ export const CMSProvider = ({ children }) => {
         root.style.setProperty('--global-filter-opacity', `${(cmsState.settings.globalFilterOpacity ?? 75) / 100}`);
     }, [cmsState.settings.globalImageSharpness, cmsState.settings.globalFilterColor, cmsState.settings.globalFilterOpacity]);
 
-    const syncToCloud = async () => {
+    const syncToCloud = async (stateOverride = null) => {
         try {
-            const content = JSON.stringify(cmsState);
+            const targetState = stateOverride || cmsState;
+            const content = JSON.stringify(targetState);
             await supabase.storage.from('media').upload('cms-state.json', content, {
                 contentType: 'application/json',
                 upsert: true,
