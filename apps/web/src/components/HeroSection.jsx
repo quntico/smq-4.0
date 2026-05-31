@@ -286,8 +286,17 @@ const HeroSection = () => {
         <div className="absolute top-20 right-10 z-[100] flex flex-col items-end gap-4 animate-bounce hover:animate-none">
           {/* Banner Controls */}
           <div className="bg-[#1A1A1A]/95 p-3 rounded-xl border border-[#333] shadow-2xl backdrop-blur-md flex flex-col gap-3 w-max">
-            <div className="flex items-center gap-3 justify-center mb-1">
+            <div className="flex flex-col items-center gap-1 justify-center mb-1">
               <span className="text-white/70 text-xs font-bold uppercase tracking-wider">Banner {activeIndex + 1} de {slides.length}</span>
+              {activeIndex > 0 && (
+                <button
+                  onClick={() => setCurrentSlideIdx(0)}
+                  className="text-[#FFD700] hover:text-white transition-colors text-[9px] uppercase font-black tracking-wider flex items-center gap-1 justify-center mt-0.5"
+                  title="Regresar al Primer Banner"
+                >
+                  ⬅ Regresar al Inicio
+                </button>
+              )}
             </div>
 
             <div className="flex items-center gap-2">
@@ -347,10 +356,10 @@ const HeroSection = () => {
       )}
 
       {/* Navigation Arrows */}
-      <div className="absolute inset-y-0 left-0 z-50 flex items-center px-4 w-24">
+      <div className="absolute inset-y-0 left-0 md:left-16 z-50 flex items-center px-4 w-24 pointer-events-none">
         <button
           onClick={handlePrev}
-          className="bg-black/30 hover:bg-[#FFD700] text-white hover:text-black w-12 h-12 rounded-full flex items-center justify-center backdrop-blur-sm transition-all border border-white/10 hover:border-[#FFD700] hover:scale-110"
+          className="pointer-events-auto bg-black/30 hover:bg-[#FFD700] text-white hover:text-black w-12 h-12 rounded-full flex items-center justify-center backdrop-blur-sm transition-all border border-white/10 hover:border-[#FFD700] hover:scale-110"
         >
           <ChevronLeft size={28} className="mr-1" />
         </button>
