@@ -119,6 +119,9 @@ const HeroSection = () => {
   const activeIndex = Math.min(currentSlideIdx, slides.length - 1 < 0 ? 0 : slides.length - 1);
   const activeSlide = slides[activeIndex];
 
+  const title1Lines = ((activeSlide && activeSlide.title1) || '').split('\n').filter(line => line.trim() !== '');
+  const title2Lines = ((activeSlide && activeSlide.title2) || '').split('\n').filter(line => line.trim() !== '');
+
   // Auto-play timer (only for images, suspended when active slide is a video)
   useEffect(() => {
     if (isEditorMode) return; // Disable auto-play in editor mode
@@ -456,43 +459,93 @@ const HeroSection = () => {
           >
             {/* Title */}
             <h1 className="font-black text-[36px] md:text-[54px] lg:text-[76px] leading-[1.05] tracking-tighter uppercase m-0 p-0">
-              <span
-                className={`text-white block ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 p-1 cursor-text' : ''}`}
-                contentEditable={isEditorMode}
-                suppressContentEditableWarning={true}
-                onBlur={(e) => handleSlideChange('title1', e.target.innerText)}
-              >
-                {activeSlide.title1}
-              </span>
-              <span
-                className={`text-[#FFD700] block ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 p-1 mt-1 cursor-text' : ''}`}
-                contentEditable={isEditorMode}
-                suppressContentEditableWarning={true}
-                onBlur={(e) => handleSlideChange('title2', e.target.innerText)}
-              >
-                {activeSlide.title2}
-              </span>
+              {isEditorMode ? (
+                <motion.span
+                  initial={{ opacity: 0, y: -40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+                  className="text-white block outline-dashed outline-1 outline-blue-400 p-1 cursor-text"
+                  contentEditable={isEditorMode}
+                  suppressContentEditableWarning={true}
+                  onBlur={(e) => handleSlideChange('title1', e.target.innerText)}
+                >
+                  {activeSlide.title1}
+                </motion.span>
+              ) : (
+                <span className="block">
+                  {title1Lines.map((line, idx) => (
+                    <motion.span
+                      key={`t1-${idx}`}
+                      initial={{ opacity: 0, y: -45 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: idx * 0.22 }}
+                      className="text-white block"
+                    >
+                      {line}
+                    </motion.span>
+                  ))}
+                </span>
+              )}
+
+              {isEditorMode ? (
+                <motion.span
+                  initial={{ opacity: 0, y: -40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
+                  className="text-[#FFD700] block outline-dashed outline-1 outline-blue-400 p-1 mt-1 cursor-text"
+                  contentEditable={isEditorMode}
+                  suppressContentEditableWarning={true}
+                  onBlur={(e) => handleSlideChange('title2', e.target.innerText)}
+                >
+                  {activeSlide.title2}
+                </motion.span>
+              ) : (
+                <span className="block mt-1">
+                  {title2Lines.map((line, idx) => {
+                    const delay = (title1Lines.length + idx) * 0.22;
+                    return (
+                      <motion.span
+                        key={`t2-${idx}`}
+                        initial={{ opacity: 0, y: -45 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay }}
+                        className="text-[#FFD700] block"
+                      >
+                        {line}
+                      </motion.span>
+                    );
+                  })}
+                </span>
+              )}
             </h1>
 
             {/* Subtitle */}
-            <p
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: (title1Lines.length + title2Lines.length) * 0.22 + 0.1 }}
               className={`text-[#D0D0D0] font-normal text-[14px] md:text-[16px] lg:text-[18px] leading-[1.6] mt-6 max-w-[700px] m-0 p-0 ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 p-1 cursor-text' : ''}`}
               contentEditable={isEditorMode}
               suppressContentEditableWarning={true}
               onBlur={(e) => handleSlideChange('subtitle', e.target.innerText)}
             >
               {activeSlide.subtitle}
-            </p>
+            </motion.p>
 
             {/* Buttons */}
-            <div className="flex flex-col md:flex-row gap-4 mt-10 flex-wrap justify-center">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: (title1Lines.length + title2Lines.length) * 0.22 + 0.3 }}
+              className="flex flex-col md:flex-row gap-4 mt-10 flex-wrap justify-center"
+            >
               <button className="bg-[#FFD700] text-black px-8 py-3.5 rounded-md font-semibold text-[14px] hover:brightness-110 transition-all duration-200 shadow-[0_0_20px_rgba(255,215,0,0.3)]">
                 Explorar Maquinaria →
               </button>
               <button className="bg-transparent border border-[#FFD700] text-[#FFD700] px-8 py-3.5 rounded-md font-semibold text-[14px] hover:bg-[#FFD700]/10 hover:border-white transition-all duration-200">
                 ⚙ Configurar Planta
               </button>
-            </div>
+            </motion.div>
           </motion.div>
         </AnimatePresence>
       </div>
