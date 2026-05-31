@@ -128,17 +128,35 @@ const HeroSection = () => {
     return () => clearInterval(timer);
   }, [slides.length, isEditorMode]);
 
+  const updateSlides = useCallback((newSlides) => {
+    updatePageModule('home', 'hero-1', { slides: newSlides });
+  }, [updatePageModule]);
+
+  const addSlide = useCallback(() => {
+    const newSlide = {
+      id: `slide-${Date.now()}`,
+      title1: 'Nuevo Título',
+      title2: 'Principal',
+      subtitle: 'Descripción breve de este nuevo banner industrial.',
+      backgroundMedia: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158',
+      overlayOpacity: 50
+    };
+    const newSlides = [...slides, newSlide];
+    updateSlides(newSlides);
+    setCurrentSlideIdx(slides.length);
+  }, [slides, updateSlides]);
+
   const handleNext = useCallback(() => {
-    setCurrentSlideIdx((prev) => (prev + 1) % slides.length);
-  }, [slides.length]);
+    if (isEditorMode && activeIndex === slides.length - 1) {
+      addSlide();
+    } else {
+      setCurrentSlideIdx((prev) => (prev + 1) % slides.length);
+    }
+  }, [slides.length, isEditorMode, activeIndex, addSlide]);
 
   const handlePrev = useCallback(() => {
     setCurrentSlideIdx((prev) => (prev - 1 + slides.length) % slides.length);
   }, [slides.length]);
-
-  const updateSlides = (newSlides) => {
-    updatePageModule('home', 'hero-1', { slides: newSlides });
-  };
 
   const handleMediaChange = async (e) => {
     const file = e.target.files[0];
@@ -174,19 +192,6 @@ const HeroSection = () => {
         setIsUploadingPoster(false);
       }
     }
-  };
-
-  const addSlide = () => {
-    const newSlide = {
-      id: `slide-${Date.now()}`,
-      title1: 'Nuevo Título',
-      title2: 'Principal',
-      subtitle: 'Descripción breve de este nuevo banner industrial.',
-      backgroundMedia: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158',
-      overlayOpacity: 50
-    };
-    updateSlides([...slides, newSlide]);
-    setCurrentSlideIdx(slides.length);
   };
 
   const removeSlide = () => {
