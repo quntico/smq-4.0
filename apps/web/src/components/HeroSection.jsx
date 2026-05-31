@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight, Plus, Trash2, Image as ImageIcon } from 'luc
 import { useCMS } from '@/context/CMSContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
 
-const VideoBackground = ({ src, isActive, poster }) => {
+const VideoBackground = ({ src, isActive, poster, onVideoEnded }) => {
   const videoRef = useRef(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -54,12 +54,12 @@ const VideoBackground = ({ src, isActive, poster }) => {
       {/* 2. Video de Fondo */}
       <video
         ref={videoRef}
-        loop
         muted
         playsInline
         autoPlay={isActive}
         preload={isActive ? "auto" : "metadata"}
         onLoadedData={handleLoadedData}
+        onEnded={onVideoEnded}
         className={`w-full h-full object-cover transition-all duration-1000 ease-out ${
           isLoaded ? 'opacity-100 scale-100 blur-0' : 'opacity-0 scale-105 blur-sm'
         }`}
@@ -119,13 +119,27 @@ const HeroSection = () => {
   const activeIndex = Math.min(currentSlideIdx, slides.length - 1 < 0 ? 0 : slides.length - 1);
   const activeSlide = slides[activeIndex];
 
-  // Auto-play timer
+  // Auto-play timer (only for images, suspended when active slide is a video)
   useEffect(() => {
     if (isEditorMode) return; // Disable auto-play in editor mode
+    
+    const bgMedia = activeSlide?.backgroundMedia || '';
+    const isVideo = !!(bgMedia.match(/\.(mp4|webm|ogg|mov|mkv)$/i) || bgMedia.includes('video/'));
+    
+    if (isVideo) {
+      // Natural video length handles the transition, suspend interval!
+      return;
+    }
+
     const timer = setInterval(() => {
       setCurrentSlideIdx((prev) => (prev + 1) % slides.length);
-    }, 8000); // 8 seconds per slide
+    }, 8000); // 8 seconds fallback for images
     return () => clearInterval(timer);
+  }, [slides.length, isEditorMode, activeSlide]);
+
+  const handleVideoEnded = useCallback(() => {
+    if (isEditorMode) return;
+    setCurrentSlideIdx((prev) => (prev + 1) % slides.length);
   }, [slides.length, isEditorMode]);
 
   const updateSlides = useCallback((newSlides) => {
@@ -386,7 +400,7 @@ const HeroSection = () => {
             className={`absolute inset-0 bg-[#0a0f14] transition-opacity duration-1000 ease-in-out z-0 ${isActive ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
           >
             {isVideo ? (
-              <VideoBackground src={bgMedia} isActive={isActive} poster={slide.posterUrl} />
+              <VideoBackground src={bgMedia} isActive={isActive} poster={slide.posterUrl} onVideoEnded={handleVideoEnded} />
             ) : (
               <div
                 className="w-full h-full"
