@@ -12,6 +12,7 @@ import { CMSProvider } from '@/context/CMSContext.jsx';
 import DynamicPage from '@/pages/DynamicPage.jsx';
 import EnvasadoraDoypack from '@/pages/EnvasadoraDoypack.jsx';
 import Nosotros from '@/pages/Nosotros.jsx';
+import ScrollToTopButton from '@/components/ScrollToTopButton.jsx';
 
 import { useCMS } from '@/context/CMSContext.jsx';
 import { getOptimizedImageUrl } from '@/lib/utils.js';
@@ -62,6 +63,7 @@ function AppContent() {
     <>
       <CustomCursor />
       <ScrollToTop />
+      <ScrollToTopButton />
       <Header />
       <SideNav />
       <Routes>
