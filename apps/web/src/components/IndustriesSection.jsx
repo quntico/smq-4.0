@@ -217,7 +217,7 @@ const IndustriesSection = () => {
                       {industry.title}
                     </h3>
                     <p
-                      className={`font-[400] transition-opacity duration-250 ease-in-out mt-1 ${isEditorMode ? 'bg-black/40 backdrop-blur-md border border-white/10 shadow-lg px-3 py-2 rounded-lg outline-dashed outline-2 outline-blue-400 cursor-text' : 'opacity-80 group-hover:opacity-100'} ${industry.descSize ? '' : 'text-[11px] md:text-[12px] lg:text-[14px]'}`}
+                      className={`font-[400] transition-opacity duration-250 ease-in-out mt-1 min-h-[40px] md:min-h-[48px] lg:min-h-[56px] ${isEditorMode ? 'bg-black/40 backdrop-blur-md border border-white/10 shadow-lg px-3 py-2 rounded-lg outline-dashed outline-2 outline-blue-400 cursor-text' : 'opacity-80 group-hover:opacity-100'} ${industry.descSize ? '' : 'text-[11px] md:text-[12px] lg:text-[14px]'}`}
                       style={{
                         color: industry.descColor || '#D0D0D0',
                         textAlign: industry.descAlign || 'left',
