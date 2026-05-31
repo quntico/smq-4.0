@@ -297,7 +297,7 @@ const HeroSection = () => {
 
       {/* Editor Upload Overlay */}
       {isEditorMode && (
-        <div className="absolute top-20 right-10 z-[100] flex flex-col items-end gap-4 animate-bounce hover:animate-none">
+        <div className="absolute top-20 right-10 z-[100] flex flex-col items-end gap-4">
           {/* Banner Controls */}
           <div className="bg-[#1A1A1A]/95 p-3 rounded-xl border border-[#333] shadow-2xl backdrop-blur-md flex flex-col gap-3 w-max">
             <div className="flex flex-col items-center gap-1 justify-center mb-1">
