@@ -5,36 +5,44 @@ import { AlignLeft, AlignCenter, AlignRight, AlignJustify, Image as ImageIcon, M
 import { useCMS } from '@/context/CMSContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
 
+const getOptimizedImageUrl = (url) => {
+  if (!url) return '';
+  if (url.includes('unsplash.com') && !url.includes('?')) {
+    return `${url}?auto=format&fit=crop&w=600&q=80`;
+  }
+  return url;
+};
+
 const industries = [
   {
     id: 1,
     title: 'Reciclaje',
     description: 'Plantas de reciclaje de plásticos',
-    image: 'https://images.unsplash.com/photo-1680214734782-48962f9c17eb'
+    image: 'https://images.unsplash.com/photo-1680214734782-48962f9c17eb?auto=format&fit=crop&w=600&q=80'
   },
   {
     id: 2,
     title: 'Alimentos',
     description: 'Líneas de procesamiento alimentario',
-    image: 'https://images.unsplash.com/photo-1535474035682-b50c07c2418f'
+    image: 'https://images.unsplash.com/photo-1535474035682-b50c07c2418f?auto=format&fit=crop&w=600&q=80'
   },
   {
     id: 3,
     title: 'Packaging',
     description: 'Sistemas de llenado y envasado',
-    image: 'https://images.unsplash.com/photo-1495716098472-4bd5c0382520'
+    image: 'https://images.unsplash.com/photo-1495716098472-4bd5c0382520?auto=format&fit=crop&w=600&q=80'
   },
   {
     id: 4,
     title: 'Construcción',
     description: 'Materiales compuestos y reciclados',
-    image: 'https://images.unsplash.com/photo-1576798815951-7c3ff46cf5f5'
+    image: 'https://images.unsplash.com/photo-1576798815951-7c3ff46cf5f5?auto=format&fit=crop&w=600&q=80'
   },
   {
     id: 5,
     title: 'Automatización',
     description: 'Sistemas inteligentes de control',
-    image: 'https://images.unsplash.com/photo-1679986944940-c5001ec1c1da'
+    image: 'https://images.unsplash.com/photo-1679986944940-c5001ec1c1da?auto=format&fit=crop&w=600&q=80'
   }
 ];
 
@@ -165,7 +173,7 @@ const IndustriesSection = () => {
                 {/* Background Image */}
                 <div
                   className="absolute inset-0 bg-cover bg-center transition-transform duration-250 ease-in-out group-hover:scale-105"
-                  style={{ backgroundImage: `url(${industry.image})` }}
+                  style={{ backgroundImage: `url(${getOptimizedImageUrl(industry.image)})` }}
                 />
 
                 {/* Dark Overlay */}
