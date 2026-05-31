@@ -79,7 +79,7 @@ const VideoBackground = ({ src, isActive, poster, onVideoEnded }) => {
 
 
 const HeroSection = () => {
-  const { cmsState, isEditorMode, updatePageModule } = useCMS();
+  const { cmsState, isEditorMode, updatePageModule, syncToCloud } = useCMS();
 
   // Extraemos datos del CMS
   const homePage = cmsState.pages.find(p => p.id === 'home');
@@ -365,6 +365,28 @@ const HeroSection = () => {
                 className="w-full h-1.5 bg-white/20 rounded-lg appearance-none cursor-pointer accent-[#FFD700]"
               />
             </div>
+
+            <div className="w-full h-[1px] bg-white/10 my-1" />
+
+            <button
+              onClick={async () => {
+                try {
+                  await syncToCloud();
+                  alert("¡Guardado Exitoso! Los cambios se han guardado permanentemente en la nube.");
+                } catch (e) {
+                  alert("Error al guardar: " + e.message);
+                }
+              }}
+              className="bg-green-600 hover:bg-green-500 text-white font-bold text-[11px] uppercase tracking-wider py-2.5 px-3 rounded-lg flex items-center gap-2 justify-center w-full transition-colors shadow-[0_0_15px_rgba(22,163,74,0.3)] hover:shadow-[0_0_25px_rgba(22,163,74,0.5)] cursor-pointer"
+              title="Guardar todos los cambios del sitio permanentemente en la nube"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21.2 15c.7-1.2 1-2.5.7-3.9-.3-2-1.5-3.8-3.4-4.5-1.2-2.2-3.6-3.6-6.1-3.5-3.4.1-6.3 2.7-6.8 6.1-.2 1.3-.1 2.6.4 3.8"></path>
+                <path d="M16 16l-4-4-4 4"></path>
+                <path d="M12 12v9"></path>
+              </svg>
+              <span>Guardar en Nube</span>
+            </button>
           </div>
         </div>
       )}
