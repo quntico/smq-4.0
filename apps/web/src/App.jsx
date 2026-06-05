@@ -12,7 +12,9 @@ import { CMSProvider } from '@/context/CMSContext.jsx';
 import DynamicPage from '@/pages/DynamicPage.jsx';
 import EnvasadoraDoypack from '@/pages/EnvasadoraDoypack.jsx';
 import Nosotros from '@/pages/Nosotros.jsx';
+import IndustriaDetalle from '@/pages/IndustriaDetalle.jsx';
 import ScrollToTopButton from '@/components/ScrollToTopButton.jsx';
+import MachineryDetailPage from '@/pages/MachineryDetailPage.jsx';
 
 import { useCMS } from '@/context/CMSContext.jsx';
 import { getOptimizedImageUrl } from '@/lib/utils.js';
@@ -68,7 +70,11 @@ function AppContent() {
       <SideNav />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/industria/:sector" element={<IndustriaDetalle />} />
+        <Route path="/soluciones/:sector" element={<IndustriaDetalle />} />
+        <Route path="/solucion/:sector" element={<IndustriaDetalle />} />
         <Route path="/envasadoras" element={<EnvasadoraDoypack />} />
+        <Route path="/maquinaria/:machineId" element={<MachineryDetailPage />} />
         <Route path="/nosotros" element={<Nosotros />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/*" element={<DynamicPage />} />
@@ -78,13 +84,17 @@ function AppContent() {
   );
 }
 
+import { LanguageProvider } from '@/context/LanguageContext.jsx';
+
 function App() {
   return (
-    <CMSProvider>
-      <Router>
-        <AppContent />
-      </Router>
-    </CMSProvider>
+    <LanguageProvider>
+      <CMSProvider>
+        <Router>
+          <AppContent />
+        </Router>
+      </CMSProvider>
+    </LanguageProvider>
   );
 }
 

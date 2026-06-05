@@ -12,6 +12,7 @@ import IndustrialProjectsSection from '@/components/IndustrialProjectsSection.js
 import TechnologySection from '@/components/TechnologySection.jsx';
 import ContactSection from '@/components/ContactSection.jsx';
 import NosotrosSection from '@/components/NosotrosSection.jsx';
+import BrandsTicker from '@/components/BrandsTicker.jsx';
 
 const StatCounter = ({ target, suffix = '', duration = 2000, trigger = 0 }) => {
   const [count, setCount] = useState(0);
@@ -102,6 +103,7 @@ const HomePage = () => {
           <HeroSection />
 
           <div className="md:pl-[76px] transition-all duration-300">
+            <BrandsTicker />
             <IndustriesSection />
             <NosotrosSection />
             <CapabilitiesSection />

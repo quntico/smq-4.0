@@ -1,5 +1,6 @@
 
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, AlignLeft, AlignCenter, AlignRight, Maximize, Minimize, Image as ImageIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -94,6 +95,7 @@ const MachinerySection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -154,10 +156,20 @@ const MachinerySection = () => {
   };
 
   const handleViewEquipment = (title) => {
-    toast({
-      title: "🚧 Función en desarrollo",
-      description: "La página de detalles del equipo estará disponible pronto. ¡Solicítala en tu próximo mensaje! 🚀",
-    });
+    const t = title.toLowerCase();
+    if (t.includes('extrusora')) {
+      navigate('/maquinaria/extrusoras');
+    } else if (t.includes('pellet') || t.includes('triturador') || t.includes('molino')) {
+      navigate('/maquinaria/molinos');
+    } else if (t.includes('lavado') || t.includes('transport')) {
+      navigate('/maquinaria/transportadores');
+    } else if (t.includes('chocolate') || t.includes('mezcla')) {
+      navigate('/maquinaria/mezcladoras');
+    } else if (t.includes('empaque') || t.includes('envasadora') || t.includes('doypack')) {
+      navigate('/maquinaria/envasadoras');
+    } else {
+      navigate('/maquinaria/envasadoras');
+    }
   };
 
   return (

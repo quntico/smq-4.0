@@ -1,13 +1,15 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import IndustriesMenu from '@/components/IndustriesMenu.jsx';
 import SolutionsMenu from '@/components/SolutionsMenu.jsx';
 import MachineryMenu from '@/components/MachineryMenu.jsx';
 import TechnologyMenu from '@/components/TechnologyMenu.jsx';
 import CompanyMenu from '@/components/CompanyMenu.jsx';
 import AdminModal from '@/components/AdminModal.jsx';
+import LanguageSelector from '@/components/LanguageSelector.jsx';
 import { useCMS } from '@/context/CMSContext.jsx';
+import { useLanguage } from '@/context/LanguageContext.jsx';
 
 const componentMap = {
   IndustriesMenu,
@@ -19,11 +21,40 @@ const componentMap = {
 
 const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [activeMenu, setActiveMenu] = useState(null);
+  const [lockedMenu, setLockedMenu] = useState(null);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
   const { cmsState, isEditorMode, setIsEditorMode, updateMenus, syncFromCloud, syncToCloud, updateSettings } = useCMS();
+  const { t } = useLanguage();
   const { logoUrl, logoSize, headerHeight, headerOpacity } = cmsState.settings;
   const timeoutRef = useRef(null);
+
+  useEffect(() => {
+    setActiveMenu(null);
+    setLockedMenu(null);
+  }, [location.pathname, location.hash]);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setLockedMenu(null);
+        setActiveMenu(null);
+      }
+    };
+    const handleClickOutside = (e) => {
+      if (!e.target.closest('header')) {
+        setLockedMenu(null);
+        setActiveMenu(null);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     // Escuchar el evento del CMS o local
@@ -45,13 +76,27 @@ const Header = () => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
-    setActiveMenu(menu);
+    if (!lockedMenu) {
+      setActiveMenu(menu);
+    }
   };
 
   const handleMouseLeave = () => {
-    timeoutRef.current = setTimeout(() => {
+    if (!lockedMenu) {
+      timeoutRef.current = setTimeout(() => {
+        setActiveMenu(null);
+      }, 450); // Aumentado a 450ms para evitar cierres por equivocación al mover el mouse
+    }
+  };
+
+  const handleMenuClick = (menu) => {
+    if (lockedMenu === menu) {
+      setLockedMenu(null);
       setActiveMenu(null);
-    }, 250);
+    } else {
+      setLockedMenu(menu);
+      setActiveMenu(menu);
+    }
   };
 
   const NavItem = ({ id, label, menuName, DropdownComponent }) => {
@@ -70,7 +115,12 @@ const Header = () => {
         onMouseLeave={handleMouseLeave}
       >
         <button
-          className={`text-[15px] transition-all duration-200 relative py-2 ${activeMenu === menuName
+          onClick={(e) => {
+            if (!isEditorMode) {
+              handleMenuClick(menuName);
+            }
+          }}
+          className={`text-[15px] transition-all duration-200 relative py-2 ${(activeMenu === menuName || lockedMenu === menuName)
             ? 'text-[#FFD700] font-[600]'
             : 'text-white hover:text-[#FFD700] hover:font-[600] font-medium'
             }`}
@@ -79,20 +129,21 @@ const Header = () => {
             contentEditable={isEditorMode}
             suppressContentEditableWarning={true}
             onBlur={handleBlur}
+            onClick={(e) => { if (isEditorMode) e.stopPropagation(); }}
             className={`${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 p-1 cursor-text' : ''}`}
           >
             {label}
           </span>
           {/* Active Indicator */}
           <span
-            className={`absolute bottom-0 left-0 w-full h-[2px] bg-[#FFD700] transition-transform duration-300 origin-left ${activeMenu === menuName ? 'scale-x-100' : 'scale-x-0'
+            className={`absolute bottom-0 left-0 w-full h-[2px] bg-[#FFD700] transition-transform duration-300 origin-left ${(activeMenu === menuName || lockedMenu === menuName) ? 'scale-x-100' : 'scale-x-0'
               }`}
           />
         </button>
 
         {DropdownComponent && (
           <DropdownComponent
-            isOpen={activeMenu === menuName}
+            isOpen={activeMenu === menuName || lockedMenu === menuName}
             onMouseEnter={() => handleMouseEnter(menuName)}
             onMouseLeave={handleMouseLeave}
           />
@@ -164,15 +215,18 @@ const Header = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center h-full gap-[40px]">
-          {cmsState.menus.sort((a, b) => a.order - b.order).map(menu => (
-            <NavItem
-              key={menu.id}
-              id={menu.id}
-              label={menu.name}
-              menuName={menu.name.toLowerCase()}
-              DropdownComponent={componentMap[menu.componentName]}
-            />
-          ))}
+          {cmsState.menus.sort((a, b) => a.order - b.order).map(menu => {
+            const transKey = menu.componentName.replace('Menu', '').toLowerCase();
+            return (
+              <NavItem
+                key={menu.id}
+                id={menu.id}
+                label={t(`header.${transKey}`) !== `header.${transKey}` ? t(`header.${transKey}`) : menu.name}
+                menuName={menu.name.toLowerCase()}
+                DropdownComponent={componentMap[menu.componentName]}
+              />
+            );
+          })}
         </nav>
 
         {/* Action Buttons */}
@@ -211,6 +265,8 @@ const Header = () => {
             </div>
           )}
 
+          <LanguageSelector />
+
           <button
             onClick={() => {
               if (isEditorMode) {
@@ -238,9 +294,9 @@ const Header = () => {
           </button>
           <a
             href="#cotizar"
-            className="inline-block bg-[#FFD700] text-[#000000] font-[600] text-[15px] py-[12px] px-[24px] rounded-[8px] transition-all duration-200 hover:brightness-115 shadow-[0_0_15px_rgba(255,215,0,0.3)]"
+            className="inline-block bg-[#FFD700] text-[#000000] font-[600] text-[15px] py-[12px] px-[24px] rounded-[8px] transition-all duration-200 hover:brightness-115 shadow-[0_0_15px_rgba(255,215,0,0.3)] whitespace-nowrap"
           >
-            Cotizar
+            {t('header.quote')}
           </a>
         </div>
       </header>

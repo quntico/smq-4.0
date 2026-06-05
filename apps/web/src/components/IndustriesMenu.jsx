@@ -1,176 +1,266 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { Wheat, Package, Layers, Recycle, HeartPulse, Bot, ChevronRight, HardHat, Zap } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext.jsx';
 
+const industriesData = [
+  {
+    key: 'reciclaje',
+    title: 'Reciclaje',
+    color: '#10B981',
+    Icon: Recycle,
+    desc: 'Tecnología líder para la economía circular y recuperación de plásticos.',
+    families: [
+      {
+        name: 'Sistemas de Recuperación',
+        links: [
+          { code: 'EXT', name: 'Líneas de Extrusión', desc: 'Monohusillo y doble husillo.', href: '/industria/reciclaje-y-plasticos#extrusion' },
+          { code: 'PEL', name: 'Sistemas de Pelletizado', desc: 'Corte bajo agua y anillo.', href: '/industria/reciclaje-y-plasticos#pelletizado' },
+          { code: 'WSH', name: 'Lavado y Secado', desc: 'Separación por densidad.', href: '/industria/reciclaje-y-plasticos#lavado' },
+        ],
+      }
+    ],
+  },
+  {
+    key: 'alimentos',
+    title: 'Alimentos',
+    color: '#F59E0B',
+    Icon: Wheat,
+    desc: 'Higiene óptima, precisión y control absoluto (Grado Alimentario).',
+    families: [
+      {
+        name: 'Procesamiento Alimentario',
+        links: [
+          { code: 'CHX', name: 'Procesamiento de Chocolate', desc: 'Templadoras y tanques.', href: '/industria/alimentos#chocolate' },
+          { code: 'CNF', name: 'Cocción y Confitería', desc: 'Caramelos duros y suaves.', href: '/industria/alimentos#confiteria' },
+          { code: 'MIX', name: 'Molienda e Ingredientes', desc: 'Mezcladores y dosificadores.', href: '/industria/alimentos#ingredientes' },
+        ],
+      }
+    ],
+  },
+  {
+    key: 'packaging',
+    title: 'Packaging',
+    color: '#FFD700',
+    Icon: Package,
+    desc: 'Velocidad y hermeticidad de empaque garantizada.',
+    families: [
+      {
+        name: 'Sistemas de Envasado',
+        links: [
+          { code: 'FLX', name: 'Empaques Flexibles', desc: 'Envasadoras Doypack y VFFS.', href: '/industria/packaging#empaques-flexibles' },
+          { code: 'RGD', name: 'Empaques Rígidos', desc: 'Líneas de llenado rotativo.', href: '/industria/packaging#empaques-rigidos' },
+          { code: 'LBL', name: 'Etiquetado Automático', desc: 'Aplicadores alta velocidad.', href: '/industria/packaging#etiquetado' },
+        ],
+      }
+    ],
+  },
+  {
+    key: 'construccion',
+    title: 'Construcción',
+    color: '#06B6D4',
+    Icon: HardHat,
+    desc: 'Robustez y consistencia para procesos de alta exigencia.',
+    families: [
+      {
+        name: 'Materiales y Procesamiento',
+        links: [
+          { code: 'WPC', name: 'Materiales Compuestos', desc: 'Extrusoras de madera plástica.', href: '/industria/construccion#materiales-compuestos' },
+          { code: 'AGG', name: 'Agregados Reciclados', desc: 'Trituradoras y molinos.', href: '/industria/construccion#materiales-reciclados' },
+        ],
+      }
+    ],
+  },
+  {
+    key: 'agroindustria',
+    title: 'Agroindustria',
+    color: '#8B5CF6',
+    Icon: Zap,
+    desc: 'Rendimiento en el campo y la planta de procesamiento.',
+    families: [
+      {
+        name: 'Sistemas Agrícolas',
+        links: [
+          { code: 'AGR', name: 'Procesamiento Agrícola', desc: 'Limpieza y manejo de granos.', href: '/industria/agroindustria#procesamiento-agricola' },
+          { code: 'FDB', name: 'Alimentos Balanceados', desc: 'Molienda y peletizado.', href: '/industria/agroindustria#alimentos-balanceados' },
+        ],
+      }
+    ],
+  },
+];
+
 const IndustriesMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
-  const [openSubMenus, setOpenSubMenus] = useState({});
-  const [isLargeScreen, setIsLargeScreen] = useState(false);
+  const [activeIndustry, setActiveIndustry] = useState('alimentos');
   const { cmsState } = useCMS();
-  
-  const headerHeight = cmsState?.settings?.headerHeight || 100;
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsLargeScreen(window.innerWidth >= 1024);
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const toggleSubMenu = (e, menuKey) => {
-    e.preventDefault();
-    setOpenSubMenus(prev => ({ ...prev, [menuKey]: !prev[menuKey] }));
-  };
+  const headerHeight = cmsState?.settings?.headerHeight || 80;
+  const active = industriesData.find(i => i.key === activeIndustry);
 
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          initial={{ opacity: 0, y: -10, x: "-50%" }}
-          animate={{ opacity: 1, y: 0, x: "-50%" }}
-          exit={{ opacity: 0, y: -10, x: "-50%" }}
-          transition={{ duration: 0.2, ease: 'easeOut' }}
-          className="fixed left-1/2 mt-0 w-[95vw] max-w-[1280px] backdrop-blur-[18px] bg-[rgba(10,10,10,0.82)] py-[28px] px-[42px] rounded-[18px] border border-white/[0.08] shadow-[0_16px_36px_rgba(0,0,0,0.3)] z-[999]"
-          style={{ 
+          initial={{ opacity: 0, y: -10, x: '-50%' }}
+          animate={{ opacity: 1, y: 0, x: '-50%' }}
+          exit={{ opacity: 0, y: -10, x: '-50%' }}
+          transition={{ duration: 0.18, ease: 'easeOut' }}
+          className="fixed flex overflow-hidden rounded-b-2xl border border-white/10 shadow-[0_24px_80px_rgba(0,0,0,0.7)] z-[999]"
+          style={{
             left: '50%',
-            top: `${headerHeight}px`
+            top: `${headerHeight}px`,
+            width: 'min(1240px, 96vw)',
+            maxHeight: '76vh',
+            backgroundColor: 'rgba(8,11,18,0.97)',
+            backdropFilter: 'blur(24px)',
           }}
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
         >
-          <div 
-            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-[28px] lg:gap-[32px] justify-center mx-auto"
-            style={isLargeScreen ? { gridTemplateColumns: 'repeat(5, minmax(150px, 210px))' } : {}}
-          >
-            {/* Columna 1 */}
-            <div className="flex flex-col">
-              <h3 className="text-white font-bold mb-4 text-[18px] tracking-wide">Reciclaje y Plásticos</h3>
-              <ul className="space-y-2">
-                <li>
-                  <button
-                    onClick={(e) => toggleSubMenu(e, 'extrusion')}
-                    className="flex items-center justify-between w-full text-left text-white/80 text-[14px] leading-[1.7] hover:text-[#FFD700] transition-colors duration-200 ease-in-out font-medium"
+          {/* ── LEFT: Industry Selector ── */}
+          <div className="w-[170px] shrink-0 border-r border-white/[0.07] bg-white/[0.015] flex flex-col py-4 px-2.5 gap-0.5 overflow-y-auto scrollbar-none">
+            <p className="text-[9px] font-black uppercase tracking-[0.25em] text-white/25 px-2 mb-2">
+              SECTORES SMQ
+            </p>
+            {industriesData.map(ind => {
+              const Icon = ind.Icon;
+              const isAct = activeIndustry === ind.key;
+              return (
+                <button
+                  key={ind.key}
+                  onMouseEnter={() => setActiveIndustry(ind.key)}
+                  className="flex items-center gap-2.5 px-2.5 py-2 rounded-xl text-left transition-all duration-150 border"
+                  style={{
+                    backgroundColor: isAct ? `${ind.color}12` : 'transparent',
+                    borderColor:     isAct ? `${ind.color}30` : 'transparent',
+                  }}
+                >
+                  <div
+                    className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 transition-all duration-150"
+                    style={{
+                      backgroundColor: isAct ? `${ind.color}25` : 'rgba(255,255,255,0.05)',
+                      color:           isAct ? ind.color : 'rgba(255,255,255,0.35)',
+                    }}
                   >
-                    <span>Extrusión</span>
-                    <svg className={`w-3.5 h-3.5 transition-transform duration-200 ${openSubMenus['extrusion'] ? 'rotate-180 text-[#FFD700]' : 'text-white/50'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-                  <AnimatePresence>
-                    {openSubMenus['extrusion'] && (
-                      <motion.ul
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.15 }}
-                        className="pl-3 mt-1.5 border-l border-white/10 space-y-1.5 overflow-hidden"
+                    <Icon size={14} />
+                  </div>
+                  <span
+                    className="text-[12.5px] font-semibold transition-colors duration-150 flex-1"
+                    style={{ color: isAct ? ind.color : 'rgba(255,255,255,0.6)' }}
+                  >
+                    {ind.title}
+                  </span>
+                  {isAct && (
+                    <ChevronRight size={11} style={{ color: ind.color }} className="shrink-0" />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* ── RIGHT: Families + Links ── */}
+          <div className="flex-1 overflow-y-auto">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeIndustry}
+                initial={{ opacity: 0, x: 12 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -8 }}
+                transition={{ duration: 0.13 }}
+                className="p-6"
+              >
+                {/* Header */}
+                <div className="flex items-center justify-between mb-5 pb-4 border-b border-white/[0.07]">
+                  <div className="flex items-center gap-3">
+                    <div
+                      className="w-1 h-9 rounded-full shrink-0"
+                      style={{ backgroundColor: active?.color }}
+                    />
+                    <div>
+                      <h2
+                        className="font-black text-[15px] tracking-wide"
+                        style={{ color: active?.color }}
                       >
-                        <li>
-                          <Link to="/extrusion" className="block text-white/60 text-[13px] hover:text-white transition-colors duration-150">
-                            Extrusión
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to="/coextrusion" className="block text-white/60 text-[13px] hover:text-white transition-colors duration-150">
-                            Coextrusión
-                          </Link>
-                        </li>
-                      </motion.ul>
-                    )}
-                  </AnimatePresence>
-                </li>
-                <li>
-                  <Link to="/pelletizado" className="block text-white/80 text-[14px] leading-[1.7] hover:text-[#FFD700] transition-colors duration-200 ease-in-out font-medium">
-                    Pelletizado
+                        {active?.title}
+                      </h2>
+                      <p className="text-white/40 text-[11.5px] mt-0.5">{active?.desc}</p>
+                    </div>
+                  </div>
+                  {/* Link to main industry page */}
+                  <Link 
+                    to={`/industria/${activeIndustry === 'reciclaje' ? 'reciclaje-y-plasticos' : activeIndustry}`}
+                    className="px-4 py-1.5 rounded-full border border-white/10 text-[10px] font-bold tracking-widest uppercase hover:bg-white/10 transition-colors"
+                    style={{ color: active?.color }}
+                  >
+                    Ver Sector Completo
                   </Link>
-                </li>
-                <li>
-                  <Link to="/lavado" className="block text-white/80 text-[14px] leading-[1.7] hover:text-[#FFD700] transition-colors duration-200 ease-in-out font-medium">
-                    Lavado de plástico
-                  </Link>
-                </li>
-              </ul>
-            </div>
+                </div>
 
-            {/* Columna 2 */}
-            <div className="flex flex-col">
-              <h3 className="text-white font-bold mb-4 text-[18px] tracking-wide">Alimentos</h3>
-              <ul className="space-y-2">
-                <li>
-                  <a href="#chocolate" className="block text-white/80 text-[14px] leading-[1.7] hover:text-[#FFD700] transition-colors duration-200 ease-in-out font-medium">
-                    Chocolate
-                  </a>
-                </li>
-                <li>
-                  <a href="#confiteria" className="block text-white/80 text-[14px] leading-[1.7] hover:text-[#FFD700] transition-colors duration-200 ease-in-out font-medium">
-                    Confitería
-                  </a>
-                </li>
-                <li>
-                  <a href="#ingredientes" className="block text-white/80 text-[14px] leading-[1.7] hover:text-[#FFD700] transition-colors duration-200 ease-in-out font-medium">
-                    Ingredientes industriales
-                  </a>
-                </li>
-              </ul>
-            </div>
+                {/* Families grid */}
+                <div
+                  className="grid gap-x-7 gap-y-6"
+                  style={{
+                    gridTemplateColumns: active?.families.length >= 3
+                      ? 'repeat(3, 1fr)'
+                      : active?.families.length === 2
+                        ? 'repeat(2, 1fr)'
+                        : '1fr',
+                  }}
+                >
+                  {active?.families.map(family => (
+                    <div key={family.name}>
+                      {/* Family label */}
+                      <div className="flex items-center gap-2 mb-3">
+                        <div
+                          className="w-3 h-[2px] rounded-full"
+                          style={{ backgroundColor: active?.color }}
+                        />
+                        <span className="text-[9.5px] font-black uppercase tracking-[0.22em] text-white/35">
+                          {family.name}
+                        </span>
+                      </div>
 
-            {/* Columna 3 */}
-            <div className="flex flex-col">
-              <h3 className="text-white font-bold mb-4 text-[18px] tracking-wide">Packaging</h3>
-              <ul className="space-y-2">
-                <li>
-                  <a href="#empaques-flexibles" className="block text-white/80 text-[14px] leading-[1.7] hover:text-[#FFD700] transition-colors duration-200 ease-in-out font-medium">
-                    Empaques flexibles
-                  </a>
-                </li>
-                <li>
-                  <a href="#empaques-rigidos" className="block text-white/80 text-[14px] leading-[1.7] hover:text-[#FFD700] transition-colors duration-200 ease-in-out font-medium">
-                    Empaques rígidos
-                  </a>
-                </li>
-                <li>
-                  <a href="#etiquetado" className="block text-white/80 text-[14px] leading-[1.7] hover:text-[#FFD700] transition-colors duration-200 ease-in-out font-medium">
-                    Etiquetado
-                  </a>
-                </li>
-              </ul>
-            </div>
+                      {/* Links list */}
+                      <div className="space-y-1.5">
+                        {family.links.map(link => (
+                          <Link
+                            key={link.href}
+                            to={link.href}
+                            className="flex items-start gap-2.5 p-2 rounded-lg border border-transparent hover:border-white/10 hover:bg-white/[0.04] transition-all duration-150 group"
+                          >
+                            {/* Code badge */}
+                            <span
+                              className="mt-0.5 px-1.5 py-0.5 rounded text-[9px] font-black tracking-wider shrink-0 font-mono"
+                              style={{
+                                backgroundColor: `${active?.color}18`,
+                                color: active?.color,
+                              }}
+                            >
+                              {link.code}
+                            </span>
 
-            {/* Columna 4 */}
-            <div className="flex flex-col">
-              <h3 className="text-white font-bold mb-4 text-[18px] tracking-wide">Construcción</h3>
-              <ul className="space-y-2">
-                <li>
-                  <a href="#materiales-compuestos" className="block text-white/80 text-[14px] leading-[1.7] hover:text-[#FFD700] transition-colors duration-200 ease-in-out font-medium">
-                    Materiales compuestos
-                  </a>
-                </li>
-                <li>
-                  <a href="#materiales-reciclados" className="block text-white/80 text-[14px] leading-[1.7] hover:text-[#FFD700] transition-colors duration-200 ease-in-out font-medium">
-                    Materiales reciclados
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            {/* Columna 5 */}
-            <div className="flex flex-col">
-              <h3 className="text-white font-bold mb-4 text-[18px] tracking-wide">Agroindustria</h3>
-              <ul className="space-y-2">
-                <li>
-                  <a href="#procesamiento-agricola" className="block text-white/80 text-[14px] leading-[1.7] hover:text-[#FFD700] transition-colors duration-200 ease-in-out font-medium">
-                    Procesamiento agrícola
-                  </a>
-                </li>
-                <li>
-                  <a href="#alimentos-balanceados" className="block text-white/80 text-[14px] leading-[1.7] hover:text-[#FFD700] transition-colors duration-200 ease-in-out font-medium">
-                    Alimentos balanceados
-                  </a>
-                </li>
-              </ul>
-            </div>
+                            {/* Name + desc */}
+                            <div className="flex-1 min-w-0">
+                              <span
+                                className="block text-[12.5px] font-semibold text-white/80 group-hover:text-white transition-colors leading-snug"
+                                onMouseEnter={(e) => { e.currentTarget.style.color = active?.color ?? '#fff'; }}
+                                onMouseLeave={(e) => { e.currentTarget.style.color = ''; }}
+                              >
+                                {link.name}
+                              </span>
+                              {link.desc && (
+                                <span className="block text-[10.5px] text-white/35 leading-snug">
+                                  {link.desc}
+                                </span>
+                              )}
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </motion.div>
       )}

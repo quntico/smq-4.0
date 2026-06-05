@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
+import { getOptimizedImageUrl } from '@/lib/utils.js';
 
 // Stat Counter with Ease-Out Deceleration
 const StatCounter = ({ target, suffix = '', duration = 2000, trigger = 0 }) => {
@@ -359,9 +360,10 @@ const NosotrosSection = () => {
 
             {/* Static Image */}
             <img 
-              src={collageImage} 
+              src={getOptimizedImageUrl(collageImage, 800)} 
               alt="SMQ High Tech Collage" 
               className={`w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-all duration-700 ${isPlayingVideo ? 'opacity-0 scale-95 pointer-events-none' : 'opacity-100'}`}
+              loading="lazy"
             />
             
             {/* Hover to play hint overlay (Premium micro-animation) */}
@@ -456,9 +458,10 @@ const NosotrosSection = () => {
           >
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 pointer-events-none" />
             <img 
-              src="/nosotros_planta_moderna.png" 
+              src={getOptimizedImageUrl("/nosotros_planta_moderna.png", 800)} 
               alt="Modern Industrial Plant Aerial View" 
               className="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-transform duration-700"
+              loading="lazy"
             />
             <div className="absolute bottom-4 left-4 z-20 bg-black/80 backdrop-blur-md border border-white/15 px-3.5 py-1.5 rounded-lg flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#F5C400]"></span>
@@ -786,10 +789,11 @@ const NosotrosSection = () => {
                           }}
                         />
                         <img 
-                          src={cardImage} 
+                          src={getOptimizedImageUrl(cardImage, 600)} 
                           alt={card.title} 
                           className="w-full h-full object-cover transition-all duration-300" 
                           style={{ opacity: localOpacity / 100 }}
+                          loading="lazy"
                         />
                       </div>
 

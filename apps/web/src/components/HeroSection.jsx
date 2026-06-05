@@ -4,6 +4,8 @@ import { ChevronLeft, ChevronRight, Plus, Trash2, Image as ImageIcon } from 'luc
 
 import { useCMS } from '@/context/CMSContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
+import { getOptimizedImageUrl } from '@/lib/utils.js';
+import { useLanguage } from '@/context/LanguageContext.jsx';
 
 const VideoBackground = ({ src, isActive, poster, onVideoEnded }) => {
   const videoRef = useRef(null);
@@ -34,24 +36,21 @@ const VideoBackground = ({ src, isActive, poster, onVideoEnded }) => {
     }
   };
 
-  // Removemos el seek #t=0.001 para evitar stutters y freezes al iniciar en Chrome
   const optimizedSrc = src;
   const defaultPoster = 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1920&q=50';
   const posterUrl = poster || defaultPoster;
 
   return (
     <div className="relative w-full h-full bg-[#0a0f14] overflow-hidden">
-      {/* 1. Miniatura Estática de Precarga (Sin filtro de brillo estático para que responda 100% al slider de opacidad general) */}
       <div 
         className={`absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out ${
           isLoaded ? 'opacity-0 scale-95 blur-md pointer-events-none' : 'opacity-100 scale-100 blur-0'
         }`}
         style={{ 
-          backgroundImage: `url(${posterUrl})`
+          backgroundImage: `url(${getOptimizedImageUrl(posterUrl, 1200)})`
         }}
       />
 
-      {/* 2. Video de Fondo */}
       <video
         ref={videoRef}
         muted
@@ -66,7 +65,6 @@ const VideoBackground = ({ src, isActive, poster, onVideoEnded }) => {
         src={optimizedSrc}
       />
 
-      {/* 3. Indicador de Carga Optimizado (Pill de Esquina) */}
       {!isLoaded && (
         <div className="absolute bottom-6 right-6 z-10 flex items-center gap-2 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 select-none animate-pulse">
           <div className="w-3.5 h-3.5 border-2 border-[#FFD700]/30 border-t-[#FFD700] rounded-full animate-spin"></div>
@@ -77,15 +75,13 @@ const VideoBackground = ({ src, isActive, poster, onVideoEnded }) => {
   );
 };
 
-
 const HeroSection = () => {
   const { cmsState, isEditorMode, updatePageModule, syncToCloud } = useCMS();
+  const { t, language } = useLanguage();
 
-  // Extraemos datos del CMS
   const homePage = cmsState.pages.find(p => p.id === 'home');
   const heroModule = homePage?.modules.find(m => m.id === 'hero-1') || {};
 
-  // Retro-compatibility handling
   const legacyData = heroModule.data || {};
   const defaultSlides = [
     {
@@ -115,12 +111,23 @@ const HeroSection = () => {
     return () => clearTimeout(timer);
   }, [isEditorMode]);
 
-  // Ensure currentSlideIdx is valid
   const activeIndex = Math.min(currentSlideIdx, slides.length - 1 < 0 ? 0 : slides.length - 1);
   const activeSlide = slides[activeIndex];
 
-  const title1Lines = ((activeSlide && activeSlide.title1) || '').split('\n').filter(line => line.trim() !== '');
-  const title2Lines = ((activeSlide && activeSlide.title2) || '').split('\n').filter(line => line.trim() !== '');
+  const displayTitle1 = activeSlide?.title1 === 'Soluciones Industriales' || activeSlide?.title1 === 'INGENIERÍA SIN LÍMITES' 
+    ? t('hero.title1') 
+    : activeSlide?.title1;
+    
+  const displayTitle2 = activeSlide?.title2 === 'de Alta Ingeniería' 
+    ? t('hero.title2') 
+    : activeSlide?.title2;
+    
+  const displaySubtitle = activeSlide?.subtitle === 'Maquinaria avanzada para reciclaje, procesamiento de alimentos y automatización industrial.' || activeSlide?.subtitle === 'Diseñamos y fabricamos maquinaria de élite para optimizar tus procesos productivos.'
+    ? t('hero.subtitle') 
+    : activeSlide?.subtitle;
+
+  const title1Lines = (displayTitle1 || '').split('\n').filter(line => line.trim() !== '');
+  const title2Lines = (displayTitle2 || '').split('\n').filter(line => line.trim() !== '');
 
   const slideDuration = heroModule.data?.slideDuration ?? 3;
 
@@ -490,7 +497,7 @@ const HeroSection = () => {
               <div
                 className="w-full h-full"
                 style={{
-                  backgroundImage: `url(${bgMedia})`,
+                  backgroundImage: `url(${getOptimizedImageUrl(bgMedia, 1400)})`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center'
                 }}
@@ -589,7 +596,7 @@ const HeroSection = () => {
               suppressContentEditableWarning={true}
               onBlur={(e) => handleSlideChange('subtitle', e.target.innerText)}
             >
-              {activeSlide.subtitle}
+              {displaySubtitle}
             </motion.p>
 
 

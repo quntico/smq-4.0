@@ -1,14 +1,15 @@
 
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const TechnologyDropdown = ({ isOpen, onMouseEnter, onMouseLeave }) => {
   const items = [
-    { label: 'Automatización PLC', href: '#plc' },
-    { label: 'Sistemas inteligentes', href: '#sistemas-inteligentes' },
-    { label: 'Control industrial', href: '#control' },
-    { label: 'Monitoreo remoto', href: '#monitoreo' },
-    { label: 'IA industrial', href: '#ia' }
+    { label: 'Automatización PLC', href: '/#plc' },
+    { label: 'Sistemas inteligentes', href: '/#sistemas-inteligentes' },
+    { label: 'Control industrial', href: '/#control' },
+    { label: 'Monitoreo remoto', href: '/#monitoreo' },
+    { label: 'IA industrial', href: '/#ia' }
   ];
 
   return (
@@ -26,12 +27,12 @@ const TechnologyDropdown = ({ isOpen, onMouseEnter, onMouseLeave }) => {
           <ul className="flex flex-col">
             {items.map((item, index) => (
               <li key={index}>
-                <a
-                  href={item.href}
+                <Link
+                  to={item.href}
                   className="block px-[20px] py-[12px] text-[14px] text-[#E5E7EB] hover:bg-[rgba(10,132,255,0.1)] hover:text-[#0A84FF] transition-all duration-150"
                 >
                   {item.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

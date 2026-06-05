@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const MegaMenuSolutions = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
@@ -19,19 +20,19 @@ const MegaMenuSolutions = ({ isOpen, onClose }) => {
           <h3 className="text-[#FFD700] font-semibold mb-4 text-sm uppercase tracking-wider">Plantas</h3>
           <ul className="space-y-3">
             <li>
-              <a href="#plantas-reciclaje" className="text-white/80 hover:text-[#FFD700] hover:font-[600] transition-all duration-200 text-sm block" onClick={onClose}>
+              <Link to="/solucion/plantas-reciclaje" className="text-white/80 hover:text-[#FFD700] hover:font-[600] transition-all duration-200 text-sm block" onClick={onClose}>
                 Plantas de reciclaje de plástico
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#plantas-extrusion" className="text-white/80 hover:text-[#FFD700] hover:font-[600] transition-all duration-200 text-sm block" onClick={onClose}>
+              <Link to="/solucion/plantas-extrusion" className="text-white/80 hover:text-[#FFD700] hover:font-[600] transition-all duration-200 text-sm block" onClick={onClose}>
                 Plantas de extrusión industrial
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#plantas-alimentos" className="text-white/80 hover:text-[#FFD700] hover:font-[600] transition-all duration-200 text-sm block" onClick={onClose}>
+              <Link to="/solucion/plantas-alimentos" className="text-white/80 hover:text-[#FFD700] hover:font-[600] transition-all duration-200 text-sm block" onClick={onClose}>
                 Plantas de procesamiento de alimentos
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -39,19 +40,19 @@ const MegaMenuSolutions = ({ isOpen, onClose }) => {
           <h3 className="text-[#FFD700] font-semibold mb-4 text-sm uppercase tracking-wider">Automatización</h3>
           <ul className="space-y-3">
             <li>
-              <a href="#automatizacion-industrial" className="text-white/80 hover:text-[#FFD700] hover:font-[600] transition-all duration-200 text-sm block" onClick={onClose}>
+              <Link to="/solucion/automatizacion" className="text-white/80 hover:text-[#FFD700] hover:font-[600] transition-all duration-200 text-sm block" onClick={onClose}>
                 Automatización industrial
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#integracion-maquinaria" className="text-white/80 hover:text-[#FFD700] hover:font-[600] transition-all duration-200 text-sm block" onClick={onClose}>
+              <Link to="/solucion/automatizacion" className="text-white/80 hover:text-[#FFD700] hover:font-[600] transition-all duration-200 text-sm block" onClick={onClose}>
                 Integración de maquinaria
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#ingenieria-procesos" className="text-white/80 hover:text-[#FFD700] hover:font-[600] transition-all duration-200 text-sm block" onClick={onClose}>
+              <Link to="/solucion/ingenieria" className="text-white/80 hover:text-[#FFD700] hover:font-[600] transition-all duration-200 text-sm block" onClick={onClose}>
                 Ingeniería de procesos
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

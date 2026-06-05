@@ -53,21 +53,23 @@ const DynamicPage = () => {
                 <title>{pageData.title} | SMQ Industrial</title>
             </Helmet>
             <div className="min-h-screen bg-background pt-[100px] flex flex-col">
-                <main className="flex-1">
-                    {pageData.modules && pageData.modules.length > 0 ? (
-                        pageData.modules.map((mod, index) => (
-                            <DynamicModuleRenderer key={mod.id || index} module={mod} pageId={pageData.id} />
-                        ))
-                    ) : (
-                        <div className="flex items-center justify-center min-h-[50vh] text-center px-4">
-                            <div>
-                                <h1 className="text-3xl font-bold text-white mb-2">{pageData.title}</h1>
-                                <p className="text-white/50">Esta página aún no tiene módulos. Abre el Panel CMS para agregar contenido.</p>
+                <div className="md:pl-[76px] transition-all duration-300">
+                    <main className="flex-1">
+                        {pageData.modules && pageData.modules.length > 0 ? (
+                            pageData.modules.map((mod, index) => (
+                                <DynamicModuleRenderer key={mod.id || index} module={mod} pageId={pageData.id} />
+                            ))
+                        ) : (
+                            <div className="flex items-center justify-center min-h-[50vh] text-center px-4">
+                                <div>
+                                    <h1 className="text-3xl font-bold text-white mb-2">{pageData.title}</h1>
+                                    <p className="text-white/50">Esta página aún no tiene módulos. Abre el Panel CMS para agregar contenido.</p>
+                                </div>
                             </div>
-                        </div>
-                    )}
-                </main>
-                <Footer />
+                        )}
+                    </main>
+                    <Footer />
+                </div>
             </div>
         </>
     );

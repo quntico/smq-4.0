@@ -18,6 +18,16 @@ const AdminModal = ({ isOpen, onClose }) => {
     const [isMinimized, setIsMinimized] = useState(false);
 
     const { cmsState, updateSettings, isEditorMode, setIsEditorMode } = useCMS();
+
+    React.useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape' && isOpen) {
+                handleClose();
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [isOpen]);
     const { 
         logoSize, 
         headerHeight, 
@@ -160,7 +170,7 @@ const AdminModal = ({ isOpen, onClose }) => {
                             initial={{ opacity: 0, scale: 0.95, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            className={`relative w-full ${!isAuthenticated ? 'max-w-[420px] bg-black/50 border-t border-l border-white/20 border-b border-r border-white/5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.3),0_25px_50px_-12px_rgba(0,0,0,1)] min-h-[auto]' : 'max-w-4xl bg-[rgba(10,15,20,0.50)] border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] min-h-[500px]'} backdrop-blur-[30px] rounded-[24px] flex overflow-hidden pointer-events-auto`}
+                            className={`relative w-full ${!isAuthenticated ? 'max-w-[420px] bg-black/50 border-t border-l border-white/20 border-b border-r border-white/5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.3),0_25px_50px_-12px_rgba(0,0,0,1)] min-h-[auto]' : 'max-w-4xl bg-[rgba(10,15,20,0.50)] border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] min-h-[500px] max-h-[90vh] h-[680px]'} backdrop-blur-[30px] rounded-[24px] flex overflow-hidden pointer-events-auto`}
                         >
                             {!isAuthenticated ? (
                                 <div className="w-full flex flex-col items-center justify-center p-10 py-12 m-auto">
@@ -213,17 +223,27 @@ const AdminModal = ({ isOpen, onClose }) => {
                                     </div>
                                 </div>
                             ) : (
-                                <div className="flex w-full">
+                                <div className="flex w-full relative">
+                                    {/* Control Buttons (Pinned to top-right of the modal window so they don't scroll) */}
+                                    <div className="absolute top-6 right-6 flex items-center gap-2 z-30">
+                                        <button onClick={() => setIsMinimized(true)} className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-white/70 hover:text-white cursor-pointer" title="Minimizar para previsualizar">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                        </button>
+                                        <button onClick={handleClose} className="p-2 bg-white/5 hover:bg-red-500/20 rounded-full transition-colors text-white/70 hover:text-red-400 cursor-pointer" title="Cerrar y Salir CMS">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                        </button>
+                                    </div>
+
                                     {/* Sidebar Panel */}
                                     <div className="w-64 bg-black/40 border-r border-white/10 p-6 flex flex-col">
                                         <h2 className="text-xl font-bold text-white mb-8 border-b border-white/10 pb-4">Panel CMS</h2>
                                         <nav className="flex flex-col gap-2 flex-grow">
-                                            <button onClick={() => setActiveTab('ajustes')} className={`text-left px-4 py-3 rounded-lg transition-colors ${activeTab === 'ajustes' ? 'bg-[#FFD700]/20 text-[#FFD700] font-medium' : 'text-white/70 hover:bg-white/5 hover:text-white'}`}>⚙️ Ajustes de Marca</button>
-                                            <button onClick={() => setActiveTab('menus')} className={`text-left px-4 py-3 rounded-lg transition-colors ${activeTab === 'menus' ? 'bg-[#FFD700]/20 text-[#FFD700] font-medium' : 'text-white/70 hover:bg-white/5 hover:text-white'}`}>📋 Admin de Menús</button>
-                                            <button onClick={() => setActiveTab('paginas')} className={`text-left px-4 py-3 rounded-lg transition-colors ${activeTab === 'paginas' ? 'bg-[#FFD700]/20 text-[#FFD700] font-medium' : 'text-white/70 hover:bg-white/5 hover:text-white'}`}>📄 Admin de Páginas</button>
+                                            <button onClick={() => setActiveTab('ajustes')} className={`text-left px-4 py-3 rounded-lg transition-colors cursor-pointer ${activeTab === 'ajustes' ? 'bg-[#FFD700]/20 text-[#FFD700] font-medium' : 'text-white/70 hover:bg-white/5 hover:text-white'}`}>⚙️ Ajustes de Marca</button>
+                                            <button onClick={() => setActiveTab('menus')} className={`text-left px-4 py-3 rounded-lg transition-colors cursor-pointer ${activeTab === 'menus' ? 'bg-[#FFD700]/20 text-[#FFD700] font-medium' : 'text-white/70 hover:bg-white/5 hover:text-white'}`}>📋 Admin de Menús</button>
+                                            <button onClick={() => setActiveTab('paginas')} className={`text-left px-4 py-3 rounded-lg transition-colors cursor-pointer ${activeTab === 'paginas' ? 'bg-[#FFD700]/20 text-[#FFD700] font-medium' : 'text-white/70 hover:bg-white/5 hover:text-white'}`}>📄 Admin de Páginas</button>
                                         </nav>
 
-                                        <button onClick={toggleEditorMode} className={`mt-auto w-full flex items-center justify-between p-3.5 rounded-xl transition-all ${isEditorMode ? 'bg-blue-500/10 border border-blue-500/30' : 'bg-white/5 border border-white/10 hover:bg-white/10'}`}>
+                                        <button onClick={toggleEditorMode} className={`mt-auto w-full flex items-center justify-between p-3.5 rounded-xl transition-all cursor-pointer ${isEditorMode ? 'bg-blue-500/10 border border-blue-500/30' : 'bg-white/5 border border-white/10 hover:bg-white/10'}`}>
                                             <div className="flex items-center gap-2">
                                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={isEditorMode ? "#60A5FA" : "currentColor"} className={isEditorMode ? "" : "text-white/70"} strokeWidth="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
                                                 <span className={`text-sm font-semibold ${isEditorMode ? 'text-blue-400' : 'text-white/70'}`}>Modo Editor</span>
@@ -239,14 +259,6 @@ const AdminModal = ({ isOpen, onClose }) => {
 
                                     {/* Main Content Area */}
                                     <div className="flex-1 p-8 overflow-y-auto relative">
-                                        <div className="absolute top-6 right-6 flex items-center gap-2 z-10">
-                                            <button onClick={() => setIsMinimized(true)} className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-white/70 hover:text-white" title="Minimizar para previsualizar">
-                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                                            </button>
-                                            <button onClick={handleClose} className="p-2 bg-white/5 hover:bg-red-500/20 rounded-full transition-colors text-white/70 hover:text-red-400" title="Cerrar y Salir CMS">
-                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                                            </button>
-                                        </div>
 
                                         <AnimatePresence mode="wait">
                                             {activeTab === 'ajustes' && (

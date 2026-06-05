@@ -34,24 +34,29 @@ const NavMenu = () => {
 
   const closeMenu = () => setActiveMenu(null);
 
-  const NavItem = ({ label, hasDropdown, menuName, href }) => (
-    <div 
-      className="relative h-full flex items-center"
-      onMouseEnter={() => hasDropdown && handleMouseEnter(menuName)}
-      onMouseLeave={handleMouseLeave}
-    >
-      <a
-        href={href || `#${label.toLowerCase()}`}
-        className={`flex items-center gap-1 text-sm font-medium transition-colors duration-200 px-2 py-2 ${
-          activeMenu === menuName ? 'text-[#0A84FF]' : 'text-white hover:text-[#0A84FF]'
-        }`}
-        onClick={(e) => {
-          if (!hasDropdown) closeMenu();
-        }}
+  const NavItem = ({ label, hasDropdown, menuName, href }) => {
+    const cleanAnchor = label.toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+
+    return (
+      <div 
+        className="relative h-full flex items-center"
+        onMouseEnter={() => hasDropdown && handleMouseEnter(menuName)}
+        onMouseLeave={handleMouseLeave}
       >
-        {label}
-        {hasDropdown && <ChevronDown size={14} className={`transition-transform duration-200 ${activeMenu === menuName ? 'rotate-180' : ''}`} />}
-      </a>
+        <a
+          href={href || `#${cleanAnchor}`}
+          className={`flex items-center gap-1 text-sm font-medium transition-colors duration-200 px-2 py-2 ${
+            activeMenu === menuName ? 'text-[#0A84FF]' : 'text-white hover:text-[#0A84FF]'
+          }`}
+          onClick={() => {
+            closeMenu();
+          }}
+        >
+          {label}
+          {hasDropdown && <ChevronDown size={14} className={`transition-transform duration-200 ${activeMenu === menuName ? 'rotate-180' : ''}`} />}
+        </a>
       
       {menuName === 'soluciones' && <MegaMenuSolutions isOpen={activeMenu === 'soluciones'} onClose={closeMenu} />}
       {menuName === 'industrias' && <MegaMenuIndustries isOpen={activeMenu === 'industrias'} onClose={closeMenu} />}
@@ -60,7 +65,8 @@ const NavMenu = () => {
       {menuName === 'recursos' && <DropdownMenu isOpen={activeMenu === 'recursos'} items={recursosItems} onClose={closeMenu} />}
       {menuName === 'nosotros' && <DropdownMenu isOpen={activeMenu === 'nosotros'} items={nosotrosItems} onClose={closeMenu} />}
     </div>
-  );
+    );
+  };
 
   return (
     <nav ref={navRef} className="hidden lg:flex items-center h-full space-x-1 xl:space-x-4">

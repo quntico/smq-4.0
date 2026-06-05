@@ -10,7 +10,7 @@ const initialCMSState = {
         logoSize: 75,
         headerHeight: 100,
         headerOpacity: 60,
-        appVersion: '6.0',
+        appVersion: '6.67',
         globalImageSharpness: 100,
         globalFilterColor: '#000000',
         globalFilterOpacity: 75,

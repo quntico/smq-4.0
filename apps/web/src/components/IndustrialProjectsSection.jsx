@@ -4,6 +4,7 @@ import { ArrowRight, X, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useCMS } from '@/context/CMSContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
+import { getOptimizedImageUrl } from '@/lib/utils.js';
 
 const defaultProjects = [
   {
@@ -243,9 +244,10 @@ const IndustrialProjectsSection = () => {
               className="group relative rounded-xl overflow-hidden glass-card aspect-[4/5] border border-transparent hover:border-primary/50 transition-colors duration-300 cursor-pointer"
             >
               <img 
-                src={project.image} 
+                src={getOptimizedImageUrl(project.image, 600)} 
                 alt={project.title} 
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent opacity-80 group-hover:from-primary/80 group-hover:via-background/80 transition-all duration-500"></div>
               
@@ -378,9 +380,10 @@ const IndustrialProjectsSection = () => {
                 {/* Active Tab Image Frame */}
                 <div className="relative aspect-video md:aspect-[4/3] rounded-xl overflow-hidden border border-white/10 bg-[#03060a] shadow-inner group mt-[54px]">
                   <img 
-                    src={activeTab === 1 ? selectedProject.image : (selectedProject.image2 || selectedProject.image)} 
+                    src={getOptimizedImageUrl(activeTab === 1 ? selectedProject.image : (selectedProject.image2 || selectedProject.image), 800)} 
                     alt={selectedProject.title} 
                     className="w-full h-full object-cover transition-all duration-500"
+                    loading="lazy"
                   />
                   
                   {/* Inside Modal Image Upload Overlay */}
@@ -397,7 +400,7 @@ const IndustrialProjectsSection = () => {
                   {/* Overlay tags */}
                   <div className="absolute top-3 left-3 bg-black/90 border border-white/15 px-2 py-0.5 rounded-md flex items-center gap-1.5 shadow-md">
                     <span className="w-1 h-1 rounded-full bg-[#F5C400] animate-pulse"></span>
-                    <span className="text-[7.8px] text-white/90 font-mono tracking-wider">PROJECT_SYS_V6.0</span>
+                    <span className="text-[7.8px] text-white/90 font-mono tracking-wider">PROJECT_SYS_V6.5</span>
                   </div>
                 </div>
 

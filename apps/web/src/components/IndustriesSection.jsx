@@ -5,10 +5,15 @@ import { AlignLeft, AlignCenter, AlignRight, AlignJustify, Image as ImageIcon, M
 import { useCMS } from '@/context/CMSContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
 
-const getOptimizedImageUrl = (url) => {
-  if (!url) return '';
+const getOptimizedImageUrl = (url, width = 600) => {
+  if (!url || typeof url !== 'string') return url || '';
+  if (url.includes('supabase.co/storage/v1/object/')) {
+    const optimized = url.replace('/storage/v1/object/', '/storage/v1/render/image/');
+    const separator = optimized.includes('?') ? '&' : '?';
+    return `${optimized}${separator}width=${width}&quality=80&format=webp`;
+  }
   if (url.includes('unsplash.com') && !url.includes('?')) {
-    return `${url}?auto=format&fit=crop&w=600&q=80`;
+    return `${url}?auto=format&fit=crop&w=${width}&q=80`;
   }
   return url;
 };
