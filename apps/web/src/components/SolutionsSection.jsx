@@ -1,49 +1,88 @@
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Lightbulb, Wrench, Shield, AlignLeft, AlignCenter, AlignRight, AlignJustify, Maximize, Minimize } from 'lucide-react';
+import { 
+  Lightbulb, Wrench, Shield, AlignLeft, AlignCenter, AlignRight, AlignJustify, Maximize, Minimize,
+  Scissors, Droplets, Layers, Cpu, Eye, Factory, Zap
+} from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useCMS } from '@/context/CMSContext.jsx';
 
 const defaultSolutions = [
   {
     id: 1,
-    iconName: 'Lightbulb',
-    title: 'Consultoría Industrial',
-    description: 'Análisis profundo de tus necesidades de producción y diseño de soluciones personalizadas que optimicen tus procesos industriales.',
+    iconName: 'Scissors',
+    title: 'TRITURACIÓN INDUSTRIAL',
+    description: 'Equipos diseñados para reducción eficiente de tamaño en plásticos, residuos sólidos urbanos, metales, materiales especiales y procesos de valorización industrial.',
     benefits: [
-      'Evaluación técnica completa',
-      'Diseño de procesos optimizados',
-      'Análisis de retorno de inversión',
-      'Recomendaciones de tecnología',
+      'Trituración de alto torque',
+      'Cuchillas de alta resistencia',
+      'Configuraciones mono y doble rotor',
+      'Control inteligente de sobrecarga'
     ],
   },
   {
     id: 2,
-    iconName: 'Wrench',
-    title: 'Instalación y Puesta en Marcha',
-    description: 'Servicio integral de instalación, configuración y arranque de maquinaria con capacitación completa para tu equipo operativo.',
+    iconName: 'Droplets',
+    title: 'LAVADO INDUSTRIAL',
+    description: 'Sistemas de limpieza, separación y acondicionamiento de materiales para reciclaje y recuperación de alto valor.',
     benefits: [
-      'Instalación profesional certificada',
-      'Calibración y ajuste fino',
-      'Capacitación técnica especializada',
-      'Documentación completa',
+      'Eliminación de contaminantes',
+      'Secado dinámico de alta velocidad',
+      'Clarificación y recirculación de agua',
+      'Acondicionamiento térmico'
     ],
   },
   {
     id: 3,
-    iconName: 'Shield',
-    title: 'Mantenimiento Preventivo',
-    description: 'Programas de mantenimiento diseñados para maximizar la vida útil de tu maquinaria y minimizar tiempos de inactividad.',
+    iconName: 'Layers',
+    title: 'PELETIZADO',
+    description: 'Líneas completas para transformación de materiales reciclados en pellets industriales con alta estabilidad operacional.',
     benefits: [
-      'Inspecciones programadas',
-      'Reemplazo de componentes críticos',
-      'Soporte técnico 24/7',
-      'Garantía extendida disponible',
+      'Extrusión de alto rendimiento',
+      'Corte en cabeza bajo agua',
+      'Doble desgasificación activa',
+      'Pellets homogéneos de alta densidad'
+    ],
+  },
+  {
+    id: 4,
+    iconName: 'Zap',
+    title: 'WASTE TO ENERGY',
+    description: 'Tecnologías orientadas a recuperación energética, RDF, SRF, valorización térmica y aprovechamiento integral de residuos.',
+    benefits: [
+      'Generación de combustible alterno',
+      'Sistemas de dosificación continua',
+      'Control de emisiones integrado',
+      'Maximización de eficiencia térmica'
+    ],
+  },
+  {
+    id: 5,
+    iconName: 'Eye',
+    title: 'SEPARACIÓN INTELIGENTE',
+    description: 'Integración de tecnologías ópticas, magnéticas, IA industrial y automatización avanzada.',
+    benefits: [
+      'Separadores ópticos NIR de alta velocidad',
+      'Clasificación robótica por IA',
+      'Separación por corrientes de Foucault',
+      'Detección multiespectral'
+    ],
+  },
+  {
+    id: 6,
+    iconName: 'Factory',
+    title: 'PLANTAS LLAVE EN MANO',
+    description: 'Ingeniería, fabricación, instalación, puesta en marcha y acompañamiento técnico integral.',
+    benefits: [
+      'Ingeniería conceptual y a detalle',
+      'Fabricación personalizada',
+      'Puesta en marcha y puesta a punto',
+      'Soporte postventa y refacciones'
     ],
   },
 ];
 
-const iconMap = { Lightbulb, Wrench, Shield };
+const iconMap = { Lightbulb, Wrench, Shield, Scissors, Droplets, Layers, Zap, Eye, Factory };
 
 const ToolbarButton = ({ icon: Icon, active, onClick, title, loading }) => (
   <button
@@ -111,8 +150,8 @@ const SolutionsSection = () => {
   const pageData = cmsState.pages.find(p => p.id === 'home');
   const moduleData = pageData?.modules?.find(m => m.id === 'solutions');
   const activeSolutions = moduleData?.data?.items || defaultSolutions;
-  const sectionTitle = moduleData?.data?.title || 'Soluciones <span class="text-primary">Personalizadas</span>';
-  const sectionSubtitle = moduleData?.data?.subtitle || 'Acompañamiento integral desde la consultoría hasta el mantenimiento continuo';
+  const sectionTitle = moduleData?.data?.title || 'Soluciones <span class="text-[#FFD700]">Industriales</span>';
+  const sectionSubtitle = moduleData?.data?.subtitle || 'Desarrollamos e integramos tecnología industrial de alta eficiencia para optimizar tu planta';
 
   return (
     <section id="soluciones" ref={sectionRef} className="py-16 md:py-24 bg-background">
@@ -248,8 +287,13 @@ const SolutionsSection = () => {
                   </div>
                 )}
 
-                <div className={`w-16 h-16 rounded-lg bg-primary/20 flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/30 transition-colors ${isEditorMode ? 'mt-[135px]' : ''}`}>
-                  <Icon size={32} className="text-primary" />
+                <div className={`flex justify-between items-center mb-6 w-full ${isEditorMode ? 'mt-[135px]' : ''}`}>
+                  <span className="text-[#FFD700] font-mono text-3xl font-black tracking-widest select-none opacity-30 group-hover:opacity-100 transition-opacity">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <div className="w-12 h-12 rounded-lg bg-[#FFD700]/10 flex items-center justify-center transition-all duration-300 border border-[#FFD700]/20 group-hover:bg-[#FFD700]/25 group-hover:border-[#FFD700]/40 shadow-[0_0_15px_rgba(255,215,0,0.05)]">
+                    <Icon size={22} className="text-[#FFD700]" />
+                  </div>
                 </div>
                 <h3
                   className={`font-bold mb-3 transition-colors ${(!isEditorMode && !solution.titleColor) ? 'group-hover:text-primary' : ''} ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 cursor-text bg-black/20 p-1 rounded backdrop-blur-sm' : ''} ${solution.titleSize ? '' : 'text-2xl'}`}

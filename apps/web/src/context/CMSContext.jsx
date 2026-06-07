@@ -7,10 +7,10 @@ const initialCMSState = {
     settings: {
         logoUrl: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1772916101912_LOGO%20ALUMINIO%20SMQ%20LIMPIO.png',
         faviconUrl: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1772938478587_FAVICON%20SMQ.png',
-        logoSize: 75,
+        logoSize: 98,
         headerHeight: 100,
         headerOpacity: 60,
-        appVersion: '6.82',
+        appVersion: '6.84',
         globalImageSharpness: 100,
         globalFilterColor: '#000000',
         globalFilterOpacity: 75,
@@ -106,6 +106,12 @@ const initialCMSState = {
                     }
                 }
             ]
+        },
+        {
+            id: 'wte',
+            title: 'Waste to Energy',
+            slug: '/waste-to-energy',
+            modules: []
         }
     ]
 };
@@ -117,11 +123,18 @@ export const CMSProvider = ({ children }) => {
             try {
                 const parsed = JSON.parse(saved);
                 const parsedSettings = parsed.settings || {};
+                
+                // Si la versión local es diferente a la versión del código base, descartar caché antigua
+                if (parsedSettings.appVersion !== initialCMSState.settings.appVersion) {
+                    console.warn(`[CMS] Versión local obsoleta (${parsedSettings.appVersion} vs ${initialCMSState.settings.appVersion}). Reseteando caché.`);
+                    localStorage.removeItem('smqCMS');
+                    return initialCMSState;
+                }
+
                 return {
                     settings: {
                         ...initialCMSState.settings,
                         ...parsedSettings,
-                        // Forzar a usar las URLs predeterminadas si el usuario tenía "null" guardado en caché antiguo
                         logoUrl: parsedSettings.logoUrl || initialCMSState.settings.logoUrl,
                         faviconUrl: parsedSettings.faviconUrl || initialCMSState.settings.faviconUrl,
                         appVersion: parsedSettings.appVersion || initialCMSState.settings.appVersion
@@ -142,6 +155,7 @@ export const CMSProvider = ({ children }) => {
                     pages: parsed.pages || initialCMSState.pages
                 };
             } catch (e) {
+                localStorage.removeItem('smqCMS');
                 return initialCMSState;
             }
         }
@@ -168,6 +182,14 @@ export const CMSProvider = ({ children }) => {
                 if (text) {
                     const parsed = JSON.parse(text);
                     const parsedSettings = parsed.settings || {};
+                    
+                    // Si el estado en la nube pertenece a una versión anterior, usar el estado base inicial corregido
+                    if (parsedSettings.appVersion !== initialCMSState.settings.appVersion) {
+                        console.warn(`[CMS] Versión en la nube obsoleta (${parsedSettings.appVersion} vs ${initialCMSState.settings.appVersion}). Reseteando a inicial.`);
+                        setCmsState(initialCMSState);
+                        return;
+                    }
+
                     const cloudState = {
                         settings: {
                             ...initialCMSState.settings,
@@ -308,7 +330,8 @@ export const CMSProvider = ({ children }) => {
 
     const updatePageModule = (pageId, moduleId, newData) => {
         setCmsState(prev => {
-            const pages = prev.pages.map(page => {
+            const pageExists = prev.pages.some(page => page.id === pageId);
+            let updatedPages = prev.pages.map(page => {
                 if (page.id === pageId) {
                     let found = false;
                     const modules = page.modules.map(mod => {
@@ -325,7 +348,20 @@ export const CMSProvider = ({ children }) => {
                 }
                 return page;
             });
-            return { ...prev, pages };
+
+            if (!pageExists) {
+                updatedPages = [
+                    ...updatedPages,
+                    {
+                        id: pageId,
+                        title: pageId === 'wte' ? 'Waste to Energy' : pageId,
+                        slug: pageId === 'wte' ? '/waste-to-energy' : `/${pageId}`,
+                        modules: [{ id: moduleId, type: moduleId, data: newData }]
+                    }
+                ];
+            }
+
+            return { ...prev, pages: updatedPages };
         });
     };
 

@@ -151,6 +151,10 @@ const Header = () => {
             isOpen={activeMenu === menuName || lockedMenu === menuName}
             onMouseEnter={() => handleMouseEnter(menuName)}
             onMouseLeave={handleMouseLeave}
+            onClose={() => {
+              setActiveMenu(null);
+              setLockedMenu(null);
+            }}
           />
         )}
       </div>

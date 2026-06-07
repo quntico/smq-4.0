@@ -90,7 +90,7 @@ const industriesData = [
   },
 ];
 
-const IndustriesMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
+const IndustriesMenu = ({ isOpen, onMouseEnter, onMouseLeave, onClose }) => {
   const [activeIndustry, setActiveIndustry] = useState('reciclaje');
   const { cmsState } = useCMS();
   const headerHeight = cmsState?.settings?.headerHeight || 80;
@@ -183,6 +183,7 @@ const IndustriesMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
                   {/* Link to main industry page */}
                   <Link 
                     to={`/industria/${activeIndustry === 'reciclaje' ? 'reciclaje-y-plasticos' : activeIndustry}`}
+                    onClick={onClose}
                     className="px-5 py-2.5 rounded-full border text-[10px] font-black tracking-widest uppercase hover:bg-white/10 transition-colors shadow-sm"
                     style={{ 
                       color: active?.color, 
@@ -203,6 +204,7 @@ const IndustriesMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
                       <Link
                         key={link.href}
                         to={link.href}
+                        onClick={onClose}
                         className="group relative flex flex-col p-5 rounded-xl border bg-white/[0.01] hover:bg-white/[0.03] transition-all duration-300 shadow-lg"
                         style={{
                           borderColor: 'rgba(255, 255, 255, 0.05)',

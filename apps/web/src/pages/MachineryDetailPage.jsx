@@ -574,19 +574,16 @@ const MachineryDetailPage = () => {
 
   const baseData = cmsPage?.modules?.[0]?.data || defaults;
   
-  // Sanitizar temas de reciclaje heredados del CMS con fondos verdes
+  // Sanitizar temas para que todas las páginas de maquinaria usen el fondo oscuro neutral oficial del sitio
   const data = React.useMemo(() => {
-    if (baseData?.theme?.bgStart === '#01120c' || baseData?.industry === 'reciclaje') {
-      return {
-        ...baseData,
-        theme: {
-          ...baseData.theme,
-          bgStart: '#0A0A0C',
-          bgEnd: '#0D0E15'
-        }
-      };
-    }
-    return baseData;
+    return {
+      ...baseData,
+      theme: {
+        ...(baseData?.theme || {}),
+        bgStart: '#080B12',
+        bgEnd: '#0A0B10'
+      }
+    };
   }, [baseData]);
 
   const [activeStep, setActiveStep] = useState(0);
@@ -979,7 +976,7 @@ const MachineryDetailPage = () => {
             </section>
 
             {/* INTERACTIVE TIMELINE */}
-            <section id="como-funciona" className="py-20 bg-black/30 border-y border-white/5 mt-16 relative">
+            <section id="como-funciona" className="py-20 bg-transparent border-y border-white/5 mt-16 relative">
               <div className="max-w-[1400px] mx-auto px-[40px] text-center">
                 
                 <div className="flex flex-col items-center gap-3 mb-16">
@@ -1132,7 +1129,7 @@ const MachineryDetailPage = () => {
             </section>
 
             {/* TECHNICAL SPECIFICATIONS & CONFIGURATIONS */}
-            <section className="py-20 bg-black/10 border-t border-white/5">
+            <section className="py-20 bg-transparent border-t border-white/5">
               <div className="max-w-[1400px] mx-auto px-[40px] grid grid-cols-1 lg:grid-cols-12 gap-12">
                 
                 {/* Left: Specs Table */}

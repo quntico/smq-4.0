@@ -38,20 +38,48 @@ const CustomCursor = () => {
     };
   }, []);
 
+  const inactivityTimerRef = useRef(null);
+
   useEffect(() => {
     if (!isDesktop) return;
 
-    const onMouseMove = (e) => {
-      mouse.current = { x: e.clientX, y: e.clientY };
-      if (!isVisible) setIsVisible(true);
+    const resetInactivityTimer = () => {
+      if (inactivityTimerRef.current) {
+        clearTimeout(inactivityTimerRef.current);
+      }
+      inactivityTimerRef.current = setTimeout(() => {
+        setIsVisible(false);
+      }, 1200); // Ocultar tras 1.2 segundos de inactividad
     };
 
-    const onMouseLeave = () => setIsVisible(false);
-    const onMouseEnter = () => setIsVisible(true);
+    const onMouseMove = (e) => {
+      mouse.current = { x: e.clientX, y: e.clientY };
+      setIsVisible(true);
+      resetInactivityTimer();
+    };
+
+    const onMouseLeave = () => {
+      setIsVisible(false);
+      if (inactivityTimerRef.current) {
+        clearTimeout(inactivityTimerRef.current);
+      }
+    };
+
+    const onMouseEnter = () => {
+      setIsVisible(true);
+      resetInactivityTimer();
+    };
+
+    const onMouseDown = () => {
+      setIsVisible(true);
+      resetInactivityTimer();
+    };
 
     window.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseleave', onMouseLeave);
     document.addEventListener('mouseenter', onMouseEnter);
+    window.addEventListener('mousedown', onMouseDown);
+    window.addEventListener('scroll', onMouseMove, { passive: true });
 
     // Animation loop for dot and halo trailing effect using transform (GPU accelerated)
     const updateCursor = () => {
@@ -95,11 +123,16 @@ const CustomCursor = () => {
       window.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseleave', onMouseLeave);
       document.removeEventListener('mouseenter', onMouseEnter);
+      window.removeEventListener('mousedown', onMouseDown);
+      window.removeEventListener('scroll', onMouseMove);
       document.removeEventListener('mouseover', handleMouseOver);
       document.removeEventListener('mouseout', handleMouseOut);
       cancelAnimationFrame(requestRef.current);
+      if (inactivityTimerRef.current) {
+        clearTimeout(inactivityTimerRef.current);
+      }
     };
-  }, [isDesktop, isVisible]);
+  }, [isDesktop]);
 
   if (!isDesktop) return null;
 

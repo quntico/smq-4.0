@@ -1163,7 +1163,7 @@ const EnvasadoraDoypack = () => {
           </section>
 
           {/* SECCIÓN 1: ¿CÓMO FUNCIONA? - Horizontal Futuristic Timeline */}
-          <section id="como-funciona" className="py-20 bg-black/40 border-y border-white/5 relative">
+          <section id="como-funciona" className="py-20 bg-transparent border-y border-white/5 relative">
             <div className="max-w-[1400px] mx-auto px-[40px] text-center">
               
               {/* Header */}
@@ -1370,7 +1370,7 @@ const EnvasadoraDoypack = () => {
           </section>
 
           {/* SECCIÓN 3: APLICACIONES - Grid with Glow effect */}
-          <section id="aplicaciones" className="py-20 bg-black/20 border-y border-white/5 relative">
+          <section id="aplicaciones" className="py-20 bg-transparent border-y border-white/5 relative">
             <div className="max-w-[1400px] mx-auto px-[40px] text-center">
               
               {/* Header */}
@@ -1505,7 +1505,7 @@ const EnvasadoraDoypack = () => {
           </section>
 
           {/* SECCIÓN 5: ESPECIFICACIONES TÉCNICAS - Table with hover */}
-          <section id="tabla-tecnica" className="py-20 bg-black/40 border-y border-white/5 relative">
+          <section id="tabla-tecnica" className="py-20 bg-transparent border-y border-white/5 relative">
             <div className="max-w-[900px] mx-auto px-[40px]">
               
               <div className="flex flex-col items-center gap-3 mb-12 text-center">
@@ -1638,7 +1638,7 @@ const EnvasadoraDoypack = () => {
           </section>
 
           {/* SECCIÓN 7: CONFIGURACIONES DISPONIBLES */}
-          <section id="configuraciones" className="py-20 bg-black/40 border-y border-white/5 relative">
+          <section id="configuraciones" className="py-20 bg-transparent border-y border-white/5 relative">
             <div className="max-w-[1400px] mx-auto px-[40px] text-center">
               
               <div className="flex flex-col items-center gap-3 mb-16">

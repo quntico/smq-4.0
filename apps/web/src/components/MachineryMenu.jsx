@@ -142,36 +142,7 @@ const industriesData = [
       },
     ],
   },
-  {
-    key: 'wte',
-    title: 'Waste to Energy',
-    color: '#D97706',
-    Icon: Flame,
-    desc: 'Valorización energética y ambiental de residuos sólidos urbanos.',
-    families: [
-      {
-        name: 'Valorización',
-        machines: [
-          { code: 'RSU', name: 'Plantas RSU', desc: 'Tratamiento y valorización integral de residuos sólidos urbanos.', models: ['RSU-300', 'RSU-500', 'RSU-1000'] },
-          { code: 'CDR', name: 'Producción de CDR / RDF', desc: 'Procesamiento de combustibles derivados de residuos de alto poder calorífico.', models: ['CDR-300', 'CDR-500'] },
-        ],
-      },
-      {
-        name: 'Clasificación',
-        machines: [
-          { code: 'CLI', name: 'Clasificación Inteligente', desc: 'Separación automatizada por NIR, inducción y sistemas multisensoriales.', models: ['CLI-300', 'CLI-500'] },
-          { code: 'REC', name: 'Recuperación de Materiales', desc: 'Extracción eficiente de metales, plásticos y materiales reciclables.', models: ['REC-300', 'REC-500'] },
-        ],
-      },
-      {
-        name: 'Conversión',
-        machines: [
-          { code: 'CVE', name: 'Conversión Energética', desc: 'Tecnologías de gasificación, pirólisis y co-generación térmica.', models: ['CVE-300', 'CVE-500'] },
-          { code: 'LLM', name: 'Plantas Llave en Mano', desc: 'Ingeniería completa, desde el diseño hasta la puesta en marcha.', models: ['LLM-100', 'LLM-300'] },
-        ],
-      },
-    ],
-  },
+
   {
     key: 'medica',
     title: 'Médica',

@@ -292,8 +292,8 @@ const NosotrosSection = () => {
 
             {/* Main Title */}
             <h2 className="text-[20px] md:text-[28px] lg:text-[36px] font-black tracking-tighter leading-tight uppercase">
-              <span className="text-white">INGENIERÍA PARA EL </span>
-              <span className="text-[#F5C400]">FUTURO INDUSTRIAL</span>
+              <span className="text-white">¿Qué es </span>
+              <span className="text-[#F5C400]">SMQ Industrial Systems?</span>
             </h2>
 
             {/* Divider */}
@@ -302,10 +302,7 @@ const NosotrosSection = () => {
             {/* Description */}
             <div className="flex flex-col gap-4 text-base md:text-lg text-[#A1A8B3] leading-relaxed max-w-[600px]">
               <p>
-                Durante más de 20 años hemos diseñado, automatizado e integrado soluciones industriales para empresas que buscan producir más, operar mejor y competir globalmente.
-              </p>
-              <p className="border-l-2 border-[#F5C400]/40 pl-4 italic text-white/95">
-                Diseñamos en México, desarrollamos tecnología propia y colaboramos con fabricantes internacionales para crear sistemas industriales preparados para los desafíos de la próxima generación.
+                SMQ Industrial Systems desarrolla maquinaria industrial especializada para reciclaje, procesamiento y valorización de materiales. Integramos sistemas completos para trituración, separación, lavado, peletizado, recuperación de recursos y soluciones Waste to Energy. Nuestro enfoque combina ingeniería aplicada, automatización y plantas industriales llave en mano adaptadas a las necesidades de cada cliente.
               </p>
             </div>
 

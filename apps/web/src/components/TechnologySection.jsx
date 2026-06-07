@@ -313,34 +313,34 @@ const technologies = [
   {
     id: 'plc',
     icon: Cpu,
-    title: 'Automatización PLC & RTU',
+    title: 'AUTOMATIZACIÓN PLC & RTU',
     subtitle: 'Sistemas de tiempo real deterministas para procesos industriales críticos.',
-    desc: 'Nuestros sistemas de automatización PLC están diseñados con arquitectura modular de alta redundancia, operando bajo sistemas en tiempo real (RTOS) para un determinismo absoluto. Integramos buses de campo rápidos (Profinet, EtherCAT) con tiempos de ciclo por debajo de 1 ms, garantizando una coordinación de movimiento precisa y una adquisición de datos instantánea.',
+    desc: 'Arquitecturas modulares de control en tiempo real (RTOS) con PLC de alto rendimiento y buses de campo redundantes como EtherCAT y Profinet. Garantizamos sincronización absoluta de alta velocidad, lógica de protección integrada y control preciso de actuadores en entornos demandantes.',
     telemetry: {
       unit: 'SYS_CORE // PLC_RTU_01',
       status: 'NOMINAL',
-      metrics: 'CYCLE_TIME: 0.8ms | LATENCY: 0.2ms',
+      metrics: 'CYCLE_TIME: 0.8ms | FAULT_RATE: 0.0%',
       hardware: 'CPU S7-1500 REDUNDANT'
     },
-    color: '#00D2FF',
-    bgClass: 'hover:border-[#00D2FF]/40 hover:shadow-[0_15px_40px_rgba(0,210,255,0.12)]',
-    textClass: 'text-[#00D2FF]',
-    glowClass: 'from-[#00D2FF]/20 to-transparent',
-    borderClass: 'border-[#00D2FF]/20',
+    color: '#06B6D4',
+    bgClass: 'hover:border-[#06B6D4]/40 hover:shadow-[0_15px_40px_rgba(6,182,212,0.12)]',
+    textClass: 'text-[#06B6D4]',
+    glowClass: 'from-[#06B6D4]/20 to-transparent',
+    borderClass: 'border-[#06B6D4]/20',
     number: '01',
     coverImage: '/plc_rtu_cover.png'
   },
   {
     id: 'sistemas-inteligentes',
     icon: Activity,
-    title: 'Sistemas Inteligentes SCR',
+    title: 'SISTEMAS INTELIGENTES SCR',
     subtitle: 'El cerebro digital de la industria moderna y telemetría avanzada.',
-    desc: 'La plataforma inteligente SCR700 centraliza el procesamiento de datos del borde, integrando algoritmos de control avanzado para optimizar el rendimiento energético y de producción. Utiliza interfaces de alta velocidad y protocolos abiertos para asegurar una conectividad transparente en toda la planta.',
+    desc: 'Réplicas digitales interactivas en 3D que simulan el comportamiento físico e hidráulico de líneas de producción completas. Permiten realizar análisis de escenarios hipotéticos (what-if), optimizar flujos de material y diagnosticar desviaciones de forma virtual antes de realizar ajustes en el mundo real.',
     telemetry: {
       unit: 'SYS_CORE // SCR_HUB_02',
       status: 'ACTIVE',
-      metrics: 'BANDWIDTH: 10Gbps | AD_RATE: 100kS/s',
-      hardware: 'SCR700 EDGE PROCESSOR'
+      metrics: 'FPS: 60 | RENDER_LATENCY: 1.5ms',
+      hardware: '3D WEBGL CORE RENDERER'
     },
     color: '#10B981',
     bgClass: 'hover:border-[#10B981]/40 hover:shadow-[0_15px_40px_rgba(16,185,129,0.12)]',
@@ -353,14 +353,14 @@ const technologies = [
   {
     id: 'control',
     icon: Shield,
-    title: 'Control Industrial de Potencia',
+    title: 'CONTROL INDUSTRIAL DE POTENCIA',
     subtitle: 'Sistemas robustos de distribución, protección y filtrado de armónicos.',
-    desc: 'Diseñamos y fabricamos tableros de control y distribución eléctrica bajo normas internacionales (UL 508A, IEC). Equipados con sistemas de filtrado de armónicos activos, interruptores inteligentes con comunicación integrada y variadores de frecuencia de última generación con capacidad regenerativa.',
+    desc: 'Diseño e integración de tableros de control de potencia, arrancadores suaves, variadores de frecuencia y sistemas de filtrado activo de armónicos para garantizar la calidad de la energía y proteger los motores industriales.',
     telemetry: {
       unit: 'SYS_CORE // POWER_DIST_03',
       status: 'STABLE',
-      metrics: 'EFFICIENCY: 98.4% | FREQ: 60.00 Hz',
-      hardware: 'UL-508A MULTI-BUS BAR'
+      metrics: 'THD_V: 1.8% | POWER_FACTOR: 0.98',
+      hardware: 'ACTIVE POWER FILTER 400A'
     },
     color: '#8B5CF6',
     bgClass: 'hover:border-[#8B5CF6]/40 hover:shadow-[0_15px_40px_rgba(139,92,246,0.12)]',
@@ -373,14 +373,14 @@ const technologies = [
   {
     id: 'ia',
     icon: Brain,
-    title: 'Inteligencia Artificial Aplicada',
+    title: 'INTELIGENCIA ARTIFICIAL APLICADA',
     subtitle: 'Algoritmos y analítica avanzada para optimizar decisiones y procesos industriales.',
-    desc: 'Desarrollamos algoritmos de inteligencia artificial que se ejecutan directamente en el borde (Edge AI) mediante aceleradores dedicados (TPUs). Implementamos cámaras matriciales de alta velocidad para clasificación automatizada de materiales reciclables y detección predictiva de desgastes mecánicos.',
+    desc: 'Modelos de Inteligencia Artificial que procesan datos de visión multiespectral y cámaras de alta velocidad en el borde. Automatizamos la clasificación fina de materiales y plásticos por tipo de polímero, además de predecir fallas mecánicas en base a patrones de vibración.',
     telemetry: {
       unit: 'SYS_CORE // AI_APPLIED_04',
       status: 'LEARNING',
-      metrics: 'FPS: 240 | ACCURACY: 99.85%',
-      hardware: 'EDGE TPU CORAL ACCELERATOR'
+      metrics: 'ACCURACY: 99.85% | INFERENCE: 3.4ms',
+      hardware: 'EDGE TPU CORE ACCELERATOR'
     },
     color: '#F97316',
     bgClass: 'hover:border-[#F97316]/40 hover:shadow-[0_15px_40px_rgba(249,115,22,0.12)]',
@@ -393,34 +393,34 @@ const technologies = [
   {
     id: 'monitoreo',
     icon: Wifi,
-    title: 'Monitoreo Remoto & IIoT',
+    title: 'MONITOREO REMOTO & IIoT',
     subtitle: 'Conectividad segura, monitoreo en tiempo real y gestión remota desde cualquier lugar.',
-    desc: 'Implementamos soluciones de conectividad satelital Starlink y enrutamiento seguro de extremo a extremo (IPSec/OpenVPN) para la supervisión en tiempo real de plantas. Visualice métricas operativas (OEE, temperaturas, presiones) y reciba alertas críticas preventivas desde cualquier parte del mundo.',
+    desc: 'Integración segura de Internet de las Cosas Industrial (IIoT), analítica en la nube y sensores inteligentes en tiempo real. Habilitamos la supervisión continua de indicadores clave de rendimiento (OEE), telemetría de variables operativas y monitoreo de eficiencia para un control industrial inteligente y descentralizado.',
     telemetry: {
       unit: 'SYS_CORE // REMOTE_05',
       status: 'ONLINE',
-      metrics: 'PING: 28ms | SIGNAL: -54 dBm',
-      hardware: 'STARLINK BUSINESS UPLINK'
+      metrics: 'SYS_LOAD: 42.8% | CON_STABILITY: 100%',
+      hardware: 'EDGE GATEWAY IIOT V5'
     },
-    color: '#0EA5E9',
-    bgClass: 'hover:border-[#0EA5E9]/40 hover:shadow-[0_15px_40px_rgba(14,165,233,0.12)]',
-    textClass: 'text-[#0EA5E9]',
-    glowClass: 'from-[#0EA5E9]/20 to-transparent',
-    borderClass: 'border-[#0EA5E9]/20',
+    color: '#3B82F6',
+    bgClass: 'hover:border-[#3B82F6]/40 hover:shadow-[0_15px_40px_rgba(59,130,246,0.12)]',
+    textClass: 'text-[#3B82F6]',
+    glowClass: 'from-[#3B82F6]/20 to-transparent',
+    borderClass: 'border-[#3B82F6]/20',
     number: '05',
     coverImage: '/remote_monitoring_cover.png'
   },
   {
     id: 'colaborativa',
     icon: Users,
-    title: 'Tecnología Colaborativa & Industria 5.0',
+    title: 'TECNOLOGÍA COLABORATIVA & INDUSTRIA 5.0',
     subtitle: 'Arquitecturas industriales centradas en personas, potenciadas por IA y automatización colaborativa.',
-    desc: 'Integramos cobots (robots colaborativos) de última generación con sistemas de visión en 3D y sensores de torque avanzados para trabajar de forma segura y directa con los operadores. Aplicamos principios de la Industria 5.0 para empoderar al talento humano con herramientas de automatización inteligente de alto valor.',
+    desc: 'Diseño de interfaces HMI/SCADA avanzadas y celdas de producción con robots colaborativos (Cobots) que interactúan de forma segura con los operadores para optimizar la productividad y ergonomía laboral.',
     telemetry: {
       unit: 'SYS_CORE // I5_COLLAB_06',
       status: 'CONNECTED',
-      metrics: 'SAFETY: 100% | COBOTS: ACTIVE',
-      hardware: 'UR10e COLLABORATIVE COBOT'
+      metrics: 'COLLISION_SENSITIVITY: HIGH | SPEED: 1.2 m/s',
+      hardware: 'COBOT INDUSTRIAL KUKA/UR'
     },
     color: '#EAB308',
     bgClass: 'hover:border-[#EAB308]/40 hover:shadow-[0_15px_40px_rgba(234,179,8,0.12)]',
@@ -1780,7 +1780,7 @@ const TechnologySection = () => {
           </h2>
           <div className="w-[80px] h-[3px] bg-[#FFD700] mx-auto mb-6" />
           <p className="text-white/60 max-w-2xl mx-auto leading-relaxed text-xs md:text-sm font-black uppercase tracking-tight font-['Poppins']">
-            Sistemas deterministas y algoritmos inteligentes integrados bajo estándares aeronáuticos e industriales avanzados.
+            PRECISIÓN EN CONTROL. INTELIGENCIA EN DECISIÓN. CONFIABILIDAD EN OPERACIÓN.
           </p>
         </div>
 

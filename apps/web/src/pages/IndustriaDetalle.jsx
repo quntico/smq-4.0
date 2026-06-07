@@ -857,7 +857,7 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
                   </div>
                   <input 
                     type="range" 
-                    min="0.1" 
+                    min="1" 
                     max="2.5" 
                     step="0.05" 
                     value={scale} 
@@ -1218,9 +1218,13 @@ const IndustriaDetalle = () => {
         const element = document.getElementById(id);
         if (element) {
           lastScrolledHashRef.current = currentHash;
-          element.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
+          const headerOffset = (cmsState?.settings?.headerHeight || 76) + 165;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
           });
         }
       }, 300);
@@ -1697,7 +1701,7 @@ const IndustriaDetalle = () => {
                           onClick={() => {
                             const el = document.getElementById(targetId);
                             if (el) {
-                              const headerOffset = (cmsState?.settings?.headerHeight || 76) + 150; // 150px de margen adicional para la animación
+                              const headerOffset = (cmsState?.settings?.headerHeight || 76) + 165; // 165px de margen adicional para la animación (150px original + 15px extra)
                               const elementPosition = el.getBoundingClientRect().top;
                               const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
                               
@@ -1852,7 +1856,7 @@ const IndustriaDetalle = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ duration: 0.6 }}
-                  className={`scroll-mt-[160px] grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center border-b border-white/5 pb-16 md:pb-24 last:border-b-0`}
+                  className={`scroll-mt-[175px] grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center border-b border-white/5 pb-16 md:pb-24 last:border-b-0`}
                 >
                   {/* Text Content */}
                   <div className={`lg:col-span-6 space-y-6 ${index % 2 === 1 ? 'lg:order-2' : ''}`}>

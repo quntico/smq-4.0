@@ -91,11 +91,46 @@ const HomePage = () => {
   return (
     <>
       <Helmet>
-        <title>SMQ Industrial Systems - Soluciones Industriales de Alta Ingeniería</title>
+        <title>SMQ Industrial Systems | Maquinaria Industrial para Reciclaje, Plásticos y Waste to Energy</title>
         <meta
           name="description"
-          content="Maquinaria avanzada para reciclaje de plásticos, procesamiento de alimentos y automatización industrial. Soluciones completas con consultoría, instalación y mantenimiento."
+          content="SMQ Industrial Systems diseña, integra y suministra maquinaria industrial para reciclaje, valorización de residuos, procesamiento de plásticos y soluciones Waste to Energy. Trituradoras, lavado, peletizado, separación, compactación y plantas industriales llave en mano para México y Latinoamérica."
         />
+        <meta name="keywords" content="maquinaria industrial,reciclaje industrial,trituradoras industriales,peletizado plástico,waste to energy,rsu,rdf,srf,lavado de plástico,plantas llave en mano,compactadoras,separación industrial,automatización industrial,maquinaria reciclaje,soluciones industriales,smq" />
+        <link rel="canonical" href="https://www.smq7.site" />
+        <meta name="robots" content="index,follow,max-image-preview:large" />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="SMQ Industrial Systems" />
+        <meta property="og:description" content="Maquinaria industrial para reciclaje, procesamiento de materiales y Waste to Energy." />
+        <meta property="og:url" content="https://www.smq7.site" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        
+        {/* Structured Data (Schema JSON-LD) */}
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "SMQ Industrial Systems",
+              "url": "https://www.smq7.site",
+              "description": "Fabricación e integración de maquinaria industrial para reciclaje, valorización y transformación de materiales.",
+              "areaServed": "Mexico",
+              "knowsAbout": [
+                "Industrial Machinery",
+                "Plastic Recycling",
+                "Waste To Energy",
+                "RDF",
+                "SRF",
+                "Municipal Solid Waste",
+                "Industrial Automation"
+              ]
+            }
+          `}
+        </script>
       </Helmet>
 
       <div className="min-h-screen bg-background pt-[100px]">

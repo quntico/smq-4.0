@@ -125,8 +125,8 @@ const MachinerySection = () => {
   const pageData = cmsState.pages.find(p => p.id === 'home');
   const moduleData = pageData?.modules?.find(m => m.id === 'machinery');
   const activeMachinery = moduleData?.data?.items || defaultMachinery;
-  const sectionTitle = moduleData?.data?.title || 'Nuestra <span class="text-primary">Maquinaria</span>';
-  const sectionSubtitle = moduleData?.data?.subtitle || 'Equipos industriales de última generación para maximizar tu producción';
+  const sectionTitle = moduleData?.data?.title || 'MAQUINARIA INDUSTRIAL PARA RECICLAJE, <span class="text-[#FFD700]">WASTE TO ENERGY</span> Y PROCESAMIENTO DE MATERIALES';
+  const sectionSubtitle = moduleData?.data?.subtitle || 'Diseñamos e integramos líneas industriales llave en mano para trituración, separación, lavado, peletizado, valorización energética y automatización industrial.';
 
   const handleTriggerUpload = async (machineId) => {
     const fileInput = document.createElement('input');

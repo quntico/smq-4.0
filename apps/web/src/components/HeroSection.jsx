@@ -94,7 +94,7 @@ const HeroSection = () => {
     }
   ];
 
-  const slides = heroModule.data?.slides || defaultSlides;
+  const slides = Array.isArray(heroModule?.data?.slides) ? heroModule.data.slides : defaultSlides;
 
   const [currentSlideIdx, setCurrentSlideIdx] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
@@ -112,19 +112,19 @@ const HeroSection = () => {
   }, [isEditorMode]);
 
   const activeIndex = Math.min(currentSlideIdx, slides.length - 1 < 0 ? 0 : slides.length - 1);
-  const activeSlide = slides[activeIndex];
+  const activeSlide = slides[activeIndex] || defaultSlides[0];
 
   const displayTitle1 = activeSlide?.title1 === 'Soluciones Industriales' || activeSlide?.title1 === 'INGENIERÍA SIN LÍMITES' 
     ? t('hero.title1') 
-    : activeSlide?.title1;
+    : (activeSlide?.title1 || '');
     
   const displayTitle2 = activeSlide?.title2 === 'de Alta Ingeniería' 
     ? t('hero.title2') 
-    : activeSlide?.title2;
+    : (activeSlide?.title2 || '');
     
   const displaySubtitle = activeSlide?.subtitle === 'Maquinaria avanzada para reciclaje, procesamiento de alimentos y automatización industrial.' || activeSlide?.subtitle === 'Diseñamos y fabricamos maquinaria de élite para optimizar tus procesos productivos.'
     ? t('hero.subtitle') 
-    : activeSlide?.subtitle;
+    : (activeSlide?.subtitle || '');
 
   const title1Lines = (displayTitle1 || '').split('\n').filter(line => line.trim() !== '');
   const title2Lines = (displayTitle2 || '').split('\n').filter(line => line.trim() !== '');
@@ -598,6 +598,31 @@ const HeroSection = () => {
             >
               {displaySubtitle}
             </motion.p>
+
+            {/* Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: (title1Lines.length + title2Lines.length) * 0.22 + 0.3 }}
+              className="flex flex-col sm:flex-row gap-4 mt-8 w-full justify-center pointer-events-auto"
+            >
+              <a
+                href="#soluciones"
+                className="inline-flex items-center justify-center text-black font-bold text-[14px] uppercase tracking-wider py-3.5 px-8 rounded-lg transition-all duration-300 scale-100 hover:scale-[1.02] cursor-pointer"
+                style={{
+                  backgroundColor: '#FFD700',
+                  boxShadow: '0 0 25px rgba(255, 215, 0, 0.4)'
+                }}
+              >
+                Explorar Soluciones
+              </a>
+              <a
+                href="#contacto"
+                className="inline-flex items-center justify-center bg-white/5 hover:bg-white/10 text-white border border-white/10 hover:border-white/20 font-semibold text-[14px] uppercase tracking-wider py-3.5 px-8 rounded-lg transition-all duration-300 backdrop-blur-sm cursor-pointer"
+              >
+                Solicitar Cotización
+              </a>
+            </motion.div>
 
 
           </motion.div>
