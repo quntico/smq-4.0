@@ -2,12 +2,14 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Footer from '@/components/Footer.jsx';
-import { ChevronRight, ArrowLeft, Cpu, Compass, Settings, Zap, Shield, ArrowUpRight, Upload, Image as ImageIcon, Plus, Trash2, Minimize2, Maximize2, ArrowLeftRight, Cloud, Save, Layers, RefreshCw, Scissors, Package } from 'lucide-react';
+import { ChevronRight, ArrowLeft, Cpu, Compass, Settings, Zap, Shield, ArrowUpRight, Upload, Image as ImageIcon, Plus, Trash2, Minimize2, Maximize2, ArrowLeftRight, Cloud, Save, Layers, RefreshCw, Scissors, Package, Clock, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCMS } from '@/context/CMSContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
 import { createPortal } from 'react-dom';
 import { getOptimizedImageUrl } from '@/lib/utils.js';
+import EditableIcon from '@/components/EditableIcon.jsx';
+import { Helmet } from 'react-helmet';
 
 const sectorsData = {
   'reciclaje-y-plasticos': {
@@ -23,11 +25,11 @@ const sectorsData = {
     ],
     items: [
       {
-        id: 'extrusion',
-        title: 'Líneas de Extrusión',
-        description: 'Extrusoras de alto rendimiento monohusillo y doble husillo co-rotativo. Configuración modular para desgasificación, filtrado de malla hidráulico y dosificación de precisión.',
-        longDescription: 'Nuestros sistemas de extrusión están optimizados para procesar poliolefinas (PE, PP), PET, PS y plásticos de ingeniería. Cuentan con cilindros nitrurados bimetálicos y husillos diseñados a medida para garantizar una plastificación homogénea y controlada.',
-        features: ['Zonas múltiples de calentamiento cerámico', 'Desgasificación activa al vacío doble', 'Cambiador de filtros de pistón continuo'],
+        id: 'trituracion',
+        title: 'Trituradoras',
+        description: 'Trituradoras de alto rendimiento para plásticos y residuos. Configuración modular de 1 eje, 2 ejes y 4 ejes.',
+        longDescription: 'Nuestros sistemas de trituración industrial están optimizados para el procesamiento primario de purgas, bidones, tuberías y materiales post-consumo. Cuentan con cuchillas de aleación templada de alta resistencia y sistemas de empuje hidráulico inteligente.',
+        features: ['Corte multieje de baja velocidad y alto torque', 'Cuchillas rotativas de fácil sustitución', 'Ejes de transmisión con acoplamiento de seguridad'],
         image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png'
       },
       {
@@ -391,9 +393,10 @@ const EditableText = ({ value, onChange, className = '', tag: Tag = 'span', plac
   return <Tag className={className}>{value}</Tag>;
 };
 
-const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, isEditorMode, label = 'Multimedia' }) => {
+const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, isEditorMode, label = 'Multimedia', logCMS }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = useRef(null);
   
   // Resolve media settings
   const isObj = typeof media === 'object' && media !== null;
@@ -403,6 +406,10 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
   const currentBlur = isObj ? (media.blur !== undefined ? media.blur : 0) : 0;
   const currentBrightness = isObj ? (media.brightness !== undefined ? media.brightness : 100) : 100;
   const currentContrast = isObj ? (media.contrast !== undefined ? media.contrast : 100) : 100;
+  const currentScale = isObj ? (media.scale !== undefined ? media.scale : 1) : 1;
+  const currentPositionX = isObj ? (media.positionX !== undefined ? media.positionX : 0) : 0;
+  const currentPositionY = isObj ? (media.positionY !== undefined ? media.positionY : 0) : 0;
+  const currentObjectFit = isObj ? (media.objectFit !== undefined ? media.objectFit : 'cover') : 'cover';
 
   // Local state for edits
   const [url, setUrl] = useState(currentUrl);
@@ -411,6 +418,19 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
   const [blur, setBlur] = useState(currentBlur);
   const [brightness, setBrightness] = useState(currentBrightness);
   const [contrast, setContrast] = useState(currentContrast);
+  const [scale, setScale] = useState(currentScale);
+  const [positionX, setPositionX] = useState(currentPositionX);
+  const [positionY, setPositionY] = useState(currentPositionY);
+  const [objectFit, setObjectFit] = useState(currentObjectFit);
+
+  // Drag & drop state for the modal window
+  const [dragPos, setDragPos] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+
+  // Backup of original media to allow "Cancel" to restore previous state
+  const [backupMedia, setBackupMedia] = useState(null);
+  const [modalTab, setModalTab] = useState('layout'); // 'layout' or 'filters'
 
   // Sync state if media changes externally
   useEffect(() => {
@@ -420,12 +440,16 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
     setBlur(currentBlur);
     setBrightness(currentBrightness);
     setContrast(currentContrast);
+    setScale(currentScale);
+    setPositionX(currentPositionX);
+    setPositionY(currentPositionY);
+    setObjectFit(currentObjectFit);
   }, [media]);
 
   // Escape key handler
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape') setIsOpen(false);
+      if (e.key === 'Escape') handleCancel();
     };
     if (isOpen) {
       window.addEventListener('keydown', handleKeyDown);
@@ -433,36 +457,174 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isOpen]);
+  }, [isOpen, backupMedia, url, type, opacity, blur, brightness, contrast, scale, positionX, positionY, objectFit]);
+
+  // Drag and drop event listeners
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (!isDragging) return;
+      setDragPos({
+        x: e.clientX - dragStart.x,
+        y: e.clientY - dragStart.y
+      });
+    };
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+
+    if (isDragging) {
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mouseup', handleMouseUp);
+    }
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging, dragStart]);
+
+  const handleMouseDown = (e) => {
+    const header = e.target.closest('.modal-drag-header');
+    if (!header) return;
+    setIsDragging(true);
+    setDragStart({
+      x: e.clientX - dragPos.x,
+      y: e.clientY - dragPos.y
+    });
+  };
+
+  const handleOpen = () => {
+    // Save backup of original settings
+    setBackupMedia({
+      url: currentUrl,
+      type: currentType,
+      opacity: currentOpacity,
+      blur: currentBlur,
+      brightness: currentBrightness,
+      contrast: currentContrast,
+      scale: currentScale,
+      positionX: currentPositionX,
+      positionY: currentPositionY,
+      objectFit: currentObjectFit
+    });
+    setDragPos({ x: 0, y: 0 }); // reset drag pos
+    setIsOpen(true);
+  };
+
+  const updateMediaProps = (propsObj) => {
+    let nextUrl = url;
+    let nextType = type;
+    let nextOpacity = opacity;
+    let nextBlur = blur;
+    let nextBrightness = brightness;
+    let nextContrast = contrast;
+    let nextScale = scale;
+    let nextPositionX = positionX;
+    let nextPositionY = positionY;
+    let nextObjectFit = objectFit;
+
+    if (propsObj.url !== undefined) { setUrl(propsObj.url); nextUrl = propsObj.url; }
+    if (propsObj.type !== undefined) { setType(propsObj.type); nextType = propsObj.type; }
+    if (propsObj.opacity !== undefined) { setOpacity(propsObj.opacity); nextOpacity = propsObj.opacity; }
+    if (propsObj.blur !== undefined) { setBlur(propsObj.blur); nextBlur = propsObj.blur; }
+    if (propsObj.brightness !== undefined) { setBrightness(propsObj.brightness); nextBrightness = propsObj.brightness; }
+    if (propsObj.contrast !== undefined) { setContrast(propsObj.contrast); nextContrast = propsObj.contrast; }
+    if (propsObj.scale !== undefined) { setScale(propsObj.scale); nextScale = propsObj.scale; }
+    if (propsObj.positionX !== undefined) { setPositionX(propsObj.positionX); nextPositionX = propsObj.positionX; }
+    if (propsObj.positionY !== undefined) { setPositionY(propsObj.positionY); nextPositionY = propsObj.positionY; }
+    if (propsObj.objectFit !== undefined) { setObjectFit(propsObj.objectFit); nextObjectFit = propsObj.objectFit; }
+
+    onUpdate({
+      url: nextUrl,
+      type: nextType,
+      opacity: parseFloat(nextOpacity),
+      blur: parseFloat(nextBlur),
+      brightness: parseInt(nextBrightness),
+      contrast: parseInt(nextContrast),
+      scale: parseFloat(nextScale),
+      positionX: parseInt(nextPositionX),
+      positionY: parseInt(nextPositionY),
+      objectFit: nextObjectFit
+    });
+  };
+
+  const updateMediaProp = (key, val) => {
+    updateMediaProps({ [key]: val });
+  };
+
+  // Helper to robustly check if media is video, handling URLs with query parameters/tokens
+  const isVideoUrl = (mediaUrl, mediaType) => {
+    if (mediaType === 'video') return true;
+    if (!mediaUrl) return false;
+    const cleanUrl = mediaUrl.split('?')[0].toLowerCase();
+    return cleanUrl.endsWith('.mp4') || 
+           cleanUrl.endsWith('.webm') || 
+           cleanUrl.endsWith('.ogg') || 
+           cleanUrl.endsWith('.mov') || 
+           cleanUrl.includes('/video/');
+  };
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
-    if (!file) return;
+    if (!file) {
+      if (logCMS) logCMS("⚠️ No se seleccionó ningún archivo.", "warning");
+      return;
+    }
+    const startMsg = `Iniciado: ${file.name} (${(file.size/1024).toFixed(1)} KB)`;
+    if (logCMS) logCMS(startMsg, "info");
     try {
       setIsUploading(true);
+      if (logCMS) logCMS("⏳ Subiendo a Supabase Storage...", "info");
       const uploadedUrl = await uploadFile(file, "media");
-      setUrl(uploadedUrl);
+      if (logCMS) logCMS(`✅ Subido con éxito. URL: ${uploadedUrl}`, "success");
       
-      // Auto-detect type
-      const isVideoFile = file.type.startsWith('video/') || file.name.endsWith('.mp4') || file.name.endsWith('.webm');
-      setType(isVideoFile ? 'video' : 'image');
+      // Auto-detect type including webm
+      const cleanName = file.name.split('?')[0].toLowerCase();
+      const isVideoFile = file.type.startsWith('video/') || 
+                          cleanName.endsWith('.mp4') || 
+                          cleanName.endsWith('.webm') ||
+                          cleanName.endsWith('.ogg') ||
+                          cleanName.endsWith('.mov');
+      const mediaType = isVideoFile ? 'video' : 'image';
+
+      // Actualizar URL y Tipo atómicamente para prevenir que se sobrescriban mutuamente
+      updateMediaProps({
+        url: uploadedUrl,
+        type: mediaType
+      });
+      if (logCMS) logCMS(`➡️ Tipo establecido como: ${mediaType}`, "info");
     } catch (err) {
-      console.error(err);
-      alert('Error al subir el archivo');
+      const errMsg = err.message || err.error_description || JSON.stringify(err);
+      if (logCMS) logCMS(`❌ Falló subida: ${errMsg}`, "error");
+      alert('Error al subir el archivo: ' + errMsg);
     } finally {
       setIsUploading(false);
+      e.target.value = '';
+      if (logCMS) logCMS("🏁 Proceso de subida finalizado.", "info");
     }
   };
 
   const handleSave = () => {
-    onUpdate({
-      url,
-      type,
-      opacity: parseFloat(opacity),
-      blur: parseFloat(blur),
-      brightness: parseInt(brightness),
-      contrast: parseInt(contrast)
-    });
+    // Save is already done in real-time, just close
+    setIsOpen(false);
+  };
+
+  const handleCancel = () => {
+    if (backupMedia) {
+      // Revert in real-time to the backup copy
+      onUpdate(backupMedia);
+      // Sync state variables back to original values
+      setUrl(backupMedia.url);
+      setType(backupMedia.type);
+      setOpacity(backupMedia.opacity);
+      setBlur(backupMedia.blur);
+      setBrightness(backupMedia.brightness);
+      setContrast(backupMedia.contrast);
+      setScale(backupMedia.scale);
+      setPositionX(backupMedia.positionX);
+      setPositionY(backupMedia.positionY);
+      setObjectFit(backupMedia.objectFit);
+    }
     setIsOpen(false);
   };
 
@@ -471,13 +633,28 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
     const style = {
       opacity,
       filter: `blur(${blur}px) brightness(${brightness}%) contrast(${contrast}%)`,
+      objectFit: objectFit,
+      transform: `scale(${scale}) translate(${positionX}%, ${positionY}%)`,
+      transition: 'transform 0.15s ease-out'
     };
-    const isVideo = type === 'video' || (url && (url.endsWith('.mp4') || url.endsWith('.webm') || url.includes('/video/')));
 
-    if (isVideo) {
-      return <video src={url} className="w-full h-full object-cover" autoPlay loop muted playsInline style={style} />;
+    if (isVideoUrl(url, type)) {
+      return (
+        <video 
+          key={url}
+          src={url} 
+          className="w-full h-full object-cover" 
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+          controls={false}
+          preload="auto"
+          style={style} 
+        />
+      );
     }
-    return <img src={getOptimizedImageUrl(url, 400) || 'https://via.placeholder.com/400x250'} className="w-full h-full object-cover" style={style} alt="Preview" />;
+    return <img src={getOptimizedImageUrl(url, 400) || 'https://via.placeholder.com/400x250'} className="w-full h-full" style={style} alt="Preview" />;
   };
 
   // Render the default view element
@@ -485,13 +662,27 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
     const style = {
       opacity: currentOpacity,
       filter: `blur(${currentBlur}px) brightness(${currentBrightness}%) contrast(${currentContrast}%)`,
+      objectFit: currentObjectFit,
+      transform: `scale(${currentScale}) translate(${currentPositionX}%, ${currentPositionY}%)`,
     };
-    const isVideo = currentType === 'video' || (currentUrl && (currentUrl.endsWith('.mp4') || currentUrl.endsWith('.webm') || currentUrl.includes('/video/')));
 
-    if (isVideo) {
-      return <video src={currentUrl} className={className} autoPlay loop muted playsInline style={style} />;
+    if (isVideoUrl(currentUrl, currentType)) {
+      return (
+        <video 
+          key={currentUrl}
+          src={currentUrl} 
+          className={`${className} origin-center`} 
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+          controls={false}
+          preload="auto"
+          style={style} 
+        />
+      );
     }
-    return <img src={getOptimizedImageUrl(currentUrl)} className={className} style={style} alt={label} loading="lazy" />;
+    return <img src={getOptimizedImageUrl(currentUrl)} className={`${className} origin-center`} style={style} alt={label} loading="lazy" />;
   };
 
   if (!isEditorMode) {
@@ -500,8 +691,15 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
 
   return (
     <>
+      <input 
+        type="file" 
+        ref={fileInputRef}
+        onChange={handleFileUpload} 
+        accept="image/*,video/*,.png,.jpg,.jpeg,.webp,.svg,.gif,.bmp,.tiff,.heic,.heif,.jfif,.mp4,.webm,.ogg,.mov,.avi,.PNG,.JPG,.JPEG,.WEBP,.SVG,.GIF,.BMP,.TIFF,.HEIC,.HEIF,.JFIF,.MP4,.WEBM,.OGG,.MOV,.AVI" 
+        className="hidden" 
+      />
       <div 
-        onDoubleClick={() => setIsOpen(true)}
+        onDoubleClick={handleOpen}
         className="relative group cursor-pointer overflow-hidden rounded-[inherit] w-full h-full"
       >
         {renderDefaultElement()}
@@ -514,146 +712,283 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
       </div>
 
       {isOpen && createPortal(
-        <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm">
-          <div className="bg-[#0A0F15]/95 border border-white/10 p-6 rounded-2xl shadow-2xl w-[450px] max-w-[95%] backdrop-blur-xl flex flex-col gap-4 text-white text-left font-['Poppins']">
-            <div className="flex justify-between items-center border-b border-white/5 pb-3">
-              <h3 className="text-md font-bold text-[#FFD700] uppercase tracking-wider">{label}</h3>
-              <button onClick={() => setIsOpen(false)} className="text-white/40 hover:text-white transition-colors text-xs font-bold px-2 py-1 rounded bg-white/5">ESC / Cerrar</button>
+        <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 bg-transparent pointer-events-none">
+          <div 
+            style={{
+              transform: `translate(${dragPos.x}px, ${dragPos.y}px)`,
+            }}
+            className="bg-[#0A0F15]/95 border border-white/15 p-4 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.6)] w-[440px] max-w-[95%] backdrop-blur-xl flex flex-col gap-3 text-white text-left font-['Poppins'] pointer-events-auto select-none transition-all duration-75"
+          >
+            {/* Drag Handle Header */}
+            <div 
+              onMouseDown={handleMouseDown}
+              className="modal-drag-header flex justify-between items-center border-b border-white/5 pb-2 cursor-move hover:bg-white/5 p-1.5 -m-1.5 rounded-lg transition-colors select-none"
+              title="Haz clic y arrastra para mover este cuadro de diálogo"
+            >
+              <div className="flex items-center gap-2">
+                <div className="flex flex-col gap-0.5 opacity-40">
+                  <div className="w-3 h-[1.5px] bg-white"></div>
+                  <div className="w-3 h-[1.5px] bg-white"></div>
+                  <div className="w-3 h-[1.5px] bg-white"></div>
+                </div>
+                <h3 className="text-[10px] font-black text-[#FFD700] uppercase tracking-wider">{label}</h3>
+              </div>
+              <button 
+                onClick={handleCancel} 
+                className="text-white/40 hover:text-white transition-colors text-[9px] font-bold px-1.5 py-0.5 rounded bg-white/5 pointer-events-auto"
+              >
+                ESC / Cerrar
+              </button>
             </div>
 
             {/* Preview Box */}
-            <div className="w-full h-[150px] bg-black/40 rounded-xl overflow-hidden border border-white/5 flex items-center justify-center relative">
-              {url ? renderLivePreview() : <span className="text-white/30 text-xs">Sin archivo multimedia</span>}
+            <div className="w-full h-[90px] bg-black/40 rounded-lg overflow-hidden border border-white/5 flex items-center justify-center relative">
+              {url ? renderLivePreview() : <span className="text-white/30 text-[10px]">Sin archivo multimedia</span>}
               {isUploading && (
-                <div className="absolute inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center text-xs gap-2">
-                  <RefreshCw size={16} className="animate-spin text-[#FFD700]" />
+                <div className="absolute inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center text-[10px] gap-2">
+                  <RefreshCw size={12} className="animate-spin text-[#FFD700]" />
                   <span>Subiendo archivo...</span>
                 </div>
               )}
             </div>
 
-            {/* Input URL */}
-            <div className="flex flex-col gap-1.5">
-              <label className="text-[10px] uppercase font-black text-white/50 tracking-wider">URL del archivo</label>
-              <div className="flex gap-2">
-                <input 
-                  type="text" 
-                  value={url} 
-                  onChange={(e) => setUrl(e.target.value)} 
-                  placeholder="https://..." 
-                  className="flex-1 bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 text-xs focus:outline-none focus:border-[#FFD700] transition-colors"
-                />
-                <label className="bg-[#FFD700] hover:bg-[#FFC000] text-black font-bold text-xs px-3 py-1.5 rounded-lg cursor-pointer flex items-center justify-center gap-1 transition-all">
-                  <Upload size={14} />
-                  <span>Subir</span>
-                  <input type="file" onChange={handleFileUpload} accept="image/*,video/*" className="hidden" />
-                </label>
+            {/* URL y Tipo en una sola fila compacta */}
+            <div className="grid grid-cols-12 gap-3 items-end">
+              {/* URL */}
+              <div className="col-span-8 flex flex-col gap-1">
+                <label className="text-[9px] uppercase font-black text-white/50 tracking-wider">URL del archivo</label>
+                <div className="flex gap-1.5">
+                  <input 
+                    type="text" 
+                    value={url} 
+                    onChange={(e) => updateMediaProp('url', e.target.value)} 
+                    placeholder="https://..." 
+                    className="flex-1 bg-white/5 border border-white/10 rounded-lg px-2.5 py-1 text-xs focus:outline-none focus:border-[#FFD700] transition-colors"
+                  />
+                   <button 
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    className="bg-[#FFD700] hover:bg-[#FFC000] text-black font-bold text-[10px] px-2.5 py-1 rounded-lg cursor-pointer flex items-center justify-center gap-1 transition-all"
+                  >
+                    <Upload size={12} />
+                    <span>Subir</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Tipo de archivo */}
+              <div className="col-span-4 flex flex-col gap-1">
+                <label className="text-[9px] uppercase font-black text-white/50 tracking-wider">Tipo</label>
+                <div className="grid grid-cols-2 gap-1 bg-white/5 p-0.5 rounded-lg border border-white/5 h-[28px] items-center">
+                  <button 
+                    onClick={() => updateMediaProp('type', 'image')} 
+                    className={`py-0.5 text-[10px] font-bold rounded transition-all ${type === 'image' ? 'bg-[#FFD700] text-black' : 'text-white/60 hover:text-white'}`}
+                  >
+                    Img
+                  </button>
+                  <button 
+                    onClick={() => updateMediaProp('type', 'video')} 
+                    className={`py-0.5 text-[10px] font-bold rounded transition-all ${type === 'video' ? 'bg-[#FFD700] text-black' : 'text-white/60 hover:text-white'}`}
+                  >
+                    Vid
+                  </button>
+                </div>
               </div>
             </div>
 
-            {/* Media Type Toggle */}
-            <div className="flex flex-col gap-1.5">
-              <label className="text-[10px] uppercase font-black text-white/50 tracking-wider">Tipo de archivo</label>
-              <div className="grid grid-cols-2 gap-2 bg-white/5 p-1 rounded-lg border border-white/5">
-                <button 
-                  onClick={() => setType('image')} 
-                  className={`py-1 text-xs font-bold rounded-md transition-all ${type === 'image' ? 'bg-[#FFD700] text-black' : 'text-white/60 hover:text-white'}`}
-                >
-                  Imagen
-                </button>
-                <button 
-                  onClick={() => setType('video')} 
-                  className={`py-1 text-xs font-bold rounded-md transition-all ${type === 'video' ? 'bg-[#FFD700] text-black' : 'text-white/60 hover:text-white'}`}
-                >
-                  Video
-                </button>
-              </div>
+            {/* Selector de Pestañas internas del Modal */}
+            <div className="grid grid-cols-2 gap-1 bg-white/5 p-0.5 rounded-lg border border-white/5 mt-1">
+              <button 
+                onClick={() => setModalTab('layout')} 
+                className={`py-1 text-[10px] font-black uppercase rounded transition-all ${modalTab === 'layout' ? 'bg-[#FFD700] text-black' : 'text-white/60 hover:text-white'}`}
+              >
+                Escala y Posición
+              </button>
+              <button 
+                onClick={() => setModalTab('filters')} 
+                className={`py-1 text-[10px] font-black uppercase rounded transition-all ${modalTab === 'filters' ? 'bg-[#FFD700] text-black' : 'text-white/60 hover:text-white'}`}
+              >
+                Filtros de Color
+              </button>
             </div>
 
-            {/* Controls sliders */}
-            <div className="space-y-3">
-              {/* Opacity */}
-              <div className="flex flex-col gap-1">
-                <div className="flex justify-between text-[10px] uppercase font-black text-white/50 tracking-wider">
-                  <span>Transparencia (Opacidad)</span>
-                  <span className="text-[#FFD700]">{Math.round((1 - opacity) * 100)}%</span>
+            {/* Pestaña: Escala y Posición */}
+            {modalTab === 'layout' && (
+              <div className="space-y-2.5 pt-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-[9px] font-black uppercase text-[#FFD700] tracking-wider block">Ajustes de Vista</span>
+                  <button
+                    onClick={() => {
+                      updateMediaProp('scale', 1);
+                      updateMediaProp('positionX', 0);
+                      updateMediaProp('positionY', 0);
+                      updateMediaProp('objectFit', 'cover');
+                    }}
+                    className="bg-white/5 hover:bg-white/10 text-white/80 hover:text-white border border-white/10 px-1.5 py-0.5 rounded text-[8px] font-bold uppercase transition-all"
+                  >
+                    Resetear
+                  </button>
                 </div>
-                <input 
-                  type="range" 
-                  min="0.05" 
-                  max="1" 
-                  step="0.05" 
-                  value={opacity} 
-                  onChange={(e) => setOpacity(parseFloat(e.target.value))} 
-                  className="w-full accent-[#FFD700] cursor-pointer"
-                />
-              </div>
+                
+                {/* Object Fit */}
+                <div className="flex flex-col gap-0.5">
+                  <label className="text-[8px] uppercase font-bold text-white/40 tracking-wider">Ajuste de Imagen (Object Fit)</label>
+                  <div className="grid grid-cols-2 gap-1 bg-white/5 p-0.5 rounded-lg border border-white/5">
+                    <button 
+                      onClick={() => updateMediaProp('objectFit', 'cover')}
+                      className={`py-0.5 text-[9px] font-bold rounded transition-all ${objectFit === 'cover' ? 'bg-[#FFD700] text-black' : 'text-white/60 hover:text-white'}`}
+                    >
+                      Rellenar (Cover)
+                    </button>
+                    <button 
+                      onClick={() => updateMediaProp('objectFit', 'contain')}
+                      className={`py-0.5 text-[9px] font-bold rounded transition-all ${objectFit === 'contain' ? 'bg-[#FFD700] text-black' : 'text-white/60 hover:text-white'}`}
+                    >
+                      Ajustar (Contain)
+                    </button>
+                  </div>
+                </div>
 
-              {/* Blur */}
-              <div className="flex flex-col gap-1">
-                <div className="flex justify-between text-[10px] uppercase font-black text-white/50 tracking-wider">
-                  <span>Nitidez / Difuminado (Blur)</span>
-                  <span className="text-[#FFD700]">{blur}px</span>
+                {/* Scale */}
+                <div className="flex flex-col gap-0.5">
+                  <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
+                    <span>Zoom / Escala</span>
+                    <span className="text-[#FFD700]">${Math.round(scale * 100)}%</span>
+                  </div>
+                  <input 
+                    type="range" 
+                    min="0.1" 
+                    max="2.5" 
+                    step="0.05" 
+                    value={scale} 
+                    onChange={(e) => updateMediaProp('scale', parseFloat(e.target.value))} 
+                    className="w-full accent-[#FFD700] cursor-pointer h-1 bg-white/10 rounded-lg appearance-none"
+                  />
                 </div>
-                <input 
-                  type="range" 
-                  min="0" 
-                  max="15" 
-                  step="0.5" 
-                  value={blur} 
-                  onChange={(e) => setBlur(parseFloat(e.target.value))} 
-                  className="w-full accent-[#FFD700] cursor-pointer"
-                />
-              </div>
 
-              {/* Brightness */}
-              <div className="flex flex-col gap-1">
-                <div className="flex justify-between text-[10px] uppercase font-black text-white/50 tracking-wider">
-                  <span>Brillo</span>
-                  <span className="text-[#FFD700]">{brightness}%</span>
-                </div>
-                <input 
-                  type="range" 
-                  min="10" 
-                  max="180" 
-                  step="5" 
-                  value={brightness} 
-                  onChange={(e) => setBrightness(parseInt(e.target.value))} 
-                  className="w-full accent-[#FFD700] cursor-pointer"
-                />
-              </div>
+                {/* Grid X e Y */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="flex flex-col gap-0.5">
+                    <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
+                      <span>Mover X</span>
+                      <span className="text-[#FFD700]">${positionX}%</span>
+                    </div>
+                    <input 
+                      type="range" 
+                      min="-100" 
+                      max="100" 
+                      step="1" 
+                      value={positionX} 
+                      onChange={(e) => updateMediaProp('positionX', parseInt(e.target.value))} 
+                      className="w-full accent-[#FFD700] cursor-pointer h-1 bg-white/10 rounded-lg appearance-none"
+                    />
+                  </div>
 
-              {/* Contrast */}
-              <div className="flex flex-col gap-1">
-                <div className="flex justify-between text-[10px] uppercase font-black text-white/50 tracking-wider">
-                  <span>Contraste</span>
-                  <span className="text-[#FFD700]">{contrast}%</span>
+                  <div className="flex flex-col gap-0.5">
+                    <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
+                      <span>Mover Y</span>
+                      <span className="text-[#FFD700]">${positionY}%</span>
+                    </div>
+                    <input 
+                      type="range" 
+                      min="-100" 
+                      max="100" 
+                      step="1" 
+                      value={positionY} 
+                      onChange={(e) => updateMediaProp('positionY', parseInt(e.target.value))} 
+                      className="w-full accent-[#FFD700] cursor-pointer h-1 bg-white/10 rounded-lg appearance-none"
+                    />
+                  </div>
                 </div>
-                <input 
-                  type="range" 
-                  min="50" 
-                  max="200" 
-                  step="5" 
-                  value={contrast} 
-                  onChange={(e) => setContrast(parseInt(e.target.value))} 
-                  className="w-full accent-[#FFD700] cursor-pointer"
-                />
               </div>
-            </div>
+            )}
+
+            {/* Pestaña: Filtros de Color */}
+            {modalTab === 'filters' && (
+              <div className="space-y-2 pt-1">
+                {/* Opacity */}
+                <div className="flex flex-col gap-0.5">
+                  <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
+                    <span>Transparencia (Opacidad)</span>
+                    <span className="text-[#FFD700]">${Math.round((1 - opacity) * 100)}%</span>
+                  </div>
+                  <input 
+                    type="range" 
+                    min="0.05" 
+                    max="1" 
+                    step="0.05" 
+                    value={opacity} 
+                    onChange={(e) => updateMediaProp('opacity', parseFloat(e.target.value))} 
+                    className="w-full accent-[#FFD700] cursor-pointer h-1 bg-white/10 rounded-lg appearance-none"
+                  />
+                </div>
+
+                {/* Blur */}
+                <div className="flex flex-col gap-0.5">
+                  <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
+                    <span>Nitidez / Difuminado (Blur)</span>
+                    <span className="text-[#FFD700]">${blur}px</span>
+                  </div>
+                  <input 
+                    type="range" 
+                    min="0" 
+                    max="15" 
+                    step="0.5" 
+                    value={blur} 
+                    onChange={(e) => updateMediaProp('blur', parseFloat(e.target.value))} 
+                    className="w-full accent-[#FFD700] cursor-pointer h-1 bg-white/10 rounded-lg appearance-none"
+                  />
+                </div>
+
+                {/* Brightness */}
+                <div className="flex flex-col gap-0.5">
+                  <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
+                    <span>Brillo</span>
+                    <span className="text-[#FFD700]">${brightness}%</span>
+                  </div>
+                  <input 
+                    type="range" 
+                    min="10" 
+                    max="180" 
+                    step="5" 
+                    value={brightness} 
+                    onChange={(e) => updateMediaProp('brightness', parseInt(e.target.value))} 
+                    className="w-full accent-[#FFD700] cursor-pointer h-1 bg-white/10 rounded-lg appearance-none"
+                  />
+                </div>
+
+                {/* Contrast */}
+                <div className="flex flex-col gap-0.5">
+                  <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
+                    <span>Contraste</span>
+                    <span className="text-[#FFD700]">${contrast}%</span>
+                  </div>
+                  <input 
+                    type="range" 
+                    min="50" 
+                    max="200" 
+                    step="5" 
+                    value={contrast} 
+                    onChange={(e) => updateMediaProp('contrast', parseInt(e.target.value))} 
+                    className="w-full accent-[#FFD700] cursor-pointer h-1 bg-white/10 rounded-lg appearance-none"
+                  />
+                </div>
+              </div>
+            )}
 
             {/* Action buttons */}
-            <div className="grid grid-cols-2 gap-3 pt-3 border-t border-white/5">
+            <div className="grid grid-cols-2 gap-3 pt-2 border-t border-white/5 mt-1">
               <button 
-                onClick={() => setIsOpen(false)} 
-                className="py-2.5 text-xs font-bold bg-white/5 hover:bg-white/10 rounded-xl transition-all"
+                onClick={handleCancel} 
+                className="py-1.5 text-xs font-bold bg-white/5 hover:bg-white/10 rounded-lg transition-all pointer-events-auto"
               >
                 Cancelar
               </button>
               <button 
                 onClick={handleSave} 
-                className="py-2.5 text-xs font-bold bg-[#FFD700] hover:bg-[#FFC000] text-black rounded-xl transition-all shadow-[0_0_20px_rgba(255,215,0,0.15)]"
+                className="py-1.5 text-xs font-bold bg-[#FFD700] hover:bg-[#FFC000] text-black rounded-lg transition-all shadow-[0_0_20px_rgba(255,215,0,0.15)] pointer-events-auto"
               >
-                Guardar Cambios
+                Aceptar
               </button>
             </div>
           </div>
@@ -679,17 +1014,42 @@ const IndustriaDetalle = () => {
   const [activeTab, setActiveTab] = useState('hero');
   const [editingItemIdx, setEditingItemIdx] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
+  const [cmsLogs, setCmsLogs] = useState([]);
+  const logCMS = (message, type = 'info') => {
+    const timestamp = new Date().toLocaleTimeString();
+    setCmsLogs(prev => [...prev.slice(-15), { id: Date.now() + Math.random(), text: message, type, time: timestamp }]);
+    if (type === 'error') console.error(`[CMS] ${message}`);
+    else console.log(`[CMS] ${message}`);
+  };
   const [panelPosition, setPanelPosition] = useState('right'); // 'right' or 'left'
   const [isMinimized, setIsMinimized] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [isCmsDebugMinimized, setIsCmsDebugMinimized] = useState(false);
   
   const [position, setPosition] = useState({ x: 900, y: 112 });
   const [isDragging, setIsDragging] = useState(false);
   const dragStartRef = useRef({ x: 0, y: 0 });
   const initialPosRef = useRef({ x: 0, y: 0 });
+  const lastScrolledHashRef = useRef('');
 
   useEffect(() => {
     setPosition({ x: window.innerWidth - 410, y: 112 });
+  }, []);
+
+  useEffect(() => {
+    const handleAutoSavedEvent = (e) => {
+      const { success, error } = e.detail;
+      if (success) {
+        logCMS("☁️ [Autoguardado] Sincronización en la nube exitosa.", "success");
+      } else {
+        logCMS(`❌ [Autoguardado] Falló la sincronización: ${error}`, "error");
+      }
+    };
+
+    window.addEventListener('cmsAutoSaved', handleAutoSavedEvent);
+    return () => {
+      window.removeEventListener('cmsAutoSaved', handleAutoSavedEvent);
+    };
   }, []);
 
   const handleMouseDown = (e) => {
@@ -767,6 +1127,46 @@ const IndustriaDetalle = () => {
   const data = industryPage?.modules?.[0]?.data || staticData;
 
   const [activeItem, setActiveItem] = useState('');
+  const [activeMediaTabs, setActiveMediaTabs] = useState({});
+
+  // Lógica para rotar las pestañas automáticamente según el intervalo configurado
+  useEffect(() => {
+    const intervals = [];
+
+    if (data && data.items && data.items.length > 0) {
+      data.items.forEach((item, index) => {
+        const seconds = parseInt(item.mediaRotationInterval || 0);
+        if (seconds > 0) {
+          const intervalId = setInterval(() => {
+            setActiveMediaTabs(prev => {
+              const currentTab = prev[index] || 'tab1';
+              let nextTab = 'tab1';
+              
+              if (currentTab === 'tab1') {
+                if (item.image2) nextTab = 'tab2';
+                else if (item.video) nextTab = 'tab3';
+              } else if (currentTab === 'tab2') {
+                if (item.video) nextTab = 'tab3';
+                else nextTab = 'tab1';
+              } else {
+                nextTab = 'tab1';
+              }
+
+              return {
+                ...prev,
+                [index]: nextTab
+              };
+            });
+          }, seconds * 1000);
+          intervals.push(intervalId);
+        }
+      });
+    }
+
+    return () => {
+      intervals.forEach(clearInterval);
+    };
+  }, [data, isEditorMode]);
 
   const getItemIcon = (title, index) => {
     const t = title.toLowerCase();
@@ -808,24 +1208,38 @@ const IndustriaDetalle = () => {
   useEffect(() => {
     // Scroll to hash element smoothly if exists
     if (location.hash) {
-      const id = location.hash.substring(1);
-      setTimeout(() => {
+      const currentHash = location.hash;
+      if (lastScrolledHashRef.current === currentHash) return;
+
+      const id = currentHash.substring(1);
+      
+      // Esperar 300ms a que el layout de la página y la animación de Framer Motion se estabilicen
+      const timer = setTimeout(() => {
         const element = document.getElementById(id);
         if (element) {
-          const headerOffset = (cmsState?.settings?.headerHeight || 76) + 150; // 150px de margen adicional
-          const elementPosition = element.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-          
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
+          lastScrolledHashRef.current = currentHash;
+          element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
           });
         }
       }, 300);
+
+      return () => clearTimeout(timer);
     } else {
+      lastScrolledHashRef.current = '';
       window.scrollTo(0, 0);
     }
-  }, [sector, location.hash, cmsState?.settings?.headerHeight]);
+  }, [sector, location.hash, data]);
+
+  useEffect(() => {
+    if (activeItem && data?.items) {
+      const idx = data.items.findIndex(item => item.id === activeItem);
+      if (idx !== -1) {
+        setEditingItemIdx(idx);
+      }
+    }
+  }, [activeItem, data?.items]);
 
   const handleUpdate = (key, value) => {
     if (!industryPage) return;
@@ -886,15 +1300,19 @@ const IndustriaDetalle = () => {
   const handleHeroImageUpload = async (e) => {
     const file = e.target.files[0];
     if (file) {
+      logCMS(`Iniciada subida de Hero: ${file.name}`, "info");
       try {
         setIsUploading(true);
         const url = await uploadFile(file, "media");
+        logCMS(`✅ Hero subido con éxito: ${url}`, "success");
         handleUpdate('heroImage', url);
       } catch (err) {
-        console.error("Error al subir imagen de Hero:", err);
-        alert('No se pudo subir la imagen.');
+        const errMsg = err.message || err.error_description || JSON.stringify(err);
+        logCMS(`❌ Error Hero: ${errMsg}`, "error");
+        alert('No se pudo subir la imagen: ' + errMsg);
       } finally {
         setIsUploading(false);
+        e.target.value = '';
       }
     }
   };
@@ -902,15 +1320,19 @@ const IndustriaDetalle = () => {
   const handleItemImageUpload = async (e, index) => {
     const file = e.target.files[0];
     if (file) {
+      logCMS(`Iniciada subida de Item ${index + 1}: ${file.name}`, "info");
       try {
         setIsUploading(true);
         const url = await uploadFile(file, "media");
+        logCMS(`✅ Item ${index + 1} subido con éxito: ${url}`, "success");
         handleItemUpdate(index, 'image', url);
       } catch (err) {
-        console.error("Error al subir imagen de especialidad:", err);
-        alert('No se pudo subir la imagen.');
+        const errMsg = err.message || err.error_description || JSON.stringify(err);
+        logCMS(`❌ Error Item ${index + 1}: ${errMsg}`, "error");
+        alert('No se pudo subir la imagen: ' + errMsg);
       } finally {
         setIsUploading(false);
+        e.target.value = '';
       }
     }
   };
@@ -929,6 +1351,9 @@ const IndustriaDetalle = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{data.title ? `${data.title} | SMQ Industrial Systems` : 'SMQ Industrial Systems'}</title>
+      </Helmet>
       {/* Sliding CMS control panel if isEditorMode is active */}
       {isEditorMode && industryPage && (
         isMinimized ? (
@@ -1031,10 +1456,11 @@ const IndustriaDetalle = () => {
                   </div>
 
                   <div className="flex flex-col gap-1.5 border-t border-white/10 pt-3">
-                    <label className="text-white/50 text-[10px] uppercase font-bold tracking-wider">Imagen de Fondo (Hero)</label>
+                    <label className="text-white/50 text-[10px] uppercase font-bold tracking-wider">Imagen de Fondo (Banner Superior)</label>
+                    <span className="text-[10px] text-white/40 block mt-0.5 leading-normal">(Esta imagen de fondo se aplica al inicio superior de la página, NO en las especialidades/equipos individuales)</span>
                     <input
                       type="file"
-                      accept="image/*"
+                      accept="image/*,.png,.jpg,.jpeg,.webp,.svg,.gif,.bmp,.tiff,.heic,.heif,.jfif,.PNG,.JPG,.JPEG,.WEBP,.SVG,.GIF,.BMP,.TIFF,.HEIC,.HEIF,.JFIF"
                       className="hidden"
                       ref={heroImageInputRef}
                       onChange={handleHeroImageUpload}
@@ -1042,14 +1468,14 @@ const IndustriaDetalle = () => {
                     <button
                       onClick={() => heroImageInputRef.current?.click()}
                       disabled={isUploading}
-                      className="bg-[#FFD700] hover:bg-[#FFC000] text-black font-bold py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md text-xs"
+                      className="bg-[#FFD700] hover:bg-[#FFC000] text-black font-bold py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md text-xs mt-1"
                     >
                       {isUploading ? (
                         <div className="w-3.5 h-3.5 border-2 border-black/30 border-t-black rounded-full animate-spin"></div>
                       ) : (
                         <Upload size={14} />
                       )}
-                      <span>Subir Nueva Imagen</span>
+                      <span>Subir Imagen de Cabecera</span>
                     </button>
                   </div>
                 </div>
@@ -1149,10 +1575,11 @@ const IndustriaDetalle = () => {
                       </div>
 
                       <div className="flex flex-col gap-1.5 border-t border-white/10 pt-3">
-                        <label className="text-white/50 text-[10px] uppercase font-bold">Imagen de Especialidad</label>
+                        <label className="text-white/50 text-[10px] uppercase font-bold">Foto del Equipo ({data.items[editingItemIdx]?.title || 'Seleccionado'})</label>
+                        <span className="text-[10px] text-white/40 block mt-0.5 leading-normal">(Esta imagen se aplica directamente al equipo/especialidad de la izquierda)</span>
                         <input
                           type="file"
-                          accept="image/*"
+                          accept="image/*,.png,.jpg,.jpeg,.webp,.svg,.gif,.bmp,.tiff,.heic,.heif,.jfif,.PNG,.JPG,.JPEG,.WEBP,.SVG,.GIF,.BMP,.TIFF,.HEIC,.HEIF,.JFIF"
                           className="hidden"
                           ref={itemImageInputRef}
                           onChange={(e) => handleItemImageUpload(e, editingItemIdx)}
@@ -1160,14 +1587,14 @@ const IndustriaDetalle = () => {
                         <button
                           onClick={() => itemImageInputRef.current?.click()}
                           disabled={isUploading}
-                          className="bg-[#FFD700] hover:bg-[#FFC000] text-black font-bold py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md text-xs"
+                          className="bg-[#FFD700] hover:bg-[#FFC000] text-black font-bold py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md text-xs mt-1"
                         >
                           {isUploading ? (
                             <div className="w-3.5 h-3.5 border-2 border-black/30 border-t-black rounded-full animate-spin"></div>
                           ) : (
                             <Upload size={14} />
                           )}
-                          <span>Subir Nueva Imagen</span>
+                          <span>Subir Imagen de Equipo</span>
                         </button>
                       </div>
                     </div>
@@ -1425,13 +1852,13 @@ const IndustriaDetalle = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ duration: 0.6 }}
-                  className={`grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center border-b border-white/5 pb-16 md:pb-24 last:border-b-0`}
+                  className={`scroll-mt-[160px] grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center border-b border-white/5 pb-16 md:pb-24 last:border-b-0`}
                 >
                   {/* Text Content */}
                   <div className={`lg:col-span-6 space-y-6 ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
                     <div className="flex items-center justify-between gap-3 flex-wrap">
                       <div className="flex items-center gap-3">
-                        <span className="w-8 h-8 rounded-lg bg-[#FFD700]/10 border border-[#FFD700]/25 flex items-center justify-center text-[#FFD700] font-black text-sm">{index + 1}</span>
+                        <span className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-black text-sm">{index + 1}</span>
                         <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-white">
                           <EditableText 
                             value={item.title} 
@@ -1474,23 +1901,39 @@ const IndustriaDetalle = () => {
                       <div className="space-y-2 pt-2">
                         <h4 className="text-xs uppercase tracking-widest text-white/40 font-bold">Especificaciones Clave:</h4>
                         <ul className="space-y-2">
-                          {item.features.map((feat, fIdx) => (
-                            <li key={feat || fIdx} className="flex items-center gap-2.5 text-white/80 text-sm font-medium">
-                              <Zap size={14} className="text-[#FFD700]" />
-                              <span>
-                                <EditableText 
-                                  value={feat} 
-                                  onChange={(val) => {
+                          {item.features.map((feat, fIdx) => {
+                            const match = typeof feat === 'string' ? feat.match(/^\[icon:(\w+)\]\s*(.*)/) : null;
+                            const iconName = match ? match[1] : 'Zap';
+                            const textOnly = match ? match[2] : feat;
+                            return (
+                              <li key={fIdx} className="flex items-center gap-2.5 text-white/80 text-sm font-medium">
+                                <EditableIcon
+                                  name={iconName}
+                                  isEditorMode={isEditorMode}
+                                  size={14}
+                                  className="text-[#FFD700]"
+                                  onChange={(newIconName) => {
                                     const updatedFeatures = [...item.features];
-                                    updatedFeatures[fIdx] = val;
+                                    updatedFeatures[fIdx] = `[icon:${newIconName}] ${textOnly}`;
                                     handleItemUpdate(index, 'features', updatedFeatures);
-                                  }} 
-                                  tag="span" 
-                                  isEditorMode={isEditorMode} 
+                                  }}
                                 />
-                              </span>
-                            </li>
-                          ))}
+                                <span>
+                                  <EditableText 
+                                    value={textOnly} 
+                                    onChange={(val) => {
+                                      const updatedFeatures = [...item.features];
+                                      const currentIcon = match ? `[icon:${match[1]}] ` : '';
+                                      updatedFeatures[fIdx] = `${currentIcon}${val}`;
+                                      handleItemUpdate(index, 'features', updatedFeatures);
+                                    }} 
+                                    tag="span" 
+                                    isEditorMode={isEditorMode} 
+                                  />
+                                </span>
+                              </li>
+                            );
+                          })}
                         </ul>
                       </div>
                     )}
@@ -1498,26 +1941,264 @@ const IndustriaDetalle = () => {
 
                   {/* Media Container */}
                   <div className={`lg:col-span-6 ${index % 2 === 1 ? 'lg:order-1' : ''}`}>
-                    {item.image ? (
-                      <div className="relative group overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-2xl">
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity z-10 pointer-events-none" />
-                        <EditableMedia
-                          media={item.image}
-                          defaultOpacity={1}
-                          className="w-full aspect-[16/10] object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                          onUpdate={(newMedia) => handleItemUpdate(index, 'image', newMedia)}
-                          isEditorMode={isEditorMode}
-                          label={`Imagen/Video de ${item.title}`}
-                        />
-                        {/* Technical Blueprint Accent overlay */}
-                        <div className="absolute bottom-4 left-4 z-20 flex items-center gap-2 bg-[#0B0F14]/90 backdrop-blur border border-white/10 px-3 py-1.5 rounded-lg text-xs text-white/80 font-bold uppercase tracking-wider pointer-events-none">
-                          <Cpu size={14} className="text-[#FFD700] animate-pulse" />
-                          <span>Esquema Técnico Activo</span>
+                    {((item.image || item.image2 || item.video) || isEditorMode) ? (
+                      <div className="flex flex-col shadow-2xl">
+                        {/* Contenedor Superior de la Imagen/Video */}
+                        <div className="relative group overflow-hidden rounded-t-2xl border-t border-l border-r border-white/10 bg-white/5 aspect-[16/10]">
+                          {isUploading && (
+                            <div className="absolute inset-0 bg-black/75 backdrop-blur-sm flex flex-col items-center justify-center text-xs gap-2 z-50">
+                              <RefreshCw size={24} className="animate-spin text-[#FFD700]" />
+                              <span className="font-bold text-white/90">Subiendo archivo...</span>
+                            </div>
+                          )}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity z-10 pointer-events-none" />
+                          {(() => {
+                            let currentTab = activeMediaTabs[index] || item.defaultMediaTab || 'tab1';
+                            if (!isEditorMode) {
+                              if (currentTab === 'tab2' && !item.image2?.url) {
+                                currentTab = 'tab1';
+                              } else if (currentTab === 'tab3' && !item.video?.url) {
+                                currentTab = 'tab1';
+                              }
+                            }
+                            let activeMedia = item.image;
+                            let activeLabel = `Foto Real de ${item.title}`;
+                            let updateKey = 'image';
+                            let mediaType = 'image';
+
+                            if (currentTab === 'tab2') {
+                              activeMedia = item.image2;
+                              activeLabel = `Twin Digital de ${item.title}`;
+                              updateKey = 'image2';
+                            } else if (currentTab === 'tab3') {
+                              activeMedia = item.video;
+                              activeLabel = `Animación de ${item.title}`;
+                              updateKey = 'video';
+                              mediaType = 'video';
+                            }
+
+                            return (
+                              <>
+                                <EditableMedia
+                                  media={activeMedia || { url: '', type: mediaType }}
+                                  defaultOpacity={1}
+                                  className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                                  onUpdate={(newMedia) => handleItemUpdate(index, updateKey, newMedia)}
+                                  isEditorMode={isEditorMode}
+                                  label={activeLabel}
+                                  logCMS={logCMS}
+                                />
+
+                                {/* Botón flotante superior con z-[60] para evitar overlays */}
+                                {isEditorMode && (
+                                  <div className="absolute top-4 right-4 z-[60]">
+                                    <button
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        const inputId = `file-upload-input-${index}-${currentTab}`;
+                                        document.getElementById(inputId)?.click();
+                                      }}
+                                      className="flex items-center gap-2 bg-[#0B0F14]/90 hover:bg-[#FFD700] hover:text-black text-white/90 backdrop-blur border border-white/15 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider shadow-lg transition-all cursor-pointer hover:scale-105 active:scale-95 pointer-events-auto"
+                                    >
+                                      <Upload size={12} />
+                                      <span>Subir</span>
+                                    </button>
+                                  </div>
+                                )}
+                              </>
+                            );
+                          })()}
                         </div>
+
+                        {/* Contenedor Inferior de Botones/Tabs (Fuera del overlay de la imagen) */}
+                        {(() => {
+                          let currentTab = activeMediaTabs[index] || item.defaultMediaTab || 'tab1';
+                          if (!isEditorMode) {
+                            if (currentTab === 'tab2' && !item.image2?.url) {
+                              currentTab = 'tab1';
+                            } else if (currentTab === 'tab3' && !item.video?.url) {
+                              currentTab = 'tab1';
+                            }
+                          }
+                          let updateKey = 'image';
+                          if (currentTab === 'tab2') updateKey = 'image2';
+                          else if (currentTab === 'tab3') updateKey = 'video';
+
+                          return (
+                            <div className="bg-[#0A0E13]/95 border-b border-l border-r border-white/10 p-2 rounded-b-2xl shadow-xl flex items-center justify-between gap-2 z-40 relative">
+                              {/* Las Pestañas Repartidas */}
+                              <div className="flex-1 flex items-center justify-between gap-1.5">
+                                {/* Botón Tab 1 */}
+                                <button
+                                  onClick={() => setActiveMediaTabs(prev => ({ ...prev, [index]: 'tab1' }))}
+                                  className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer border ${
+                                    currentTab === 'tab1'
+                                      ? 'bg-[#FFD700]/20 text-[#FFD700] border-[#FFD700]/30 shadow-md font-extrabold'
+                                      : 'text-white/60 border-transparent hover:text-white hover:bg-white/5'
+                                  }`}
+                                >
+                                  <EditableIcon
+                                    name={item.blueprintIcon || 'Image'}
+                                    isEditorMode={isEditorMode}
+                                    size={12}
+                                    className={currentTab === 'tab1' ? 'text-[#FFD700]' : 'text-white/40'}
+                                    onChange={(newIconName) => handleItemUpdate(index, 'blueprintIcon', newIconName)}
+                                  />
+                                  <EditableText
+                                    value={item.mediaLabel1 || 'Foto Real'}
+                                    onChange={(val) => handleItemUpdate(index, 'mediaLabel1', val)}
+                                    isEditorMode={isEditorMode}
+                                    tag="span"
+                                  />
+                                </button>
+
+                                {/* Botón Tab 2 */}
+                                {(isEditorMode || !!item.image2?.url) && (
+                                  <button
+                                    onClick={() => setActiveMediaTabs(prev => ({ ...prev, [index]: 'tab2' }))}
+                                    className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer border ${
+                                      !item.image2 ? 'border-dashed border-white/20 opacity-50 hover:opacity-100' : ''
+                                    } ${
+                                      currentTab === 'tab2'
+                                        ? 'bg-[#FFD700]/20 text-[#FFD700] border-[#FFD700]/30 shadow-md font-extrabold'
+                                        : 'text-white/60 border-transparent hover:text-white hover:bg-white/5'
+                                    }`}
+                                  >
+                                    <EditableIcon
+                                      name={item.tab2Icon || 'Cpu'}
+                                      isEditorMode={isEditorMode}
+                                      size={12}
+                                      className={currentTab === 'tab2' ? 'text-[#FFD700]' : 'text-white/40'}
+                                      onChange={(newIconName) => handleItemUpdate(index, 'tab2Icon', newIconName)}
+                                    />
+                                    <EditableText
+                                      value={item.mediaLabel2 || 'Twin Digital'}
+                                      onChange={(val) => handleItemUpdate(index, 'mediaLabel2', val)}
+                                      isEditorMode={isEditorMode}
+                                      tag="span"
+                                    />
+                                  </button>
+                                )}
+
+                                {/* Botón Tab 3 */}
+                                {(isEditorMode || !!item.video?.url) && (
+                                  <button
+                                    onClick={() => setActiveMediaTabs(prev => ({ ...prev, [index]: 'tab3' }))}
+                                    className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer border ${
+                                      !item.video ? 'border-dashed border-white/20 opacity-50 hover:opacity-100' : ''
+                                    } ${
+                                      currentTab === 'tab3'
+                                        ? 'bg-[#FFD700]/20 text-[#FFD700] border-[#FFD700]/30 shadow-md font-extrabold'
+                                        : 'text-white/60 border-transparent hover:text-white hover:bg-white/5'
+                                    }`}
+                                  >
+                                    <EditableIcon
+                                      name={item.tab3Icon || 'Play'}
+                                      isEditorMode={isEditorMode}
+                                      size={12}
+                                      className={currentTab === 'tab3' ? 'text-[#FFD700]' : 'text-white/40'}
+                                      onChange={(newIconName) => handleItemUpdate(index, 'tab3Icon', newIconName)}
+                                    />
+                                    <EditableText
+                                      value={item.mediaVideoLabel || 'Animación'}
+                                      onChange={(val) => handleItemUpdate(index, 'mediaVideoLabel', val)}
+                                      isEditorMode={isEditorMode}
+                                      tag="span"
+                                    />
+                                  </button>
+                                )}
+                              </div>
+
+                              {/* Temporizador de rotación, Fijar inicio e Input/Botón de subida */}
+                              {isEditorMode && (
+                                <div className="flex items-center gap-3 pl-2 border-l border-white/10">
+                                  {/* Control de Temporizador */}
+                                  <div className="flex items-center gap-1.5 text-[9px] uppercase font-bold text-white/50">
+                                    <Clock size={11} className="text-[#FFD700] animate-pulse" />
+                                    <span>Auto-rotar:</span>
+                                    <input 
+                                      type="number"
+                                      min="0"
+                                      max="60"
+                                      placeholder="0"
+                                      value={item.mediaRotationInterval || 0}
+                                      onChange={(e) => handleItemUpdate(index, 'mediaRotationInterval', parseInt(e.target.value) || 0)}
+                                      className="w-10 bg-white/5 border border-white/10 rounded px-1.5 py-0.5 text-center text-xs text-white focus:outline-none focus:border-[#FFD700] transition-colors font-bold"
+                                      title="Segundos de intervalo para rotación (0 = desactivado)"
+                                    />
+                                    <span>s</span>
+                                  </div>
+
+                                  {/* Botón para fijar pestaña inicial */}
+                                  <button
+                                    onClick={() => {
+                                      handleItemUpdate(index, 'defaultMediaTab', currentTab);
+                                    }}
+                                    className={`flex items-center gap-1 border px-2.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all cursor-pointer ${
+                                      (item.defaultMediaTab || 'tab1') === currentTab
+                                        ? 'bg-[#FFD700]/20 text-[#FFD700] border-[#FFD700]/30'
+                                        : 'bg-[#0A0E13]/90 hover:bg-[#FFD700] hover:text-black text-white/50 border-white/10 hover:border-transparent'
+                                    }`}
+                                    title="Establecer esta pestaña como la vista inicial por defecto"
+                                  >
+                                    <Star size={10} className={(item.defaultMediaTab || 'tab1') === currentTab ? "fill-[#FFD700] text-[#FFD700]" : "text-white/40"} />
+                                    <span>{(item.defaultMediaTab || 'tab1') === currentTab ? 'Inicio' : 'Fijar Inicio'}</span>
+                                  </button>
+
+                                  <button
+                                    onClick={() => {
+                                      const inputId = `file-upload-input-${index}-${currentTab}`;
+                                      document.getElementById(inputId)?.click();
+                                    }}
+                                    className="flex items-center gap-1 bg-emerald-500/10 hover:bg-emerald-500 hover:text-black text-emerald-400 border border-emerald-500/30 hover:border-transparent px-2.5 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all cursor-pointer hover:scale-105 active:scale-95 pointer-events-auto"
+                                    title="Subir archivo para la pestaña seleccionada"
+                                  >
+                                    <Upload size={10} />
+                                    <span>Subir</span>
+                                  </button>
+                                  <input
+                                    id={`file-upload-input-${index}-${currentTab}`}
+                                    type="file"
+                                    className="hidden"
+                                    accept="image/*,video/*,.png,.jpg,.jpeg,.webp,.svg,.gif,.bmp,.tiff,.heic,.heif,.jfif,.mp4,.webm,.ogg,.mov,.avi,.PNG,.JPG,.JPEG,.WEBP,.SVG,.GIF,.BMP,.TIFF,.HEIC,.HEIF,.JFIF,.MP4,.WEBM,.OGG,.MOV,.AVI"
+                                    onChange={async (e) => {
+                                      const file = e.target.files[0];
+                                      if (!file) {
+                                        logCMS("⚠️ No se seleccionó archivo en tarjeta.", "warning");
+                                        return;
+                                      }
+                                      logCMS(`Iniciando subida desde tarjeta (${currentTab}): ${file.name}`, "info");
+                                      try {
+                                        setIsUploading(true);
+                                        const uploadedUrl = await uploadFile(file, "media");
+                                        logCMS(`✅ Subida de tarjeta exitosa: ${uploadedUrl}`, "success");
+                                        const isVideoFile = file.type.startsWith('video/') || file.name.endsWith('.mp4') || file.name.endsWith('.webm');
+                                        handleItemUpdate(index, updateKey, { url: uploadedUrl, type: isVideoFile ? 'video' : 'image' });
+                                      } catch (err) {
+                                        const errMsg = err.message || err.error_description || JSON.stringify(err);
+                                        logCMS(`❌ Error en tarjeta: ${errMsg}`, "error");
+                                        alert("Error al subir archivo: " + errMsg);
+                                      } finally {
+                                        setIsUploading(false);
+                                        e.target.value = '';
+                                      }
+                                    }}
+                                  />
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })()}
                       </div>
                     ) : (
                       <div className="w-full aspect-[16/10] bg-white/5 border border-dashed border-white/10 rounded-2xl flex flex-col items-center justify-center text-center p-6 text-white/40">
-                        <Settings size={48} className="mb-4 stroke-[1.2] animate-spin-slow" />
+                        <EditableIcon
+                          name={item.placeholderIcon || 'Settings'}
+                          isEditorMode={isEditorMode}
+                          size={48}
+                          className="mb-4 stroke-[1.2]"
+                          onChange={(newIconName) => handleItemUpdate(index, 'placeholderIcon', newIconName)}
+                        />
                         <p className="font-semibold text-sm">Visualización técnica en preparación</p>
                         <p className="text-xs text-white/20 mt-1">Contacta con soporte para hojas de especificación</p>
                       </div>
@@ -1534,8 +2215,14 @@ const IndustriaDetalle = () => {
             {/* Subtle light ring accent */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] bg-[#FFD700]/5 rounded-full filter blur-[120px] pointer-events-none z-0" />
             
-            <div className="max-w-3xl mx-auto space-y-8 relative z-10">
-              <Shield size={48} className="mx-auto text-[#FFD700] drop-shadow-[0_0_15px_rgba(255,215,0,0.3)] animate-pulse" />
+            <div className="max-w-3xl mx-auto space-y-8 relative z-10 flex flex-col items-center">
+              <EditableIcon
+                name={data.ctaIcon || 'Shield'}
+                isEditorMode={isEditorMode}
+                size={48}
+                className="text-[#FFD700] drop-shadow-[0_0_15px_rgba(255,215,0,0.3)] animate-pulse"
+                onChange={(newIconName) => handleUpdate('ctaIcon', newIconName)}
+              />
               <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight">
                 <EditableText 
                   value={data.ctaTitle || '¿Tienes un proyecto industrial en mente?'} 
@@ -1574,6 +2261,57 @@ const IndustriaDetalle = () => {
           <Footer />
         </div>
       </div>
+      {isEditorMode && (
+        <div 
+          className={`fixed bottom-4 left-4 z-[99999] bg-[#0A0F15]/95 border border-white/10 p-3 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] backdrop-blur-xl flex flex-col gap-2 font-mono text-[10px] pointer-events-auto transition-all duration-300 select-none ${
+            isCmsDebugMinimized ? 'w-[180px] h-[32px] overflow-hidden' : 'w-[360px] max-h-[200px] overflow-hidden'
+          }`}
+        >
+          <div className="flex justify-between items-center border-b border-white/5 pb-1">
+            <span 
+              onClick={() => setIsCmsDebugMinimized(!isCmsDebugMinimized)}
+              className="text-[#FFD700] font-black uppercase tracking-wider flex items-center gap-1.5 cursor-pointer hover:opacity-80 transition-opacity"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
+              {isCmsDebugMinimized ? 'CMS Logs' : 'CMS Debug Console'}
+            </span>
+            <div className="flex items-center gap-2">
+              {!isCmsDebugMinimized && (
+                <button 
+                  onClick={() => setCmsLogs([])}
+                  className="text-white/40 hover:text-white transition-colors"
+                  title="Clear Logs"
+                >
+                  Clear
+                </button>
+              )}
+              <button 
+                onClick={() => setIsCmsDebugMinimized(!isCmsDebugMinimized)}
+                className="text-white/40 hover:text-white transition-colors flex items-center justify-center"
+                title={isCmsDebugMinimized ? "Expand" : "Minimize"}
+              >
+                {isCmsDebugMinimized ? <Maximize2 size={10} /> : <Minimize2 size={10} />}
+              </button>
+            </div>
+          </div>
+          {!isCmsDebugMinimized && (
+            <div className="flex-1 overflow-y-auto flex flex-col gap-1 pr-1 custom-scrollbar max-h-[150px]">
+              {cmsLogs.length === 0 ? (
+                <span className="text-white/30 italic">No hay logs registrados aún. Prueba a subir un archivo.</span>
+              ) : (
+                cmsLogs.map(log => (
+                  <div key={log.id} className="flex gap-1.5 leading-relaxed">
+                    <span className="text-white/30">[{log.time}]</span>
+                    <span className={log.type === 'error' ? 'text-red-400 font-bold' : log.type === 'success' ? 'text-emerald-400 font-bold' : log.type === 'warning' ? 'text-amber-400' : 'text-white/70'}>
+                      {log.text}
+                    </span>
+                  </div>
+                ))
+              )}
+            </div>
+          )}
+        </div>
+      )}
     </>
   );
 };

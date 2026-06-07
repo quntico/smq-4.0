@@ -406,14 +406,14 @@ const NosotrosSection = () => {
                   type="file" 
                   ref={collageImageInputRef} 
                   onChange={handleCollageImageChange} 
-                  accept="image/*" 
+                  accept="image/*,.png,.jpg,.jpeg,.webp,.svg,.gif,.bmp,.tiff,.heic,.heif,.jfif,.PNG,.JPG,.JPEG,.WEBP,.SVG,.GIF,.BMP,.TIFF,.HEIC,.HEIF,.JFIF" 
                   className="hidden" 
                 />
                 <input 
                   type="file" 
                   ref={collageVideoInputRef} 
                   onChange={handleCollageVideoChange} 
-                  accept="video/*" 
+                  accept="video/*,.mp4,.webm,.ogg,.mov,.avi,.MP4,.WEBM,.OGG,.MOV,.AVI" 
                   className="hidden" 
                 />
               </div>
@@ -896,7 +896,7 @@ const NosotrosSection = () => {
           <input 
             type="file" 
             ref={cardFileInputRef}
-            accept="image/*"
+            accept="image/*,.png,.jpg,.jpeg,.webp,.svg,.gif,.bmp,.tiff,.heic,.heif,.jfif,.PNG,.JPG,.JPEG,.WEBP,.SVG,.GIF,.BMP,.TIFF,.HEIC,.HEIF,.JFIF"
             className="hidden"
             onChange={(e) => {
               const index = parseInt(cardFileInputRef.current.dataset.index);
@@ -946,7 +946,7 @@ const NosotrosSection = () => {
               <input 
                 type="file" 
                 ref={fileInputRef} 
-                accept="image/*" 
+                accept="image/*,.png,.jpg,.jpeg,.webp,.svg,.gif,.bmp,.tiff,.heic,.heif,.jfif,.PNG,.JPG,.JPEG,.WEBP,.SVG,.GIF,.BMP,.TIFF,.HEIC,.HEIF,.JFIF" 
                 className="hidden" 
                 onChange={handleImageChange} 
               />

@@ -3,7 +3,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
-const MegaMenuSolutions = ({ isOpen, onClose }) => {
+const MegaMenuSolutions = ({ isOpen, onClose, isLocked }) => {
   if (!isOpen) return null;
 
   return (
@@ -13,44 +13,46 @@ const MegaMenuSolutions = ({ isOpen, onClose }) => {
       exit={{ opacity: 0, y: -10 }}
       transition={{ duration: 0.25, ease: 'easeOut' }}
       className="absolute top-full left-0 mt-2 w-[600px] backdrop-blur-[12px] bg-[rgba(0,0,0,0.35)] border border-[rgba(255,255,255,0.18)] rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.3)] p-6 z-50"
-      onMouseLeave={onClose}
+      onMouseLeave={() => {
+        if (!isLocked) onClose();
+      }}
     >
       <div className="grid grid-cols-2 gap-8">
         <div>
-          <h3 className="text-[#FFD700] font-semibold mb-4 text-sm uppercase tracking-wider">Plantas</h3>
+          <h3 className="text-[#FFD700] font-semibold mb-4 text-[16px] uppercase tracking-wider">Plantas</h3>
           <ul className="space-y-3">
             <li>
-              <Link to="/solucion/plantas-reciclaje" className="text-white/80 hover:text-[#FFD700] hover:font-[600] transition-all duration-200 text-sm block" onClick={onClose}>
+              <Link to="/solucion/plantas-reciclaje" className="text-white/80 hover:text-[#FFD700] hover:font-[600] transition-all duration-200 text-[16px] block" onClick={onClose}>
                 Plantas de reciclaje de plástico
               </Link>
             </li>
             <li>
-              <Link to="/solucion/plantas-extrusion" className="text-white/80 hover:text-[#FFD700] hover:font-[600] transition-all duration-200 text-sm block" onClick={onClose}>
+              <Link to="/solucion/plantas-extrusion" className="text-white/80 hover:text-[#FFD700] hover:font-[600] transition-all duration-200 text-[16px] block" onClick={onClose}>
                 Plantas de extrusión industrial
               </Link>
             </li>
             <li>
-              <Link to="/solucion/plantas-alimentos" className="text-white/80 hover:text-[#FFD700] hover:font-[600] transition-all duration-200 text-sm block" onClick={onClose}>
+              <Link to="/solucion/plantas-alimentos" className="text-white/80 hover:text-[#FFD700] hover:font-[600] transition-all duration-200 text-[16px] block" onClick={onClose}>
                 Plantas de procesamiento de alimentos
               </Link>
             </li>
           </ul>
         </div>
         <div>
-          <h3 className="text-[#FFD700] font-semibold mb-4 text-sm uppercase tracking-wider">Automatización</h3>
+          <h3 className="text-[#FFD700] font-semibold mb-4 text-[16px] uppercase tracking-wider">Automatización</h3>
           <ul className="space-y-3">
             <li>
-              <Link to="/solucion/automatizacion" className="text-white/80 hover:text-[#FFD700] hover:font-[600] transition-all duration-200 text-sm block" onClick={onClose}>
+              <Link to="/solucion/automatizacion" className="text-white/80 hover:text-[#FFD700] hover:font-[600] transition-all duration-200 text-[16px] block" onClick={onClose}>
                 Automatización industrial
               </Link>
             </li>
             <li>
-              <Link to="/solucion/automatizacion" className="text-white/80 hover:text-[#FFD700] hover:font-[600] transition-all duration-200 text-sm block" onClick={onClose}>
+              <Link to="/solucion/automatizacion" className="text-white/80 hover:text-[#FFD700] hover:font-[600] transition-all duration-200 text-[16px] block" onClick={onClose}>
                 Integración de maquinaria
               </Link>
             </li>
             <li>
-              <Link to="/solucion/ingenieria" className="text-white/80 hover:text-[#FFD700] hover:font-[600] transition-all duration-200 text-sm block" onClick={onClose}>
+              <Link to="/solucion/ingenieria" className="text-white/80 hover:text-[#FFD700] hover:font-[600] transition-all duration-200 text-[16px] block" onClick={onClose}>
                 Ingeniería de procesos
               </Link>
             </li>

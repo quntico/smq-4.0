@@ -6,6 +6,9 @@ const ScrollToTop = () => {
 
     useLayoutEffect(() => {
         if (hash) {
+            // Ignorar el scroll automático aquí si estamos en la página de industria
+            if (pathname.includes('/industria/')) return;
+
             const id = hash.replace('#', '');
             // Small timeout to allow page component transitions and DOM assembly
             const timer = setTimeout(() => {

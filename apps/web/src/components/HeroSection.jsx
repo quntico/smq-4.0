@@ -375,7 +375,7 @@ const HeroSection = () => {
                 <Trash2 size={18} />
               </button>
               <div className="w-[1px] h-6 bg-white/20 mx-1" />
-              <input type="file" accept="image/*,video/*" className="hidden" ref={fileInputRef} onChange={handleMediaChange} />
+              <input type="file" accept="image/*,video/*,.png,.jpg,.jpeg,.webp,.svg,.gif,.bmp,.tiff,.heic,.heif,.jfif,.mp4,.webm,.ogg,.mov,.avi,.PNG,.JPG,.JPEG,.WEBP,.SVG,.GIF,.BMP,.TIFF,.HEIC,.HEIF,.JFIF,.MP4,.WEBM,.OGG,.MOV,.AVI" className="hidden" ref={fileInputRef} onChange={handleMediaChange} />
               <button
                 onClick={() => fileInputRef.current?.click()}
                 disabled={isUploading}
@@ -393,7 +393,7 @@ const HeroSection = () => {
             {isVideoCurrent && (
               <div className="flex flex-col gap-1.5 mt-1 pt-2 border-t border-white/10 w-full">
                 <span className="text-white/50 text-[10px] uppercase font-bold tracking-wider">Miniatura de Precarga</span>
-                <input type="file" accept="image/*" className="hidden" ref={posterInputRef} onChange={handlePosterChange} />
+                <input type="file" accept="image/*,.png,.jpg,.jpeg,.webp,.svg,.gif,.bmp,.tiff,.heic,.heif,.jfif,.PNG,.JPG,.JPEG,.WEBP,.SVG,.GIF,.BMP,.TIFF,.HEIC,.HEIF,.JFIF" className="hidden" ref={posterInputRef} onChange={handlePosterChange} />
                 <button
                   onClick={() => posterInputRef.current?.click()}
                   disabled={isUploadingPoster}

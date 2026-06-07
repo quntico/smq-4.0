@@ -997,8 +997,8 @@ export const machineryDataMap = {
     theme: {
       accent: '#10B981',
       accentGlow: 'rgba(16, 185, 129, 0.4)',
-      bgStart: '#01120c',
-      bgEnd: '#022419',
+      bgStart: '#0A0A0C',
+      bgEnd: '#0D0E15',
       glowColor: 'emerald'
     },
     heroTitle: 'TRITURACIÓN INDUSTRIAL',
@@ -1042,8 +1042,8 @@ export const machineryDataMap = {
     theme: {
       accent: '#10B981',
       accentGlow: 'rgba(16, 185, 129, 0.4)',
-      bgStart: '#01120c',
-      bgEnd: '#022419',
+      bgStart: '#0A0A0C',
+      bgEnd: '#0D0E15',
       glowColor: 'emerald'
     },
     heroTitle: 'GRANULACIÓN',
@@ -1087,8 +1087,8 @@ export const machineryDataMap = {
     theme: {
       accent: '#10B981',
       accentGlow: 'rgba(16, 185, 129, 0.4)',
-      bgStart: '#01120c',
-      bgEnd: '#022419',
+      bgStart: '#0A0A0C',
+      bgEnd: '#0D0E15',
       glowColor: 'emerald'
     },
     heroTitle: 'LAVADO DE PLÁSTICO',
@@ -1132,8 +1132,8 @@ export const machineryDataMap = {
     theme: {
       accent: '#10B981',
       accentGlow: 'rgba(16, 185, 129, 0.4)',
-      bgStart: '#01120c',
-      bgEnd: '#022419',
+      bgStart: '#0A0A0C',
+      bgEnd: '#0D0E15',
       glowColor: 'emerald'
     },
     heroTitle: 'FLOTACIÓN',
@@ -1177,8 +1177,8 @@ export const machineryDataMap = {
     theme: {
       accent: '#10B981',
       accentGlow: 'rgba(16, 185, 129, 0.4)',
-      bgStart: '#01120c',
-      bgEnd: '#022419',
+      bgStart: '#0A0A0C',
+      bgEnd: '#0D0E15',
       glowColor: 'emerald'
     },
     heroTitle: 'LAVADO POR FRICCIÓN',
@@ -1222,8 +1222,8 @@ export const machineryDataMap = {
     theme: {
       accent: '#10B981',
       accentGlow: 'rgba(16, 185, 129, 0.4)',
-      bgStart: '#01120c',
-      bgEnd: '#022419',
+      bgStart: '#0A0A0C',
+      bgEnd: '#0D0E15',
       glowColor: 'emerald'
     },
     heroTitle: 'SEPARACIÓN INDUSTRIAL',
@@ -1267,8 +1267,8 @@ export const machineryDataMap = {
     theme: {
       accent: '#10B981',
       accentGlow: 'rgba(16, 185, 129, 0.4)',
-      bgStart: '#01120c',
-      bgEnd: '#022419',
+      bgStart: '#0A0A0C',
+      bgEnd: '#0D0E15',
       glowColor: 'emerald'
     },
     heroTitle: 'CLASIFICACIÓN ÓPTICA',
@@ -1312,8 +1312,8 @@ export const machineryDataMap = {
     theme: {
       accent: '#10B981',
       accentGlow: 'rgba(16, 185, 129, 0.4)',
-      bgStart: '#01120c',
-      bgEnd: '#022419',
+      bgStart: '#0A0A0C',
+      bgEnd: '#0D0E15',
       glowColor: 'emerald'
     },
     heroTitle: 'PELETIZADO',
@@ -1357,8 +1357,8 @@ export const machineryDataMap = {
     theme: {
       accent: '#10B981',
       accentGlow: 'rgba(16, 185, 129, 0.4)',
-      bgStart: '#01120c',
-      bgEnd: '#022419',
+      bgStart: '#0A0A0C',
+      bgEnd: '#0D0E15',
       glowColor: 'emerald'
     },
     heroTitle: 'COMPACTACIÓN',

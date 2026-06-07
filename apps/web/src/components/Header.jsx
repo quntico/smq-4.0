@@ -6,6 +6,7 @@ import SolutionsMenu from '@/components/SolutionsMenu.jsx';
 import MachineryMenu from '@/components/MachineryMenu.jsx';
 import TechnologyMenu from '@/components/TechnologyMenu.jsx';
 import CompanyMenu from '@/components/CompanyMenu.jsx';
+import WasteToEnergyMenu from '@/components/WasteToEnergyMenu.jsx';
 import AdminModal from '@/components/AdminModal.jsx';
 import LanguageSelector from '@/components/LanguageSelector.jsx';
 import { useCMS } from '@/context/CMSContext.jsx';
@@ -16,6 +17,7 @@ const componentMap = {
   SolutionsMenu,
   MachineryMenu,
   TechnologyMenu,
+  WasteToEnergyMenu,
   CompanyMenu,
 };
 
@@ -76,17 +78,20 @@ const Header = () => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
-    if (!lockedMenu) {
-      setActiveMenu(menu);
-    }
+    setActiveMenu(menu);
   };
 
   const handleMouseLeave = () => {
-    if (!lockedMenu) {
-      timeoutRef.current = setTimeout(() => {
-        setActiveMenu(null);
-      }, 450); // Aumentado a 450ms para evitar cierres por equivocación al mover el mouse
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
     }
+    timeoutRef.current = setTimeout(() => {
+      if (lockedMenu) {
+        setActiveMenu(lockedMenu);
+      } else {
+        setActiveMenu(null);
+      }
+    }, 320);
   };
 
   const handleMenuClick = (menu) => {
@@ -162,55 +167,58 @@ const Header = () => {
         }}
       >
         {/* Left Section: Logo & Version */}
-        <div className="flex items-center gap-8 ml-[114px]">
-          {/* Logo */}
-          <button
-            onClick={handleLogoClick}
-            className="focus:outline-none flex items-center select-none"
-            aria-label="Go to home"
-          >
-            {logoUrl ? (
-              <img
-                src={logoUrl}
-                alt="Logo SMQ"
-                className="object-contain transition-all duration-300"
-                style={{ maxHeight: `${logoSize}px` }}
-              />
-            ) : (
-              <span
-                className="text-white font-bold tracking-wider transition-all duration-300"
-                style={{ fontSize: `${logoSize * 0.5}px` }}
-              >
-                SMQ
-              </span>
-            )}
-          </button>
-
-          {/* Admin Version Button */}
-          <button
-            onClick={() => setIsAdminOpen(true)}
-            title="Abrir Panel de Administrador"
-            className="flex items-center gap-3 bg-[#0a0a0a] border border-white/10 rounded-full px-4 py-1.5 hover:bg-[#151515] transition-all shadow-[inset_0_1px_3px_rgba(255,255,255,0.05),_0_0_10px_rgba(0,0,0,0.5)] cursor-pointer group"
-          >
-            {/* LED Indicator */}
-            <div className="relative flex items-center justify-center w-3 h-3">
-              <div className="absolute w-full h-full bg-[#39FF14] rounded-full animate-ping opacity-60 group-hover:opacity-100"></div>
-              <div className="relative w-2.5 h-2.5 bg-[#39FF14] rounded-full shadow-[0_0_10px_#39FF14]"></div>
-            </div>
-            {/* Text */}
-            <span
-              className={`text-white font-black text-[12px] tracking-[0.2em] uppercase mt-[1px] ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 cursor-text px-1' : ''}`}
-              contentEditable={isEditorMode}
-              suppressContentEditableWarning={true}
-              onClick={(e) => { if (isEditorMode) e.stopPropagation(); }}
-              onBlur={(e) => {
-                const newVersion = e.target.innerText;
-                updateSettings({ appVersion: newVersion });
-              }}
+        <div className="relative flex items-center h-full ml-[114px]">
+          <div className="flex items-center gap-3">
+            {/* Logo */}
+            <button
+              onClick={handleLogoClick}
+              className="focus:outline-none flex items-center select-none"
+              aria-label="Go to home"
+              style={{ height: `${logoSize}px` }}
             >
-              {cmsState.settings.appVersion ? cmsState.settings.appVersion.toUpperCase() : "VER 5.3"}
-            </span>
-          </button>
+              {logoUrl ? (
+                <img
+                  src={logoUrl}
+                  alt="Logo SMQ"
+                  className="object-contain transition-all duration-300"
+                  style={{ maxHeight: `${logoSize}px` }}
+                />
+              ) : (
+                <span
+                  className="text-white font-bold tracking-wider transition-all duration-300"
+                  style={{ fontSize: `${logoSize * 0.5}px` }}
+                >
+                  SMQ
+                </span>
+              )}
+            </button>
+
+            {/* Admin Version Button - Posicionado en línea con el logo */}
+            <button
+              onClick={() => setIsAdminOpen(true)}
+              title="Abrir Panel de Administrador"
+              className="flex items-center gap-1.5 bg-[#0a0a0a] border border-white/10 rounded-full px-2 py-0.5 hover:bg-[#151515] transition-all shadow-[inset_0_1px_2px_rgba(255,255,255,0.05),_0_0_8px_rgba(0,0,0,0.5)] cursor-pointer group"
+            >
+              {/* LED Indicator */}
+              <div className="relative flex items-center justify-center w-2 h-2">
+                <div className="absolute w-full h-full bg-[#39FF14] rounded-full animate-ping opacity-60 group-hover:opacity-100"></div>
+                <div className="relative w-1.5 h-1.5 bg-[#39FF14] rounded-full shadow-[0_0_6px_#39FF14]"></div>
+              </div>
+              {/* Text */}
+              <span
+                className={`text-white font-black text-[8px] tracking-[0.15em] uppercase mt-[0.5px] ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 cursor-text px-1' : ''}`}
+                contentEditable={isEditorMode}
+                suppressContentEditableWarning={true}
+                onClick={(e) => { if (isEditorMode) e.stopPropagation(); }}
+                onBlur={(e) => {
+                  const newVersion = e.target.innerText;
+                  updateSettings({ appVersion: newVersion });
+                }}
+              >
+                {cmsState.settings.appVersion ? cmsState.settings.appVersion.toUpperCase() : "VER 5.3"}
+              </span>
+            </button>
+          </div>
         </div>
 
         {/* Desktop Navigation */}
@@ -292,12 +300,6 @@ const Header = () => {
               </svg>
             )}
           </button>
-          <a
-            href="#cotizar"
-            className="inline-block bg-[#FFD700] text-[#000000] font-[600] text-[15px] py-[12px] px-[24px] rounded-[8px] transition-all duration-200 hover:brightness-115 shadow-[0_0_15px_rgba(255,215,0,0.3)] whitespace-nowrap"
-          >
-            {t('header.quote')}
-          </a>
         </div>
       </header>
       <AdminModal isOpen={isAdminOpen} onClose={() => setIsAdminOpen(false)} />

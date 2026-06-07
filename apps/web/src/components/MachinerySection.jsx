@@ -131,7 +131,7 @@ const MachinerySection = () => {
   const handleTriggerUpload = async (machineId) => {
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
-    fileInput.accept = 'image/*,video/*';
+    fileInput.accept = 'image/*,video/*,.png,.jpg,.jpeg,.webp,.svg,.gif,.bmp,.tiff,.heic,.heif,.jfif,.mp4,.webm,.ogg,.mov,.avi,.PNG,.JPG,.JPEG,.WEBP,.SVG,.GIF,.BMP,.TIFF,.HEIC,.HEIF,.JFIF,.MP4,.WEBM,.OGG,.MOV,.AVI';
     fileInput.onchange = async (e) => {
       const file = e.target.files?.[0];
       if (!file) return;

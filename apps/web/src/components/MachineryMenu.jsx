@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Wheat, Package, Layers, Recycle, HeartPulse, Bot, ChevronRight } from 'lucide-react';
+import { Wheat, Package, Layers, Recycle, HeartPulse, Bot, ChevronRight, Flame, ArrowRight } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext.jsx';
 
 const industriesData = [
@@ -114,30 +114,60 @@ const industriesData = [
       {
         name: 'Trituración',
         machines: [
-          { code: 'SHD', name: 'Trituración Industrial',  desc: '',  models: ['SHD-500','SHD-1000','SHD-3000'] },
-          { code: 'GRN', name: 'Granulación',             desc: '',  models: ['GRN-300','GRN-600'] },
+          { code: 'SHD', name: 'Trituración Industrial',  desc: 'Reducción y trituración primaria de alta capacidad.',  models: ['SHD-500','SHD-1000','SHD-3000'] },
+          { code: 'GRN', name: 'Granulación',             desc: 'Molienda fina y granulado uniforme de termoplásticos.',  models: ['GRN-300','GRN-600'] },
         ],
       },
       {
         name: 'Lavado',
         machines: [
-          { code: 'PWS', name: 'Lavado de Plástico',    desc: '',  models: ['PWS-300','PWS-500','PWS-1000'] },
-          { code: 'FLT', name: 'Flotación',             desc: '',  models: ['FLT-500','FLT-1000'] },
-          { code: 'FRI', name: 'Lavado por Fricción',   desc: '',  models: ['FRI-500','FRI-1000'] },
+          { code: 'PWS', name: 'Lavado de Plástico',    desc: 'Lavado y sanitización intensiva de polímeros.',  models: ['PWS-300','PWS-500','PWS-1000'] },
+          { code: 'FLT', name: 'Flotación',             desc: 'Separación densimétrica automática en tinas húmedas.',  models: ['FLT-500','FLT-1000'] },
+          { code: 'FRI', name: 'Lavado por Fricción',   desc: 'Limpieza mecánica por centrífugas de fricción.',  models: ['FRI-500','FRI-1000'] },
         ],
       },
       {
         name: 'Separación',
         machines: [
-          { code: 'SPR', name: 'Separación Industrial',  desc: '',  models: ['SPR-500','SPR-1000'] },
-          { code: 'OPT', name: 'Clasificación Óptica',   desc: '',  models: ['OPT-300','OPT-1000'] },
+          { code: 'SPR', name: 'Separación Industrial',  desc: 'Clasificación mecánica por peso, tamaño y geometría.',  models: ['SPR-500','SPR-1000'] },
+          { code: 'OPT', name: 'Clasificación Óptica',   desc: 'Separación automática por NIR e inducción de alta precisión.',  models: ['OPT-300','OPT-1000'] },
         ],
       },
       {
         name: 'Peletizado',
         machines: [
-          { code: 'PLT', name: 'Peletizado',    desc: '',  models: ['PLT-300','PLT-500'] },
-          { code: 'BAL', name: 'Compactación',  desc: '',  models: ['BAL-500','BAL-1000'] },
+          { code: 'PLT', name: 'Peletizado',    desc: 'Extrusión y peletizado para recuperación de resina.',  models: ['PLT-300','PLT-500'] },
+          { code: 'BAL', name: 'Compactación',  desc: 'Prensas hidráulicas de compactación de pacas.',  models: ['BAL-500','BAL-1000'] },
+        ],
+      },
+    ],
+  },
+  {
+    key: 'wte',
+    title: 'Waste to Energy',
+    color: '#D97706',
+    Icon: Flame,
+    desc: 'Valorización energética y ambiental de residuos sólidos urbanos.',
+    families: [
+      {
+        name: 'Valorización',
+        machines: [
+          { code: 'RSU', name: 'Plantas RSU', desc: 'Tratamiento y valorización integral de residuos sólidos urbanos.', models: ['RSU-300', 'RSU-500', 'RSU-1000'] },
+          { code: 'CDR', name: 'Producción de CDR / RDF', desc: 'Procesamiento de combustibles derivados de residuos de alto poder calorífico.', models: ['CDR-300', 'CDR-500'] },
+        ],
+      },
+      {
+        name: 'Clasificación',
+        machines: [
+          { code: 'CLI', name: 'Clasificación Inteligente', desc: 'Separación automatizada por NIR, inducción y sistemas multisensoriales.', models: ['CLI-300', 'CLI-500'] },
+          { code: 'REC', name: 'Recuperación de Materiales', desc: 'Extracción eficiente de metales, plásticos y materiales reciclables.', models: ['REC-300', 'REC-500'] },
+        ],
+      },
+      {
+        name: 'Conversión',
+        machines: [
+          { code: 'CVE', name: 'Conversión Energética', desc: 'Tecnologías de gasificación, pirólisis y co-generación térmica.', models: ['CVE-300', 'CVE-500'] },
+          { code: 'LLM', name: 'Plantas Llave en Mano', desc: 'Ingeniería completa, desde el diseño hasta la puesta en marcha.', models: ['LLM-100', 'LLM-300'] },
         ],
       },
     ],
@@ -152,8 +182,8 @@ const industriesData = [
       {
         name: 'Conversión Médica',
         machines: [
-          { code: 'MED', name: 'Conversión Sanitaria',      desc: '',  models: ['MED-100','MED-300'] },
-          { code: 'MSK', name: 'Producción de Cubrebocas',  desc: '',  models: ['MSK-40','MSK-100'] },
+          { code: 'MED', name: 'Conversión Sanitaria',      desc: 'Líneas sanitarias para gasas, vendas y apósitos.',  models: ['MED-100','MED-300'] },
+          { code: 'MSK', name: 'Producción de Cubrebocas',  desc: 'Líneas automatizadas para mascarillas quirúrgicas.',  models: ['MSK-40','MSK-100'] },
         ],
       },
     ],
@@ -168,27 +198,29 @@ const industriesData = [
       {
         name: 'Robótica',
         machines: [
-          { code: 'ROB', name: 'Sistemas Robotizados',  desc: '',  models: ['ROB-5','ROB-20'] },
+          { code: 'ROB', name: 'Sistemas Robotizados',  desc: 'Brazos robóticos y celdas integradas de manipulación.',  models: ['ROB-5','ROB-20'] },
         ],
       },
       {
         name: 'Visión Artificial',
         machines: [
-          { code: 'VIS', name: 'Sistemas de Visión',  desc: '',  models: ['VIS-100','VIS-500'] },
+          { code: 'VIS', name: 'Sistemas de Visión',  desc: 'Cámaras de inspección y control de calidad óptico.',  models: ['VIS-100','VIS-500'] },
         ],
       },
       {
         name: 'Gemelo Digital',
         machines: [
-          { code: 'DGT', name: 'Gemelo Digital',  desc: '',  models: ['DGT-100','DGT-500'] },
+          { code: 'DGT', name: 'Gemelo Digital',  desc: 'Simulación y monitoreo virtual de plantas en tiempo real.',  models: ['DGT-100','DGT-500'] },
         ],
       },
     ],
   },
 ];
 
+
+
 const MachineryMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
-  const [activeIndustry, setActiveIndustry] = useState('alimentos');
+  const [activeIndustry, setActiveIndustry] = useState('reciclaje');
   const { cmsState } = useCMS();
   const headerHeight = cmsState?.settings?.headerHeight || 80;
   const active = industriesData.find(i => i.key === activeIndustry);
@@ -214,8 +246,8 @@ const MachineryMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
           onMouseLeave={onMouseLeave}
         >
           {/* ── LEFT: Industry Selector ── */}
-          <div className="w-[170px] shrink-0 border-r border-white/[0.07] bg-white/[0.015] flex flex-col py-4 px-2.5 gap-0.5 overflow-y-auto">
-            <p className="text-[9px] font-black uppercase tracking-[0.25em] text-white/25 px-2 mb-2">
+          <div className="w-[220px] shrink-0 border-r border-white/[0.07] bg-white/[0.015] flex flex-col py-5 px-3 gap-1 overflow-y-auto">
+            <p className="text-[10px] font-black uppercase tracking-[0.25em] text-white/20 px-2.5 mb-3">
               INDUSTRIAS SMQ
             </p>
             {industriesData.map(ind => {
@@ -225,29 +257,31 @@ const MachineryMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
                 <button
                   key={ind.key}
                   onMouseEnter={() => setActiveIndustry(ind.key)}
-                  className="flex items-center gap-2.5 px-2.5 py-2 rounded-xl text-left transition-all duration-150 border"
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all duration-200 border"
                   style={{
                     backgroundColor: isAct ? `${ind.color}12` : 'transparent',
-                    borderColor:     isAct ? `${ind.color}30` : 'transparent',
+                    borderColor:     isAct ? `${ind.color}35` : 'transparent',
+                    boxShadow:       isAct ? `0 0 15px ${ind.color}10` : 'none',
                   }}
                 >
                   <div
-                    className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 transition-all duration-150"
+                    className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-all duration-200 border"
                     style={{
-                      backgroundColor: isAct ? `${ind.color}25` : 'rgba(255,255,255,0.05)',
+                      backgroundColor: isAct ? `${ind.color}25` : 'rgba(255,255,255,0.03)',
                       color:           isAct ? ind.color : 'rgba(255,255,255,0.35)',
+                      borderColor:     isAct ? `${ind.color}40` : 'rgba(255,255,255,0.05)'
                     }}
                   >
-                    <Icon size={14} />
+                    <Icon size={15} />
                   </div>
                   <span
-                    className="text-[12.5px] font-semibold transition-colors duration-150 flex-1"
-                    style={{ color: isAct ? ind.color : 'rgba(255,255,255,0.6)' }}
+                    className="text-[13.5px] font-bold tracking-wide transition-colors duration-200 flex-1"
+                    style={{ color: isAct ? ind.color : 'rgba(255,255,255,0.55)' }}
                   >
                     {ind.title}
                   </span>
                   {isAct && (
-                    <ChevronRight size={11} style={{ color: ind.color }} className="shrink-0" />
+                    <ChevronRight size={12} style={{ color: ind.color }} className="shrink-0 animate-pulse" />
                   )}
                 </button>
               );
@@ -263,99 +297,84 @@ const MachineryMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -8 }}
                 transition={{ duration: 0.13 }}
-                className="p-6"
+                className="p-8"
               >
                 {/* Header */}
-                <div className="flex items-center gap-3 mb-5 pb-4 border-b border-white/[0.07]">
-                  <div
-                    className="w-1 h-9 rounded-full shrink-0"
-                    style={{ backgroundColor: active?.color }}
-                  />
+                <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/[0.07]">
                   <div>
-                    <h2
-                      className="font-black text-[15px] tracking-wide"
-                      style={{ color: active?.color }}
-                    >
-                      {active?.title}
+                    <p className="text-[10px] font-black uppercase tracking-[0.25em] mb-1" style={{ color: active?.color }}>
+                      CATEGORÍA MAQUINARIA
+                    </p>
+                    <h2 className="text-xl font-black text-white tracking-wide uppercase">
+                      Equipos de {active?.title}
                     </h2>
-                    <p className="text-white/40 text-[11.5px] mt-0.5">{active?.desc}</p>
                   </div>
                 </div>
 
-                {/* Families grid */}
-                <div
-                  className="grid gap-x-7 gap-y-6"
-                  style={{
-                    gridTemplateColumns: active?.families.length >= 3
-                      ? 'repeat(3, 1fr)'
-                      : active?.families.length === 2
-                        ? 'repeat(2, 1fr)'
-                        : '1fr',
-                  }}
-                >
-                  {active?.families.map(family => (
-                    <div key={family.name}>
-                      {/* Family label */}
-                      <div className="flex items-center gap-2 mb-3">
-                        <div
-                          className="w-3 h-[2px] rounded-full"
-                          style={{ backgroundColor: active?.color }}
-                        />
-                        <span className="text-[9.5px] font-black uppercase tracking-[0.22em] text-white/35">
-                          {family.name}
-                        </span>
-                      </div>
+                {/* Grid de máquinas estilo Waste to Energy */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                  {active?.families.flatMap(family => family.machines).map((machine, index) => {
+                    const formattedNum = String(index + 1).padStart(2, '0');
 
-                      {/* Machine list */}
-                      <div className="space-y-1.5">
-                        {family.machines.map(machine => (
-                          <Link
-                            key={machine.code}
-                            to={machine.route || `/maquinaria/${machine.code.toLowerCase()}`}
-                            className="flex items-start gap-2.5 p-2 rounded-lg border border-transparent hover:border-white/10 hover:bg-white/[0.04] transition-all duration-150 group"
+                    return (
+                      <Link
+                        key={machine.code}
+                        to={machine.route || `/maquinaria/${machine.code.toLowerCase()}`}
+                        className="group relative flex flex-col p-5 rounded-xl border bg-white/[0.01] hover:bg-white/[0.03] transition-all duration-300 shadow-lg"
+                        style={{
+                          borderColor: 'rgba(255, 255, 255, 0.05)',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.borderColor = `${active?.color}50`;
+                          e.currentTarget.style.backgroundColor = `${active?.color}0A`;
+                          e.currentTarget.style.boxShadow = `0 10px 30px -10px ${active?.color}25`;
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.05)';
+                          e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.01)';
+                          e.currentTarget.style.boxShadow = 'none';
+                        }}
+                      >
+                        {/* Top: Code Box & Num */}
+                        <div className="flex items-center justify-between mb-4">
+                          <div 
+                            className="flex items-center justify-center w-8 h-8 rounded-lg border font-mono font-black text-[11px] tracking-wider"
+                            style={{ 
+                              backgroundColor: `${active?.color}15`,
+                              borderColor: `${active?.color}30`,
+                              color: active?.color
+                            }}
                           >
-                            {/* Code badge */}
-                            <span
-                              className="mt-0.5 px-1.5 py-0.5 rounded text-[9px] font-black tracking-wider shrink-0 font-mono"
-                              style={{
-                                backgroundColor: `${active?.color}18`,
-                                color: active?.color,
-                              }}
-                            >
-                              {machine.code}
-                            </span>
+                            {machine.code}
+                          </div>
+                          <span 
+                            className="text-[13px] font-black tracking-widest font-mono"
+                            style={{ color: active?.color }}
+                          >
+                            {formattedNum}
+                          </span>
+                        </div>
 
-                            {/* Name + desc + models */}
-                            <div className="flex-1 min-w-0">
-                              <span
-                                className="block text-[12.5px] font-semibold text-white/80 group-hover:text-white transition-colors leading-snug"
-                                onMouseEnter={(e) => { e.currentTarget.style.color = active?.color ?? '#fff'; }}
-                                onMouseLeave={(e) => { e.currentTarget.style.color = ''; }}
-                              >
-                                {machine.name}
-                              </span>
-                              {machine.desc && (
-                                <span className="block text-[10.5px] text-white/35 leading-snug">
-                                  {machine.desc}
-                                </span>
-                              )}
-                              {/* Model pills */}
-                              <div className="flex flex-wrap gap-1 mt-1.5">
-                                {machine.models.map(model => (
-                                  <span
-                                    key={model}
-                                    className="text-[9.5px] px-1.5 py-0.5 rounded border border-white/10 text-white/40 font-mono hover:border-white/25 hover:text-white/70 transition-colors"
-                                  >
-                                    {model}
-                                  </span>
-                                ))}
-                              </div>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
+                        {/* Content */}
+                        <div className="flex-1">
+                          <h3 className="text-[13.5px] font-bold text-white mb-2 leading-tight uppercase tracking-wide group-hover:text-white transition-colors">
+                            {machine.name}
+                          </h3>
+                          <p className="text-[9.5px] text-white/40 leading-[1.6] font-semibold uppercase tracking-wider group-hover:text-white/60 transition-colors">
+                            {machine.desc}
+                          </p>
+                        </div>
+
+                        {/* Footer interaction */}
+                        <div className="mt-4 flex items-center justify-between pt-3 border-t border-white/5 opacity-50 group-hover:opacity-100 transition-opacity">
+                          <span className="text-[9px] font-black uppercase tracking-widest" style={{ color: active?.color }}>
+                            Ver Detalles
+                          </span>
+                          <ArrowRight size={12} style={{ color: active?.color }} className="transform group-hover:translate-x-1 transition-transform" />
+                        </div>
+                      </Link>
+                    );
+                  })}
                 </div>
               </motion.div>
             </AnimatePresence>

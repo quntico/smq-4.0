@@ -557,7 +557,7 @@ const PlantVisualizerSection = () => {
                 <Plus size={16} /> Añadir Marcador
               </button>
 
-              <input type="file" accept="image/*" className="hidden" ref={imageInputRef} onChange={handleImageChange} />
+              <input type="file" accept="image/*,.png,.jpg,.jpeg,.webp,.svg,.gif,.bmp,.tiff,.heic,.heif,.jfif,.PNG,.JPG,.JPEG,.WEBP,.SVG,.GIF,.BMP,.TIFF,.HEIC,.HEIF,.JFIF" className="hidden" ref={imageInputRef} onChange={handleImageChange} />
               <button
                 onClick={() => imageInputRef.current?.click()}
                 disabled={isUploading}

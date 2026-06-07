@@ -155,7 +155,7 @@ const IndustriesSection = () => {
     <section id="industrias" className="bg-[#0B0F14] px-[20px] py-[40px] md:px-[30px] md:py-[60px] lg:px-[40px] lg:py-[80px] w-full relative">
       <input
         type="file"
-        accept="image/*"
+        accept="image/*,.png,.jpg,.jpeg,.webp,.svg,.gif,.bmp,.tiff,.heic,.heif,.jfif,.PNG,.JPG,.JPEG,.WEBP,.SVG,.GIF,.BMP,.TIFF,.HEIC,.HEIF,.JFIF"
         className="hidden"
         ref={fileInputRef}
         onChange={handleImageChange}

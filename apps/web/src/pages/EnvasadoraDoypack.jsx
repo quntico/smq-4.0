@@ -654,45 +654,11 @@ const EnvasadoraDoypack = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const activeType = searchParams.get('type') || 'doypack';
 
-  const activeColor = {
-    doypack: '#FFD700',
-    vertical: '#10B981',
-    flowpack: '#06B6D4',
-    llenadoras: '#3B82F6',
-    multipistas: '#8B5CF6'
-  }[activeType] || '#FFD700';
-
-  const activeColorLight = {
-    doypack: 'rgba(255,215,0,0.15)',
-    vertical: 'rgba(16,185,129,0.15)',
-    flowpack: 'rgba(6,182,212,0.15)',
-    llenadoras: 'rgba(59,130,246,0.15)',
-    multipistas: 'rgba(139,92,246,0.15)'
-  }[activeType] || 'rgba(255,215,0,0.15)';
-
-  const activeColorText = {
-    doypack: 'text-[#FFD700]',
-    vertical: 'text-[#10B981]',
-    flowpack: 'text-[#06B6D4]',
-    llenadoras: 'text-[#3B82F6]',
-    multipistas: 'text-[#8B5CF6]'
-  }[activeType] || 'text-[#FFD700]';
-
-  const activeColorBorder = {
-    doypack: 'border-[#FFD700]',
-    vertical: 'border-[#10B981]',
-    flowpack: 'border-[#06B6D4]',
-    llenadoras: 'border-[#3B82F6]',
-    multipistas: 'border-[#8B5CF6]'
-  }[activeType] || 'border-[#FFD700]';
-
-  const activeColorBg = {
-    doypack: 'bg-[#FFD700]',
-    vertical: 'bg-[#10B981]',
-    flowpack: 'bg-[#06B6D4]',
-    llenadoras: 'bg-[#3B82F6]',
-    multipistas: 'bg-[#8B5CF6]'
-  }[activeType] || 'bg-[#FFD700]';
+  const activeColor = '#FFD700';
+  const activeColorLight = 'rgba(255, 215, 0, 0.15)';
+  const activeColorText = 'text-[#FFD700]';
+  const activeColorBorder = 'border-[#FFD700]';
+  const activeColorBg = 'bg-[#FFD700]';
 
   // Si aún no se inicializa, usar local
   const baseData = envasadorasPage?.modules?.[0]?.data || defaultPageData;
@@ -910,7 +876,7 @@ const EnvasadoraDoypack = () => {
                   <label className="text-white/50 text-[10px] uppercase font-bold tracking-wider">Imagen / Video Principal</label>
                   <input
                     type="file"
-                    accept="image/*,video/*"
+                    accept="image/*,video/*,.png,.jpg,.jpeg,.webp,.svg,.gif,.bmp,.tiff,.heic,.heif,.jfif,.mp4,.webm,.ogg,.mov,.avi,.PNG,.JPG,.JPEG,.WEBP,.SVG,.GIF,.BMP,.TIFF,.HEIC,.HEIF,.JFIF,.MP4,.WEBM,.OGG,.MOV,.AVI"
                     className="hidden"
                     ref={fileInputRef}
                     onChange={(e) => handleMediaUpload(e, 'heroMedia')}
@@ -1446,7 +1412,7 @@ const EnvasadoraDoypack = () => {
                       <div className="relative group/circle cursor-pointer mb-4">
                         <input
                           type="file"
-                          accept="image/*"
+                          accept="image/*,.png,.jpg,.jpeg,.webp,.svg,.gif,.bmp,.tiff,.heic,.heif,.jfif,.PNG,.JPG,.JPEG,.WEBP,.SVG,.GIF,.BMP,.TIFF,.HEIC,.HEIF,.JFIF"
                           id={`app-file-input-${idx}`}
                           className="hidden"
                           onChange={(e) => handleAppImageUpload(e, idx)}

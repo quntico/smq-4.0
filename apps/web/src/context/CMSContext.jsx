@@ -10,7 +10,7 @@ const initialCMSState = {
         logoSize: 75,
         headerHeight: 100,
         headerOpacity: 60,
-        appVersion: '6.67',
+        appVersion: '6.82',
         globalImageSharpness: 100,
         globalFilterColor: '#000000',
         globalFilterOpacity: 75,
@@ -20,7 +20,8 @@ const initialCMSState = {
         { id: '2', name: 'Soluciones', componentName: 'SolutionsMenu', order: 2 },
         { id: '3', name: 'Maquinaria', componentName: 'MachineryMenu', order: 3 },
         { id: '4', name: 'Tecnología', componentName: 'TechnologyMenu', order: 4 },
-        { id: '5', name: 'Empresa', componentName: 'CompanyMenu', order: 5 },
+        { id: '6', name: 'Waste to Energy', componentName: 'WasteToEnergyMenu', order: 5 },
+        { id: '5', name: 'Empresa', componentName: 'CompanyMenu', order: 6 },
     ],
     pages: [
         {
@@ -125,7 +126,19 @@ export const CMSProvider = ({ children }) => {
                         faviconUrl: parsedSettings.faviconUrl || initialCMSState.settings.faviconUrl,
                         appVersion: parsedSettings.appVersion || initialCMSState.settings.appVersion
                     },
-                    menus: parsed.menus || initialCMSState.menus,
+                    menus: (() => {
+                        let parsedMenus = parsed.menus || initialCMSState.menus;
+                        if (!parsedMenus.some(m => m.componentName === 'WasteToEnergyMenu')) {
+                            const hasCompany = parsedMenus.find(m => m.componentName === 'CompanyMenu');
+                            const companyOrder = hasCompany ? hasCompany.order : 5;
+                            parsedMenus = [
+                                ...parsedMenus.filter(m => m.componentName !== 'CompanyMenu'),
+                                { id: '6', name: 'Waste to Energy', componentName: 'WasteToEnergyMenu', order: companyOrder },
+                                ...(hasCompany ? [{ ...hasCompany, order: companyOrder + 1 }] : [])
+                            ].sort((a, b) => a.order - b.order);
+                        }
+                        return parsedMenus;
+                    })(),
                     pages: parsed.pages || initialCMSState.pages
                 };
             } catch (e) {
@@ -163,7 +176,19 @@ export const CMSProvider = ({ children }) => {
                             faviconUrl: parsedSettings.faviconUrl || initialCMSState.settings.faviconUrl,
                             appVersion: parsedSettings.appVersion || initialCMSState.settings.appVersion
                         },
-                        menus: parsed.menus || initialCMSState.menus,
+                        menus: (() => {
+                            let parsedMenus = parsed.menus || initialCMSState.menus;
+                            if (!parsedMenus.some(m => m.componentName === 'WasteToEnergyMenu')) {
+                                const hasCompany = parsedMenus.find(m => m.componentName === 'CompanyMenu');
+                                const companyOrder = hasCompany ? hasCompany.order : 5;
+                                parsedMenus = [
+                                    ...parsedMenus.filter(m => m.componentName !== 'CompanyMenu'),
+                                    { id: '6', name: 'Waste to Energy', componentName: 'WasteToEnergyMenu', order: companyOrder },
+                                    ...(hasCompany ? [{ ...hasCompany, order: companyOrder + 1 }] : [])
+                                ].sort((a, b) => a.order - b.order);
+                            }
+                            return parsedMenus;
+                        })(),
                         pages: parsed.pages || initialCMSState.pages
                     };
                     setCmsState(cloudState);
@@ -227,16 +252,39 @@ export const CMSProvider = ({ children }) => {
         try {
             const targetState = stateOverride || cmsState;
             const content = JSON.stringify(targetState);
-            await supabase.storage.from('media').upload('cms-state.json', content, {
+            const { data, error } = await supabase.storage.from('media').upload('cms-state.json', content, {
                 contentType: 'application/json',
                 upsert: true,
                 cacheControl: '0'
             });
-            console.log("Cambios de diseño guardados (FORZADO) en la Nube.");
+            if (error) {
+                console.error("Error subiendo Cambios a la Nube:", error);
+                window.dispatchEvent(new CustomEvent('cmsAutoSaved', { detail: { success: false, error: error.message || JSON.stringify(error) } }));
+                throw error;
+            } else {
+                console.log("Cambios de diseño guardados (FORZADO) en la Nube.");
+                window.dispatchEvent(new CustomEvent('cmsAutoSaved', { detail: { success: true } }));
+            }
         } catch (err) {
             console.error("Error subiendo Cambios a la Nube", err);
+            window.dispatchEvent(new CustomEvent('cmsAutoSaved', { detail: { success: false, error: err.message || JSON.stringify(err) } }));
+            throw err;
         }
     };
+
+    // Autoguardado en la Nube con Debounce (solo en modo Editor y una vez cargado de la nube)
+    useEffect(() => {
+        if (!isEditorMode || !isLoadedFromCloud) return;
+
+        const timer = setTimeout(() => {
+            console.log("[CMS] Guardando cambios de forma automática en la nube...");
+            syncToCloud(cmsState).catch(() => {
+                // Capturar el error del catch de syncToCloud de forma silenciosa en el autoguardado
+            });
+        }, 1500);
+
+        return () => clearTimeout(timer);
+    }, [cmsState, isEditorMode, isLoadedFromCloud]);
 
     useEffect(() => {
         localStorage.setItem('editorMode', isEditorMode.toString());

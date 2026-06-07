@@ -268,7 +268,7 @@ const AdminModal = ({ isOpen, onClose }) => {
                                                     {/* Subir Logotipo y Favicon */}
                                                     <div className="grid grid-cols-2 gap-4">
                                                         <div className="w-full">
-                                                            <input type="file" accept="image/*" className="hidden" ref={fileInputRef} onChange={handleFileChange} />
+                                                            <input type="file" accept="image/*,.png,.jpg,.jpeg,.webp,.svg,.gif,.bmp,.tiff,.heic,.heif,.jfif,.PNG,.JPG,.JPEG,.WEBP,.SVG,.GIF,.BMP,.TIFF,.HEIC,.HEIF,.JFIF" className="hidden" ref={fileInputRef} onChange={handleFileChange} />
                                                             <button onClick={handleLogoUploadClick} disabled={uploadingLogo} className="w-full h-full group flex flex-col items-center justify-center bg-white/5 hover:bg-white/10 border border-white/10 p-4 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed text-center">
                                                                 <div className="p-2 mb-3 bg-purple-500/20 text-purple-400 rounded-lg group-hover:bg-purple-500/30 transition-colors flex items-center justify-center min-w-[40px] min-h-[40px]">
                                                                     {uploadingLogo ? (
@@ -283,7 +283,7 @@ const AdminModal = ({ isOpen, onClose }) => {
                                                         </div>
 
                                                         <div className="w-full">
-                                                            <input type="file" accept="image/png, image/jpeg, image/ico, image/svg+xml" className="hidden" ref={faviconInputRef} onChange={handleFaviconChange} />
+                                                            <input type="file" accept="image/png,image/jpeg,image/ico,image/svg+xml,.png,.jpg,.jpeg,.webp,.svg,.gif,.bmp,.tiff,.heic,.heif,.jfif,.PNG,.JPG,.JPEG,.WEBP,.SVG,.GIF,.BMP,.TIFF,.HEIC,.HEIF,.JFIF" className="hidden" ref={faviconInputRef} onChange={handleFaviconChange} />
                                                             <button onClick={handleFaviconUploadClick} disabled={uploadingFavicon} className="w-full h-full group flex flex-col items-center justify-center bg-white/5 hover:bg-white/10 border border-white/10 p-4 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed text-center">
                                                                 <div className="p-2 mb-3 bg-blue-500/20 text-blue-400 rounded-lg group-hover:bg-blue-500/30 transition-colors flex items-center justify-center min-w-[40px] min-h-[40px]">
                                                                     {uploadingFavicon ? (

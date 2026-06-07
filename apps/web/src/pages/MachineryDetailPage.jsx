@@ -461,7 +461,7 @@ const machineryDataMap = {
   }
 };
 
-const StatCounter = ({ target, suffix = '', duration = 2000, trigger = 0 }) => {
+const StatCounter = ({ target, suffix = '', duration = 2000, trigger = 0, accent = '#FFD700' }) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -500,24 +500,40 @@ const StatCounter = ({ target, suffix = '', duration = 2000, trigger = 0 }) => {
 
   const num = parseInt(target, 10);
   if (isNaN(num)) {
-    return <span className="text-[#FFD700] tracking-wide animate-pulse">{target}</span>;
+    return <span className="tracking-wide animate-pulse" style={{ color: accent }}>{target}</span>;
   }
 
   return <span>{count}{suffix}</span>;
 };
 
-const StatCard = ({ target, suffix = '', label, colSpan = "col-span-1" }) => {
+const StatCard = ({ target, suffix = '', label, colSpan = "col-span-1", accent = '#FFD700' }) => {
   const [trigger, setTrigger] = useState(0);
+  const [hovered, setHovered] = useState(false);
   
   return (
     <div 
       className={`flex flex-col items-center self-center cursor-pointer transition-all duration-300 transform hover:scale-110 group ${colSpan}`}
-      onMouseEnter={() => setTrigger(prev => prev + 1)}
+      onMouseEnter={() => {
+        setTrigger(prev => prev + 1);
+        setHovered(true);
+      }}
+      onMouseLeave={() => setHovered(false)}
     >
-      <span className="text-3xl md:text-4xl font-black text-[#FFD700] drop-shadow-[0_0_12px_rgba(255,215,0,0.4)] tracking-tight transition-all duration-300 group-hover:text-white group-hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.6)]">
-        <StatCounter target={target} suffix={suffix} trigger={trigger} />
+      <span 
+        className="text-3xl md:text-4xl font-black tracking-tight transition-all duration-300"
+        style={{
+          color: hovered ? '#FFFFFF' : accent,
+          filter: hovered ? 'drop-shadow(0 0 15px rgba(255,255,255,0.6))' : `drop-shadow(0 0 12px ${accent}60)`
+        }}
+      >
+        <StatCounter target={target} suffix={suffix} trigger={trigger} accent={accent} />
       </span>
-      <span className="text-[10px] font-black uppercase tracking-wider text-white/70 mt-2 transition-colors duration-300 group-hover:text-[#FFD700]">
+      <span 
+        className="text-[10px] font-black uppercase tracking-wider mt-2 transition-colors duration-300"
+        style={{
+          color: hovered ? accent : 'rgba(255, 255, 255, 0.7)'
+        }}
+      >
         {label}
       </span>
     </div>
@@ -556,7 +572,22 @@ const MachineryDetailPage = () => {
     }
   }, [cmsPage, resolvedId, pageId, cmsState.pages, updatePages, defaults]);
 
-  const data = cmsPage?.modules?.[0]?.data || defaults;
+  const baseData = cmsPage?.modules?.[0]?.data || defaults;
+  
+  // Sanitizar temas de reciclaje heredados del CMS con fondos verdes
+  const data = React.useMemo(() => {
+    if (baseData?.theme?.bgStart === '#01120c' || baseData?.industry === 'reciclaje') {
+      return {
+        ...baseData,
+        theme: {
+          ...baseData.theme,
+          bgStart: '#0A0A0C',
+          bgEnd: '#0D0E15'
+        }
+      };
+    }
+    return baseData;
+  }, [baseData]);
 
   const [activeStep, setActiveStep] = useState(0);
   const [activeTab, setActiveTab] = useState('hero');
@@ -709,7 +740,7 @@ const MachineryDetailPage = () => {
                   <label className="text-white/50 text-[10px] uppercase font-bold tracking-wider">Imagen de Fondo</label>
                   <input
                     type="file"
-                    accept="image/*,video/*"
+                    accept="image/*,video/*,.png,.jpg,.jpeg,.webp,.svg,.gif,.bmp,.tiff,.heic,.heif,.jfif,.mp4,.webm,.ogg,.mov,.avi,.PNG,.JPG,.JPEG,.WEBP,.SVG,.GIF,.BMP,.TIFF,.HEIC,.HEIF,.JFIF,.MP4,.WEBM,.OGG,.MOV,.AVI"
                     className="hidden"
                     ref={fileInputRef}
                     onChange={(e) => handleMediaUpload(e, 'heroMedia')}
@@ -931,19 +962,19 @@ const MachineryDetailPage = () => {
 
             {/* CINTA DE ESTADÍSTICAS */}
             <section className="relative z-20 -mt-10 max-w-[1400px] mx-auto px-[40px]">
-              <div className="border border-white/10 bg-white/[0.02] backdrop-blur-xl rounded-2xl p-8 shadow-2xl relative overflow-hidden grid grid-cols-2 md:grid-cols-9 gap-4 text-center">
+              <div className="border border-white/10 bg-white/[0.02] backdrop-blur-xl rounded-2xl p-8 shadow-2xl relative overflow-hidden grid grid-cols-2 md:grid-cols-7 gap-4 text-center">
                 <div 
                   className="absolute top-0 left-0 right-0 h-[1px]" 
                   style={{ background: `linear-gradient(to right, transparent, ${data.theme.accent}50, transparent)` }}
                 />
                 
-                <StatCard target={kpisList[0].value} suffix={` ${kpisList[0].unit}`} label={kpisList[0].label} />
+                <StatCard target={kpisList[0].value} suffix={` ${kpisList[0].unit}`} label={kpisList[0].label} accent={data.theme.accent} />
                 <div className="h-12 w-[1px] bg-white/10 hidden md:block self-center justify-self-center" />
-                <StatCard target={kpisList[1].value} suffix={` ${kpisList[1].unit}`} label={kpisList[1].label} />
+                <StatCard target={kpisList[1].value} suffix={` ${kpisList[1].unit}`} label={kpisList[1].label} accent={data.theme.accent} />
                 <div className="h-12 w-[1px] bg-white/10 hidden md:block self-center justify-self-center" />
-                <StatCard target={kpisList[2].value} suffix={` ${kpisList[2].unit}`} label={kpisList[2].label} />
+                <StatCard target={kpisList[2].value} suffix={` ${kpisList[2].unit}`} label={kpisList[2].label} accent={data.theme.accent} />
                 <div className="h-12 w-[1px] bg-white/10 hidden md:block self-center justify-self-center" />
-                <StatCard target={kpisList[3].value} suffix={` ${kpisList[3].unit}`} label={kpisList[3].label} />
+                <StatCard target={kpisList[3].value} suffix={` ${kpisList[3].unit}`} label={kpisList[3].label} accent={data.theme.accent} />
               </div>
             </section>
 

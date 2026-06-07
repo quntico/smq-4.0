@@ -44,12 +44,6 @@ const CustomCursor = () => {
     const onMouseMove = (e) => {
       mouse.current = { x: e.clientX, y: e.clientY };
       if (!isVisible) setIsVisible(true);
-
-      // Update dot immediately
-      if (dotRef.current) {
-        dotRef.current.style.left = `${e.clientX}px`;
-        dotRef.current.style.top = `${e.clientY}px`;
-      }
     };
 
     const onMouseLeave = () => setIsVisible(false);
@@ -59,21 +53,25 @@ const CustomCursor = () => {
     document.addEventListener('mouseleave', onMouseLeave);
     document.addEventListener('mouseenter', onMouseEnter);
 
-    // Animation loop for halo trailing effect
-    const updateHalo = () => {
-      // Lerp (Linear Interpolation) for smooth trailing
-      halo.current.x += (mouse.current.x - halo.current.x) * 0.3;
-      halo.current.y += (mouse.current.y - halo.current.y) * 0.3;
-
-      if (haloRef.current) {
-        haloRef.current.style.left = `${halo.current.x}px`;
-        haloRef.current.style.top = `${halo.current.y}px`;
+    // Animation loop for dot and halo trailing effect using transform (GPU accelerated)
+    const updateCursor = () => {
+      // 1. Update dot position instantly
+      if (dotRef.current) {
+        dotRef.current.style.transform = `translate3d(${mouse.current.x}px, ${mouse.current.y}px, 0) translate(-50%, -50%)`;
       }
 
-      requestRef.current = requestAnimationFrame(updateHalo);
+      // 2. Lerp (Linear Interpolation) with a responsive factor (0.45) for precise trailing
+      halo.current.x += (mouse.current.x - halo.current.x) * 0.45;
+      halo.current.y += (mouse.current.y - halo.current.y) * 0.45;
+
+      if (haloRef.current) {
+        haloRef.current.style.transform = `translate3d(${halo.current.x}px, ${halo.current.y}px, 0) translate(-50%, -50%)`;
+      }
+
+      requestRef.current = requestAnimationFrame(updateCursor);
     };
 
-    requestRef.current = requestAnimationFrame(updateHalo);
+    requestRef.current = requestAnimationFrame(updateCursor);
 
     // Interactive elements detection
     const interactiveSelectors = 'a, button, [role="button"], .btn, [data-interactive], input[type="submit"], input[type="button"], .card, [data-card], .hover-expand';

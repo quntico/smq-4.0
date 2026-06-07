@@ -196,7 +196,7 @@ const IndustrialProjectsSection = () => {
           type="file" 
           ref={fileInputRef} 
           onChange={handleFileChange} 
-          accept="image/*" 
+          accept="image/*,.png,.jpg,.jpeg,.webp,.svg,.gif,.bmp,.tiff,.heic,.heif,.jfif,.PNG,.JPG,.JPEG,.WEBP,.SVG,.GIF,.BMP,.TIFF,.HEIC,.HEIF,.JFIF" 
           className="hidden" 
         />
 
