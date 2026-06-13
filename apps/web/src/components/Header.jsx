@@ -27,10 +27,43 @@ const Header = () => {
   const [activeMenu, setActiveMenu] = useState(null);
   const [lockedMenu, setLockedMenu] = useState(null);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
+  const [adminTab, setAdminTab] = useState('ajustes');
   const { cmsState, isEditorMode, setIsEditorMode, updateMenus, syncFromCloud, syncToCloud, updateSettings } = useCMS();
+  const [isGitPushing, setIsGitPushing] = useState(false);
   const { t } = useLanguage();
   const { logoUrl, logoSize, headerHeight, headerOpacity } = cmsState.settings;
   const timeoutRef = useRef(null);
+
+  const handleGitPush = async () => {
+    try {
+      setIsGitPushing(true);
+      // 1. Guardar cambios en la nube
+      await syncToCloud();
+      
+      // 2. Ejecutar Git Upload local
+      const res = await fetch('/api/git-upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      });
+      const data = await res.json();
+      
+      if (data.success) {
+        alert("¡GitHub Sync Exitoso! Tus cambios se han guardado localmente, en la nube y se han subido a GitHub de forma segura.");
+      } else {
+        alert(`Error al subir a GitHub: ${data.error || 'Inténtalo nuevamente.'}`);
+      }
+    } catch (err) {
+      console.error(err);
+      alert(`Error de red o servidor: ${err.message}`);
+    } finally {
+      setIsGitPushing(false);
+    }
+  };
+
+  const handleOpenAdmin = (tab = 'ajustes') => {
+    setAdminTab(tab);
+    setIsAdminOpen(true);
+  };
 
   useEffect(() => {
     setActiveMenu(null);
@@ -125,6 +158,26 @@ const Header = () => {
               handleMenuClick(menuName);
             }
           }}
+          onDoubleClick={(e) => {
+            if (isEditorMode) {
+              e.stopPropagation();
+              e.preventDefault();
+              handleOpenAdmin('menus');
+            } else {
+              const nameLower = menuName.toLowerCase();
+              if (nameLower.includes('industria')) {
+                navigate('/industria/reciclaje-y-plasticos');
+              } else if (nameLower.includes('solucion')) {
+                navigate('/industria/reciclaje-y-plasticos');
+              } else if (nameLower.includes('maquinaria')) {
+                navigate('/envasadoras');
+              } else if (nameLower.includes('waste')) {
+                navigate('/waste-to-energy');
+              } else if (nameLower.includes('empresa')) {
+                navigate('/nosotros');
+              }
+            }
+          }}
           className={`text-[15px] transition-all duration-200 relative py-2 ${(activeMenu === menuName || lockedMenu === menuName)
             ? 'text-[#FFD700] font-[600]'
             : 'text-white hover:text-[#FFD700] hover:font-[600] font-medium'
@@ -135,6 +188,26 @@ const Header = () => {
             suppressContentEditableWarning={true}
             onBlur={handleBlur}
             onClick={(e) => { if (isEditorMode) e.stopPropagation(); }}
+            onDoubleClick={(e) => {
+              if (isEditorMode) {
+                e.stopPropagation();
+                e.preventDefault();
+                handleOpenAdmin('menus');
+              } else {
+                const nameLower = menuName.toLowerCase();
+                if (nameLower.includes('industria')) {
+                  navigate('/industria/reciclaje-y-plasticos');
+                } else if (nameLower.includes('solucion')) {
+                  navigate('/industria/reciclaje-y-plasticos');
+                } else if (nameLower.includes('maquinaria')) {
+                  navigate('/envasadoras');
+                } else if (nameLower.includes('waste')) {
+                  navigate('/waste-to-energy');
+                } else if (nameLower.includes('empresa')) {
+                  navigate('/nosotros');
+                }
+              }
+            }}
             className={`${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 p-1 cursor-text' : ''}`}
           >
             {label}
@@ -178,19 +251,19 @@ const Header = () => {
               onClick={handleLogoClick}
               className="focus:outline-none flex items-center select-none"
               aria-label="Go to home"
-              style={{ height: `${logoSize}px` }}
+              style={{ height: `${logoSize * 1.2}px` }}
             >
               {logoUrl ? (
                 <img
                   src={logoUrl}
                   alt="Logo SMQ"
                   className="object-contain transition-all duration-300"
-                  style={{ maxHeight: `${logoSize}px` }}
+                  style={{ maxHeight: `${logoSize * 1.2}px` }}
                 />
               ) : (
                 <span
                   className="text-white font-bold tracking-wider transition-all duration-300"
-                  style={{ fontSize: `${logoSize * 0.5}px` }}
+                  style={{ fontSize: `${(logoSize * 1.2) * 0.5}px` }}
                 >
                   SMQ
                 </span>
@@ -199,7 +272,7 @@ const Header = () => {
 
             {/* Admin Version Button - Posicionado en línea con el logo */}
             <button
-              onClick={() => setIsAdminOpen(true)}
+              onClick={() => handleOpenAdmin('ajustes')}
               title="Abrir Panel de Administrador"
               className="flex items-center gap-1.5 bg-[#0a0a0a] border border-white/10 rounded-full px-2 py-0.5 hover:bg-[#151515] transition-all shadow-[inset_0_1px_2px_rgba(255,255,255,0.05),_0_0_8px_rgba(0,0,0,0.5)] cursor-pointer group"
             >
@@ -262,6 +335,24 @@ const Header = () => {
               </button>
 
               <button
+                onClick={handleGitPush}
+                disabled={isGitPushing}
+                className={`flex items-center gap-1.5 bg-purple-500/20 text-purple-400 border border-purple-500/30 rounded-full px-3 py-1.5 hover:bg-purple-500/30 hover:text-white transition-all text-[10px] font-bold uppercase tracking-wider shadow-lg ${
+                  isGitPushing ? 'animate-pulse cursor-not-allowed' : ''
+                }`}
+                title="Guardar en memoria/nube y subir todos los cambios de diseño y código a GitHub"
+              >
+                {isGitPushing ? (
+                  <div className="w-3 h-3 border-2 border-purple-400/30 border-t-purple-400 rounded-full animate-spin"></div>
+                ) : (
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                  </svg>
+                )}
+                {isGitPushing ? 'Subiendo...' : 'Git Push'}
+              </button>
+
+              <button
                 onClick={() => {
                   syncToCloud().then(() => alert(`¡Deploy Exitoso! La nube ha sido actualizada como versión ${cmsState.settings.appVersion || 'oficial'}.`));
                 }}
@@ -285,7 +376,7 @@ const Header = () => {
                 // Apagado instantáneo sin pedir password ni abrir modal
                 setIsEditorMode(false);
               } else {
-                setIsAdminOpen(true);
+                handleOpenAdmin('ajustes');
               }
             }}
             className={`transition-colors p-2 rounded-full hover:bg-white/5 ${isEditorMode ? 'text-blue-400 bg-blue-400/10 shadow-[0_0_15px_rgba(96,165,250,0.5)] animate-pulse' : 'text-white/70 hover:text-[#FFD700]'
@@ -306,7 +397,7 @@ const Header = () => {
           </button>
         </div>
       </header>
-      <AdminModal isOpen={isAdminOpen} onClose={() => setIsAdminOpen(false)} />
+      <AdminModal isOpen={isAdminOpen} onClose={() => setIsAdminOpen(false)} defaultTab={adminTab} />
     </>
   );
 };

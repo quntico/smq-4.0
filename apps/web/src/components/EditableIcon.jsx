@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 
 // Catálogo curado de más de 200 iconos industriales y generales para SMQ Systems
 const INDUSTRIAL_ICONS = [
-  // MAQUINARIA Y HERRAMIENTAS (40 iconos)
+  // MAQUINARIA Y HERRAMIENTAS (45 iconos)
   { name: 'Settings', tags: ['configuracion', 'ajustes', 'engranaje', 'maquinaria', 'motor', 'proceso', 'sistemas'], cat: 'Maquinaria' },
   { name: 'Cog', tags: ['engranaje', 'maquinaria', 'pinon', 'rueda dentada', 'mecanico', 'ajustes', 'motor'], cat: 'Maquinaria' },
   { name: 'Wrench', tags: ['herramienta', 'llave', 'mantenimiento', 'reparacion', 'soporte', 'mecanico', 'ajuste'], cat: 'Maquinaria' },
@@ -35,8 +35,10 @@ const INDUSTRIAL_ICONS = [
   { name: 'Plug2', tags: ['conector rapido', 'manguera', 'hidraulica', 'neumatica'], cat: 'Maquinaria' },
   { name: 'Screwdriver', tags: ['destornillador', 'herramienta', 'ensamble', 'panel electrico'], cat: 'Maquinaria' },
   { name: 'Pin', tags: ['pasador', 'perno', 'bloqueo mecanico', 'posicionador'], cat: 'Maquinaria' },
+  { name: 'ToyBrick', tags: ['ladrillo', 'bloque', 'construccion modular', 'componente'], cat: 'Maquinaria' },
+  { name: 'Container', tags: ['tolva', 'deposito', 'contenedor pesado', 'silo de resina'], cat: 'Maquinaria' },
 
-  // ENERGÍA Y MOTORES (35 iconos)
+  // ENERGÍA Y MOTORES (40 iconos)
   { name: 'Zap', tags: ['energia', 'electricidad', 'potencia', 'corriente', 'rayo', 'voltaje', 'motores', 'arranque'], cat: 'Energía' },
   { name: 'Power', tags: ['encendido', 'apagado', 'energia', 'arranque', 'boton', 'on', 'off'], cat: 'Energía' },
   { name: 'PowerOff', tags: ['apagado', 'desconexion', 'parada de emergencia', 'corte de energia'], cat: 'Energía' },
@@ -64,8 +66,10 @@ const INDUSTRIAL_ICONS = [
   { name: 'Heater', tags: ['resistencia electrica', 'calefactor', 'zona extrusion'], cat: 'Energía' },
   { name: 'Coil', tags: ['bobina', 'inductor', 'solenoide', 'electrovalvula'], cat: 'Energía' },
   { name: 'Radiator', tags: ['enfriador de aceite', 'intercambiador de placas', 'radiador'], cat: 'Energía' },
+  { name: 'LightbulbOff', tags: ['foco apagado', 'ahorro energia', 'desconectado'], cat: 'Energía' },
+  { name: 'Volt', tags: ['voltaje', 'tension electrica', 'subestacion', 'bobinado'], cat: 'Energía' },
 
-  // PLC Y CONTROL (35 iconos)
+  // AUTOMATIZACIÓN Y CONTROL (40 iconos)
   { name: 'Cpu', tags: ['plc', 'procesador', 'control', 'electronica', 'computadora', 'cerebro', 'automatizacion'], cat: 'Control' },
   { name: 'Database', tags: ['base de datos', 'almacenamiento', 'historico', 'registros', 'scada', 'datos'], cat: 'Control' },
   { name: 'Server', tags: ['servidor', 'rack', 'nube', 'plc central', 'scada', 'red', 'sistema'], cat: 'Control' },
@@ -95,8 +99,10 @@ const INDUSTRIAL_ICONS = [
   { name: 'ServerCrash', tags: ['falla de red', 'servidor caido', 'perdida de scada'], cat: 'Control' },
   { name: 'Settings2', tags: ['configuracion avanzada', 'calibrado fino', 'offset'], cat: 'Control' },
   { name: 'ToggleLeft', tags: ['interruptor off', 'entrada digital desactivada'], cat: 'Control' },
+  { name: 'Workflow', tags: ['flujo de trabajo', 'diagrama logico', 'secuencia automatica'], cat: 'Control' },
+  { name: 'Layers3', tags: ['pila de protocolos', 'multinivel', 'control en cascada'], cat: 'Control' },
 
-  // PROCESOS Y FLUJOS (35 iconos)
+  // PROCESOS Y FLUJOS (40 iconos)
   { name: 'Layers', tags: ['capas', 'sistemas de pelletizado', 'extrusión multicapa', 'laminado', 'acumulacion'], cat: 'Procesos' },
   { name: 'Layers2', tags: ['capas', 'laminado', 'coextrusion', 'doble capa', 'soporte'], cat: 'Procesos' },
   { name: 'Split', tags: ['bifurcacion', 'separador', 'division', 'clasificacion', 'triaje', 'desvio'], cat: 'Procesos' },
@@ -122,16 +128,16 @@ const INDUSTRIAL_ICONS = [
   { name: 'Funnel', tags: ['embudo', 'tolva de alimentacion', 'dosificador de polvo'], cat: 'Procesos' },
   { name: 'Atom', tags: ['reaccion molecular', 'polimerizacion', 'compounding', 'materiales'], cat: 'Procesos' },
   { name: 'Cylinder', tags: ['piston hidraulico', 'cilindro neumatico', 'prensa', 'actuador'], cat: 'Procesos' },
-  { name: 'Layers3', tags: ['multicapa', 'coextrusion de pelicula', 'laminado plastico'], cat: 'Procesos' },
   { name: 'Feather', tags: ['material liviano', 'baja densidad', 'poliestireno'], cat: 'Procesos' },
   { name: 'Magnet', tags: ['separador magnetico', 'trampa de metales', 'iman industrial'], cat: 'Procesos' },
   { name: 'Torus', tags: ['anillo de agua', 'pelletizado en anillo', 'boquilla de extrusion'], cat: 'Procesos' },
+  { name: 'Combine', tags: ['combinar', 'agrupar materia prima', 'mezcla de tolvas'], cat: 'Procesos' },
+  { name: 'Unite', tags: ['unir flujos', 'soldadura de tubos', 'junta hermetica'], cat: 'Procesos' },
 
-  // LOGÍSTICA E INDUSTRIA (35 iconos)
+  // LOGÍSTICA E INDUSTRIA (40 iconos)
   { name: 'Factory', tags: ['fabrica', 'planta', 'industria', 'nave industrial', 'produccion', 'manufactura'], cat: 'Industria' },
   { name: 'Package', tags: ['empaque', 'embalaje', 'caja', 'packaging', 'dosificado', 'producto terminado'], cat: 'Industria' },
   { name: 'Box', tags: ['caja', 'embalaje', 'almacenamiento', 'scrap', 'materia prima'], cat: 'Industria' },
-  { name: 'Container', tags: ['silo', 'tolva', 'contenedor', 'tanque de almacenamiento', 'deposito'], cat: 'Industria' },
   { name: 'Warehouse', tags: ['almacen', 'bodega', 'centro de distribucion', 'logistica', 'stock'], cat: 'Industria' },
   { name: 'MapPin', tags: ['ubicacion', 'planta', 'geolocalizacion', 'direccion', 'destino'], cat: 'Industria' },
   { name: 'Shield', tags: ['seguridad', 'proteccion', 'epp', 'resguardo de maquina', 'normativa'], cat: 'Industria' },
@@ -161,8 +167,37 @@ const INDUSTRIAL_ICONS = [
   { name: 'Award', tags: ['certificacion de calidad', 'iso 9001', 'reconocimiento industrial'], cat: 'Industria' },
   { name: 'Briefcase', tags: ['negocio', 'portafolio de proyectos', 'cotizaciones llave en mano'], cat: 'Industria' },
   { name: 'Luggage', tags: ['kit de puesta en marcha', 'herramientas de comisionamiento'], cat: 'Industria' },
+  { name: 'Coins', tags: ['monedas', 'flujo caja', 'costos operacion', 'rentabilidad'], cat: 'Industria' },
 
-  // ALERTAS Y SEÑALES (20 iconos)
+  // ALIMENTOS Y PROCESAMIENTO (25 iconos)
+  { name: 'Apple', tags: ['manzana', 'alimentos', 'frutas', 'lavado de frutas', 'materia prima'], cat: 'Alimentos' },
+  { name: 'Cookie', tags: ['galleta', 'panaderia', 'alimentos', 'horno continuo', 'empaque'], cat: 'Alimentos' },
+  { name: 'Beef', tags: ['carne', 'alimentos', 'procesamiento carnico', 'frio industrial'], cat: 'Alimentos' },
+  { name: 'Milk', tags: ['leche', 'lacteos', 'pasteurizado', 'cip', 'bebidas', 'embotellado'], cat: 'Alimentos' },
+  { name: 'Soup', tags: ['sopa', 'liquido grado alimenticio', 'mermelada', 'coccion', 'tanque agitador'], cat: 'Alimentos' },
+  { name: 'Wheat', tags: ['trigo', 'granos', 'harina', 'silo de granos', 'dosificador sinfin'], cat: 'Alimentos' },
+  { name: 'Wine', tags: ['vino', 'bebidas alcoholicas', 'fermentacion', 'destileria', 'embotellado'], cat: 'Alimentos' },
+  { name: 'Coffee', tags: ['cafe', 'tostadora', 'molino de cafe', 'dosificado', 'bebidas'], cat: 'Alimentos' },
+  { name: 'Utensils', tags: ['utensilios', 'cocina industrial', 'procesamiento alimentos', 'higiene'], cat: 'Alimentos' },
+  { name: 'UtensilsCrossed', tags: ['cubiertos cruzados', 'restauracion', 'preparacion', 'grado alimenticio'], cat: 'Alimentos' },
+  { name: 'Bean', tags: ['grano', 'cafe', 'cacao', 'materia prima', 'tostado', 'seleccion'], cat: 'Alimentos' },
+  { name: 'Cake', tags: ['pastel', 'panaderia', 'reposteria', 'linea automatica de horneado'], cat: 'Alimentos' },
+  { name: 'Grape', tags: ['uva', 'vitivinicola', 'molienda de uva', 'despalillado'], cat: 'Alimentos' },
+  { name: 'IceCream', tags: ['helado', 'congelador continuo', 'mezcladora de frio', 'lacteos'], cat: 'Alimentos' },
+  { name: 'GlassWater', tags: ['agua de proceso', 'bebidas', 'embotellado', 'cip de lavado'], cat: 'Alimentos' },
+
+  // RECICLAJE Y SOSTENIBILIDAD (20 iconos)
+  { name: 'Recycle', tags: ['reciclar', 'reciclaje', 'sostenibilidad', 'plastico', 'rsu', 'valorizacion'], cat: 'Reciclaje' },
+  { name: 'Leaf', tags: ['hoja', 'verde', 'ecologia', 'sustentable', 'empaque biodegradable'], cat: 'Reciclaje' },
+  { name: 'Sprout', tags: ['brote', 'planta joven', 'agricultura', 'bioenergia', 'compost'], cat: 'Reciclaje' },
+  { name: 'Trash2', tags: ['basura', 'residuos', 'scrap', 'descarte', 'clasificacion rsu'], cat: 'Reciclaje' },
+  { name: 'Trash', tags: ['residuos solidos', 'scrap metal', 'contenedor de residuos'], cat: 'Reciclaje' },
+  { name: 'Globe2', tags: ['planeta verde', 'huella carbono', 'sostenibilidad global'], cat: 'Reciclaje' },
+  { name: 'Biohazard', tags: ['residuos peligrosos', 'riesgo biologico', 'tratamiento de efluentes'], cat: 'Reciclaje' },
+  { name: 'TreePine', tags: ['arbol pino', 'biomasa', 'madera', 'triturado forestal'], cat: 'Reciclaje' },
+  { name: 'Flowers', tags: ['flores', 'organicos', 'compostaje', 'residuos verdes'], cat: 'Reciclaje' },
+
+  // ALERTAS Y SEGURIDAD (30 iconos)
   { name: 'AlertTriangle', tags: ['advertencia', 'peligro', 'alarma', 'falla de maquina', 'atencion'], cat: 'Alertas' },
   { name: 'AlertCircle', tags: ['error de comunicacion', 'alarma critica', 'fallo plc', 'parada'], cat: 'Alertas' },
   { name: 'Info', tags: ['informacion', 'ayuda', 'manual de operacion', 'ayuda de HMI'], cat: 'Alertas' },
@@ -182,9 +217,10 @@ const INDUSTRIAL_ICONS = [
   { name: 'ShieldX', tags: ['sin proteccion', 'puerta de seguridad abierta', 'peligro mecanico'], cat: 'Alertas' },
   { name: 'Skull', tags: ['riesgo de muerte', 'alta tension', 'gases toxicos'], cat: 'Alertas' },
   { name: 'Radiation', tags: ['radiacion gamma', 'sensor de espesor nucleo', 'medidor isotopos'], cat: 'Alertas' },
-  { name: 'Biohazard', tags: ['riesgo biologico', 'desinfeccion cip', 'tratamiento efluentes'], cat: 'Alertas' },
+  { name: 'ShieldAlert', tags: ['epp faltante', 'zona de riesgo', 'advertencia de resguardo'], cat: 'Alertas' },
+  { name: 'EyeOff', tags: ['sensor obstruido', 'barrera de seguridad interrumpida'], cat: 'Alertas' },
 
-  // DIRECCIONALES Y UI (25 iconos)
+  // DIRECCIONALES Y UI (30 iconos)
   { name: 'Plus', tags: ['agregar', 'nuevo item', 'sumar', 'incrementar'], cat: 'UI' },
   { name: 'Minus', tags: ['quitar', 'eliminar', 'restar', 'decrementar'], cat: 'UI' },
   { name: 'Search', tags: ['buscar', 'filtrar', 'localizar repuesto', 'buscador'], cat: 'UI' },
@@ -259,7 +295,7 @@ export const EditableIcon = ({
     setIsOpen(false);
   };
 
-  const categories = ['Todos', 'Maquinaria', 'Energía', 'Control', 'Procesos', 'Industria', 'Alertas', 'UI'];
+  const categories = ['Todos', 'Maquinaria', 'Energía', 'Control', 'Procesos', 'Industria', 'Alimentos', 'Reciclaje', 'Alertas', 'UI'];
 
   return (
     <>

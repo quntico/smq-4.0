@@ -5,19 +5,25 @@ import MenuManager from '@/components/cms/MenuManager.jsx';
 import PageManager from '@/components/cms/PageManager.jsx';
 import { uploadFile } from '@/lib/storage.js';
 
-const AdminModal = ({ isOpen, onClose }) => {
+const AdminModal = ({ isOpen, onClose, defaultTab = 'ajustes' }) => {
     const fileInputRef = useRef(null);
     const faviconInputRef = useRef(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [password, setPassword] = useState('');
     const [error, setError] = useState(false);
-    const [activeTab, setActiveTab] = useState('ajustes');
+    const [activeTab, setActiveTab] = useState(defaultTab);
     const [saveStatus, setSaveStatus] = useState('idle');
     const [uploadingLogo, setUploadingLogo] = useState(false);
     const [uploadingFavicon, setUploadingFavicon] = useState(false);
     const [isMinimized, setIsMinimized] = useState(false);
 
     const { cmsState, updateSettings, isEditorMode, setIsEditorMode } = useCMS();
+
+    React.useEffect(() => {
+        if (isOpen) {
+            setActiveTab(defaultTab);
+        }
+    }, [isOpen, defaultTab]);
 
     React.useEffect(() => {
         const handleKeyDown = (e) => {

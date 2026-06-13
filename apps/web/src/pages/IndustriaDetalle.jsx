@@ -394,6 +394,7 @@ const EditableText = ({ value, onChange, className = '', tag: Tag = 'span', plac
 };
 
 const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, isEditorMode, label = 'Multimedia', logCMS }) => {
+  const { cmsState } = useCMS();
   const [isOpen, setIsOpen] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef(null);
@@ -630,9 +631,10 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
 
   // Helper to render current live preview inside modal
   const renderLivePreview = () => {
+    const disableFilters = cmsState?.settings?.disableImageFilters ?? false;
     const style = {
-      opacity,
-      filter: `blur(${blur}px) brightness(${brightness}%) contrast(${contrast}%)`,
+      opacity: disableFilters ? 1 : opacity,
+      filter: disableFilters ? 'none' : `blur(${blur}px) brightness(${brightness}%) contrast(${contrast}%)`,
       objectFit: objectFit,
       transform: `scale(${scale}) translate(${positionX}%, ${positionY}%)`,
       transition: 'transform 0.15s ease-out'
@@ -659,9 +661,10 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
 
   // Render the default view element
   const renderDefaultElement = () => {
+    const disableFilters = cmsState?.settings?.disableImageFilters ?? false;
     const style = {
-      opacity: currentOpacity,
-      filter: `blur(${currentBlur}px) brightness(${currentBrightness}%) contrast(${currentContrast}%)`,
+      opacity: disableFilters ? 1 : currentOpacity,
+      filter: disableFilters ? 'none' : `blur(${currentBlur}px) brightness(${currentBrightness}%) contrast(${currentContrast}%)`,
       objectFit: currentObjectFit,
       transform: `scale(${currentScale}) translate(${currentPositionX}%, ${currentPositionY}%)`,
     };
@@ -1264,7 +1267,33 @@ const IndustriaDetalle = () => {
   const handleItemUpdate = (index, key, value) => {
     if (!data.items) return;
     const updatedItems = [...data.items];
-    updatedItems[index] = { ...updatedItems[index], [key]: value };
+    const currentItem = { ...updatedItems[index] };
+
+    // Inicializar images si no existe
+    let currentImages = [];
+    if (Array.isArray(currentItem.images)) {
+      currentImages = [...currentItem.images];
+    } else {
+      // Migración del esquema antiguo al array images
+      currentImages = [
+        currentItem.image || '',
+        currentItem.image2 || ''
+      ];
+    }
+
+    if (key === 'image') {
+      currentImages[0] = value;
+      currentItem.images = currentImages;
+      currentItem.image = value;
+    } else if (key === 'image2') {
+      currentImages[1] = value;
+      currentItem.images = currentImages;
+      currentItem.image2 = value;
+    } else {
+      currentItem[key] = value;
+    }
+
+    updatedItems[index] = currentItem;
     handleUpdate('items', updatedItems);
   };
 
@@ -1275,7 +1304,8 @@ const IndustriaDetalle = () => {
       description: 'Breve descripción de la nueva especialidad.',
       longDescription: 'Descripción técnica detallada y de alto rendimiento.',
       features: ['Especificación clave 1', 'Especificación clave 2'],
-      image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png' // default placeholder
+      image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png', // default placeholder
+      images: ['https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png', '']
     };
     const updatedItems = [...(data.items || []), newItem];
     handleUpdate('items', updatedItems);
@@ -1945,7 +1975,7 @@ const IndustriaDetalle = () => {
 
                   {/* Media Container */}
                   <div className={`lg:col-span-6 ${index % 2 === 1 ? 'lg:order-1' : ''}`}>
-                    {((item.image || item.image2 || item.video) || isEditorMode) ? (
+                    {((item.image || item.image2 || item.video || (item.images && item.images.length > 0)) || isEditorMode) ? (
                       <div className="flex flex-col shadow-2xl">
                         {/* Contenedor Superior de la Imagen/Video */}
                         <div className="relative group overflow-hidden rounded-t-2xl border-t border-l border-r border-white/10 bg-white/5 aspect-[16/10]">
@@ -1958,20 +1988,21 @@ const IndustriaDetalle = () => {
                           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity z-10 pointer-events-none" />
                           {(() => {
                             let currentTab = activeMediaTabs[index] || item.defaultMediaTab || 'tab1';
+                            const hasImage2 = (item.images && item.images[1]?.url) || item.image2?.url;
                             if (!isEditorMode) {
-                              if (currentTab === 'tab2' && !item.image2?.url) {
+                              if (currentTab === 'tab2' && !hasImage2) {
                                 currentTab = 'tab1';
                               } else if (currentTab === 'tab3' && !item.video?.url) {
                                 currentTab = 'tab1';
                               }
                             }
-                            let activeMedia = item.image;
+                            let activeMedia = (item.images && item.images[0]) ? item.images[0] : item.image;
                             let activeLabel = `Foto Real de ${item.title}`;
                             let updateKey = 'image';
                             let mediaType = 'image';
 
                             if (currentTab === 'tab2') {
-                              activeMedia = item.image2;
+                              activeMedia = (item.images && item.images[1]) ? item.images[1] : item.image2;
                               activeLabel = `Twin Digital de ${item.title}`;
                               updateKey = 'image2';
                             } else if (currentTab === 'tab3') {
@@ -2017,8 +2048,9 @@ const IndustriaDetalle = () => {
                         {/* Contenedor Inferior de Botones/Tabs (Fuera del overlay de la imagen) */}
                         {(() => {
                           let currentTab = activeMediaTabs[index] || item.defaultMediaTab || 'tab1';
+                          const hasImage2 = (item.images && item.images[1]?.url) || item.image2?.url;
                           if (!isEditorMode) {
-                            if (currentTab === 'tab2' && !item.image2?.url) {
+                            if (currentTab === 'tab2' && !hasImage2) {
                               currentTab = 'tab1';
                             } else if (currentTab === 'tab3' && !item.video?.url) {
                               currentTab = 'tab1';
@@ -2057,11 +2089,11 @@ const IndustriaDetalle = () => {
                                 </button>
 
                                 {/* Botón Tab 2 */}
-                                {(isEditorMode || !!item.image2?.url) && (
+                                {(isEditorMode || hasImage2) && (
                                   <button
                                     onClick={() => setActiveMediaTabs(prev => ({ ...prev, [index]: 'tab2' }))}
                                     className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer border ${
-                                      !item.image2 ? 'border-dashed border-white/20 opacity-50 hover:opacity-100' : ''
+                                      !hasImage2 ? 'border-dashed border-white/20 opacity-50 hover:opacity-100' : ''
                                     } ${
                                       currentTab === 'tab2'
                                         ? 'bg-[#FFD700]/20 text-[#FFD700] border-[#FFD700]/30 shadow-md font-extrabold'

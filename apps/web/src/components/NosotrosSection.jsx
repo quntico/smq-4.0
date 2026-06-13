@@ -291,9 +291,8 @@ const NosotrosSection = () => {
             </div>
 
             {/* Main Title */}
-            <h2 className="text-[20px] md:text-[28px] lg:text-[36px] font-black tracking-tighter leading-tight uppercase">
-              <span className="text-white">¿Qué es </span>
-              <span className="text-[#F5C400]">SMQ Industrial Systems?</span>
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tighter leading-[1.05] uppercase">
+              <span className="text-white">NOSOTROS</span>
             </h2>
 
             {/* Divider */}

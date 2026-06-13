@@ -90,7 +90,7 @@ img {
 
 /* Global Paragraph and Text Justification */
 p, .text-justify {
-  text-align: justify;
+  text-align: var(--global-text-align, justify);
 }
 
 /* Bulletproof Scrollbar Hidden Utility */

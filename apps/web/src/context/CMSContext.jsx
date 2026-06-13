@@ -14,6 +14,8 @@ const initialCMSState = {
         globalImageSharpness: 100,
         globalFilterColor: '#000000',
         globalFilterOpacity: 75,
+        textJustify: true,
+        disableImageFilters: false,
     },
     menus: [
         { id: '1', name: 'Industrias', componentName: 'IndustriesMenu', order: 1 },
@@ -137,7 +139,9 @@ export const CMSProvider = ({ children }) => {
                         ...parsedSettings,
                         logoUrl: parsedSettings.logoUrl || initialCMSState.settings.logoUrl,
                         faviconUrl: parsedSettings.faviconUrl || initialCMSState.settings.faviconUrl,
-                        appVersion: parsedSettings.appVersion || initialCMSState.settings.appVersion
+                        appVersion: parsedSettings.appVersion || initialCMSState.settings.appVersion,
+                        textJustify: parsedSettings.textJustify !== undefined ? parsedSettings.textJustify : initialCMSState.settings.textJustify,
+                        disableImageFilters: parsedSettings.disableImageFilters !== undefined ? parsedSettings.disableImageFilters : initialCMSState.settings.disableImageFilters
                     },
                     menus: (() => {
                         let parsedMenus = parsed.menus || initialCMSState.menus;
@@ -196,7 +200,9 @@ export const CMSProvider = ({ children }) => {
                             ...parsedSettings,
                             logoUrl: parsedSettings.logoUrl || initialCMSState.settings.logoUrl,
                             faviconUrl: parsedSettings.faviconUrl || initialCMSState.settings.faviconUrl,
-                            appVersion: parsedSettings.appVersion || initialCMSState.settings.appVersion
+                            appVersion: parsedSettings.appVersion || initialCMSState.settings.appVersion,
+                            textJustify: parsedSettings.textJustify !== undefined ? parsedSettings.textJustify : initialCMSState.settings.textJustify,
+                            disableImageFilters: parsedSettings.disableImageFilters !== undefined ? parsedSettings.disableImageFilters : initialCMSState.settings.disableImageFilters
                         },
                         menus: (() => {
                             let parsedMenus = parsed.menus || initialCMSState.menus;
@@ -258,17 +264,19 @@ export const CMSProvider = ({ children }) => {
     useEffect(() => {
         const root = document.documentElement;
         const sharpness = cmsState.settings.globalImageSharpness ?? 100;
+        const disableFilters = cmsState.settings.disableImageFilters ?? false;
         
         // If sharpness is 100%, blur is 0px. If less than 100%, we add soft blur.
-        const blurValue = sharpness < 100 ? Math.max(0, (100 - sharpness) / 10) : 0;
+        const blurValue = (!disableFilters && sharpness < 100) ? Math.max(0, (100 - sharpness) / 10) : 0;
         // Contrast scales up as sharpness is higher than 100%
-        const contrastValue = sharpness > 100 ? sharpness : 100;
+        const contrastValue = (!disableFilters && sharpness > 100) ? sharpness : 100;
 
         root.style.setProperty('--global-image-blur', `${blurValue}px`);
         root.style.setProperty('--global-image-contrast', `${contrastValue}%`);
-        root.style.setProperty('--global-filter-color', cmsState.settings.globalFilterColor || '#000000');
-        root.style.setProperty('--global-filter-opacity', `${(cmsState.settings.globalFilterOpacity ?? 75) / 100}`);
-    }, [cmsState.settings.globalImageSharpness, cmsState.settings.globalFilterColor, cmsState.settings.globalFilterOpacity]);
+        root.style.setProperty('--global-filter-color', disableFilters ? 'transparent' : (cmsState.settings.globalFilterColor || '#000000'));
+        root.style.setProperty('--global-filter-opacity', disableFilters ? '0' : `${(cmsState.settings.globalFilterOpacity ?? 75) / 100}`);
+        root.style.setProperty('--global-text-align', cmsState.settings.textJustify ? 'justify' : 'left');
+    }, [cmsState.settings.globalImageSharpness, cmsState.settings.globalFilterColor, cmsState.settings.globalFilterOpacity, cmsState.settings.textJustify, cmsState.settings.disableImageFilters]);
 
     const syncToCloud = async (stateOverride = null) => {
         try {

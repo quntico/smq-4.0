@@ -1,11 +1,91 @@
 
 import React, { useEffect, useRef, useState } from 'react';
-import { 
-  Lightbulb, Wrench, Shield, AlignLeft, AlignCenter, AlignRight, AlignJustify, Maximize, Minimize,
-  Scissors, Droplets, Layers, Cpu, Eye, Factory, Zap
-} from 'lucide-react';
+import * as LucideIcons from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useCMS } from '@/context/CMSContext.jsx';
+
+const AlignLeft = LucideIcons.AlignLeft;
+const AlignCenter = LucideIcons.AlignCenter;
+const AlignRight = LucideIcons.AlignRight;
+const AlignJustify = LucideIcons.AlignJustify;
+const Maximize = LucideIcons.Maximize;
+const Minimize = LucideIcons.Minimize;
+const Lightbulb = LucideIcons.Lightbulb;
+const Wrench = LucideIcons.Wrench;
+const Shield = LucideIcons.Shield;
+const Scissors = LucideIcons.Scissors;
+const Droplets = LucideIcons.Droplets;
+const Layers = LucideIcons.Layers;
+const Zap = LucideIcons.Zap;
+const Eye = LucideIcons.Eye;
+const Factory = LucideIcons.Factory;
+
+const industrialIconGroups = {
+  tecnologia: {
+    name: 'Tecnología',
+    icons: [
+      'Cpu', 'Database', 'Server', 'Network', 'Cloud', 'Wifi', 'HardDrive', 'Terminal', 'Code', 'FileCode', 
+      'Binary', 'Globe', 'Orbit', 'Radio', 'Satellite', 'Layers', 'Grid', 'Hash', 'Workflow', 
+      'GitBranch', 'GitCommit', 'GitMerge', 'Command', 'SquareTerminal', 'Share2', 'Link', 'QrCode',
+      'Fingerprint', 'Shield', 'ShieldAlert', 'ShieldCheck', 'Lock', 'Key', 'Smartphone', 'Tablet', 'Monitor',
+      'Laptop', 'Tv', 'Router', 'Power', 'MemoryStick', 'Microchip', 'RadioReceiver', 'Webcam'
+    ]
+  },
+  alimentos: {
+    name: 'Alimentos y Bebidas',
+    icons: [
+      'Wheat', 'Fish', 'Bean', 'Flame', 'Thermometer', 'Droplet', 'Scale', 'ChefHat', 'Milk', 'Egg', 
+      'Refrigerator', 'Utensils', 'GlassWater', 'CupSoda', 'Apple', 'Salad', 'Soup', 'Pizza', 'Cake',
+      'Wine', 'Beer', 'Filter', 'Container', 'Package', 'Sparkles', 'Clover', 'IceCream', 'Cookie',
+      'Citrus', 'Banana', 'Nut', 'Carrot', 'Grape', 'Strawberry', 'Cherry'
+    ]
+  },
+  pharma: {
+    name: 'Pharma y Química',
+    icons: [
+      'Pills', 'FlaskConical', 'FlaskRound', 'Pipette', 'Syringe', 'TestTube', 'Microscope', 'Dna',
+      'Biohazard', 'HeartPulse', 'Stethoscope', 'Activity', 'Brain', 'Eye', 'Heart', 'ShieldAlert',
+      'Clipboard', 'Thermometer', 'Crosshair', 'FlameKindling', 'Gauge', 'Droplets', 'ShieldCheck',
+      'BriefcaseMedical', 'PlusSquare', 'HeartHandshake', 'TestTubes', 'Bones', 'Bandage'
+    ]
+  },
+  reciclado: {
+    name: 'Reciclaje y Ambiente',
+    icons: [
+      'Recycle', 'Leaf', 'Sprout', 'TreePine', 'TreeDeciduous', 'Wind', 'Sun', 'Trash2', 'Trash',
+      'RefreshCw', 'RefreshCcw', 'RotateCw', 'RotateCcw', 'Globe', 'Droplet', 'Droplets', 'Fuel',
+      'BatteryCharging', 'Zap', 'Lightbulb', 'Gauge', 'Flame', 'Sparkles', 'Container', 'Workflow',
+      'Battery', 'BatteryLow', 'BatteryMedium', 'BatteryWarning', 'SunDim', 'CloudSun', 'CloudRain'
+    ]
+  },
+  acabados: {
+    name: 'Acabados y Herramientas',
+    icons: [
+      'Paintbrush', 'PaintRoller', 'Palette', 'SprayCan', 'Sparkles', 'Scissors', 'Hammer', 'Ruler',
+      'Wrench', 'Screwdriver', 'Layers', 'Grid', 'Spline', 'Brush', 'PenTool', 'Eraser', 'LayoutGrid',
+      'Maximize', 'Minimize', 'Scale', 'Pipette', 'Contrast', 'Grid3X3', 'ScissorsLineDashed'
+    ]
+  },
+  industria40: {
+    name: 'Industria 4.0 e IoT',
+    icons: [
+      'Factory', 'Workflow', 'LineChart', 'BarChart3', 'TrendingUp', 'Presentation', 'ShieldCheck', 
+      'Zap', 'Cog', 'Settings', 'Sliders', 'Gauge', 'Eye', 'Box', 'Package', 'Truck', 
+      'Compass', 'MapPin', 'Activity', 'HeartPulse', 'Cpu', 'Database', 'CloudLightning',
+      'HardHat', 'Construction', 'Tractor', 'Warehouse'
+    ]
+  },
+  automatización: {
+    name: 'Automatización y Control',
+    icons: [
+      'ToggleLeft', 'ToggleRight', 'Sliders', 'SlidersHorizontal', 'Play', 'Pause', 'Power', 
+      'Fan', 'Gauge', 'ThermometerSnowflake', 'Repeat', 'RefreshCw', 'GitCommit', 'Target', 
+      'Crosshair', 'Pointer', 'MousePointer', 'Compass', 'Hourglass', 'Timer', 'Watch',
+      'KeyRound', 'Workflow', 'History', 'Infinity', 'Shuffle', 'Undo', 'Redo', 'RotateCw',
+      'Scale3D', 'Axis3D', 'Move', 'Expand'
+    ]
+  }
+};
 
 const defaultSolutions = [
   {
@@ -84,6 +164,15 @@ const defaultSolutions = [
 
 const iconMap = { Lightbulb, Wrench, Shield, Scissors, Droplets, Layers, Zap, Eye, Factory };
 
+const solutionColors = [
+  '#00f0ff', // 01 Trituración (Cian)
+  '#00ff66', // 02 Lavado (Verde)
+  '#b026ff', // 03 Peletizado (Morado)
+  '#ffaa00', // 04 Waste to Energy (Naranja)
+  '#0099ff', // 05 Separación Inteligente (Celeste)
+  '#ffd700', // 06 Plantas Llave en mano (Amarillo)
+];
+
 const ToolbarButton = ({ icon: Icon, active, onClick, title, loading }) => (
   <button
     onClick={(e) => { e.stopPropagation(); onClick(e); }}
@@ -123,6 +212,11 @@ const ToolbarColorPicker = ({ value, onChange, title }) => (
 const SolutionsSection = () => {
   const { cmsState, isEditorMode, updatePageModule } = useCMS();
   const [isVisible, setIsVisible] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [isIconModalOpen, setIsIconModalOpen] = useState(false);
+  const [selectedSolutionForIcon, setSelectedSolutionForIcon] = useState(null);
+  const [iconSearchQuery, setIconSearchQuery] = useState('');
+  const [activeIconTab, setActiveIconTab] = useState('all');
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -207,15 +301,23 @@ const SolutionsSection = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
           {activeSolutions.map((solution, index) => {
-            const Icon = iconMap[solution.iconName] || Lightbulb;
+            const IconComponent = LucideIcons[solution.iconName] || LucideIcons.Lightbulb;
+            const themeColor = solution.themeColor || solutionColors[index % solutionColors.length];
             return (
               <motion.div
                 key={solution.id}
                 initial={{ opacity: 0, y: 50 }}
                 animate={isVisible ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: index * 0.15 }}
-                className={`glass-card rounded-xl relative group ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400' : 'hover:scale-105 hover:brightness-110'} transition-all duration-300 flex flex-col`}
-                style={{ padding: solution.cardPadding !== undefined ? `${solution.cardPadding}px` : '32px' }}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                className={`glass-card rounded-xl relative group ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400' : 'hover:scale-[1.03]'} transition-all duration-300 flex flex-col`}
+                style={{ 
+                  padding: solution.cardPadding !== undefined ? `${solution.cardPadding}px` : '32px',
+                  borderColor: hoveredIndex === index ? `${themeColor}4d` : 'rgba(255,255,255,0.08)',
+                  boxShadow: hoveredIndex === index ? `0 0 30px ${themeColor}1a, inset 0 0 12px ${themeColor}0a` : 'none',
+                  borderWidth: '1px'
+                }}
               >
                 {/* Editor mode top controls (Professional Toolbar) */}
                 {isEditorMode && (
@@ -277,6 +379,21 @@ const SolutionsSection = () => {
                         <ToolbarTextButton text="A+" onClick={() => { const newItems = activeSolutions.map(item => item.id === solution.id ? { ...item, benSize: (item.benSize || 14) + 1 } : item); updatePageModule('home', 'solutions', { items: newItems }); }} title="Aumentar tamaño" />
                       </div>
 
+                      {/* Fila del Tema de la Tarjeta */}
+                      <div className="flex items-center gap-1 p-1 bg-black/20 rounded-md">
+                        <div className="flex items-center justify-center w-[40px] px-1 text-white/40"><strong className="text-[9px] uppercase">Tema</strong></div>
+                        <ToolbarColorPicker
+                          value={solution.themeColor || solutionColors[index % solutionColors.length]}
+                          onChange={e => {
+                            const newItems = activeSolutions.map(item => item.id === solution.id ? { ...item, themeColor: e.target.value } : item);
+                            updatePageModule('home', 'solutions', { items: newItems });
+                          }}
+                          title="Color del Tema de la Tarjeta"
+                        />
+                        <div className="w-[1px] h-[16px] bg-white/10 mx-1" />
+                        <span className="text-[9px] text-white/50 leading-none">Color de Acento de la Tarjeta</span>
+                      </div>
+
                       {/* Espaciado de caja */}
                       <div className="flex items-center gap-1 p-1 bg-black/20 rounded-md">
                         <div className="flex items-center justify-center w-[24px] px-1 text-white/40"><strong className="text-[10px] uppercase">Caja</strong></div>
@@ -287,18 +404,38 @@ const SolutionsSection = () => {
                   </div>
                 )}
 
-                <div className={`flex justify-between items-center mb-6 w-full ${isEditorMode ? 'mt-[135px]' : ''}`}>
-                  <span className="text-[#FFD700] font-mono text-3xl font-black tracking-widest select-none opacity-30 group-hover:opacity-100 transition-opacity">
+                <div className={`flex justify-between items-center mb-6 w-full ${isEditorMode ? 'mt-[170px]' : ''}`}>
+                  <span 
+                    className="font-mono text-3xl font-black tracking-widest select-none transition-all duration-300"
+                    style={{ 
+                      color: themeColor,
+                      opacity: hoveredIndex === index ? 1 : 0.35 
+                    }}
+                  >
                     {String(index + 1).padStart(2, '0')}
                   </span>
-                  <div className="w-12 h-12 rounded-lg bg-[#FFD700]/10 flex items-center justify-center transition-all duration-300 border border-[#FFD700]/20 group-hover:bg-[#FFD700]/25 group-hover:border-[#FFD700]/40 shadow-[0_0_15px_rgba(255,215,0,0.05)]">
-                    <Icon size={22} className="text-[#FFD700]" />
+                  <div 
+                    onClick={() => {
+                      if (isEditorMode) {
+                        setSelectedSolutionForIcon(solution.id);
+                        setIsIconModalOpen(true);
+                      }
+                    }}
+                    className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.2)] ${isEditorMode ? 'cursor-pointer hover:scale-110 active:scale-95 hover:border-blue-400/80 outline-dashed outline-1 outline-blue-400' : ''}`}
+                    title={isEditorMode ? "Haz clic para cambiar este icono" : undefined}
+                    style={{
+                      backgroundColor: hoveredIndex === index ? `${themeColor}33` : `${themeColor}12`,
+                      borderColor: hoveredIndex === index ? `${themeColor}66` : `${themeColor}26`,
+                      borderWidth: '1px'
+                    }}
+                  >
+                    <IconComponent size={22} style={{ color: themeColor }} />
                   </div>
                 </div>
                 <h3
-                  className={`font-bold mb-3 transition-colors ${(!isEditorMode && !solution.titleColor) ? 'group-hover:text-primary' : ''} ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 cursor-text bg-black/20 p-1 rounded backdrop-blur-sm' : ''} ${solution.titleSize ? '' : 'text-2xl'}`}
+                  className={`font-bold mb-3 transition-all duration-300 ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 cursor-text bg-black/20 p-1 rounded backdrop-blur-sm' : ''} ${solution.titleSize ? '' : 'text-2xl'}`}
                   style={{
-                    color: solution.titleColor || 'var(--foreground)',
+                    color: solution.titleColor || (hoveredIndex === index ? themeColor : 'var(--foreground)'),
                     textAlign: solution.titleAlign || 'left',
                     fontSize: solution.titleSize ? `${solution.titleSize}px` : undefined
                   }}
@@ -330,7 +467,10 @@ const SolutionsSection = () => {
                   <ul className="space-y-2">
                     {solution.benefits.map((benefit, idx) => (
                       <li key={idx} className="flex items-start space-x-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0"></div>
+                        <div 
+                          className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0"
+                          style={{ backgroundColor: themeColor }}
+                        />
                         <span
                           className={`w-full ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 cursor-text bg-black/20 p-1 rounded backdrop-blur-sm min-h-[24px]' : ''}`}
                           style={{
@@ -349,7 +489,7 @@ const SolutionsSection = () => {
                                 return { ...item, benefits: newBenefits };
                               }
                               return item;
-                            });
+                                                        });
                             updatePageModule('home', 'solutions', { items: newItems });
                           }}
                         />
@@ -381,6 +521,119 @@ const SolutionsSection = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* Icon Selector Modal */}
+      {isIconModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md p-4 animate-fadeIn">
+          <div className="bg-[#12141C] border border-[#2A2E3D] w-full max-w-4xl h-[80vh] rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+            {/* Modal Header */}
+            <div className="p-6 border-b border-[#2A2E3D] flex justify-between items-center bg-[#161924]">
+              <div>
+                <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                  <span className="text-[#FFD700]">★</span>
+                  Seleccionar Icono Industrial
+                </h3>
+                <p className="text-sm text-gray-400 mt-1">Elige un icono clasificado por sectores para representar esta solución.</p>
+              </div>
+              <button 
+                onClick={() => {
+                  setIsIconModalOpen(false);
+                  setSelectedSolutionForIcon(null);
+                  setIconSearchQuery('');
+                }}
+                className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white transition-colors"
+              >
+                <LucideIcons.X size={20} />
+              </button>
+            </div>
+
+            {/* Search and Category Filter */}
+            <div className="p-6 bg-[#141722] border-b border-[#2A2E3D] flex flex-col md:flex-row gap-4">
+              <div className="relative flex-1">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">🔍</span>
+                <input
+                  type="text"
+                  placeholder="Buscar icono por nombre..."
+                  value={iconSearchQuery}
+                  onChange={(e) => setIconSearchQuery(e.target.value)}
+                  className="w-full bg-[#1A1D2B] border border-[#2A2E3D] text-white rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-[#FFD700] transition-colors"
+                />
+              </div>
+              
+              {/* Category tabs */}
+              <div className="flex gap-2 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
+                <button
+                  onClick={() => setActiveIconTab('all')}
+                  className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors ${activeIconTab === 'all' ? 'bg-[#FFD700] text-black' : 'bg-[#1A1D2B] text-gray-400 hover:text-white border border-[#2A2E3D]'}`}
+                >
+                  Todos
+                </button>
+                {Object.entries(industrialIconGroups).map(([key, group]) => (
+                  <button
+                    key={key}
+                    onClick={() => setActiveIconTab(key)}
+                    className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-colors ${activeIconTab === key ? 'bg-[#FFD700] text-black' : 'bg-[#1A1D2B] text-gray-400 hover:text-white border border-[#2A2E3D]'}`}
+                  >
+                    {group.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Icons Grid */}
+            <div className="flex-1 p-6 overflow-y-auto bg-[#10121A] custom-scrollbar">
+              <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-4">
+                {(() => {
+                  let list = [];
+                  if (activeIconTab === 'all') {
+                    const allIcons = new Set();
+                    Object.values(industrialIconGroups).forEach(group => {
+                      group.icons.forEach(ico => allIcons.add(ico));
+                    });
+                    list = Array.from(allIcons);
+                  } else {
+                    list = industrialIconGroups[activeIconTab]?.icons || [];
+                  }
+
+                  if (iconSearchQuery.trim() !== '') {
+                    list = list.filter(ico => ico.toLowerCase().includes(iconSearchQuery.toLowerCase()));
+                  }
+
+                  if (list.length === 0) {
+                    return (
+                      <div className="col-span-full py-12 text-center text-gray-500">
+                        No se encontraron iconos que coincidan con la búsqueda.
+                      </div>
+                    );
+                  }
+
+                  return list.map(iconName => {
+                    const TargetIcon = LucideIcons[iconName];
+                    if (!TargetIcon) return null;
+
+                    return (
+                      <button
+                        key={iconName}
+                        onClick={() => {
+                          const newItems = activeSolutions.map(item => item.id === selectedSolutionForIcon ? { ...item, iconName } : item);
+                          updatePageModule('home', 'solutions', { items: newItems });
+                          setIsIconModalOpen(false);
+                          setSelectedSolutionForIcon(null);
+                          setIconSearchQuery('');
+                        }}
+                        className="flex flex-col items-center justify-center p-4 rounded-xl bg-[#161822] border border-[#2A2E3D] hover:border-[#FFD700] text-gray-300 hover:text-[#FFD700] hover:bg-[#1A1D2B] transition-all group"
+                      >
+                        <TargetIcon className="w-8 h-8 group-hover:scale-110 transition-transform mb-2" />
+                        <span className="text-[10px] text-gray-500 group-hover:text-gray-300 text-center truncate w-full">{iconName}</span>
+                      </button>
+                    );
+                  });
+                })()}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

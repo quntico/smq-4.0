@@ -393,6 +393,22 @@ export default function inlineEditPlugin() {
 					}
 				});
 			});
+
+			server.middlewares.use('/api/git-upload', async (req, res, next) => {
+				if (req.method !== 'POST') return next();
+
+				const { exec } = await import('child_process');
+				exec('git add . && git commit -m "CMS Update: Auto-save from editor" && git push', { cwd: VITE_PROJECT_ROOT }, (error, stdout, stderr) => {
+					if (error) {
+						console.error(`[git-upload error]:`, error);
+						res.writeHead(500, { 'Content-Type': 'application/json' });
+						return res.end(JSON.stringify({ success: false, error: error.message, stderr }));
+					}
+					console.log(`[git-upload success]:`, stdout);
+					res.writeHead(200, { 'Content-Type': 'application/json' });
+					res.end(JSON.stringify({ success: true, stdout, stderr }));
+				});
+			});
 		}
 	};
 }
