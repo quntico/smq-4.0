@@ -6,6 +6,57 @@ import { useCMS } from '@/context/CMSContext.jsx';
 
 const industriesData = [
   {
+    key: 'alimentos',
+    title: 'Alimentos y Bebidas',
+    color: '#F97316',
+    Icon: Wheat,
+    desc: 'Maquinaria de grado alimentario para lavado, producción, empaque y separación.',
+    families: [
+      {
+        name: '01 Lavado y Pelado',
+        machines: [
+          { code: 'LWF', name: 'LWF-500', desc: 'Línea de Lavado y Secado', route: '/maquinaria/alimentos-lwf-500' },
+          { code: 'LWV', name: 'LWV-500', desc: 'Línea de Lavado y Corte', route: '/maquinaria/alimentos-lwv-500' },
+          { code: 'LWL', name: 'LWL-500', desc: 'Línea de Lavado de Hojas', route: '/maquinaria/alimentos-lwl-500' },
+          { code: 'LBW', name: 'LBW-500', desc: 'Tina de Lavado Burbujas', route: '/maquinaria/alimentos-lbw-500' },
+          { code: 'GPL', name: 'GPL-300', desc: 'Peladora de Ajos', route: '/maquinaria/alimentos-gpl-300' }
+        ]
+      },
+      {
+        name: '02 Producción de Alimentos',
+        machines: [
+          { code: 'LPC', name: 'LPC-500', desc: 'Línea de Producción de Papas Fritas', route: '/maquinaria/alimentos-lpc-500' },
+          { code: 'LCH', name: 'LCH-500', desc: 'Línea de Producción Chocolate en Polvo', route: '/maquinaria/alimentos-lch-500' },
+          { code: 'LMC', name: 'LMC-100', desc: 'Línea de Producción de Pastas LMC-100', route: '/maquinaria/alimentos-lmc-100' },
+          { code: 'LMC2', name: 'LMC-200', desc: 'Línea de Producción de Pastas LMC-200', route: '/maquinaria/alimentos-lmc-200' },
+          { code: 'LFC', name: 'LFC-300', desc: 'Línea de Producción de Frutas Congeladas', route: '/maquinaria/alimentos-lfc-300' },
+          { code: 'LCB', name: 'LCB-300', desc: 'Línea de Producción de Barras de Cereal', route: '/maquinaria/alimentos-lcb-300' },
+          { code: 'LSN', name: 'LSN-250', desc: 'Línea de Snacks Inflados', route: '/maquinaria/alimentos-lsn-250' },
+          { code: 'LPT', name: 'LPT-250', desc: 'Línea de Alimento para Mascotas', route: '/maquinaria/alimentos-lpt-250' }
+        ]
+      },
+      {
+        name: '03 Empaquetado y Llenado',
+        machines: [
+          { code: 'PKB', name: 'PKB-70', desc: 'Línea de Empaquetado y Llenado', route: '/maquinaria/alimentos-pkb-70' },
+          { code: 'PKW', name: 'PKW-130', desc: 'Línea de Empaquetado Polvos', route: '/maquinaria/alimentos-pkw-130' },
+          { code: 'PCP', name: 'PCP-40', desc: 'Llenado y Empaquetado Pouch', route: '/maquinaria/alimentos-pcp-40' },
+          { code: 'PCT', name: 'PCT-80', desc: 'Empaquetado de Cartón', route: '/maquinaria/alimentos-pct-80' },
+          { code: 'PBK', name: 'PBK-60', desc: 'Llenado y Empaquetado', route: '/maquinaria/alimentos-pbk-60' },
+          { code: 'BTL', name: 'BTL-200', desc: 'Etiquetado Double Side', route: '/maquinaria/alimentos-btl-200' }
+        ]
+      },
+      {
+        name: '04 Sistemas de Separación',
+        machines: [
+          { code: 'CS', name: 'CS-500', desc: 'Separadora por Color', route: '/maquinaria/alimentos-cs-500' },
+          { code: 'TS', name: 'TS-1000', desc: 'Separadora por Tamaño', route: '/maquinaria/alimentos-ts-1000' },
+          { code: 'WS', name: 'WS-500', desc: 'Separadora por Peso', route: '/maquinaria/alimentos-ws-500' }
+        ]
+      }
+    ]
+  },
+  {
     key: 'preparacion',
     title: 'Preparación',
     color: '#06B6D4',
@@ -27,14 +78,14 @@ const industriesData = [
   {
     key: 'reciclaje',
     title: 'Reciclaje',
-    color: '#10B981',
+    color: '#84CC16',
     Icon: Recycle,
     desc: 'Sistemas avanzados para reducción, valorización, lavado y extrusión de polímeros.',
     families: [
       {
         name: 'Equipamiento',
         machines: [
-          { code: 'MOL', name: 'Molinos', desc: 'Molinos de alta velocidad para molienda de termoplásticos rígidos y films.', route: '/maquinaria/reciclaje-molinos' },
+          { code: 'MOL', name: 'Molinos', desc: 'Molinos de alta velocidad para molienda de termoplásticos rígidos and films.', route: '/maquinaria/reciclaje-molinos' },
           { code: 'TRT', name: 'Trituradoras', desc: 'Trituradores industriales de mono-eje y doble-eje para purgas y pacas.', route: '/maquinaria/reciclaje-trituradoras' },
           { code: 'PEL', name: 'Peletizadoras', desc: 'Sistemas de peletizado en cascada y corte al anillo para plástico reciclado.', route: '/maquinaria/reciclaje-peletizadoras' },
           { code: 'LAV', name: 'Líneas de Lavado', desc: 'Plantas integradas de pre-lavado, molienda húmeda e higienización.', route: '/maquinaria/reciclaje-lineas-de-lavado' },
@@ -68,7 +119,7 @@ const industriesData = [
   {
     key: 'separacion',
     title: 'Separación',
-    color: '#10B981',
+    color: '#84CC16',
     Icon: Eye,
     desc: 'Clasificación inteligente y separación de alta precisión.',
     families: [
@@ -138,7 +189,7 @@ const industriesData = [
 ];
 
 const MachineryMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
-  const [activeIndustry, setActiveIndustry] = useState('preparacion');
+  const [activeIndustry, setActiveIndustry] = useState('alimentos');
   const { cmsState } = useCMS();
   const headerHeight = cmsState?.settings?.headerHeight || 80;
   const active = industriesData.find(i => i.key === activeIndustry);
@@ -229,70 +280,80 @@ const MachineryMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
                   </div>
                 </div>
 
-                {/* Grid de máquinas estilo Waste to Energy */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                  {active?.families.flatMap(family => family.machines).map((machine, index) => {
-                    const formattedNum = String(index + 1).padStart(2, '0');
+                {/* Grid de familias y máquinas */}
+                <div className="space-y-6">
+                  {active?.families.map((family, fIdx) => (
+                    <div key={fIdx} className="space-y-3">
+                      {active?.families.length > 1 && (
+                        <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-white/30 border-l border-white/20 pl-2">
+                          {family.name}
+                        </h3>
+                      )}
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {family.machines.map((machine, index) => {
+                          const formattedNum = String(index + 1).padStart(2, '0');
+                          return (
+                            <Link
+                              key={machine.code}
+                              to={machine.route || `/maquinaria/${machine.code.toLowerCase()}`}
+                              className="group relative flex flex-col p-4 rounded-xl border bg-white/[0.01] hover:bg-white/[0.03] transition-all duration-300 shadow-lg"
+                              style={{
+                                borderColor: 'rgba(255, 255, 255, 0.05)',
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.borderColor = `${active?.color}50`;
+                                e.currentTarget.style.backgroundColor = `${active?.color}0A`;
+                                e.currentTarget.style.boxShadow = `0 10px 30px -10px ${active?.color}25`;
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.05)';
+                                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.01)';
+                                e.currentTarget.style.boxShadow = 'none';
+                              }}
+                            >
+                              {/* Top: Code Box & Num */}
+                              <div className="flex items-center justify-between mb-3">
+                                <div 
+                                  className="flex items-center justify-center w-8 h-8 rounded-lg border font-mono font-black text-[11px] tracking-wider"
+                                  style={{ 
+                                    backgroundColor: `${active?.color}15`,
+                                    borderColor: `${active?.color}30`,
+                                    color: active?.color
+                                  }}
+                                >
+                                  {machine.code}
+                                </div>
+                                <span 
+                                  className="text-[12px] font-black tracking-widest font-mono"
+                                  style={{ color: active?.color }}
+                                >
+                                  {formattedNum}
+                                </span>
+                              </div>
 
-                    return (
-                      <Link
-                        key={machine.code}
-                        to={machine.route || `/maquinaria/${machine.code.toLowerCase()}`}
-                        className="group relative flex flex-col p-5 rounded-xl border bg-white/[0.01] hover:bg-white/[0.03] transition-all duration-300 shadow-lg"
-                        style={{
-                          borderColor: 'rgba(255, 255, 255, 0.05)',
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.borderColor = `${active?.color}50`;
-                          e.currentTarget.style.backgroundColor = `${active?.color}0A`;
-                          e.currentTarget.style.boxShadow = `0 10px 30px -10px ${active?.color}25`;
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.05)';
-                          e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.01)';
-                          e.currentTarget.style.boxShadow = 'none';
-                        }}
-                      >
-                        {/* Top: Code Box & Num */}
-                        <div className="flex items-center justify-between mb-4">
-                          <div 
-                            className="flex items-center justify-center w-8 h-8 rounded-lg border font-mono font-black text-[11px] tracking-wider"
-                            style={{ 
-                              backgroundColor: `${active?.color}15`,
-                              borderColor: `${active?.color}30`,
-                              color: active?.color
-                            }}
-                          >
-                            {machine.code}
-                          </div>
-                          <span 
-                            className="text-[13px] font-black tracking-widest font-mono"
-                            style={{ color: active?.color }}
-                          >
-                            {formattedNum}
-                          </span>
-                        </div>
+                              {/* Content */}
+                              <div className="flex-1">
+                                <h3 className="text-[13px] font-bold text-white mb-1 leading-tight uppercase tracking-wide group-hover:text-white transition-colors">
+                                  {machine.name}
+                                </h3>
+                                <p className="text-[9.5px] text-white/40 leading-[1.5] font-semibold uppercase tracking-wider group-hover:text-white/60 transition-colors">
+                                  {machine.desc}
+                                </p>
+                              </div>
 
-                        {/* Content */}
-                        <div className="flex-1">
-                          <h3 className="text-[13.5px] font-bold text-white mb-2 leading-tight uppercase tracking-wide group-hover:text-white transition-colors">
-                            {machine.name}
-                          </h3>
-                          <p className="text-[9.5px] text-white/40 leading-[1.6] font-semibold uppercase tracking-wider group-hover:text-white/60 transition-colors">
-                            {machine.desc}
-                          </p>
-                        </div>
-
-                        {/* Footer interaction */}
-                        <div className="mt-4 flex items-center justify-between pt-3 border-t border-white/5 opacity-50 group-hover:opacity-100 transition-opacity">
-                          <span className="text-[9px] font-black uppercase tracking-widest" style={{ color: active?.color }}>
-                            Ver Detalles
-                          </span>
-                          <ArrowRight size={12} style={{ color: active?.color }} className="transform group-hover:translate-x-1 transition-transform" />
-                        </div>
-                      </Link>
-                    );
-                  })}
+                              {/* Footer interaction */}
+                              <div className="mt-3 flex items-center justify-between pt-2 border-t border-white/5 opacity-50 group-hover:opacity-100 transition-opacity">
+                                <span className="text-[9px] font-black uppercase tracking-widest" style={{ color: active?.color }}>
+                                  Ver Detalles
+                                </span>
+                                <ArrowRight size={12} style={{ color: active?.color }} className="transform group-hover:translate-x-1 transition-transform" />
+                              </div>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </motion.div>
             </AnimatePresence>

@@ -10,7 +10,7 @@ const initialCMSState = {
         logoSize: 98,
         headerHeight: 100,
         headerOpacity: 60,
-        appVersion: '7.0',
+        appVersion: '7.1',
         globalImageSharpness: 100,
         globalFilterColor: '#000000',
         globalFilterOpacity: 75,
@@ -793,6 +793,27 @@ const initialCMSState = {
 ]
 };
 
+const migrateCMSState = (state) => {
+    if (!state || !state.pages) return state;
+    try {
+        let serialized = JSON.stringify(state);
+        // Reemplazar de forma masiva los colores esmeralda/verde por verde lima
+        serialized = serialized
+            .replace(/#10B981/g, '#84CC16')
+            .replace(/#10b981/g, '#84CC16')
+            .replace(/#34D399/g, '#84CC16')
+            .replace(/#34d399/g, '#84CC16')
+            .replace(/rgba\(16,\s*185,\s*129/g, 'rgba(132, 204, 22')
+            .replace(/rgba\(52,\s*211,\s*153/g, 'rgba(132, 204, 22')
+            .replace(/"glowColor":\s*"emerald"/g, '"glowColor": "lime"')
+            .replace(/"glowColor":\s*"green"/g, '"glowColor": "lime"');
+        return JSON.parse(serialized);
+    } catch (e) {
+        console.error("[CMS] Error migrando estado del CMS:", e);
+        return state;
+    }
+};
+
 export const CMSProvider = ({ children }) => {
     const [cmsState, setCmsState] = useState(() => {
         const saved = localStorage.getItem('smqCMS');
@@ -808,7 +829,7 @@ export const CMSProvider = ({ children }) => {
                     return initialCMSState;
                 }
 
-                return {
+                const loadedState = {
                     settings: {
                         ...initialCMSState.settings,
                         ...parsedSettings,
@@ -821,6 +842,7 @@ export const CMSProvider = ({ children }) => {
                     menus: parsed.menus || initialCMSState.menus,
                     pages: parsed.pages || initialCMSState.pages
                 };
+                return migrateCMSState(loadedState);
             } catch (e) {
                 localStorage.removeItem('smqCMS');
                 return initialCMSState;
@@ -870,7 +892,7 @@ export const CMSProvider = ({ children }) => {
                         menus: parsed.menus || initialCMSState.menus,
                         pages: parsed.pages || initialCMSState.pages
                     };
-                    setCmsState(cloudState);
+                    setCmsState(migrateCMSState(cloudState));
                 }
             } else {
                 console.warn("CMS state no encontrado en nube o error. Cóodigo:", res.status);

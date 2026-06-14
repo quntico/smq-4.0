@@ -63,7 +63,7 @@ const wasteItems = [
     num: '07',
     title: 'ECONOMÍA CIRCULAR',
     desc: 'Modelos de negocio e ingeniería de procesos cerrados para reincorporar subproductos a la cadena de valor.',
-    color: '#10B981', // Verde esmeralda
+    color: '#84CC16', // Verde lima
     Icon: Globe,
     bgImage: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&q=80&w=600',
     href: '/waste-to-energy#economia-circular'

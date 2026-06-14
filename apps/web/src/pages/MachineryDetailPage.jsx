@@ -36,7 +36,8 @@ import {
   Leaf,
   Tag,
   Sun,
-  Cable
+  Cable,
+  Activity
 } from 'lucide-react';
 import Footer from '@/components/Footer.jsx';
 import { useCMS } from '@/context/CMSContext.jsx';
@@ -489,11 +490,11 @@ const machineryDataMap = {
     machineCode: 'MOL',
     pageNumber: '15',
     theme: {
-      accent: '#10B981',
-      accentGlow: 'rgba(16, 185, 129, 0.4)',
+      accent: '#84CC16',
+      accentGlow: 'rgba(132, 204, 22, 0.4)',
       bgStart: '#080B12',
       bgEnd: '#0A0B10',
-      glowColor: 'green'
+      glowColor: 'lime'
     },
     heroTitle: 'MOLINOS TRITURADORES DE ALTA VELOCIDAD',
     heroSubtitle: 'Reducción y molienda precisa de termoplásticos rígidos, purgas y películas.',
@@ -541,11 +542,11 @@ const machineryDataMap = {
     machineCode: 'TRT',
     pageNumber: '16',
     theme: {
-      accent: '#10B981',
-      accentGlow: 'rgba(16, 185, 129, 0.4)',
+      accent: '#84CC16',
+      accentGlow: 'rgba(132, 204, 22, 0.4)',
       bgStart: '#080B12',
       bgEnd: '#0A0B10',
-      glowColor: 'green'
+      glowColor: 'lime'
     },
     heroTitle: 'TRITURADORAS INDUSTRIALES DE MONO-EJE Y DOBLE EJE',
     heroSubtitle: 'Triturado primario de pacas, purgas, contenedores y materiales gruesos.',
@@ -621,11 +622,11 @@ const machineryDataMap = {
     machineCode: 'PEL',
     pageNumber: '17',
     theme: {
-      accent: '#10B981',
-      accentGlow: 'rgba(16, 185, 129, 0.4)',
+      accent: '#84CC16',
+      accentGlow: 'rgba(132, 204, 22, 0.4)',
       bgStart: '#080B12',
       bgEnd: '#0A0B10',
-      glowColor: 'green'
+      glowColor: 'lime'
     },
     heroTitle: 'SISTEMAS DE PELETIZADO Y EXTRUSIÓN',
     heroSubtitle: 'Producción de resina plástica en pellets de alta calidad a partir de material reciclado.',
@@ -676,11 +677,11 @@ const machineryDataMap = {
     machineCode: 'LAV',
     pageNumber: '18',
     theme: {
-      accent: '#10B981',
-      accentGlow: 'rgba(16, 185, 129, 0.4)',
+      accent: '#84CC16',
+      accentGlow: 'rgba(132, 204, 22, 0.4)',
       bgStart: '#080B12',
       bgEnd: '#0A0B10',
-      glowColor: 'green'
+      glowColor: 'lime'
     },
     heroTitle: 'LÍNEAS DE LAVADO INDUSTRIALES',
     heroSubtitle: 'Plantas llave en mano para pre-lavado, lavado térmico e higienización de polímeros.',
@@ -727,11 +728,11 @@ const machineryDataMap = {
     machineCode: 'DES',
     pageNumber: '19',
     theme: {
-      accent: '#10B981',
-      accentGlow: 'rgba(16, 185, 129, 0.4)',
+      accent: '#84CC16',
+      accentGlow: 'rgba(132, 204, 22, 0.4)',
       bgStart: '#080B12',
       bgEnd: '#0A0B10',
-      glowColor: 'green'
+      glowColor: 'lime'
     },
     heroTitle: 'DESETIQUETADORAS INDUSTRIALES DE BOTELLAS',
     heroSubtitle: 'Remoción eficiente de etiquetas termoencogibles de botellas PET y PE.',
@@ -777,11 +778,11 @@ const machineryDataMap = {
     machineCode: 'SEC',
     pageNumber: '20',
     theme: {
-      accent: '#10B981',
-      accentGlow: 'rgba(16, 185, 129, 0.4)',
+      accent: '#84CC16',
+      accentGlow: 'rgba(132, 204, 22, 0.4)',
       bgStart: '#080B12',
       bgEnd: '#0A0B10',
-      glowColor: 'green'
+      glowColor: 'lime'
     },
     heroTitle: 'SISTEMAS DE SECADO DE ALTO RENDIMIENTO',
     heroSubtitle: 'Secadoras mecánicas horizontales, centrífugas y squeezers para hojuelas y films.',
@@ -829,11 +830,11 @@ const machineryDataMap = {
     machineCode: 'SEP',
     pageNumber: '21',
     theme: {
-      accent: '#10B981',
-      accentGlow: 'rgba(16, 185, 129, 0.4)',
+      accent: '#84CC16',
+      accentGlow: 'rgba(132, 204, 22, 0.4)',
       bgStart: '#080B12',
       bgEnd: '#0A0B10',
-      glowColor: 'green'
+      glowColor: 'lime'
     },
     heroTitle: 'SISTEMAS DE CLASIFICACIÓN Y SEPARACIÓN',
     heroSubtitle: 'Clasificación óptica por color, tipo de polímero y separación de metales.',
@@ -881,11 +882,11 @@ const machineryDataMap = {
     machineCode: 'CRI',
     pageNumber: '22',
     theme: {
-      accent: '#10B981',
-      accentGlow: 'rgba(16, 185, 129, 0.4)',
+      accent: '#84CC16',
+      accentGlow: 'rgba(132, 204, 22, 0.4)',
       bgStart: '#080B12',
       bgEnd: '#0A0B10',
-      glowColor: 'green'
+      glowColor: 'lime'
     },
     heroTitle: 'SISTEMAS DE CRISTALIZACIÓN INFRARROJA IRD',
     heroSubtitle: 'Cristalización y secado ultra rápido de hojuelas de PET para extrusión directa.',
@@ -1116,23 +1117,24 @@ const MachineryDetailPage = () => {
   useEffect(() => {
     const savedPath = localStorage.getItem('last_sector_path');
     const savedName = localStorage.getItem('last_sector_name');
-    if (savedPath) {
+    const currentIndustry = data.industry || defaults.industry;
+    const isRecycling = currentIndustry === 'reciclaje' || currentIndustry === 'reciclaje-y-plasticos';
+
+    // Forzar consistencia: si es reciclaje, el path de retorno debe ser reciclaje
+    if (savedPath && ((isRecycling && savedPath.includes('reciclaje')) || (!isRecycling && savedPath.includes('alimentos')))) {
       setBackPath(savedPath);
     } else {
-      // Deducir del sector de la máquina si no hay localStorage
-      const currentIndustry = data.industry || defaults.industry;
-      if (currentIndustry === 'reciclaje' || currentIndustry === 'reciclaje-y-plasticos') {
+      if (isRecycling) {
         setBackPath('/industria/reciclaje-y-plasticos');
       } else {
         setBackPath('/industria/alimentos');
       }
     }
 
-    if (savedName) {
+    if (savedName && ((isRecycling && savedName.toLowerCase().includes('reciclaje')) || (!isRecycling && savedName.toLowerCase().includes('alimento')))) {
       setBackName(savedName);
     } else {
-      const currentIndustry = data.industry || defaults.industry;
-      if (currentIndustry === 'reciclaje' || currentIndustry === 'reciclaje-y-plasticos') {
+      if (isRecycling) {
         setBackName('Sector Reciclaje');
       } else {
         setBackName('Sector Alimentos');
@@ -1333,6 +1335,7 @@ const MachineryDetailPage = () => {
           {(() => {
             const currentIndustry = data.industry || defaults.industry;
             const isRecycling = currentIndustry === 'reciclaje' || currentIndustry === 'reciclaje-y-plasticos';
+            const isFood = currentIndustry === 'alimentos' || currentIndustry === 'alimentos-y-bebidas';
 
             // 17 opciones específicas de Reciclaje tomadas de la captura
             const recyclingMenuItems = [
@@ -1353,6 +1356,39 @@ const MachineryDetailPage = () => {
               { label: 'SECADO DE ALTO RENDIMIENTO', href: '/maquinaria/reciclaje-sistemas-de-secado', icon: Wind, isMachine: true, code: 'reciclaje-sistemas-de-secado' },
               { label: 'CLASIFICACIÓN Y SEPARACIÓN', href: '/maquinaria/reciclaje-sistemas-de-separacion', icon: Sliders, isMachine: true, code: 'reciclaje-sistemas-de-separacion' },
               { label: 'CRISTALIZACIÓN INFRARROJA IRD', href: '/maquinaria/reciclaje-cristalizadoras', icon: Sun, isMachine: true, code: 'reciclaje-cristalizadoras' }
+            ];
+
+            // 22 opciones específicas de Alimentos y Bebidas provistas por el usuario
+            const foodMenuItems = [
+              // 01 LAVADO Y PELADO
+              { label: 'Línea de Lavado y Secado LWF-500', href: '/maquinaria/alimentos-lwf-500', icon: Droplet, isMachine: true, code: 'alimentos-lwf-500' },
+              { label: 'Línea de Lavado y Corte LWV-500', href: '/maquinaria/alimentos-lwv-500', icon: Droplet, isMachine: true, code: 'alimentos-lwv-500' },
+              { label: 'Línea de Lavado de Hojas LWL-500', href: '/maquinaria/alimentos-lwl-500', icon: Droplet, isMachine: true, code: 'alimentos-lwl-500' },
+              { label: 'Tina de Lavado Burbujas LBW-500', href: '/maquinaria/alimentos-lbw-500', icon: Waves, isMachine: true, code: 'alimentos-lbw-500' },
+              { label: 'Peladora de Ajos GPL-300', href: '/maquinaria/alimentos-gpl-300', icon: Settings, isMachine: true, code: 'alimentos-gpl-300' },
+              
+              // 02 PRODUCCIÓN DE ALIMENTOS
+              { label: 'Línea de Producción de Papas Fritas LPC-500', href: '/maquinaria/alimentos-lpc-500', icon: Flame, isMachine: true, code: 'alimentos-lpc-500' },
+              { label: 'Línea de Producción Chocolate en Polvo LCH-500', href: '/maquinaria/alimentos-lch-500', icon: Layers, isMachine: true, code: 'alimentos-lch-500' },
+              { label: 'Línea de Producción de Pastas LMC-100', href: '/maquinaria/alimentos-lmc-100', icon: Activity, isMachine: true, code: 'alimentos-lmc-100' },
+              { label: 'Línea de Producción de Pastas LMC-200', href: '/maquinaria/alimentos-lmc-200', icon: Activity, isMachine: true, code: 'alimentos-lmc-200' },
+              { label: 'Línea de Producción de Frutas Congeladas LFC-300', href: '/maquinaria/alimentos-lfc-300', icon: Leaf, isMachine: true, code: 'alimentos-lfc-300' },
+              { label: 'Línea de Producción de Barras de Cereal LCB-300', href: '/maquinaria/alimentos-lcb-300', icon: Layers, isMachine: true, code: 'alimentos-lcb-300' },
+              { label: 'Línea de Snacks Inflados LSN-250', href: '/maquinaria/alimentos-lsn-250', icon: Cpu, isMachine: true, code: 'alimentos-lsn-250' },
+              { label: 'Línea de Alimento para Mascotas LPT-250', href: '/maquinaria/alimentos-lpt-250', icon: Sliders, isMachine: true, code: 'alimentos-lpt-250' },
+              
+              // 03 EMPAQUETADO Y LLENADO
+              { label: 'Línea de Empaquetado y Llenado PKB-70', href: '/maquinaria/alimentos-pkb-70', icon: Package, isMachine: true, code: 'alimentos-pkb-70' },
+              { label: 'Línea de Empaquetado Polvos PKW-130', href: '/maquinaria/alimentos-pkw-130', icon: Wind, isMachine: true, code: 'alimentos-pkw-130' },
+              { label: 'Llenado y Empaquetado Pouch PCP-40', href: '/maquinaria/alimentos-pcp-40', icon: Package, isMachine: true, code: 'alimentos-pcp-40' },
+              { label: 'Empaquetado de Cartón PCT-80', href: '/maquinaria/alimentos-pct-80', icon: Package, isMachine: true, code: 'alimentos-pct-80' },
+              { label: 'Llenado y Empaquetado PBK-60', href: '/maquinaria/alimentos-pbk-60', icon: Package, isMachine: true, code: 'alimentos-pbk-60' },
+              { label: 'Etiquetado Double Side BTL-200', href: '/maquinaria/alimentos-btl-200', icon: Tag, isMachine: true, code: 'alimentos-btl-200' },
+              
+              // 04 SISTEMAS DE SEPARACIÓN
+              { label: 'Separadora por Color CS-500', href: '/maquinaria/alimentos-cs-500', icon: Eye, isMachine: true, code: 'alimentos-cs-500' },
+              { label: 'Separadora por Tamaño TS-1000', href: '/maquinaria/alimentos-ts-1000', icon: Sliders, isMachine: true, code: 'alimentos-ts-1000' },
+              { label: 'Separadora por Peso WS-500', href: '/maquinaria/alimentos-ws-500', icon: Sliders, isMachine: true, code: 'alimentos-ws-500' }
             ];
 
             // Generar dinámicamente las opciones para otras industrias (ej. Alimentos)
@@ -1382,48 +1418,73 @@ const MachineryDetailPage = () => {
               };
             });
 
-            const menuItems = isRecycling ? recyclingMenuItems : otherMenuItems;
+            const menuItems = isRecycling ? recyclingMenuItems : (isFood ? foodMenuItems : otherMenuItems);
 
             return (
-              <div className="w-full bg-[#04060A]/95 backdrop-blur-md border-y border-[#84CC16]/30 sticky top-[90px] z-40 shadow-[0_0_35px_rgba(132,204,22,0.08)] transition-all duration-300">
-                {/* Fila de cabecera del submenú pegajoso - al hacer clic aquí se abre/cierra el panel */}
+              <div 
+                className="w-full bg-[#04060A]/95 border-b sticky top-[90px] z-40 transition-all duration-300"
+                style={{ borderColor: `${data.theme.accent}30` }}
+              >
+                {/* Cabecera Técnica del Panel de Control */}
                 <div 
                   onClick={(e) => {
-                    // Evitar que cierre/abra si da clic en el botón de Volver
                     if (e.target.closest('.back-btn')) return;
                     setIsMenuOpen(!isMenuOpen);
                   }}
-                  className="max-w-[1400px] mx-auto px-6 py-3 flex items-center justify-between gap-4 border-b border-[#84CC16]/10 cursor-pointer hover:bg-white/[0.01] select-none transition-colors duration-200"
+                  className="max-w-[1400px] mx-auto px-6 py-3 flex items-center justify-between gap-4 cursor-pointer hover:bg-white/[0.01] select-none transition-colors duration-200"
                 >
                   <div className="flex items-center gap-4">
+                    {/* Led del Sistema Activo */}
+                    <div className="flex items-center gap-2">
+                      <span 
+                        className="w-2.5 h-2.5 rounded-full animate-pulse shrink-0" 
+                        style={{ 
+                          backgroundColor: data.theme.accent,
+                          boxShadow: `0 0 8px ${data.theme.accent}` 
+                        }}
+                      />
+                      <span className="text-[9px] font-black tracking-widest text-white/40 uppercase font-mono">SISTEMA ACTIVO</span>
+                    </div>
+
                     <Link
                       to={backPath}
                       onClick={(e) => e.stopPropagation()}
-                      className="back-btn px-3.5 py-2 rounded text-[10px] md:text-[11px] font-black uppercase tracking-widest text-white bg-black/40 border border-[#84CC16]/25 hover:border-[#84CC16] hover:bg-[#84CC16]/10 hover:shadow-[0_0_10px_rgba(132,204,22,0.15)] transition-all duration-300 flex items-center gap-1.5 cursor-pointer group"
+                      className="back-btn px-3 py-1.5 rounded text-[10px] font-black uppercase tracking-widest text-white bg-black/40 border transition-all duration-300 flex items-center gap-1.5 cursor-pointer group"
+                      style={{ 
+                        borderColor: `${data.theme.accent}40`,
+                        color: '#ffffff'
+                      }}
                     >
-                      <ArrowLeft size={12} className="text-[#84CC16] group-hover:scale-110 transition-transform duration-300" />
+                      <ArrowLeft size={12} style={{ color: data.theme.accent }} className="group-hover:scale-110 transition-transform duration-300" />
                       <span>Volver</span>
                     </Link>
-                    <span className="text-[10px] md:text-xs text-white/50 font-bold uppercase tracking-wider">
-                      Sector Activo: <span className="text-[#84CC16] text-[11px] md:text-[14px] font-extrabold tracking-widest ml-1">{backName.replace('Sector ', 'INDUSTRIA DE ').toUpperCase()}</span>
+
+                    <span className="text-[10px] text-white/40 font-bold uppercase tracking-wider hidden sm:inline-block">
+                      SECTOR: <span className="text-xs font-black tracking-widest ml-1" style={{ color: data.theme.accent }}>{backName.replace('Sector ', 'INDUSTRIA DE ').toUpperCase()}</span>
                     </span>
                   </div>
 
-                  {/* Toggle para abrir/cerrar la botonera */}
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setIsMenuOpen(!isMenuOpen);
-                    }}
-                    className="px-4 py-2 rounded text-[10px] font-black uppercase tracking-widest text-white bg-black/40 border border-[#84CC16]/40 hover:border-[#84CC16] hover:bg-[#84CC16]/20 transition-all duration-300 flex items-center gap-2 cursor-pointer shadow-[0_0_10px_rgba(132,204,22,0.1)]"
-                  >
-                    <Sliders size={12} className="text-[#84CC16] animate-pulse" />
-                    <span>{isMenuOpen ? 'Ocultar Panel' : 'Mostrar Panel de Navegación'}</span>
-                    <ChevronRight 
-                      size={12} 
-                      className={`text-[#84CC16] transition-transform duration-300 ${isMenuOpen ? 'rotate-90' : ''}`} 
-                    />
-                  </button>
+                  {/* Opciones Horizontales de Líneas (Botonera) */}
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setIsMenuOpen(!isMenuOpen);
+                      }}
+                      className="px-4 py-1.5 rounded text-[10px] font-black uppercase tracking-widest text-white bg-black/40 border transition-all duration-300 flex items-center gap-2 cursor-pointer"
+                      style={{ 
+                        borderColor: `${data.theme.accent}40`
+                      }}
+                    >
+                      <Sliders size={12} style={{ color: data.theme.accent }} className="animate-pulse" />
+                      <span>{isMenuOpen ? 'Ocultar Panel' : 'Mostrar Panel de Navegación'}</span>
+                      <ChevronRight 
+                        size={12} 
+                        style={{ color: data.theme.accent }}
+                        className={`transition-transform duration-300 ${isMenuOpen ? 'rotate-90' : ''}`} 
+                      />
+                    </button>
+                  </div>
                 </div>
 
                 {/* Botonera expandible con Framer Motion */}
@@ -1434,7 +1495,8 @@ const MachineryDetailPage = () => {
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.25 }}
-                      className="overflow-hidden"
+                      className="overflow-hidden border-t"
+                      style={{ borderColor: `${data.theme.accent}15` }}
                     >
                       <div className="max-w-[1400px] mx-auto py-4 px-6 flex flex-wrap justify-center items-center gap-x-2.5 gap-y-3">
                         {menuItems.map((item, index) => {
@@ -1446,18 +1508,23 @@ const MachineryDetailPage = () => {
                               key={index}
                               to={item.href}
                               onClick={() => {
-                                // Cerramos el panel al seleccionar un elemento para maximizar el espacio de lectura
                                 setIsMenuOpen(false);
                               }}
-                              className={`px-4 py-2 rounded text-[10px] font-extrabold uppercase tracking-wider transition-all duration-300 flex items-center gap-2.5 cursor-pointer border whitespace-nowrap bg-black/45 ${
+                              className={`px-3.5 py-1.5 rounded text-[9px] font-bold uppercase tracking-wider transition-all duration-300 flex items-center gap-2 cursor-pointer border whitespace-nowrap bg-black/45 ${
                                 isActive 
-                                  ? 'border-[#84CC16] text-white shadow-[0_0_15px_rgba(132,204,22,0.25)] bg-[#84CC16]/10 font-black scale-[1.03]' 
-                                  : 'border-[#84CC16]/20 text-white/90 hover:border-[#84CC16] hover:bg-[#84CC16]/10 hover:shadow-[0_0_10px_rgba(132,204,22,0.15)] hover:scale-[1.02]'
+                                  ? 'text-white font-black scale-[1.03]' 
+                                  : 'text-white/80 hover:text-white hover:scale-[1.02]'
                               }`}
+                              style={{
+                                borderColor: isActive ? data.theme.accent : `${data.theme.accent}15`,
+                                backgroundColor: isActive ? `${data.theme.accent}12` : 'rgba(0,0,0,0.45)',
+                                boxShadow: isActive ? `0 0 12px ${data.theme.accent}25` : 'none'
+                              }}
                             >
                               <Icon 
-                                size={13} 
-                                className={`text-[#84CC16] shrink-0 transition-all duration-300 ${isActive ? 'scale-110 drop-shadow-[0_0_3px_#84CC16]' : ''}`} 
+                                size={12} 
+                                style={{ color: data.theme.accent }}
+                                className={`shrink-0 transition-all duration-300 ${isActive ? `scale-110 drop-shadow-[0_0_3px_${data.theme.accent}]` : ''}`} 
                               />
                               <span>{item.label}</span>
                             </Link>
@@ -1471,9 +1538,18 @@ const MachineryDetailPage = () => {
                 {/* Pestaña física e indicador brillante inferior en el centro */}
                 <div 
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
-                  className="absolute left-1/2 -translate-x-1/2 -bottom-[17px] bg-[#04060A]/95 border-x border-b border-[#84CC16]/30 px-6 py-1 rounded-b-md flex items-center justify-center gap-2 cursor-pointer group shadow-[0_4px_12px_rgba(132,204,22,0.1)] hover:bg-[#84CC16]/10 hover:border-[#84CC16] transition-all duration-300 z-50 select-none"
+                  className="absolute left-1/2 -translate-x-1/2 -bottom-[17px] bg-[#04060A]/95 border-x border-b px-6 py-1 rounded-b-md flex items-center justify-center gap-2 cursor-pointer group shadow-[0_4px_12px_rgba(0,0,0,0.5)] transition-all duration-300 z-50 select-none hover:bg-white/[0.02]"
+                  style={{ 
+                    borderColor: `${data.theme.accent}30`
+                  }}
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#84CC16] shadow-[0_0_8px_#84CC16] shrink-0 animate-pulse" />
+                  <span 
+                    className="w-1.5 h-1.5 rounded-full shrink-0 animate-pulse" 
+                    style={{ 
+                      backgroundColor: data.theme.accent,
+                      boxShadow: `0 0 8px ${data.theme.accent}` 
+                    }}
+                  />
                   <span className="text-[8px] md:text-[9px] font-black tracking-[0.15em] text-white/80 group-hover:text-white uppercase transition-colors">
                     {isMenuOpen ? 'OCULTAR PANEL' : 'MOSTRAR PANEL'}
                   </span>
@@ -1482,119 +1558,188 @@ const MachineryDetailPage = () => {
             );
           })()}
 
-          <main className="flex-grow">
-            {/* HERO SECTION */}
-            <section className="relative min-h-[90vh] flex items-center justify-center pt-[140px] pb-16 px-[40px] max-w-[1400px] mx-auto">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 w-full items-center">
-                
-                {/* Left Column */}
-                <div className="lg:col-span-6 flex flex-col gap-6 text-left lg:pl-[30px]">
-                  
-                  {/* Page Indicator Tag */}
-                  <div className="flex items-center gap-3">
-                    <span 
-                      className="text-xs font-black px-3 py-1 rounded border tracking-[0.2em] font-mono shadow-md"
-                      style={{ 
-                        color: data.theme.accent, 
-                        borderColor: `${data.theme.accent}30`,
-                        backgroundColor: `${data.theme.accent}12`
-                      }}
-                    >
-                      PÁG. {data.pageNumber}
-                    </span>
-                    <div className="h-[1px] w-12 bg-white/20" />
-                    <span className="text-[11px] font-black uppercase tracking-[0.2em] text-white/50">Línea de Producción Industrial</span>
-                  </div>
+          <main className="flex-grow max-w-[1400px] mx-auto px-4 md:px-8 py-10 w-full">
+            {/* CONTENEDOR PRINCIPAL DE LA CONSOLA INDUSTRIAL (DASHBOARD) */}
+            <div 
+              className="border bg-[#04060A]/90 rounded-2xl overflow-hidden shadow-[0_30px_70px_rgba(0,0,0,0.8)] backdrop-blur-xl relative flex flex-col w-full transition-all duration-500"
+              style={{ 
+                borderColor: `${data.theme.accent}30`,
+                boxShadow: `0 0 40px ${data.theme.accent}08`
+              }}
+            >
+              {/* Línea brillante decorativa superior en la consola */}
+              <div 
+                className="w-full h-[1.5px]" 
+                style={{ 
+                  background: `linear-gradient(to right, transparent, ${data.theme.accent}, transparent)`
+                }}
+              />
 
-                  {/* Title */}
-                  <h1 
-                    className="font-bold text-[36px] md:text-[50px] lg:text-[58px] leading-[1.1] tracking-[-1px] text-white transition-all duration-500 hover:scale-[1.01] cursor-pointer select-none"
-                    style={{ textShadow: `0 0 30px ${data.theme.accent}20` }}
-                  >
+              {/* GRID PRINCIPAL DE LA CONSOLA: 2 COLUMNAS */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 p-6 md:p-10 items-stretch">
+                
+                {/* COLUMNA IZQUIERDA: INFORMACIÓN Y VENTAJAS TÉCNICAS */}
+                <div className="lg:col-span-6 flex flex-col justify-between gap-6 text-left">
+                  
+                  <div className="flex flex-col gap-5">
+                    {/* Indicador de sección técnico (HUD) */}
+                    <div className="flex items-center gap-3">
+                      <div 
+                        className="text-[10px] font-mono font-black px-2.5 py-1 rounded border tracking-[0.2em] shadow-md flex items-center gap-1.5"
+                        style={{ 
+                          color: data.theme.accent, 
+                          borderColor: `${data.theme.accent}30`,
+                          backgroundColor: `${data.theme.accent}10`
+                        }}
+                      >
+                        <Cpu size={10} />
+                        <span>SECCIÓN {data.pageNumber}</span>
+                      </div>
+                      <div className="h-[1px] w-8 bg-white/10" />
+                      <span className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40 font-mono">Panel de Control de Maquinaria</span>
+                    </div>
+
+                    {/* Título Principal */}
+                    <h1 
+                      className="font-bold text-[32px] md:text-[45px] lg:text-[52px] leading-[1.15] tracking-tight text-white uppercase select-none"
+                    >
+                      {isEditorMode ? (
+                        <input
+                          type="text"
+                          value={data.heroTitle}
+                          onChange={(e) => handleUpdate('heroTitle', e.target.value)}
+                          className="bg-transparent border-b border-dashed border-white/20 text-white outline-none w-full font-bold focus:border-white"
+                        />
+                      ) : (
+                        (() => {
+                          const words = data.heroTitle.split(' ');
+                          if (words.length > 2) {
+                            const lastWords = words.slice(-2).join(' ');
+                            const firstWords = words.slice(0, -2).join(' ');
+                            return (
+                              <>
+                                {firstWords}{' '}
+                                <span style={{ color: data.theme.accent }}>{lastWords}</span>
+                              </>
+                            );
+                          }
+                          return data.heroTitle;
+                        })()
+                      )}
+                    </h1>
+
+                    {/* Subtítulo / Descripción Corta con Borde de Acento */}
                     {isEditorMode ? (
-                      <input
-                        type="text"
-                        value={data.heroTitle}
-                        onChange={(e) => handleUpdate('heroTitle', e.target.value)}
-                        className="bg-transparent border-b border-dashed border-white/20 text-white outline-none w-full font-bold focus:border-white"
+                      <textarea
+                        rows={2}
+                        value={data.heroSubtitle}
+                        onChange={(e) => handleUpdate('heroSubtitle', e.target.value)}
+                        className="bg-transparent border-l-2 pl-4 text-white font-medium text-[15px] leading-[1.4] outline-none w-full border-y border-r border-dashed border-white/10"
+                        style={{ borderLeftColor: data.theme.accent }}
                       />
                     ) : (
-                      data.heroTitle
+                      <p 
+                        className="font-semibold text-sm md:text-base leading-[1.5] border-l-2 pl-4 text-white/90"
+                        style={{ borderLeftColor: data.theme.accent }}
+                      >
+                        {data.heroSubtitle}
+                      </p>
                     )}
-                  </h1>
 
-                  {/* Subtitle */}
-                  {isEditorMode ? (
-                    <textarea
-                      rows={2}
-                      value={data.heroSubtitle}
-                      onChange={(e) => handleUpdate('heroSubtitle', e.target.value)}
-                      className="bg-transparent border-l-2 pl-4 text-white font-medium text-[17px] md:text-[20px] leading-[1.4] outline-none w-full border-y border-r border-dashed border-white/10"
-                      style={{ borderLeftColor: data.theme.accent }}
-                    />
-                  ) : (
-                    <p 
-                      className="font-semibold text-[17px] md:text-[20px] leading-[1.4] border-l-2 pl-4 text-white/90"
-                      style={{ borderLeftColor: data.theme.accent }}
-                    >
-                      {data.heroSubtitle}
-                    </p>
-                  )}
+                    {/* Descripción Ampliada */}
+                    {isEditorMode ? (
+                      <textarea
+                        rows={4}
+                        value={data.heroDesc}
+                        onChange={(e) => handleUpdate('heroDesc', e.target.value)}
+                        className="bg-transparent border border-dashed border-white/10 rounded p-2 text-white/70 font-normal text-xs leading-[1.6] outline-none w-full resize-none"
+                      />
+                    ) : (
+                      <p className="font-normal text-xs md:text-sm leading-[1.6] text-white/60">
+                        {data.heroDesc}
+                      </p>
+                    )}
+                  </div>
 
-                  {/* Description */}
-                  {isEditorMode ? (
-                    <textarea
-                      rows={4}
-                      value={data.heroDesc}
-                      onChange={(e) => handleUpdate('heroDesc', e.target.value)}
-                      className="bg-transparent border border-dashed border-white/10 rounded p-2 text-white/70 font-normal text-[15px] leading-[1.6] outline-none w-full"
-                    />
-                  ) : (
-                    <p className="font-normal text-[15px] leading-[1.6] max-w-[520px] text-white/75">
-                      {data.heroDesc}
-                    </p>
-                  )}
+                  {/* 3 CARACTERÍSTICAS TÉCNICAS DESTACADAS (MOCKUP ESTILO SEGUNDA IMAGEN) */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 border-t border-white/5 pt-6">
+                    <div className="flex flex-col gap-1.5">
+                      <div className="flex items-center gap-2">
+                        <Cpu size={14} style={{ color: data.theme.accent }} className="shrink-0" />
+                        <span className="text-[10px] font-black uppercase tracking-wider text-white">Tecnología de Vanguardia</span>
+                      </div>
+                      <span className="text-[10px] text-white/50 leading-relaxed">Automatización avanzada con control inteligente HMI y servos Yaskawa.</span>
+                    </div>
 
-                  {/* Buttons */}
-                  <div className="flex flex-col sm:flex-row gap-4 mt-4 w-full">
+                    <div className="flex flex-col gap-1.5">
+                      <div className="flex items-center gap-2">
+                        <Shield size={14} style={{ color: data.theme.accent }} className="shrink-0" />
+                        <span className="text-[10px] font-black uppercase tracking-wider text-white">Calidad y Confiabilidad</span>
+                      </div>
+                      <span className="text-[10px] text-white/50 leading-relaxed">Construcción en acero inoxidable SUS304 y componentes bimetálicos.</span>
+                    </div>
+
+                    <div className="flex flex-col gap-1.5">
+                      <div className="flex items-center gap-2">
+                        <TrendingUp size={14} style={{ color: data.theme.accent }} className="shrink-0" />
+                        <span className="text-[10px] font-black uppercase tracking-wider text-white">Eficiencia Operativa</span>
+                      </div>
+                      <span className="text-[10px] text-white/50 leading-relaxed">Optimización térmica y mecánica para máxima productividad continua.</span>
+                    </div>
+                  </div>
+
+                  {/* APLICACIONES PRINCIPALES CON ICONOS */}
+                  <div className="border-t border-white/5 pt-5 flex flex-col gap-3">
+                    <span className="text-[9px] font-black tracking-widest text-white/40 uppercase font-mono">Aplicaciones Principales</span>
+                    <div className="flex flex-wrap gap-2.5">
+                      {data.applications.map((app, index) => (
+                        <div 
+                          key={index} 
+                          className="px-3 py-1.5 rounded border flex items-center gap-2 bg-white/[0.01]"
+                          style={{ borderColor: `${data.theme.accent}15` }}
+                        >
+                          <span className="text-xs shrink-0">{app.icon}</span>
+                          <span className="text-[9px] font-bold uppercase tracking-wider text-white/70">{app.name}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* BOTONERA ACCIÓN RÁPIDA */}
+                  <div className="flex flex-col sm:flex-row gap-3 mt-2">
                     <a
                       href="#contacto-cotizar"
-                      className="inline-flex items-center justify-center font-bold text-[15px] py-4 px-8 rounded-lg transition-all duration-300 scale-100 hover:scale-[1.02] text-black"
+                      className="inline-flex items-center justify-center font-bold text-xs py-3 px-6 rounded transition-all duration-300 scale-100 hover:scale-[1.02] text-black"
                       style={{ 
                         backgroundColor: data.theme.accent,
-                        boxShadow: `0 0 25px ${data.theme.accent}40`
+                        boxShadow: `0 0 20px ${data.theme.accent}30`
                       }}
                     >
                       Solicitar Cotización
                     </a>
                     <a
                       href="#como-funciona"
-                      className="inline-flex items-center justify-center bg-white/5 hover:bg-white/10 text-white border border-white/10 hover:border-white/20 font-semibold text-[15px] py-4 px-8 rounded-lg transition-all duration-300 backdrop-blur-sm"
+                      className="inline-flex items-center justify-center bg-white/5 hover:bg-white/10 text-white border border-white/10 hover:border-white/20 font-semibold text-xs py-3 px-6 rounded transition-all duration-300 backdrop-blur-sm"
                     >
-                      <FileText size={16} className="mr-2" />
+                      <FileText size={13} className="mr-1.5" />
                       Ver Funcionamiento
                     </a>
                   </div>
                 </div>
 
-                {/* Right Column: Media Frame */}
-                <div className="lg:col-span-6 flex justify-center items-center relative h-full">
-                  <div 
-                    className="absolute w-[450px] h-[450px] rounded-full blur-[90px] animate-pulse -z-10" 
-                    style={{ backgroundColor: `${data.theme.accent}12` }}
-                  />
-
-                  <motion.div
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-                    className="relative max-w-[550px] w-full border border-white/10 bg-white/[0.02] backdrop-blur-xl rounded-2xl p-6 shadow-[0_25px_50px_rgba(0,0,0,0.5)] group overflow-hidden"
-                  >
-                    {/* Glowing top line */}
-                    <div 
-                      className="absolute top-0 left-0 right-0 h-[2px]" 
-                      style={{ background: `gradient(linear, left top, right top, from(transparent), to(transparent), color-stop(0.5, ${data.theme.accent}))`, backgroundColor: data.theme.accent }}
-                    />
+                {/* COLUMNA DERECHA: IMAGEN CON MARCO HUD + MÉTRICAS TÉCNICAS */}
+                <div className="lg:col-span-6 flex flex-col justify-between gap-6 relative">
+                  
+                  {/* Contenedor del Visor HUD */}
+                  <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden border bg-black/20" style={{ borderColor: `${data.theme.accent}15` }}>
                     
+                    {/* Corchetes esquinas HUD (Visuales de la consola) */}
+                    <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 pointer-events-none z-10" style={{ borderColor: data.theme.accent }} />
+                    <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 pointer-events-none z-10" style={{ borderColor: data.theme.accent }} />
+                    <div className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 pointer-events-none z-10" style={{ borderColor: data.theme.accent }} />
+                    <div className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 pointer-events-none z-10" style={{ borderColor: data.theme.accent }} />
+
+                    {/* Media Render */}
                     {isVideo ? (
                       <video
                         src={currentMedia}
@@ -1602,43 +1747,70 @@ const MachineryDetailPage = () => {
                         loop
                         muted
                         playsInline
-                        className="w-full h-auto object-contain rounded-xl"
+                        className="w-full h-full object-cover"
                       />
                     ) : (
                       <img
                         src={currentMedia}
                         alt={data.heroTitle}
-                        className="w-full h-auto object-contain rounded-xl transition-transform duration-500 group-hover:scale-[1.03]"
+                        className="w-full h-full object-cover"
                       />
                     )}
 
-                    <div className="absolute bottom-4 left-4 bg-black/70 backdrop-blur-sm border border-white/10 rounded-lg px-3 py-1.5 flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-green-500 animate-ping"></span>
-                      <span className="text-[10px] text-white/80 font-bold uppercase tracking-wider">Diseño Sanitario Industrial</span>
+                    {/* Etiqueta flotante inferior */}
+                    <div className="absolute bottom-4 left-4 bg-black/80 backdrop-blur-sm border rounded px-3 py-1.5 flex items-center gap-2" style={{ borderColor: `${data.theme.accent}20` }}>
+                      <span 
+                        className="w-2 h-2 rounded-full animate-ping shrink-0" 
+                        style={{ backgroundColor: data.theme.accent }}
+                      />
+                      <span className="text-[9px] text-white/90 font-bold uppercase tracking-wider font-mono">DISEÑO SANITARIO INDUSTRIAL</span>
                     </div>
-                  </motion.div>
+                  </div>
+
+                  {/* BLOQUE DE KPIs / MÉTRICAS (INTEGRADO EN LA CONSOLA) */}
+                  <div className="border border-white/5 bg-[#080B12]/80 rounded-xl p-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-center items-center">
+                    <div className="flex flex-col gap-1">
+                      <span className="text-xl md:text-2xl font-mono font-black" style={{ color: data.theme.accent }}>{kpisList[0]?.value || '+150'}</span>
+                      <span className="text-[8px] md:text-[9px] text-white/50 uppercase tracking-widest leading-normal">{kpisList[0]?.label || 'Líneas Instaladas'}</span>
+                    </div>
+                    <div className="h-8 w-[1px] bg-white/10 hidden md:block self-center justify-self-center" />
+                    <div className="flex flex-col gap-1">
+                      <span className="text-xl md:text-2xl font-mono font-black" style={{ color: data.theme.accent }}>{kpisList[1]?.value || '+25'}</span>
+                      <span className="text-[8px] md:text-[9px] text-white/50 uppercase tracking-widest leading-normal">{kpisList[1]?.label || 'Países en Operación'}</span>
+                    </div>
+                    <div className="h-8 w-[1px] bg-white/10 hidden md:block self-center justify-self-center" />
+                    <div className="flex flex-col gap-1">
+                      <span className="text-xl md:text-2xl font-mono font-black" style={{ color: data.theme.accent }}>{kpisList[2]?.value || '98%'}</span>
+                      <span className="text-[8px] md:text-[9px] text-white/50 uppercase tracking-widest leading-normal">{kpisList[2]?.label || 'Eficiencia Promedio'}</span>
+                    </div>
+                    <div className="h-8 w-[1px] bg-white/10 hidden md:block self-center justify-self-center" />
+                    <div className="flex flex-col gap-1">
+                      <span className="text-xl md:text-2xl font-mono font-black" style={{ color: data.theme.accent }}>{kpisList[3]?.value || '24/7'}</span>
+                      <span className="text-[8px] md:text-[9px] text-white/50 uppercase tracking-widest leading-normal">{kpisList[3]?.label || 'Soporte Técnico'}</span>
+                    </div>
+                  </div>
+
                 </div>
 
               </div>
-            </section>
 
-            {/* CINTA DE ESTADÍSTICAS */}
-            <section className="relative z-20 -mt-10 max-w-[1400px] mx-auto px-[40px]">
-              <div className="border border-white/10 bg-white/[0.02] backdrop-blur-xl rounded-2xl p-8 shadow-2xl relative overflow-hidden grid grid-cols-2 md:grid-cols-7 gap-4 text-center">
-                <div 
-                  className="absolute top-0 left-0 right-0 h-[1px]" 
-                  style={{ background: `linear-gradient(to right, transparent, ${data.theme.accent}50, transparent)` }}
-                />
-                
-                <StatCard target={kpisList[0].value} suffix={` ${kpisList[0].unit}`} label={kpisList[0].label} accent={data.theme.accent} />
-                <div className="h-12 w-[1px] bg-white/10 hidden md:block self-center justify-self-center" />
-                <StatCard target={kpisList[1].value} suffix={` ${kpisList[1].unit}`} label={kpisList[1].label} accent={data.theme.accent} />
-                <div className="h-12 w-[1px] bg-white/10 hidden md:block self-center justify-self-center" />
-                <StatCard target={kpisList[2].value} suffix={` ${kpisList[2].unit}`} label={kpisList[2].label} accent={data.theme.accent} />
-                <div className="h-12 w-[1px] bg-white/10 hidden md:block self-center justify-self-center" />
-                <StatCard target={kpisList[3].value} suffix={` ${kpisList[3].unit}`} label={kpisList[3].label} accent={data.theme.accent} />
+              {/* FOOTER TÉCNICO DE LA CONSOLA (ESTILO MOCKUP SEGUNDA IMAGEN) */}
+              <div 
+                className="px-8 py-3.5 border-t flex items-center justify-between gap-4 bg-black/40 text-[9px] font-mono tracking-widest text-white/30 uppercase select-none"
+                style={{ borderColor: `${data.theme.accent}15` }}
+              >
+                <div className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: data.theme.accent }} />
+                  <span className="font-bold text-white/50">SMQ SYSTEMS</span>
+                </div>
+                <div className="hidden md:block">INGENIERÍA · INNOVACIÓN · CONFIANZA</div>
+                <div className="flex items-center gap-1.5">
+                  <span className="text-white/40">TECNOLOGÍA</span>
+                  <span style={{ color: data.theme.accent }} className="font-bold">INDUSTRIA 4.0</span>
+                </div>
               </div>
-            </section>
+
+            </div>
 
             {/* INTERACTIVE TIMELINE */}
             <section id="como-funciona" className="py-20 bg-transparent border-y border-white/5 mt-16 relative">

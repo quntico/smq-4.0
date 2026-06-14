@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Footer from '@/components/Footer.jsx';
-import { ChevronRight, ArrowLeft, Cpu, Compass, Settings, Zap, Shield, ArrowUpRight, Upload, Image as ImageIcon, Plus, Trash2, Minimize2, Maximize2, ArrowLeftRight, Cloud, Save, Layers, RefreshCw, Scissors, Package, Clock, Star, Leaf, Droplet, Grid } from 'lucide-react';
+import { ChevronRight, ArrowLeft, Cpu, Compass, Settings, Zap, Shield, ArrowUpRight, Upload, Image as ImageIcon, Plus, Trash2, Minimize2, Maximize2, ArrowLeftRight, Cloud, Save, Layers, RefreshCw, Scissors, Package, Clock, Star, Leaf, Droplet, Grid, HardHat, Recycle, Wheat, HeartPulse, Bot, Award, TrendingUp, Globe, Users, BarChart3, Headphones, Briefcase, Building2, MapPin, Hammer, Factory } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCMS } from '@/context/CMSContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
@@ -10,79 +10,105 @@ import { createPortal } from 'react-dom';
 import { getOptimizedImageUrl } from '@/lib/utils.js';
 import EditableIcon from '@/components/EditableIcon.jsx';
 import { Helmet } from 'react-helmet';
+import { machineryDataMap } from '@/data/machineryCatalog.js';
+
+const reciclajeData = {
+  title: 'Industria de Reciclaje y Economía Circular',
+  subtitle: 'Tecnología líder para la economía circular y recuperación de materiales',
+  description: 'Diseñamos y fabricamos sistemas llave en mano de alto rendimiento para el procesamiento, triturado, lavado y extrusión de polímeros, metales y residuos. Nuestras soluciones maximizan la pureza del material recuperado y reducen el consumo energético operativo.',
+  heroImage: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png',
+  stats: [
+    { label: 'Eficiencia de Lavado', value: '99.2%' },
+    { label: 'Rendimiento Máximo', value: '2.5 Ton/h' },
+    { label: 'Ahorro de Energía', value: 'Hasta 30%' },
+    { label: 'Vida Útil Husillo', value: '25,000h+' }
+  ],
+  items: [
+    {
+      id: 'plasticos',
+      title: 'Líneas de Reciclaje de Plásticos',
+      description: 'Lavado, extrusión y peletizado de polímeros de alta pureza.',
+      longDescription: 'Módulos modulares integrados para la remoción completa de adhesivos, contaminantes y etiquetas en botellas PET post-consumo, y peletizado con humedad residual inferior al 1%.',
+      features: ['[icon:Shield] Trituración en húmedo de alta fricción', '[icon:Zap] Flotación por densidad en tinas gravimétricas', '[icon:Cpu] Extrusión y desgasificación al vacío'],
+      image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png',
+      tableHeaders: ['Modelo', 'Capacidad', 'Eficiencia', 'Potencia', 'Material'],
+      equipmentTable: [
+        { model: 'PL-120', width: 'Lavado y Extrusión PET', capacity: '1.2 Ton/h', power: '99.2%', weight: '110 kW' },
+        { model: 'PL-250', width: 'Planta PE/PP Film', capacity: '2.5 Ton/h', power: '98.8%', weight: '160 kW' }
+      ]
+    },
+    {
+      id: 'metales',
+      title: 'Separación y Trituración de Metales',
+      description: 'Separación magnética y trituración de chatarras ferrosas y no ferrosas.',
+      longDescription: 'Separadores de corrientes de Foucault y overbelt magnéticos para clasificar y triturar perfiles de aluminio, cobre y acero con precisión micrométrica.',
+      features: ['[icon:Shield] Imán de tierras raras de neodimio de alto Gauss', '[icon:Zap] Rotor de polos múltiples para corrientes Foucault', '[icon:Cpu] Clasificación automatizada de metales no ferrosos'],
+      image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png',
+      tableHeaders: ['Modelo', 'Tipo Separador', 'Capacidad', 'Eficiencia', 'Potencia'],
+      equipmentTable: [
+        { model: 'MS-800', width: 'Separador Overbelt Magnético', capacity: '1.5 Ton/h', power: '98.5%', weight: '5.5 kW' },
+        { model: 'ECS-600', width: 'Corrientes de Foucault (Eddy)', capacity: '2.0 Ton/h', power: '99.1%', weight: '11 kW' }
+      ]
+    },
+    {
+      id: 'rsu',
+      title: 'Tratamiento de Residuos Sólidos Urbanos (RSU)',
+      description: 'Separación, trituración y preparación de combustibles alternativos.',
+      longDescription: 'Sistemas llave en mano de clasificación mecánica y biológica combinando trómeles de cribado, separadores ópticos NIR y desgasificadores neumáticos.',
+      features: ['[icon:Shield] Trómeles rotativos de clasificación por size', '[icon:Zap] Separación óptica de polímeros por espectrometría', '[icon:Cpu] Preparación de Combustibles Derivados de Residuo (CDR)'],
+      image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png',
+      tableHeaders: ['Modelo', 'Componente RSU', 'Capacidad', 'Grado Clasificación', 'Potencia'],
+      equipmentTable: [
+        { model: 'MSW-1500', width: 'Trómel Separador Rotativo', capacity: '15 Ton/h', power: '90%', weight: '45 kW' },
+        { model: 'NIR-1200', width: 'Clasificador Óptico Infrarrojo', capacity: '8 Ton/h', power: '97%', weight: '15 kW' }
+      ]
+    },
+    {
+      id: 'recuperacion',
+      title: 'Recuperación Avanzada de Materiales',
+      description: 'Clasificación automatizada de subproductos secos como papel, cartón y vidrio.',
+      longDescription: 'Estaciones de selección automática optimizadas para el flujo inverso de plantas municipales, utilizando tecnología de cribado balístico.',
+      features: ['[icon:Shield] Separación balística de fracciones planas y rodantes', '[icon:Zap] Sensores ópticos inductivos de alta resolución', '[icon:Cpu] Control por red SCADA integrada en sala de control'],
+      image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png',
+      tableHeaders: ['Modelo', 'Aplicación', 'Rendimiento', 'Separación', 'Estructura'],
+      equipmentTable: [
+        { model: 'MR-600', width: 'Clasificador Balístico', capacity: '6 Ton/h', power: '95%', weight: 'Acero Soldado' },
+        { model: 'VIS-400', width: 'Inspección Óptica Vidrio', capacity: '4 Ton/h', power: '99%', weight: 'Acero SUS304' }
+      ]
+    },
+    {
+      id: 'economia-circular',
+      title: 'Estrategias de Economía Circular',
+      description: 'Compounding, aditivos especiales y valorización completa de mermas.',
+      longDescription: 'Asesoría y desarrollo técnico para la transformación de descartes de producción en materias primas secundarias de alta calidad listas para inyección.',
+      features: ['[icon:Shield] Compounding piloto de polímeros y fibras naturales', '[icon:Zap] Aditivos avanzados para restauración de viscosidad', '[icon:Cpu] Plantas modulares de micronizado a medida'],
+      image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115231575_choco%20color%202.png',
+      tableHeaders: ['Modelo', 'Servicio/Equipo', 'Capacidad', 'Normativa', 'Garantía'],
+      equipmentTable: [
+        { model: 'EC-200', width: 'Línea Compounding Piloto', capacity: '200 kg/h', power: 'ISO 9001', weight: '2 Años' },
+        { model: 'EC-500', width: 'Sistemas de Micronización', capacity: '500 kg/h', power: 'CE', weight: '2 Años' }
+      ]
+    }
+  ]
+};
 
 const sectorsData = {
-  'reciclaje-y-plasticos': {
-    title: 'Reciclaje y Plásticos',
-    subtitle: 'Tecnología líder para la economía circular',
-    description: 'Diseñamos y fabricamos sistemas llave en mano de alto rendimiento para el procesamiento, triturado, lavado y extrusión de polímeros. Nuestras soluciones maximizan la pureza del material recuperado y reducen el consumo energético operativo.',
-    heroImage: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png',
-    stats: [
-      { label: 'Eficiencia de Lavado', value: '99.2%' },
-      { label: 'Rendimiento Máximo', value: '2.5 Ton/h' },
-      { label: 'Ahorro de Energía', value: 'Hasta 30%' },
-      { label: 'Vida Útil Husillo', value: '25,000h+' }
-    ],
-    items: [
-      {
-        id: 'trituracion',
-        title: 'Trituradoras',
-        description: 'Trituradoras de alto rendimiento para plásticos y residuos. Configuración modular de 1 eje, 2 ejes y 4 ejes.',
-        longDescription: 'Nuestros sistemas de trituración industrial están optimizados para el procesamiento primario de purgas, bidones, tuberías y materiales post-consumo. Cuentan con cuchillas de aleación templada de alta resistencia y sistemas de empuje hidráulico inteligente.',
-        features: ['Corte multieje de baja velocidad y alto torque', 'Cuchillas rotativas de fácil sustitución', 'Ejes de transmisión con acoplamiento de seguridad'],
-        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png'
-      },
-      {
-        id: 'pelletizado',
-        title: 'Sistemas de Pelletizado',
-        description: 'Corte por anillo de agua o bajo agua para una geometría de pellet perfecta, libre de polvo y con humedad inferior al 1%.',
-        longDescription: 'Integración automática desde el cabezal de extrusión. El sistema controla automáticamente la velocidad de las cuchillas en función del flujo de polímero, previniendo aglomeraciones y garantizando un tamaño homogéneo de pellet comercial.',
-        features: ['Ajuste automático de presión de cuchillas', 'Secadora centrífuga de acero inoxidable', 'Intercambiador térmico integrado de agua'],
-        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png'
-      },
-      {
-        id: 'lavado',
-        title: 'Módulos de Lavado y Secado',
-        description: 'Plantas integradas de trituración húmeda, separación por densidad en tinas de flotación y lavado en caliente para eliminar adhesivos y contaminantes.',
-        longDescription: 'Desarrolladas para flujos post-consumo altamente contaminados (como botellas PET, film agrícola y envases rígidos). Ofrecemos secadoras mecánicas de alta velocidad y desgasificadores neumáticos para entregar material seco listo para extrusión directa.',
-        features: ['Separación gravimétrica de alta precisión', 'Lavado alcalino térmico continuo', 'Secadoras mecánicas con autolimpieza rotor'],
-        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png'
-      }
-    ]
-  },
+  'reciclaje': reciclajeData,
+  'reciclaje-y-plasticos': reciclajeData,
   'alimentos': {
-    title: 'Industria de Alimentos y Compostaje',
+    title: 'Industria de Alimentos y Bebidas',
     subtitle: 'Higiene óptima, precisión y control absoluto',
-    description: 'Equipos diseñados bajo los más estrictos estándares de sanidad (HACCP / FDA) y procesamiento orgánico. Desarrollamos tecnologías avanzadas para procesamiento, dosificación y líneas de compostaje de alta eficiencia.',
+    description: 'Equipos diseñados bajo los más estrictos estándares de sanidad (HACCP / FDA) y procesamiento de alimentos. Desarrollamos tecnologías avanzadas para procesamiento, dosificación y empaque de alta eficiencia.',
     heroImage: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115231575_choco%20color%202.png',
     stats: [
-      { label: 'Eficiencia de Volteo', value: '99.5%' },
+      { label: 'Eficiencia de Proceso', value: '99.5%' },
       { label: 'Grado Sanitario', value: 'FDA / HACCP' },
       { label: 'Operación Continua', value: '24/7' },
       { label: 'Control Autónomo', value: 'Sí' }
     ],
     items: [
       {
-        id: 'compostaje',
-        title: 'LÍNEAS DE COMPOSTAJE',
-        description: 'Volteadoras y sistemas de compostaje para residuos orgánicos.',
-        longDescription: 'Desarrollamos líneas completas de compostaje industrial con volteadoras de alto rendimiento para el tratamiento eficiente de residuos orgánicos, lodos y biomasa. Sistemas de alta durabilidad optimizados para plantas de compostaje a gran escala.',
-        features: [
-          '[icon:Shield] Construcción robusta anticorrosiva',
-          '[icon:Zap] Alta capacidad de volteo por hora',
-          '[icon:Cpu] Control de velocidad y tracción hidráulica autónoma'
-        ],
-        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png',
-        tableHeaders: ["Modelo", "Ancho Pila", "Capacidad", "Potencia", "Peso"],
-        equipmentTable: [
-          { model: 'TG-1000', width: '1.0 m - 1.2 m', capacity: '250 m³/h', power: '25 HP', weight: '1,000 kg' },
-          { model: 'TG-2000', width: '2.0 m - 2.2 m', capacity: '550 m³/h', power: '55 HP', weight: '2,200 kg' },
-          { model: 'TG-5000', width: '5.0 m - 5.2 m', capacity: '2,400 m³/h', power: '160 HP', weight: '6,200 kg' },
-          { model: 'TG-10000', width: '10.0 m - 10.2 m', capacity: '5,000 m³/h', power: '340 HP', weight: '13,800 kg' }
-        ]
-      },
-      {
-        id: 'lavado-pelado',
+        id: 'lavado',
         title: 'LÍNEAS DE LAVADO Y PELADO',
         description: 'Sistemas integrados de lavado, desinfección, corte y pelado para vegetales y frutas.',
         longDescription: 'Nuestros equipos de lavado por burbujas y sistemas de pelado garantizan un tratamiento delicado y óptimo de la materia prima, reduciendo mermas y cumpliendo rigurosos estándares higiénicos.',
@@ -102,7 +128,7 @@ const sectorsData = {
         ]
       },
       {
-        id: 'produccion-alimentos',
+        id: 'produccion',
         title: 'LÍNEAS DE PRODUCCIÓN DE ALIMENTOS',
         description: 'Líneas completas de procesamiento para papas fritas, chocolate, pastas, frutas y snacks.',
         longDescription: 'Líneas integradas modulares diseñadas para procesamiento continuo con máxima eficiencia energética y consistencia de producto en cada lote.',
@@ -125,7 +151,7 @@ const sectorsData = {
         ]
       },
       {
-        id: 'empaquetado-llenado',
+        id: 'empaquetado',
         title: 'LÍNEAS DE EMPAQUETADO Y LLENADO',
         description: 'Sistemas automáticos de empaque para polvos, líquidos, pouches, cartón y botellas.',
         longDescription: 'Sistemas avanzados de alta velocidad y hermeticidad de sellado para todo tipo de formatos rígidos y flexibles.',
@@ -146,7 +172,7 @@ const sectorsData = {
         ]
       },
       {
-        id: 'sistemas-separacion',
+        id: 'separadoras',
         title: 'SISTEMAS DE SEPARACIÓN',
         description: 'Sistemas inteligentes de clasificación y separación por color, tamaño y peso.',
         longDescription: 'Sistemas ópticos y gravimétricos de alta tecnología para garantizar la máxima pureza de su producto final, eliminando cuerpos extraños y piezas fuera de especificación.',
@@ -166,44 +192,86 @@ const sectorsData = {
     ]
   },
   'packaging': {
-    title: 'Packaging y Envasado',
-    subtitle: 'Velocidad y hermeticidad de empaque garantizada',
-    description: 'Soluciones inteligentes de envasado primario y secundario. Desde llenadoras rotativas de alta precisión hasta envasadoras horizontales VFFS para formatos Doypack flexibles con zipper.',
-    heroImage: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115231575_choco%20color%202.png',
+    title: 'Packaging y Conversión',
+    subtitle: 'Velocidad, sellado hermético y empaque inteligente',
+    description: 'Sistemas avanzados de envasado primario y secundario para formatos rígidos y flexibles. Ofrecemos envasadoras Doypack, líneas de llenado volumétrico y maquinaria de conversión de film.',
+    heroImage: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115213579_choco%20bN%202.png',
     stats: [
-      { label: 'Velocidad de Llenado', value: '120 bpm' },
-      { label: 'Error de Dosificación', value: '≤ 0.5%' },
-      { label: 'Presión de Sellado', value: 'Servo-controlada' },
-      { label: 'OEE Promedio', value: '92%+' }
+      { label: 'Velocidad de Llenado', value: '150 ppm' },
+      { label: 'Hermeticidad de Sello', value: '99.99%' },
+      { label: 'Tiempo de Ajuste', value: '< 15 min' },
+      { label: 'Precisión de Peso', value: '±0.2%' }
     ],
     items: [
       {
-        id: 'empaques-flexibles',
-        title: 'Envasadoras Flexibles (Doypack)',
-        description: 'Llenadoras rotativas automáticas de bolsas preformadas Doypack, Stand-up y pouches planos con zipper.',
-        longDescription: 'Ideales para alimentos secos, congelados, polvos y líquidos. La máquina abre, dosifica, inyecta gas inerte (nitrógeno), realiza el termosellado y codifica la fecha en un flujo continuo y confiable.',
-        features: ['Cambio rápido de formato sin herramientas', 'Sistemas multihusillo o balanzas multicabezal', 'Detector ultrasónico de bolsas mal abiertas'],
-        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png'
+        id: 'flexible',
+        title: 'Formatos Flexibles (Doypack)',
+        description: 'Llenadoras automáticas rotativas de pouches Stand-up y bolsas con zipper.',
+        longDescription: 'Flujo de envasado automático con apertura positiva de zipper por vacío, codificación por chorro de tinta, llenado volumétrico/multicabezal e inyección de gas para mayor vida útil del producto.',
+        features: ['[icon:Shield] Apertura y sellado neumático servo-sincronizado', '[icon:Zap] Inyección de gas inerte N2 para conservación', '[icon:Cpu] Control total por PLC con recetas pregrabadas'],
+        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png',
+        tableHeaders: ['Modelo', 'Tipo de Pouch', 'Velocidad', 'Presión Aire', 'Potencia'],
+        equipmentTable: [
+          { model: 'DP8-PRO', width: 'Doypack Rotativa 8 Estaciones', capacity: '60 bpm', power: '0.6 MPa', weight: '4.5 kW' },
+          { model: 'VP-100', width: 'Vertical Form-Fill-Seal (VFFS)', capacity: '100 bpm', power: '0.6 MPa', weight: '5.5 kW' }
+        ]
       },
       {
-        id: 'empaques-rigidos',
-        title: 'Líneas de Llenado Rígido',
-        description: 'Sistemas de llenado rotativo o lineal por gravedad, presión o flujo electromagnético para botellas y frascos.',
-        longDescription: 'Equipos diseñados para la manipulación precisa de envases de PET, PEAD y vidrio. Tapadoras automáticas para tapas roscadas, snap-on o de aluminio (Ropp), adaptables a diferentes viscosidades.',
-        features: ['Caudalímetros de inducción magnética', 'Estaciones de tapado con torque servo-monitoreado', 'Cabinas de flujo laminar o atmósfera limpia'],
-        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png'
+        id: 'rigido',
+        title: 'Líneas de Envases Rígidos',
+        description: 'Llenadoras y tapadoras lineales/rotativas para botellas de plástico y vidrio.',
+        longDescription: 'Sistemas de dosificación por gravedad o caudalímetros inductivos que garantizan un llenado sin derrames. Tapadoras automáticas adaptables a tapas corona, rosca plástica o metálica.',
+        features: ['[icon:Shield] Caudalímetros electromagnéticos de alta precisión', '[icon:Zap] Torque de tapado regulable por embrague magnético', '[icon:Cpu] CIP (Clean In Place) automático sin desmontaje de piezas'],
+        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png',
+        tableHeaders: ['Modelo', 'Tipo Envase', 'Capacidad', 'Precisión Llenado', 'Grado Higiene'],
+        equipmentTable: [
+          { model: 'RF-200', width: 'Llenadora Rotativa 24 Válvulas', capacity: '180 bpm', power: '±0.2%', weight: 'Grado Alimentario/GMP' },
+          { model: 'LT-120', width: 'Tapadora Lineal Automática', capacity: '120 bpm', power: '±0.5%', weight: 'Acero AISI 304' }
+        ]
+      },
+      {
+        id: 'impresion',
+        title: 'Sistemas de Impresión y Flexo',
+        description: 'Sistemas flexográficos de tambor central e impresión digital para películas plásticas.',
+        longDescription: 'Tecnología avanzada para impresión de alta velocidad sobre películas de PE, PP, BOPP, PET y papel. Sistemas de secado eficiente por aire caliente y curado UV.',
+        features: ['[icon:Shield] Registro de color automático servomotorizado', '[icon:Zap] Secadores de alta eficiencia térmica por aire forzado', '[icon:Cpu] Control de tensión de película por celda de carga'],
+        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png',
+        tableHeaders: ['Modelo', 'Ancho Máximo', 'Velocidad Impresión', 'Colores', 'Resolución'],
+        equipmentTable: [
+          { model: 'FL-4', width: 'Flexográfica 4 Colores', capacity: '1200 mm', power: '150 m/min', weight: '80 LPI' },
+          { model: 'FL-8', width: 'Flexo Tambor Central 8 Colores', capacity: '1600 mm', power: '250 m/min', weight: '120 LPI' }
+        ]
       },
       {
         id: 'etiquetado',
-        title: 'Etiquetadoras Automáticas',
-        description: 'Equipos aplicadores de etiquetas autoadhesivas de alta velocidad para envases redondos, planos u ovalados.',
-        longDescription: 'Equipadas con motores paso a paso de alta resolución para asegurar una colocación milimétrica de la etiqueta, libre de burbujas o arrugas. Opción de túnel termoencogible para etiquetas tipo manga (Sleeve).',
-        features: ['Alineadores automáticos de entrada de botellas', 'Codificadores Inkjet integrados para lotes', 'Sensores fotoeléctricos para etiquetas transparentes']
+        title: 'Etiquetadoras Industriales',
+        description: 'Aplicadoras de etiquetas autoadhesivas y túneles de manga termoencogible (Sleeve).',
+        longDescription: 'Colocación precisa y uniforme de etiquetas en botellas, tarros y cajas. Sistemas con motores paso a paso de gran par y lectura por fotoceldas de alta velocidad.',
+        features: ['[icon:Shield] Dispensadores servomotorizados de alta respuesta', '[icon:Zap] Sensores de contraste y ultrasonido para etiquetas transparentes', '[icon:Cpu] Banda superior estabilizadora de envase para alineación perfecta'],
+        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115231575_choco%20color%202.png',
+        tableHeaders: ['Modelo', 'Tipo Aplicador', 'Velocidad Máxima', 'Ancho Etiqueta', 'Tolerancia'],
+        equipmentTable: [
+          { model: 'ET-200', width: 'Etiquetadora Doble Cara', capacity: '200 bpm', power: '150 mm', weight: '±0.5 mm' },
+          { model: 'SLV-150', width: 'Aplicadora de Sleeve Termoencogible', capacity: '150 bpm', power: '200 mm', weight: '±1.0 mm' }
+        ]
+      },
+      {
+        id: 'conversion',
+        title: 'Conversión y Rebobinado de Film',
+        description: 'Cortadoras, rebobinadoras y termoformadoras de film flexible.',
+        longDescription: 'Maquinaria de conversión de precisión para fraccionar bobinas anchas, rebobinar películas y fabricar empaques termoformados a partir de lámina rígida.',
+        features: ['[icon:Shield] Ejes expansibles neumáticos de cambio rápido', '[icon:Zap] Cuchillas circulares y de corte por cizalla', '[icon:Cpu] Posicionamiento automático de cuchillas'],
+        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png',
+        tableHeaders: ['Modelo', 'Ancho Bobina', 'Diámetro Desbobinado', 'Velocidad Corte', 'Tensión control'],
+        equipmentTable: [
+          { model: 'CV-1200', width: 'Cortadora Rebobinadora', capacity: '1200 mm', power: '800 mm', weight: '400 m/min' },
+          { model: 'TF-600', width: 'Termoformadora Industrial', capacity: '600 mm', power: '600 mm', weight: '35 ciclos/min' }
+        ]
       }
     ]
   },
   'construccion': {
-    title: 'Materiales de Construcción',
+    title: 'Materiales de Construcción e Infraestructura',
     subtitle: 'Robustez y consistencia para procesos de alta exigencia',
     description: 'Desarrollamos líneas completas de extrusión y trituración para la fabricación de compuestos de madera plástica (WPC), láminas corrugadas y sistemas de trituración/dosificación de agregados estructurales.',
     heroImage: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png',
@@ -211,234 +279,258 @@ const sectorsData = {
       { label: 'Relación L/D Extrusor', value: '38:1' },
       { label: 'Producción Horaria', value: '800 kg/h' },
       { label: 'Potencia de Motor', value: '132 kW+' },
-      { label: 'Estructura Robusta', value: 'Acero de Aleación' }
+      { label: 'Estructura de Aleación', value: 'Acero Hardox' }
     ],
     items: [
       {
-        id: 'materiales-compuestos',
-        title: 'Líneas de Compuesto de Madera Plástica (WPC)',
-        description: 'Extrusoras de doble husillo cónico y paralelo especialmente diseñadas para procesar combinaciones de polímeros y fibras naturales.',
-        longDescription: 'Nuestros sistemas WPC logran una dispersión perfecta del aserrín de madera o cáscara de arroz con PE/PP/PVC, produciendo perfiles para decks, fachadas y marcos con excelentes propiedades mecánicas e impermeabilidad.',
-        features: ['Cilindro con desgasificación por vacío forzado', 'Dosificadores gravimétricos multi-componentes', 'Mesas de calibración y enfriamiento de gran longitud'],
-        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png'
+        id: 'materiales',
+        title: 'Plantas de Dosificación de Materiales',
+        description: 'Sistemas para mezcla y dosificación de áridos, cementos y aditivos.',
+        longDescription: 'Diseño integral de silos, básculas de pesaje dinámico y mezcladoras intensivas de doble eje para asegurar la máxima homogeneidad del mortero y hormigón preparado.',
+        features: ['[icon:Shield] Celdas de carga autolimpiantes de alta precisión', '[icon:Zap] Mezcladoras planetarias de turbina con paletas de carburo', '[icon:Cpu] Sistemas SCADA de dosificación automatizada por lotes'],
+        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png',
+        tableHeaders: ['Modelo', 'Tipo Mezcla', 'Capacidad', 'Precisión', 'Potencia Mezclador'],
+        equipmentTable: [
+          { model: 'BM-800', width: 'Mezcladora de Turbina', capacity: '800 L/lote', power: '±0.5%', weight: '37 kW' },
+          { model: 'BM-1500', width: 'Mezclador Planetario', capacity: '1500 L/lote', power: '±0.3%', weight: '55 kW' }
+        ]
+      },
+      {
+        id: 'compuestos',
+        title: 'Líneas de Extrusión WPC',
+        description: 'Extrusoras de doble husillo cónico y paralelo para compuestos de madera y plástico.',
+        longDescription: 'Nuestros sistemas de co-extrusión WPC logran una dispersión perfecta del aserrín de madera o cáscara de arroz con PE/PP/PVC, produciendo decks, fachadas y marcos con excelentes propiedades mecánicas e impermeabilidad.',
+        features: ['[icon:Shield] Husillos co-rotativos o cónicos con camisa bimetálica', '[icon:Zap] Dosificadores gravimétricos con control de par', '[icon:Cpu] Calibradores de enfriamiento rápido por vacío'],
+        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png',
+        tableHeaders: ['Modelo', 'Tipo Extrusor', 'Capacidad Máxima', 'Relación L/D', 'Potencia Motor'],
+        equipmentTable: [
+          { model: 'WPC-120', width: 'Doble Husillo Cónico', capacity: '450 kg/h', power: '28:1', weight: '75 kW' },
+          { model: 'WPC-200', width: 'Doble Husillo Paralelo', capacity: '800 kg/h', power: '36:1', weight: '132 kW' }
+        ]
       },
       {
         id: 'materiales-reciclados',
-        title: 'Procesamiento de Agregados Reciclados',
-        description: 'Trituradoras de eje simple y doble, molinos de martillo y cribas de clasificación de mineral y escombro.',
-        longDescription: 'Para la valorización de residuos de demolición y otros materiales de construcción. Sistemas equipados con cintas de separación magnética y clasificación por corrientes de Foucault para metales no ferrosos.',
-        features: ['Ejes de corte de acero Hardox antidesgaste', 'Cribado rotativo de alta frecuencia', 'Separadores de partículas por aire densimétricos'],
-        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png'
+        title: 'Valorización de Escombros y RCD',
+        description: 'Trituradoras y clasificadoras para escombros y asfalto reciclado.',
+        longDescription: 'Soluciones robustas para la recuperación de agregados reciclados de RCD (Residuos de Construcción y Demolición). Sistemas equipados con imanes overbelt y separadores de aire.',
+        features: ['[icon:Shield] Trituradoras de mandíbula y de impacto de gran par', '[icon:Zap] Cintas magnéticas de separación de ferrita/neodimio', '[icon:Cpu] Cribas vibratorias multideck de clasificación fina'],
+        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png',
+        tableHeaders: ['Modelo', 'Tipo Triturador', 'Capacidad Entrada', 'Abertura Boca', 'Potencia'],
+        equipmentTable: [
+          { model: 'RCD-500', width: 'Trituradora de Mandíbula', capacity: '50 Ton/h', power: '600x400 mm', weight: '55 kW' },
+          { model: 'RCD-800', width: 'Trituradora de Impacto', capacity: '100 Ton/h', power: '800x600 mm', weight: '110 kW' }
+        ]
+      },
+      {
+        id: 'infraestructura',
+        title: 'Prefabricados de Hormigón',
+        description: 'Sistemas automáticos para la fabricación de prefabricados de hormigón y tuberías.',
+        longDescription: 'Maquinaria de encofrado dinámico y curado acelerado para vigas, tuberías de hormigón y paneles arquitectónicos. Incluye telemetría y monitoreo de maduración de fraguado.',
+        features: ['[icon:Shield] Moldes neumáticos autovibrantes con control de frecuencia', '[icon:Zap] Sistemas de transporte de hormigón aéreo rápido', '[icon:Cpu] Monitoreo inalámbrico IoT de temperatura de fraguado'],
+        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png',
+        tableHeaders: ['Modelo', 'Tipo Prefabricación', 'Ciclo Producción', 'Presión Hidráulica', 'Dimensiones Máx'],
+        equipmentTable: [
+          { model: 'AP-300', width: 'Prensa Bloquera Automática', capacity: '15 s/ciclo', power: '16 MPa', weight: '1200x800 mm' },
+          { model: 'AP-600', width: 'Moldeadora de Tuberías', capacity: '4 min/tubo', power: '20 MPa', weight: 'Diám. 1500 mm' }
+        ]
       }
     ]
   },
   'agroindustria': {
-    title: 'Agroindustria y Nutrición',
-    subtitle: 'Rendimiento en el campo y la planta de procesamiento',
-    description: 'Diseñamos sistemas avanzados para el manejo, limpieza, secado y procesamiento de granos y semillas, así como plantas llave en mano para la mezcla y peletizado de alimentos balanceados para animales.',
+    title: 'Agroindustria y Procesamiento Agrícola',
+    subtitle: 'Rendimiento y optimización en el campo y la planta',
+    description: 'Soluciones llave en mano para el manejo, limpieza, secado y clasificación de granos, semillas y café, así como plantas completas para la producción de alimentos balanceados.',
     heroImage: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png',
     stats: [
-      { label: 'Capacidad de Secado', value: '50 Ton/h' },
-      { label: 'Precisión de Mezclado', value: 'CV < 5%' },
-      { label: 'Presión de Peletizado', value: 'Hasta 120 Bar' },
-      { label: 'Opciones de Silo', value: '500 - 10,000 Ton' }
+      { label: 'Capacidad Secado', value: '50 Ton/h' },
+      { label: 'CV Mezclado', value: '< 5%' },
+      { label: 'Presión Extrusor', value: '120 Bar' },
+      { label: 'Acondicionamiento', value: 'Hasta 95°C' }
     ],
     items: [
       {
-        id: 'procesamiento-agricola',
+        id: 'procesamiento',
         title: 'Manejo y Limpieza de Granos',
-        description: 'Limpiadoras de zaranda, clasificadoras de densidad y transportadores de cadena o elevadores de cangilones industriales.',
-        longDescription: 'Sistemas completos de pre-limpieza y secado para proteger el grano almacenado contra plagas y hongos, garantizando que el producto final cumpla con los estándares comerciales internacionales.',
-        features: ['Clasificadoras neumáticas de flujo cruzado', 'Secadores de flujo mixto eficientes', 'Transportadores de arrastre con bajo coeficiente de fricción'],
-        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png'
+        description: 'Limpiadoras neumáticas y mesas densimétricas para granos, semillas y leguminosas.',
+        longDescription: 'Limpieza primaria y secundaria que elimina polvo, paja y semillas extrañas. Las mesas densimétricas clasifican por peso específico, garantizando lotes homogéneos.',
+        features: ['[icon:Shield] Zarandas vibratorias de doble nivel intercambiables', '[icon:Zap] Aspiradores de polvo integrados con filtros de mangas', '[icon:Cpu] Mesas densimétricas de oscilación regulable por variador'],
+        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png',
+        tableHeaders: ['Modelo', 'Tipo Limpieza', 'Capacidad', 'Eficiencia Cribado', 'Potencia Ventilador'],
+        equipmentTable: [
+          { model: 'GC-120', width: 'Limpiadora de Zaranda', capacity: '12 Ton/h', power: '99%', weight: '5.5 kW' },
+          { model: 'GC-250', width: 'Limpiadora Neumática Combinada', capacity: '25 Ton/h', power: '99.5%', weight: '11 kW' }
+        ]
       },
       {
-        id: 'alimentos-balanceados',
+        id: 'balanceados',
         title: 'Líneas de Alimento Balanceado',
-        description: 'Plantas integradas de molienda por martillo, dosificadores gravimétricos por lotes, mezcladoras de doble eje y peletizadoras.',
-        longDescription: 'Fabricamos líneas capaces de producir alimento balanceado para aves, porcinos, ganado y acuicultura con el acondicionamiento térmico (inyección de vapor) requerido para eliminar patógenos y gelatinizar almidones.',
-        features: ['Acondicionadores sanitarios de doble paso', 'Matrices de peletizado de acero inoxidable forjado', 'Enfriadores a contracorriente con tamiz vibratorio'],
-        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png'
-      }
-    ]
-  },
-  'plantas-reciclaje': {
-    title: 'Plantas de Reciclaje',
-    subtitle: 'Ingeniería para la valorización de residuos y economía circular',
-    description: 'Proporcionamos plantas completas llave en mano para el procesamiento de plásticos post-consumo y post-industrial. Diseñadas para maximizar la pureza del producto y optimizar el rendimiento energético.',
-    heroImage: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png',
-    stats: [
-      { label: 'Eficiencia de Separación', value: '98.5%' },
-      { label: 'Capacidad', value: '1.5 - 4 Ton/h' },
-      { label: 'Recuperación de Agua', value: '90%' },
-      { label: 'Pureza del Material', value: '99.9%' }
-    ],
-    items: [
-      {
-        id: 'lavado-pet',
-        title: 'Líneas de Lavado de PET',
-        description: 'Módulos integrados para la remoción completa de adhesivos, contaminantes y etiquetas en botellas PET post-consumo.',
-        longDescription: 'Lavadoras en caliente alcalinas de alta fricción combinadas con tinas de flotación gravimétrica y secadores neumáticos centrifugados para entregar hojuelas limpias listas para grado alimentario.',
-        features: ['Lavado alcalino en caliente', 'Separación de etiquetas NIR', 'Secado mecánico centrífugo'],
-        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png'
+        description: 'Plantas integradas de molienda, dosificación, mezcla y peletizado.',
+        longDescription: 'Diseño higiénico para alimentación animal. Incluye acondicionador de vapor de doble paso para cocción y gelatinización de almidones, y matrices de peletizado en aleación templada.',
+        features: ['[icon:Shield] Molinos de martillos con cambio rápido de cribas', '[icon:Zap] Mezcladoras de doble eje de paletas de alta velocidad', '[icon:Cpu] Peletizadoras con acondicionador térmico de inyección'],
+        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png',
+        tableHeaders: ['Modelo', 'Tipo Mezclador/Peletizadora', 'Rendimiento', 'Diámetro Pellet', 'Potencia Motor'],
+        equipmentTable: [
+          { model: 'AB-500', width: 'Mezcladora de Paletas', capacity: '2.5 Ton/h', power: 'Mezcla homogénea', weight: '22 kW' },
+          { model: 'AB-1000', width: 'Peletizadora de Matriz Plana', capacity: '5.0 Ton/h', power: '2 - 12 mm', weight: '110 kW' }
+        ]
       },
       {
-        id: 'reciclado-pe-pp',
-        title: 'Plantas de Reciclaje de Película de PE/PP',
-        description: 'Líneas de lavado y triturado para film flexible, bolsas y envases de pared delgada post-industriales.',
-        longDescription: 'Trituración húmeda de alta resistencia con cuchillas antidesgaste, lavado intensivo por fricción y centrífugas deshidratadoras avanzadas para un porcentaje mínimo de humedad residual.',
-        features: ['Trituración en húmedo de alta resistencia', 'Flotación por densidad', 'Desgasificación avanzada'],
-        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png'
-      }
-    ]
-  },
-  'plantas-extrusion': {
-    title: 'Plantas de Extrusión',
-    subtitle: 'Sistemas de extrusión de alto rendimiento y precisión molecular',
-    description: 'Desarrollamos líneas completas de extrusión para tuberías, perfiles, láminas y compuestos especiales. Equipadas con automatización avanzada y control de espesor continuo.',
-    heroImage: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png',
-    stats: [
-      { label: 'Precisión de Husillo', value: '±0.05 mm' },
-      { label: 'Rendimiento', value: '1,200 kg/h' },
-      { label: 'Zonas de Temperatura', value: '12 Zonas' },
-      { label: 'Ahorro de Energía', value: '35%' }
-    ],
-    items: [
-      {
-        id: 'doble-husillo',
-        title: 'Extrusoras de Doble Husillo',
-        description: 'Sistemas de extrusión co-rotativa para compounding, mezcla y extrusión reactiva de polímeros.',
-        longDescription: 'Husillos modulares autolimpiantes con diseño segmentado configurable. Caja de engranajes de alto torque y sistema de control de temperatura de alta sensibilidad.',
-        features: ['Husillos co-rotativos autolimpiantes', 'Cilindro bimetálico nitrurado', 'Dosificadores gravimétricos multi-componente'],
-        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png'
+        id: 'postcosecha',
+        title: 'Enfriamiento y Calibración',
+        description: 'Sistemas de lavado, encerado, desinfección y clasificación óptica para frutas frescas.',
+        longDescription: 'Tratamiento postcosecha de precisión. Sistemas ópticos de clasificación que analizan el color, diámetro y defectos externos del fruto para embalar únicamente producto premium.',
+        features: ['[icon:Shield] Lavadoras de cepillos rotativos con desinfección UV', '[icon:Zap] Secadores de túnel por aire caliente controlado', '[icon:Cpu] Clasificación óptica multicanal por cámaras colorimétricas'],
+        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png',
+        tableHeaders: ['Modelo', 'Tipo Fruto', 'Capacidad Línea', 'Canales Clasificación', 'Estructura'],
+        equipmentTable: [
+          { model: 'FC-400', width: 'Línea Cítricos / Manzanas', capacity: '4 Ton/h', power: '2 Canales Ópticos', weight: 'Acero Inoxidable/PE' },
+          { model: 'FC-800', width: 'Línea de Selección de Berries', capacity: '8 Ton/h', power: '4 Canales NIR', weight: 'Grado Alimentario' }
+        ]
       },
       {
-        id: 'co-extrusion',
-        title: 'Líneas de Co-extrusión',
-        description: 'Tecnología para perfiles y tuberías multi-capa optimizando costos y propiedades mecánicas.',
-        longDescription: 'Cabezales de extrusión de diseño avanzado que garantizan la distribución uniforme de capas, combinando plásticos vírgenes, reciclados y aditivos técnicos.',
-        features: ['Cabezales de co-extrusión multi-capa', 'Enfriamiento de calibración rápida', 'Sistemas de bobinado inteligente'],
-        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png'
+        id: 'automatizacion',
+        title: 'Monitoreo de Silos y Carga',
+        description: 'Sistemas automáticos de control de temperatura y aireación de silos agrícolas.',
+        longDescription: 'Digitalización del almacenamiento de granos. Termometría digital multipunto que monitorea la temperatura en tiempo real y activa automáticamente ventiladores de aireación.',
+        features: ['[icon:Shield] Sondas de temperatura colgantes con bus RS485', '[icon:Zap] Sensores de nivel capacitivos y de radar continuo', '[icon:Cpu] Tablero de control con SCADA y alertas vía Telegram/Email'],
+        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115231575_choco%20color%202.png',
+        tableHeaders: ['Modelo', 'Tipo Sensor/Control', 'Alcance Sondas', 'Protocolo', 'Protección Gabinete'],
+        equipmentTable: [
+          { model: 'SM-100', width: 'Módulo Termometría Silos', capacity: 'Hasta 30m altura', power: 'Modbus RTU', weight: 'IP66' },
+          { model: 'SM-200', width: 'Controlador de Aireación Automático', capacity: 'Hasta 4 silos', power: 'Ethernet / IoT', weight: 'IP66' }
+        ]
       }
     ]
   },
-  'plantas-alimentos': {
-    title: 'Plantas de Alimentos',
-    subtitle: 'Estándares sanitarios de grado alimentario y procesamiento térmico preciso',
-    description: 'Ingeniería integral para el procesamiento de alimentos con certificación sanitaria FDA y HACCP. Soluciones óptimas de atemperado, mezcla y cocción automatizada.',
-    heroImage: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115231575_choco%20color%202.png',
-    stats: [
-      { label: 'Grado de Acero', value: 'AISI 316L' },
-      { label: 'Higiene CIP', value: '100% Aut.' },
-      { label: 'Control Térmico', value: '±0.1°C' },
-      { label: 'Disponibilidad', value: '99.5%' }
-    ],
-    items: [
-      {
-        id: 'mezclado-sanitario',
-        title: 'Sistemas de Mezclado Sanitario',
-        description: 'Mezcladores continuos y por lotes para ingredientes secos, pastas y emulsiones alimenticias.',
-        longDescription: 'Diseño higiénico con soldaduras pulidas sanitarias y pulido Ra < 0.4 μm. Sellos de prensaestopas de purga de aire y boquillas de limpieza CIP integradas.',
-        features: ['Hélices de doble cinta helicoidal', 'Sello mecánico de carburo de silicio', 'Descarga de limpieza rápida'],
-        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png'
-      },
-      {
-        id: 'atemperado-coccion',
-        title: 'Líneas de Atemperado y Cocción',
-        description: 'Sistemas para confitería, coberturas de chocolate y procesamiento de ingredientes térmicos.',
-        longDescription: 'Curvas de temperatura precisas controladas por microprocesador PLC, chaquetas térmicas de doble pared con aislamiento y paletas rascadoras de teflón para evitar adherencias.',
-        features: ['Control preciso de cristalización', 'Chaqueta de agua térmica regulada', 'Raspadores de teflón autoajustables'],
-        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115231575_choco%20color%202.png'
-      }
-    ]
-  },
-  'sistemas-packaging': {
-    title: 'Sistemas de Packaging',
-    subtitle: 'Velocidad, sellado hermético y empaque inteligente',
-    description: 'Tecnología de punta para envasado primario y secundario de alta velocidad. Sistemas adaptables para formatos rígidos y flexibles con zipper.',
-    heroImage: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115213579_choco%20bN%202.png',
-    stats: [
-      { label: 'Velocidad Máxima', value: '150 ppm' },
-      { label: 'Hermeticidad', value: '99.99%' },
-      { label: 'Tiempo de Cambio', value: '< 15 min' },
-      { label: 'Precisión de Llenado', value: '±0.2%' }
-    ],
-    items: [
-      {
-        id: 'doypack-rotativas',
-        title: 'Envasadoras Doypack Rotativas',
-        description: 'Llenado y sellado automático de bolsas preformadas de tipo Stand-up y pouches planos con zipper.',
-        longDescription: 'Flujo automático continuo que incluye: alimentación de bolsas, codificación Inkjet, apertura de zipper por vacío, dosificación precisa de producto y sellado térmico de alta resistencia.',
-        features: ['Apertura y sellado neumático', 'Dosificación por balanza multicabezal', 'Inyección de gas inerte (N2)'],
-        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png'
-      },
-      {
-        id: 'robotica-secundario',
-        title: 'Robotizado de Empaque Secundario',
-        description: 'Celdas robotizadas para formado, llenado de cajas y paletizado automático.',
-        longDescription: 'Brazo robótico articulado equipado con cabezales de succión o pinzas mecánicas programadas para realizar patrones de estiba dinámicos a alta velocidad.',
-        features: ['Grips de succión por vacío magnético', 'Control de movimiento multieje', 'Clasificación de cajas inteligente'],
-        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png'
-      }
-    ]
-  },
-  'automatizacion': {
-    title: 'Automatización Industrial',
-    subtitle: 'Sistemas SCADA, integración IoT e Industria 4.0',
-    description: 'Automatizamos y digitalizamos procesos de manufactura completa. Diseñamos tableros de control con PLCs de última generación y visualización en tiempo real.',
-    heroImage: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png',
-    stats: [
-      { label: 'Tiempo de Respuesta', value: '< 10 ms' },
-      { label: 'Monitoreo IoT', value: 'Nube Activa' },
-      { label: 'Norma de Tableros', value: 'UL508A' },
-      { label: 'Reducción de Fallas', value: '40%' }
-    ],
-    items: [
-      {
-        id: 'scada-hmi',
-        title: 'Sistemas SCADA y HMI',
-        description: 'Visualización y control interactivo en tiempo real de todo el piso de producción.',
-        longDescription: 'Interfaces gráficas intuitivas con tableros de control interactivos, registro histórico de alarmas, trazabilidad de lotes y conectividad en red de fábrica.',
-        features: ['Visualización interactiva de variables', 'Historial de alarmas inteligente', 'Control remoto seguro'],
-        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png'
-      },
-      {
-        id: 'celdas-roboticas',
-        title: 'Integración de Celdas Robóticas',
-        description: 'Robots colaborativos (Cobots) e industriales integrados a líneas de ensamblaje y maquinado.',
-        longDescription: 'Programación de trayectorias complejas, sincronización con cintas transportadoras mediante sensores inteligentes y vallas ópticas de seguridad certificadas.',
-        features: ['Sincronización por protocolo Profinet', 'Sensores de barrera de seguridad', 'Programación parametrizada'],
-        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png'
-      }
-    ]
-  },
-  'ingenieria': {
-    title: 'Ingeniería de Procesos',
-    subtitle: 'Optimización de flujos, diseño térmico y simulación avanzada',
-    description: 'Consultoría e ingeniería avanzada para la optimización de flujos industriales, diseño de tuberías PID y cálculo estructural para plantas completas.',
+  'manufactura': {
+    title: 'Salud y Manufactura Avanzada',
+    subtitle: 'Precisión estéril y automatización de alta velocidad',
+    description: 'Soluciones de envasado, dosificación y ensamblaje bajo normas GMP e higiene estricta. Ofrecemos líneas automatizadas para dispositivos médicos, farmacéutica y conversión de no tejidos.',
     heroImage: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png',
     stats: [
-      { label: 'Simulación CFD', value: 'Activa' },
-      { label: 'Precisión CAD/BIM', value: '100%' },
-      { label: 'Eficiencia Térmica', value: '+25%' },
-      { label: 'Seguridad de Planta', value: 'HAZOP' }
+      { label: 'Clasificación Sala', value: 'Clase 100 / ISO 5' },
+      { label: 'Tolerancia Dosif.', value: '±0.1%' },
+      { label: 'OEE Promedio', value: '95%' },
+      { label: 'Estándar Norma', value: 'GMP / FDA' }
     ],
     items: [
       {
-        id: 'diseno-detalle',
-        title: 'Diseño e Ingeniería de Detalle',
-        description: 'Desarrollo técnico completo de planos constructivos y de ingeniería básica y de detalle.',
-        longDescription: 'Planos constructivos P&ID interactivos, isométricos de tuberías, dimensionamiento de bombas, intercambiadores de calor y recipientes a presión bajo norma ASME.',
-        features: ['Planos P&ID inteligentes', 'Modelado 3D de tuberías y ductos', 'Cálculo de pérdidas de carga'],
-        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png'
+        id: 'medico',
+        title: 'Líneas de Dispositivos Médicos',
+        description: 'Maquinaria de conformado y empaque de jeringas, mascarillas y apósitos.',
+        longDescription: 'Sistemas automáticos de ensamblaje en sala limpia para insumos médicos. Cuentan con desbobinado de alta precisión, soldadura por ultrasonidos y empaque hermético Blíster.',
+        features: ['[icon:Shield] Soldadura ultrasónica de alta frecuencia (20/40 kHz)', '[icon:Zap] Empacadoras blíster termoformadoras integradas', '[icon:Cpu] Sistemas de visión artificial Cognex para rechazo de fallas'],
+        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png',
+        tableHeaders: ['Modelo', 'Dispositivo Fabricado', 'Rendimiento', 'Soldadura', 'Materiales Permitidos'],
+        equipmentTable: [
+          { model: 'MM-300', width: 'Fabricación Mascarillas Quirúrgicas', capacity: '300 ppm', power: 'Ultrasonido Integrado', weight: 'TNT PP' },
+          { model: 'MM-120', width: 'Ensamblaje Jeringas Descartables', capacity: '120 ppm', power: 'Servocontrolado', weight: 'PP / Agujas Metal' }
+        ]
       },
       {
-        id: 'auditorias-energia',
-        title: 'Auditorías de Eficiencia Energética',
-        description: 'Optimización de consumos eléctricos, térmicos y de fluidos de proceso.',
-        longDescription: 'Detección de puntos de pérdida térmica, optimización de balances de masa y energía, y propuestas para recuperación de calor en chimeneas u otros flujos residuales.',
-        features: ['Optimización de balances térmicos', 'Recuperación de calor residual', 'Monitoreo de consumos específicos'],
-        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png'
+        id: 'farma',
+        title: 'Dosificación y Llenado (GMP)',
+        description: 'Llenadoras automáticas de viales, ampollas, jeringas prellenadas y dosificadoras de polvos.',
+        longDescription: 'Diseño estéril libre de rincones ciegos, fabricado en acero inoxidable AISI 316L con pulido espejo. Dosificación de alta precisión mediante bombas peristálticas o de pistón cerámico sin contacto.',
+        features: ['[icon:Shield] Bombas dosificadoras peristálticas de cambio rápido', '[icon:Zap] Sistemas de flujo laminar y sellado con nitrógeno líquido', '[icon:Cpu] Conectividad para validación de datos conforme a CFR 21 Parte 11'],
+        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png',
+        tableHeaders: ['Modelo', 'Formato Vial/Envase', 'Velocidad Llenado', 'Rango Volumétrico', 'Precisión Dosificación'],
+        equipmentTable: [
+          { model: 'FM-200', width: 'Llenadora Viales Estéril', capacity: '120 vpm', power: '2 - 100 mL', weight: '±0.1%' },
+          { model: 'FM-100', width: 'Dosificadora Polvos Farmacéuticos', capacity: '80 vpm', power: '0.5 - 50 g', weight: '±0.2%' }
+        ]
+      },
+      {
+        id: 'conversion',
+        title: 'Conversión de No Tejidos',
+        description: 'Cortadoras, plegadoras y bobinadoras de telas no tejidas (Spunbond, Meltblown).',
+        longDescription: 'Maquinaria diseñada para el corte longitudinal y plegado automático de toallitas húmedas, gasas no tejidas y sábanas quirúrgicas desechables con sistemas de humectación controlada.',
+        features: ['[icon:Shield] Corte longitudinal por cuchillas rotativas de alta dureza', '[icon:Zap] Sistemas de dosificación de loción líquida automáticos', '[icon:Cpu] Plegadores mecánicos multiformato (plegado en Z, C, W)'],
+        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png',
+        tableHeaders: ['Modelo', 'Ancho Útil', 'Diámetro Desbobinador', 'Capacidad Plegado', 'Potencia Instalada'],
+        equipmentTable: [
+          { model: 'CN-800', width: 'Cortadora Toallitas Húmedas', capacity: '800 mm', power: '1000 mm', weight: '12 kW' },
+          { model: 'CN-1200', width: 'Línea Sábanas Quirúrgicas', capacity: '1200 mm', power: '1200 mm', weight: '18.5 kW' }
+        ]
+      },
+      {
+        id: 'produccion',
+        title: 'Sistemas de Ensamblaje',
+        description: 'Líneas robotizadas multieje para embalaje primario y empaque de alta densidad.',
+        longDescription: 'Celdas robotizadas e integradas con indexadores rotativos de alta velocidad para montar, atornillar, pegar y probar componentes en tiempo real.',
+        features: ['[icon:Shield] Indexadores rotativos de levas mecánicas de gran precisión', '[icon:Zap] Brazos robóticos articulados o tipo SCARA (Stäubli/Fanuc)', '[icon:Cpu] Pruebas integradas de estanqueidad y conductividad eléctrica'],
+        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115231575_choco%20color%202.png',
+        tableHeaders: ['Modelo', 'Tipo Automatización', 'Ciclo Ensamblaje', 'Número Ejes', 'Interfaz Comunicación'],
+        equipmentTable: [
+          { model: 'AS-150', width: 'Celda Robótica SCARA', capacity: '1.2 s/pieza', power: '4 Ejes', weight: 'Profinet / OPC UA' },
+          { model: 'AS-80', width: 'Línea de Ensamblaje Rotativa', capacity: '0.8 s/pieza', power: 'Indexador 8 Estaciones', weight: 'EtherNet/IP' }
+        ]
+      }
+    ]
+  },
+  'energia': {
+    title: 'Energía y Utilidades Industriales',
+    subtitle: 'Sistemas de generación térmica, cogeneración y eficiencia energética',
+    description: 'Diseño y fabricación de calderas industriales, plantas de peletizado de biomasa y plantas modulares Waste-to-Energy (WTE) para la valorización energética de residuos.',
+    heroImage: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png',
+    stats: [
+      { label: 'Eficiencia Caldera', value: '92%' },
+      { label: 'Potencia Térmica', value: 'Hasta 20 MW' },
+      { label: 'Presión Operativa', value: '25 Bar' },
+      { label: 'Combustible', value: 'Biomasa / Gas / RSU' }
+    ],
+    items: [
+      {
+        id: 'wte',
+        title: 'Valorización Energética (Waste-to-Energy)',
+        description: 'Plantas modulares de gasificación e incineración limpia de residuos sólidos.',
+        longDescription: 'Sistemas avanzados de combustión controlada que transforman fracciones no reciclables de RSU en energía térmica y eléctrica. Incluye sistemas de depuración de humos multiciclón y lavado húmedo conforme a Directivas Ambientales.',
+        features: ['[icon:Shield] Parrilla de combustión reciprocante refrigerada por aire/agua', '[icon:Zap] Calderas de recuperación de vapor acuotubulares de alta presión', '[icon:Cpu] Sistemas de filtrado de gases activos de carbón y cal química'],
+        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png',
+        tableHeaders: ['Modelo', 'Tipo Conversión', 'Capacidad Diaria', 'Eficiencia Eléctrica', 'Emisiones Norma'],
+        equipmentTable: [
+          { model: 'WTE-10', width: 'Planta Incineradora Modular', capacity: '10 Ton/día', power: '24%', weight: 'Directiva 2010/75/UE' },
+          { model: 'WTE-50', width: 'Gasificador de Residuos', capacity: '50 Ton/día', power: '28%', weight: 'US EPA CFR 60' }
+        ]
+      },
+      {
+        id: 'biomasa',
+        title: 'Peletizado de Biomasa',
+        description: 'Líneas industriales de trituración, secado y peletizado de madera y subproductos.',
+        longDescription: 'Conversión de mermas forestales, cáscaras y pajas en pellets de alta densidad. Las peletizadoras cuentan con anillos de matriz reforzados y sistemas de lubricación automáticos.',
+        features: ['[icon:Shield] Secadores de tambor rotativo de triple pase térmico', '[icon:Zap] Molinos refinadores de alta velocidad con deflectores neumáticos', '[icon:Cpu] Peletizadoras de gran robustez con lubricación forzada de rodillos'],
+        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png',
+        tableHeaders: ['Modelo', 'Tipo Biomasa', 'Rendimiento Peletizado', 'Diámetro Pellet', 'Humedad Entrada'],
+        equipmentTable: [
+          { model: 'BP-500', width: 'Línea Astillas / Aserrín', capacity: '1.5 Ton/h', power: '6 - 8 mm', weight: '< 12% requerido' },
+          { model: 'BP-1000', width: 'Línea Residuos Agrícolas', capacity: '3.0 Ton/h', power: '6 - 10 mm', weight: '< 15% requerido' }
+        ]
+      },
+      {
+        id: 'energia-industrial',
+        title: 'Cogeneración y Calderas',
+        description: 'Calderas pirotubulares y acuotubulares de vapor, agua caliente o fluido térmico.',
+        longDescription: 'Equipos de generación de calor industrial de alta eficiencia. Quemadores modulantes de bajo NOx compatibles con gas natural, GLP, biogás y combustibles líquidos.',
+        features: ['[icon:Shield] Economizadores integrados para precalentamiento de agua de alimentación', '[icon:Zap] Quemadores industriales autoprogramados de bajo NOx', '[icon:Cpu] Automatización total de purgas y nivel de agua por PLC'],
+        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png',
+        tableHeaders: ['Modelo', 'Tipo Generación', 'Capacidad Térmica', 'Presión Operación', 'Combustible Principal'],
+        equipmentTable: [
+          { model: 'CG-3000', width: 'Caldera Vapor Pirotubular', capacity: '3 Ton/h (2.0 MW)', power: '12 Bar', weight: 'Gas / Biogás' },
+          { model: 'CG-6000', width: 'Caldera de Fluido Térmico', capacity: '6 Ton/h (4.0 MW)', power: '10 Bar', weight: 'Biomasa / Astillas' }
+        ]
+      },
+      {
+        id: 'servicios',
+        title: 'Auditorías de Eficiencia',
+        description: 'Estudios termográficos, optimización de balances térmicos y recuperación de calor.',
+        longDescription: 'Soluciones orientadas a reducir la huella de carbono industrial. Recuperación de calor residual en chimeneas para precalentar aire de combustión o agua de calderas.',
+        features: ['[icon:Shield] Termografía infrarroja de alta resolución para aislamientos', '[icon:Zap] Medición de gases de combustión continua y eficiencia química', '[icon:Cpu] Diseño de intercambiadores de calor a medida para gases de escape'],
+        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115231575_choco%20color%202.png',
+        tableHeaders: ['Modelo', 'Tipo Servicio', 'Tiempo Ejecución', 'Ahorro Potencial', 'Garantía Retorno'],
+        equipmentTable: [
+          { model: 'EA-100', width: 'Auditoría Energética Integral', capacity: '3 Semanas', power: 'Hasta 20%', weight: 'Retorno < 18 Meses' },
+          { model: 'EA-200', width: 'Ingeniería Recuperador Calor', capacity: '4 Semanas', power: 'Hasta 15%', weight: 'Retorno < 24 Meses' }
+        ]
       }
     ]
   }
@@ -1080,7 +1172,49 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
 };
 
 const IndustriaDetalle = () => {
-  const { sector } = useParams();
+  const { sector: rawSector } = useParams();
+  
+  // Normalizar sector
+  const normalizeSector = (sec) => {
+    if (!sec) return 'reciclaje';
+    const s = sec.toLowerCase();
+    if (s === 'reciclaje-y-plasticos' || s === 'reciclaje') return 'reciclaje';
+    if (s === 'alimentos-y-bebidas' || s === 'alimentos') return 'alimentos';
+    if (s === 'packaging-y-conversion' || s === 'packaging') return 'packaging';
+    if (s === 'construccion-e-infraestructura' || s === 'construccion') return 'construccion';
+    if (s === 'agroindustria-y-procesamiento' || s === 'agroindustria') return 'agroindustria';
+    if (s === 'salud-y-manufactura' || s === 'manufactura') return 'manufactura';
+    if (s === 'energia-y-utilidades' || s === 'energia') return 'energia';
+    return s;
+  };
+  
+  const sector = normalizeSector(rawSector);
+
+  // Resolver ruta de maquinaria de forma segura previniendo 404
+  const getMachineLink = (modelStr) => {
+    if (!modelStr) return '/';
+    const cleanModel = modelStr.trim().toLowerCase();
+    const withSector = `${sector}-${cleanModel}`;
+    if (machineryDataMap && machineryDataMap[withSector]) {
+      return `/maquinaria/${withSector}`;
+    }
+    if (sector === 'reciclaje') {
+      const withAlt = `reciclaje-y-plasticos-${cleanModel}`;
+      if (machineryDataMap && machineryDataMap[withAlt]) {
+        return `/maquinaria/${withAlt}`;
+      }
+    }
+    if (machineryDataMap && machineryDataMap[cleanModel]) {
+      return `/maquinaria/${cleanModel}`;
+    }
+    const keys = Object.keys(machineryDataMap || {});
+    const partialMatch = keys.find(key => key.endsWith(`-${cleanModel}`) || key === cleanModel);
+    if (partialMatch) {
+      return `/maquinaria/${partialMatch}`;
+    }
+    return `/maquinaria/${sector === 'alimentos' ? 'alimentos-' + cleanModel : cleanModel}`;
+  };
+
   const location = useLocation();
   const { cmsState, updatePages, isEditorMode, syncToCloud } = useCMS();
   
@@ -1088,7 +1222,7 @@ const IndustriaDetalle = () => {
   
   // Find if this industry page exists in CMS
   const pageId = `industria-${sector}`;
-  const industryPage = cmsState.pages.find(p => p.id === pageId);
+  const industryPage = cmsState?.pages?.find(p => p.id === pageId);
   
   // Local active states for editor
   const [activeTab, setActiveTab] = useState('hero');
@@ -1170,6 +1304,7 @@ const IndustriaDetalle = () => {
 
   const heroImageInputRef = useRef(null);
   const itemImageInputRef = useRef(null);
+  const instalacionesImageInputRef = useRef(null);
 
   const handleSaveToCloud = async () => {
     try {
@@ -1203,11 +1338,150 @@ const IndustriaDetalle = () => {
     }
   }, [sector, industryPage, cmsState.pages, updatePages, staticData, pageId]);
 
+  // Autoclean compostaje & normalize IDs if they exist in the saved CMS data for Alimentos
+  useEffect(() => {
+    if (sector === 'alimentos' && industryPage?.modules?.[0]?.data?.items) {
+      const items = industryPage.modules[0].data.items;
+      const hasCompostaje = items.some(item => item.id === 'compostaje');
+      let needsIdUpdate = false;
+      const updatedItems = items
+        .filter(item => item.id !== 'compostaje')
+        .map(item => {
+          let newId = item.id;
+          if (item.id === 'lavado-y-pelado') { newId = 'lavado'; needsIdUpdate = true; }
+          else if (item.id === 'produccion-de-alimentos') { newId = 'produccion'; needsIdUpdate = true; }
+          else if (item.id === 'empaquetado-y-llenado') { newId = 'empaquetado'; needsIdUpdate = true; }
+          else if (item.id === 'sistemas-de-separacion') { newId = 'separadoras'; needsIdUpdate = true; }
+          return { ...item, id: newId };
+        });
+
+      if (hasCompostaje || needsIdUpdate) {
+        const updatedPage = {
+          ...industryPage,
+          modules: [
+            {
+              ...industryPage.modules[0],
+              data: {
+                ...industryPage.modules[0].data,
+                title: industryPage.modules[0].data.title === 'Industria de Alimentos y Compostaje' ? 'Industria de Alimentos y Bebidas' : industryPage.modules[0].data.title,
+                items: updatedItems
+              }
+            }
+          ]
+        };
+        const otherPages = cmsState.pages.filter(p => p.id !== pageId);
+        updatePages([...otherPages, updatedPage]);
+      }
+    }
+  }, [sector, industryPage, pageId, cmsState.pages, updatePages]);
+
   // Data to render
-  const data = industryPage?.modules?.[0]?.data || staticData;
+  let data = industryPage?.modules?.[0]?.data || staticData;
+  if (sector === 'alimentos' && data && data.items) {
+    const cleanedItems = data.items
+      .filter(item => item.id !== 'compostaje')
+      .map(item => {
+        let newId = item.id;
+        if (item.id === 'lavado-y-pelado') newId = 'lavado';
+        else if (item.id === 'produccion-de-alimentos') newId = 'produccion';
+        else if (item.id === 'empaquetado-y-llenado') newId = 'empaquetado';
+        else if (item.id === 'sistemas-de-separacion') newId = 'separadoras';
+        return { ...item, id: newId };
+      });
+    data = {
+      ...data,
+      items: cleanedItems
+    };
+  }
+
+  const sectorColors = {
+    'alimentos': {
+      bg: 'bg-orange-500/10',
+      border: 'border-orange-500/30',
+      borderActive: 'border-orange-500/50',
+      text: 'text-[#F97316]',
+      textHover: 'hover:text-[#F97316]',
+      accent: '#F97316',
+      glow: 'rgba(249,115,22,0.2)'
+    },
+    'reciclaje': {
+      bg: 'bg-lime-500/10',
+      border: 'border-lime-500/30',
+      borderActive: 'border-lime-500/50',
+      text: 'text-[#84CC16]',
+      textHover: 'hover:text-[#84CC16]',
+      accent: '#84CC16',
+      glow: 'rgba(132,204,22,0.2)'
+    },
+    'reciclaje-y-plasticos': {
+      bg: 'bg-lime-500/10',
+      border: 'border-lime-500/30',
+      borderActive: 'border-lime-500/50',
+      text: 'text-[#84CC16]',
+      textHover: 'hover:text-[#84CC16]',
+      accent: '#84CC16',
+      glow: 'rgba(132,204,22,0.2)'
+    },
+    'packaging': {
+      bg: 'bg-yellow-500/10',
+      border: 'border-yellow-500/30',
+      borderActive: 'border-yellow-500/50',
+      text: 'text-[#FFD700]',
+      textHover: 'hover:text-[#FFD700]',
+      accent: '#FFD700',
+      glow: 'rgba(255,215,0,0.2)'
+    },
+    'construccion': {
+      bg: 'bg-cyan-500/10',
+      border: 'border-cyan-500/30',
+      borderActive: 'border-cyan-500/50',
+      text: 'text-[#06B6D4]',
+      textHover: 'hover:text-[#06B6D4]',
+      accent: '#06B6D4',
+      glow: 'rgba(6,182,212,0.2)'
+    },
+    'agroindustria': {
+      bg: 'bg-violet-500/10',
+      border: 'border-violet-500/30',
+      borderActive: 'border-violet-500/50',
+      text: 'text-[#8B5CF6]',
+      textHover: 'hover:text-[#8B5CF6]',
+      accent: '#8B5CF6',
+      glow: 'rgba(139,92,246,0.2)'
+    },
+    'manufactura': {
+      bg: 'bg-red-500/10',
+      border: 'border-red-500/30',
+      borderActive: 'border-red-500/50',
+      text: 'text-[#EF4444]',
+      textHover: 'hover:text-[#EF4444]',
+      accent: '#EF4444',
+      glow: 'rgba(239,68,68,0.2)'
+    },
+    'energia': {
+      bg: 'bg-blue-500/10',
+      border: 'border-blue-500/30',
+      borderActive: 'border-blue-500/50',
+      text: 'text-[#3B82F6]',
+      textHover: 'hover:text-[#3B82F6]',
+      accent: '#3B82F6',
+      glow: 'rgba(59,130,246,0.2)'
+    },
+    'default': {
+      bg: 'bg-lime-500/10',
+      border: 'border-lime-500/30',
+      borderActive: 'border-lime-500/50',
+      text: 'text-[#84CC16]',
+      textHover: 'hover:text-[#84CC16]',
+      accent: '#84CC16',
+      glow: 'rgba(132,204,22,0.2)'
+    }
+  };
+  const colorScheme = sectorColors[sector] || sectorColors['default'];
 
   const [activeItem, setActiveItem] = useState('');
   const [activeMediaTabs, setActiveMediaTabs] = useState({});
+  const [activeProjectIdx, setActiveProjectIdx] = useState(0);
 
   // Lógica para rotar las pestañas automáticamente según el intervalo configurado
   useEffect(() => {
@@ -1428,6 +1702,26 @@ const IndustriaDetalle = () => {
     }
   };
 
+  const handleInstalacionesImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      logCMS(`Iniciada subida de Instalaciones: ${file.name}`, "info");
+      try {
+        setIsUploading(true);
+        const url = await uploadFile(file, "media");
+        logCMS(`✅ Imagen de Instalaciones subida con éxito: ${url}`, "success");
+        handleUpdate('instalacionesImage', url);
+      } catch (err) {
+        const errMsg = err.message || err.error_description || JSON.stringify(err);
+        logCMS(`❌ Error Instalaciones: ${errMsg}`, "error");
+        alert('No se pudo subir la imagen: ' + errMsg);
+      } finally {
+        setIsUploading(false);
+        e.target.value = '';
+      }
+    }
+  };
+
   const handleItemImageUpload = async (e, index) => {
     const file = e.target.files[0];
     if (file) {
@@ -1587,6 +1881,23 @@ const IndustriaDetalle = () => {
                         <Upload size={14} />
                       )}
                       <span>Subir Imagen de Cabecera</span>
+                    </button>
+                  </div>
+
+                  <div className="flex flex-col gap-1.5 border-t border-white/10 pt-3">
+                    <label className="text-white/50 text-[10px] uppercase font-bold tracking-wider">Imagen de Instalaciones</label>
+                    <span className="text-[10px] text-white/40 block mt-0.5 leading-normal">(Esta imagen se aplica en la galería de instalaciones y detalles de plantas)</span>
+                    <button
+                      onClick={() => instalacionesImageInputRef.current?.click()}
+                      disabled={isUploading}
+                      className="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md text-xs mt-1"
+                    >
+                      {isUploading ? (
+                        <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                      ) : (
+                        <Upload size={14} />
+                      )}
+                      <span>Subir Imagen de Instalaciones</span>
                     </button>
                   </div>
                 </div>
@@ -1762,36 +2073,6 @@ const IndustriaDetalle = () => {
         <div className="md:pl-[76px] transition-all duration-300">
           {/* Fixed Sub-Header Menu */}
           {(() => {
-            const sectorColors = {
-              'alimentos': {
-                bg: 'bg-amber-500/10',
-                border: 'border-amber-500/30',
-                borderActive: 'border-amber-500/50',
-                text: 'text-[#F59E0B]',
-                textHover: 'hover:text-[#F59E0B]',
-                accent: '#F59E0B',
-                glow: 'rgba(245,158,11,0.2)'
-              },
-              'reciclaje-y-plasticos': {
-                bg: 'bg-emerald-500/10',
-                border: 'border-emerald-500/30',
-                borderActive: 'border-emerald-500/50',
-                text: 'text-emerald-400',
-                textHover: 'hover:text-emerald-400',
-                accent: '#34D399',
-                glow: 'rgba(52,211,153,0.2)'
-              },
-              'default': {
-                bg: 'bg-emerald-500/10',
-                border: 'border-emerald-500/30',
-                borderActive: 'border-emerald-500/50',
-                text: 'text-emerald-400',
-                textHover: 'hover:text-emerald-400',
-                accent: '#34D399',
-                glow: 'rgba(52,211,153,0.2)'
-              }
-            };
-            const colorScheme = sectorColors[sector] || sectorColors['default'];
             const getShortTitleLines = (title) => {
               const cleanTitle = title.trim().toUpperCase();
               if (cleanTitle.includes("LÍNEAS DE COMPOSTAJE") || cleanTitle.includes("LINEAS DE COMPOSTAJE")) {
@@ -1818,7 +2099,7 @@ const IndustriaDetalle = () => {
             };
             const getSectionIcon = (idx) => {
               if (sector === 'alimentos') {
-                const icons = [Leaf, Droplet, Package, Layers, Grid];
+                const icons = [Droplet, Layers, Package, Grid];
                 const IconComponent = icons[idx] || Settings;
                 return <IconComponent className="w-4.5 h-4.5 stroke-[1.5] transition-colors" />;
               }
@@ -1870,16 +2151,17 @@ const IndustriaDetalle = () => {
                                 const headerOffset = (cmsState?.settings?.headerHeight || 76) + 195;
                                 const elementPosition = el.getBoundingClientRect().top;
                                 const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                                
+                                  
                                 window.scrollTo({
                                   top: offsetPosition,
                                   behavior: 'smooth'
                                 });
                               }
                             }}
+                            style={isActive ? { borderTopColor: colorScheme.accent, borderTopWidth: '2px' } : {}}
                             className={`flex items-center gap-3.5 px-4.5 rounded-lg text-[9px] md:text-[10px] font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer border h-[52px] w-[185px] flex-shrink-0 ${
                               isActive 
-                                ? `bg-white/[0.03] ${colorScheme.text} ${colorScheme.borderActive} shadow-[0_0_20px_${colorScheme.glow}] border-t-2 border-t-${sector === 'alimentos' ? 'amber-500' : 'emerald-400'}` 
+                                ? `bg-white/[0.03] ${colorScheme.text} ${colorScheme.borderActive} shadow-[0_0_20px_${colorScheme.glow}]` 
                                 : 'bg-white/[0.01] text-white/40 border-white/5 hover:text-white hover:bg-white/[0.03] hover:border-white/10'
                             }`}
                           >
@@ -1940,7 +2222,8 @@ const IndustriaDetalle = () => {
                 <motion.span 
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="inline-block text-[#FFD700] border border-[#FFD700]/30 bg-[#FFD700]/5 px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest"
+                  style={{ borderColor: `${colorScheme.accent}33`, backgroundColor: `${colorScheme.accent}0d`, color: colorScheme.accent }}
+                  className="inline-block border px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest"
                 >
                   Sector Industrial
                 </motion.span>
@@ -1961,7 +2244,8 @@ const IndustriaDetalle = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="text-lg md:text-xl text-[#FFD700] font-medium"
+                  style={{ color: colorScheme.accent }}
+                  className="text-lg md:text-xl font-medium"
                 >
                   <EditableText 
                     value={data.subtitle} 
@@ -1995,7 +2279,10 @@ const IndustriaDetalle = () => {
                     transition={{ delay: 0.2 + i * 0.1 }}
                     className="p-4 bg-black/40 border border-white/5 rounded-xl flex flex-col justify-center animate-pulse-once"
                   >
-                    <span className="text-[24px] md:text-[32px] font-black text-[#FFD700] tracking-tight leading-none mb-2 block">
+                    <span 
+                      style={{ color: colorScheme.accent }}
+                      className="text-[24px] md:text-[32px] font-black tracking-tight leading-none mb-2 block"
+                    >
                       <EditableText 
                         value={stat.value} 
                         onChange={(val) => handleStatUpdate(i, 'value', val)} 
@@ -2026,24 +2313,6 @@ const IndustriaDetalle = () => {
 
             <div className="space-y-24">
               {data.items && data.items.map((item, index) => {
-                const sectorColors = {
-                  'alimentos': {
-                    bg: 'bg-amber-500/10',
-                    border: 'border-amber-500/30',
-                    text: 'text-[#F59E0B]'
-                  },
-                  'reciclaje-y-plasticos': {
-                    bg: 'bg-emerald-500/10',
-                    border: 'border-emerald-500/30',
-                    text: 'text-emerald-400'
-                  },
-                  'default': {
-                    bg: 'bg-emerald-500/10',
-                    border: 'border-emerald-500/30',
-                    text: 'text-emerald-400'
-                  }
-                };
-                const colorScheme = sectorColors[sector] || sectorColors['default'];
                 const formattedNum = index + 1 < 10 ? `0${index + 1}` : index + 1;
 
                 return (
@@ -2083,7 +2352,10 @@ const IndustriaDetalle = () => {
                           </button>
                         )}
                       </div>
-                      <p className="text-[#FFD700]/90 font-medium text-[15px]">
+                      <p 
+                        style={{ color: colorScheme.accent }}
+                        className="font-medium text-[15px] opacity-90"
+                      >
                         <EditableText 
                           value={item.description} 
                           onChange={(val) => handleItemUpdate(index, 'description', val)} 
@@ -2115,7 +2387,7 @@ const IndustriaDetalle = () => {
                                     name={iconName}
                                     isEditorMode={isEditorMode}
                                     size={14}
-                                    className="text-[#FFD700]"
+                                    className={colorScheme.text}
                                     onChange={(newIconName) => {
                                       const updatedFeatures = [...item.features];
                                       updatedFeatures[fIdx] = `[icon:${newIconName}] ${textOnly}`;
@@ -2186,7 +2458,7 @@ const IndustriaDetalle = () => {
                                       />
                                     ) : (
                                       <Link
-                                        to={`/maquinaria/${row.model.trim().toLowerCase()}`}
+                                        to={getMachineLink(row.model)}
                                         onClick={() => {
                                           localStorage.setItem('last_sector_path', window.location.pathname + '#' + item.id);
                                           localStorage.setItem('last_sector_name', data.title || 'Sector');
@@ -2372,9 +2644,10 @@ const IndustriaDetalle = () => {
                                 {/* Botón Tab 1 */}
                                 <button
                                   onClick={() => setActiveMediaTabs(prev => ({ ...prev, [index]: 'tab1' }))}
+                                  style={currentTab === 'tab1' ? { backgroundColor: `${colorScheme.accent}1a`, color: colorScheme.accent, borderColor: `${colorScheme.accent}4d` } : {}}
                                   className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer border ${
                                     currentTab === 'tab1'
-                                      ? 'bg-[#FFD700]/20 text-[#FFD700] border-[#FFD700]/30 shadow-md font-extrabold'
+                                      ? 'shadow-md font-extrabold'
                                       : 'text-white/60 border-transparent hover:text-white hover:bg-white/5'
                                   }`}
                                 >
@@ -2382,7 +2655,7 @@ const IndustriaDetalle = () => {
                                     name={item.blueprintIcon || 'Image'}
                                     isEditorMode={isEditorMode}
                                     size={12}
-                                    className={currentTab === 'tab1' ? 'text-[#FFD700]' : 'text-white/40'}
+                                    className={currentTab === 'tab1' ? colorScheme.text : 'text-white/40'}
                                     onChange={(newIconName) => handleItemUpdate(index, 'blueprintIcon', newIconName)}
                                   />
                                   <EditableText
@@ -2397,11 +2670,12 @@ const IndustriaDetalle = () => {
                                 {(isEditorMode || hasImage2) && (
                                   <button
                                     onClick={() => setActiveMediaTabs(prev => ({ ...prev, [index]: 'tab2' }))}
+                                    style={currentTab === 'tab2' ? { backgroundColor: `${colorScheme.accent}1a`, color: colorScheme.accent, borderColor: `${colorScheme.accent}4d` } : {}}
                                     className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer border ${
                                       !hasImage2 ? 'border-dashed border-white/20 opacity-50 hover:opacity-100' : ''
                                     } ${
                                       currentTab === 'tab2'
-                                        ? 'bg-[#FFD700]/20 text-[#FFD700] border-[#FFD700]/30 shadow-md font-extrabold'
+                                        ? 'shadow-md font-extrabold'
                                         : 'text-white/60 border-transparent hover:text-white hover:bg-white/5'
                                     }`}
                                   >
@@ -2409,7 +2683,7 @@ const IndustriaDetalle = () => {
                                       name={item.tab2Icon || 'Cpu'}
                                       isEditorMode={isEditorMode}
                                       size={12}
-                                      className={currentTab === 'tab2' ? 'text-[#FFD700]' : 'text-white/40'}
+                                      className={currentTab === 'tab2' ? colorScheme.text : 'text-white/40'}
                                       onChange={(newIconName) => handleItemUpdate(index, 'tab2Icon', newIconName)}
                                     />
                                     <EditableText
@@ -2425,11 +2699,12 @@ const IndustriaDetalle = () => {
                                 {(isEditorMode || !!item.video?.url) && (
                                   <button
                                     onClick={() => setActiveMediaTabs(prev => ({ ...prev, [index]: 'tab3' }))}
+                                    style={currentTab === 'tab3' ? { backgroundColor: `${colorScheme.accent}1a`, color: colorScheme.accent, borderColor: `${colorScheme.accent}4d` } : {}}
                                     className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer border ${
                                       !item.video ? 'border-dashed border-white/20 opacity-50 hover:opacity-100' : ''
                                     } ${
                                       currentTab === 'tab3'
-                                        ? 'bg-[#FFD700]/20 text-[#FFD700] border-[#FFD700]/30 shadow-md font-extrabold'
+                                        ? 'shadow-md font-extrabold'
                                         : 'text-white/60 border-transparent hover:text-white hover:bg-white/5'
                                     }`}
                                   >
@@ -2437,7 +2712,7 @@ const IndustriaDetalle = () => {
                                       name={item.tab3Icon || 'Play'}
                                       isEditorMode={isEditorMode}
                                       size={12}
-                                      className={currentTab === 'tab3' ? 'text-[#FFD700]' : 'text-white/40'}
+                                      className={currentTab === 'tab3' ? colorScheme.text : 'text-white/40'}
                                       onChange={(newIconName) => handleItemUpdate(index, 'tab3Icon', newIconName)}
                                     />
                                     <EditableText
@@ -2549,6 +2824,500 @@ const IndustriaDetalle = () => {
                 </motion.div>
               );
             })}
+            </div>
+          </section>
+
+          {/* Sección de Casos de Éxito */}
+          <section id="casos-exito" className="max-w-[1400px] mx-auto px-6 md:px-8 py-16 md:py-24 border-t border-white/5 relative overflow-hidden font-['Poppins']">
+            {/* Fondo de red digital sutil */}
+            <div className="absolute inset-0 bg-[#080B11]/50 pointer-events-none z-0" />
+            
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-stretch relative z-10">
+              {/* Columna Izquierda: Selector de Casos de Éxito */}
+              <div className="lg:col-span-5 flex flex-col justify-between space-y-8">
+                <div className="space-y-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <span className={`w-10 h-10 rounded-xl ${colorScheme.bg} border ${colorScheme.border} flex items-center justify-center ${colorScheme.text}`}>
+                        <Award size={20} className="stroke-[1.5]" />
+                      </span>
+                      <h2 className="text-[10px] font-black uppercase tracking-[0.25em] text-white/40">Estudios de Campo</h2>
+                    </div>
+                    <span className={`text-3xl font-black font-mono tracking-tighter opacity-15 ${colorScheme.text}`}>01</span>
+                  </div>
+
+                  <h3 className="text-4xl md:text-5xl font-black uppercase tracking-tight leading-[1.05] text-white">
+                    Casos de Éxito
+                  </h3>
+                  
+                  <p className="text-white/40 text-xs font-bold uppercase tracking-wider leading-relaxed">
+                    ESTUDIOS DE CASOS REALES Y RESULTADOS OPERATIVOS DE NUESTROS CLIENTES.
+                  </p>
+                  
+                  <div className="w-12 h-[3px] rounded-full" style={{ backgroundColor: colorScheme.accent }} />
+
+                  <p className="text-white/70 text-sm leading-relaxed">
+                    En SMQ impulsamos la eficiencia y la innovación en la industria alimentaria a nivel global. Seleccione uno de nuestros casos emblemáticos en México para analizar los datos analíticos de rendimiento en tiempo real.
+                  </p>
+                </div>
+
+                {/* Casos de Éxito Destacados en México */}
+                <div className="space-y-4 pt-4 border-t border-white/5">
+                  <p className="text-[10px] font-black uppercase tracking-widest" style={{ color: colorScheme.accent }}>
+                    CASOS DE ÉXITO DESTACADOS EN MÉXICO
+                  </p>
+
+                  <div className="space-y-3">
+                    {[
+                      {
+                        company: 'BIMBO',
+                        plant: 'Planta Azcapotzalco, CDMX',
+                        desc: 'Modernización de línea de producción de panificación.',
+                        val: '+28%',
+                        metric: 'Eficiencia',
+                        sub: 'Operativa'
+                      },
+                      {
+                        company: 'HERDEZ',
+                        plant: 'Planta Tecámac, Edo. de México',
+                        desc: 'Automatización de proceso de envasado de alimentos.',
+                        val: '+32%',
+                        metric: 'Rendimiento',
+                        sub: 'De Línea'
+                      },
+                      {
+                        company: 'NESTLÉ',
+                        plant: 'Planta Coatepec, Veracruz',
+                        desc: 'Implementación de sistema de clasificación de granos por IA.',
+                        val: '+24%',
+                        metric: 'Clasificación',
+                        sub: 'Automatizada'
+                      }
+                    ].map((proj, pIdx) => (
+                      <button
+                        key={pIdx}
+                        onClick={() => setActiveProjectIdx(pIdx)}
+                        className={`w-full flex items-center justify-between p-4 rounded-xl border text-left transition-all duration-300 ${
+                          activeProjectIdx === pIdx
+                            ? `bg-white/[0.03] border-white/15 shadow-[0_0_20px_rgba(255,255,255,0.03)]`
+                            : 'bg-white/[0.01] border-white/5 hover:bg-white/[0.02]'
+                        }`}
+                      >
+                        <div className="flex items-center gap-4">
+                          <div className={`w-16 h-10 rounded-lg flex items-center justify-center border transition-colors ${
+                            activeProjectIdx === pIdx ? 'bg-black border-white/10' : 'bg-black/45 border-white/5'
+                          }`}>
+                            <span className="text-[11px] font-black text-white tracking-widest">{proj.company}</span>
+                          </div>
+                          <div className="flex flex-col">
+                            <span className="text-[11px] font-bold text-white">{proj.plant}</span>
+                            <span className="text-[10px] text-white/50">{proj.desc}</span>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2.5 text-right">
+                          <TrendingUp size={16} style={{ color: activeProjectIdx === pIdx ? colorScheme.accent : 'rgba(255,255,255,0.3)' }} />
+                          <div className="flex flex-col leading-none">
+                            <span className="text-sm font-black text-white" style={{ color: activeProjectIdx === pIdx ? colorScheme.accent : 'white' }}>{proj.val}</span>
+                            <span className="text-[7px] text-white/40 uppercase font-black tracking-wider">{proj.metric}</span>
+                            <span className="text-[6px] text-white/30 uppercase font-bold">{proj.sub}</span>
+                          </div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+
+                  <Link to="/proyectos" className={`inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-wider ${colorScheme.text} hover:opacity-80 transition-opacity mt-2 cursor-pointer`}>
+                    <span>VER TODOS LOS CASOS DE ÉXITO</span>
+                    <span className="text-xs">➔</span>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Columna Derecha: Consola de Rendimiento Operativo */}
+              <div className="lg:col-span-7 bg-[#080B11]/85 border border-white/5 rounded-2xl p-6 md:p-8 relative flex flex-col justify-between min-h-[480px] shadow-2xl overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-b from-white/[0.01] to-transparent pointer-events-none" />
+                
+                {/* Cabecera del Panel */}
+                <div className="flex justify-between items-start border-b border-white/5 pb-4 relative z-10">
+                  <div>
+                    <span className="text-[8px] uppercase tracking-widest text-white/40 font-bold">MONITOR OPERATIVO</span>
+                    <h4 className="text-lg font-bold text-white uppercase tracking-tight">
+                      {activeProjectIdx === 0 && "BIMBO - EFICIENCIA AZCAPOTZALCO"}
+                      {activeProjectIdx === 1 && "HERDEZ - AUTOMATIZACIÓN TECÁMAC"}
+                      {activeProjectIdx === 2 && "NESTLÉ - CLASIFICACIÓN COATEPEC"}
+                    </h4>
+                  </div>
+                  <div className="flex items-center gap-2 bg-white/[0.03] border border-white/10 rounded-lg px-2.5 py-1 text-[8px] font-bold text-white/60">
+                    <span className="w-1.5 h-1.5 rounded-full bg-lime-500 animate-pulse" />
+                    ANALÍTICA ACTIVA
+                  </div>
+                </div>
+
+                {/* Gráfico de Rendimiento */}
+                <div className="py-6 relative z-10 flex-1 flex flex-col justify-center">
+                  <div className="flex justify-between items-center mb-3">
+                    <span className="text-[9px] font-black uppercase text-white/40 tracking-wider">INCREMENTO OPERATIVO vs BASELINE</span>
+                    <div className="flex gap-4">
+                      <span className="flex items-center gap-1.5 text-[8px] font-bold text-white/40">
+                        <span className="w-2 h-0.5 border-t border-dashed border-white/30" /> BASELINE
+                      </span>
+                      <span className="flex items-center gap-1.5 text-[8px] font-black text-white" style={{ color: colorScheme.accent }}>
+                        <span className="w-2 h-0.5 rounded" style={{ backgroundColor: colorScheme.accent }} /> OPTIMIZADO
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Gráfico Realista SVG */}
+                  <div className="w-full bg-black/40 border border-white/5 rounded-xl p-4 relative overflow-hidden">
+                    <svg viewBox="0 0 500 180" className="w-full h-auto overflow-visible">
+                      <defs>
+                        <linearGradient id="optGradient" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor={colorScheme.accent} stopOpacity="0.25" />
+                          <stop offset="100%" stopColor={colorScheme.accent} stopOpacity="0" />
+                        </linearGradient>
+                      </defs>
+                      
+                      {/* Rejilla de fondo */}
+                      <line x1="0" y1="30" x2="500" y2="30" stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
+                      <line x1="0" y1="75" x2="500" y2="75" stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
+                      <line x1="0" y1="120" x2="500" y2="120" stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
+                      <line x1="0" y1="160" x2="500" y2="160" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+                      
+                      {/* Curva de Baseline (Gris discontinua) */}
+                      <path
+                        d={
+                          activeProjectIdx === 0 ? "M 20,130 Q 100,125 180,120 T 340,122 T 480,115" :
+                          activeProjectIdx === 1 ? "M 20,140 Q 100,138 180,135 T 340,132 T 480,130" :
+                          "M 20,120 Q 100,118 180,122 T 340,115 T 480,112"
+                        }
+                        fill="none"
+                        stroke="rgba(255,255,255,0.2)"
+                        strokeWidth="1.5"
+                        strokeDasharray="4 4"
+                      />
+
+                      {/* Área debajo de la optimizada */}
+                      <path
+                        d={
+                          activeProjectIdx === 0 ? "M 20,130 Q 100,85 180,60 T 340,45 T 480,35 L 480,160 L 20,160 Z" :
+                          activeProjectIdx === 1 ? "M 20,140 Q 100,80 180,50 T 340,38 T 480,25 L 480,160 L 20,160 Z" :
+                          "M 20,120 Q 100,88 180,70 T 340,55 T 480,48 L 480,160 L 20,160 Z"
+                        }
+                        fill="url(#optGradient)"
+                      />
+
+                      {/* Curva de Optimización SMQ (Verde brillante) */}
+                      <path
+                        d={
+                          activeProjectIdx === 0 ? "M 20,130 Q 100,85 180,60 T 340,45 T 480,35" :
+                          activeProjectIdx === 1 ? "M 20,140 Q 100,80 180,50 T 340,38 T 480,25" :
+                          "M 20,120 Q 100,88 180,70 T 340,55 T 480,48"
+                        }
+                        fill="none"
+                        stroke={colorScheme.accent}
+                        strokeWidth="3"
+                      />
+
+                      {/* Nodos de datos activos */}
+                      {activeProjectIdx === 0 && (
+                        <>
+                          <circle cx="180" cy="60" r="5" fill="#080B11" stroke={colorScheme.accent} strokeWidth="2" />
+                          <circle cx="340" cy="45" r="5" fill="#080B11" stroke={colorScheme.accent} strokeWidth="2" />
+                          <circle cx="480" cy="35" r="5" fill={colorScheme.accent} />
+                        </>
+                      )}
+                      {activeProjectIdx === 1 && (
+                        <>
+                          <circle cx="180" cy="50" r="5" fill="#080B11" stroke={colorScheme.accent} strokeWidth="2" />
+                          <circle cx="340" cy="38" r="5" fill="#080B11" stroke={colorScheme.accent} strokeWidth="2" />
+                          <circle cx="480" cy="25" r="5" fill={colorScheme.accent} />
+                        </>
+                      )}
+                      {activeProjectIdx === 2 && (
+                        <>
+                          <circle cx="180" cy="70" r="5" fill="#080B11" stroke={colorScheme.accent} strokeWidth="2" />
+                          <circle cx="340" cy="55" r="5" fill="#080B11" stroke={colorScheme.accent} strokeWidth="2" />
+                          <circle cx="480" cy="48" r="5" fill={colorScheme.accent} />
+                        </>
+                      )}
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Métricas e Impacto del Proyecto */}
+                <div className="grid grid-cols-3 gap-4 border-t border-white/5 pt-4 relative z-10 bg-black/10 p-4 rounded-xl">
+                  <div className="flex flex-col text-center">
+                    <span className="text-[8px] font-black uppercase text-white/40 tracking-wider">Ahorro Energía</span>
+                    <span className="text-xl font-black text-white mt-1" style={{ color: colorScheme.accent }}>
+                      {activeProjectIdx === 0 && "22%"}
+                      {activeProjectIdx === 1 && "25%"}
+                      {activeProjectIdx === 2 && "18%"}
+                    </span>
+                    <span className="text-[7px] text-white/30 uppercase mt-0.5">Certificado Anual</span>
+                  </div>
+                  
+                  <div className="flex flex-col text-center border-x border-white/5">
+                    <span className="text-[8px] font-black uppercase text-white/40 tracking-wider">OEE Alcanzado</span>
+                    <span className="text-xl font-black text-white mt-1">
+                      {activeProjectIdx === 0 && "94.5%"}
+                      {activeProjectIdx === 1 && "96.2%"}
+                      {activeProjectIdx === 2 && "93.8%"}
+                    </span>
+                    <span className="text-[7px] text-white/30 uppercase mt-0.5">Disponibilidad Planta</span>
+                  </div>
+
+                  <div className="flex flex-col text-center">
+                    <span className="text-[8px] font-black uppercase text-white/40 tracking-wider">Retorno (ROI)</span>
+                    <span className="text-xl font-black text-white mt-1">
+                      {activeProjectIdx === 0 && "14 Meses"}
+                      {activeProjectIdx === 1 && "11 Meses"}
+                      {activeProjectIdx === 2 && "16 Meses"}
+                    </span>
+                    <span className="text-[7px] text-white/30 uppercase mt-0.5">Periodo Payback</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Barra de Estadísticas Horizontales Inferiores */}
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-6 border-t border-white/10 pt-10 mt-12 relative z-10">
+              {[
+                { icon: Grid, value: '+540', label: 'PROYECTOS EXITOSOS', sublabel: 'A NIVEL MUNDIAL' },
+                { icon: Globe, value: '+60', label: 'PAÍSES CON', sublabel: 'PRESENCIA ACTIVA' },
+                { icon: Users, value: '+300', label: 'CLIENTES', sublabel: 'SATISFECHOS' },
+                { icon: TrendingUp, value: '+98%', label: 'EFICIENCIA OPERATIVA', sublabel: 'PROMEDIO ALCANZADA' },
+                { icon: Headphones, value: '24/7', label: 'SOPORTE TÉCNICO', sublabel: 'GLOBAL' }
+              ].map((metric, mIdx) => {
+                const MetricIcon = metric.icon;
+                return (
+                  <div key={mIdx} className="flex items-center gap-3.5 group/metric">
+                    <div className={`w-10 h-10 rounded-xl bg-white/[0.02] border border-white/5 flex items-center justify-center text-white/50 group-hover/metric:text-white group-hover/metric:border-white/15 transition-all duration-300`}>
+                      <MetricIcon size={18} className="stroke-[1.5]" style={{ color: colorScheme.accent }} />
+                    </div>
+                    <div className="flex flex-col leading-none">
+                      <span className={`text-xl font-black text-white group-hover/metric:${colorScheme.text} transition-colors tracking-tight`}>{metric.value}</span>
+                      <span className="text-[9px] font-bold text-white/40 uppercase tracking-wider mt-0.5">{metric.label}</span>
+                      <span className="text-[8px] text-white/20 uppercase tracking-widest mt-0.5">{metric.sublabel}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+
+          {/* 02. INSTALACIONES */}
+          <section id="instalaciones" className="scroll-mt-32 max-w-[1400px] mx-auto px-6 md:px-8 py-16 md:py-24 border-t border-white/5 relative overflow-hidden font-['Poppins']">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-stretch relative z-10">
+              
+              {/* Columna Izquierda (4/12): Encabezado de Instalaciones */}
+              <div className="lg:col-span-4 flex flex-col justify-start space-y-6">
+                <div className="flex items-center gap-3">
+                  <span className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-[#3B82F6]">
+                    <Factory size={20} className="stroke-[1.5]" />
+                  </span>
+                  <div className="flex flex-col">
+                    <span className="text-[20px] font-black text-[#3B82F6] font-mono leading-none">02</span>
+                    <div className="w-6 h-[1.5px] bg-[#3B82F6] mt-1" />
+                  </div>
+                </div>
+
+                <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight text-white leading-none">
+                  Instalaciones
+                </h2>
+
+                <div className="space-y-4">
+                  <p className="text-white/40 text-[10px] font-black uppercase tracking-widest leading-relaxed">
+                    GALERÍA Y DETALLES DE PLANTAS EN FUNCIONAMIENTO A NIVEL MUNDIAL.
+                  </p>
+                  <div className="w-12 h-[3px] rounded-full bg-[#3B82F6]" />
+                </div>
+
+                <p className="text-white/60 text-xs md:text-sm leading-relaxed font-medium">
+                  Contamos con instalaciones de clase mundial equipadas con tecnología de última generación, diseñadas para garantizar eficiencia, calidad y escalabilidad en cada proyecto que desarrollamos.
+                </p>
+              </div>
+
+              {/* Columna Derecha (8/12): Imagen y Paneles de Información */}
+              <div className="lg:col-span-8 flex flex-col gap-6">
+                {/* Gran Imagen Principal */}
+                <div className="relative w-full aspect-[21/9] rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_40px_rgba(59,130,246,0.15)] group">
+                  <img 
+                    src={data.instalacionesImage || "/smq_factory_night.png"} 
+                    alt="SMQ High-Tech Factory" 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                  
+                  {isEditorMode && (
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-20">
+                      <input 
+                        type="file" 
+                        className="hidden" 
+                        ref={instalacionesImageInputRef}
+                        accept="image/*" 
+                        onChange={handleInstalacionesImageUpload} 
+                      />
+                      <button 
+                        onClick={() => instalacionesImageInputRef.current?.click()}
+                        className="bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs px-4 py-2 rounded-xl flex items-center gap-2 transition-all shadow-lg cursor-pointer"
+                      >
+                        <Upload size={14} /> Cambiar Fachada
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                {/* Grid de Paneles Lado a Lado */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  
+                  {/* Tarjeta 1: Planta Principal */}
+                  <div className="bg-[#080B11]/85 border border-white/5 rounded-2xl p-5 relative overflow-hidden flex flex-col justify-between min-h-[260px] shadow-lg">
+                    {/* SVG Dotted Map de China de fondo sutil */}
+                    <div className="absolute right-2 bottom-6 w-32 h-32 opacity-15 pointer-events-none z-0">
+                      <svg viewBox="0 0 120 120" className="w-full h-full fill-white">
+                        <circle cx="85" cy="55" r="1.5" />
+                        <circle cx="95" cy="58" r="1.5" />
+                        <circle cx="90" cy="63" r="1.5" />
+                        <circle cx="80" cy="60" r="1.5" />
+                        <circle cx="75" cy="65" r="1.5" />
+                        <circle cx="70" cy="55" r="1.5" />
+                        <circle cx="85" cy="70" r="1.5" />
+                        <circle cx="72" cy="73" r="1.5" />
+                        <circle cx="60" cy="65" r="1.5" />
+                        <circle cx="65" cy="58" r="1.5" />
+                        {/* Hotspot Pulsante de Shanghai */}
+                        <circle cx="95" cy="58" r="3" fill="#3B82F6" className="animate-ping" />
+                        <circle cx="95" cy="58" r="1.5" fill="#3B82F6" />
+                      </svg>
+                    </div>
+
+                    <div className="relative z-10 space-y-4">
+                      {/* Cabecera Tarjeta */}
+                      <div className="flex items-center gap-3">
+                        <span className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-[#3B82F6]">
+                          <Factory size={16} />
+                        </span>
+                        <div className="flex flex-col leading-none">
+                          <span className="text-[8px] font-black uppercase text-white/40 tracking-wider">PLANTA PRINCIPAL</span>
+                          <span className="text-sm font-black text-white tracking-tight mt-0.5">SHANGHAI, CHINA</span>
+                        </div>
+                      </div>
+
+                      {/* Lista de Detalles */}
+                      <ul className="space-y-2 text-[10px] text-white/70 font-semibold pl-1">
+                        <li className="flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
+                          <span>5,000 m² de superficie total</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
+                          <span>Centro de manufactura y ensamblaje</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
+                          <span>Tecnología de producción de última generación</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
+                          <span>Capacidad instalada para más de 200 líneas/año</span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    {/* Footer de la Tarjeta */}
+                    <div className="grid grid-cols-3 gap-2 border-t border-white/5 pt-3.5 mt-4 text-center relative z-10">
+                      <div className="flex flex-col items-center">
+                        <Building2 size={12} className="text-[#3B82F6]" />
+                        <span className="text-[10px] font-black text-white mt-1">5,000 m²</span>
+                        <span className="text-[6px] text-white/30 uppercase font-bold">Superficie Total</span>
+                      </div>
+                      <div className="flex flex-col items-center border-x border-white/5">
+                        <Hammer size={12} className="text-[#3B82F6]" />
+                        <span className="text-[10px] font-black text-white mt-1">200+</span>
+                        <span className="text-[6px] text-white/30 uppercase font-bold">Líneas/Año</span>
+                      </div>
+                      <div className="flex flex-col items-center">
+                        <Users size={12} className="text-[#3B82F6]" />
+                        <span className="text-[10px] font-black text-white mt-1">300+</span>
+                        <span className="text-[6px] text-white/30 uppercase font-bold">Colaboradores</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Tarjeta 2: Oficina Comercial */}
+                  <div className="bg-[#080B11]/85 border border-white/5 rounded-2xl p-5 relative overflow-hidden flex flex-col justify-between min-h-[260px] shadow-lg">
+                    {/* SVG Dotted Map de América de fondo sutil */}
+                    <div className="absolute right-2 bottom-6 w-32 h-32 opacity-15 pointer-events-none z-0">
+                      <svg viewBox="0 0 120 120" className="w-full h-full fill-white">
+                        <circle cx="30" cy="30" r="1.2" />
+                        <circle cx="35" cy="40" r="1.2" />
+                        <circle cx="40" cy="48" r="1.2" />
+                        <circle cx="45" cy="55" r="1.2" />
+                        <circle cx="50" cy="62" r="1.2" />
+                        <circle cx="55" cy="70" r="1.2" />
+                        <circle cx="60" cy="80" r="1.2" />
+                        {/* Hotspot Pulsante de CDMX */}
+                        <circle cx="40" cy="48" r="3" fill="#3B82F6" className="animate-ping" />
+                        <circle cx="40" cy="48" r="1.2" fill="#3B82F6" />
+                      </svg>
+                    </div>
+
+                    <div className="relative z-10 space-y-4">
+                      {/* Cabecera Tarjeta */}
+                      <div className="flex items-center gap-3">
+                        <span className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-[#3B82F6]">
+                          <Building2 size={16} />
+                        </span>
+                        <div className="flex flex-col leading-none">
+                          <span className="text-[8px] font-black uppercase text-white/40 tracking-wider">OFICINA COMERCIAL</span>
+                          <span className="text-sm font-black text-white tracking-tight mt-0.5">CDMX, MÉXICO</span>
+                          <span className="text-[7px] font-bold text-white/50 tracking-wide uppercase mt-0.5 font-mono">POLANCO | CARSO</span>
+                        </div>
+                      </div>
+
+                      {/* Lista de Detalles */}
+                      <ul className="space-y-2 text-[10px] text-white/70 font-semibold pl-1">
+                        <li className="flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
+                          <span>Atención y soporte comercial</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
+                          <span>Desarrollo de soluciones a la medida</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
+                          <span>Relación cercana con nuestros clientes</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
+                          <span>Cobertura en toda Latinoamérica</span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    {/* Footer de la Tarjeta */}
+                    <div className="border-t border-white/5 pt-3.5 mt-4 flex justify-between items-center gap-4 text-left relative z-10">
+                      <div className="flex items-center gap-2">
+                        <MapPin size={14} className="text-[#3B82F6] shrink-0" />
+                        <div className="flex flex-col leading-none">
+                          <span className="text-[8px] text-white/70 font-bold">Lago Zurich 245, Polanco, Miguel Hidalgo</span>
+                          <span className="text-[6px] text-white/40 uppercase mt-0.5">11529, CDMX, México</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-1.5 shrink-0 border-l border-white/5 pl-2.5">
+                        <Building2 size={12} className="text-[#3B82F6]" />
+                        <div className="flex flex-col leading-none">
+                          <span className="text-[8px] text-white/80 font-black tracking-tight">Corporativo Carso</span>
+                          <span className="text-[6px] text-white/30 uppercase mt-0.5 font-bold">Grupo Carso</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
             </div>
           </section>
 

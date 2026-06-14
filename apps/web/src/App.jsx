@@ -16,6 +16,7 @@ import IndustriaDetalle from '@/pages/IndustriaDetalle.jsx';
 import ScrollToTopButton from '@/components/ScrollToTopButton.jsx';
 import MachineryDetailPage from '@/pages/MachineryDetailPage.jsx';
 import WasteToEnergy from '@/pages/WasteToEnergy.jsx';
+import Projects from '@/pages/Projects.jsx';
 
 import { useCMS } from '@/context/CMSContext.jsx';
 import { getOptimizedImageUrl } from '@/lib/utils.js';
@@ -72,12 +73,14 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/industria/:sector" element={<IndustriaDetalle />} />
+        <Route path="/industrias/:sector" element={<IndustriaDetalle />} />
         <Route path="/soluciones/:sector" element={<IndustriaDetalle />} />
         <Route path="/solucion/:sector" element={<IndustriaDetalle />} />
         <Route path="/envasadoras" element={<EnvasadoraDoypack />} />
         <Route path="/maquinaria/:machineId" element={<MachineryDetailPage />} />
         <Route path="/nosotros" element={<Nosotros />} />
         <Route path="/waste-to-energy" element={<WasteToEnergy />} />
+        <Route path="/proyectos" element={<Projects />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/*" element={<DynamicPage />} />
       </Routes>

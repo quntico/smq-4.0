@@ -8,18 +8,17 @@ const industriesData = [
   {
     key: 'alimentos',
     title: 'Alimentos y Bebidas',
-    color: '#F59E0B',
+    color: '#F97316',
     Icon: Wheat,
     desc: 'Higiene óptima, precisión y control absoluto (Grado Alimentario y Orgánico).',
     families: [
       {
         name: 'Categorías',
         links: [
-          { code: 'PRO', name: 'Procesamiento', desc: 'Sistemas térmicos y preparación mecánica.', href: '/industrias/alimentos#procesamiento' },
-          { code: 'CON', name: 'Producción Continua', desc: 'Líneas automatizadas de flujo continuo.', href: '/industrias/alimentos#produccion' },
-          { code: 'PKG', name: 'Empaque', desc: 'Envasado y embalaje de alta velocidad.', href: '/industrias/alimentos#empaque' },
-          { code: 'ING', name: 'Ingredientes', desc: 'Dosificación, mezcla y formulación precisa.', href: '/industrias/alimentos#ingredientes' },
-          { code: 'PLN', name: 'Plantas Integradas', desc: 'Soluciones integrales llave en mano.', href: '/industrias/alimentos#plantas-integradas' }
+          { code: 'LAV', name: '01 Lavado y Pelado', desc: 'Sistemas de lavado, sanitización y pelado.', href: '/industria/alimentos#lavado' },
+          { code: 'PRO', name: '02 Producción de Alimentos', desc: 'Líneas térmicas y preparación de alimentos.', href: '/industria/alimentos#produccion' },
+          { code: 'PKG', name: '03 Empaquetado y Llenado', desc: 'Envasado y empaque de alta velocidad.', href: '/industria/alimentos#empaquetado' },
+          { code: 'SEP', name: '04 Sistemas de Separación', desc: 'Clasificación por color, tamaño o peso.', href: '/industria/alimentos#separadoras' }
         ]
       }
     ]
@@ -27,7 +26,7 @@ const industriesData = [
   {
     key: 'reciclaje',
     title: 'Reciclaje y Economía Circular',
-    color: '#10B981',
+    color: '#84CC16',
     Icon: Recycle,
     desc: 'Tecnología líder para la economía circular y recuperación de materiales.',
     families: [
@@ -228,7 +227,7 @@ const IndustriesMenu = ({ isOpen, onMouseEnter, onMouseLeave, onClose }) => {
                   </div>
                   {/* Link to main industry page */}
                   <Link 
-                    to={`/industrias/${activeIndustry}`}
+                    to={`/industria/${activeIndustry}`}
                     onClick={onClose}
                     className="px-5 py-2.5 rounded-full border text-[10px] font-black tracking-widest uppercase hover:bg-white/10 transition-colors shadow-sm"
                     style={{ 
