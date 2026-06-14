@@ -5,10 +5,12 @@
     "logoSize": 98,
     "headerHeight": 100,
     "headerOpacity": 60,
-    "appVersion": "6.85",
+    "appVersion": "7.0",
     "globalImageSharpness": 100,
     "globalFilterColor": "#000000",
-    "globalFilterOpacity": 75
+    "globalFilterOpacity": 75,
+    "textJustify": true,
+    "disableImageFilters": false
   },
   "menus": [
     {
@@ -42,10 +44,16 @@
       "order": 5
     },
     {
+      "id": "7",
+      "name": "Proyectos",
+      "componentName": "ProjectsMenu",
+      "order": 6
+    },
+    {
       "id": "5",
       "name": "Empresa",
       "componentName": "CompanyMenu",
-      "order": 6
+      "order": 7
     }
   ],
   "pages": [
@@ -222,73 +230,6 @@
             "model3DMedia": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1772950255486_TRUPER%2057.dae",
             "designTitle": "Sistema de Reducción y<font color=\"#ffd700\"> Valorización Inteligente</font>",
             "modelAltitude": 2
-          }
-        },
-        {
-          "id": "proyectos",
-          "type": "proyectos",
-          "data": {
-            "title": "Proyectos <span class=\"text-[#F5C400]\">Destacados</span>",
-            "subtitle": "Casos de éxito y plantas industriales implementadas por nuestro equipo.",
-            "items": [
-              {
-                "id": 1,
-                "title": "Planta de Procesamiento RSU 600 TPD",
-                "desc": "Clasificación mecanizada, separación de reciclables y valorización de residuos sólidos urbanos para generación de combustibles alternativos.",
-                "specs": "Capacidad: 600 Ton/Día | Ubicación: Monterrey, MX",
-                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png",
-                "image2": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png",
-                "specsTable": {
-                  "capacidad": "600 Toneladas / Día",
-                  "ubicacion": "Monterrey, Nuevo León, MX",
-                  "aplicacion": "Clasificación y Separación de Residuos Sólidos Urbanos (RSU)",
-                  "control": "PLC Siemens S7-1500 + SCADA WinCC",
-                  "tecnologia": "Separación Óptica (NIR) + Clasificación por IA",
-                  "material": "Acero Anti-abrasión de Alta Resistencia",
-                  "consumo": "≈ 980 kW (Operación continua)",
-                  "eficiencia": "95.0% Disponibilidad Operativa",
-                  "estandares": "CE • ISO 14001 • ISO 45001"
-                }
-              },
-              {
-                "id": 2,
-                "title": "Línea de Procesamiento de Chocolate",
-                "desc": "Automatización integral para el control de temperatura, templado continuo y moldeado de chocolate de grado exportación.",
-                "specs": "Capacidad: 2000 kg/h | Ubicación: Bogotá, CO",
-                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115231575_choco%20color%202.png",
-                "image2": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115213579_choco%20bN%202.png",
-                "specsTable": {
-                  "capacidad": "2,000 kg/h",
-                  "ubicacion": "Bogotá, Colombia",
-                  "aplicacion": "Atemperado y Moldeado de Chocolate",
-                  "control": "PLC Siemens + HMI Industrial + SCADA",
-                  "tecnologia": "Industria 4.0 / SCR700 + Telemetría IoT",
-                  "material": "AISI 304 / 316L Food Grade",
-                  "consumo": "≈ 196 kW (Promedio de Operación)",
-                  "eficiencia": "98.5% (Disponibilidad Operativa)",
-                  "estandares": "CE • HACCP • GMP"
-                }
-              },
-              {
-                "id": 3,
-                "title": "Planta de Pelletizado de Plástico",
-                "desc": "Extrusión de alto rendimiento con desgasificación al vacío, filtrado hidráulico continuo y corte bajo agua.",
-                "specs": "Capacidad: 1200 kg/h | Ubicación: Lima, PE",
-                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png",
-                "image2": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png",
-                "specsTable": {
-                  "capacidad": "1,200 kg/h (PTCS185)",
-                  "ubicacion": "Lima, Perú",
-                  "aplicacion": "Extrusión y Pelletizado de Alto Rendimiento",
-                  "control": "PLC + HMI / 440 VAC, 3F, 60 Hz",
-                  "tecnologia": "Doble Desgasificación / Vacío Activo",
-                  "material": "Tornillo de 185 mm / Relación L/D 18-42",
-                  "consumo": "≈ 366 kW (Aproximado)",
-                  "eficiencia": "Water Ring Die Face / Doble Pistón",
-                  "estandares": "CE • ISO 9001 (Operadores: 2-4)"
-                }
-              }
-            ]
           }
         },
         {
