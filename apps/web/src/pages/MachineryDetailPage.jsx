@@ -24,7 +24,19 @@ import {
   AlignLeft,
   AlignCenter,
   Upload,
-  ArrowLeft
+  ArrowLeft,
+  Grid,
+  Droplet,
+  Waves,
+  RotateCw,
+  Target,
+  CircleDot,
+  Sliders,
+  Package,
+  Leaf,
+  Tag,
+  Sun,
+  Cable
 } from 'lucide-react';
 import Footer from '@/components/Footer.jsx';
 import { useCMS } from '@/context/CMSContext.jsx';
@@ -49,7 +61,19 @@ const iconMap = {
   Cpu,
   Shield,
   Zap,
-  Play
+  Play,
+  Grid,
+  Droplet,
+  Waves,
+  RotateCw,
+  Target,
+  CircleDot,
+  Sliders,
+  Package,
+  Leaf,
+  Tag,
+  Sun,
+  Cable
 };
 
 // Default machinery datasets
@@ -1307,55 +1331,88 @@ const MachineryDetailPage = () => {
           {/* STICKY SUBMENU PARA NAVEGACIÓN Y MAQUINARIA RELACIONADA */}
           {(() => {
             const currentIndustry = data.industry || defaults.industry;
+            const isRecycling = currentIndustry === 'reciclaje' || currentIndustry === 'reciclaje-y-plasticos';
+
+            // 17 opciones específicas de Reciclaje tomadas de la captura
+            const recyclingMenuItems = [
+              { label: 'TRITURACIÓN INDUSTRIAL', href: '/industria/reciclaje-y-plasticos#trituracion', icon: Settings },
+              { label: 'GRANULACIÓN', href: '/industria/reciclaje-y-plasticos#granulacion', icon: Grid },
+              { label: 'LAVADO DE PLÁSTICO', href: '/industria/reciclaje-y-plasticos#lavado', icon: Droplet },
+              { label: 'FLOTACIÓN', href: '/industria/reciclaje-y-plasticos#flotacion', icon: Waves },
+              { label: 'LAVADO POR FRICCIÓN', href: '/industria/reciclaje-y-plasticos#friccion', icon: RotateCw },
+              { label: 'SEPARACIÓN INDUSTRIAL', href: '/industria/reciclaje-y-plasticos#separacion', icon: Grid },
+              { label: 'CLASIFICACIÓN ÓPTICA', href: '/industria/reciclaje-y-plasticos#clasificacion-optica', icon: Target },
+              { label: 'PELETIZADO', href: '/industria/reciclaje-y-plasticos#peletizado', icon: CircleDot },
+              { label: 'COMPACTACIÓN', href: '/industria/reciclaje-y-plasticos#compactacion', icon: Sliders },
+              { label: 'MOLINOS TRITURADORES DE ALTA VELOCIDAD', href: '/maquinaria/reciclaje-molinos', icon: Zap, isMachine: true, code: 'reciclaje-molinos' },
+              { label: 'TRITURADORAS INDUSTRIALES DE MONO-EJE Y DOBLE EJE', href: '/maquinaria/reciclaje-trituradoras', icon: Package, isMachine: true, code: 'reciclaje-trituradoras' },
+              { label: 'PELETIZADO Y EXTRUSIÓN', href: '/maquinaria/reciclaje-peletizadoras', icon: Cable, isMachine: true, code: 'reciclaje-peletizadoras' },
+              { label: 'LÍNEAS DE LAVADO INDUSTRIALES', href: '/maquinaria/reciclaje-lineas-de-lavado', icon: Leaf, isMachine: true, code: 'reciclaje-lineas-de-lavado' },
+              { label: 'DESETIQUETADORAS INDUSTRIALES DE BOTELLAS', href: '/maquinaria/reciclaje-desetiquetadoras', icon: Tag, isMachine: true, code: 'reciclaje-desetiquetadoras' },
+              { label: 'SECADO DE ALTO RENDIMIENTO', href: '/maquinaria/reciclaje-sistemas-de-secado', icon: Wind, isMachine: true, code: 'reciclaje-sistemas-de-secado' },
+              { label: 'CLASIFICACIÓN Y SEPARACIÓN', href: '/maquinaria/reciclaje-sistemas-de-separacion', icon: Sliders, isMachine: true, code: 'reciclaje-sistemas-de-separacion' },
+              { label: 'CRISTALIZACIÓN INFRARROJA IRD', href: '/maquinaria/reciclaje-cristalizadoras', icon: Sun, isMachine: true, code: 'reciclaje-cristalizadoras' }
+            ];
+
+            // Generar dinámicamente las opciones para otras industrias (ej. Alimentos)
             const relatedMachines = Object.values(machineryDataMap)
               .filter(m => m.industry && m.industry === currentIndustry && m.machineCode);
 
+            const otherMenuItems = relatedMachines.map(m => {
+              const key = Object.keys(machineryDataMap).find(k => machineryDataMap[k].machineCode === m.machineCode) || m.machineCode;
+              
+              // Asignar iconos lógicos basados en el código de máquina
+              let IconComponent = Settings;
+              if (m.machineCode === 'MIX') IconComponent = Grid;
+              else if (m.machineCode === 'LAV') IconComponent = Droplet;
+              else if (m.machineCode === 'SEC') IconComponent = Wind;
+              else if (m.machineCode === 'COC') IconComponent = Flame;
+              else if (m.machineCode === 'DOS') IconComponent = Sliders;
+              else if (m.machineCode === 'EXT') IconComponent = Cable;
+              else if (m.machineCode === 'MLD') IconComponent = Package;
+              else if (m.machineCode === 'TRT') IconComponent = Zap;
+
+              return {
+                label: m.heroTitle.replace('PRODUCCIÓN DE ', '').replace('SISTEMAS DE ', '').replace('INDUSTRIALES', ''),
+                href: `/maquinaria/${key}`,
+                icon: IconComponent,
+                isMachine: true,
+                code: key
+              };
+            });
+
+            const menuItems = isRecycling ? recyclingMenuItems : otherMenuItems;
+
             return (
-              <div className="w-full bg-[#080B12]/80 backdrop-blur-md border-b border-white/5 sticky top-[90px] z-40 py-3.5 px-4 flex flex-wrap justify-center items-center gap-2.5 shadow-lg">
-                {/* Botón de Regresar Rápido integrado en el Submenu */}
+              <div className="w-full bg-[#04060A]/95 backdrop-blur-md border-y border-[#84CC16]/30 sticky top-[90px] z-40 py-4 px-6 flex flex-wrap justify-center items-center gap-3 shadow-[0_0_35px_rgba(132,204,22,0.08)]">
+                {/* Botón de Volver con estilo industrial */}
                 <Link
                   to={backPath}
-                  className="px-4 py-2.5 rounded-full text-[11px] font-black uppercase tracking-widest text-white/60 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-300 flex items-center gap-2 cursor-pointer group"
+                  className="px-4 py-2.5 rounded-lg text-[10px] md:text-[11px] font-black uppercase tracking-widest text-white bg-black/40 border border-[#84CC16]/25 hover:border-[#84CC16] hover:bg-[#84CC16]/10 hover:shadow-[0_0_15px_rgba(132,204,22,0.15)] transition-all duration-300 flex items-center gap-2 cursor-pointer group"
                 >
-                  <ArrowLeft size={12} className="text-white/60 group-hover:text-white transition-transform duration-300 group-hover:-translate-x-0.5" />
+                  <ArrowLeft size={13} className="text-[#84CC16] group-hover:scale-110 transition-transform duration-300" />
                   <span>Volver</span>
                 </Link>
 
-                {relatedMachines.length > 0 && (
-                  <div className="h-4 w-[1px] bg-white/10 mx-1 hidden sm:block" />
-                )}
+                {menuItems.map((item, index) => {
+                  const isActive = item.isMachine && item.code === resolvedId;
+                  const Icon = item.icon;
 
-                {relatedMachines.map((m) => {
-                  const isActive = m.machineCode === resolvedId;
-                  const mColor = m.theme.accent;
-                  const label = m.heroTitle.replace('PRODUCCIÓN DE ', '').replace('SISTEMAS DE ', '');
-                  
                   return (
                     <Link
-                      key={m.machineCode}
-                      to={`/maquinaria/${m.machineCode}`}
-                      className={`px-5 py-2.5 rounded-full text-[11px] font-black uppercase tracking-widest transition-all duration-300 flex items-center gap-2.5 cursor-pointer border whitespace-nowrap ${
+                      key={index}
+                      to={item.href}
+                      className={`px-4.5 py-2.5 rounded-lg text-[10px] md:text-[11px] font-black uppercase tracking-widest transition-all duration-300 flex items-center gap-2.5 cursor-pointer border whitespace-nowrap bg-black/40 ${
                         isActive 
-                          ? 'text-black shadow-lg scale-105' 
-                          : 'text-white/80 bg-white/5 hover:bg-white/10 hover:text-white hover:scale-[1.02]'
+                          ? 'border-[#84CC16] shadow-[0_0_20px_rgba(132,204,22,0.25)] scale-105 text-white' 
+                          : 'border-[#84CC16]/25 text-white/95 hover:border-[#84CC16] hover:bg-[#84CC16]/10 hover:shadow-[0_0_15px_rgba(132,204,22,0.15)] hover:scale-[1.02]'
                       }`}
-                      style={isActive ? { 
-                        backgroundColor: mColor, 
-                        borderColor: mColor,
-                        boxShadow: `0 0 20px ${mColor}40`
-                      } : {
-                        borderColor: `${mColor}40`,
-                        boxShadow: `0 0 10px ${mColor}10 inset`
-                      }}
                     >
-                      <span 
-                        className="w-1.5 h-1.5 rounded-full shrink-0" 
-                        style={{ 
-                          backgroundColor: isActive ? '#000000' : mColor,
-                          boxShadow: isActive ? 'none' : `0 0 8px ${mColor}`
-                        }} 
+                      <Icon 
+                        size={14} 
+                        className={`text-[#84CC16] shrink-0 transition-all duration-300 ${isActive ? 'scale-110 drop-shadow-[0_0_5px_#84CC16]' : ''}`} 
                       />
-                      {label}
+                      <span>{item.label}</span>
                     </Link>
                   );
                 })}
