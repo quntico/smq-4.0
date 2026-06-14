@@ -40,11 +40,11 @@ const MobileMenu = ({ isOpen, onClose }) => {
           name: 'Alimentos',
           href: '/industrias/alimentos',
           subItems: [
-            { name: '01 Líneas de Compostaje', href: '/industrias/alimentos#compostaje' },
-            { name: '02 Líneas de Lavado', href: '/industrias/alimentos#lavado' },
-            { name: '03 Producción de Alimentos', href: '/industrias/alimentos#produccion-alimentos' },
-            { name: '04 Empaquetado y Llenado', href: '/industrias/alimentos#empaquetado-llenado' },
-            { name: '05 Sistemas de Separación', href: '/industrias/alimentos#sistemas-separacion' }
+            { name: '01 Procesamiento', href: '/industrias/alimentos#procesamiento' },
+            { name: '02 Producción Continua', href: '/industrias/alimentos#produccion' },
+            { name: '03 Empaque', href: '/industrias/alimentos#empaque' },
+            { name: '04 Ingredientes', href: '/industrias/alimentos#ingredientes' },
+            { name: '05 Plantas Integradas', href: '/industrias/alimentos#plantas-integradas' }
           ]
         },
         { name: 'Reciclaje y Plásticos', href: '/industrias/reciclaje-y-plasticos' },
