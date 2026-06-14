@@ -1386,24 +1386,35 @@ const MachineryDetailPage = () => {
 
             return (
               <div className="w-full bg-[#04060A]/95 backdrop-blur-md border-y border-[#84CC16]/30 sticky top-[90px] z-40 shadow-[0_0_35px_rgba(132,204,22,0.08)] transition-all duration-300">
-                {/* Fila de cabecera del submenú pegajoso */}
-                <div className="max-w-[1400px] mx-auto px-6 py-2.5 flex items-center justify-between gap-4 border-b border-[#84CC16]/10">
-                  <div className="flex items-center gap-3">
+                {/* Fila de cabecera del submenú pegajoso - al hacer clic aquí se abre/cierra el panel */}
+                <div 
+                  onClick={(e) => {
+                    // Evitar que cierre/abra si da clic en el botón de Volver
+                    if (e.target.closest('.back-btn')) return;
+                    setIsMenuOpen(!isMenuOpen);
+                  }}
+                  className="max-w-[1400px] mx-auto px-6 py-3 flex items-center justify-between gap-4 border-b border-[#84CC16]/10 cursor-pointer hover:bg-white/[0.01] select-none transition-colors duration-200"
+                >
+                  <div className="flex items-center gap-4">
                     <Link
                       to={backPath}
-                      className="px-3.5 py-2 rounded text-[10px] font-black uppercase tracking-widest text-white bg-black/40 border border-[#84CC16]/25 hover:border-[#84CC16] hover:bg-[#84CC16]/10 hover:shadow-[0_0_10px_rgba(132,204,22,0.15)] transition-all duration-300 flex items-center gap-1.5 cursor-pointer group"
+                      onClick={(e) => e.stopPropagation()}
+                      className="back-btn px-3.5 py-2 rounded text-[10px] md:text-[11px] font-black uppercase tracking-widest text-white bg-black/40 border border-[#84CC16]/25 hover:border-[#84CC16] hover:bg-[#84CC16]/10 hover:shadow-[0_0_10px_rgba(132,204,22,0.15)] transition-all duration-300 flex items-center gap-1.5 cursor-pointer group"
                     >
                       <ArrowLeft size={12} className="text-[#84CC16] group-hover:scale-110 transition-transform duration-300" />
                       <span>Volver</span>
                     </Link>
-                    <span className="text-[10px] text-white/50 font-bold uppercase tracking-wider hidden sm:inline-block">
-                      Sector Activo: <span className="text-[#84CC16]">{backName.replace('Sector ', '')}</span>
+                    <span className="text-[10px] md:text-xs text-white/50 font-bold uppercase tracking-wider">
+                      Sector Activo: <span className="text-[#84CC16] text-[11px] md:text-[14px] font-extrabold tracking-widest ml-1">{backName.replace('Sector ', 'INDUSTRIA DE ').toUpperCase()}</span>
                     </span>
                   </div>
 
                   {/* Toggle para abrir/cerrar la botonera */}
                   <button
-                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsMenuOpen(!isMenuOpen);
+                    }}
                     className="px-4 py-2 rounded text-[10px] font-black uppercase tracking-widest text-white bg-black/40 border border-[#84CC16]/40 hover:border-[#84CC16] hover:bg-[#84CC16]/20 transition-all duration-300 flex items-center gap-2 cursor-pointer shadow-[0_0_10px_rgba(132,204,22,0.1)]"
                   >
                     <Sliders size={12} className="text-[#84CC16] animate-pulse" />
@@ -1456,6 +1467,17 @@ const MachineryDetailPage = () => {
                     </motion.div>
                   )}
                 </AnimatePresence>
+
+                {/* Pestaña física e indicador brillante inferior en el centro */}
+                <div 
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  className="absolute left-1/2 -translate-x-1/2 -bottom-[17px] bg-[#04060A]/95 border-x border-b border-[#84CC16]/30 px-6 py-1 rounded-b-md flex items-center justify-center gap-2 cursor-pointer group shadow-[0_4px_12px_rgba(132,204,22,0.1)] hover:bg-[#84CC16]/10 hover:border-[#84CC16] transition-all duration-300 z-50 select-none"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#84CC16] shadow-[0_0_8px_#84CC16] shrink-0 animate-pulse" />
+                  <span className="text-[8px] md:text-[9px] font-black tracking-[0.15em] text-white/80 group-hover:text-white uppercase transition-colors">
+                    {isMenuOpen ? 'OCULTAR PANEL' : 'MOSTRAR PANEL'}
+                  </span>
+                </div>
               </div>
             );
           })()}
