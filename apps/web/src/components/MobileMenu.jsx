@@ -71,6 +71,20 @@ const MobileMenu = ({ isOpen, onClose }) => {
       type: 'expandable',
       items: [
         { name: 'Preparación', href: '/maquinaria/preparacion' },
+        {
+          name: 'Reciclaje',
+          href: '/maquinaria/reciclaje',
+          subItems: [
+            { name: '01 Molinos', href: '/maquinaria/reciclaje-molinos' },
+            { name: '02 Trituradoras', href: '/maquinaria/reciclaje-trituradoras' },
+            { name: '03 Peletizadoras', href: '/maquinaria/reciclaje-peletizadoras' },
+            { name: '04 Líneas de Lavado', href: '/maquinaria/reciclaje-lineas-de-lavado' },
+            { name: '05 Desetiquetadoras', href: '/maquinaria/reciclaje-desetiquetadoras' },
+            { name: '06 Sistemas de Secado', href: '/maquinaria/reciclaje-sistemas-de-secado' },
+            { name: '07 Sistemas de Separación', href: '/maquinaria/reciclaje-sistemas-de-separacion' },
+            { name: '08 Cristalizadoras IRD', href: '/maquinaria/reciclaje-cristalizadoras' }
+          ]
+        },
         { name: 'Procesamiento', href: '/maquinaria/procesamiento' },
         { name: 'Separación', href: '/maquinaria/separacion' },
         { name: 'Empaque', href: '/maquinaria/empaque' },

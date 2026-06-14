@@ -459,6 +459,449 @@ const machineryDataMap = {
       { name: 'Válvula Rotativa de Alta Presión', desc: 'Alimentación continua de líneas de transporte por presión sin fugas de aire.' },
       { name: 'Divertor de Vías Neumático', desc: 'Distribución automática de un punto de origen hacia múltiples destinos.' }
     ]
+  },
+  'reciclaje-molinos': {
+    industry: 'reciclaje',
+    machineCode: 'MOL',
+    pageNumber: '15',
+    theme: {
+      accent: '#10B981',
+      accentGlow: 'rgba(16, 185, 129, 0.4)',
+      bgStart: '#080B12',
+      bgEnd: '#0A0B10',
+      glowColor: 'green'
+    },
+    heroTitle: 'MOLINOS TRITURADORES DE ALTA VELOCIDAD',
+    heroSubtitle: 'Reducción y molienda precisa de termoplásticos rígidos, purgas y películas.',
+    heroDesc: 'Nuestros molinos de la serie GX están diseñados para la reducción de tamaño de termoplásticos en circuito cerrado. Con un diseño de corte helicoidal progresivo tipo V y cámara de molienda optimizada, garantizan una alta densidad de hojuelas con una mínima generación de polvo y finos.',
+    heroMedia: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122',
+    kpis: [
+      { value: '1200', unit: 'KG/H', label: 'Capacidad Máxima', desc: 'Molienda continua estabilizada' },
+      { value: '3', unit: 'CUCHILLAS ROTOR', label: 'Corte Progresivo', desc: 'Disposición helicoidal tipo V' },
+      { value: '55', unit: 'KW', label: 'Potencia Motor', desc: 'Transmisión robusta de alta inercia' },
+      { value: '< 85', unit: 'DBA', label: 'Nivel Ruido', desc: 'Cabina insonorizada integrada' }
+    ],
+    stations: [
+      { id: 1, title: 'Alimentación controlada', desc: 'Tolva inclinada con cortinas deflectoras anti-retorno de material.', iconName: 'Inbox' },
+      { id: 2, title: 'Corte de cizalla', desc: 'Cuchillas del rotor helicoidal cortan contra cuchillas estatoras fijas.', iconName: 'Flame' },
+      { id: 3, title: 'Cribado de control', desc: 'Criba inferior calibrada que asegura el tamaño homogéneo de hojuela.', iconName: 'Maximize2' },
+      { id: 4, title: 'Evacuación neumática', desc: 'Extractor por soplador neumático que envía las hojuelas al ciclón.', iconName: 'Wind' }
+    ],
+    applications: [
+      { name: 'Termoplásticos Rígidos', icon: '🧫', desc: 'Molienda de botellas, cajas, tubos y piezas de inyección' },
+      { name: 'Películas y Films', icon: '🛍️', desc: 'Procesamiento de bolsas de PE y films estirables con agua' },
+      { name: 'Purgas de Extrusión', icon: '🪵', desc: 'Trituración directa de bloques de arranque de máquinas extrusoras' }
+    ],
+    advantages: [
+      { title: 'CORTE DE CIZALLA AVANZADO', desc: 'Diseño de rotor helicoidal que minimiza el consumo de energía y reduce la carga térmica sobre el polímero.', highlight: 'Eficiencia Térmica' },
+      { title: 'APERTURA HIDRÁULICA RÁPIDA', desc: 'Acceso total a la cámara de corte y criba mediante cilindros hidráulicos en menos de 15 minutos.', highlight: 'Fácil Mantenimiento' }
+    ],
+    seriesSpecs: [
+      {
+        title: 'SERIE DE MOLINOS INDUSTRIALES GX',
+        headers: ['Modelo', 'Diámetro Rotor (mm)', 'Ancho Rotor (mm)', 'Cuchillas Rotor', 'Cuchillas Estator', 'Potencia (kW)', 'Capacidad (kg/h)'],
+        rows: [
+          ['Molino GX32', '320', '500', '3', '2', '18.5', '250 - 450'],
+          ['Molino GX42', '420', '800', '3', '2', '37', '500 - 800'],
+          ['Molino GX45', '450', '1000', '5', '2', '55', '800 - 1200']
+        ]
+      }
+    ],
+    configurations: [
+      { name: 'Alimentador de Rodillos Forzado', desc: 'Introduce de forma controlada películas de plástico en bobinas directamente.' },
+      { name: 'Cámara refrigerada por agua', desc: 'Previene la deformación térmica de plásticos con bajo punto de fusión.' }
+    ]
+  },
+  'reciclaje-trituradoras': {
+    industry: 'reciclaje',
+    machineCode: 'TRT',
+    pageNumber: '16',
+    theme: {
+      accent: '#10B981',
+      accentGlow: 'rgba(16, 185, 129, 0.4)',
+      bgStart: '#080B12',
+      bgEnd: '#0A0B10',
+      glowColor: 'green'
+    },
+    heroTitle: 'TRITURADORAS INDUSTRIALES DE MONO-EJE Y DOBLE EJE',
+    heroSubtitle: 'Triturado primario de pacas, purgas, contenedores y materiales gruesos.',
+    heroDesc: 'Nuestras trituradoras (shredders) están diseñadas para procesar materiales de alta densidad y espesor con un elevado torque. Disponibles en versiones mono-eje de empuje hidráulico y doble-eje de corte cruzado para máxima reducción.',
+    heroMedia: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122',
+    kpis: [
+      { value: '5000', unit: 'KG/H', label: 'Capacidad Máxima', desc: 'Trituración pesada continua' },
+      { value: '110', unit: 'KW', label: 'Fuerza Total', desc: 'Motores síncronos de alto torque' },
+      { value: '2', unit: 'EJES DE CORTE', label: 'Configuraciones', desc: 'Sistemas mono-eje y doble-eje' },
+      { value: 'Auto', unit: 'REVERSA PLC', label: 'Anti-Atascamiento', desc: 'Inversión de marcha automática' }
+    ],
+    stations: [
+      { id: 1, title: 'Alimentación por tolva', desc: 'Ingreso del material en pacas o bloques directamente por gravedad.', iconName: 'Inbox' },
+      { id: 2, title: 'Empujador hidráulico', desc: 'Pistón inteligente que presiona el material contra el rotor en movimiento.', iconName: 'Maximize2' },
+      { id: 3, title: 'Trituración y desgarre', desc: 'Cuchillas cuadriculadas atornilladas desgarran el material contra contracuchillas.', iconName: 'Flame' },
+      { id: 4, title: 'Descarga en criba', desc: 'Criba de gran espesor filtra el triturado antes de su transporte neumático.', iconName: 'LogOut' }
+    ],
+    applications: [
+      { name: 'Purgas y Bloques', icon: '🪵', desc: 'Trituración de bloques de plástico rígido y coladas de inyección' },
+      { name: 'Pacas Compactadas', icon: '📦', desc: 'Apertura y triturado directo de pacas de botellas o films' },
+      { name: 'Residuos Orgánicos / Madera', icon: '🌲', desc: 'Valorización y reducción de volumen de pallets y desechos' }
+    ],
+    advantages: [
+      { title: 'SISTEMA HIDRÁULICO INTELIGENTE', desc: 'Control dinámico de presión del empujador que evita sobrecargas eléctricas y atascos del rotor.', highlight: 'Protección Mecánica' },
+      { title: 'CUCHILLAS MULTICARA ROTATIVAS', desc: 'Cuchillas cuadradas atornilladas con 4 bordes de corte utilizables secuencialmente.', highlight: 'Bajo Costo Operativo' }
+    ],
+    seriesSpecs: [
+      {
+        title: 'SERIE ECO | MONO-EJE',
+        headers: ['Modelo', 'Longitud Eje (mm)', 'Diámetro Eje (mm)', 'Cuchillas', 'Potencia (kW)', 'Capacidad (kg/h)'],
+        rows: [
+          ['ECO600', '600', '220', '24', '18.5', '300 - 500'],
+          ['ECO800', '800', '220', '34', '30', '500 - 800'],
+          ['ECO1000', '1000', '220', '44', '37', '800 - 1200']
+        ]
+      },
+      {
+        title: 'SERIE GXS | MEDIANA PRODUCCIÓN MONO-EJE',
+        headers: ['Modelo', 'Longitud Eje (mm)', 'Diámetro Eje (mm)', 'Cuchillas', 'Potencia (kW)', 'Capacidad (kg/h)'],
+        rows: [
+          ['GXS250', '600', '250', '30', '22', '400 - 600'],
+          ['GXS500', '800', '300', '40', '37', '600 - 1000'],
+          ['GXS750', '1000', '350', '50', '45', '1000 - 1500'],
+          ['GXS1000', '1200', '400', '60', '75', '1500 - 2500']
+        ]
+      },
+      {
+        title: 'SERIE MINI | DOBLE EJE',
+        headers: ['Modelo', 'Cámara de Corte (mm)', 'Espesor Cuchilla (mm)', 'Cuchillas (pcs)', 'Potencia (kW)', 'Capacidad (kg/h)'],
+        rows: [
+          ['MINI400', '400 x 400', '20', '20', '7.5 x 2', '200 - 400'],
+          ['MINI500', '500 x 500', '20', '25', '11 x 2', '400 - 600'],
+          ['MINI600', '600 x 600', '30', '20', '15 x 2', '600 - 800']
+        ]
+      },
+      {
+        title: 'SERIE M | DOBLE EJE INDUSTRIAL',
+        headers: ['Modelo', 'Cámara de Corte (mm)', 'Espesor Cuchilla (mm)', 'Cuchillas (pcs)', 'Potencia (kW)', 'Capacidad (kg/h)'],
+        rows: [
+          ['M400', '800 x 600', '40', '20', '30 x 2', '1000 - 1500'],
+          ['M800', '1000 x 800', '50', '20', '45 x 2', '1500 - 3000'],
+          ['M1200', '1200 x 1000', '60', '20', '75 x 2', '3000 - 5000']
+        ]
+      }
+    ],
+    configurations: [
+      { name: 'Cribado Dinámico', desc: 'Permite calibrar la descarga a tamaños específicos de salida.' },
+      { name: 'Tolva de Empuje Vertical', desc: 'Incrementa la velocidad de mordida para materiales de gran volumen y ligereza.' }
+    ]
+  },
+  'reciclaje-peletizadoras': {
+    industry: 'reciclaje',
+    machineCode: 'PEL',
+    pageNumber: '17',
+    theme: {
+      accent: '#10B981',
+      accentGlow: 'rgba(16, 185, 129, 0.4)',
+      bgStart: '#080B12',
+      bgEnd: '#0A0B10',
+      glowColor: 'green'
+    },
+    heroTitle: 'SISTEMAS DE PELETIZADO Y EXTRUSIÓN',
+    heroSubtitle: 'Producción de resina plástica en pellets de alta calidad a partir de material reciclado.',
+    heroDesc: 'Nuestras líneas de peletizado cuentan con extrusoras mono y doble tornillo con zonas de desgasificación activa y cambiadores de filtros automáticos. Ofrecen un corte homogéneo al anillo o bajo agua para pellets libres de humedad y olores.',
+    heroMedia: 'https://images.unsplash.com/photo-1659167889361-890c288f9dca',
+    kpis: [
+      { value: '1200', unit: 'KG/H', label: 'Capacidad Máxima', desc: 'Extrusión y corte continuo' },
+      { value: 'L/D 36', unit: 'GEOMETRÍA HUSILLO', label: 'Relación Husillo', desc: 'Máxima homogeneización y purga' },
+      { value: '250', unit: 'KW', label: 'Potencia Motor', desc: 'Sistemas regenerativos de imán permanente' },
+      { value: '99.5%', unit: 'EFICIENCIA', label: 'Pureza de Pellet', desc: 'Pellet grado botella y película' }
+    ],
+    stations: [
+      { id: 1, title: 'Alimentación compactada', desc: 'Compactador-cortador integrado que precalienta y dosifica la película.', iconName: 'Inbox' },
+      { id: 2, title: 'Extrusión bimetálica', desc: 'Husillo de diseño optimizado funde y plastifica el material sin quemarlo.', iconName: 'Flame' },
+      { id: 3, title: 'Desgasificación activa', desc: 'Doble bomba de vacío elimina gases, humedad y olores de la masa fundida.', iconName: 'Wind' },
+      { id: 4, title: 'Cambiador de filtros', desc: 'Sistema hidráulico de placas filtra contaminantes antes del cabezal de corte.', iconName: 'Shield' }
+    ],
+    applications: [
+      { name: 'Película Plástica (LDPE/LLDPE)', icon: '🛍️', desc: 'Peletizado de mermas industriales y películas agrícolas' },
+      { name: 'Plásticos Rígidos (HDPE/PP)', icon: '🛢️', desc: 'Procesamiento de hojuelas lavadas de tapas, botes y tarimas' },
+      { name: 'Unicel y EPS', icon: '📦', desc: 'Compactación y peletizado de bloques de poliestireno expandido' }
+    ],
+    advantages: [
+      { title: 'CAMBIADOR DE FILTROS SIN PARO', desc: 'Módulos hidráulicos de doble pistón que permiten reemplazar la malla sin interrumpir el flujo de extrusión.', highlight: 'Cero Paradas' },
+      { title: 'COMPACTADOR INTEGRADO', desc: 'Sistema que pre-calienta, densifica y alimenta de forma forzada la extrusora en un solo proceso mecánico.', highlight: 'Eficiencia Operativa' }
+    ],
+    seriesSpecs: [
+      {
+        title: 'TABLA COMPARATIVA DE SERIES DE PELETIZADO',
+        headers: ['Serie', 'Aplicación Principal', 'Sistema de Corte', 'Diámetro Husillo (mm)', 'L/D', 'Capacidad (kg/h)'],
+        rows: [
+          ['Serie ECO-M', 'Plásticos con humedad (cascada)', 'Corte en frío (tallarines)', '100 - 150', '28 - 32', '150 - 350'],
+          ['Serie SP', 'Plásticos rígidos (HDPE/PP)', 'Corte al anillo de agua', '100 - 180', '30 - 36', '250 - 800'],
+          ['Serie ZL', 'Películas plásticas (LDPE/LLDPE)', 'Compactador integrado + Anillo', '85 - 160', '32 - 38', '200 - 600'],
+          ['Serie WP', 'Sistemas de cascada (alta humedad)', 'Corte al anillo de agua', '120 - 180', '32 / 28', '300 - 1000'],
+          ['Serie EPS', 'Bloques de unicel (EPS compactado)', 'Corte al anillo de agua', '120 - 150', '28 - 30', '150 - 300'],
+          ['Serie PT', 'Hojuelas de PET (botella a hojuela)', 'Peletizado bajo agua / Spagetti', '90 - 150', '36 - 42', '300 - 1200']
+        ]
+      }
+    ],
+    configurations: [
+      { name: 'Dosificador de Aditivos Masterbatch', desc: 'Inyección volumétrica o gravimétrica de aditivos y colorantes.' },
+      { name: 'Corte Bajo Agua (Under-water Pelleting)', desc: 'Ideal para resinas de baja viscosidad y máxima estética visual.' }
+    ]
+  },
+  'reciclaje-lineas-de-lavado': {
+    industry: 'reciclaje',
+    machineCode: 'LAV',
+    pageNumber: '18',
+    theme: {
+      accent: '#10B981',
+      accentGlow: 'rgba(16, 185, 129, 0.4)',
+      bgStart: '#080B12',
+      bgEnd: '#0A0B10',
+      glowColor: 'green'
+    },
+    heroTitle: 'LÍNEAS DE LAVADO INDUSTRIALES',
+    heroSubtitle: 'Plantas llave en mano para pre-lavado, lavado térmico e higienización de polímeros.',
+    heroDesc: 'Sistemas integrales de lavado y descontaminación para la industria de reciclaje de plásticos. Con configuraciones modulares que incluyen tinas de flotación, lavadores de fricción y secadores centrífugos automáticos.',
+    heroMedia: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158',
+    kpis: [
+      { value: '3000', unit: 'KG/H', label: 'Capacidad Máxima', desc: 'Lavado continuo a gran escala' },
+      { value: '4', unit: 'ETAPAS DE LAVADO', label: 'Proceso de Pureza', desc: 'Pre-lavado, fricción, térmico y enjuague' },
+      { value: '99.8%', unit: 'EFICIENCIA SEPARACIÓN', label: 'Remoción de Tapas', desc: 'Separación por densidad en tinas de flotación' },
+      { value: '< 1%', unit: 'HUMEDAD FINAL', label: 'Eficiencia Secado', desc: 'Entrega de hojuelas secas para extrusión' }
+    ],
+    stations: [
+      { id: 1, title: 'Pre-lavado y molienda', desc: 'Remoción primaria de tierras y etiquetas mediante molienda húmeda.', iconName: 'Inbox' },
+      { id: 2, title: 'Lavado por fricción', desc: 'Turbina de alta velocidad elimina pegamento y suciedad adherida por fricción de agua.', iconName: 'Flame' },
+      { id: 3, title: 'Separación densimétrica', desc: 'Tina de flotación que separa plásticos ligeros (tapas) de pesados (PET).', iconName: 'Maximize2' },
+      { id: 4, title: 'Secado centrífugo', desc: 'Centrífuga horizontal elimina el 99% de humedad residual en la hojuela.', iconName: 'Wind' }
+    ],
+    applications: [
+      { name: 'Botellas de PET post-consumo', icon: '🥤', desc: 'Lavado grado alimenticio para reciclaje botella a botella' },
+      { name: 'Película Plástica PE/PP', icon: '🛍️', desc: 'Limpieza de películas agrícolas y bolsas post-industriales' },
+      { name: 'Contenedores rígidos HDPE', icon: '🛢️', desc: 'Remoción de químicos, grasas y aceites de envases industriales' }
+    ],
+    advantages: [
+      { title: 'LAVADO TÉRMICO Asistido', desc: 'Uso de sosa cáustica y surfactantes en caliente para disolver los pegamentos más difíciles.', highlight: 'Remoción Química' },
+      { title: 'SISTEMA DE FILTRACIÓN DE AGUA', desc: 'Recirculación de agua de proceso en circuito cerrado con filtros de malla automáticos.', highlight: 'Ahorro Hídrico' }
+    ],
+    seriesSpecs: [
+      {
+        title: 'SERIES DE LÍNEAS DE LAVADO INDUSTRIALES',
+        headers: ['Serie', 'Material de Proceso', 'Etapas del Sistema', 'Consumo Agua (m³/t)', 'Potencia Total (kW)', 'Capacidad (kg/h)'],
+        rows: [
+          ['Serie LPET', 'Botellas de PET post-consumo', 'Pre-lavado, Molienda húmeda, Separación, Lavado térmico', '3 - 5 (con filtración)', '180 - 350', '1000 - 3000'],
+          ['Serie LRP', 'Películas plásticas (PE/PP)', 'Trituración, Lavado fricción, Tina flotación, Centrifugado', '4 - 6 (con filtración)', '150 - 280', '500 - 2000']
+        ]
+      }
+    ],
+    configurations: [
+      { name: 'Separadora de Etiquetas por Aire (Zig-Zag)', desc: 'Módulo neumático para remover polvo y trozos de etiquetas secas.' },
+      { name: 'Dosificador de Químicos Autónomo', desc: 'Regulación automática de pH, sosa y detergente en el lavado térmico.' }
+    ]
+  },
+  'reciclaje-desetiquetadoras': {
+    industry: 'reciclaje',
+    machineCode: 'DES',
+    pageNumber: '19',
+    theme: {
+      accent: '#10B981',
+      accentGlow: 'rgba(16, 185, 129, 0.4)',
+      bgStart: '#080B12',
+      bgEnd: '#0A0B10',
+      glowColor: 'green'
+    },
+    heroTitle: 'DESETIQUETADORAS INDUSTRIALES DE BOTELLAS',
+    heroSubtitle: 'Remoción eficiente de etiquetas termoencogibles de botellas PET y PE.',
+    heroDesc: 'Nuestras desetiquetadoras de la serie RC eliminan etiquetas autoadhesivas y sleeves mediante cuchillas especiales atornilladas en un rotor helicoidal. Evitan la fractura del cuello de la botella manteniendo la integridad del envase antes de la molienda.',
+    heroMedia: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122',
+    kpis: [
+      { value: '98%', unit: 'EFICIENCIA', label: 'Tasa de Desetiquetado', desc: 'Remoción de etiquetas sleeve de alta adhesión' },
+      { value: '< 2%', unit: 'ROTURA BOTELLA', label: 'Integridad del Envase', desc: 'Mantiene las botellas enteras' },
+      { value: '37', unit: 'KW', label: 'Potencia Motor', desc: 'Tracción estable para flujos densos' },
+      { value: '3000', unit: 'KG/H', label: 'Capacidad Máxima', desc: 'Alimentación continua automatizada' }
+    ],
+    stations: [
+      { id: 1, title: 'Alimentación por tolva', desc: 'Ingreso continuo de botellas sopladas al compartimento del rotor.', iconName: 'Inbox' },
+      { id: 2, title: 'Remoción por fricción', desc: 'Cuchillas del rotor rasgan y cortan la etiqueta sin romper la botella.', iconName: 'Flame' },
+      { id: 3, title: 'Inyección de agua', desc: 'Rociadores interiores que lavan y facilitan el desprendimiento de etiquetas.', iconName: 'Wind' },
+      { id: 4, title: 'Separación neumática', desc: 'Criba interna descarga las botellas y extrae las etiquetas por flujo de aire.', iconName: 'LogOut' }
+    ],
+    applications: [
+      { name: 'Botellas de PET', icon: '🥤', desc: 'Remoción de sleeves de botellas de refrescos y agua post-consumo' },
+      { name: 'Envases de HDPE', icon: '🛢️', desc: 'Desetiquetado de botellas de leche, detergente y envases de soplado' }
+    ],
+    advantages: [
+      { title: 'CUCHILLAS CON DISEÑO EXCLUSIVO', desc: 'Cuchillas de aleación templada que enganchan la etiqueta sin penetrar el cuerpo de la botella.', highlight: 'Bajo Desperdicio' },
+      { title: 'OPERACIÓN CONTINUA EN HÚMEDO', desc: 'Inyección de agua de proceso que lubrica la cámara de fricción, evitando el sobrecalentamiento del plástico.', highlight: 'Limpieza Asistida' }
+    ],
+    seriesSpecs: [
+      {
+        title: 'DESETIQUETADORAS INDUSTRIALES SERIE RC',
+        headers: ['Modelo', 'Tasa de Remoción (%)', 'Tasa de Rotura (%)', 'Diámetro Rotor (mm)', 'Potencia Motor (kW)', 'Capacidad (kg/h)'],
+        rows: [
+          ['RC1000', '> 95%', '< 3%', '1000', '22', '1000 - 1500'],
+          ['RC1500', '> 98%', '< 2%', '1200', '37', '2000 - 3000']
+        ]
+      }
+    ],
+    configurations: [
+      { name: 'Rotor con Cuchillas de Recambio Rápido', desc: 'Cuchillas empernadas en lugar de soldadas para un reemplazo ágil.' },
+      { name: 'Módulo de Extracción de Etiquetas por Viento', desc: 'Ciclón adicional para la separación física y ensacado de etiquetas.' }
+    ]
+  },
+  'reciclaje-sistemas-de-secado': {
+    industry: 'reciclaje',
+    machineCode: 'SEC',
+    pageNumber: '20',
+    theme: {
+      accent: '#10B981',
+      accentGlow: 'rgba(16, 185, 129, 0.4)',
+      bgStart: '#080B12',
+      bgEnd: '#0A0B10',
+      glowColor: 'green'
+    },
+    heroTitle: 'SISTEMAS DE SECADO DE ALTO RENDIMIENTO',
+    heroSubtitle: 'Secadoras mecánicas horizontales, centrífugas y squeezers para hojuelas y films.',
+    heroDesc: 'Sistemas industriales de deshidratación de polímeros. Ofrecen una reducción drástica de humedad residual para hojuelas rígidas y películas plásticas finas mediante procesos de centrifugado mecánico de alta inercia o exprimido por compresión.',
+    heroMedia: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158',
+    kpis: [
+      { value: '3000', unit: 'KG/H', label: 'Capacidad Máxima', desc: 'Secado dinámico continuo' },
+      { value: '< 1%', unit: 'HUMEDAD FINAL', label: 'Secado en Rígidos', desc: 'Perfecto para hojuelas de PET y HDPE' },
+      { value: '110', unit: 'KW', label: 'Potencia Squeezer', desc: 'Exprimido extremo para películas' },
+      { value: 'Auto', unit: 'LIMPIEZA DE MALLA', label: 'Mantenimiento', desc: 'Sistema de autolavado por chorro de agua' }
+    ],
+    stations: [
+      { id: 1, title: 'Alimentación húmeda', desc: 'Ingreso directo de hojuelas con alta humedad al rotor centrífugo.', iconName: 'Inbox' },
+      { id: 2, title: 'Centrifugado dinámico', desc: 'Rotor gira a más de 1200 RPM lanzando el agua a través de una criba circular.', iconName: 'Flame' },
+      { id: 3, title: 'Exprimido por tornillo (Squeezer)', desc: 'Tornillo cónico exprime mecánicamente películas plásticas finas.', iconName: 'Maximize2' },
+      { id: 4, title: 'Descarga seca', desc: 'Material con humedad óptima es soplado hacia la tolva de ensacado.', iconName: 'LogOut' }
+    ],
+    applications: [
+      { name: 'Hojuelas de PET / Rígidos', icon: '🥤', desc: 'Secado centrífugo de hojuelas lavadas de alta densidad' },
+      { name: 'Film Plástico PE / PP', icon: '🛍️', desc: 'Exprimido mecánico de películas plásticas muy finas y húmedas' },
+      { name: 'Rafia y Bolsas de Rafia', icon: '🌾', desc: 'Secado de fibras sintéticas y filamentos continuos' }
+    ],
+    advantages: [
+      { title: 'CENTRIFUGADO DE ALTA VELOCIDAD', desc: 'Estructura balanceada dinámicamente que elimina el 99% de agua libre sin fundir el material.', highlight: 'Eficiencia Mecánica' },
+      { title: 'EXPRIMIDOR TIPO SQUEEZER', desc: 'Reducción de humedad en películas del 40% a menos del 2% mediante compresión por fricción.', highlight: 'Películas Secas' }
+    ],
+    seriesSpecs: [
+      {
+        title: 'EQUIPOS DE SECADO DE ALTO RENDIMIENTO',
+        headers: ['Serie / Modelo', 'Tipo de Secador', 'Material Recomendado', 'Humedad Residual (%)', 'Potencia (kW)', 'Capacidad (kg/h)'],
+        rows: [
+          ['Serie SC', 'Secadora horizontal', 'Film plástico / PE / PP', '< 5%', '45 - 75', '500 - 1500'],
+          ['Serie HT', 'Centrífuga automática', 'Plásticos rígidos / HDPE / PET', '< 1%', '22 - 45', '1000 - 3000'],
+          ['Serie SQ', 'Squeezer mecánico', 'Películas muy finas / Rafia', '< 2%', '90 - 160', '500 - 1200']
+        ]
+      }
+    ],
+    configurations: [
+      { name: 'Calentador Térmico Final de Aire', desc: 'Módulo de aire caliente para reducir la humedad por debajo del 0.5%.' },
+      { name: 'Sistema de Autolavado Automático de Criba', desc: 'Inyección de agua a presión que evita la colmatación de la malla.' }
+    ]
+  },
+  'reciclaje-sistemas-de-separacion': {
+    industry: 'reciclaje',
+    machineCode: 'SEP',
+    pageNumber: '21',
+    theme: {
+      accent: '#10B981',
+      accentGlow: 'rgba(16, 185, 129, 0.4)',
+      bgStart: '#080B12',
+      bgEnd: '#0A0B10',
+      glowColor: 'green'
+    },
+    heroTitle: 'SISTEMAS DE CLASIFICACIÓN Y SEPARACIÓN',
+    heroSubtitle: 'Clasificación óptica por color, tipo de polímero y separación de metales.',
+    heroDesc: 'Sistemas inteligentes de clasificación y separación de alta precisión. Integran cámaras ópticas de alta resolución, sensores NIR para identificación de polímeros y separadores de corrientes de Foucault (Eddy Current) para metales no ferrosos.',
+    heroMedia: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122',
+    kpis: [
+      { value: '99.5%', unit: 'PUREZA', label: 'Precisión de Selección', desc: 'Separación exacta por tipo y color' }  ,
+      { value: '5000', unit: 'KG/H', label: 'Capacidad Máxima', desc: 'Clasificación a gran velocidad' },
+      { value: 'NIR', unit: 'TECNOLOGÍA SENSOR', label: 'Identificación Espectral', desc: 'Diferenciación instantánea de resinas' },
+      { value: '128', unit: 'EJECTORES AIRE', label: 'Módulos Neumáticos', desc: 'Eyección milimétrica de contaminantes' }
+    ],
+    stations: [
+      { id: 1, title: 'Alimentación por vibrador', desc: 'Distribución homogénea de hojuelas o botellas en una monocapa sobre la rampa.', iconName: 'Inbox' },
+      { id: 2, title: 'Inspección óptica/NIR', desc: 'Cámaras y sensores de infrarrojo cercano escanean cada partícula en microsegundos.', iconName: 'Eye' },
+      { id: 3, title: 'Cálculo de trayectoria', desc: 'Procesador FPGA calcula las coordenadas exactas de las impurezas detectadas.', iconName: 'Layers' },
+      { id: 4, title: 'Eyección por aire', desc: 'Pistolas de aire comprimido ultrarrápidas soplan y desvían los contaminantes fuera del flujo.', iconName: 'LogOut' }
+    ],
+    applications: [
+      { name: 'Separación por Color de PET', icon: '🥤', desc: 'Clasificación de hojuelas de PET transparentes de verdes y de color' },
+      { name: 'Separación de Polímeros', icon: '🧫', desc: 'Detección y eyección de PVC en líneas de hojuela de PET' },
+      { name: 'Recuperación de Metales', icon: '🔩', desc: 'Separación de aluminio y cobre en líneas de triturado electrónico y plásticos' }
+    ],
+    advantages: [
+      { title: 'SENSÓRICA NIR MULTI-ESPECTRAL', desc: 'Identifica al instante resinas plásticas químicamente idénticas pero físicamente distintas (PET, PVC, PP, PE).', highlight: 'Pureza Química' },
+      { title: 'EJECTORES NEUMÁTICOS MATRIX', desc: 'Válvulas de aire con tiempos de respuesta menores a 1 ms que reducen la pérdida de material útil.', highlight: 'Eyección Precisa' }
+    ],
+    seriesSpecs: [
+      {
+        title: 'TECNOLOGÍAS DE SEPARACIÓN Y PURIFICACIÓN',
+        headers: ['Serie / Modelo', 'Principio de Operación', 'Tipo de Separación', 'Tasa de Pureza (%)', 'Potencia (kW)', 'Capacidad (kg/h)'],
+        rows: [
+          ['Serie SG', 'Separadora de hojuelas', 'Por color (RGB / NIR)', '99.5%', '8.5', '1000 - 2500'],
+          ['Serie DX', 'Separadora de botellas', 'Por polímero (IA / Espectrometría)', '98.0%', '11.0', '1500 - 3500'],
+          ['Serie DT', 'Eddy Current (Foucault)', 'Metales no ferrosos (Aluminio/Cobre)', '99.0%', '15.0', '2000 - 5000']
+        ]
+      }
+    ],
+    configurations: [
+      { name: 'Cámara de Alta Resolución NIR Double-sided', desc: 'Escaneo por ambas caras para máxima precisión óptica.' },
+      { name: 'Compresor de Aire Integrado de Bajo Ruido', desc: 'Alimentación de aire comprimido estable y libre de aceite.' }
+    ]
+  },
+  'reciclaje-cristalizadoras': {
+    industry: 'reciclaje',
+    machineCode: 'CRI',
+    pageNumber: '22',
+    theme: {
+      accent: '#10B981',
+      accentGlow: 'rgba(16, 185, 129, 0.4)',
+      bgStart: '#080B12',
+      bgEnd: '#0A0B10',
+      glowColor: 'green'
+    },
+    heroTitle: 'SISTEMAS DE CRISTALIZACIÓN INFRARROJA IRD',
+    heroSubtitle: 'Cristalización y secado ultra rápido de hojuelas de PET para extrusión directa.',
+    heroDesc: 'Nuestras cristalizadoras por tambor giratorio y radiación infrarroja de onda corta cristalizan y secan las hojuelas de PET en menos de 20 minutos. Previenen la hidrólisis del polímero durante la extrusión mejorando la viscosidad intrínseca.',
+    heroMedia: 'https://images.unsplash.com/photo-1659167889361-890c288f9dca',
+    kpis: [
+      { value: '1500', unit: 'KG/H', label: 'Capacidad Máxima', desc: 'Cristalización continua rápida' },
+      { value: '20 min', unit: 'TIEMPO PROCESO', label: 'Eficiencia Temporal', desc: 'Frente a las 6 horas de silos de aire caliente' },
+      { value: '< 50 ppm', unit: 'HUMEDAD FINAL', label: 'Deshidratación Profunda', desc: 'Evita la degradación hidrolítica' },
+      { value: '90', unit: 'KW', label: 'Potencia Calentador', desc: 'Mapeo térmico infrarrojo optimizado' }
+    ],
+    stations: [
+      { id: 1, title: 'Alimentación volumétrica', desc: 'Ingreso continuo de hojuelas húmedas mediante tornillo dosificador.', iconName: 'Inbox' },
+      { id: 2, title: 'Distribución y tambor', desc: 'Tambor giratorio con álabes internos mezcla continuamente el PET bajo la luz infrarroja.', iconName: 'Maximize2' },
+      { id: 3, title: 'Calentamiento infrarrojo', desc: 'Lámparas infrarrojas calientan directamente la hojuela evaporando la humedad.', iconName: 'Flame' },
+      { id: 4, title: 'Descarga y cristalizado', desc: 'Hojuelas de PET completamente cristalizadas listas para alimentar la extrusora.', iconName: 'LogOut' }
+    ],
+    applications: [
+      { name: 'Hojuelas de PET post-consumo', icon: '🥤', desc: 'Cristalización de hojuelas lavadas de PET antes del peletizado' },
+      { name: 'Película y fleje de PET', icon: '🛍️', desc: 'Precalentamiento y secado para líneas de extrusión de lámina PET' },
+      { name: 'Plásticos Higroscópicos (PLA)', icon: '🌱', desc: 'Cristalización y secado rápido de polímeros biodegradables' }
+    ],
+    advantages: [
+      { title: 'RADIACIÓN INFRARROJA DIRECTA', desc: 'Calienta el material de adentro hacia afuera, logrando evaporar el agua interna de forma instantánea sin aglomerar las hojuelas.', highlight: 'Tecnología IRD' },
+      { title: 'CERO AGLOMERACIÓN DEL PET', desc: 'El giro continuo del tambor evita la fusión o pegado de las hojuelas amorfas durante la fase crítica de transición vítrea.', highlight: 'Flujo Continuo' }
+    ],
+    seriesSpecs: [
+      {
+        title: 'SISTEMAS DE CRISTALIZACIÓN INFRARROJA IRD',
+        headers: ['Modelo', 'Diámetro Tambor (mm)', 'Longitud Tambor (mm)', 'Tiempo Residencia (min)', 'Potencia Calentador (kW)', 'Capacidad (kg/h)'],
+        rows: [
+          ['Cristalizadora IRD30', '600', '3000', '15 - 20', '30', '300 - 500'],
+          ['Cristalizadora IRD100', '1000', '4500', '15 - 20', '90', '1000 - 1500']
+        ]
+      }
+    ],
+    configurations: [
+      { name: 'Control de Temperatura Infrarrojo por Pirómetro', desc: 'Sensor óptico sin contacto que regula la potencia de las lámparas en tiempo real.' },
+      { name: 'Tornillo de Descarga Enfriador', desc: 'Tornillo con camisa de refrigeración para bajar la temperatura del PET antes de su ensacado.' }
+    ]
   }
 };
 
@@ -1236,27 +1679,68 @@ const MachineryDetailPage = () => {
               <div className="max-w-[1400px] mx-auto px-[40px] grid grid-cols-1 lg:grid-cols-12 gap-12">
                 
                 {/* Left: Specs Table */}
-                <div className="lg:col-span-7 flex flex-col gap-6 text-left">
+                <div className={data.seriesSpecs ? "lg:col-span-12 flex flex-col gap-6 text-left" : "lg:col-span-7 flex flex-col gap-6 text-left"}>
                   <h2 className="text-2xl font-bold tracking-tight text-white mb-2 uppercase">Especificaciones Técnicas</h2>
-                  <div className="border border-white/10 rounded-xl overflow-hidden bg-white/[0.01]">
-                    {specsList.map((spec, idx) => (
-                      <div 
-                        key={idx} 
-                        className={`grid grid-cols-12 p-4 text-sm ${
-                          idx % 2 === 0 ? 'bg-white/[0.02]' : 'bg-transparent'
-                        } border-b border-white/5 last:border-none`}
-                      >
-                        <div className="col-span-5 font-semibold text-white/50">{spec.param}</div>
-                        <div className="col-span-7 text-white font-medium">{spec.value}</div>
-                      </div>
-                    ))}
-                  </div>
+                  {data.seriesSpecs ? (
+                    <div className="flex flex-col gap-8 w-full">
+                      {data.seriesSpecs.map((series, sIdx) => (
+                        <div key={sIdx} className="flex flex-col gap-4 w-full">
+                          <h3 className="text-sm font-black tracking-widest uppercase border-l-2 pl-3" style={{ color: data.theme.accent, borderColor: data.theme.accent }}>
+                            {series.title}
+                          </h3>
+                          <div className="border border-white/10 rounded-xl bg-white/[0.01] overflow-x-auto shadow-2xl w-full">
+                            <table className="w-full text-left border-collapse min-w-[700px]">
+                              <thead>
+                                <tr className="border-b border-white/10 bg-white/[0.03]">
+                                  {series.headers.map((h, hIdx) => (
+                                    <th key={hIdx} className="p-4 text-[10px] font-black uppercase tracking-wider text-white/50 border-r border-white/5 last:border-none">
+                                      {h}
+                                    </th>
+                                  ))}
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {series.rows.map((row, rIdx) => (
+                                  <tr 
+                                    key={rIdx} 
+                                    className={`border-b border-white/5 last:border-none hover:bg-white/[0.02] transition-colors ${
+                                      rIdx % 2 === 0 ? 'bg-white/[0.01]' : 'bg-transparent'
+                                    }`}
+                                  >
+                                    {row.map((cell, cIdx) => (
+                                      <td key={cIdx} className="p-4 text-xs font-bold text-white/80 border-r border-white/5 last:border-none">
+                                        {cell}
+                                      </td>
+                                    ))}
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="border border-white/10 rounded-xl overflow-hidden bg-white/[0.01] w-full">
+                      {specsList.map((spec, idx) => (
+                        <div 
+                          key={idx} 
+                          className={`grid grid-cols-12 p-4 text-sm ${
+                            idx % 2 === 0 ? 'bg-white/[0.02]' : 'bg-transparent'
+                          } border-b border-white/5 last:border-none`}
+                        >
+                          <div className="col-span-5 font-semibold text-white/50">{spec.param}</div>
+                          <div className="col-span-7 text-white font-medium">{spec.value}</div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 {/* Right: Configurations */}
-                <div className="lg:col-span-5 flex flex-col gap-6 text-left">
+                <div className={data.seriesSpecs ? "lg:col-span-12 flex flex-col gap-6 text-left mt-6" : "lg:col-span-5 flex flex-col gap-6 text-left"}>
                   <h2 className="text-2xl font-bold tracking-tight text-white mb-2 uppercase">Módulos Adicionales</h2>
-                  <div className="flex flex-col gap-4">
+                  <div className={data.seriesSpecs ? "grid grid-cols-1 md:grid-cols-2 gap-4" : "flex flex-col gap-4"}>
                     {configurationsList.map((config, idx) => (
                       <div 
                         key={idx}

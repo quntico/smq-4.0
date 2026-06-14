@@ -25,6 +25,28 @@ const industriesData = [
     ]
   },
   {
+    key: 'reciclaje',
+    title: 'Reciclaje',
+    color: '#10B981',
+    Icon: Recycle,
+    desc: 'Sistemas avanzados para reducción, valorización, lavado y extrusión de polímeros.',
+    families: [
+      {
+        name: 'Equipamiento',
+        machines: [
+          { code: 'MOL', name: 'Molinos', desc: 'Molinos de alta velocidad para molienda de termoplásticos rígidos y films.', route: '/maquinaria/reciclaje-molinos' },
+          { code: 'TRT', name: 'Trituradoras', desc: 'Trituradores industriales de mono-eje y doble-eje para purgas y pacas.', route: '/maquinaria/reciclaje-trituradoras' },
+          { code: 'PEL', name: 'Peletizadoras', desc: 'Sistemas de peletizado en cascada y corte al anillo para plástico reciclado.', route: '/maquinaria/reciclaje-peletizadoras' },
+          { code: 'LAV', name: 'Líneas de Lavado', desc: 'Plantas integradas de pre-lavado, molienda húmeda e higienización.', route: '/maquinaria/reciclaje-lineas-de-lavado' },
+          { code: 'DES', name: 'Desetiquetadoras', desc: 'Sistemas de remoción de etiquetas por fricción para botellas PET.', route: '/maquinaria/reciclaje-desetiquetadoras' },
+          { code: 'SEC', name: 'Sistemas de Secado', desc: 'Secadoras mecánicas horizontales, centrífugas y squeezers.', route: '/maquinaria/reciclaje-sistemas-de-secado' },
+          { code: 'SEP', name: 'Sistemas de Separación', desc: 'Clasificación óptica por color, tipo de polímero y Eddy Current.', route: '/maquinaria/reciclaje-sistemas-de-separacion' },
+          { code: 'CRI', name: 'Cristalizadoras', desc: 'Cristalización IRD infrarroja continua para hojuelas de PET.', route: '/maquinaria/reciclaje-cristalizadoras' }
+        ]
+      }
+    ]
+  },
+  {
     key: 'procesamiento',
     title: 'Procesamiento',
     color: '#F59E0B',
