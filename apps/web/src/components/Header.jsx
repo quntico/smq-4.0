@@ -7,6 +7,7 @@ import MachineryMenu from '@/components/MachineryMenu.jsx';
 import TechnologyMenu from '@/components/TechnologyMenu.jsx';
 import CompanyMenu from '@/components/CompanyMenu.jsx';
 import WasteToEnergyMenu from '@/components/WasteToEnergyMenu.jsx';
+import ProjectsMenu from '@/components/ProjectsMenu.jsx';
 import AdminModal from '@/components/AdminModal.jsx';
 import LanguageSelector from '@/components/LanguageSelector.jsx';
 import { useCMS } from '@/context/CMSContext.jsx';
@@ -20,6 +21,7 @@ const componentMap = {
   MachineryMenu,
   TechnologyMenu,
   WasteToEnergyMenu,
+  ProjectsMenu,
   CompanyMenu,
 };
 
@@ -176,6 +178,8 @@ const Header = () => {
                 navigate('/envasadoras');
               } else if (nameLower.includes('waste')) {
                 navigate('/waste-to-energy');
+              } else if (nameLower.includes('proyecto')) {
+                navigate('/proyectos');
               } else if (nameLower.includes('empresa')) {
                 navigate('/nosotros');
               }
@@ -206,6 +210,8 @@ const Header = () => {
                   navigate('/envasadoras');
                 } else if (nameLower.includes('waste')) {
                   navigate('/waste-to-energy');
+                } else if (nameLower.includes('proyecto')) {
+                  navigate('/proyectos');
                 } else if (nameLower.includes('empresa')) {
                   navigate('/nosotros');
                 }

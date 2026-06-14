@@ -1,197 +1,122 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Wheat, Package, Layers, Recycle, HeartPulse, Bot, ChevronRight, Flame, ArrowRight } from 'lucide-react';
+import { Wheat, Package, Layers, Recycle, Bot, ChevronRight, Flame, ArrowRight, Eye, Factory } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext.jsx';
 
 const industriesData = [
   {
-    key: 'alimentos',
-    title: 'Alimentos',
-    color: '#F59E0B',
-    Icon: Wheat,
-    desc: 'Procesamiento, transformación, empaque y automatización alimentaria.',
-    families: [
-      {
-        name: 'Preparación de Producto',
-        machines: [
-          { code: 'MIX', name: 'Sistemas de Mezclado',         desc: 'Mezcla industrial para sólidos y formulaciones.',  models: ['MIX-300','MIX-500','MIX-1000'] },
-          { code: 'COK', name: 'Sistemas de Cocción',          desc: 'Procesamiento térmico continuo.',                  models: ['COK-300','COK-600','COK-1000'] },
-          { code: 'BLD', name: 'Sistemas de Homogeneización',  desc: 'Mezcla uniforme y control de calidad.',            models: ['BLD-300','BLD-600'] },
-        ],
-      },
-      {
-        name: 'Lavado Alimenticio',
-        machines: [
-          { code: 'FWS', name: 'Lavado Alimenticio',  desc: 'Lavado y sanitización.',             models: ['FWS-300','FWS-600','FWS-1000'] },
-          { code: 'DRY', name: 'Secado Industrial',   desc: 'Remoción controlada de humedad.',    models: ['DRY-300','DRY-1000'] },
-        ],
-      },
-      {
-        name: 'Procesos Especiales',
-        machines: [
-          { code: 'CHX', name: 'Procesamiento de Chocolate', desc: 'Líneas completas para chocolate.', models: ['CHX-300','CHX-500','CHX-1000'] },
-          { code: 'SNK', name: 'Producción de Snacks',       desc: 'Extrusión y formado.',             models: ['SNK-300','SNK-600'] },
-          { code: 'BAR', name: 'Producción de Barras',       desc: 'Producción continua.',             models: ['BAR-300','BAR-1000'] },
-        ],
-      },
-    ],
-  },
-  {
-    key: 'packaging',
-    title: 'Packaging',
-    color: '#FFD700',
-    Icon: Package,
-    desc: 'Empaque primario, secundario y automatización de empaque.',
-    families: [
-      {
-        name: 'Envasadoras',
-        machines: [
-          { code: 'VFS', name: 'Envasado Vertical',    desc: 'Formado, llenado y sellado vertical.',   models: ['VFS-60','VFS-120','VFS-180'],  route: '/envasadoras?type=vertical' },
-          { code: 'HFS', name: 'Flowpack Horizontal',  desc: 'Empaque horizontal alta velocidad.',     models: ['HFS-150','HFS-300'],           route: '/envasadoras?type=flowpack' },
-          { code: 'RDP', name: 'Doypack Rotativa',     desc: 'Bolsas preformadas.',                   models: ['RDP-60','RDP-120','RDP-180'],  route: '/envasadoras?type=doypack' },
-          { code: 'MSH', name: 'Sachet Multipista',    desc: 'Producción paralela de sobres.',        models: ['MSH-4','MSH-8','MSH-12'],      route: '/envasadoras?type=multipistas' },
-          { code: 'LFD', name: 'Llenado de Líquidos',  desc: 'Dosificación automática.',              models: ['LFD-100','LFD-300'],           route: '/envasadoras?type=llenadoras' },
-        ],
-      },
-      {
-        name: 'Fin de Línea',
-        machines: [
-          { code: 'CSL', name: 'Encajonado',  desc: 'Agrupado automático.',    models: ['CSL-10','CSL-20'] },
-          { code: 'PAL', name: 'Paletizado',  desc: 'Paletizado robotizado.',  models: ['PAL-10','PAL-30'] },
-        ],
-      },
-    ],
-  },
-  {
-    key: 'conversion',
-    title: 'Conversión',
+    key: 'preparacion',
+    title: 'Preparación',
     color: '#06B6D4',
     Icon: Layers,
-    desc: 'Transformación de plástico, papel y materiales flexibles.',
+    desc: 'Sistemas primarios de acondicionamiento y preparación de materia prima.',
     families: [
       {
-        name: 'Extrusión',
+        name: 'Equipamiento',
         machines: [
-          { code: 'EXF', name: 'Extrusión de Película',  desc: 'Producción monocapa.',       models: ['EXF-300','EXF-500','EXF-1000'] },
-          { code: 'CBL', name: 'Coextrusión Soplada',    desc: 'Película multicapa.',        models: ['CBL-3','CBL-5','CBL-7'] },
-          { code: 'CCS', name: 'Coextrusión Cast',       desc: 'Película plana multicapa.',  models: ['CCS-3','CCS-5'] },
-        ],
-      },
-      {
-        name: 'Soplado',
-        machines: [
-          { code: 'EBM', name: 'Extrusión Soplado',  desc: 'Fabricación de envases.',  models: ['EBM-500','EBM-1000','EBM-3000'] },
-          { code: 'SBM', name: 'Soplado Estirado',   desc: 'Producción PET.',          models: ['SBM-3000','SBM-6000'] },
-          { code: 'IBM', name: 'Inyección Soplado',  desc: 'Piezas técnicas.',         models: ['IBM-500','IBM-1500'] },
-        ],
-      },
-      {
-        name: 'Impresión',
-        machines: [
-          { code: 'FLX', name: 'Impresión Flexográfica',  desc: 'Impresión industrial.',     models: ['FLX-4','FLX-6','FLX-8','FLX-10'] },
-          { code: 'GRV', name: 'Rotograbado',            desc: 'Alta calidad gráfica.',     models: ['GRV-6','GRV-8'] },
-          { code: 'DIG', name: 'Impresión Digital',       desc: 'Producción flexible.',      models: ['DIG-300','DIG-600'] },
-        ],
-      },
-      {
-        name: 'Laminación y Conversión',
-        machines: [
-          { code: 'LAM', name: 'Laminación',          desc: 'Solvente y solventless.',  models: ['LAM-300','LAM-500'] },
-          { code: 'SLT', name: 'Corte y Rebobinado',  desc: 'Conversión final.',        models: ['SLT-300','SLT-600'] },
-          { code: 'THF', name: 'Termoformado',        desc: 'Conformado térmico.',      models: ['THF-60','THF-120'] },
-        ],
-      },
-    ],
+          { code: 'MIX', name: 'Mezclado', desc: 'Mezcladores de polvos, pastas y sólidos.', models: ['MIX-300', 'MIX-600', 'MIX-1000'] },
+          { code: 'LAV', name: 'Lavado', desc: 'Sistemas de lavado por fricción y burbujas.', models: ['LWF-500', 'LBW-500'] },
+          { code: 'SEC', name: 'Secado', desc: 'Secadores centrífugos e industriales térmicos.', models: ['DRY-300', 'DRY-1000'] },
+          { code: 'COC', name: 'Cocción', desc: 'Sistemas térmicos continuos y marmitas de proceso.', models: ['COK-300', 'COK-600'] },
+          { code: 'DOS', name: 'Dosificación', desc: 'Dosificadores gravimétricos y volumétricos.', models: ['DOS-10', 'DOS-50'] }
+        ]
+      }
+    ]
   },
   {
-    key: 'reciclaje',
-    title: 'Reciclaje',
+    key: 'procesamiento',
+    title: 'Procesamiento',
+    color: '#F59E0B',
+    Icon: Flame,
+    desc: 'Maquinaria de transformación, extrusión y moldeo industrial.',
+    families: [
+      {
+        name: 'Equipamiento',
+        machines: [
+          { code: 'EXT', name: 'Extrusión', desc: 'Extrusoras de un solo husillo y doble husillo.', models: ['EXF-300', 'CBL-3', 'CCS-3'] },
+          { code: 'CNV', name: 'Conversión', desc: 'Sistemas de corte, embobinado y termoformado.', models: ['SLT-300', 'THF-60'] },
+          { code: 'MLD', name: 'Moldeo', desc: 'Sopladoras de envases y máquinas de inyección.', models: ['EBM-500', 'SBM-3000'] },
+          { code: 'TRT', name: 'Trituración', desc: 'Trituradoras primarias de alta resistencia.', models: ['SHD-500', 'GRN-300'] },
+          { code: 'PEL', name: 'Pelletizado', desc: 'Sistemas de corte al anillo y bajo agua.', models: ['PEL-300', 'PLT-300'] }
+        ]
+      }
+    ]
+  },
+  {
+    key: 'separacion',
+    title: 'Separación',
     color: '#10B981',
-    Icon: Recycle,
-    desc: 'Recuperación, separación y valorización de materiales.',
+    Icon: Eye,
+    desc: 'Clasificación inteligente y separación de alta precisión.',
     families: [
       {
-        name: 'Trituración',
+        name: 'Equipamiento',
         machines: [
-          { code: 'SHD', name: 'Trituración Industrial',  desc: 'Reducción y trituración primaria de alta capacidad.',  models: ['SHD-500','SHD-1000','SHD-3000'] },
-          { code: 'GRN', name: 'Granulación',             desc: 'Molienda fina y granulado uniforme de termoplásticos.',  models: ['GRN-300','GRN-600'] },
-        ],
-      },
-      {
-        name: 'Lavado',
-        machines: [
-          { code: 'PWS', name: 'Lavado de Plástico',    desc: 'Lavado y sanitización intensiva de polímeros.',  models: ['PWS-300','PWS-500','PWS-1000'] },
-          { code: 'FLT', name: 'Flotación',             desc: 'Separación densimétrica automática en tinas húmedas.',  models: ['FLT-500','FLT-1000'] },
-          { code: 'FRI', name: 'Lavado por Fricción',   desc: 'Limpieza mecánica por centrífugas de fricción.',  models: ['FRI-500','FRI-1000'] },
-        ],
-      },
-      {
-        name: 'Separación',
-        machines: [
-          { code: 'SPR', name: 'Separación Industrial',  desc: 'Clasificación mecánica por peso, tamaño y geometría.',  models: ['SPR-500','SPR-1000'] },
-          { code: 'OPT', name: 'Clasificación Óptica',   desc: 'Separación automática por NIR e inducción de alta precisión.',  models: ['OPT-300','OPT-1000'] },
-        ],
-      },
-      {
-        name: 'Peletizado',
-        machines: [
-          { code: 'PLT', name: 'Peletizado',    desc: 'Extrusión y peletizado para recuperación de resina.',  models: ['PLT-300','PLT-500'] },
-          { code: 'BAL', name: 'Compactación',  desc: 'Prensas hidráulicas de compactación de pacas.',  models: ['BAL-500','BAL-1000'] },
-        ],
-      },
-    ],
+          { code: 'OPT', name: 'Óptica', desc: 'Clasificadoras ópticas por color y NIR.', models: ['OPT-300', 'OPT-1000'] },
+          { code: 'MAG', name: 'Magnética', desc: 'Separadores de metales ferrosos y no ferrosos.', models: ['CS-300', 'TS-400'] },
+          { code: 'CLS', name: 'Clasificación', desc: 'Cribas y clasificadores mecánicos.', models: ['WS-500'] },
+          { code: 'REC', name: 'Recuperación', desc: 'Módulos densimétricos de flotación.', models: ['FLT-500', 'FRI-500'] }
+        ]
+      }
+    ]
   },
-
   {
-    key: 'medica',
-    title: 'Médica',
-    color: '#EF4444',
-    Icon: HeartPulse,
-    desc: 'Conversión sanitaria y manufactura médica.',
+    key: 'empaque',
+    title: 'Empaque',
+    color: '#FFD700',
+    Icon: Package,
+    desc: 'Sistemas integrados de envasado primario y secundario.',
     families: [
       {
-        name: 'Conversión Médica',
+        name: 'Equipamiento',
         machines: [
-          { code: 'MED', name: 'Conversión Sanitaria',      desc: 'Líneas sanitarias para gasas, vendas y apósitos.',  models: ['MED-100','MED-300'] },
-          { code: 'MSK', name: 'Producción de Cubrebocas',  desc: 'Líneas automatizadas para mascarillas quirúrgicas.',  models: ['MSK-40','MSK-100'] },
-        ],
-      },
-    ],
+          { code: 'VRT', name: 'Vertical', desc: 'Envasadoras verticales formadoras y llenadoras.', models: ['VFS-60', 'VFS-120'] },
+          { code: 'FLW', name: 'Flowpack', desc: 'Envasadoras flowpack horizontales rápidas.', models: ['HFS-150', 'HFS-300'] },
+          { code: 'DYP', name: 'Doypack', desc: 'Llenadoras rotativas de bolsas preformadas.', models: ['RDP-60', 'RDP-120'] },
+          { code: 'SCH', name: 'Sachet', desc: 'Envasadoras multipistas de sobres compactos.', models: ['MSH-4', 'MSH-8'] },
+          { code: 'FIN', name: 'Fin de Línea', desc: 'Sistemas de encartonado y paletizado automático.', models: ['CSL-10', 'PAL-10'] }
+        ]
+      }
+    ]
   },
   {
     key: 'automatizacion',
     title: 'Automatización',
     color: '#8B5CF6',
     Icon: Bot,
-    desc: 'Tecnología industrial avanzada.',
+    desc: 'Tecnología e inteligencia digital para control de líneas.',
     families: [
       {
-        name: 'Robótica',
+        name: 'Equipamiento',
         machines: [
-          { code: 'ROB', name: 'Sistemas Robotizados',  desc: 'Brazos robóticos y celdas integradas de manipulación.',  models: ['ROB-5','ROB-20'] },
-        ],
-      },
-      {
-        name: 'Visión Artificial',
-        machines: [
-          { code: 'VIS', name: 'Sistemas de Visión',  desc: 'Cámaras de inspección y control de calidad óptico.',  models: ['VIS-100','VIS-500'] },
-        ],
-      },
-      {
-        name: 'Gemelo Digital',
-        machines: [
-          { code: 'DGT', name: 'Gemelo Digital',  desc: 'Simulación y monitoreo virtual de plantas en tiempo real.',  models: ['DGT-100','DGT-500'] },
-        ],
-      },
-    ],
+          { code: 'ROB', name: 'Robótica', desc: 'Celdas robotizadas de manipulación y empaque.', models: ['ROB-5', 'ROB-20'] },
+          { code: 'VIS', name: 'Visión Artificial', desc: 'Cámaras de inspección y control óptico en línea.', models: ['VIS-100', 'VIS-500'] },
+          { code: 'GEM', name: 'Gemelo Digital', desc: 'Monitoreo y simulación 3D en tiempo real.', models: ['DGT-100', 'DGT-500'] }
+        ]
+      }
+    ]
   },
+  {
+    key: 'plantas-completas',
+    title: 'Plantas Completas',
+    color: '#EF4444',
+    Icon: Factory,
+    desc: 'Líneas industriales integradas listas para operar.',
+    families: [
+      {
+        name: 'Equipamiento',
+        machines: [
+          { code: 'INT', name: 'Integradas', desc: 'Plantas completas con control centralizado SCADA.', models: ['LPC-500', 'LCH-500', 'LMC-100'] },
+          { code: 'MOD', name: 'Modulares', desc: 'Sistemas pre-ensamblados en contenedores/skids.', models: ['BTL-200', 'PKB-70'] }
+        ]
+      }
+    ]
+  }
 ];
 
-
-
 const MachineryMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
-  const [activeIndustry, setActiveIndustry] = useState('reciclaje');
+  const [activeIndustry, setActiveIndustry] = useState('preparacion');
   const { cmsState } = useCMS();
   const headerHeight = cmsState?.settings?.headerHeight || 80;
   const active = industriesData.find(i => i.key === activeIndustry);
@@ -219,7 +144,7 @@ const MachineryMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
           {/* ── LEFT: Industry Selector ── */}
           <div className="w-[220px] shrink-0 border-r border-white/[0.07] bg-white/[0.015] flex flex-col py-5 px-3 gap-1 overflow-y-auto">
             <p className="text-[10px] font-black uppercase tracking-[0.25em] text-white/20 px-2.5 mb-3">
-              INDUSTRIAS SMQ
+              CATÁLOGO GLOBAL
             </p>
             {industriesData.map(ind => {
               const Icon = ind.Icon;

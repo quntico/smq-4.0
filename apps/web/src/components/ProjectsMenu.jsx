@@ -1,68 +1,61 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Building2, ShieldCheck, PhoneCall, ArrowRight, Briefcase, Globe, Cpu, Layers } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Award, Factory, Tv, TrendingUp, DownloadCloud, BookOpen, ArrowRight } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext.jsx';
 
-const companyItems = [
+const projectItems = [
   {
     num: '01',
-    title: 'NOSOTROS',
-    desc: 'HISTORIA, VISIÓN Y VALORES DE NUESTRA TRAYECTORIA INDUSTRIAL.',
-    color: '#3B82F6', // Blue
-    Icon: Building2,
-    href: '/empresa#nosotros'
+    title: 'CASOS DE ÉXITO',
+    desc: 'ESTUDIOS DE CASOS REALES Y RESULTADOS OPERATIVOS DE NUESTROS CLIENTES.',
+    color: '#10B981', // Green
+    Icon: Award,
+    href: '/proyectos#casos'
   },
   {
     num: '02',
-    title: 'CAPACIDADES',
-    desc: 'NUESTRA INFRAESTRUCTURA DE FABRICACIÓN Y ALCANCE TECNOLÓGICO.',
-    color: '#F59E0B', // Amber
-    Icon: Layers,
-    href: '/empresa#capacidades'
+    title: 'INSTALACIONES',
+    desc: 'GALERÍA Y DETALLES DE PLANTAS EN FUNCIONAMIENTO A NIVEL MUNDIAL.',
+    color: '#3B82F6', // Blue
+    Icon: Factory,
+    href: '/proyectos#instalaciones'
   },
   {
     num: '03',
-    title: 'CERTIFICACIONES',
-    desc: 'ESTÁNDARES DE CALIDAD ISO, CERTIFICACIONES DE SEGURIDAD Y NORMATIVAS.',
-    color: '#10B981', // Green
-    Icon: ShieldCheck,
-    href: '/empresa#certificaciones'
+    title: 'SIMULACIONES',
+    desc: 'MODELOS DE PROCESOS INDUSTRIALES EN 3D Y ANÁLISIS DE CAPACIDAD.',
+    color: '#06B6D4', // Cyan
+    Icon: Tv,
+    href: '/proyectos#simulaciones'
   },
   {
     num: '04',
-    title: 'ALIANZAS',
-    desc: 'RED GLOBAL DE SOCIOS E INTEGRADORES DE MAQUINARIA INDUSTRIAL.',
-    color: '#8B5CF6', // Purple
-    Icon: Globe,
-    href: '/empresa#alianzas'
+    title: 'ROI',
+    desc: 'HERRAMIENTAS DE CÁLCULO DE RETORNO DE INVERSIÓN Y AHORRO ENERGÉTICO.',
+    color: '#F97316', // Orange
+    Icon: TrendingUp,
+    href: '/proyectos#roi'
   },
   {
     num: '05',
-    title: 'INNOVACIÓN',
-    desc: 'CENTROS DE I+D Y DESARROLLOS TECNOLÓGICOS DE PRÓXIMA GENERACIÓN.',
-    color: '#06B6D4', // Cyan
-    Icon: Cpu,
-    href: '/empresa#innovacion'
+    title: 'DESCARGABLES',
+    desc: 'CATÁLOGOS COMPLETOS, PLANOS DE EQUIPOS Y GUÍAS DE PROCESOS.',
+    color: '#8B5CF6', // Purple
+    Icon: DownloadCloud,
+    href: '/proyectos#descargables'
   },
   {
     num: '06',
-    title: 'CARRERA',
-    desc: 'ÚNETE A NUESTRO EQUIPO GLOBAL DE INGENIERÍA Y MANUFACTURA.',
-    color: '#EC4899', // Pink
-    Icon: Briefcase,
-    href: '/empresa#carrera'
-  },
-  {
-    num: '07',
-    title: 'CONTACTO',
-    desc: 'ASISTENCIA TÉCNICA, OFICINAS REGIONALES Y COTIZACIÓN EXPRESS.',
-    color: '#F97316', // Orange
-    Icon: PhoneCall,
-    href: '/empresa#contacto'
+    title: 'BIBLIOTECA TÉCNICA',
+    desc: 'DOCUMENTACIÓN CIENTÍFICA, NORMAS INDUSTRIALES Y MANUALES DE OPERACIÓN.',
+    color: '#EF4444', // Red
+    Icon: BookOpen,
+    href: '/proyectos#biblioteca'
   }
 ];
 
-const CompanyMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
+const ProjectsMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
   const { cmsState } = useCMS();
   const headerHeight = cmsState?.settings?.headerHeight || 80;
 
@@ -90,29 +83,29 @@ const CompanyMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
           <div className="flex items-center justify-between mb-5 pb-3 border-b border-white/[0.07]">
             <div>
               <p className="text-[10px] font-black uppercase tracking-[0.25em] text-[#FFD700] mb-1">
-                CORPORATIVO
+                PRUEBA SOCIAL Y RECURSOS
               </p>
               <h2 className="text-xl font-bold text-white tracking-wide">
-                Grupo SMQ
+                Proyectos & Biblioteca
               </h2>
             </div>
             {/* Action button */}
-            <a 
-              href="#contacto"
+            <Link 
+              to="/proyectos"
               className="px-4 py-2 rounded-full border border-white/10 text-[10px] font-bold tracking-widest uppercase hover:bg-white/10 hover:text-[#FFD700] transition-colors text-white/70"
             >
-              Contactar Asesor
-            </a>
+              Ver Todos los Proyectos
+            </Link>
           </div>
 
-          {/* Grid de 7 items - 4 columnas para mayor simetría visual */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {companyItems.map((item) => {
+          {/* Grid de 6 items - 3 columnas para excelente balance visual */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {projectItems.map((item) => {
               const Icon = item.Icon;
               return (
-                <a
+                <Link
                   key={item.num}
-                  href={item.href}
+                  to={item.href}
                   className="group relative flex flex-col p-5 rounded-xl border transition-all duration-300"
                   style={{
                     backgroundColor: 'rgba(255,255,255,0.02)',
@@ -161,11 +154,11 @@ const CompanyMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
                   {/* Footer interaction */}
                   <div className="mt-4 flex items-center justify-between pt-3 border-t border-white/5 opacity-50 group-hover:opacity-100 transition-opacity">
                     <span className="text-[9px] font-black uppercase tracking-widest" style={{ color: item.color }}>
-                      Ir a la sección
+                      Ir al recurso
                     </span>
                     <ArrowRight size={12} color={item.color} className="transform group-hover:translate-x-1 transition-transform" />
                   </div>
-                </a>
+                </Link>
               );
             })}
           </div>
@@ -175,4 +168,4 @@ const CompanyMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
   );
 };
 
-export default CompanyMenu;
+export default ProjectsMenu;

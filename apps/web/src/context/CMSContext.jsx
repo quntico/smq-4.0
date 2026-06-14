@@ -10,7 +10,7 @@ const initialCMSState = {
         logoSize: 98,
         headerHeight: 100,
         headerOpacity: 60,
-        appVersion: '6.85',
+        appVersion: '7.0',
         globalImageSharpness: 100,
         globalFilterColor: '#000000',
         globalFilterOpacity: 75,
@@ -23,7 +23,8 @@ const initialCMSState = {
         { id: '3', name: 'Maquinaria', componentName: 'MachineryMenu', order: 3 },
         { id: '4', name: 'Tecnología', componentName: 'TechnologyMenu', order: 4 },
         { id: '6', name: 'Waste to Energy', componentName: 'WasteToEnergyMenu', order: 5 },
-        { id: '5', name: 'Empresa', componentName: 'CompanyMenu', order: 6 },
+        { id: '7', name: 'Proyectos', componentName: 'ProjectsMenu', order: 6 },
+        { id: '5', name: 'Empresa', componentName: 'CompanyMenu', order: 7 },
     ],
     pages: [
         {
@@ -143,19 +144,7 @@ export const CMSProvider = ({ children }) => {
                         textJustify: parsedSettings.textJustify !== undefined ? parsedSettings.textJustify : initialCMSState.settings.textJustify,
                         disableImageFilters: parsedSettings.disableImageFilters !== undefined ? parsedSettings.disableImageFilters : initialCMSState.settings.disableImageFilters
                     },
-                    menus: (() => {
-                        let parsedMenus = parsed.menus || initialCMSState.menus;
-                        if (!parsedMenus.some(m => m.componentName === 'WasteToEnergyMenu')) {
-                            const hasCompany = parsedMenus.find(m => m.componentName === 'CompanyMenu');
-                            const companyOrder = hasCompany ? hasCompany.order : 5;
-                            parsedMenus = [
-                                ...parsedMenus.filter(m => m.componentName !== 'CompanyMenu'),
-                                { id: '6', name: 'Waste to Energy', componentName: 'WasteToEnergyMenu', order: companyOrder },
-                                ...(hasCompany ? [{ ...hasCompany, order: companyOrder + 1 }] : [])
-                            ].sort((a, b) => a.order - b.order);
-                        }
-                        return parsedMenus;
-                    })(),
+                    menus: parsed.menus || initialCMSState.menus,
                     pages: parsed.pages || initialCMSState.pages
                 };
             } catch (e) {
@@ -204,19 +193,7 @@ export const CMSProvider = ({ children }) => {
                             textJustify: parsedSettings.textJustify !== undefined ? parsedSettings.textJustify : initialCMSState.settings.textJustify,
                             disableImageFilters: parsedSettings.disableImageFilters !== undefined ? parsedSettings.disableImageFilters : initialCMSState.settings.disableImageFilters
                         },
-                        menus: (() => {
-                            let parsedMenus = parsed.menus || initialCMSState.menus;
-                            if (!parsedMenus.some(m => m.componentName === 'WasteToEnergyMenu')) {
-                                const hasCompany = parsedMenus.find(m => m.componentName === 'CompanyMenu');
-                                const companyOrder = hasCompany ? hasCompany.order : 5;
-                                parsedMenus = [
-                                    ...parsedMenus.filter(m => m.componentName !== 'CompanyMenu'),
-                                    { id: '6', name: 'Waste to Energy', componentName: 'WasteToEnergyMenu', order: companyOrder },
-                                    ...(hasCompany ? [{ ...hasCompany, order: companyOrder + 1 }] : [])
-                                ].sort((a, b) => a.order - b.order);
-                            }
-                            return parsedMenus;
-                        })(),
+                        menus: parsed.menus || initialCMSState.menus,
                         pages: parsed.pages || initialCMSState.pages
                     };
                     setCmsState(cloudState);

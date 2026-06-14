@@ -6,90 +6,134 @@ import { useCMS } from '@/context/CMSContext.jsx';
 
 const industriesData = [
   {
-    key: 'reciclaje',
-    title: 'Reciclaje',
-    color: '#10B981',
-    Icon: Recycle,
-    desc: 'Tecnología líder para la economía circular y recuperación de plásticos.',
-    families: [
-      {
-        name: 'Sistemas de Recuperación',
-        links: [
-          { code: 'SHD', name: 'Trituradoras', desc: '1 eje, 2 ejes y 4 ejes.', href: '/industria/reciclaje-y-plasticos#trituracion' },
-          { code: 'PEL', name: 'Sistemas de Pelletizado', desc: 'Corte bajo agua y anillo.', href: '/industria/reciclaje-y-plasticos#pelletizado' },
-          { code: 'WSH', name: 'Lavado y Secado', desc: 'Separación por densidad.', href: '/industria/reciclaje-y-plasticos#lavado' },
-        ],
-      }
-    ],
-  },
-  {
     key: 'alimentos',
-    title: 'Alimentos',
+    title: 'Alimentos y Bebidas',
     color: '#F59E0B',
     Icon: Wheat,
     desc: 'Higiene óptima, precisión y control absoluto (Grado Alimentario y Orgánico).',
     families: [
       {
-        name: 'Líneas de Procesamiento',
+        name: 'Categorías',
         links: [
-          { code: 'CMP', name: '01 Líneas de Compostaje', desc: 'Volteadoras y sistemas de compostaje.', href: '/industria/alimentos#compostaje' },
-          { code: 'LWP', name: '02 Lavado y Pelado', desc: 'Sistemas integrados de lavado, desinfección y pelado.', href: '/industria/alimentos#lavado-pelado' },
-          { code: 'LPA', name: '03 Producción de Alimentos', desc: 'Procesamiento continuo para papas, pastas y barras.', href: '/industria/alimentos#produccion-alimentos' },
-          { code: 'LEL', name: '04 Empaquetado y Llenado', desc: 'Empaque de polvos, líquidos, pouches y botellas.', href: '/industria/alimentos#empaquetado-llenado' },
-          { code: 'SDS', name: '05 Sistemas de Separación', desc: 'Clasificación inteligente por color, tamaño y peso.', href: '/industria/alimentos#sistemas-separacion' }
-        ],
+          { code: 'PRO', name: 'Procesamiento', desc: 'Sistemas térmicos y preparación mecánica.', href: '/industrias/alimentos#procesamiento' },
+          { code: 'CON', name: 'Producción Continua', desc: 'Líneas automatizadas de flujo continuo.', href: '/industrias/alimentos#produccion' },
+          { code: 'PKG', name: 'Empaque', desc: 'Envasado y embalaje de alta velocidad.', href: '/industrias/alimentos#empaque' },
+          { code: 'ING', name: 'Ingredientes', desc: 'Dosificación, mezcla y formulación precisa.', href: '/industrias/alimentos#ingredientes' },
+          { code: 'PLN', name: 'Plantas Integradas', desc: 'Soluciones integrales llave en mano.', href: '/industrias/alimentos#plantas-integradas' }
+        ]
       }
-    ],
+    ]
+  },
+  {
+    key: 'reciclaje',
+    title: 'Reciclaje y Economía Circular',
+    color: '#10B981',
+    Icon: Recycle,
+    desc: 'Tecnología líder para la economía circular y recuperación de materiales.',
+    families: [
+      {
+        name: 'Categorías',
+        links: [
+          { code: 'PLA', name: 'Plásticos', desc: 'Lavado, extrusión y peletizado de polímeros.', href: '/industrias/reciclaje#plasticos' },
+          { code: 'MET', name: 'Metales', desc: 'Separación magnética y trituración de chatarra.', href: '/industrias/reciclaje#metales' },
+          { code: 'RSU', name: 'RSU', desc: 'Tratamiento de residuos sólidos urbanos.', href: '/industrias/reciclaje#rsu' },
+          { code: 'REC', name: 'Recuperación de Materiales', desc: 'Clasificación automatizada de subproductos.', href: '/industrias/reciclaje#recuperacion' },
+          { code: 'ECO', name: 'Economía Circular', desc: 'Estrategias de valorización de residuos.', href: '/industrias/reciclaje#economia-circular' }
+        ]
+      }
+    ]
   },
   {
     key: 'packaging',
-    title: 'Packaging',
+    title: 'Packaging y Conversión',
     color: '#FFD700',
     Icon: Package,
-    desc: 'Velocidad y hermeticidad de empaque garantizada.',
+    desc: 'Velocidad, hermeticidad de empaque y conversión de película.',
     families: [
       {
-        name: 'Sistemas de Envasado',
+        name: 'Categorías',
         links: [
-          { code: 'FLX', name: 'Empaques Flexibles', desc: 'Envasadoras Doypack y VFFS.', href: '/industria/packaging#empaques-flexibles' },
-          { code: 'RGD', name: 'Empaques Rígidos', desc: 'Líneas de llenado rotativo.', href: '/industria/packaging#empaques-rigidos' },
-          { code: 'LBL', name: 'Etiquetado Automático', desc: 'Aplicadores alta velocidad.', href: '/industria/packaging#etiquetado' },
-        ],
+          { code: 'FLX', name: 'Flexible', desc: 'Envasadoras doypack, vertical y flowpack.', href: '/industrias/packaging#flexible' },
+          { code: 'RGD', name: 'Rígido', desc: 'Líneas de llenado y taponado de botellas.', href: '/industrias/packaging#rigido' },
+          { code: 'PRN', name: 'Impresión', desc: 'Sistemas flexográficos y digitales.', href: '/industrias/packaging#impresion' },
+          { code: 'LBL', name: 'Etiquetado', desc: 'Aplicadores de etiquetas autoadheribles.', href: '/industrias/packaging#etiquetado' },
+          { code: 'CNV', name: 'Conversión', desc: 'Rebobinado, corte y termoformado.', href: '/industrias/packaging#conversion' }
+        ]
       }
-    ],
+    ]
   },
   {
     key: 'construccion',
-    title: 'Construcción',
+    title: 'Construcción e Infraestructura',
     color: '#06B6D4',
     Icon: HardHat,
     desc: 'Robustez y consistencia para procesos de alta exigencia.',
     families: [
       {
-        name: 'Materiales y Procesamiento',
+        name: 'Categorías',
         links: [
-          { code: 'WPC', name: 'Materiales Compuestos', desc: 'Extrusoras de madera plástica.', href: '/industria/construccion#materiales-compuestos' },
-          { code: 'AGG', name: 'Agregados Reciclados', desc: 'Trituradoras y molinos.', href: '/industria/construccion#materiales-reciclados' },
-        ],
+          { code: 'MAT', name: 'Materiales', desc: 'Dosificación y mezcla de áridos y agregados.', href: '/industrias/construccion#materiales' },
+          { code: 'CMP', name: 'Compuestos', desc: 'Líneas de extrusión de madera plástica WPC.', href: '/industrias/construccion#compuestos' },
+          { code: 'RCY', name: 'Materiales Reciclados', desc: 'Valorización de escombros y asfalto.', href: '/industrias/construccion#materiales-reciclados' },
+          { code: 'INF', name: 'Infraestructura', desc: 'Maquinaria pesada y automatización civil.', href: '/industrias/construccion#infraestructura' }
+        ]
       }
-    ],
+    ]
   },
   {
     key: 'agroindustria',
     title: 'Agroindustria',
     color: '#8B5CF6',
-    Icon: Zap,
+    Icon: Layers,
     desc: 'Rendimiento en el campo y la planta de procesamiento.',
     families: [
       {
-        name: 'Sistemas Agrícolas',
+        name: 'Categorías',
         links: [
-          { code: 'AGR', name: 'Procesamiento Agrícola', desc: 'Limpieza y manejo de granos.', href: '/industria/agroindustria#procesamiento-agricola' },
-          { code: 'FDB', name: 'Alimentos Balanceados', desc: 'Molienda y peletizado.', href: '/industria/agroindustria#alimentos-balanceados' },
-        ],
+          { code: 'PRO', name: 'Procesamiento', desc: 'Limpieza, cribado y descascarillado.', href: '/industrias/agroindustria#procesamiento' },
+          { code: 'BAL', name: 'Balanceados', desc: 'Líneas de molienda y peletizado de alimento.', href: '/industrias/agroindustria#balanceados' },
+          { code: 'PST', name: 'Postcosecha', desc: 'Enfriamiento, clasificación y almacenamiento.', href: '/industrias/agroindustria#postcosecha' },
+          { code: 'AUT', name: 'Automatización', desc: 'Monitoreo de silos y dosificación remota.', href: '/industrias/agroindustria#automatizacion' }
+        ]
       }
-    ],
+    ]
   },
+  {
+    key: 'manufactura',
+    title: 'Salud y Manufactura Avanzada',
+    color: '#EF4444',
+    Icon: HeartPulse,
+    desc: 'Precisión médica y manufactura de dispositivos estériles.',
+    families: [
+      {
+        name: 'Categorías',
+        links: [
+          { code: 'MED', name: 'Médico', desc: 'Fabricación de mascarillas y apósitos quirúrgicos.', href: '/industrias/manufactura#medico' },
+          { code: 'PHA', name: 'Farma', desc: 'Envasado y dosificación bajo norma GMP.', href: '/industrias/manufactura#farma' },
+          { code: 'CNV', name: 'Conversión', desc: 'Corte de materiales no tejidos y films.', href: '/industrias/manufactura#conversion' },
+          { code: 'PRD', name: 'Producción', desc: 'Líneas automatizadas de alta velocidad.', href: '/industrias/manufactura#produccion' }
+        ]
+      }
+    ]
+  },
+  {
+    key: 'energia',
+    title: 'Energía y Utilidades',
+    color: '#3B82F6',
+    Icon: Zap,
+    desc: 'Conversión energética y tecnologías limpias.',
+    families: [
+      {
+        name: 'Categorías',
+        links: [
+          { code: 'WTE', name: 'Waste to Energy', desc: 'Conversión térmica y gasificación de RSU.', href: '/industrias/energia#wte' },
+          { code: 'BIO', name: 'Biomasa', desc: 'Pelletizado de madera y residuos agrícolas.', href: '/industrias/energia#biomasa' },
+          { code: 'IND', name: 'Energía Industrial', desc: 'Co-generación y calderas de vapor.', href: '/industrias/energia#energia-industrial' },
+          { code: 'SRV', name: 'Servicios', desc: 'Eficiencia energética y auditorías térmicas.', href: '/industrias/energia#servicios' }
+        ]
+      }
+    ]
+  }
 ];
 
 const IndustriesMenu = ({ isOpen, onMouseEnter, onMouseLeave, onClose }) => {
@@ -184,7 +228,7 @@ const IndustriesMenu = ({ isOpen, onMouseEnter, onMouseLeave, onClose }) => {
                   </div>
                   {/* Link to main industry page */}
                   <Link 
-                    to={`/industria/${activeIndustry === 'reciclaje' ? 'reciclaje-y-plasticos' : activeIndustry}`}
+                    to={`/industrias/${activeIndustry}`}
                     onClick={onClose}
                     className="px-5 py-2.5 rounded-full border text-[10px] font-black tracking-widest uppercase hover:bg-white/10 transition-colors shadow-sm"
                     style={{ 

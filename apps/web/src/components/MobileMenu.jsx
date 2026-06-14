@@ -36,21 +36,21 @@ const MobileMenu = ({ isOpen, onClose }) => {
       key: 'industries',
       type: 'expandable',
       items: [
-        { name: 'Reciclaje y Plásticos', href: '/industria/reciclaje-y-plasticos' },
         {
           name: 'Alimentos',
-          href: '/industria/alimentos',
+          href: '/industrias/alimentos',
           subItems: [
-            { name: '01 Líneas de Compostaje', href: '/industria/alimentos#compostaje' },
-            { name: '02 Líneas de Lavado y Pelado', href: '/industria/alimentos#lavado-pelado' },
-            { name: '03 Líneas de Producción de Alimentos', href: '/industria/alimentos#produccion-alimentos' },
-            { name: '04 Líneas de Empaquetado y Llenado', href: '/industria/alimentos#empaquetado-llenado' },
-            { name: '05 Sistemas de Separación', href: '/industria/alimentos#sistemas-separacion' }
+            { name: '01 Líneas de Compostaje', href: '/industrias/alimentos#compostaje' },
+            { name: '02 Líneas de Lavado', href: '/industrias/alimentos#lavado' },
+            { name: '03 Producción de Alimentos', href: '/industrias/alimentos#produccion-alimentos' },
+            { name: '04 Empaquetado y Llenado', href: '/industrias/alimentos#empaquetado-llenado' },
+            { name: '05 Sistemas de Separación', href: '/industrias/alimentos#sistemas-separacion' }
           ]
         },
-        { name: 'Packaging', href: '/industria/packaging' },
-        { name: 'Construcción', href: '/industria/construccion' },
-        { name: 'Agroindustria', href: '/industria/agroindustria' }
+        { name: 'Reciclaje y Plásticos', href: '/industrias/reciclaje-y-plasticos' },
+        { name: 'Salud y Manufactura Avanzada', href: '/industrias/salud-manufactura-avanzada' },
+        { name: 'Energía y Utilidades', href: '/industrias/energia-utilidades' },
+        { name: 'Química y Petroquímica', href: '/industrias/quimica-petroquimica' }
       ]
     },
     {
@@ -58,12 +58,11 @@ const MobileMenu = ({ isOpen, onClose }) => {
       key: 'solutions',
       type: 'expandable',
       items: [
-        { name: 'Plantas de Reciclaje', href: '/solucion/plantas-reciclaje' },
-        { name: 'Plantas de Extrusión', href: '/solucion/plantas-extrusion' },
-        { name: 'Plantas de Alimentos', href: '/solucion/plantas-alimentos' },
-        { name: 'Sistemas de Packaging', href: '/solucion/sistemas-packaging' },
-        { name: 'Automatización Industrial', href: '/solucion/automatizacion' },
-        { name: 'Ingeniería de Procesos', href: '/solucion/ingenieria' }
+        { name: 'Plantas Llave en Mano', href: '/soluciones/plantas-llave-en-mano' },
+        { name: 'Líneas de Producción', href: '/soluciones/lineas-produccion' },
+        { name: 'Infraestructura Industrial', href: '/soluciones/infraestructura-industrial' },
+        { name: 'Automatización', href: '/soluciones/automatizacion' },
+        { name: 'Operación y Soporte', href: '/soluciones/operacion-soporte' }
       ]
     },
     {
@@ -71,11 +70,12 @@ const MobileMenu = ({ isOpen, onClose }) => {
       key: 'machinery',
       type: 'expandable',
       items: [
-        { name: 'Envasadoras Rotativas', href: '/envasadoras' },
-        { name: 'Sistemas de Peletizado', href: '/maquinaria/plt' },
-        { name: 'Trituradoras Industriales', href: '/maquinaria/shd' },
-        { name: 'Lavado de Plástico', href: '/maquinaria/pws' },
-        { name: 'Ver Toda la Maquinaria', href: '/envasadoras' }
+        { name: 'Preparación', href: '/maquinaria/preparacion' },
+        { name: 'Procesamiento', href: '/maquinaria/procesamiento' },
+        { name: 'Separación', href: '/maquinaria/separacion' },
+        { name: 'Empaque', href: '/maquinaria/empaque' },
+        { name: 'Automatización', href: '/maquinaria/automatizacion' },
+        { name: 'Plantas Completas', href: '/maquinaria/plantas-completas' }
       ]
     },
     {
@@ -83,10 +83,13 @@ const MobileMenu = ({ isOpen, onClose }) => {
       key: 'technology',
       type: 'expandable',
       items: [
-        { name: 'Automatización PLC', href: '/tecnologia#automatizacion' },
-        { name: 'Gemelo Digital', href: '/tecnologia#gemelo-digital' },
-        { name: 'Monitoreo Remoto', href: '/tecnologia#monitoreo' },
-        { name: 'Inteligencia Artificial', href: '/tecnologia#ia' }
+        { name: 'Inteligencia Artificial', href: '/tecnologia#ia' },
+        { name: 'Smart Factory', href: '/tecnologia#smart-factory' },
+        { name: 'Digital Twin', href: '/tecnologia#digital-twin' },
+        { name: 'PLC + Motion', href: '/tecnologia#plc-motion' },
+        { name: 'IIOT + Edge', href: '/tecnologia#iiot-edge' },
+        { name: 'Energía Inteligente', href: '/tecnologia#energia-inteligente' },
+        { name: 'Plataforma SMQ OS™', href: '/tecnologia#smq-os' }
       ]
     },
     {
@@ -95,11 +98,26 @@ const MobileMenu = ({ isOpen, onClose }) => {
       type: 'expandable',
       items: [
         { name: 'Plantas RSU', href: '/waste-to-energy#plantas-rsu' },
-        { name: 'Producción de CDR / RDF', href: '/waste-to-energy#cdr-rdf' },
-        { name: 'Clasificación Inteligente', href: '/waste-to-energy#clasificacion-inteligente' },
+        { name: 'RDF / CDR', href: '/waste-to-energy#cdr-rdf' },
         { name: 'Recuperación de Materiales', href: '/waste-to-energy#recuperacion-materiales' },
+        { name: 'Clasificación Inteligente', href: '/waste-to-energy#clasificacion-inteligente' },
         { name: 'Conversión Energética', href: '/waste-to-energy#conversion-energetica' },
-        { name: 'Plantas Llave en Mano', href: '/waste-to-energy#plantas-llave-en-mano' }
+        { name: 'Sentinel™', href: '/waste-to-energy#sentinel' },
+        { name: 'Economía Circular', href: '/waste-to-energy#economia-circular' },
+        { name: 'Consultoría y EPC', href: '/waste-to-energy#consultoria-epc' }
+      ]
+    },
+    {
+      title: 'Proyectos',
+      key: 'projects',
+      type: 'expandable',
+      items: [
+        { name: 'Casos de Éxito', href: '/proyectos#casos' },
+        { name: 'Instalaciones', href: '/proyectos#instalaciones' },
+        { name: 'Simulaciones', href: '/proyectos#simulaciones' },
+        { name: 'ROI', href: '/proyectos#roi' },
+        { name: 'Descargables', href: '/proyectos#descargables' },
+        { name: 'Biblioteca Técnica', href: '/proyectos#biblioteca' }
       ]
     },
     {
@@ -107,9 +125,13 @@ const MobileMenu = ({ isOpen, onClose }) => {
       key: 'company',
       type: 'expandable',
       items: [
-        { name: 'Nosotros', href: '/nosotros' },
-        { name: 'Casos de Éxito', href: '/proyectos' },
-        { name: 'Contacto', href: '/#contacto' }
+        { name: 'Nosotros', href: '/empresa#nosotros' },
+        { name: 'Capacidades', href: '/empresa#capacidades' },
+        { name: 'Certificaciones', href: '/empresa#certificaciones' },
+        { name: 'Alianzas', href: '/empresa#alianzas' },
+        { name: 'Innovación', href: '/empresa#innovacion' },
+        { name: 'Carrera', href: '/empresa#carrera' },
+        { name: 'Contacto', href: '/empresa#contacto' }
       ]
     }
   ];

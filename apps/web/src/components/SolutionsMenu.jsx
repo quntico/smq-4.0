@@ -1,68 +1,102 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Factory, Layers, Cpu, ChevronRight, ArrowRight } from 'lucide-react';
+import { Factory, Layers, Cpu, ChevronRight, ArrowRight, Settings, Workflow } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext.jsx';
 
 const solutionsData = [
   {
-    key: 'llave-en-mano',
+    key: 'epc',
     title: 'Plantas Llave en Mano',
     color: '#F59E0B',
     Icon: Factory,
     desc: 'Diseño, fabricación y puesta en marcha de plantas industriales completas.',
     families: [
       {
-        name: 'Procesamiento Industrial',
+        name: 'Fases del Proyecto',
         links: [
-          { code: 'REC', name: 'Plantas de Reciclaje', desc: 'Instalaciones completas para valorización.', href: '/solucion/plantas-reciclaje' },
-          { code: 'EXT', name: 'Plantas de Extrusión', desc: 'Líneas de alta capacidad de producción.', href: '/solucion/plantas-extrusion' },
-        ],
-      },
-      {
-        name: 'Sector Alimentario',
-        links: [
-          { code: 'FOD', name: 'Plantas de Alimentos', desc: 'Sistemas con normatividad sanitaria estricta.', href: '/solucion/plantas-alimentos' },
-        ],
+          { code: 'DSN', name: 'Diseño', desc: 'Conceptualización y layouts en 3D.', href: '/soluciones/epc#diseño' },
+          { code: 'ENG', name: 'Ingeniería', desc: 'Cálculos mecánicos, eléctricos y térmicos.', href: '/soluciones/epc#ingenieria' },
+          { code: 'FAB', name: 'Fabricación', desc: 'Construcción bajo estrictas normas de calidad.', href: '/soluciones/epc#fabricacion' },
+          { code: 'INT', name: 'Integración', desc: 'Montaje electromecánico y control centralizado.', href: '/soluciones/epc#integracion' },
+          { code: 'COM', name: 'Comisionamiento', desc: 'Pruebas en vacío, con carga y arranque final.', href: '/soluciones/epc#comisionamiento' }
+        ]
       }
-    ],
+    ]
   },
   {
-    key: 'sistemas-integrados',
-    title: 'Sistemas Integrados',
+    key: 'lineas',
+    title: 'Líneas de Producción',
     color: '#06B6D4',
-    Icon: Layers,
-    desc: 'Integración tecnológica para maximizar la eficiencia productiva.',
+    Icon: Workflow,
+    desc: 'Líneas de procesamiento continuo y batch de alta productividad.',
     families: [
       {
-        name: 'Líneas de Empaque',
+        name: 'Configuración de Líneas',
         links: [
-          { code: 'PKG', name: 'Sistemas de Packaging', desc: 'Envasado, encartonado y paletizado automático.', href: '/solucion/sistemas-packaging' },
-        ],
-      },
-      {
-        name: 'Tecnología de Control',
-        links: [
-          { code: 'AUT', name: 'Automatización Industrial', desc: 'Robótica, PLCs y control de procesos.', href: '/solucion/automatizacion' },
-        ],
+          { code: 'CNT', name: 'Continuas', desc: 'Flujo ininterrumpido de procesamiento masivo.', href: '/soluciones/lineas#continuas' },
+          { code: 'BTC', name: 'Batch', desc: 'Procesamiento por lotes y recetas flexibles.', href: '/soluciones/lineas#batch' },
+          { code: 'CAP', name: 'Alta Capacidad', desc: 'Sistemas diseñados para alto volumen de producción.', href: '/soluciones/lineas#alta-capacidad' },
+          { code: 'SCL', name: 'Escalables', desc: 'Diseño modular que crece con su negocio.', href: '/soluciones/lineas#escalables' }
+        ]
       }
-    ],
+    ]
   },
   {
-    key: 'ingenieria',
-    title: 'Ingeniería Avanzada',
+    key: 'infraestructura',
+    title: 'Infraestructura Industrial',
+    color: '#10B981',
+    Icon: Layers,
+    desc: 'Instalaciones y sistemas de soporte para plantas de gran escala.',
+    families: [
+      {
+        name: 'Servicios de Infraestructura',
+        links: [
+          { code: 'UTL', name: 'Utilidades', desc: 'Sistemas de agua, aire comprimido y gases.', href: '/soluciones/infraestructura#utilidades' },
+          { code: 'NRG', name: 'Energía', desc: 'Subestaciones, distribución y co-generación.', href: '/soluciones/infraestructura#energia' },
+          { code: 'WRK', name: 'Obra', desc: 'Cimentaciones, bases de equipos y obra civil.', href: '/soluciones/infraestructura#obra' },
+          { code: 'SRV', name: 'Servicios', desc: 'Mantenimiento estructural e instalaciones.', href: '/soluciones/infraestructura#servicios' }
+        ]
+      }
+    ]
+  },
+  {
+    key: 'automatizacion',
+    title: 'Automatización Industrial',
     color: '#8B5CF6',
     Icon: Cpu,
-    desc: 'Servicios especializados de consultoría, diseño y mejora continua.',
+    desc: 'Cerebro digital y control de procesos en tiempo real.',
     families: [
       {
-        name: 'Consultoría y Diseño',
+        name: 'Tecnologías de Control',
         links: [
-          { code: 'ENG', name: 'Ingeniería de Procesos', desc: 'Optimización y diseño de layouts industriales.', href: '/solucion/ingenieria' },
-        ],
+          { code: 'PLC', name: 'PLC', desc: 'Controladores lógicos programables deterministas.', href: '/soluciones/automatizacion#plc' },
+          { code: 'SCD', name: 'SCADA', desc: 'Sistemas de supervisión y adquisición de datos.', href: '/soluciones/automatizacion#scada' },
+          { code: 'MES', name: 'MES', desc: 'Sistemas de ejecución de manufactura en planta.', href: '/soluciones/automatizacion#mes' },
+          { code: 'IOT', name: 'IIOT', desc: 'Sensores inteligentes y telemetría de nube.', href: '/soluciones/automatizacion#iiot' },
+          { code: 'ART', name: 'Inteligencia Artificial', desc: 'Algoritmos predictivos y optimización autónoma.', href: '/soluciones/automatizacion#ia' }
+        ]
       }
-    ],
+    ]
   },
+  {
+    key: 'servicio',
+    title: 'Operación y Soporte',
+    color: '#EF4444',
+    Icon: Settings,
+    desc: 'Asegure la continuidad operativa de su planta.',
+    families: [
+      {
+        name: 'Soporte Técnico',
+        links: [
+          { code: 'RTF', name: 'Retrofit', desc: 'Modernización de tableros y mecánica.', href: '/soluciones/servicio#retrofit' },
+          { code: 'PAR', name: 'Refacciones', desc: 'Piezas originales y consumibles críticos.', href: '/soluciones/servicio#refacciones' },
+          { code: 'SRV', name: 'Servicio', desc: 'Mantenimiento preventivo y correctivo in-situ.', href: '/soluciones/servicio#servicio' },
+          { code: 'RMT', name: 'Remote Support', desc: 'Diagnósticos en tiempo real vía tele-servicio.', href: '/soluciones/servicio#remote-support' }
+        ]
+      }
+    ]
+  }
 ];
 
 const SolutionsMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {

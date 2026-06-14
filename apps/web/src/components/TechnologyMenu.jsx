@@ -1,57 +1,65 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Cpu, Activity, Shield, BrainCircuit, Wifi, Users, ArrowRight } from 'lucide-react';
+import { Cpu, Activity, Shield, BrainCircuit, Wifi, Factory, Zap, ArrowRight } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext.jsx';
 
 const techItems = [
   {
     num: '01',
-    title: 'AUTOMATIZACIÓN PLC & RTU',
-    desc: 'SISTEMAS DE TIEMPO REAL DETERMINISTAS PARA PROCESOS INDUSTRIALES CRÍTICOS.',
-    color: '#06B6D4', // Cyan
-    Icon: Cpu,
-    href: '/#plc'
+    title: 'Inteligencia Artificial',
+    desc: 'ALGORITMOS DE APRENDIZAJE PROFUNDO Y OPTIMIZACIÓN DE PROCESOS PRODUCTIVOS.',
+    color: '#8B5CF6',
+    Icon: BrainCircuit,
+    href: '/tecnologia#ia'
   },
   {
     num: '02',
-    title: 'SISTEMAS INTELIGENTES SCR',
-    desc: 'EL CEREBRO DIGITAL DE LA INDUSTRIA MODERNA Y TELEMETRÍA AVANZADA.',
-    color: '#10B981', // Green
-    Icon: Activity,
-    href: '/#sistemas-inteligentes'
+    title: 'Smart Factory',
+    desc: 'LÍNEAS TOTALMENTE INTERCONECTADAS CON TOMA DE DECISIONES AUTÓNOMA.',
+    color: '#10B981',
+    Icon: Factory,
+    href: '/tecnologia#smart-factory'
   },
   {
     num: '03',
-    title: 'CONTROL DE POTENCIA',
-    desc: 'SISTEMAS ROBUSTOS DE DISTRIBUCIÓN, PROTECCIÓN Y FILTRADO DE ARMÓNICOS.',
-    color: '#8B5CF6', // Purple
-    Icon: Shield,
-    href: '/#control'
+    title: 'Digital Twin',
+    desc: 'REPLICACIÓN VIRTUAL Y SIMULACIÓN EN TIEMPO REAL DEL RENDIMIENTO DE PLANTA.',
+    color: '#06B6D4',
+    Icon: Activity,
+    href: '/tecnologia#digital-twin'
   },
   {
     num: '04',
-    title: 'INTELIGENCIA ARTIFICIAL',
-    desc: 'ALGORITMOS Y ANALÍTICA AVANZADA PARA OPTIMIZAR PROCESOS PRODUCTIVOS.',
-    color: '#F97316', // Orange
-    Icon: BrainCircuit,
-    href: '/#ia'
+    title: 'PLC + Motion',
+    desc: 'CONTROLADORES DE TIEMPO REAL Y CONTROL DE MOVIMIENTO DE EXTREMA PRECISIÓN.',
+    color: '#EF4444',
+    Icon: Cpu,
+    href: '/tecnologia#plc-motion'
   },
   {
     num: '05',
-    title: 'MONITOREO REMOTO & IIoT',
-    desc: 'CONECTIVIDAD SEGURA, MONITOREO EN TIEMPO REAL Y GESTIÓN DESDE CUALQUIER LUGAR.',
-    color: '#3B82F6', // Blue
+    title: 'IIOT + Edge',
+    desc: 'PROCESAMIENTO DE DATOS EN EL BORDE Y TELEMETRÍA DE ALTA SEGURIDAD.',
+    color: '#3B82F6',
     Icon: Wifi,
-    href: '/#monitoreo'
+    href: '/tecnologia#iiot-edge'
   },
   {
     num: '06',
-    title: 'TECNOLOGÍA COLABORATIVA',
-    desc: 'ARQUITECTURAS INDUSTRIALES CENTRADAS EN PERSONAS Y ROBÓTICA SEGURA.',
-    color: '#EAB308', // Yellow
-    Icon: Users,
-    href: '/#colaborativa'
+    title: 'Energía Inteligente',
+    desc: 'MONITOREO DE HUELLA DE CARBONO Y OPTIMIZACIÓN DE CONSUMO ENERGÉTICO.',
+    color: '#F97316',
+    Icon: Zap,
+    href: '/tecnologia#energia-inteligente'
+  },
+  {
+    num: '07',
+    title: 'Plataforma SMQ OS™',
+    desc: 'EL SISTEMA OPERATIVO PROPIETARIO PARA LA GESTIÓN DE PLANTAS INDUSTRIALES.',
+    color: '#EAB308',
+    Icon: Shield,
+    href: '/tecnologia#smq-os'
   }
 ];
 
@@ -71,16 +79,16 @@ const TechnologyMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
           style={{
             left: '50%',
             top: `${headerHeight}px`,
-            width: 'min(1080px, 94vw)',
+            width: 'min(1150px, 95vw)',
             backgroundColor: 'rgba(8,11,18,0.97)',
             backdropFilter: 'blur(24px)',
-            padding: '28px 32px'
+            padding: '24px 28px'
           }}
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
         >
           {/* Header */}
-          <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/[0.07]">
+          <div className="flex items-center justify-between mb-5 pb-3 border-b border-white/[0.07]">
             <div>
               <p className="text-[10px] font-black uppercase tracking-[0.25em] text-[#FFD700] mb-1">
                 INNOVACIÓN Y DESARROLLO
@@ -98,8 +106,8 @@ const TechnologyMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
             </Link>
           </div>
 
-          {/* Grid de 6 tecnologías */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {/* Grid de 7 tecnologías - 4 columnas para mejor simetría visual */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {techItems.map((item) => {
               const Icon = item.Icon;
               return (
