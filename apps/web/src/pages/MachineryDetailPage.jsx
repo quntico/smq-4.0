@@ -1108,6 +1108,7 @@ const MachineryDetailPage = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [activeTab, setActiveTab] = useState('hero');
   const [isUploading, setIsUploading] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
 
   const [backPath, setBackPath] = useState('/industria/alimentos');
   const [backName, setBackName] = useState('Sector Alimentos');
@@ -1384,38 +1385,77 @@ const MachineryDetailPage = () => {
             const menuItems = isRecycling ? recyclingMenuItems : otherMenuItems;
 
             return (
-              <div className="w-full bg-[#04060A]/95 backdrop-blur-md border-y border-[#84CC16]/30 sticky top-[90px] z-40 py-4 px-6 flex flex-wrap justify-center items-center gap-3 shadow-[0_0_35px_rgba(132,204,22,0.08)]">
-                {/* Botón de Volver con estilo industrial */}
-                <Link
-                  to={backPath}
-                  className="px-4 py-2.5 rounded-lg text-[10px] md:text-[11px] font-black uppercase tracking-widest text-white bg-black/40 border border-[#84CC16]/25 hover:border-[#84CC16] hover:bg-[#84CC16]/10 hover:shadow-[0_0_15px_rgba(132,204,22,0.15)] transition-all duration-300 flex items-center gap-2 cursor-pointer group"
-                >
-                  <ArrowLeft size={13} className="text-[#84CC16] group-hover:scale-110 transition-transform duration-300" />
-                  <span>Volver</span>
-                </Link>
-
-                {menuItems.map((item, index) => {
-                  const isActive = item.isMachine && item.code === resolvedId;
-                  const Icon = item.icon;
-
-                  return (
+              <div className="w-full bg-[#04060A]/95 backdrop-blur-md border-y border-[#84CC16]/30 sticky top-[90px] z-40 shadow-[0_0_35px_rgba(132,204,22,0.08)] transition-all duration-300">
+                {/* Fila de cabecera del submenú pegajoso */}
+                <div className="max-w-[1400px] mx-auto px-6 py-2.5 flex items-center justify-between gap-4 border-b border-[#84CC16]/10">
+                  <div className="flex items-center gap-3">
                     <Link
-                      key={index}
-                      to={item.href}
-                      className={`px-4.5 py-2.5 rounded-lg text-[10px] md:text-[11px] font-black uppercase tracking-widest transition-all duration-300 flex items-center gap-2.5 cursor-pointer border whitespace-nowrap bg-black/40 ${
-                        isActive 
-                          ? 'border-[#84CC16] shadow-[0_0_20px_rgba(132,204,22,0.25)] scale-105 text-white' 
-                          : 'border-[#84CC16]/25 text-white/95 hover:border-[#84CC16] hover:bg-[#84CC16]/10 hover:shadow-[0_0_15px_rgba(132,204,22,0.15)] hover:scale-[1.02]'
-                      }`}
+                      to={backPath}
+                      className="px-3.5 py-2 rounded text-[10px] font-black uppercase tracking-widest text-white bg-black/40 border border-[#84CC16]/25 hover:border-[#84CC16] hover:bg-[#84CC16]/10 hover:shadow-[0_0_10px_rgba(132,204,22,0.15)] transition-all duration-300 flex items-center gap-1.5 cursor-pointer group"
                     >
-                      <Icon 
-                        size={14} 
-                        className={`text-[#84CC16] shrink-0 transition-all duration-300 ${isActive ? 'scale-110 drop-shadow-[0_0_5px_#84CC16]' : ''}`} 
-                      />
-                      <span>{item.label}</span>
+                      <ArrowLeft size={12} className="text-[#84CC16] group-hover:scale-110 transition-transform duration-300" />
+                      <span>Volver</span>
                     </Link>
-                  );
-                })}
+                    <span className="text-[10px] text-white/50 font-bold uppercase tracking-wider hidden sm:inline-block">
+                      Sector Activo: <span className="text-[#84CC16]">{backName.replace('Sector ', '')}</span>
+                    </span>
+                  </div>
+
+                  {/* Toggle para abrir/cerrar la botonera */}
+                  <button
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    className="px-4 py-2 rounded text-[10px] font-black uppercase tracking-widest text-white bg-black/40 border border-[#84CC16]/40 hover:border-[#84CC16] hover:bg-[#84CC16]/20 transition-all duration-300 flex items-center gap-2 cursor-pointer shadow-[0_0_10px_rgba(132,204,22,0.1)]"
+                  >
+                    <Sliders size={12} className="text-[#84CC16] animate-pulse" />
+                    <span>{isMenuOpen ? 'Ocultar Panel' : 'Mostrar Panel de Navegación'}</span>
+                    <ChevronRight 
+                      size={12} 
+                      className={`text-[#84CC16] transition-transform duration-300 ${isMenuOpen ? 'rotate-90' : ''}`} 
+                    />
+                  </button>
+                </div>
+
+                {/* Botonera expandible con Framer Motion */}
+                <AnimatePresence>
+                  {isMenuOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="max-w-[1400px] mx-auto py-4 px-6 flex flex-wrap justify-center items-center gap-x-2.5 gap-y-3">
+                        {menuItems.map((item, index) => {
+                          const isActive = item.isMachine && item.code === resolvedId;
+                          const Icon = item.icon;
+
+                          return (
+                            <Link
+                              key={index}
+                              to={item.href}
+                              onClick={() => {
+                                // Cerramos el panel al seleccionar un elemento para maximizar el espacio de lectura
+                                setIsMenuOpen(false);
+                              }}
+                              className={`px-4 py-2 rounded text-[10px] font-extrabold uppercase tracking-wider transition-all duration-300 flex items-center gap-2.5 cursor-pointer border whitespace-nowrap bg-black/45 ${
+                                isActive 
+                                  ? 'border-[#84CC16] text-white shadow-[0_0_15px_rgba(132,204,22,0.25)] bg-[#84CC16]/10 font-black scale-[1.03]' 
+                                  : 'border-[#84CC16]/20 text-white/90 hover:border-[#84CC16] hover:bg-[#84CC16]/10 hover:shadow-[0_0_10px_rgba(132,204,22,0.15)] hover:scale-[1.02]'
+                              }`}
+                            >
+                              <Icon 
+                                size={13} 
+                                className={`text-[#84CC16] shrink-0 transition-all duration-300 ${isActive ? 'scale-110 drop-shadow-[0_0_3px_#84CC16]' : ''}`} 
+                              />
+                              <span>{item.label}</span>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             );
           })()}
