@@ -15,8 +15,8 @@ function mergeStates() {
   // Clonamos el estado actual para no mutar directamente
   const merged = JSON.parse(JSON.stringify(currentCloud));
 
-  // 1. Aseguramos que la versión se mantenga como la última 6.84
-  merged.settings.appVersion = "6.84";
+  // 1. Aseguramos que la versión se mantenga como la última 6.85
+  merged.settings.appVersion = "6.85";
 
   // 2. Buscamos las páginas en el backup
   const backupHome = backup.pages.find(p => p.id === 'home');

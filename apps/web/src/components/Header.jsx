@@ -11,6 +11,8 @@ import AdminModal from '@/components/AdminModal.jsx';
 import LanguageSelector from '@/components/LanguageSelector.jsx';
 import { useCMS } from '@/context/CMSContext.jsx';
 import { useLanguage } from '@/context/LanguageContext.jsx';
+import MobileMenu from '@/components/MobileMenu.jsx';
+import { Menu } from 'lucide-react';
 
 const componentMap = {
   IndustriesMenu,
@@ -29,6 +31,7 @@ const Header = () => {
   const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [adminTab, setAdminTab] = useState('ajustes');
   const { cmsState, isEditorMode, setIsEditorMode, updateMenus, syncFromCloud, syncToCloud, updateSettings } = useCMS();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isGitPushing, setIsGitPushing] = useState(false);
   const { t } = useLanguage();
   const { logoUrl, logoSize, headerHeight, headerOpacity } = cmsState.settings;
@@ -244,7 +247,7 @@ const Header = () => {
         }}
       >
         {/* Left Section: Logo & Version */}
-        <div className="relative flex items-center h-full ml-[114px]">
+        <div className="relative flex items-center h-full lg:ml-[114px] ml-0">
           <div className="flex items-center gap-3">
             {/* Logo */}
             <button
@@ -396,8 +399,21 @@ const Header = () => {
             )}
           </button>
         </div>
+
+        {/* Mobile Menu Trigger */}
+        <div className="flex lg:hidden items-center gap-3">
+          <LanguageSelector />
+          <button
+            onClick={() => setIsMobileMenuOpen(true)}
+            className="text-white hover:text-[#FFD700] transition-colors p-2 rounded-full hover:bg-white/5"
+            aria-label="Abrir menú de navegación"
+          >
+            <Menu size={24} />
+          </button>
+        </div>
       </header>
       <AdminModal isOpen={isAdminOpen} onClose={() => setIsAdminOpen(false)} defaultTab={adminTab} />
+      <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
     </>
   );
 };

@@ -27,14 +27,16 @@ const industriesData = [
     title: 'Alimentos',
     color: '#F59E0B',
     Icon: Wheat,
-    desc: 'Higiene óptima, precisión y control absoluto (Grado Alimentario).',
+    desc: 'Higiene óptima, precisión y control absoluto (Grado Alimentario y Orgánico).',
     families: [
       {
-        name: 'Procesamiento Alimentario',
+        name: 'Líneas de Procesamiento',
         links: [
-          { code: 'CHX', name: 'Procesamiento de Chocolate', desc: 'Templadoras y tanques.', href: '/industria/alimentos#chocolate' },
-          { code: 'CNF', name: 'Cocción y Confitería', desc: 'Caramelos duros y suaves.', href: '/industria/alimentos#confiteria' },
-          { code: 'MIX', name: 'Molienda e Ingredientes', desc: 'Mezcladores y dosificadores.', href: '/industria/alimentos#ingredientes' },
+          { code: 'CMP', name: '01 Líneas de Compostaje', desc: 'Volteadoras y sistemas de compostaje.', href: '/industria/alimentos#compostaje' },
+          { code: 'LWP', name: '02 Lavado y Pelado', desc: 'Sistemas integrados de lavado, desinfección y pelado.', href: '/industria/alimentos#lavado-pelado' },
+          { code: 'LPA', name: '03 Producción de Alimentos', desc: 'Procesamiento continuo para papas, pastas y barras.', href: '/industria/alimentos#produccion-alimentos' },
+          { code: 'LEL', name: '04 Empaquetado y Llenado', desc: 'Empaque de polvos, líquidos, pouches y botellas.', href: '/industria/alimentos#empaquetado-llenado' },
+          { code: 'SDS', name: '05 Sistemas de Separación', desc: 'Clasificación inteligente por color, tamaño y peso.', href: '/industria/alimentos#sistemas-separacion' }
         ],
       }
     ],

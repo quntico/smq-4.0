@@ -5,7 +5,7 @@
     "logoSize": 98,
     "headerHeight": 100,
     "headerOpacity": 60,
-    "appVersion": "6.84",
+    "appVersion": "6.85",
     "globalImageSharpness": 100,
     "globalFilterColor": "#000000",
     "globalFilterOpacity": 75
@@ -70,6 +70,22 @@
                 "backgroundMedia": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780095574453_cajas%20fast%20webm.webm",
                 "overlayOpacity": 27,
                 "posterUrl": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780095913256_AUTOMATIZACION.png"
+              },
+              {
+                "id": "slide-1780811107042",
+                "title1": "SISTEMAS AVANZADOS",
+                "title2": "DE  PELETIZADO.",
+                "subtitle": "Descripción breve de este nuevo banner industrial.",
+                "backgroundMedia": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780811371107_VID_PELLET_WEB.webm",
+                "overlayOpacity": 72
+              },
+              {
+                "id": "slide-1780811407090",
+                "title1": "ENVASADORAS",
+                "title2": "DE NUEVA GENERACIÓN",
+                "subtitle": "Envasadoras Doy Pack, Stand up pouch pre made, Sachet, VSSF 4.0 ",
+                "backgroundMedia": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780811567983_pouch_12345_optimized.webm",
+                "overlayOpacity": 50
               }
             ]
           }
@@ -276,6 +292,73 @@
           }
         },
         {
+          "id": "proyectos",
+          "type": "proyectos",
+          "data": {
+            "title": "Proyectos <span class=\"text-[#F5C400]\">Destacados</span>",
+            "subtitle": "Casos de éxito y plantas industriales implementadas por nuestro equipo.",
+            "items": [
+              {
+                "id": 1,
+                "title": "Planta de Procesamiento RSU 600 TPD",
+                "desc": "Clasificación mecanizada, separación de reciclables y valorización de residuos sólidos urbanos para generación de combustibles alternativos.",
+                "specs": "Capacidad: 600 Ton/Día | Ubicación: Monterrey, MX",
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png",
+                "image2": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png",
+                "specsTable": {
+                  "capacidad": "600 Toneladas / Día",
+                  "ubicacion": "Monterrey, Nuevo León, MX",
+                  "aplicacion": "Clasificación y Separación de Residuos Sólidos Urbanos (RSU)",
+                  "control": "PLC Siemens S7-1500 + SCADA WinCC",
+                  "tecnologia": "Separación Óptica (NIR) + Clasificación por IA",
+                  "material": "Acero Anti-abrasión de Alta Resistencia",
+                  "consumo": "≈ 980 kW (Operación continua)",
+                  "eficiencia": "95.0% Disponibilidad Operativa",
+                  "estandares": "CE • ISO 14001 • ISO 45001"
+                }
+              },
+              {
+                "id": 2,
+                "title": "Línea de Procesamiento de Chocolate",
+                "desc": "Automatización integral para el control de temperatura, templado continuo y moldeado de chocolate de grado exportación.",
+                "specs": "Capacidad: 2000 kg/h | Ubicación: Bogotá, CO",
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115231575_choco%20color%202.png",
+                "image2": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115213579_choco%20bN%202.png",
+                "specsTable": {
+                  "capacidad": "2,000 kg/h",
+                  "ubicacion": "Bogotá, Colombia",
+                  "aplicacion": "Atemperado y Moldeado de Chocolate",
+                  "control": "PLC Siemens + HMI Industrial + SCADA",
+                  "tecnologia": "Industria 4.0 / SCR700 + Telemetría IoT",
+                  "material": "AISI 304 / 316L Food Grade",
+                  "consumo": "≈ 196 kW (Promedio de Operación)",
+                  "eficiencia": "98.5% (Disponibilidad Operativa)",
+                  "estandares": "CE • HACCP • GMP"
+                }
+              },
+              {
+                "id": 3,
+                "title": "Planta de Pelletizado de Plástico",
+                "desc": "Extrusión de alto rendimiento con desgasificación al vacío, filtrado hidráulico continuo y corte bajo agua.",
+                "specs": "Capacidad: 1200 kg/h | Ubicación: Lima, PE",
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png",
+                "image2": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png",
+                "specsTable": {
+                  "capacidad": "1,200 kg/h (PTCS185)",
+                  "ubicacion": "Lima, Perú",
+                  "aplicacion": "Extrusión y Pelletizado de Alto Rendimiento",
+                  "control": "PLC + HMI / 440 VAC, 3F, 60 Hz",
+                  "tecnologia": "Doble Desgasificación / Vacío Activo",
+                  "material": "Tornillo de 185 mm / Relación L/D 18-42",
+                  "consumo": "≈ 366 kW (Aproximado)",
+                  "eficiencia": "Water Ring Die Face / Doble Pistón",
+                  "estandares": "CE • ISO 9001 (Operadores: 2-4)"
+                }
+              }
+            ]
+          }
+        },
+        {
           "id": "nosotros-final",
           "type": "nosotros-final",
           "data": {
@@ -335,7 +418,8 @@
                   "Clasificación automática de fracciones finas y orgánicas",
                   "Sistemas de control de olores y polvo integrados",
                   "Banda transportadora de alta resistencia con velocidad regulable"
-                ]
+                ],
+                "disableFilters": true
               },
               {
                 "id": "cdr-rdf",
@@ -418,6 +502,10 @@
                   },
                   {
                     "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780809824744_04_material_recovery.png",
+                    "name": "Nombre del Equipo"
+                  },
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780810858568_pirolisis_1.png",
                     "name": "Nombre del Equipo"
                   }
                 ],
@@ -712,6 +800,79 @@
               {
                 "name": "Checkweigher integrado",
                 "desc": "Balanza dinámica de salida con rechazo automático por peso fuera de margen."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "industria-reciclaje-y-plasticos",
+      "title": "Reciclaje y Plásticos",
+      "slug": "/industria/reciclaje-y-plasticos",
+      "modules": [
+        {
+          "id": "sector-data",
+          "type": "sector-detail",
+          "data": {
+            "title": "Reciclaje y Plásticos",
+            "subtitle": "Tecnología líder para la economía circular",
+            "description": "Diseñamos y fabricamos sistemas llave en mano de alto rendimiento para el procesamiento, triturado, lavado y extrusión de polímeros. Nuestras soluciones maximizan la pureza del material recuperado y reducen el consumo energético operativo.",
+            "heroImage": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png",
+            "stats": [
+              {
+                "label": "Eficiencia de Lavado",
+                "value": "99.2%"
+              },
+              {
+                "label": "Rendimiento Máximo",
+                "value": "2.5 Ton/h"
+              },
+              {
+                "label": "Ahorro de Energía",
+                "value": "Hasta 30%"
+              },
+              {
+                "label": "Vida Útil Husillo",
+                "value": "25,000h+"
+              }
+            ],
+            "items": [
+              {
+                "id": "trituracion",
+                "title": "Trituradoras",
+                "description": "Trituradoras de alto rendimiento para plásticos y residuos. Configuración modular de 1 eje, 2 ejes y 4 ejes.",
+                "longDescription": "Nuestros sistemas de trituración industrial están optimizados para el procesamiento primario de purgas, bidones, tuberías y materiales post-consumo. Cuentan con cuchillas de aleación templada de alta resistencia y sistemas de empuje hidráulico inteligente.",
+                "features": [
+                  "Corte multieje de baja velocidad y alto torque",
+                  "Cuchillas rotativas de fácil sustitución",
+                  "Ejes de transmisión con acoplamiento de seguridad"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png"
+              },
+              {
+                "id": "pelletizado",
+                "title": "Sistemas de Pelletizado",
+                "description": "Corte por anillo de agua o bajo agua para una geometría de pellet perfecta, libre de polvo y con humedad inferior al 1%.",
+                "longDescription": "Integración automática desde el cabezal de extrusión. El sistema controla automáticamente la velocidad de las cuchillas en función del flujo de polímero, previniendo aglomeraciones y garantizando un tamaño homogéneo de pellet comercial.",
+                "features": [
+                  "Ajuste automático de presión de cuchillas",
+                  "Secadora centrífuga de acero inoxidable",
+                  "Intercambiador térmico integrado de agua"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png"
+              },
+              {
+                "id": "lavado",
+                "title": "Módulos de Lavado y Secado",
+                "description": "Plantas integradas de trituración húmeda, separación por densidad en tinas de flotación y lavado en caliente para eliminar adhesivos y contaminantes.",
+                "longDescription": "Desarrolladas para flujos post-consumo altamente contaminados (como botellas PET, film agrícola y envases rígidos). Ofrecemos secadoras mecánicas de alta velocidad y desgasificadores neumáticos para entregar material seco listo para extrusión directa.",
+                "features": [
+                  "Separación gravimétrica de alta precisión",
+                  "Lavado alcalino térmico continuo",
+                  "Secadoras mecánicas con autolimpieza rotor"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png"
               }
             ]
           }

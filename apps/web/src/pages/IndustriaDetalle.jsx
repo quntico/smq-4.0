@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Footer from '@/components/Footer.jsx';
-import { ChevronRight, ArrowLeft, Cpu, Compass, Settings, Zap, Shield, ArrowUpRight, Upload, Image as ImageIcon, Plus, Trash2, Minimize2, Maximize2, ArrowLeftRight, Cloud, Save, Layers, RefreshCw, Scissors, Package, Clock, Star } from 'lucide-react';
+import { ChevronRight, ArrowLeft, Cpu, Compass, Settings, Zap, Shield, ArrowUpRight, Upload, Image as ImageIcon, Plus, Trash2, Minimize2, Maximize2, ArrowLeftRight, Cloud, Save, Layers, RefreshCw, Scissors, Package, Clock, Star, Leaf, Droplet, Grid } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCMS } from '@/context/CMSContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
@@ -51,40 +51,117 @@ const sectorsData = {
     ]
   },
   'alimentos': {
-    title: 'Industria Alimentaria',
+    title: 'Industria de Alimentos y Compostaje',
     subtitle: 'Higiene óptima, precisión y control absoluto',
-    description: 'Equipos diseñados bajo los más estrictos estándares de sanidad (HACCP / FDA) en acero inoxidable. Desarrollamos tecnologías de mezclado, atemperado, cocción y transporte para los sectores de chocolate, confitería e ingredientes industriales.',
+    description: 'Equipos diseñados bajo los más estrictos estándares de sanidad (HACCP / FDA) y procesamiento orgánico. Desarrollamos tecnologías avanzadas para procesamiento, dosificación y líneas de compostaje de alta eficiencia.',
     heroImage: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115231575_choco%20color%202.png',
     stats: [
-      { label: 'Cumplimiento Normativo', value: 'FDA / EHEDG' },
-      { label: 'Acabado Sanitario', value: 'Ra < 0.4 μm' },
-      { label: 'Limpieza In Situ', value: 'CIP Automatizado' },
-      { label: 'Control de Temperatura', value: '±0.1°C' }
+      { label: 'Eficiencia de Volteo', value: '99.5%' },
+      { label: 'Grado Sanitario', value: 'FDA / HACCP' },
+      { label: 'Operación Continua', value: '24/7' },
+      { label: 'Control Autónomo', value: 'Sí' }
     ],
     items: [
       {
-        id: 'chocolate',
-        title: 'Procesamiento de Chocolate',
-        description: 'Templadoras de chocolate continuas de varias etapas, tanques con chaqueta de agua y agitadores de raspado raspador.',
-        longDescription: 'Nuestros sistemas garantizan la formación perfecta de cristales tipo V para lograr un chocolate con brillo premium, dureza óptima al quiebre y excelente estabilidad térmica.',
-        features: ['Pantalla táctil de control de curvas térmicas', 'Bombas de desplazamiento positivo higiénicas', 'Desaireado por vacío integrado'],
-        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115231575_choco%20color%202.png'
+        id: 'compostaje',
+        title: 'LÍNEAS DE COMPOSTAJE',
+        description: 'Volteadoras y sistemas de compostaje para residuos orgánicos.',
+        longDescription: 'Desarrollamos líneas completas de compostaje industrial con volteadoras de alto rendimiento para el tratamiento eficiente de residuos orgánicos, lodos y biomasa. Sistemas de alta durabilidad optimizados para plantas de compostaje a gran escala.',
+        features: [
+          '[icon:Shield] Construcción robusta anticorrosiva',
+          '[icon:Zap] Alta capacidad de volteo por hora',
+          '[icon:Cpu] Control de velocidad y tracción hidráulica autónoma'
+        ],
+        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png',
+        tableHeaders: ["Modelo", "Ancho Pila", "Capacidad", "Potencia", "Peso"],
+        equipmentTable: [
+          { model: 'TG-1000', width: '1.0 m - 1.2 m', capacity: '250 m³/h', power: '25 HP', weight: '1,000 kg' },
+          { model: 'TG-2000', width: '2.0 m - 2.2 m', capacity: '550 m³/h', power: '55 HP', weight: '2,200 kg' },
+          { model: 'TG-5000', width: '5.0 m - 5.2 m', capacity: '2,400 m³/h', power: '160 HP', weight: '6,200 kg' },
+          { model: 'TG-10000', width: '10.0 m - 10.2 m', capacity: '5,000 m³/h', power: '340 HP', weight: '13,800 kg' }
+        ]
       },
       {
-        id: 'confiteria',
-        title: 'Cocción y Moldeo de Confites',
-        description: 'Líneas continuas para caramelos duros, suaves y gomitas de gelatina o pectina. Cocinas al vacío e inyectores de sabor.',
-        longDescription: 'Sistemas de alta capacidad con dosificación de aditivos (colores, ácidos, sabores) en línea y desmolde neumático de precisión en moldes metálicos o de silicona.',
-        features: ['Cocedores continuos de película delgada', 'Cadenas de moldeo de servo-mando', 'Túneles de enfriamiento de flujo controlado'],
-        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115213579_choco%20bN%202.png'
+        id: 'lavado-pelado',
+        title: 'LÍNEAS DE LAVADO Y PELADO',
+        description: 'Sistemas integrados de lavado, desinfección, corte y pelado para vegetales y frutas.',
+        longDescription: 'Nuestros equipos de lavado por burbujas y sistemas de pelado garantizan un tratamiento delicado y óptimo de la materia prima, reduciendo mermas y cumpliendo rigurosos estándares higiénicos.',
+        features: [
+          '[icon:Shield] Construcción completa en acero inoxidable AISI 304',
+          '[icon:Zap] Consumo eficiente de agua con sistema de recirculación',
+          '[icon:Cpu] Regulación de velocidad de banda y flujo de aire'
+        ],
+        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png',
+        tableHeaders: ["Modelo", "Función", "Capacidad", "Potencia", "Material"],
+        equipmentTable: [
+          { model: 'LWF-500', width: 'Lavado y Secado', capacity: '500 kg/h', power: '3.2 kW', weight: 'AISI 304' },
+          { model: 'LWV-500', width: 'Lavado y Corte', capacity: '500 kg/h', power: '4.5 kW', weight: 'AISI 304' },
+          { model: 'LWL-500', width: 'Lavado de Hojas', capacity: '400 kg/h', power: '2.8 kW', weight: 'AISI 304' },
+          { model: 'LBW-500', width: 'Tina de Lavado Burbujas', capacity: '600 kg/h', power: '3.5 kW', weight: 'AISI 304' },
+          { model: 'GPL-300', width: 'Peladora de Ajos', capacity: '300 kg/h', power: '1.5 kW', weight: 'AISI 304' }
+        ]
       },
       {
-        id: 'ingredientes',
-        title: 'Molienda e Ingredientes',
-        description: 'Mezcladores de listón, molinos clasificadores de aire y silos con sistemas de fluidización sanitaria para ingredientes en polvo.',
-        longDescription: 'Automatización completa para la dosificación por lotes o continua de aditivos alimentarios, garantizando homogeneidad y previniendo la contaminación cruzada.',
-        features: ['Descarga asistida por vibración o fluidización', 'Construcción modular de fácil desarme', 'Sistemas de pesaje de alta precisión C3'],
-        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png'
+        id: 'produccion-alimentos',
+        title: 'LÍNEAS DE PRODUCCIÓN DE ALIMENTOS',
+        description: 'Líneas completas de procesamiento para papas fritas, chocolate, pastas, frutas y snacks.',
+        longDescription: 'Líneas integradas modulares diseñadas para procesamiento continuo con máxima eficiencia energética y consistencia de producto en cada lote.',
+        features: [
+          '[icon:Shield] Control total automático vía panel PLC touch',
+          '[icon:Zap] Sistemas de calentamiento eficientes e inteligentes',
+          '[icon:Cpu] Fácil limpieza con estándar CIP (Clean in Place)'
+        ],
+        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115231575_choco%20color%202.png',
+        tableHeaders: ["Modelo", "Producto", "Capacidad", "Energía/Potencia", "Peso Línea"],
+        equipmentTable: [
+          { model: 'LPC-500', width: 'Papas Fritas', capacity: '500 kg/h', power: 'GLP / Vapor', weight: '4,200 kg' },
+          { model: 'LCH-500', width: 'Chocolate en Polvo', capacity: '500 kg/h', power: '18.5 kW', weight: '2,800 kg' },
+          { model: 'LMC-100', width: 'Pastas', capacity: '100 kg/h', power: '11.0 kW', weight: '1,200 kg' },
+          { model: 'LMC-200', width: 'Pastas', capacity: '200 kg/h', power: '15.0 kW', weight: '1,800 kg' },
+          { model: 'LFC-300', width: 'Frutas Congeladas', capacity: '300 kg/h', power: 'IQF / Nitrógeno', weight: '2,100 kg' },
+          { model: 'LCB-300', width: 'Barras de Cereal', capacity: '300 kg/h', power: '12.0 kW', weight: '1,600 kg' },
+          { model: 'LSN-250', width: 'Snacks Inflados', capacity: '250 kg/h', power: '22.0 kW', weight: '2,300 kg' },
+          { model: 'LPT-250', width: 'Alimento para Mascotas', capacity: '250 kg/h', power: '30.0 kW', weight: '3,100 kg' }
+        ]
+      },
+      {
+        id: 'empaquetado-llenado',
+        title: 'LÍNEAS DE EMPAQUETADO Y LLENADO',
+        description: 'Sistemas automáticos de empaque para polvos, líquidos, pouches, cartón y botellas.',
+        longDescription: 'Sistemas avanzados de alta velocidad y hermeticidad de sellado para todo tipo de formatos rígidos y flexibles.',
+        features: [
+          '[icon:Shield] Sensores de precisión para detección de presencia de envase',
+          '[icon:Zap] Servomotores de alta precisión de marca líder',
+          '[icon:Cpu] Construcción higiénica y libre de mantenimiento constante'
+        ],
+        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115213579_choco%20bN%202.png',
+        tableHeaders: ["Modelo", "Tipo de Empaque", "Velocidad", "Potencia", "Precisión"],
+        equipmentTable: [
+          { model: 'PKB-70', width: 'Empaquetado y Llenado', capacity: '70 bpm', power: '4.2 kW', weight: '±0.5%' },
+          { model: 'PKW-130', width: 'Empaquetado Polvos', capacity: '130 bpm', power: '5.5 kW', weight: '±0.2%' },
+          { model: 'PCP-40', width: 'Llenado y Empaquetado Pouch', capacity: '40 bpm', power: '3.8 kW', weight: '±0.4%' },
+          { model: 'PCT-80', width: 'Empaquetado de Cartón', capacity: '80 cpm', power: '7.5 kW', weight: '±0.1%' },
+          { model: 'PBK-60', width: 'Llenado y Empaquetado', capacity: '60 bpm', power: '4.0 kW', weight: '±0.5%' },
+          { model: 'BTL-200', width: 'Etiquetado Double Side', capacity: '200 bpm', power: '2.2 kW', weight: '±0.5 mm' }
+        ]
+      },
+      {
+        id: 'sistemas-separacion',
+        title: 'SISTEMAS DE SEPARACIÓN',
+        description: 'Sistemas inteligentes de clasificación y separación por color, tamaño y peso.',
+        longDescription: 'Sistemas ópticos y gravimétricos de alta tecnología para garantizar la máxima pureza de su producto final, eliminando cuerpos extraños y piezas fuera de especificación.',
+        features: [
+          '[icon:Shield] Cámaras CCD de ultra alta resolución (Full HD)',
+          '[icon:Zap] Eyectores neumáticos de respuesta ultrarrápida',
+          '[icon:Cpu] Algoritmos de inteligencia artificial para clasificación compleja'
+        ],
+        image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png',
+        tableHeaders: ["Modelo", "Criterio Separación", "Capacidad", "Precisión", "Cámaras/Sensores"],
+        equipmentTable: [
+          { model: 'CS-500', width: 'Separadora por Color', capacity: '500 kg/h', power: '99.9%', weight: 'Cámaras CCD HD' },
+          { model: 'TS-1000', width: 'Separadora por Tamaño', capacity: '1000 kg/h', power: '99.5%', weight: 'Sensores Láser' },
+          { model: 'WS-500', width: 'Separadora por Peso', capacity: '500 kg/h', power: '99.8%', weight: 'Celdas de Carga C3' }
+        ]
       }
     ]
   },
@@ -1684,90 +1761,160 @@ const IndustriaDetalle = () => {
       <div className="min-h-screen bg-[#0B0F14] text-white font-['Poppins'] pt-[100px] overflow-x-hidden">
         <div className="md:pl-[76px] transition-all duration-300">
           {/* Fixed Sub-Header Menu */}
-          <div 
-            style={{ 
-              top: `${cmsState?.settings?.headerHeight || 76}px`
-            }}
-            className="fixed left-0 md:left-[76px] right-0 z-[80] bg-gradient-to-b from-[#080B11]/95 to-[#080B11]/90 backdrop-blur-2xl border-b border-white/5 py-4 px-6 md:px-8 shadow-[0_10px_30px_rgba(0,0,0,0.6)] transition-all select-none"
-          >
-            <div className="max-w-[1400px] mx-auto flex items-center justify-between gap-6">
-              {/* Left Side: Back & Breadcrumb Unified */}
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2">
-                  <span className="relative flex h-1.5 w-1.5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cyan-500"></span>
-                  </span>
-                  <span className="font-mono text-[9px] text-white/30 tracking-widest uppercase hidden md:inline">SYS_ACTIVE</span>
-                </div>
-                
-                <Link 
-                  to="/" 
-                  className="border border-white/10 bg-white/[0.02] hover:bg-white/5 hover:border-white/20 px-3 py-1.5 rounded text-[10px] font-mono tracking-widest text-white/60 hover:text-white transition-all uppercase flex items-center gap-1.5"
-                >
-                  <ArrowLeft size={12} /> ESC.INICIO
-                </Link>
-                
-                <span className="text-white/10 hidden sm:inline">|</span>
-                
-                <div className="hidden sm:flex items-center gap-2 font-mono text-[9px] text-white/30 uppercase tracking-widest">
-                  <span>SYS.ID</span>
-                  <span>//</span>
-                  <span className="text-[#FFD700] font-bold">{data.title}</span>
-                </div>
-              </div>
-              
-              {/* Right Side: Horizontal Category Buttons */}
-              {data.items && data.items.length > 0 && (
-                <div className="flex items-center gap-2 overflow-x-auto scrollbar-none py-0.5 -my-0.5 pr-2 max-w-full">
-                  <div className="flex items-center gap-2">
-                    {data.items.map((item, idx) => {
-                      const targetId = item.id || `item-${idx}`;
-                      const isActive = activeItem === targetId;
-                      const numberPrefix = idx + 1 < 10 ? `0${idx + 1}` : idx + 1;
-                      return (
-                        <button
-                          key={idx}
-                          onClick={() => {
-                            const el = document.getElementById(targetId);
-                            if (el) {
-                              const headerOffset = (cmsState?.settings?.headerHeight || 76) + 165; // 165px de margen adicional para la animación (150px original + 15px extra)
-                              const elementPosition = el.getBoundingClientRect().top;
-                              const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                              
-                              window.scrollTo({
-                                top: offsetPosition,
-                                behavior: 'smooth'
-                              });
-                            }
-                          }}
-                          className={`flex items-center gap-2 px-4 py-2 rounded font-mono text-[10px] tracking-widest uppercase cursor-pointer border transition-all ${
-                            isActive 
-                              ? 'bg-[#FFD700]/10 text-[#FFD700] border-[#FFD700]/40 shadow-[0_0_15px_rgba(255,215,0,0.15)] font-bold' 
-                              : 'bg-white/[0.01] text-white/40 border-white/5 hover:text-white hover:bg-white/[0.03] hover:border-white/10'
-                          }`}
-                        >
-                          <span className={isActive ? 'text-[#FFD700]' : 'text-white/20'}>{numberPrefix} //</span>
-                          <span>{item.title}</span>
-                        </button>
-                      );
-                    })}
-                    
-                    {isEditorMode && (
-                      <button
-                        onClick={handleAddItem}
-                        className="flex items-center gap-1.5 px-3 py-2 rounded transition-all font-mono text-[10px] tracking-widest uppercase cursor-pointer border border-dashed border-[#FFD700]/40 text-[#FFD700] hover:bg-[#FFD700]/10 hover:border-[#FFD700] flex-shrink-0"
-                        title="Agregar nueva especialidad"
-                      >
-                        <Plus size={12} />
-                        <span>CMD.ADD_SECTION</span>
-                      </button>
-                    )}
+          {(() => {
+            const sectorColors = {
+              'alimentos': {
+                bg: 'bg-amber-500/10',
+                border: 'border-amber-500/30',
+                borderActive: 'border-amber-500/50',
+                text: 'text-[#F59E0B]',
+                textHover: 'hover:text-[#F59E0B]',
+                accent: '#F59E0B',
+                glow: 'rgba(245,158,11,0.2)'
+              },
+              'reciclaje-y-plasticos': {
+                bg: 'bg-emerald-500/10',
+                border: 'border-emerald-500/30',
+                borderActive: 'border-emerald-500/50',
+                text: 'text-emerald-400',
+                textHover: 'hover:text-emerald-400',
+                accent: '#34D399',
+                glow: 'rgba(52,211,153,0.2)'
+              },
+              'default': {
+                bg: 'bg-emerald-500/10',
+                border: 'border-emerald-500/30',
+                borderActive: 'border-emerald-500/50',
+                text: 'text-emerald-400',
+                textHover: 'hover:text-emerald-400',
+                accent: '#34D399',
+                glow: 'rgba(52,211,153,0.2)'
+              }
+            };
+            const colorScheme = sectorColors[sector] || sectorColors['default'];
+            const getShortTitleLines = (title) => {
+              const cleanTitle = title.trim().toUpperCase();
+              if (cleanTitle.includes("LÍNEAS DE COMPOSTAJE") || cleanTitle.includes("LINEAS DE COMPOSTAJE")) {
+                return ["LÍNEAS DE", "COMPOSTAJE"];
+              }
+              if (cleanTitle.includes("LÍNEAS DE LAVADO Y PELADO") || cleanTitle.includes("LINEAS DE LAVADO Y PELADO") || cleanTitle.includes("LÍNEAS DE LAVADO") || cleanTitle.includes("LINEAS DE LAVADO")) {
+                return ["LÍNEAS DE", "LAVADO"];
+              }
+              if (cleanTitle.includes("LÍNEAS DE PRODUCCIÓN DE ALIMENTOS") || cleanTitle.includes("LINEAS DE PRODUCCION DE ALIMENTOS") || cleanTitle.includes("PRODUCCIÓN DE ALIMENTOS") || cleanTitle.includes("PRODUCCION DE ALIMENTOS")) {
+                return ["PRODUCCIÓN DE", "ALIMENTOS"];
+              }
+              if (cleanTitle.includes("LÍNEAS DE EMPAQUETADO Y LLENADO") || cleanTitle.includes("LINEAS DE EMPAQUETADO Y LLENADO") || cleanTitle.includes("EMPAQUETADO Y LLENADO") || cleanTitle.includes("EMPAQUETADO Y LLENADO")) {
+                return ["EMPAQUETADO", "Y LLENADO"];
+              }
+              if (cleanTitle.includes("SISTEMAS DE SEPARACIÓN") || cleanTitle.includes("SISTEMAS DE SEPARACION")) {
+                return ["SISTEMAS DE", "SEPARACIÓN"];
+              }
+              const words = title.split(" ");
+              if (words.length > 1) {
+                const mid = Math.ceil(words.length / 2);
+                return [words.slice(0, mid).join(" "), words.slice(mid).join(" ")];
+              }
+              return [title, ""];
+            };
+            const getSectionIcon = (idx) => {
+              if (sector === 'alimentos') {
+                const icons = [Leaf, Droplet, Package, Layers, Grid];
+                const IconComponent = icons[idx] || Settings;
+                return <IconComponent className="w-4.5 h-4.5 stroke-[1.5] transition-colors" />;
+              }
+              const defaultIcons = [Settings, Cpu, Compass, Shield, Layers];
+              const IconComponent = defaultIcons[idx] || Settings;
+              return <IconComponent className="w-4.5 h-4.5 stroke-[1.5] transition-colors" />;
+            };
+
+            return (
+              <div 
+                style={{ 
+                  top: `${cmsState?.settings?.headerHeight || 76}px`
+                }}
+                className="fixed left-0 md:left-[76px] right-0 z-[80] bg-[#080B11]/95 backdrop-blur-2xl border-b border-white/5 shadow-[0_10px_30px_rgba(0,0,0,0.6)] transition-all select-none font-['Poppins']"
+              >
+                {/* Upper Row: Breadcrumb & Return navigation */}
+                <div className="border-b border-white/5 py-2 px-4 md:px-8">
+                  <div className="max-w-[1400px] mx-auto flex items-center justify-between">
+                    <Link 
+                      to="/" 
+                      className="border border-white/10 bg-white/[0.02] hover:bg-white/5 hover:border-white/20 px-3.5 py-1.5 rounded-full text-[10px] font-bold text-white/80 hover:text-white transition-all flex items-center gap-1.5 group"
+                    >
+                      <ArrowLeft size={11} className="transition-transform group-hover:-translate-x-0.5" />
+                      <span>Inicio</span>
+                    </Link>
+
+                    <div className="flex items-center gap-1.5 text-[10px] font-semibold text-white/40 uppercase tracking-wider">
+                      <span>Sector:</span>
+                      <span className={`${colorScheme.text} font-black`}>{sector === 'alimentos' ? 'Alimentos' : data.title}</span>
+                    </div>
                   </div>
                 </div>
-              )}
-            </div>
-          </div>
+
+                {/* Lower Row: Category access shortcuts */}
+                {data.items && data.items.length > 0 && (
+                  <div className="py-2.5 px-4 md:px-8 overflow-x-auto scrollbar-none">
+                    <div className="max-w-[1400px] mx-auto flex items-center justify-center gap-2.5 min-w-max">
+                      {data.items.map((item, idx) => {
+                        const targetId = item.id || `item-${idx}`;
+                        const isActive = activeItem === targetId;
+                        const numberPrefix = idx + 1 < 10 ? `0${idx + 1}` : idx + 1;
+                        const [line1, line2] = getShortTitleLines(item.title);
+                        return (
+                          <button
+                            key={idx}
+                            onClick={() => {
+                              const el = document.getElementById(targetId);
+                              if (el) {
+                                const headerOffset = (cmsState?.settings?.headerHeight || 76) + 195;
+                                const elementPosition = el.getBoundingClientRect().top;
+                                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                                
+                                window.scrollTo({
+                                  top: offsetPosition,
+                                  behavior: 'smooth'
+                                });
+                              }
+                            }}
+                            className={`flex items-center gap-3.5 px-4.5 rounded-lg text-[9px] md:text-[10px] font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer border h-[52px] w-[185px] flex-shrink-0 ${
+                              isActive 
+                                ? `bg-white/[0.03] ${colorScheme.text} ${colorScheme.borderActive} shadow-[0_0_20px_${colorScheme.glow}] border-t-2 border-t-${sector === 'alimentos' ? 'amber-500' : 'emerald-400'}` 
+                                : 'bg-white/[0.01] text-white/40 border-white/5 hover:text-white hover:bg-white/[0.03] hover:border-white/10'
+                            }`}
+                          >
+                            <div className="flex items-center gap-2 flex-shrink-0">
+                              <span className={isActive ? colorScheme.text : 'text-white/30'}>
+                                {getSectionIcon(idx)}
+                              </span>
+                              <span className={`text-[8px] px-1 py-0.5 rounded font-black ${isActive ? colorScheme.bg + ' ' + colorScheme.text : 'bg-[#0B0F14] text-white/50'}`}>
+                                {numberPrefix}
+                              </span>
+                            </div>
+                            <div className="flex flex-col text-left leading-[1.2] tracking-wide">
+                              <span>{line1}</span>
+                              {line2 && <span className={isActive ? 'text-white/80 font-medium' : 'text-white/30 font-medium'}>{line2}</span>}
+                            </div>
+                          </button>
+                        );
+                      })}
+                      
+                      {isEditorMode && (
+                        <button
+                          onClick={handleAddItem}
+                          className="flex items-center justify-center gap-1.5 px-4 rounded-lg transition-all text-[10px] font-bold cursor-pointer border border-dashed border-emerald-500/40 text-emerald-400 hover:bg-emerald-500/10 hover:border-emerald-500 h-[52px] w-[150px] flex-shrink-0"
+                          title="Agregar nueva especialidad"
+                        >
+                          <Plus size={12} />
+                          <span>Nueva Sección</span>
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })()}
           {/* Spacer to push content down below the fixed sub-header */}
           <div className="h-[68px] w-full" />
 
@@ -1878,97 +2025,255 @@ const IndustriaDetalle = () => {
             </div>
 
             <div className="space-y-24">
-              {data.items && data.items.map((item, index) => (
-                <motion.div 
-                  id={item.id || `item-${index}`}
-                  key={item.id || index}
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.6 }}
-                  className={`scroll-mt-[175px] grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center border-b border-white/5 pb-16 md:pb-24 last:border-b-0`}
-                >
-                  {/* Text Content */}
-                  <div className={`lg:col-span-6 space-y-6 ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
-                    <div className="flex items-center justify-between gap-3 flex-wrap">
-                      <div className="flex items-center gap-3">
-                        <span className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-black text-sm">{index + 1}</span>
-                        <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-white">
-                          <EditableText 
-                            value={item.title} 
-                            onChange={(val) => handleItemUpdate(index, 'title', val)} 
-                            tag="span" 
-                            isEditorMode={isEditorMode} 
-                          />
-                        </h3>
+              {data.items && data.items.map((item, index) => {
+                const sectorColors = {
+                  'alimentos': {
+                    bg: 'bg-amber-500/10',
+                    border: 'border-amber-500/30',
+                    text: 'text-[#F59E0B]'
+                  },
+                  'reciclaje-y-plasticos': {
+                    bg: 'bg-emerald-500/10',
+                    border: 'border-emerald-500/30',
+                    text: 'text-emerald-400'
+                  },
+                  'default': {
+                    bg: 'bg-emerald-500/10',
+                    border: 'border-emerald-500/30',
+                    text: 'text-emerald-400'
+                  }
+                };
+                const colorScheme = sectorColors[sector] || sectorColors['default'];
+                const formattedNum = index + 1 < 10 ? `0${index + 1}` : index + 1;
+
+                return (
+                  <motion.div 
+                    id={item.id || `item-${index}`}
+                    key={item.id || index}
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.6 }}
+                    className={`scroll-mt-[175px] grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center border-b border-white/5 pb-16 md:pb-24 last:border-b-0`}
+                  >
+                    {/* Text Content */}
+                    <div className={`lg:col-span-6 space-y-6 ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
+                      <div className="flex items-center justify-between gap-3 flex-wrap">
+                        <div className="flex items-center gap-3">
+                          <span className={`w-8 h-8 rounded-lg ${colorScheme.bg} border ${colorScheme.border} flex items-center justify-center ${colorScheme.text} font-black text-xs`}>
+                            {formattedNum}
+                          </span>
+                          <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-white">
+                            <EditableText 
+                              value={item.title} 
+                              onChange={(val) => handleItemUpdate(index, 'title', val)} 
+                              tag="span" 
+                              isEditorMode={isEditorMode} 
+                            />
+                          </h3>
+                        </div>
+                        {isEditorMode && (
+                          <button
+                            onClick={() => handleDeleteItem(index)}
+                            className="flex items-center gap-1 text-red-400 hover:text-red-500 hover:bg-red-500/10 px-2.5 py-1 rounded-md text-xs font-bold transition-all border border-red-500/20"
+                            title="Eliminar especialidad"
+                          >
+                            <Trash2 size={13} />
+                            <span>Eliminar</span>
+                          </button>
+                        )}
                       </div>
-                      {isEditorMode && (
-                        <button
-                          onClick={() => handleDeleteItem(index)}
-                          className="flex items-center gap-1 text-red-400 hover:text-red-500 hover:bg-red-500/10 px-2.5 py-1 rounded-md text-xs font-bold transition-all border border-red-500/20"
-                          title="Eliminar especialidad"
-                        >
-                          <Trash2 size={13} />
-                          <span>Eliminar</span>
-                        </button>
-                      )}
-                    </div>
-                    <p className="text-[#FFD700]/90 font-medium text-[15px]">
-                      <EditableText 
-                        value={item.description} 
-                        onChange={(val) => handleItemUpdate(index, 'description', val)} 
-                        tag="span" 
-                        isEditorMode={isEditorMode} 
-                      />
-                    </p>
-                    <p className="text-white/60 leading-relaxed text-sm md:text-[15px]">
-                      <EditableText 
-                        value={item.longDescription} 
-                        onChange={(val) => handleItemUpdate(index, 'longDescription', val)} 
-                        tag="span" 
-                        isEditorMode={isEditorMode} 
-                      />
-                    </p>
-                    
-                    {/* Features List */}
-                    {item.features && item.features.length > 0 && (
-                      <div className="space-y-2 pt-2">
-                        <h4 className="text-xs uppercase tracking-widest text-white/40 font-bold">Especificaciones Clave:</h4>
-                        <ul className="space-y-2">
-                          {item.features.map((feat, fIdx) => {
-                            const match = typeof feat === 'string' ? feat.match(/^\[icon:(\w+)\]\s*(.*)/) : null;
-                            const iconName = match ? match[1] : 'Zap';
-                            const textOnly = match ? match[2] : feat;
-                            return (
-                              <li key={fIdx} className="flex items-center gap-2.5 text-white/80 text-sm font-medium">
-                                <EditableIcon
-                                  name={iconName}
-                                  isEditorMode={isEditorMode}
-                                  size={14}
-                                  className="text-[#FFD700]"
-                                  onChange={(newIconName) => {
-                                    const updatedFeatures = [...item.features];
-                                    updatedFeatures[fIdx] = `[icon:${newIconName}] ${textOnly}`;
-                                    handleItemUpdate(index, 'features', updatedFeatures);
-                                  }}
-                                />
-                                <span>
-                                  <EditableText 
-                                    value={textOnly} 
-                                    onChange={(val) => {
+                      <p className="text-[#FFD700]/90 font-medium text-[15px]">
+                        <EditableText 
+                          value={item.description} 
+                          onChange={(val) => handleItemUpdate(index, 'description', val)} 
+                          tag="span" 
+                          isEditorMode={isEditorMode} 
+                        />
+                      </p>
+                      <p className="text-white/60 leading-relaxed text-sm md:text-[15px]">
+                        <EditableText 
+                          value={item.longDescription} 
+                          onChange={(val) => handleItemUpdate(index, 'longDescription', val)} 
+                          tag="span" 
+                          isEditorMode={isEditorMode} 
+                        />
+                      </p>
+                      
+                      {/* Features List */}
+                      {item.features && item.features.length > 0 && (
+                        <div className="space-y-2 pt-2">
+                          <h4 className="text-xs uppercase tracking-widest text-white/40 font-bold">Especificaciones Clave:</h4>
+                          <ul className="space-y-2">
+                            {item.features.map((feat, fIdx) => {
+                              const match = typeof feat === 'string' ? feat.match(/^\[icon:(\w+)\]\s*(.*)/) : null;
+                              const iconName = match ? match[1] : 'Zap';
+                              const textOnly = match ? match[2] : feat;
+                              return (
+                                <li key={fIdx} className="flex items-center gap-2.5 text-white/80 text-sm font-medium">
+                                  <EditableIcon
+                                    name={iconName}
+                                    isEditorMode={isEditorMode}
+                                    size={14}
+                                    className="text-[#FFD700]"
+                                    onChange={(newIconName) => {
                                       const updatedFeatures = [...item.features];
-                                      const currentIcon = match ? `[icon:${match[1]}] ` : '';
-                                      updatedFeatures[fIdx] = `${currentIcon}${val}`;
+                                      updatedFeatures[fIdx] = `[icon:${newIconName}] ${textOnly}`;
                                       handleItemUpdate(index, 'features', updatedFeatures);
-                                    }} 
-                                    tag="span" 
-                                    isEditorMode={isEditorMode} 
+                                    }}
                                   />
-                                </span>
-                              </li>
-                            );
-                          })}
-                        </ul>
+                                  <span>
+                                    <EditableText 
+                                      value={textOnly} 
+                                      onChange={(val) => {
+                                        const updatedFeatures = [...item.features];
+                                        const currentIcon = match ? `[icon:${match[1]}] ` : '';
+                                        updatedFeatures[fIdx] = `${currentIcon}${val}`;
+                                        handleItemUpdate(index, 'features', updatedFeatures);
+                                      }} 
+                                      tag="span" 
+                                      isEditorMode={isEditorMode} 
+                                    />
+                                  </span>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        </div>
+                      )}
+
+                      {/* Tabla de Equipos / Especificaciones */}
+                      {item.equipmentTable && item.equipmentTable.length > 0 && (
+                        <div className="mt-6 space-y-3">
+                          <h4 className={`text-xs uppercase tracking-widest ${colorScheme.text} font-black`}>Tabla de Equipos / Especificaciones:</h4>
+                          <div className="overflow-x-auto rounded-xl border border-white/10 bg-white/[0.02] backdrop-blur-md">
+                            <table className="w-full text-left border-collapse text-xs">
+                              <thead>
+                                <tr className={`border-b border-white/10 bg-white/[0.04] text-[10px] uppercase tracking-wider ${colorScheme.text} font-bold`}>
+                                  {(() => {
+                                    const defaultHeaders = ["Modelo", "Ancho Pila", "Capacidad", "Potencia", "Peso"];
+                                    const currentHeaders = item.tableHeaders || defaultHeaders;
+                                    return currentHeaders.map((headerText, hIdx) => (
+                                      <th key={hIdx} className="p-3">
+                                        <EditableText
+                                          value={headerText}
+                                          onChange={(val) => {
+                                            const newHeaders = [...(item.tableHeaders || defaultHeaders)];
+                                            newHeaders[hIdx] = val;
+                                            handleItemUpdate(index, 'tableHeaders', newHeaders);
+                                          }}
+                                          isEditorMode={isEditorMode}
+                                        />
+                                      </th>
+                                    ));
+                                  })()}
+                                  {isEditorMode && <th className="p-3 text-center w-12">Acciones</th>}
+                                </tr>
+                              </thead>
+                            <tbody>
+                              {item.equipmentTable.map((row, rIdx) => (
+                                <tr key={rIdx} className="border-b border-white/5 hover:bg-white/[0.02] transition-colors text-white/90">
+                                  <td className="p-3 font-semibold">
+                                    {isEditorMode ? (
+                                      <EditableText
+                                        value={row.model}
+                                        onChange={(val) => {
+                                          const newTable = [...item.equipmentTable];
+                                          newTable[rIdx].model = val;
+                                          handleItemUpdate(index, 'equipmentTable', newTable);
+                                        }}
+                                        isEditorMode={isEditorMode}
+                                      />
+                                    ) : (
+                                      <Link
+                                        to={`/maquinaria/${row.model.trim().toLowerCase()}`}
+                                        onClick={() => {
+                                          localStorage.setItem('last_sector_path', window.location.pathname + '#' + item.id);
+                                          localStorage.setItem('last_sector_name', data.title || 'Sector');
+                                        }}
+                                        className={`inline-flex items-center gap-1.5 font-bold hover:underline decoration-2 underline-offset-4 cursor-pointer transition-all duration-300 ${colorScheme.text} hover:opacity-85 hover:scale-[1.02]`}
+                                      >
+                                        <span>{row.model}</span>
+                                        <ArrowUpRight size={12} className="opacity-70 transition-transform duration-300" />
+                                      </Link>
+                                    )}
+                                  </td>
+                                  <td className="p-3">
+                                    <EditableText
+                                      value={row.width}
+                                      onChange={(val) => {
+                                        const newTable = [...item.equipmentTable];
+                                        newTable[rIdx].width = val;
+                                        handleItemUpdate(index, 'equipmentTable', newTable);
+                                      }}
+                                      isEditorMode={isEditorMode}
+                                    />
+                                  </td>
+                                  <td className="p-3">
+                                    <EditableText
+                                      value={row.capacity}
+                                      onChange={(val) => {
+                                        const newTable = [...item.equipmentTable];
+                                        newTable[rIdx].capacity = val;
+                                        handleItemUpdate(index, 'equipmentTable', newTable);
+                                      }}
+                                      isEditorMode={isEditorMode}
+                                    />
+                                  </td>
+                                  <td className="p-3">
+                                    <EditableText
+                                      value={row.power}
+                                      onChange={(val) => {
+                                        const newTable = [...item.equipmentTable];
+                                        newTable[rIdx].power = val;
+                                        handleItemUpdate(index, 'equipmentTable', newTable);
+                                      }}
+                                      isEditorMode={isEditorMode}
+                                    />
+                                  </td>
+                                  <td className="p-3">
+                                    <EditableText
+                                      value={row.weight}
+                                      onChange={(val) => {
+                                        const newTable = [...item.equipmentTable];
+                                        newTable[rIdx].weight = val;
+                                        handleItemUpdate(index, 'equipmentTable', newTable);
+                                      }}
+                                      isEditorMode={isEditorMode}
+                                    />
+                                  </td>
+                                  {isEditorMode && (
+                                    <td className="p-3 text-center">
+                                      <button
+                                        onClick={() => {
+                                          const newTable = item.equipmentTable.filter((_, i) => i !== rIdx);
+                                          handleItemUpdate(index, 'equipmentTable', newTable);
+                                        }}
+                                        className="text-red-400 hover:text-red-500 hover:bg-red-500/10 p-1.5 rounded transition-all cursor-pointer"
+                                        title="Eliminar fila"
+                                      >
+                                        <Trash2 size={12} />
+                                      </button>
+                                    </td>
+                                  )}
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                        {isEditorMode && (
+                          <button
+                            onClick={() => {
+                              const newRow = { model: 'Modelo-TG', width: '0.0 m', capacity: '0 m³/h', power: '0 HP', weight: '0 kg' };
+                              const newTable = [...(item.equipmentTable || []), newRow];
+                              handleItemUpdate(index, 'equipmentTable', newTable);
+                            }}
+                            className="flex items-center gap-1 bg-white/5 hover:bg-white/10 text-white/80 border border-white/10 px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer"
+                          >
+                            <Plus size={12} />
+                            <span>Añadir Fila</span>
+                          </button>
+                        )}
                       </div>
                     )}
                   </div>
@@ -2242,7 +2547,8 @@ const IndustriaDetalle = () => {
                   </div>
 
                 </motion.div>
-              ))}
+              );
+            })}
             </div>
           </section>
 

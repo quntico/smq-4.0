@@ -13,6 +13,14 @@ const VideoBackground = ({ src, isActive, poster, onVideoEnded }) => {
 
   useEffect(() => {
     setIsLoaded(false);
+    
+    // Fallback de carga: si en 2.5 segundos no se dispara onLoadedData (típico en móviles con restricciones de red o energía),
+    // forzamos el estado de cargado para evitar quedarnos bloqueados con el spinner y permitir que intente reproducirse.
+    const fallbackTimer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 2500);
+
+    return () => clearTimeout(fallbackTimer);
   }, [src]);
 
   useEffect(() => {
@@ -58,6 +66,7 @@ const VideoBackground = ({ src, isActive, poster, onVideoEnded }) => {
         autoPlay={isActive}
         preload={isActive ? "auto" : "metadata"}
         onLoadedData={handleLoadedData}
+        onCanPlay={handleLoadedData}
         onEnded={onVideoEnded}
         className={`w-full h-full object-cover transition-all duration-1000 ease-out ${
           isLoaded ? 'opacity-100 scale-100 blur-0' : 'opacity-0 scale-105 blur-sm'
@@ -131,7 +140,7 @@ const HeroSection = () => {
 
   const slideDuration = heroModule.data?.slideDuration ?? 3;
 
-  // Auto-play timer (only for images, suspended when active slide is a video)
+  // Auto-play timer (with fallback safety timer for video slides in case autoplay gets blocked on mobile)
   useEffect(() => {
     if (isEditorMode) return; // Disable auto-play in editor mode
     
@@ -139,8 +148,12 @@ const HeroSection = () => {
     const isVideo = !!(bgMedia.match(/\.(mp4|webm|ogg|mov|mkv)$/i) || bgMedia.includes('video/'));
     
     if (isVideo) {
-      // Natural video length handles the transition, suspend interval!
-      return;
+      // Natural video length handles the transition. However, we setup a safety timeout
+      // of 15 seconds to auto-advance the slide if the video gets stuck or blocked on mobile.
+      const fallbackTimer = setTimeout(() => {
+        setCurrentSlideIdx((prev) => (prev + 1) % slides.length);
+      }, 15000);
+      return () => clearTimeout(fallbackTimer);
     }
 
     const timer = setInterval(() => {

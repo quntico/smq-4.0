@@ -23,7 +23,8 @@ import {
   Image as ImageIcon,
   AlignLeft,
   AlignCenter,
-  Upload
+  Upload,
+  ArrowLeft
 } from 'lucide-react';
 import Footer from '@/components/Footer.jsx';
 import { useCMS } from '@/context/CMSContext.jsx';
@@ -545,9 +546,60 @@ const MachineryDetailPage = () => {
   const { cmsState, updatePages, isEditorMode } = useCMS();
   const fileInputRef = useRef(null);
 
-  // Fallback defaults
-  const resolvedId = machineryDataMap[machineId] ? machineId : 'etiquetadoras';
-  const defaults = machineryDataMap[resolvedId];
+  // Fallback defaults or dynamic models
+  const resolvedId = machineId || 'etiquetadoras';
+  
+  // Dynamic defaults generator
+  const getDynamicDefaults = (id) => {
+    if (machineryDataMap[id]) {
+      return machineryDataMap[id];
+    }
+    
+    // Create a high-fidelity dynamic fallback for any custom model (e.g. lwf-500)
+    const modelName = id.toUpperCase();
+    return {
+      pageNumber: '00',
+      theme: {
+        accent: '#FFD700',
+        accentGlow: 'rgba(255, 215, 0, 0.4)',
+        bgStart: '#080B12',
+        bgEnd: '#0A0B10',
+        glowColor: 'yellow'
+      },
+      heroTitle: `MODELO ${modelName}`,
+      heroSubtitle: `Especificaciones de ingeniería y desempeño para el equipo ${modelName}.`,
+      heroDesc: `Línea de maquinaria industrial SMQ optimizada para máxima eficiencia, precisión y control absoluto en flujos de trabajo continuos.`,
+      heroMedia: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158',
+      kpis: [
+        { value: '99.2%', unit: 'EFICIENCIA', label: 'Rendimiento', desc: 'Producción continua' },
+        { value: '24/7', unit: 'OPERACIÓN', label: 'Disponibilidad', desc: 'Sistemas redundantes' },
+        { value: 'Auto', unit: 'CONTROL', label: 'Precisión', desc: 'Control avanzado por PLC' },
+        { value: 'Premium', unit: 'CALIDAD', label: 'Estándar', desc: 'Materiales duraderos' }
+      ],
+      stations: [
+        { id: 1, title: 'Alimentación', desc: 'Ingreso del material al sistema automatizado.', iconName: 'Inbox' },
+        { id: 2, title: 'Procesamiento', desc: 'Transformación del producto bajo estrictos controles.', iconName: 'Layers' },
+        { id: 3, title: 'Control de Calidad', desc: 'Verificación en línea del producto final.', iconName: 'Eye' },
+        { id: 4, title: 'Descarga', desc: 'Salida del material terminado y empacado.', iconName: 'LogOut' }
+      ],
+      applications: [
+        { name: 'Sector Industrial', icon: '🏭', desc: 'Diseñado para entornos exigentes' }
+      ],
+      advantages: [
+        { title: 'CONSTRUCCIÓN PREMIUM', desc: 'Estructura sólida anticorrosiva con materiales de alta calidad.', highlight: 'Durabilidad' }
+      ],
+      specs: [
+        { param: 'Modelo', value: modelName },
+        { param: 'Capacidad', value: 'Configurable según requerimiento' },
+        { param: 'Material', value: 'Acero Inoxidable' }
+      ],
+      configurations: [
+        { name: 'Automatización Completa', desc: 'Módulos adicionales para operación desatendida.' }
+      ]
+    };
+  };
+
+  const defaults = getDynamicDefaults(resolvedId);
 
   // Try to find the page inside the CMS context
   const pageId = `machinery-${resolvedId}`;
@@ -570,7 +622,7 @@ const MachineryDetailPage = () => {
       };
       updatePages([...cmsState.pages, initialPageData]);
     }
-  }, [cmsPage, resolvedId, pageId, cmsState.pages, updatePages, defaults]);
+  }, [cmsPage, resolvedId, pageId, cmsState.pages, updatePages]);
 
   const baseData = cmsPage?.modules?.[0]?.data || defaults;
   
@@ -589,6 +641,36 @@ const MachineryDetailPage = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [activeTab, setActiveTab] = useState('hero');
   const [isUploading, setIsUploading] = useState(false);
+
+  const [backPath, setBackPath] = useState('/industria/alimentos');
+  const [backName, setBackName] = useState('Sector Alimentos');
+
+  useEffect(() => {
+    const savedPath = localStorage.getItem('last_sector_path');
+    const savedName = localStorage.getItem('last_sector_name');
+    if (savedPath) {
+      setBackPath(savedPath);
+    } else {
+      // Deducir del sector de la máquina si no hay localStorage
+      const currentIndustry = data.industry || defaults.industry;
+      if (currentIndustry === 'reciclaje' || currentIndustry === 'reciclaje-y-plasticos') {
+        setBackPath('/industria/reciclaje-y-plasticos');
+      } else {
+        setBackPath('/industria/alimentos');
+      }
+    }
+
+    if (savedName) {
+      setBackName(savedName);
+    } else {
+      const currentIndustry = data.industry || defaults.industry;
+      if (currentIndustry === 'reciclaje' || currentIndustry === 'reciclaje-y-plasticos') {
+        setBackName('Sector Reciclaje');
+      } else {
+        setBackName('Sector Alimentos');
+      }
+    }
+  }, [data.industry, defaults.industry]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -768,53 +850,74 @@ const MachineryDetailPage = () => {
         )}
 
         <div className="md:pl-[76px] transition-all duration-300">
-          {/* STICKY SUBMENU PARA MAQUINARIA RELACIONADA */}
+          {/* Fila de navegación superior (Regresar) */}
+          <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12 pt-6 pb-2 flex items-center justify-between z-30">
+            <Link
+              to={backPath}
+              className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-white/60 hover:text-white transition-colors cursor-pointer group bg-white/5 hover:bg-white/10 px-4 py-2 rounded-xl border border-white/5 hover:border-white/10 shadow-lg backdrop-blur-sm"
+            >
+              <ArrowLeft size={14} className="transition-transform duration-300 group-hover:-translate-x-1" />
+              <span>Regresar a {backName}</span>
+            </Link>
+          </div>
+
+          {/* STICKY SUBMENU PARA NAVEGACIÓN Y MAQUINARIA RELACIONADA */}
           {(() => {
             const currentIndustry = data.industry || defaults.industry;
             const relatedMachines = Object.values(machineryDataMap)
               .filter(m => m.industry && m.industry === currentIndustry && m.machineCode);
 
-            if (relatedMachines.length > 0) {
-              return (
-                <div className="w-full bg-[#080B12]/80 backdrop-blur-md border-b border-white/5 sticky top-[90px] z-40 py-3.5 px-4 flex flex-wrap justify-center gap-2.5 shadow-lg">
-                  {relatedMachines.map((m) => {
-                    const isActive = m.machineCode === resolvedId;
-                    const mColor = m.theme.accent;
-                    const label = m.heroTitle.replace('PRODUCCIÓN DE ', '').replace('SISTEMAS DE ', '');
-                    
-                    return (
-                      <Link
-                        key={m.machineCode}
-                        to={`/maquinaria/${m.machineCode}`}
-                        className={`px-5 py-2.5 rounded-full text-[11px] font-black uppercase tracking-widest transition-all duration-300 flex items-center gap-2.5 cursor-pointer border whitespace-nowrap ${
-                          isActive 
-                            ? 'text-black shadow-lg scale-105' 
-                            : 'text-white/80 bg-white/5 hover:bg-white/10 hover:text-white hover:scale-[1.02]'
-                        }`}
-                        style={isActive ? { 
-                          backgroundColor: mColor, 
-                          borderColor: mColor,
-                          boxShadow: `0 0 20px ${mColor}40`
-                        } : {
-                          borderColor: `${mColor}40`,
-                          boxShadow: `0 0 10px ${mColor}10 inset`
-                        }}
-                      >
-                        <span 
-                          className="w-1.5 h-1.5 rounded-full shrink-0" 
-                          style={{ 
-                            backgroundColor: isActive ? '#000000' : mColor,
-                            boxShadow: isActive ? 'none' : `0 0 8px ${mColor}`
-                          }} 
-                        />
-                        {label}
-                      </Link>
-                    );
-                  })}
-                </div>
-              );
-            }
-            return null;
+            return (
+              <div className="w-full bg-[#080B12]/80 backdrop-blur-md border-b border-white/5 sticky top-[90px] z-40 py-3.5 px-4 flex flex-wrap justify-center items-center gap-2.5 shadow-lg">
+                {/* Botón de Regresar Rápido integrado en el Submenu */}
+                <Link
+                  to={backPath}
+                  className="px-4 py-2.5 rounded-full text-[11px] font-black uppercase tracking-widest text-white/60 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-300 flex items-center gap-2 cursor-pointer group"
+                >
+                  <ArrowLeft size={12} className="text-white/60 group-hover:text-white transition-transform duration-300 group-hover:-translate-x-0.5" />
+                  <span>Volver</span>
+                </Link>
+
+                {relatedMachines.length > 0 && (
+                  <div className="h-4 w-[1px] bg-white/10 mx-1 hidden sm:block" />
+                )}
+
+                {relatedMachines.map((m) => {
+                  const isActive = m.machineCode === resolvedId;
+                  const mColor = m.theme.accent;
+                  const label = m.heroTitle.replace('PRODUCCIÓN DE ', '').replace('SISTEMAS DE ', '');
+                  
+                  return (
+                    <Link
+                      key={m.machineCode}
+                      to={`/maquinaria/${m.machineCode}`}
+                      className={`px-5 py-2.5 rounded-full text-[11px] font-black uppercase tracking-widest transition-all duration-300 flex items-center gap-2.5 cursor-pointer border whitespace-nowrap ${
+                        isActive 
+                          ? 'text-black shadow-lg scale-105' 
+                          : 'text-white/80 bg-white/5 hover:bg-white/10 hover:text-white hover:scale-[1.02]'
+                      }`}
+                      style={isActive ? { 
+                        backgroundColor: mColor, 
+                        borderColor: mColor,
+                        boxShadow: `0 0 20px ${mColor}40`
+                      } : {
+                        borderColor: `${mColor}40`,
+                        boxShadow: `0 0 10px ${mColor}10 inset`
+                      }}
+                    >
+                      <span 
+                        className="w-1.5 h-1.5 rounded-full shrink-0" 
+                        style={{ 
+                          backgroundColor: isActive ? '#000000' : mColor,
+                          boxShadow: isActive ? 'none' : `0 0 8px ${mColor}`
+                        }} 
+                      />
+                      {label}
+                    </Link>
+                  );
+                })}
+              </div>
+            );
           })()}
 
           <main className="flex-grow">
@@ -1206,7 +1309,7 @@ const MachineryDetailPage = () => {
                   Nuestro equipo de ingenieros de aplicaciones puede diseñar y configurar la solución a la medida exacta de su producto, espacio físico de planta y velocidades deseadas.
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <a
                     href="mailto:ventas@smq.com.mx"
                     className="inline-flex items-center justify-center font-bold text-sm py-4 px-8 rounded-lg transition-all text-black"
@@ -1215,8 +1318,14 @@ const MachineryDetailPage = () => {
                     Contactar Ventas
                   </a>
                   <Link
+                    to={backPath}
+                    className="inline-flex items-center justify-center bg-white/5 hover:bg-white/10 text-white border border-white/10 hover:border-white/20 font-semibold text-sm py-4 px-8 rounded-lg transition-all"
+                  >
+                    Regresar a {backName}
+                  </Link>
+                  <Link
                     to="/"
-                    className="inline-flex items-center justify-center bg-white/5 hover:bg-white/10 text-white border border-white/10 font-semibold text-sm py-4 px-8 rounded-lg transition-all"
+                    className="inline-flex items-center justify-center bg-white/5 hover:bg-white/10 text-white/60 hover:text-white border border-white/5 hover:border-white/10 font-medium text-sm py-4 px-8 rounded-lg transition-all"
                   >
                     Volver a Inicio
                   </Link>
