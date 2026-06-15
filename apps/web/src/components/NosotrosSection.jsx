@@ -9,7 +9,8 @@ import {
   Zap, 
   TrendingUp,
   X,
-  Upload
+  Upload,
+  ArrowUpRight
 } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
@@ -189,42 +190,48 @@ const NosotrosSection = () => {
       desc: 'Lógica de control avanzada y sistemas de supervisión estables.',
       tags: 'PLC · HMI · SCADA',
       icon: Cpu,
-      defaultImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80'
+      defaultImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80',
+      color: '#0EA5E9'
     },
     {
       title: 'Robótica',
       desc: 'Celdas dinámicas de manipulación y paletizado de alta velocidad.',
       tags: 'Sistemas de manipulación',
       icon: Activity,
-      defaultImage: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=600&q=80'
+      defaultImage: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=600&q=80',
+      color: '#F97316'
     },
     {
       title: 'Visión Artificial',
       desc: 'Sistemas de inspección óptica con clasificación y detección micrométrica.',
       tags: 'Control de calidad inteligente',
       icon: Eye,
-      defaultImage: 'https://images.unsplash.com/photo-1507146426996-ef05306b995a?auto=format&fit=crop&w=600&q=80'
+      defaultImage: 'https://images.unsplash.com/photo-1507146426996-ef05306b995a?auto=format&fit=crop&w=600&q=80',
+      color: '#8B5CF6'
     },
     {
       title: 'Integración Mecánica',
       desc: 'Ingeniería CAD robusta de precisión y ensamble higiénico estructural.',
       tags: 'Diseño y fabricación',
       icon: Settings,
-      defaultImage: 'https://images.unsplash.com/photo-1537462715879-360eeb61a0bc?auto=format&fit=crop&w=600&q=80'
+      defaultImage: 'https://images.unsplash.com/photo-1537462715879-360eeb61a0bc?auto=format&fit=crop&w=600&q=80',
+      color: '#10B981'
     },
     {
       title: 'Industria 4.0',
       desc: 'Conectividad IIoT con análisis telemétrico de variables críticas de planta.',
       tags: 'Monitoreo y analítica',
       icon: TrendingUp,
-      defaultImage: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80'
+      defaultImage: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80',
+      color: '#3B82F6'
     },
     {
       title: 'Inteligencia Artificial',
       desc: 'Modelos de IA locales para balanceo dinámico y mantenimiento predictivo.',
       tags: 'Optimización de procesos',
       icon: Zap,
-      defaultImage: 'https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=600&q=80'
+      defaultImage: 'https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=600&q=80',
+      color: '#EAB308'
     }
   ];
 
@@ -246,12 +253,13 @@ const NosotrosSection = () => {
     }
   }, [nosotrosCardsData, backgroundImageUrl]);
 
-  // Handle ESC key press to reset all flipped cards and video
+  // Handle ESC key press to reset all flipped cards, video, and modals
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape' || e.key === 'Esc') {
         setFlippedCards({});
         setIsPlayingVideo(false);
+        setActiveDialogCard(null);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -587,19 +595,19 @@ const NosotrosSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
               onClick={() => setActiveDialogCard('valores')}
-              className="cursor-pointer border-t border-l border-white/20 border-b border-r border-white/5 bg-[#0e131b]/60 backdrop-blur-xl rounded-2xl p-8 shadow-2xl relative overflow-hidden flex flex-col justify-between min-h-[300px] transition-all duration-300 hover:-translate-y-2 hover:border-[#10B981]/40 group"
+              className="cursor-pointer border-t border-l border-white/20 border-b border-r border-white/5 bg-[#0e131b]/60 backdrop-blur-xl rounded-2xl p-8 shadow-2xl relative overflow-hidden flex flex-col justify-between min-h-[300px] transition-all duration-300 hover:-translate-y-2 hover:border-[#84CC16]/40 group"
             >
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#10B981]/30 to-transparent" />
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#84CC16]/30 to-transparent" />
               <div>
-                <div className="w-12 h-12 rounded-lg bg-[#10B981]/10 flex items-center justify-center border border-[#10B981]/30 mb-6 group-hover:bg-[#10B981]/20 transition-all duration-300 mx-auto">
-                  <Shield size={24} className="text-[#10B981]" />
+                <div className="w-12 h-12 rounded-lg bg-[#84CC16]/10 flex items-center justify-center border border-[#84CC16]/30 mb-6 group-hover:bg-[#84CC16]/20 transition-all duration-300 mx-auto">
+                  <Shield size={24} className="text-[#84CC16]" />
                 </div>
                 <h4 className="text-xl font-bold text-white mb-4 text-center">VALORES</h4>
                 
                 <div className="grid grid-cols-2 gap-3 max-w-[240px] mx-auto">
                   {['Innovación', 'Excelencia', 'Integridad', 'Ingeniería', 'Evolución', 'Impacto'].map((v, i) => (
                     <div key={i} className="flex items-center gap-2 justify-center">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#84CC16]" />
                       <span className="text-xs text-[#A1A8B3] font-bold group-hover:text-white transition-colors">{v}</span>
                     </div>
                   ))}
@@ -783,136 +791,139 @@ const NosotrosSection = () => {
               return (
                 <div 
                   key={index}
-                  onClick={(e) => {
-                    if (e.target.closest('button') || e.target.closest('input')) return;
-                    setFlippedCards(prev => ({ ...prev, [index]: !prev[index] }));
+                  className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-[#0A0D14] border border-white/5 hover:border-[var(--card-color-40)] transition-all duration-300 group cursor-pointer flex flex-col p-8 shadow-2xl"
+                  style={{ 
+                    '--card-color': card.color,
+                    '--card-color-10': `${card.color}1A`,
+                    '--card-color-20': `${card.color}33`,
+                    '--card-color-40': `${card.color}66`,
+                    '--card-color-50': `${card.color}80`
                   }}
-                  className="w-full aspect-[4/3] [perspective:1000px] cursor-pointer"
                 >
-                  <div 
-                    className="relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d] select-none"
-                    style={{ transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)' }}
-                  >
-                    {/* FRONT SIDE */}
-                    <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] border border-white/5 bg-[#0e131b]/60 rounded-xl p-8 transition-all duration-300 hover:border-[#F5C400]/40 flex flex-col items-center justify-between text-center gap-4 group">
-                      <div className="w-12 h-12 rounded-lg bg-[#F5C400]/10 flex items-center justify-center border border-[#F5C400]/20 group-hover:bg-[#F5C400]/25 group-hover:border-[#F5C400]/50 transition-all duration-300 mx-auto shadow-[0_0_15px_rgba(245,196,0,0.05)]">
-                        <IconComponent size={24} className="text-[#F5C400] transition-colors" />
-                      </div>
-                      <h4 className="font-bold text-lg text-white group-hover:text-[#F5C400] transition-colors">{card.title}</h4>
-                      <p className="text-xs text-[#A1A8B3] leading-relaxed">{card.desc}</p>
-                      <div className="text-[10px] font-mono text-[#F5C400] mt-2">{card.tags}</div>
-                    </div>
-
-                    {/* BACK SIDE (GLOWING text & custom image) */}
-                    <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-xl overflow-hidden border border-[#F5C400]/40 shadow-[0_0_20px_rgba(245,196,0,0.15)] flex flex-col items-center justify-center p-6 text-center bg-black">
-                      {/* Background Image */}
-                      <div className="absolute inset-0 z-0">
-                        <div 
-                          className="absolute inset-0 z-10 pointer-events-none transition-all duration-300 global-overlay" 
-                          style={{ 
-                            backgroundColor: localFilterColor,
-                            opacity: localFilterOpacity / 100 
-                          }}
-                        />
-                        <img 
-                          src={getOptimizedImageUrl(cardImage, 600)} 
-                          alt={card.title} 
-                          className="w-full h-full object-cover transition-all duration-300" 
-                          style={{ opacity: localOpacity / 100 }}
-                          loading="lazy"
-                        />
-                      </div>
-
-                      {/* Content */}
-                      <div className="relative z-20 flex flex-col items-center justify-center gap-3">
-
-                        {/* Yellow Font name (Sin LED) */}
-                        <h4 className="font-black text-xl md:text-2xl uppercase tracking-tighter text-[#F5C400] text-center">
-                          {card.title}
-                        </h4>
-
-                        {!isEditorMode && (
-                          <span className="text-[14px] text-[#A1A8B3] leading-relaxed max-w-[240px]">{card.desc}</span>
-                        )}
-
-                        {/* Local Card controls in Editor Mode */}
-                        {isEditorMode && (
-                          <div 
-                            className="flex flex-col gap-1.5 w-full min-w-[190px] bg-black/90 backdrop-blur border border-white/10 rounded-lg p-2 mt-1 text-left text-[9px] relative z-30" 
-                            onClick={e => e.stopPropagation()}
-                          >
-                            <div className="flex items-center justify-between">
-                              <button
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  cardFileInputRef.current.dataset.index = index;
-                                  cardFileInputRef.current.click();
-                                }}
-                                className="w-full bg-[#F5C400] text-black font-black text-[9px] tracking-wider uppercase py-1 px-2 rounded hover:bg-white hover:text-black transition-all text-center"
-                              >
-                                {uploadingCardIdx === index ? 'Subiendo...' : 'Subir Imagen'}
-                              </button>
-                            </div>
-                            
-                            {/* Opacidad Imagen */}
-                            <div className="flex flex-col gap-0.5">
-                              <div className="flex justify-between text-white/70">
-                                <span>Opacidad Img</span>
-                                <span className="text-[#F5C400] font-bold">{localOpacity}%</span>
-                              </div>
-                              <input 
-                                type="range" 
-                                min="10" 
-                                max="100" 
-                                value={localOpacity} 
-                                onChange={(e) => {
-                                  updatePageModule('home', 'nosotros-cards', {
-                                    [`card-image-opacity-${index}`]: Number(e.target.value)
-                                  });
-                                }}
-                                className="w-full h-1 bg-white/20 rounded appearance-none cursor-pointer accent-[#F5C400]"
-                              />
-                            </div>
-
-                            {/* Opacidad Filtro */}
-                            <div className="flex flex-col gap-0.5">
-                              <div className="flex justify-between text-white/70">
-                                <span>Opacidad Filtro</span>
-                                <span className="text-[#F5C400] font-bold">{localFilterOpacity}%</span>
-                              </div>
-                              <input 
-                                type="range" 
-                                min="0" 
-                                max="100" 
-                                value={localFilterOpacity} 
-                                onChange={(e) => {
-                                  updatePageModule('home', 'nosotros-cards', {
-                                    [`card-filter-opacity-${index}`]: Number(e.target.value)
-                                  });
-                                }}
-                                className="w-full h-1 bg-white/20 rounded appearance-none cursor-pointer accent-[#F5C400]"
-                              />
-                            </div>
-
-                            {/* Color Filtro */}
-                            <div className="flex items-center justify-between text-white/70">
-                              <span>Color Filtro</span>
-                              <input 
-                                type="color" 
-                                value={localFilterColor} 
-                                onChange={(e) => {
-                                  updatePageModule('home', 'nosotros-cards', {
-                                    [`card-filter-color-${index}`]: e.target.value
-                                  });
-                                }}
-                                className="w-4 h-4 rounded border border-white/20 bg-transparent cursor-pointer"
-                              />
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
+                  {/* Background image fading left and bottom */}
+                  <div className="absolute inset-y-0 right-0 w-[60%] z-0">
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#0A0D14] via-[#0A0D14]/80 to-transparent z-10" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0A0D14] via-[#0A0D14]/20 to-transparent z-10" />
+                    <div 
+                      className="absolute inset-0 z-10 mix-blend-color" 
+                      style={{ 
+                        backgroundColor: localFilterColor,
+                        opacity: localFilterOpacity / 100 
+                      }}
+                    />
+                    <img 
+                      src={getOptimizedImageUrl(cardImage, 600)} 
+                      alt={card.title}
+                      className="w-full h-full object-cover opacity-50 group-hover:opacity-80 transition-all duration-700 mix-blend-screen group-hover:scale-105"
+                      style={{ opacity: localOpacity / 100 }}
+                      loading="lazy"
+                    />
                   </div>
+
+                  {/* Top Left Icon */}
+                  <div className="relative z-20 w-12 h-12 rounded-xl border border-[var(--card-color-40)] flex items-center justify-center bg-transparent mb-6 group-hover:bg-[var(--card-color-10)] transition-colors duration-300">
+                    <IconComponent size={24} className="text-[var(--card-color)]" />
+                  </div>
+
+                  {/* Title */}
+                  <h4 className="relative z-20 font-bold text-xl md:text-2xl text-white mb-4 leading-tight max-w-[80%] pr-4">
+                    {card.title.split(' ').map((word, i) => <React.Fragment key={i}>{word}<br/></React.Fragment>)}
+                  </h4>
+                  
+                  {/* Colored line */}
+                  <div className="relative z-20 w-8 h-[2px] bg-[var(--card-color)] mb-4" />
+
+                  {/* Description */}
+                  <p className="relative z-20 text-xs md:text-sm text-[#A1A8B3] leading-relaxed max-w-[80%] mb-auto">
+                    {card.desc}
+                  </p>
+
+                  {/* Footer: Tags and Arrow */}
+                  <div className="relative z-20 flex items-end justify-between w-full mt-6">
+                    <span className="text-[10px] md:text-xs font-mono font-bold text-[var(--card-color)] tracking-wider">
+                      {card.tags}
+                    </span>
+                    <ArrowUpRight size={24} className="text-[var(--card-color)] opacity-70 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
+                  </div>
+
+                  {/* Local Card controls in Editor Mode */}
+                  {isEditorMode && (
+                    <div 
+                      className="absolute top-2 right-2 flex flex-col gap-1.5 min-w-[190px] bg-black/90 backdrop-blur border border-white/10 rounded-lg p-2 text-left text-[9px] z-50 shadow-2xl" 
+                      onClick={e => e.stopPropagation()}
+                    >
+                      <div className="flex items-center justify-between">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            cardFileInputRef.current.dataset.index = index;
+                            cardFileInputRef.current.click();
+                          }}
+                          className="w-full text-black font-black text-[9px] tracking-wider uppercase py-1 px-2 rounded hover:brightness-110 transition-all text-center"
+                          style={{ backgroundColor: card.color }}
+                        >
+                          {uploadingCardIdx === index ? 'Subiendo...' : 'Subir Imagen'}
+                        </button>
+                      </div>
+                      
+                      {/* Opacidad Imagen */}
+                      <div className="flex flex-col gap-0.5">
+                        <div className="flex justify-between text-white/70">
+                          <span>Opacidad Img</span>
+                          <span className="font-bold text-[var(--card-color)]">{localOpacity}%</span>
+                        </div>
+                        <input 
+                          type="range" 
+                          min="10" 
+                          max="100" 
+                          value={localOpacity} 
+                          onChange={(e) => {
+                            updatePageModule('home', 'nosotros-cards', {
+                              [`card-image-opacity-${index}`]: Number(e.target.value)
+                            });
+                          }}
+                          className="w-full h-1 bg-white/20 rounded appearance-none cursor-pointer"
+                          style={{ accentColor: card.color }}
+                        />
+                      </div>
+
+                      {/* Opacidad Filtro */}
+                      <div className="flex flex-col gap-0.5">
+                        <div className="flex justify-between text-white/70">
+                          <span>Opacidad Filtro</span>
+                          <span className="font-bold text-[var(--card-color)]">{localFilterOpacity}%</span>
+                        </div>
+                        <input 
+                          type="range" 
+                          min="0" 
+                          max="100" 
+                          value={localFilterOpacity} 
+                          onChange={(e) => {
+                            updatePageModule('home', 'nosotros-cards', {
+                              [`card-filter-opacity-${index}`]: Number(e.target.value)
+                            });
+                          }}
+                          className="w-full h-1 bg-white/20 rounded appearance-none cursor-pointer"
+                          style={{ accentColor: card.color }}
+                        />
+                      </div>
+
+                      {/* Color Filtro */}
+                      <div className="flex items-center justify-between text-white/70">
+                        <span>Color Filtro</span>
+                        <input 
+                          type="color" 
+                          value={localFilterColor} 
+                          onChange={(e) => {
+                            updatePageModule('home', 'nosotros-cards', {
+                              [`card-filter-color-${index}`]: e.target.value
+                            });
+                          }}
+                          className="w-4 h-4 rounded border border-white/20 bg-transparent cursor-pointer"
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
               );
             })}
