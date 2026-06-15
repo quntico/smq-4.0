@@ -5,7 +5,7 @@ import {
   BrainCircuit, Network, TrendingUp, Target, Cpu, ArrowLeft, Activity, 
   AlertTriangle, Info, CheckCircle2, Factory, BarChart2, Settings,
   DollarSign, Clock, ShieldCheck, Image as ImageIcon, Wifi, Zap, Shield,
-  Box, LineChart, TrendingDown, Database, Gauge
+  Box, LineChart, TrendingDown, Database, Gauge, Leaf, Cloud, ClipboardCheck, ArrowDownCircle
 } from 'lucide-react';
 import Footer from '@/components/Footer.jsx';
 import { useCMS } from '@/context/CMSContext.jsx';
@@ -120,6 +120,28 @@ const technologyData = {
       { icon: ShieldCheck, value: '', label: 'Mayor seguridad\nde la información' },
       { icon: DollarSign, value: '', label: 'Reducción de costos\noperativos' },
       { icon: TrendingUp, value: '', label: 'Alta disponibilidad\ny escalabilidad' }
+    ]
+  },
+  'energia-inteligente': {
+    number: '06',
+    title: 'ENERGÍA INTELIGENTE',
+    subtitle: 'MONITOREO DE HUELLA DE CARBONO Y\nOPTIMIZACIÓN DE CONSUMO ENERGÉTICO.',
+    color: '#F97316', // Orange
+    icon: Zap,
+    robotImage: 'https://images.unsplash.com/photo-1509391366360-1e97d5261688?auto=format&fit=crop&w=1200&q=80',
+    features: [
+      { icon: Gauge, title: 'MONITOREO INTELIGENTE', desc: 'Supervisión continua de consumo energético en tiempo real con integración de múltiples fuentes.' },
+      { icon: BarChart2, title: 'OPTIMIZACIÓN DE CONSUMO', desc: 'Algoritmos avanzados que ajustan automáticamente el consumo para maximizar la eficiencia.' },
+      { icon: Leaf, title: 'SOSTENIBILIDAD MEDIBLE', desc: 'Cálculo y reducción de huella de carbono con reportes y cumplimiento ambiental.' }
+    ],
+    footerType: 'metrics',
+    footerTitle: 'BENEFICIOS CLAVE',
+    footerIcon: Leaf,
+    metrics: [
+      { icon: ArrowDownCircle, value: '', label: 'Reducción de costos\nenergéticos' },
+      { icon: Cloud, value: '', label: 'Menor huella\nde carbono' },
+      { icon: Settings, value: '', label: 'Mayor eficiencia\noperativa' },
+      { icon: ClipboardCheck, value: '', label: 'Cumplimiento normativo\ny reportes automáticos' }
     ]
   }
 };
@@ -437,7 +459,11 @@ const TecnologiaDetalle = () => {
                         className="w-14 h-14 rounded-2xl border bg-[#0C1017] flex items-center justify-center shadow-lg"
                         style={{ borderColor: `${data.color}40` }}
                       >
-                        <CheckCircle2 size={24} style={{ color: data.color }} strokeWidth={2} />
+                        {data.footerIcon ? (
+                          <data.footerIcon size={24} style={{ color: data.color }} strokeWidth={2} />
+                        ) : (
+                          <CheckCircle2 size={24} style={{ color: data.color }} strokeWidth={2} />
+                        )}
                       </div>
                       <span className="text-[13px] font-black uppercase tracking-widest" style={{ color: data.color }}>
                         {data.footerTitle}
