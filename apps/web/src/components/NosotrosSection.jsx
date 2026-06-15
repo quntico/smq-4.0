@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Shield, 
   Cpu, 
@@ -7,7 +7,9 @@ import {
   Settings, 
   Activity, 
   Zap, 
-  TrendingUp
+  TrendingUp,
+  X,
+  Upload
 } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
@@ -102,6 +104,31 @@ const NosotrosSection = () => {
   const videoRef = useRef(null);
   const collageImageInputRef = useRef(null);
   const collageVideoInputRef = useRef(null);
+  const dialogFileInputRef = useRef(null);
+  const [activeDialogCard, setActiveDialogCard] = useState(null);
+
+  const dialogImages = {
+    mision: nosotrosCardsData['dialog-image-mision'] || 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80',
+    vision: nosotrosCardsData['dialog-image-vision'] || 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80',
+    valores: nosotrosCardsData['dialog-image-valores'] || 'https://images.unsplash.com/photo-1507146426996-ef05306b995a?auto=format&fit=crop&w=800&q=80',
+  };
+
+  const handleDialogImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file || !activeDialogCard) return;
+    try {
+      setIsUploading(true);
+      const url = await uploadFile(file);
+      updatePageModule('home', 'nosotros-cards', {
+        [`dialog-image-${activeDialogCard}`]: url
+      });
+    } catch (err) {
+      console.error("Error al subir imagen del diálogo:", err);
+      alert("Error al subir la imagen.");
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   const handleCollageImageChange = async (e) => {
     const file = e.target.files[0];
@@ -515,7 +542,8 @@ const NosotrosSection = () => {
               initial={{ opacity: 0, y: 30 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="border-t border-l border-white/20 border-b border-r border-white/5 bg-[#0e131b]/60 backdrop-blur-xl rounded-2xl p-8 shadow-2xl relative overflow-hidden flex flex-col justify-between min-h-[300px] transition-all duration-300 hover:-translate-y-2 hover:border-[#F5C400]/40 group"
+              onClick={() => setActiveDialogCard('mision')}
+              className="cursor-pointer border-t border-l border-white/20 border-b border-r border-white/5 bg-[#0e131b]/60 backdrop-blur-xl rounded-2xl p-8 shadow-2xl relative overflow-hidden flex flex-col justify-between min-h-[300px] transition-all duration-300 hover:-translate-y-2 hover:border-[#F5C400]/40 group"
             >
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#F5C400]/30 to-transparent" />
               <div>
@@ -536,7 +564,8 @@ const NosotrosSection = () => {
               initial={{ opacity: 0, y: 30 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="border-t border-l border-white/20 border-b border-r border-white/5 bg-[#0e131b]/60 backdrop-blur-xl rounded-2xl p-8 shadow-2xl relative overflow-hidden flex flex-col justify-between min-h-[300px] transition-all duration-300 hover:-translate-y-2 hover:border-[#06B6D4]/40 group"
+              onClick={() => setActiveDialogCard('vision')}
+              className="cursor-pointer border-t border-l border-white/20 border-b border-r border-white/5 bg-[#0e131b]/60 backdrop-blur-xl rounded-2xl p-8 shadow-2xl relative overflow-hidden flex flex-col justify-between min-h-[300px] transition-all duration-300 hover:-translate-y-2 hover:border-[#06B6D4]/40 group"
             >
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#06B6D4]/30 to-transparent" />
               <div>
@@ -557,7 +586,8 @@ const NosotrosSection = () => {
               initial={{ opacity: 0, y: 30 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="border-t border-l border-white/20 border-b border-r border-white/5 bg-[#0e131b]/60 backdrop-blur-xl rounded-2xl p-8 shadow-2xl relative overflow-hidden flex flex-col justify-between min-h-[300px] transition-all duration-300 hover:-translate-y-2 hover:border-[#10B981]/40 group"
+              onClick={() => setActiveDialogCard('valores')}
+              className="cursor-pointer border-t border-l border-white/20 border-b border-r border-white/5 bg-[#0e131b]/60 backdrop-blur-xl rounded-2xl p-8 shadow-2xl relative overflow-hidden flex flex-col justify-between min-h-[300px] transition-all duration-300 hover:-translate-y-2 hover:border-[#10B981]/40 group"
             >
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#10B981]/30 to-transparent" />
               <div>
@@ -1022,6 +1052,62 @@ const NosotrosSection = () => {
           </a>
         </div>
       </section>
+
+      {/* Dialog Modal for Misión, Visión, Valores */}
+      <AnimatePresence>
+        {activeDialogCard && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            onClick={() => setActiveDialogCard(null)}
+          >
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              className="relative flex justify-center items-center max-w-[90vw] max-h-[85vh] mt-20"
+              onClick={e => e.stopPropagation()}
+            >
+              <div className="relative inline-block max-w-full max-h-full">
+                <button 
+                  onClick={() => setActiveDialogCard(null)}
+                  className="absolute top-4 right-4 z-50 p-2 bg-black/50 hover:bg-white/10 rounded-full border border-white/20 text-white transition-colors backdrop-blur-md shadow-xl"
+                >
+                  <X size={20} />
+                </button>
+
+                <img 
+                  src={getOptimizedImageUrl(dialogImages[activeDialogCard], 1600)}
+                  alt={`Imagen de ${activeDialogCard}`}
+                  className="w-auto h-auto max-w-full max-h-[75vh] object-contain rounded-2xl border border-white/20 bg-black/80 backdrop-blur-xl shadow-[inset_0_1px_2px_rgba(255,255,255,0.2),0_20px_50px_rgba(0,0,0,0.8)]"
+                />
+
+                {isEditorMode && (
+                  <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-50">
+                    <button 
+                      onClick={() => dialogFileInputRef.current?.click()}
+                      disabled={isUploading}
+                      className="flex items-center gap-2 bg-[#F5C400] text-black font-black uppercase tracking-wider px-6 py-3 rounded-lg shadow-xl hover:bg-white transition-colors"
+                    >
+                      <Upload size={18} />
+                      {isUploading ? 'Subiendo...' : 'Cambiar Imagen'}
+                    </button>
+                    <input 
+                      type="file" 
+                      ref={dialogFileInputRef}
+                      accept="image/*,.png,.jpg,.jpeg,.webp"
+                      className="hidden"
+                      onChange={handleDialogImageUpload}
+                    />
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </div>
   );

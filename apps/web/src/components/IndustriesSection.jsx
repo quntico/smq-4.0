@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { AlignLeft, AlignCenter, AlignRight, AlignJustify, Image as ImageIcon, Maximize, Minimize } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
+import { useNavigate } from 'react-router-dom';
 
 const getOptimizedImageUrl = (url, width = 600) => {
   if (!url || typeof url !== 'string') return url || '';
@@ -104,6 +105,7 @@ const ToolbarColorPicker = ({ value, onChange, title }) => (
 
 const IndustriesSection = () => {
   const { cmsState, isEditorMode, updatePageModule } = useCMS();
+  const navigate = useNavigate();
   const [activeUploadId, setActiveUploadId] = useState(null);
   const [uploadingId, setUploadingId] = useState(null);
   const fileInputRef = useRef(null);
@@ -151,6 +153,18 @@ const IndustriesSection = () => {
     }
   };
 
+  const handleCardClick = (id) => {
+    if (isEditorMode) return;
+    const pathMap = {
+      1: '/soluciones/reciclaje',
+      2: '/soluciones/alimentos',
+      3: '/soluciones/packaging',
+      4: '/soluciones/construccion',
+      5: '/soluciones/smart-factory'
+    };
+    navigate(pathMap[id] || '/soluciones');
+  };
+
   return (
     <section id="industrias" className="bg-[#0B0F14] px-[20px] py-[40px] md:px-[30px] md:py-[60px] lg:px-[40px] lg:py-[80px] w-full relative">
       <input
@@ -183,6 +197,7 @@ const IndustriesSection = () => {
             <motion.div
               key={industry.id}
               variants={itemVariants}
+              onClick={() => handleCardClick(industry.id)}
               className={`group relative h-[200px] md:h-[250px] lg:h-[300px] cursor-pointer shadow-lg z-0 ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 z-10' : 'hover:shadow-[0_0_20px_rgba(255,215,0,0.2)] z-0'} transition-all duration-250 ease-in-out`}
             >
               {/* Inner wrapper for rounding and clipping */}

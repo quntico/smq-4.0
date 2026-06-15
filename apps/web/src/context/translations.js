@@ -6,7 +6,9 @@ export const translations = {
       machinery: "Maquinaria",
       technology: "Tecnología",
       company: "Empresa",
-      quote: "Cotizar"
+      quote: "Cotizar",
+      wastetoenergy: "Waste to Energy",
+      projects: "Proyectos"
     },
     hero: {
       title1: "SOLUCIONES INDUSTRIALES",
@@ -21,7 +23,9 @@ export const translations = {
       machinery: "Machinery",
       technology: "Technology",
       company: "Company",
-      quote: "Get Quote"
+      quote: "Get Quote",
+      wastetoenergy: "Waste to Energy",
+      projects: "Projects"
     },
     hero: {
       title1: "INDUSTRIAL SOLUTIONS",
@@ -36,7 +40,9 @@ export const translations = {
       machinery: "Macchinari",
       technology: "Tecnologia",
       company: "Azienda",
-      quote: "Preventivo"
+      quote: "Preventivo",
+      wastetoenergy: "Valorizzazione Energetica",
+      projects: "Progetti"
     },
     hero: {
       title1: "SOLUZIONI INDUSTRIALI",
@@ -51,12 +57,14 @@ export const translations = {
       machinery: "آلات",
       technology: "تكنولوجيا",
       company: "شركة",
-      quote: "اقتباس"
+      quote: "اقتباس",
+      wastetoenergy: "تحويل النفايات إلى طاقة",
+      projects: "مشاريع"
     },
     hero: {
       title1: "حلول صناعية",
       title2: "من الهندسة العالية",
-      subtitle: "آلات متقدمة لإعادة التدوير، معالجة الأغذية، والأتمتة الصناعية."
+      subtitle: "آلات متقدمة لإعادة التدوير، معalجة الأغذية، والأتمتة الصناعية."
     }
   }
 };
