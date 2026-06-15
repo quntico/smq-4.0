@@ -75,11 +75,16 @@ const CustomCursor = () => {
       resetInactivityTimer();
     };
 
+    const onScroll = () => {
+      setIsVisible(true);
+      resetInactivityTimer();
+    };
+
     window.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseleave', onMouseLeave);
     document.addEventListener('mouseenter', onMouseEnter);
     window.addEventListener('mousedown', onMouseDown);
-    window.addEventListener('scroll', onMouseMove, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
 
     // Animation loop for dot and halo trailing effect using transform (GPU accelerated)
     const updateCursor = () => {
@@ -88,7 +93,7 @@ const CustomCursor = () => {
         dotRef.current.style.transform = `translate3d(${mouse.current.x}px, ${mouse.current.y}px, 0) translate(-50%, -50%)`;
       }
 
-      // 2. Lerp (Linear Interpolation) with a responsive factor (0.45) for precise trailing
+      // 2. Lerp (Linear Interpolation) for snappy yet smooth trailing
       halo.current.x += (mouse.current.x - halo.current.x) * 0.45;
       halo.current.y += (mouse.current.y - halo.current.y) * 0.45;
 
@@ -124,7 +129,7 @@ const CustomCursor = () => {
       document.removeEventListener('mouseleave', onMouseLeave);
       document.removeEventListener('mouseenter', onMouseEnter);
       window.removeEventListener('mousedown', onMouseDown);
-      window.removeEventListener('scroll', onMouseMove);
+      window.removeEventListener('scroll', onScroll);
       document.removeEventListener('mouseover', handleMouseOver);
       document.removeEventListener('mouseout', handleMouseOut);
       cancelAnimationFrame(requestRef.current);

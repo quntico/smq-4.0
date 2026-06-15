@@ -11,7 +11,11 @@ import {
   TrendingUp,
   X,
   Upload,
-  ArrowUpRight
+  ArrowUpRight,
+  Lightbulb,
+  Star,
+  Handshake,
+  Leaf
 } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
@@ -559,19 +563,31 @@ const NosotrosSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
               onClick={() => setActiveDialogCard('mision')}
-              className="cursor-pointer border-t border-l border-white/20 border-b border-r border-white/5 bg-[#0e131b]/60 backdrop-blur-xl rounded-2xl p-8 shadow-2xl relative overflow-hidden flex flex-col justify-between min-h-[300px] transition-all duration-300 hover:-translate-y-2 hover:border-[#F5C400]/40 group"
+              className="cursor-pointer border-t border-l border-white/20 border-b border-r border-white/5 bg-[#0e131b]/60 backdrop-blur-xl rounded-2xl p-8 shadow-2xl relative overflow-hidden flex flex-col justify-start min-h-[460px] transition-all duration-300 hover:-translate-y-2 hover:border-[#F5C400]/40 group"
             >
+              <div 
+                className="absolute bottom-0 left-0 right-0 h-[55%] bg-cover bg-center bg-no-repeat opacity-40 group-hover:opacity-80 transition-opacity duration-700 pointer-events-none"
+                style={{ 
+                  backgroundImage: "url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80')",
+                  maskImage: "linear-gradient(to top, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%)",
+                  WebkitMaskImage: "linear-gradient(to top, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%)"
+                }}
+              />
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#F5C400]/30 to-transparent" />
-              <div>
+              <div className="relative z-10 flex flex-col items-center flex-grow">
                 <div className="w-12 h-12 rounded-lg bg-[#F5C400]/10 flex items-center justify-center border border-[#F5C400]/30 mb-6 group-hover:bg-[#F5C400]/20 transition-all duration-300 mx-auto">
                   <Cpu size={24} className="text-[#F5C400]" />
                 </div>
                 <h4 className="text-xl font-bold text-white mb-4 text-center">MISIÓN</h4>
-                <p className="text-[#A1A8B3] text-sm leading-relaxed text-justify">
+                <p className="text-[#A1A8B3] text-sm leading-relaxed text-center">
                   Automatizar procesos industriales mediante soluciones de ingeniería que incrementen productividad, calidad y competitividad.
                 </p>
               </div>
-              <div className="text-[9px] font-mono text-white/30 mt-6 tracking-widest uppercase text-center">SMQ_CORE_MISSION</div>
+              <div className="relative z-10 text-[9px] font-mono text-white/50 mt-auto pt-8 tracking-widest uppercase text-center flex justify-between items-center w-full">
+                <span className="font-bold text-white/90 text-xs">Editar</span>
+                <span>SMQ_CORE_MISSION</span>
+                <span className="w-4"></span>
+              </div>
             </motion.div>
 
             {/* Visión */}
@@ -581,19 +597,31 @@ const NosotrosSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
               onClick={() => setActiveDialogCard('vision')}
-              className="cursor-pointer border-t border-l border-white/20 border-b border-r border-white/5 bg-[#0e131b]/60 backdrop-blur-xl rounded-2xl p-8 shadow-2xl relative overflow-hidden flex flex-col justify-between min-h-[300px] transition-all duration-300 hover:-translate-y-2 hover:border-[#06B6D4]/40 group"
+              className="cursor-pointer border-t border-l border-white/20 border-b border-r border-white/5 bg-[#0e131b]/60 backdrop-blur-xl rounded-2xl p-8 shadow-2xl relative overflow-hidden flex flex-col justify-start min-h-[460px] transition-all duration-300 hover:-translate-y-2 hover:border-[#06B6D4]/40 group"
             >
+              <div 
+                className="absolute bottom-0 left-0 right-0 h-[55%] bg-cover bg-center bg-no-repeat opacity-40 group-hover:opacity-80 transition-opacity duration-700 pointer-events-none"
+                style={{ 
+                  backgroundImage: "url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80')",
+                  maskImage: "linear-gradient(to top, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%)",
+                  WebkitMaskImage: "linear-gradient(to top, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%)"
+                }}
+              />
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#06B6D4]/30 to-transparent" />
-              <div>
+              <div className="relative z-10 flex flex-col items-center flex-grow">
                 <div className="w-12 h-12 rounded-lg bg-[#06B6D4]/10 flex items-center justify-center border border-[#06B6D4]/30 mb-6 group-hover:bg-[#06B6D4]/20 transition-all duration-300 mx-auto">
                   <Eye size={24} className="text-[#06B6D4]" />
                 </div>
                 <h4 className="text-xl font-bold text-white mb-4 text-center">VISIÓN</h4>
-                <p className="text-[#A1A8B3] text-sm leading-relaxed text-justify">
+                <p className="text-[#A1A8B3] text-sm leading-relaxed text-center">
                   Convertirnos en la empresa referente de automatización e integración industrial en Latinoamérica.
                 </p>
               </div>
-              <div className="text-[9px] font-mono text-white/30 mt-6 tracking-widest uppercase text-center">SMQ_FUTURE_VISION</div>
+              <div className="relative z-10 text-[9px] font-mono text-white/50 mt-auto pt-8 tracking-widest uppercase text-center flex justify-between items-center w-full">
+                <span className="font-bold text-white/90 text-xs">Editar</span>
+                <span>SMQ_FUTURE_VISION</span>
+                <span className="w-4"></span>
+              </div>
             </motion.div>
 
             {/* Valores */}
@@ -603,25 +631,48 @@ const NosotrosSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
               onClick={() => setActiveDialogCard('valores')}
-              className="cursor-pointer border-t border-l border-white/20 border-b border-r border-white/5 bg-[#0e131b]/60 backdrop-blur-xl rounded-2xl p-8 shadow-2xl relative overflow-hidden flex flex-col justify-between min-h-[300px] transition-all duration-300 hover:-translate-y-2 hover:border-[#84CC16]/40 group"
+              className="cursor-pointer border-t border-l border-white/20 border-b border-r border-white/5 bg-[#0e131b]/60 backdrop-blur-xl rounded-2xl p-8 shadow-2xl relative overflow-hidden flex flex-col justify-start min-h-[460px] transition-all duration-300 hover:-translate-y-2 hover:border-[#84CC16]/40 group"
             >
+              <div 
+                className="absolute bottom-0 left-0 right-0 h-[55%] bg-cover bg-center bg-no-repeat opacity-40 group-hover:opacity-80 transition-opacity duration-700 pointer-events-none"
+                style={{ 
+                  backgroundImage: "url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=600&q=80')",
+                  maskImage: "linear-gradient(to top, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%)",
+                  WebkitMaskImage: "linear-gradient(to top, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%)"
+                }}
+              />
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#84CC16]/30 to-transparent" />
-              <div>
+              <div className="relative z-10 flex flex-col items-center flex-grow w-full">
                 <div className="w-12 h-12 rounded-lg bg-[#84CC16]/10 flex items-center justify-center border border-[#84CC16]/30 mb-6 group-hover:bg-[#84CC16]/20 transition-all duration-300 mx-auto">
                   <Shield size={24} className="text-[#84CC16]" />
                 </div>
-                <h4 className="text-xl font-bold text-white mb-4 text-center">VALORES</h4>
+                <h4 className="text-xl font-bold text-white mb-6 text-center">VALORES</h4>
                 
-                <div className="grid grid-cols-2 gap-3 max-w-[240px] mx-auto">
-                  {['Innovación', 'Excelencia', 'Integridad', 'Ingeniería', 'Evolución', 'Impacto'].map((v, i) => (
-                    <div key={i} className="flex items-center gap-2 justify-center">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#84CC16]" />
-                      <span className="text-xs text-[#A1A8B3] font-bold group-hover:text-white transition-colors">{v}</span>
+                <div className="grid grid-cols-2 gap-x-6 gap-y-4 max-w-[280px] w-full mx-auto">
+                  {[
+                    { name: 'Innovación', icon: Lightbulb },
+                    { name: 'Excelencia', icon: Star },
+                    { name: 'Integridad', icon: Handshake },
+                    { name: 'Ingeniería', icon: Settings },
+                    { name: 'Evolución', icon: TrendingUp },
+                    { name: 'Impacto', icon: Leaf }
+                  ].map((v, i) => {
+                    const Icon = v.icon;
+                    return (
+                    <div key={i} className="flex items-center gap-3 justify-start">
+                      <div className="w-8 h-8 rounded-full border border-[#84CC16]/40 flex items-center justify-center bg-[#84CC16]/5">
+                        <Icon size={14} className="text-[#84CC16]" />
+                      </div>
+                      <span className="text-sm text-white/90 font-medium">{v.name}</span>
                     </div>
-                  ))}
+                  )})}
                 </div>
               </div>
-              <div className="text-[9px] font-mono text-white/30 mt-6 tracking-widest uppercase text-center">SMQ_ETHICAL_VALUES</div>
+              <div className="relative z-10 text-[9px] font-mono text-white/50 mt-auto pt-8 tracking-widest uppercase text-center flex justify-between items-center w-full">
+                <span className="font-bold text-white/90 text-xs">Editar</span>
+                <span>SMQ_ETHICAL_VALUES</span>
+                <ArrowUpRight size={16} className="text-white/60" />
+              </div>
             </motion.div>
 
           </div>
