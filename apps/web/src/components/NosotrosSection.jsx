@@ -568,7 +568,7 @@ const NosotrosSection = () => {
               <div 
                 className="absolute bottom-0 left-0 right-0 h-[55%] bg-cover bg-center bg-no-repeat opacity-40 group-hover:opacity-80 transition-opacity duration-700 pointer-events-none"
                 style={{ 
-                  backgroundImage: "url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80')",
+                  backgroundImage: "url('/nosotros_industrial_hero.png')",
                   maskImage: "linear-gradient(to top, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%)",
                   WebkitMaskImage: "linear-gradient(to top, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%)"
                 }}
@@ -602,7 +602,7 @@ const NosotrosSection = () => {
               <div 
                 className="absolute bottom-0 left-0 right-0 h-[55%] bg-cover bg-center bg-no-repeat opacity-40 group-hover:opacity-80 transition-opacity duration-700 pointer-events-none"
                 style={{ 
-                  backgroundImage: "url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80')",
+                  backgroundImage: "url('/nosotros_futuro_industrial.png')",
                   maskImage: "linear-gradient(to top, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%)",
                   WebkitMaskImage: "linear-gradient(to top, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%)"
                 }}
@@ -636,7 +636,7 @@ const NosotrosSection = () => {
               <div 
                 className="absolute bottom-0 left-0 right-0 h-[55%] bg-cover bg-center bg-no-repeat opacity-40 group-hover:opacity-80 transition-opacity duration-700 pointer-events-none"
                 style={{ 
-                  backgroundImage: "url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=600&q=80')",
+                  backgroundImage: "url('/ai_neural_cover.png')",
                   maskImage: "linear-gradient(to top, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%)",
                   WebkitMaskImage: "linear-gradient(to top, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%)"
                 }}
