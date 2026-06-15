@@ -97,13 +97,13 @@ const MobileMenu = ({ isOpen, onClose }) => {
       key: 'technology',
       type: 'expandable',
       items: [
-        { name: 'Inteligencia Artificial', href: '/tecnologia#ia' },
-        { name: 'Smart Factory', href: '/tecnologia#smart-factory' },
-        { name: 'Digital Twin', href: '/tecnologia#digital-twin' },
-        { name: 'PLC + Motion', href: '/tecnologia#plc-motion' },
-        { name: 'IIOT + Edge', href: '/tecnologia#iiot-edge' },
-        { name: 'Energía Inteligente', href: '/tecnologia#energia-inteligente' },
-        { name: 'Plataforma SMQ OS™', href: '/tecnologia#smq-os' }
+        { name: 'Inteligencia Artificial', href: '/tecnologia/ia' },
+        { name: 'Smart Factory', href: '/tecnologia/smart-factory' },
+        { name: 'Digital Twin', href: '/tecnologia/digital-twin' },
+        { name: 'PLC + Motion', href: '/tecnologia/plc-motion' },
+        { name: 'IIOT + Edge', href: '/tecnologia/iiot-edge' },
+        { name: 'Energía Inteligente', href: '/tecnologia/energia-inteligente' },
+        { name: 'Plataforma SMQ OS™', href: '/tecnologia/smq-os' }
       ]
     },
     {

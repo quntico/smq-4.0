@@ -11,7 +11,7 @@ const techItems = [
     desc: 'ALGORITMOS DE APRENDIZAJE PROFUNDO Y OPTIMIZACIÓN DE PROCESOS PRODUCTIVOS.',
     color: '#8B5CF6',
     Icon: BrainCircuit,
-    href: '/tecnologia#ia'
+    href: '/tecnologia/ia'
   },
   {
     num: '02',
@@ -19,7 +19,7 @@ const techItems = [
     desc: 'LÍNEAS TOTALMENTE INTERCONECTADAS CON TOMA DE DECISIONES AUTÓNOMA.',
     color: '#10B981',
     Icon: Factory,
-    href: '/tecnologia#smart-factory'
+    href: '/tecnologia/smart-factory'
   },
   {
     num: '03',
@@ -27,7 +27,7 @@ const techItems = [
     desc: 'REPLICACIÓN VIRTUAL Y SIMULACIÓN EN TIEMPO REAL DEL RENDIMIENTO DE PLANTA.',
     color: '#06B6D4',
     Icon: Activity,
-    href: '/tecnologia#digital-twin'
+    href: '/tecnologia/digital-twin'
   },
   {
     num: '04',
@@ -35,7 +35,7 @@ const techItems = [
     desc: 'CONTROLADORES DE TIEMPO REAL Y CONTROL DE MOVIMIENTO DE EXTREMA PRECISIÓN.',
     color: '#EF4444',
     Icon: Cpu,
-    href: '/tecnologia#plc-motion'
+    href: '/tecnologia/plc-motion'
   },
   {
     num: '05',
@@ -43,7 +43,7 @@ const techItems = [
     desc: 'PROCESAMIENTO DE DATOS EN EL BORDE Y TELEMETRÍA DE ALTA SEGURIDAD.',
     color: '#3B82F6',
     Icon: Wifi,
-    href: '/tecnologia#iiot-edge'
+    href: '/tecnologia/iiot-edge'
   },
   {
     num: '06',
@@ -51,7 +51,7 @@ const techItems = [
     desc: 'MONITOREO DE HUELLA DE CARBONO Y OPTIMIZACIÓN DE CONSUMO ENERGÉTICO.',
     color: '#F97316',
     Icon: Zap,
-    href: '/tecnologia#energia-inteligente'
+    href: '/tecnologia/energia-inteligente'
   },
   {
     num: '07',
@@ -59,7 +59,7 @@ const techItems = [
     desc: 'EL SISTEMA OPERATIVO PROPIETARIO PARA LA GESTIÓN DE PLANTAS INDUSTRIALES.',
     color: '#EAB308',
     Icon: Shield,
-    href: '/tecnologia#smq-os'
+    href: '/tecnologia/smq-os'
   }
 ];
 
@@ -99,7 +99,7 @@ const TechnologyMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
             </div>
             {/* Opcional: un botón para ver todo */}
             <Link 
-              to="/tecnologia"
+              to="/tecnologia/ia"
               className="px-4 py-2 rounded-full border border-white/10 text-[10px] font-bold tracking-widest uppercase hover:bg-white/10 hover:text-[#FFD700] transition-colors text-white/70"
             >
               Explorar Ecosistema

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Shield, 
@@ -82,7 +83,8 @@ const StatCard = ({ target, suffix = '', label }) => {
 };
 
 const NosotrosSection = () => {
-  const { cmsState, isEditorMode, updatePageModule } = useCMS();
+  const navigate = useNavigate();
+  const { cmsState, isEditorMode, updatePageModule, updateMediaModule, updateMediaProp } = useCMS();
 
   // Extract page module data
   const homePage = cmsState.pages?.find(p => p.id === 'home');
@@ -191,7 +193,8 @@ const NosotrosSection = () => {
       tags: 'PLC · HMI · SCADA',
       icon: Cpu,
       defaultImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80',
-      color: '#0EA5E9'
+      color: '#0EA5E9',
+      path: '/tecnologia/automatizacion'
     },
     {
       title: 'Robótica',
@@ -199,7 +202,8 @@ const NosotrosSection = () => {
       tags: 'Sistemas de manipulación',
       icon: Activity,
       defaultImage: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=600&q=80',
-      color: '#F97316'
+      color: '#F97316',
+      path: '/tecnologia/robotica'
     },
     {
       title: 'Visión Artificial',
@@ -207,7 +211,8 @@ const NosotrosSection = () => {
       tags: 'Control de calidad inteligente',
       icon: Eye,
       defaultImage: 'https://images.unsplash.com/photo-1507146426996-ef05306b995a?auto=format&fit=crop&w=600&q=80',
-      color: '#8B5CF6'
+      color: '#8B5CF6',
+      path: '/tecnologia/vision'
     },
     {
       title: 'Integración Mecánica',
@@ -215,7 +220,8 @@ const NosotrosSection = () => {
       tags: 'Diseño y fabricación',
       icon: Settings,
       defaultImage: 'https://images.unsplash.com/photo-1537462715879-360eeb61a0bc?auto=format&fit=crop&w=600&q=80',
-      color: '#10B981'
+      color: '#10B981',
+      path: '/tecnologia/mecanica'
     },
     {
       title: 'Industria 4.0',
@@ -223,7 +229,8 @@ const NosotrosSection = () => {
       tags: 'Monitoreo y analítica',
       icon: TrendingUp,
       defaultImage: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80',
-      color: '#3B82F6'
+      color: '#3B82F6',
+      path: '/tecnologia/industria40'
     },
     {
       title: 'Inteligencia Artificial',
@@ -231,7 +238,8 @@ const NosotrosSection = () => {
       tags: 'Optimización de procesos',
       icon: Zap,
       defaultImage: 'https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=600&q=80',
-      color: '#EAB308'
+      color: '#EAB308',
+      path: '/tecnologia/ia'
     }
   ];
 
@@ -791,6 +799,7 @@ const NosotrosSection = () => {
               return (
                 <div 
                   key={index}
+                  onClick={() => { navigate(card.path || '#soluciones'); }}
                   className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-[#0A0D14] border border-white/5 hover:border-[var(--card-color-40)] transition-all duration-300 group cursor-pointer flex flex-col p-8 shadow-2xl"
                   style={{ 
                     '--card-color': card.color,
@@ -800,12 +809,13 @@ const NosotrosSection = () => {
                     '--card-color-50': `${card.color}80`
                   }}
                 >
-                  {/* Background image fading left and bottom */}
-                  <div className="absolute inset-y-0 right-0 w-[60%] z-0">
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#0A0D14] via-[#0A0D14]/80 to-transparent z-10" />
+                  {/* Background image full width with heavy gradient masking on the left */}
+                  <div className="absolute inset-0 z-0">
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#0A0D14] via-[#0A0D14]/90 to-transparent w-[85%] z-10" />
+                    <div className="absolute inset-0 bg-[#0A0D14] w-[45%] z-10" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0A0D14] via-[#0A0D14]/20 to-transparent z-10" />
                     <div 
-                      className="absolute inset-0 z-10 mix-blend-color" 
+                      className="absolute inset-0 z-10 mix-blend-color pointer-events-none" 
                       style={{ 
                         backgroundColor: localFilterColor,
                         opacity: localFilterOpacity / 100 
@@ -814,7 +824,7 @@ const NosotrosSection = () => {
                     <img 
                       src={getOptimizedImageUrl(cardImage, 600)} 
                       alt={card.title}
-                      className="w-full h-full object-cover opacity-50 group-hover:opacity-80 transition-all duration-700 mix-blend-screen group-hover:scale-105"
+                      className="w-full h-full object-cover object-right opacity-50 group-hover:opacity-80 transition-transform duration-700 mix-blend-screen group-hover:scale-105 origin-right"
                       style={{ opacity: localOpacity / 100 }}
                       loading="lazy"
                     />

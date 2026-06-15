@@ -1,0 +1,439 @@
+import React, { useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { 
+  BrainCircuit, Network, TrendingUp, Target, Cpu, ArrowLeft, Activity, 
+  AlertTriangle, Info, CheckCircle2, Factory, BarChart2, Settings,
+  DollarSign, Clock, ShieldCheck, Image as ImageIcon, Wifi, Zap, Shield,
+  Box, LineChart, TrendingDown
+} from 'lucide-react';
+import Footer from '@/components/Footer.jsx';
+import { useCMS } from '@/context/CMSContext.jsx';
+import { uploadFile } from '@/lib/storage.js';
+
+const techList = [
+  { id: 'ia', label: 'Inteligencia Artificial', icon: BrainCircuit, color: '#8B5CF6' },
+  { id: 'smart-factory', label: 'Smart Factory', icon: Factory, color: '#10B981' },
+  { id: 'digital-twin', label: 'Digital Twin', icon: Activity, color: '#06B6D4' },
+  { id: 'plc-motion', label: 'PLC + Motion', icon: Cpu, color: '#EF4444' },
+  { id: 'iiot-edge', label: 'IIoT + Edge', icon: Wifi, color: '#3B82F6' },
+  { id: 'energia-inteligente', label: 'Energía Inteligente', icon: Zap, color: '#F97316' },
+  { id: 'smq-os', label: 'SMQ OS™', icon: Shield, color: '#EAB308' },
+];
+
+const technologyData = {
+  ia: {
+    number: '01',
+    title: 'INTELIGENCIA ARTIFICIAL',
+    subtitle: 'ALGORITMOS DE APRENDIZAJE PROFUNDO\nY OPTIMIZACIÓN DE PROCESOS PRODUCTIVOS.',
+    color: '#8B5CF6', // Purple
+    icon: BrainCircuit,
+    robotImage: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80',
+    features: [
+      { icon: Network, title: 'APRENDIZAJE PROFUNDO', desc: 'Modelos avanzados que analizan grandes volúmenes de datos para detectar patrones y mejorar continuamente.' },
+      { icon: TrendingUp, title: 'OPTIMIZACIÓN', desc: 'Algoritmos que encuentran la mejor configuración de procesos para maximizar rendimiento y minimizar costos.' },
+      { icon: Target, title: 'DECISIONES INTELIGENTES', desc: 'Sistemas que recomiendan acciones en tiempo real para una operación más eficiente y segura.' }
+    ],
+    footerType: 'applications',
+    applications: 'Control avanzado de procesos, detección de anomalías, mantenimiento predictivo, control de calidad visual y optimización en tiempo real.'
+  },
+  'smart-factory': {
+    number: '02',
+    title: 'SMART FACTORY',
+    subtitle: 'LÍNEAS TOTALMENTE INTERCONECTADAS\nCON TOMA DE DECISIONES AUTÓNOMA.',
+    color: '#10B981', // Emerald
+    icon: Factory,
+    robotImage: 'https://images.unsplash.com/photo-1565514020179-026b92b84bb6?auto=format&fit=crop&w=1200&q=80',
+    features: [
+      { icon: Network, title: 'INTERCONECTIVIDAD TOTAL', desc: 'Máquinas, sensores y sistemas comunicados en tiempo real a través de IIoT y protocolos industriales.' },
+      { icon: BarChart2, title: 'DECISIONES AUTÓNOMAS', desc: 'Sistemas inteligentes que analizan datos y toman decisiones para optimizar la producción sin intervención humana.' },
+      { icon: Settings, title: 'PRODUCCIÓN ADAPTABLE', desc: 'Líneas flexibles que se adaptan a cambios de demanda, productos y condiciones operativas.' }
+    ],
+    footerType: 'metrics',
+    footerTitle: 'RESULTADOS CLAVE',
+    metrics: [
+      { icon: TrendingUp, value: '+15%', label: 'Eficiencia\nOperativa' },
+      { icon: DollarSign, value: '-20%', label: 'Costos de\nProducción' },
+      { icon: Clock, value: '+25%', label: 'Disponibilidad\nde Activos' },
+      { icon: ShieldCheck, value: '100%', label: 'Trazabilidad\nen tiempo real' }
+    ]
+  },
+  'digital-twin': {
+    number: '03',
+    title: 'DIGITAL TWIN',
+    subtitle: 'REPLICACIÓN VIRTUAL Y SIMULACIÓN EN\nTIEMPO REAL DEL RENDIMIENTO DE PLANTA.',
+    color: '#06B6D4', // Cyan
+    icon: Activity,
+    robotImage: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80',
+    features: [
+      { icon: Box, title: 'RÉPLICA VIRTUAL', desc: 'Modelos 3D exactos de activos y procesos para simular condiciones reales de operación.' },
+      { icon: LineChart, title: 'SIMULACIÓN AVANZADA', desc: 'Pruebas de escenarios "what-if" para anticipar resultados y optimizar decisiones.' },
+      { icon: Target, title: 'RENDIMIENTO EN TIEMPO REAL', desc: 'Monitoreo continuo que compara el comportamiento real contra el modelo virtual para detección de desviaciones.' }
+    ],
+    footerType: 'metrics',
+    footerTitle: 'BENEFICIOS CLAVE',
+    metrics: [
+      { icon: TrendingUp, value: '+20%', label: 'Disponibilidad\nde planta' },
+      { icon: TrendingDown, value: '-15%', label: 'Paros no\nplanificados' },
+      { icon: Settings, value: '+25%', label: 'Eficiencia\noperativa' },
+      { icon: Shield, value: '', label: 'Mayor vida útil\nde activos' },
+      { icon: DollarSign, value: '', label: 'Reducción de\ncostos de\nmantenimiento' }
+    ]
+  }
+};
+
+const TecnologiaDetalle = () => {
+  const { sector } = useParams();
+  const navigate = useNavigate();
+  const { isEditorMode, cmsState, updatePageModule, syncToCloud } = useCMS();
+  const [isUploading, setIsUploading] = React.useState(false);
+  const [showControls, setShowControls] = React.useState(false);
+  
+  const data = technologyData[sector] || technologyData.ia;
+  const Icon = data.icon;
+
+  const pageId = `tecnologia-${sector}`;
+  const pageData = cmsState?.pages?.find(p => p.id === pageId);
+  const heroBgModule = pageData?.modules?.find(m => m.id === 'hero-bg');
+  
+  const currentBgImage = heroBgModule?.data?.imageUrl || data.robotImage;
+  const scale = heroBgModule?.data?.scale || 1;
+  const positionX = heroBgModule?.data?.positionX ?? 50;
+  const positionY = heroBgModule?.data?.positionY ?? 50;
+  const opacity = heroBgModule?.data?.opacity ?? 40;
+  const brightness = heroBgModule?.data?.brightness ?? 100;
+  const fogOpacity = heroBgModule?.data?.fogOpacity ?? 100;
+  const fogDirection = heroBgModule?.data?.fogDirection ?? 'to-r';
+  const objectFit = heroBgModule?.data?.objectFit || 'cover';
+
+  const updateMediaProp = (prop, value) => {
+    updatePageModule(pageId, 'hero-bg', {
+      imageUrl: currentBgImage,
+      scale, positionX, positionY, opacity, brightness, fogOpacity, fogDirection, objectFit,
+      [prop]: value
+    });
+  };
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    try {
+      const publicUrl = await uploadFile(file);
+      if (publicUrl) {
+        updateMediaProp('imageUrl', publicUrl);
+        await syncToCloud();
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    } finally {
+      setIsUploading(false);
+      e.target.value = '';
+    }
+  };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [sector]);
+
+  return (
+    <div className="min-h-screen bg-[#080B11] text-white font-['Poppins'] pt-[100px] flex flex-col">
+      <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12 mb-8 flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6">
+        <button 
+          onClick={() => navigate(-1)} 
+          className="border border-white/10 bg-white/[0.02] hover:bg-white/5 hover:border-white/20 px-4 py-2 rounded-full text-[11px] font-bold text-white/80 hover:text-white transition-all flex items-center gap-2 group shrink-0"
+        >
+          <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-1" />
+          <span>Volver al Menú</span>
+        </button>
+
+        {/* Smart Technology Menu */}
+        <div className="flex items-center gap-2 overflow-x-auto w-full xl:w-auto pb-2 xl:pb-0" style={{ scrollbarWidth: 'none' }}>
+          {techList.map((tech) => {
+            const TechIcon = tech.icon;
+            const isActive = sector === tech.id;
+            return (
+              <button
+                key={tech.id}
+                onClick={() => navigate(`/tecnologia/${tech.id}`)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all whitespace-nowrap shrink-0 group ${
+                  isActive 
+                    ? 'bg-white/10 border-white/20 shadow-[0_0_20px_rgba(255,255,255,0.05)]' 
+                    : 'bg-white/[0.01] border-white/5 hover:bg-white/[0.05] hover:border-white/10'
+                }`}
+              >
+                <div 
+                  className={`flex items-center justify-center w-6 h-6 rounded-md transition-colors ${
+                    isActive ? 'bg-black/20' : 'bg-transparent group-hover:bg-white/5'
+                  }`}
+                >
+                  <TechIcon size={14} style={{ color: isActive ? tech.color : '#666' }} className="transition-colors group-hover:text-white" />
+                </div>
+                <span 
+                  className={`text-[10px] font-bold uppercase tracking-wider transition-colors ${
+                    isActive ? 'text-white' : 'text-white/40 group-hover:text-white/80'
+                  }`}
+                >
+                  {tech.label}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <main className="flex-grow flex items-center justify-center px-6 md:px-12 pb-24">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="w-full max-w-[1400px] bg-[#0C1017] border border-white/5 rounded-[32px] overflow-hidden relative shadow-[0_20px_60px_rgba(0,0,0,0.8)] min-h-[600px] flex items-stretch"
+        >
+          {/* CMS Background Image Layer (Full Card) */}
+          <div 
+            className="absolute inset-0 overflow-hidden group/bg z-0"
+            onDoubleClick={() => isEditorMode && setShowControls(!showControls)}
+          >
+            <div 
+              className="absolute inset-0 transition-all duration-500 mix-blend-luminosity"
+              style={{ 
+                backgroundImage: `url(${currentBgImage})`,
+                backgroundSize: objectFit === 'cover' ? 'cover' : 'contain',
+                backgroundPosition: `${positionX}% ${positionY}%`,
+                backgroundRepeat: 'no-repeat',
+                opacity: opacity / 100,
+                filter: `brightness(${brightness}%)`,
+                transform: `scale(${scale})`,
+                transformOrigin: `${positionX}% ${positionY}%`
+              }}
+            />
+            {/* Fog Layer */}
+            <div 
+              className="absolute inset-0 pointer-events-none transition-all duration-500" 
+              style={{
+                background: fogDirection === 'to-r' 
+                  ? 'linear-gradient(to right, #0C1017 0%, rgba(12,16,23,0.85) 45%, transparent 100%)'
+                  : 'linear-gradient(to left, #0C1017 0%, rgba(12,16,23,0.85) 45%, transparent 100%)',
+                opacity: fogOpacity / 100
+              }}
+            />
+            
+            {/* CMS Image Controls Panel */}
+            {isEditorMode && showControls && (
+              <div 
+                className="absolute top-4 right-4 z-50 bg-[#0C1017]/95 border border-white/10 p-5 rounded-xl backdrop-blur-xl shadow-2xl w-64 cursor-default" 
+                onClick={e => e.stopPropagation()}
+              >
+                <div className="flex justify-between items-center mb-4 border-b border-white/10 pb-2">
+                  <h3 className="text-[#FFD700] text-[10px] font-black uppercase tracking-widest">Ajustes de Imagen</h3>
+                  <button onClick={() => setShowControls(false)} className="text-white/40 hover:text-white transition-colors">✕</button>
+                </div>
+                
+                <div className="flex flex-col gap-4">
+                  <div className="flex flex-col gap-0.5">
+                    <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
+                      <span>Opacidad</span>
+                      <span className="text-[#FFD700]">{opacity}%</span>
+                    </div>
+                    <input type="range" min="0" max="100" value={opacity} onChange={(e) => updateMediaProp('opacity', parseInt(e.target.value))} className="w-full accent-[#FFD700] h-1 bg-white/10 appearance-none rounded-full" />
+                  </div>
+                  <div className="flex flex-col gap-0.5">
+                    <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
+                      <span>Brillo</span>
+                      <span className="text-[#FFD700]">{brightness}%</span>
+                    </div>
+                    <input type="range" min="50" max="200" value={brightness} onChange={(e) => updateMediaProp('brightness', parseInt(e.target.value))} className="w-full accent-[#FFD700] h-1 bg-white/10 appearance-none rounded-full" />
+                  </div>
+                  <div className="flex flex-col gap-0.5">
+                    <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
+                      <span>Fog Intensidad</span>
+                      <span className="text-[#FFD700]">{fogOpacity}%</span>
+                    </div>
+                    <input type="range" min="0" max="100" value={fogOpacity} onChange={(e) => updateMediaProp('fogOpacity', parseInt(e.target.value))} className="w-full accent-[#FFD700] h-1 bg-white/10 appearance-none rounded-full" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[8px] uppercase font-black text-white/50 tracking-wider">Dirección Fog</span>
+                    <button 
+                      onClick={() => updateMediaProp('fogDirection', fogDirection === 'to-r' ? 'to-l' : 'to-r')}
+                      className="text-[9px] font-bold bg-white/5 hover:bg-white/10 px-2 py-1 rounded text-[#FFD700] transition-colors"
+                    >
+                      {fogDirection === 'to-r' ? 'Izq a Der ⇾' : '⇽ Der a Izq'}
+                    </button>
+                  </div>
+                  <div className="flex flex-col gap-0.5">
+                    <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
+                      <span>Escala</span>
+                      <span className="text-[#FFD700]">{Math.round(scale * 100)}%</span>
+                    </div>
+                    <input type="range" min="1" max="3" step="0.05" value={scale} onChange={(e) => updateMediaProp('scale', parseFloat(e.target.value))} className="w-full accent-[#FFD700] h-1 bg-white/10 appearance-none rounded-full" />
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="flex flex-col gap-0.5">
+                      <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
+                        <span>Pos X</span>
+                        <span className="text-[#FFD700]">{positionX}%</span>
+                      </div>
+                      <input type="range" min="0" max="100" value={positionX} onChange={(e) => updateMediaProp('positionX', parseInt(e.target.value))} className="w-full accent-[#FFD700] h-1 bg-white/10 appearance-none rounded-full" />
+                    </div>
+                    <div className="flex flex-col gap-0.5">
+                      <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
+                        <span>Pos Y</span>
+                        <span className="text-[#FFD700]">{positionY}%</span>
+                      </div>
+                      <input type="range" min="0" max="100" value={positionY} onChange={(e) => updateMediaProp('positionY', parseInt(e.target.value))} className="w-full accent-[#FFD700] h-1 bg-white/10 appearance-none rounded-full" />
+                    </div>
+                  </div>
+                  <label className="cursor-pointer flex items-center justify-center gap-2 bg-[#FFD700] hover:bg-[#FFC000] text-black border border-white/10 rounded py-2 mt-2 transition-colors text-[10px] font-bold">
+                    <ImageIcon size={14} />
+                    {isUploading ? 'Subiendo...' : 'Cambiar Imagen'}
+                    <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} disabled={isUploading} />
+                  </label>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div 
+            className="absolute top-0 left-0 w-[500px] h-[500px] rounded-full blur-[120px] opacity-20 pointer-events-none z-0"
+            style={{ backgroundColor: data.color }}
+          />
+
+          {/* Content Overlay Layer */}
+          <div className="w-full min-h-[600px] h-full p-8 md:p-10 flex flex-col justify-between relative z-10 pointer-events-none">
+            
+            {/* Top Content (Restricted Width) */}
+            <div className="w-full lg:w-[65%] xl:w-[55%] flex flex-col pointer-events-auto">
+              <div className="mb-8">
+              <div className="flex items-center gap-4 mb-6">
+                  <div 
+                    className="w-14 h-14 rounded-2xl border bg-[#0C1017] flex items-center justify-center shadow-lg"
+                    style={{ borderColor: `${data.color}40` }}
+                  >
+                    <Icon size={28} style={{ color: data.color }} strokeWidth={1.5} />
+                  </div>
+                  <span className="text-xl font-mono font-light" style={{ color: data.color }}>{data.number}</span>
+                </div>
+
+                <h1 className="text-4xl md:text-5xl lg:text-[46px] xl:text-[50px] font-black uppercase leading-[1.1] tracking-tight mb-5">
+                  {data.title.split(' ').map((word, i) => (
+                    <React.Fragment key={i}>
+                      {word} <br className="hidden md:block" />
+                    </React.Fragment>
+                  ))}
+                </h1>
+
+                <div 
+                  className="w-16 h-1 mb-6 rounded-full"
+                  style={{ backgroundColor: data.color }}
+                />
+
+                <p className="text-white/60 text-base md:text-lg font-medium tracking-wide max-w-xl leading-relaxed whitespace-pre-line">
+                  {data.subtitle}
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
+                {data.features.map((feature, idx) => {
+                  const FeatureIcon = feature.icon;
+                  return (
+                    <motion.div 
+                      key={idx}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3 + (idx * 0.1) }}
+                      className="flex flex-col"
+                    >
+                      <FeatureIcon size={26} style={{ color: data.color }} className="mb-4 stroke-[1.5]" />
+                      <h3 className="text-[12px] font-bold uppercase tracking-wider mb-2">
+                        {feature.title}
+                      </h3>
+                      <p className="text-[12px] text-white/50 leading-relaxed font-light pr-2">
+                        {feature.desc}
+                      </p>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Dynamic Footer Section (Full Width) */}
+            <div className="pointer-events-auto w-full xl:w-[95%] mt-auto pt-8">
+              {data.footerType === 'applications' ? (
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                  className="w-full bg-[#12161E] border border-white/5 rounded-2xl p-5 flex flex-col md:flex-row items-start md:items-center gap-6"
+                >
+                  <div className="flex items-center gap-4 shrink-0 md:pr-8 md:border-r border-white/10">
+                    <div 
+                      className="w-14 h-14 rounded-2xl border bg-[#0C1017] flex items-center justify-center shadow-lg"
+                      style={{ borderColor: `${data.color}40` }}
+                    >
+                      <Cpu size={24} style={{ color: data.color }} strokeWidth={2} />
+                    </div>
+                    <span className="text-[13px] font-black uppercase tracking-widest" style={{ color: data.color }}>
+                      APLICACIONES
+                    </span>
+                  </div>
+                  <p className="text-[13px] text-white/60 leading-relaxed font-medium">
+                    {data.applications}
+                  </p>
+                </motion.div>
+              ) : (
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                  className="w-full bg-[#12161E] border border-white/5 rounded-2xl p-5 md:p-6"
+                >
+                  <div className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-12">
+                    {/* Left title */}
+                    <div className="flex items-center gap-4 shrink-0 md:pr-8 md:border-r border-white/10">
+                      <div 
+                        className="w-14 h-14 rounded-2xl border bg-[#0C1017] flex items-center justify-center shadow-lg"
+                        style={{ borderColor: `${data.color}40` }}
+                      >
+                        <CheckCircle2 size={24} style={{ color: data.color }} strokeWidth={2} />
+                      </div>
+                      <span className="text-[13px] font-black uppercase tracking-widest" style={{ color: data.color }}>
+                        {data.footerTitle}
+                      </span>
+                    </div>
+
+                    {/* Metrics Grid */}
+                    <div className="grid grid-cols-2 md:flex md:flex-row gap-6 md:gap-10 flex-grow justify-around">
+                      {data.metrics.map((metric, idx) => {
+                        const MetricIcon = metric.icon;
+                        return (
+                          <div key={idx} className="flex flex-col gap-2">
+                            <div className="flex items-center gap-2.5">
+                              <MetricIcon size={20} style={{ color: data.color }} strokeWidth={2.5} />
+                              {metric.value && (
+                                <span className="text-[18px] lg:text-[22px] font-black tracking-tight text-white">
+                                  {metric.value}
+                                </span>
+                              )}
+                            </div>
+                            <span className="text-[12px] text-white/60 leading-snug whitespace-pre-line font-medium">
+                              {metric.label}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+              </div>
+            </div>
+          </motion.div>
+      </main>
+      
+      <Footer />
+    </div>
+  );
+};
+
+export default TecnologiaDetalle;

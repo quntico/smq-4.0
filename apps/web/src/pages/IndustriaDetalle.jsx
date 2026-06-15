@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Footer from '@/components/Footer.jsx';
 import { ChevronRight, ArrowLeft, Cpu, Compass, Settings, Zap, Shield, ArrowUpRight, Upload, Image as ImageIcon, Plus, Trash2, Minimize2, Maximize2, ArrowLeftRight, Cloud, Save, Layers, RefreshCw, Scissors, Package, Clock, Star, Leaf, Droplet, Grid, HardHat, Recycle, Wheat, HeartPulse, Bot, Award, TrendingUp, Globe, Users, BarChart3, Headphones, Briefcase, Building2, MapPin, Hammer, Factory } from 'lucide-react';
@@ -11,6 +11,7 @@ import { getOptimizedImageUrl } from '@/lib/utils.js';
 import EditableIcon from '@/components/EditableIcon.jsx';
 import { Helmet } from 'react-helmet';
 import { machineryDataMap } from '@/data/machineryCatalog.js';
+import { technologyDataMap } from '@/data/technologyData.js';
 
 const reciclajeData = {
   title: 'Industria de Reciclaje y Economía Circular',
@@ -1458,9 +1459,11 @@ const IndustriaDetalle = () => {
   };
 
   const location = useLocation();
+  const navigate = useNavigate();
   const { cmsState, updatePages, isEditorMode, syncToCloud } = useCMS();
   
-  const staticData = sectorsData[sector];
+  const combinedData = { ...sectorsData, ...technologyDataMap };
+  const staticData = combinedData[sector];
   
   // Find if this industry page exists in CMS
   const pageId = `industria-${sector}`;
@@ -1637,6 +1640,60 @@ const IndustriaDetalle = () => {
   }
 
   const sectorColors = {
+    'automatizacion': {
+      bg: 'bg-[#0EA5E9]/10',
+      border: 'border-[#0EA5E9]/30',
+      borderActive: 'border-[#0EA5E9]/50',
+      text: 'text-[#0EA5E9]',
+      textHover: 'hover:text-[#0EA5E9]',
+      accent: '#0EA5E9',
+      glow: 'rgba(14,165,233,0.2)'
+    },
+    'robotica': {
+      bg: 'bg-[#F97316]/10',
+      border: 'border-[#F97316]/30',
+      borderActive: 'border-[#F97316]/50',
+      text: 'text-[#F97316]',
+      textHover: 'hover:text-[#F97316]',
+      accent: '#F97316',
+      glow: 'rgba(249,115,22,0.2)'
+    },
+    'vision': {
+      bg: 'bg-[#8B5CF6]/10',
+      border: 'border-[#8B5CF6]/30',
+      borderActive: 'border-[#8B5CF6]/50',
+      text: 'text-[#8B5CF6]',
+      textHover: 'hover:text-[#8B5CF6]',
+      accent: '#8B5CF6',
+      glow: 'rgba(139,92,246,0.2)'
+    },
+    'mecanica': {
+      bg: 'bg-[#10B981]/10',
+      border: 'border-[#10B981]/30',
+      borderActive: 'border-[#10B981]/50',
+      text: 'text-[#10B981]',
+      textHover: 'hover:text-[#10B981]',
+      accent: '#10B981',
+      glow: 'rgba(16,185,129,0.2)'
+    },
+    'industria40': {
+      bg: 'bg-[#3B82F6]/10',
+      border: 'border-[#3B82F6]/30',
+      borderActive: 'border-[#3B82F6]/50',
+      text: 'text-[#3B82F6]',
+      textHover: 'hover:text-[#3B82F6]',
+      accent: '#3B82F6',
+      glow: 'rgba(59,130,246,0.2)'
+    },
+    'ia': {
+      bg: 'bg-[#EAB308]/10',
+      border: 'border-[#EAB308]/30',
+      borderActive: 'border-[#EAB308]/50',
+      text: 'text-[#EAB308]',
+      textHover: 'hover:text-[#EAB308]',
+      accent: '#EAB308',
+      glow: 'rgba(234,179,8,0.2)'
+    },
     'alimentos': {
       bg: 'bg-orange-500/10',
       border: 'border-orange-500/30',
@@ -2432,13 +2489,13 @@ const IndustriaDetalle = () => {
                 {/* Upper Row: Breadcrumb & Return navigation */}
                 <div className="border-b border-white/5 py-2 px-4 md:px-8">
                   <div className="max-w-[1400px] mx-auto flex items-center justify-between">
-                    <Link 
-                      to="/" 
+                    <button 
+                      onClick={() => navigate(-1)} 
                       className="border border-white/10 bg-white/[0.02] hover:bg-white/5 hover:border-white/20 px-3.5 py-1.5 rounded-full text-[10px] font-bold text-white/80 hover:text-white transition-all flex items-center gap-1.5 group"
                     >
                       <ArrowLeft size={11} className="transition-transform group-hover:-translate-x-0.5" />
-                      <span>Inicio</span>
-                    </Link>
+                      <span>Volver</span>
+                    </button>
 
                     <div className="flex items-center gap-1.5 text-[10px] font-semibold text-white/40 uppercase tracking-wider">
                       <span>Sector:</span>

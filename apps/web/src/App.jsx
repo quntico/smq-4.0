@@ -1,10 +1,10 @@
-
 import React from 'react';
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop.jsx';
 import CustomCursor from '@/components/CustomCursor.jsx';
 import HomePage from './pages/HomePage.jsx';
 import AdminDashboard from '@/pages/AdminDashboard.jsx';
+import TecnologiaDetalle from './pages/TecnologiaDetalle.jsx';
 import Header from '@/components/Header.jsx';
 import SideNav from '@/components/SideNav.jsx';
 import { Toaster } from '@/components/ui/toaster';
@@ -76,6 +76,7 @@ function AppContent() {
         <Route path="/industrias/:sector" element={<IndustriaDetalle />} />
         <Route path="/soluciones/:sector" element={<IndustriaDetalle />} />
         <Route path="/solucion/:sector" element={<IndustriaDetalle />} />
+        <Route path="/tecnologia/:sector" element={<TecnologiaDetalle />} />
         <Route path="/envasadoras" element={<EnvasadoraDoypack />} />
         <Route path="/maquinaria/:machineId" element={<MachineryDetailPage />} />
         <Route path="/nosotros" element={<Nosotros />} />
