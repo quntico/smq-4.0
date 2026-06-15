@@ -79,6 +79,27 @@ const technologyData = {
       { icon: Shield, value: '', label: 'Mayor vida útil\nde activos' },
       { icon: DollarSign, value: '', label: 'Reducción de\ncostos de\nmantenimiento' }
     ]
+  },
+  'plc-motion': {
+    number: '04',
+    title: 'PLC + MOTION',
+    subtitle: 'CONTROLADORES DE TIEMPO REAL Y CONTROL\nDE MOVIMIENTO DE EXTREMA PRECISIÓN.',
+    color: '#EF4444', // Red
+    icon: Cpu,
+    robotImage: 'https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&w=1200&q=80',
+    features: [
+      { icon: Cpu, title: 'CONTROL EN TIEMPO REAL', desc: 'Ejecución determinística con ciclos de control ultrarrápidos y alta confiabilidad.' },
+      { icon: Target, title: 'MOTION CONTROL AVANZADO', desc: 'Sincronización precisa de ejes, interpolación compleja y control de trayectoria de alto desempeño.' },
+      { icon: Network, title: 'INTEGRACIÓN TOTAL', desc: 'PLCs, drives y redes industriales trabajando en conjunto para máxima adaptabilidad.' }
+    ],
+    footerType: 'metrics',
+    footerTitle: 'BENEFICIOS CLAVE',
+    metrics: [
+      { icon: Target, value: '', label: 'Precisión extrema\nen cada movimiento' },
+      { icon: Clock, value: '', label: 'Respuesta en\ntiempo real' },
+      { icon: ShieldCheck, value: '', label: 'Máxima confiabilidad\ny seguridad' },
+      { icon: TrendingUp, value: '', label: 'Mayor productividad\ny eficiencia' }
+    ]
   }
 };
 
