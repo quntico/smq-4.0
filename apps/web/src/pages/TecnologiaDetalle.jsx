@@ -5,7 +5,8 @@ import {
   BrainCircuit, Network, TrendingUp, Target, Cpu, ArrowLeft, Activity, 
   AlertTriangle, Info, CheckCircle2, Factory, BarChart2, Settings,
   DollarSign, Clock, ShieldCheck, Image as ImageIcon, Wifi, Zap, Shield,
-  Box, LineChart, TrendingDown, Database, Gauge, Leaf, Cloud, ClipboardCheck, ArrowDownCircle
+  Box, LineChart, TrendingDown, Database, Gauge, Leaf, Cloud, ClipboardCheck, ArrowDownCircle,
+  Star, LayoutDashboard, Sliders, Bell, Maximize
 } from 'lucide-react';
 import Footer from '@/components/Footer.jsx';
 import { useCMS } from '@/context/CMSContext.jsx';
@@ -142,6 +143,29 @@ const technologyData = {
       { icon: Cloud, value: '', label: 'Menor huella\nde carbono' },
       { icon: Settings, value: '', label: 'Mayor eficiencia\noperativa' },
       { icon: ClipboardCheck, value: '', label: 'Cumplimiento normativo\ny reportes automáticos' }
+    ]
+  },
+  'smq-os': {
+    number: '07',
+    title: 'PLATAFORMA SMQ OS™',
+    subtitle: 'EL SISTEMA OPERATIVO PROPIETARIO PARA\nLA GESTIÓN DE PLANTAS INDUSTRIALES.',
+    color: '#EAB308', // Yellow
+    icon: Shield,
+    robotImage: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
+    features: [
+      { icon: LayoutDashboard, title: 'INTERFAZ UNIFICADA', desc: 'Control centralizado de todos los procesos de la planta desde una única plataforma.' },
+      { icon: Sliders, title: 'CONTROL EN TIEMPO REAL', desc: 'Supervisión y ajuste de parámetros críticos con respuesta inmediata.' },
+      { icon: Bell, title: 'ALARMAS INTELIGENTES', desc: 'Detección avanzada de anomalías y notificaciones según prioridad.' },
+      { icon: Database, title: 'DATOS HISTÓRICOS', desc: 'Almacenamiento seguro y análisis de datos para mejora continua y trazabilidad.' }
+    ],
+    footerType: 'metrics',
+    footerTitle: 'BENEFICIOS CLAVE',
+    footerIcon: Star,
+    metrics: [
+      { icon: Gauge, value: '', label: 'Visibilidad total\nde la operación' },
+      { icon: BrainCircuit, value: '', label: 'Toma de decisiones\nbasada en datos' },
+      { icon: Clock, value: '', label: 'Reducción de paros\nno planificados' },
+      { icon: Maximize, value: '', label: 'Escalabilidad y\nadaptabilidad' }
     ]
   }
 };
@@ -397,7 +421,7 @@ const TecnologiaDetalle = () => {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
+              <div className={`grid grid-cols-2 gap-4 md:gap-6 mb-4 ${data.features?.length === 4 ? 'md:grid-cols-4' : 'md:grid-cols-3'}`}>
                 {data.features.map((feature, idx) => {
                   const FeatureIcon = feature.icon;
                   return (
