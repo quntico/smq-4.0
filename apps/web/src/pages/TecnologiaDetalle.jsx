@@ -5,7 +5,7 @@ import {
   BrainCircuit, Network, TrendingUp, Target, Cpu, ArrowLeft, Activity, 
   AlertTriangle, Info, CheckCircle2, Factory, BarChart2, Settings,
   DollarSign, Clock, ShieldCheck, Image as ImageIcon, Wifi, Zap, Shield,
-  Box, LineChart, TrendingDown
+  Box, LineChart, TrendingDown, Database, Gauge
 } from 'lucide-react';
 import Footer from '@/components/Footer.jsx';
 import { useCMS } from '@/context/CMSContext.jsx';
@@ -99,6 +99,27 @@ const technologyData = {
       { icon: Clock, value: '', label: 'Respuesta en\ntiempo real' },
       { icon: ShieldCheck, value: '', label: 'Máxima confiabilidad\ny seguridad' },
       { icon: TrendingUp, value: '', label: 'Mayor productividad\ny eficiencia' }
+    ]
+  },
+  'iiot-edge': {
+    number: '05',
+    title: 'IIOT + EDGE',
+    subtitle: 'PROCESAMIENTO DE DATOS EN EL BORDE Y\nTELEMETRÍA DE ALTA SEGURIDAD.',
+    color: '#3B82F6', // Blue
+    icon: Wifi,
+    robotImage: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80',
+    features: [
+      { icon: Database, title: 'DATOS EN EL BORDE', desc: 'Procesamiento local para reducir latencia y dependencia de la nube.' },
+      { icon: Shield, title: 'TELEMETRÍA SEGURA', desc: 'Transmisión cifrada y autenticada para garantizar integridad y disponibilidad.' },
+      { icon: Network, title: 'CONECTIVIDAD INDUSTRIAL', desc: 'Integración con IIoT, 5G, VPN y protocolos industriales.' }
+    ],
+    footerType: 'metrics',
+    footerTitle: 'BENEFICIOS CLAVE',
+    metrics: [
+      { icon: Gauge, value: '', label: 'Menor latencia en\nla toma de decisiones' },
+      { icon: ShieldCheck, value: '', label: 'Mayor seguridad\nde la información' },
+      { icon: DollarSign, value: '', label: 'Reducción de costos\noperativos' },
+      { icon: TrendingUp, value: '', label: 'Alta disponibilidad\ny escalabilidad' }
     ]
   }
 };
