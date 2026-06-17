@@ -2828,10 +2828,11 @@ const IndustriaDetalle = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.6 }}
-                    className={`scroll-mt-[175px] grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start border-b border-white/5 pb-16 md:pb-24 last:border-b-0`}
+                    className="scroll-mt-[175px] border-b border-white/5 pb-16 md:pb-24 last:border-b-0 space-y-8"
                   >
-                    {/* Text Content */}
-                    <div className={`lg:col-span-6 space-y-6 ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
+                      {/* Text Content */}
+                      <div className={`lg:col-span-6 space-y-6 ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
                       <div className="flex items-center justify-between gap-3 flex-wrap">
                         <div className="flex items-center gap-3">
                           <span className={`w-8 h-8 rounded-lg ${colorScheme.bg} border ${colorScheme.border} flex items-center justify-center ${colorScheme.text} font-black text-xs`}>
@@ -2919,140 +2920,6 @@ const IndustriaDetalle = () => {
                         </div>
                       )}
 
-                      {/* Tabla de Equipos / Especificaciones */}
-                      {item.equipmentTable && item.equipmentTable.length > 0 && (
-                        <div className="mt-6 space-y-3">
-                          <h4 className={`text-xs uppercase tracking-widest ${colorScheme.text} font-black`}>Tabla de Equipos / Especificaciones:</h4>
-                          <div className="overflow-x-auto rounded-xl border border-white/10 bg-white/[0.02] backdrop-blur-md">
-                            <table className="w-full text-left border-collapse text-xs">
-                              <thead>
-                                <tr className={`border-b border-white/10 bg-white/[0.04] text-[10px] uppercase tracking-wider ${colorScheme.text} font-bold`}>
-                                  {(() => {
-                                    const defaultHeaders = ["Modelo", "Ancho Pila", "Capacidad", "Potencia", "Peso"];
-                                    const currentHeaders = item.tableHeaders || defaultHeaders;
-                                    return currentHeaders.map((headerText, hIdx) => (
-                                      <th key={hIdx} className="p-3">
-                                        <EditableText
-                                          value={headerText}
-                                          onChange={(val) => {
-                                            const newHeaders = [...(item.tableHeaders || defaultHeaders)];
-                                            newHeaders[hIdx] = val;
-                                            handleItemUpdate(index, 'tableHeaders', newHeaders);
-                                          }}
-                                          isEditorMode={isEditorMode}
-                                        />
-                                      </th>
-                                    ));
-                                  })()}
-                                  {isEditorMode && <th className="p-3 text-center w-12">Acciones</th>}
-                                </tr>
-                              </thead>
-                            <tbody>
-                              {item.equipmentTable.map((row, rIdx) => (
-                                <tr key={rIdx} className="border-b border-white/5 hover:bg-white/[0.02] transition-colors text-white/90">
-                                  <td className="p-3 font-semibold">
-                                    {isEditorMode ? (
-                                      <EditableText
-                                        value={row.model}
-                                        onChange={(val) => {
-                                          const newTable = [...item.equipmentTable];
-                                          newTable[rIdx].model = val;
-                                          handleItemUpdate(index, 'equipmentTable', newTable);
-                                        }}
-                                        isEditorMode={isEditorMode}
-                                      />
-                                    ) : (
-                                      <Link
-                                        to={getMachineLink(row.model)}
-                                        onClick={() => {
-                                          localStorage.setItem('last_sector_path', window.location.pathname + '#' + item.id);
-                                          localStorage.setItem('last_sector_name', data.title || 'Sector');
-                                        }}
-                                        className={`inline-flex items-center gap-1.5 font-bold hover:underline decoration-2 underline-offset-4 cursor-pointer transition-all duration-300 ${colorScheme.text} hover:opacity-85 hover:scale-[1.02]`}
-                                      >
-                                        <span>{row.model}</span>
-                                        <ArrowUpRight size={12} className="opacity-70 transition-transform duration-300" />
-                                      </Link>
-                                    )}
-                                  </td>
-                                  <td className="p-3">
-                                    <EditableText
-                                      value={row.width}
-                                      onChange={(val) => {
-                                        const newTable = [...item.equipmentTable];
-                                        newTable[rIdx].width = val;
-                                        handleItemUpdate(index, 'equipmentTable', newTable);
-                                      }}
-                                      isEditorMode={isEditorMode}
-                                    />
-                                  </td>
-                                  <td className="p-3">
-                                    <EditableText
-                                      value={row.capacity}
-                                      onChange={(val) => {
-                                        const newTable = [...item.equipmentTable];
-                                        newTable[rIdx].capacity = val;
-                                        handleItemUpdate(index, 'equipmentTable', newTable);
-                                      }}
-                                      isEditorMode={isEditorMode}
-                                    />
-                                  </td>
-                                  <td className="p-3">
-                                    <EditableText
-                                      value={row.power}
-                                      onChange={(val) => {
-                                        const newTable = [...item.equipmentTable];
-                                        newTable[rIdx].power = val;
-                                        handleItemUpdate(index, 'equipmentTable', newTable);
-                                      }}
-                                      isEditorMode={isEditorMode}
-                                    />
-                                  </td>
-                                  <td className="p-3">
-                                    <EditableText
-                                      value={row.weight}
-                                      onChange={(val) => {
-                                        const newTable = [...item.equipmentTable];
-                                        newTable[rIdx].weight = val;
-                                        handleItemUpdate(index, 'equipmentTable', newTable);
-                                      }}
-                                      isEditorMode={isEditorMode}
-                                    />
-                                  </td>
-                                  {isEditorMode && (
-                                    <td className="p-3 text-center">
-                                      <button
-                                        onClick={() => {
-                                          const newTable = item.equipmentTable.filter((_, i) => i !== rIdx);
-                                          handleItemUpdate(index, 'equipmentTable', newTable);
-                                        }}
-                                        className="text-red-400 hover:text-red-500 hover:bg-red-500/10 p-1.5 rounded transition-all cursor-pointer"
-                                        title="Eliminar fila"
-                                      >
-                                        <Trash2 size={12} />
-                                      </button>
-                                    </td>
-                                  )}
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                        </div>
-                        {isEditorMode && (
-                          <button
-                            onClick={() => {
-                              const newRow = { model: 'Modelo-TG', width: '0.0 m', capacity: '0 m³/h', power: '0 HP', weight: '0 kg' };
-                              const newTable = [...(item.equipmentTable || []), newRow];
-                              handleItemUpdate(index, 'equipmentTable', newTable);
-                            }}
-                            className="flex items-center gap-1 bg-white/5 hover:bg-white/10 text-white/80 border border-white/10 px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer"
-                          >
-                            <Plus size={12} />
-                            <span>Añadir Fila</span>
-                          </button>
-                        )}
-                      </div>
-                    )}
                   </div>
 
                   {/* Media Container */}
@@ -3338,8 +3205,147 @@ const IndustriaDetalle = () => {
                       </div>
                     )}
                   </div>
+                </div>
 
-                </motion.div>
+                {/* Tabla de Equipos / Especificaciones Centrada Abajo */}
+                {item.equipmentTable && item.equipmentTable.length > 0 && (
+                  <div className="w-full max-w-[1100px] mx-auto space-y-4 pt-6 mt-6 border-t border-white/5">
+                    <div className="flex items-center justify-between gap-4">
+                      <h4 className={`text-xs uppercase tracking-widest ${colorScheme.text} font-black`}>
+                        Tabla de Equipos / Especificaciones:
+                      </h4>
+                      {isEditorMode && (
+                        <button
+                          onClick={() => {
+                            const newRow = { model: 'Modelo-TG', width: '0.0 m', capacity: '0 m³/h', power: '0 HP', weight: '0 kg' };
+                            const newTable = [...(item.equipmentTable || []), newRow];
+                            handleItemUpdate(index, 'equipmentTable', newTable);
+                          }}
+                          className="flex items-center gap-1 bg-white/5 hover:bg-white/10 text-white/80 border border-white/10 px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer"
+                        >
+                          <Plus size={12} />
+                          <span>Añadir Fila</span>
+                        </button>
+                      )}
+                    </div>
+                    <div className="overflow-x-auto rounded-xl border border-white/10 bg-[#0B0F14]/40 backdrop-blur-md">
+                      <table className="w-full text-left border-collapse text-xs">
+                        <thead>
+                          <tr className={`border-b border-white/10 bg-white/[0.04] text-[10px] uppercase tracking-wider ${colorScheme.text} font-bold`}>
+                            {(() => {
+                              const defaultHeaders = ["Modelo", "Ancho Pila", "Capacidad", "Potencia", "Peso"];
+                              const currentHeaders = item.tableHeaders || defaultHeaders;
+                              return currentHeaders.map((headerText, hIdx) => (
+                                <th key={hIdx} className="p-3">
+                                  <EditableText
+                                    value={headerText}
+                                    onChange={(val) => {
+                                      const newHeaders = [...(item.tableHeaders || defaultHeaders)];
+                                      newHeaders[hIdx] = val;
+                                      handleItemUpdate(index, 'tableHeaders', newHeaders);
+                                    }}
+                                    isEditorMode={isEditorMode}
+                                  />
+                                </th>
+                              ));
+                            })()}
+                            {isEditorMode && <th className="p-3 text-center w-12">Acciones</th>}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {item.equipmentTable.map((row, rIdx) => (
+                            <tr key={rIdx} className="border-b border-white/5 hover:bg-white/[0.02] transition-colors text-white/90">
+                              <td className="p-3 font-semibold">
+                                {isEditorMode ? (
+                                  <EditableText
+                                    value={row.model}
+                                    onChange={(val) => {
+                                      const newTable = [...item.equipmentTable];
+                                      newTable[rIdx].model = val;
+                                      handleItemUpdate(index, 'equipmentTable', newTable);
+                                    }}
+                                    isEditorMode={isEditorMode}
+                                  />
+                                ) : (
+                                  <Link
+                                    to={getMachineLink(row.model)}
+                                    onClick={() => {
+                                      localStorage.setItem('last_sector_path', window.location.pathname + '#' + item.id);
+                                      localStorage.setItem('last_sector_name', data.title || 'Sector');
+                                    }}
+                                    className={`inline-flex items-center gap-1.5 font-bold hover:underline decoration-2 underline-offset-4 cursor-pointer transition-all duration-300 ${colorScheme.text} hover:opacity-85 hover:scale-[1.02]`}
+                                  >
+                                    <span>{row.model}</span>
+                                    <ArrowUpRight size={12} className="opacity-70 transition-transform duration-300" />
+                                  </Link>
+                                )}
+                              </td>
+                              <td className="p-3">
+                                <EditableText
+                                  value={row.width}
+                                  onChange={(val) => {
+                                    const newTable = [...item.equipmentTable];
+                                    newTable[rIdx].width = val;
+                                    handleItemUpdate(index, 'equipmentTable', newTable);
+                                  }}
+                                  isEditorMode={isEditorMode}
+                                />
+                              </td>
+                              <td className="p-3">
+                                <EditableText
+                                  value={row.capacity}
+                                  onChange={(val) => {
+                                    const newTable = [...item.equipmentTable];
+                                    newTable[rIdx].capacity = val;
+                                    handleItemUpdate(index, 'equipmentTable', newTable);
+                                  }}
+                                  isEditorMode={isEditorMode}
+                                />
+                              </td>
+                              <td className="p-3">
+                                <EditableText
+                                  value={row.power}
+                                  onChange={(val) => {
+                                    const newTable = [...item.equipmentTable];
+                                    newTable[rIdx].power = val;
+                                    handleItemUpdate(index, 'equipmentTable', newTable);
+                                  }}
+                                  isEditorMode={isEditorMode}
+                                />
+                              </td>
+                              <td className="p-3">
+                                <EditableText
+                                  value={row.weight}
+                                  onChange={(val) => {
+                                    const newTable = [...item.equipmentTable];
+                                    newTable[rIdx].weight = val;
+                                    handleItemUpdate(index, 'equipmentTable', newTable);
+                                  }}
+                                  isEditorMode={isEditorMode}
+                                />
+                              </td>
+                              {isEditorMode && (
+                                <td className="p-3 text-center">
+                                  <button
+                                    onClick={() => {
+                                      const newTable = item.equipmentTable.filter((_, i) => i !== rIdx);
+                                      handleItemUpdate(index, 'equipmentTable', newTable);
+                                    }}
+                                    className="text-red-400 hover:text-red-500 hover:bg-red-500/10 p-1.5 rounded transition-all cursor-pointer"
+                                    title="Eliminar fila"
+                                  >
+                                    <Trash2 size={12} />
+                                  </button>
+                                </td>
+                              )}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                )}
+              </motion.div>
               );
             })}
             </div>
