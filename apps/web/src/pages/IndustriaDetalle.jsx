@@ -814,7 +814,7 @@ const EditableMedia = ({
   label = 'Multimedia', 
   logCMS, 
   aspectClass = 'aspect-[16/10]',
-  defaultObjectFit = 'cover',
+  defaultObjectFit = 'contain',
   defaultBgColor = 'transparent'
 }) => {
   const { cmsState } = useCMS();
@@ -995,12 +995,10 @@ const EditableMedia = ({
            cleanUrl.includes('/video/');
   };
 
-  const handleFileUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) {
-      if (logCMS) logCMS("⚠️ No se seleccionó ningún archivo.", "warning");
-      return;
-    }
+  const [isDragOver, setIsDragOver] = useState(false);
+
+  const processFile = async (file) => {
+    if (!file) return;
     const startMsg = `Iniciado: ${file.name} (${(file.size/1024).toFixed(1)} KB)`;
     if (logCMS) logCMS(startMsg, "info");
     try {
@@ -1039,8 +1037,35 @@ const EditableMedia = ({
       alert('Error al subir el archivo: ' + errMsg);
     } finally {
       setIsUploading(false);
-      e.target.value = '';
       if (logCMS) logCMS("🏁 Proceso de subida finalizado.", "info");
+    }
+  };
+
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    await processFile(file);
+    e.target.value = '';
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    if (isEditorMode) {
+      setIsDragOver(true);
+    }
+  };
+
+  const handleDragLeave = () => {
+    setIsDragOver(false);
+  };
+
+  const handleDrop = async (e) => {
+    e.preventDefault();
+    setIsDragOver(false);
+    if (!isEditorMode) return;
+    
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      await processFile(file);
     }
   };
 
@@ -1145,14 +1170,21 @@ const EditableMedia = ({
       />
       <div 
         onDoubleClick={handleOpen}
-        className="relative group cursor-pointer overflow-hidden rounded-[inherit] w-full h-full"
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+        className={`relative group cursor-pointer overflow-hidden rounded-[inherit] w-full h-full border-2 transition-all duration-300 ${
+          isDragOver ? 'border-[#FFD700] bg-[#FFD700]/20 scale-[1.02]' : 'border-transparent'
+        }`}
       >
         {renderDefaultElement()}
         
         {/* Subtle Hover overlay */}
-        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-1 text-white text-xs select-none z-30 font-semibold rounded-[inherit]">
+        <div className={`absolute inset-0 bg-black/50 transition-opacity flex flex-col items-center justify-center gap-1 text-white text-xs select-none z-30 font-semibold rounded-[inherit] ${
+          isDragOver ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+        }`}>
           <Upload size={20} className="text-[#FFD700] animate-bounce" />
-          <span>Doble clic para editar</span>
+          <span>{isDragOver ? 'Soltar para subir' : 'Arrastra un archivo aquí / Doble clic'}</span>
         </div>
       </div>
 
@@ -1187,10 +1219,25 @@ const EditableMedia = ({
             </div>
 
             {/* Preview Box */}
-            <div className={`w-full ${aspectClass} bg-black/40 rounded-lg overflow-hidden border border-white/5 flex items-center justify-center relative`}>
+            <div 
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onDrop={handleDrop}
+              className={`w-full ${aspectClass} bg-black/40 rounded-lg overflow-hidden border flex items-center justify-center relative transition-all duration-300 ${
+                isDragOver ? 'border-[#FFD700] bg-[#FFD700]/10 scale-[1.01]' : 'border-white/5'
+              }`}
+            >
               {url ? renderLivePreview() : <span className="text-white/30 text-[10px]">Sin archivo multimedia</span>}
+              
+              {isDragOver && (
+                <div className="absolute inset-0 bg-black/75 backdrop-blur-sm border-2 border-dashed border-[#FFD700] rounded-[inherit] flex flex-col items-center justify-center gap-2 z-50 text-[#FFD700] font-bold text-xs pointer-events-none animate-pulse">
+                  <Upload size={20} className="animate-bounce" />
+                  <span>Soltar para subir archivo</span>
+                </div>
+              )}
+
               {isUploading && (
-                <div className="absolute inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center text-[10px] gap-2">
+                <div className="absolute inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center text-[10px] gap-2 z-50">
                   <RefreshCw size={12} className="animate-spin text-[#FFD700]" />
                   <span>Subiendo archivo...</span>
                 </div>
@@ -2652,6 +2699,7 @@ const IndustriaDetalle = () => {
                 <EditableMedia
                   media={data.heroImage}
                   defaultOpacity={0.2}
+                  defaultObjectFit="cover"
                   className="w-full h-full object-cover scale-105"
                   onUpdate={(newMedia) => handleUpdate('heroImage', newMedia)}
                   isEditorMode={isEditorMode}

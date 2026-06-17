@@ -50,8 +50,8 @@ async function run() {
   const state = await res.json();
   console.log("Current version in cloud:", state.settings.appVersion);
   
-  state.settings.appVersion = '6.89';
-  console.log("Setting version to '6.89'...");
+  state.settings.appVersion = '7.12';
+  console.log("Setting version to '7.12'...");
   
   const content = JSON.stringify(state, null, 2);
   
@@ -66,7 +66,7 @@ async function run() {
     process.exit(1);
   }
   
-  console.log("Success! Cloud version has been updated to 6.89.");
+  console.log("Success! Cloud version has been updated to 7.12.");
 }
 
 run();
