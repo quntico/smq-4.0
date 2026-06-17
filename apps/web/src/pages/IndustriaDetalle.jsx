@@ -2828,7 +2828,7 @@ const IndustriaDetalle = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.6 }}
-                    className={`scroll-mt-[175px] grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center border-b border-white/5 pb-16 md:pb-24 last:border-b-0`}
+                    className={`scroll-mt-[175px] grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start border-b border-white/5 pb-16 md:pb-24 last:border-b-0`}
                   >
                     {/* Text Content */}
                     <div className={`lg:col-span-6 space-y-6 ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
