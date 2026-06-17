@@ -805,7 +805,18 @@ const EditableText = ({ value, onChange, className = '', tag: Tag = 'span', plac
   return <Tag className={className}>{value}</Tag>;
 };
 
-const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, isEditorMode, label = 'Multimedia', logCMS }) => {
+const EditableMedia = ({ 
+  media, 
+  defaultOpacity = 1, 
+  className = '', 
+  onUpdate, 
+  isEditorMode, 
+  label = 'Multimedia', 
+  logCMS, 
+  aspectClass = 'aspect-[16/10]',
+  defaultObjectFit = 'cover',
+  defaultBgColor = 'transparent'
+}) => {
   const { cmsState } = useCMS();
   const [isOpen, setIsOpen] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
@@ -822,7 +833,8 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
   const currentScale = isObj ? (media.scale !== undefined ? media.scale : 1) : 1;
   const currentPositionX = isObj ? (media.positionX !== undefined ? media.positionX : 0) : 0;
   const currentPositionY = isObj ? (media.positionY !== undefined ? media.positionY : 0) : 0;
-  const currentObjectFit = isObj ? (media.objectFit !== undefined ? media.objectFit : 'cover') : 'cover';
+  const currentObjectFit = isObj ? (media.objectFit !== undefined ? media.objectFit : defaultObjectFit) : defaultObjectFit;
+  const currentBgColor = isObj ? (media.bgColor !== undefined ? media.bgColor : defaultBgColor) : defaultBgColor;
 
   // Local state for edits
   const [url, setUrl] = useState(currentUrl);
@@ -835,6 +847,7 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
   const [positionX, setPositionX] = useState(currentPositionX);
   const [positionY, setPositionY] = useState(currentPositionY);
   const [objectFit, setObjectFit] = useState(currentObjectFit);
+  const [bgColor, setBgColor] = useState(currentBgColor);
 
   // Drag & drop state for the modal window
   const [dragPos, setDragPos] = useState({ x: 0, y: 0 });
@@ -857,6 +870,7 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
     setPositionX(currentPositionX);
     setPositionY(currentPositionY);
     setObjectFit(currentObjectFit);
+    setBgColor(currentBgColor);
   }, [media]);
 
   // Escape key handler
@@ -870,7 +884,7 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isOpen, backupMedia, url, type, opacity, blur, brightness, contrast, scale, positionX, positionY, objectFit]);
+  }, [isOpen, backupMedia, url, type, opacity, blur, brightness, contrast, scale, positionX, positionY, objectFit, bgColor]);
 
   // Drag and drop event listeners
   useEffect(() => {
@@ -918,7 +932,8 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
       scale: currentScale,
       positionX: currentPositionX,
       positionY: currentPositionY,
-      objectFit: currentObjectFit
+      objectFit: currentObjectFit,
+      bgColor: currentBgColor
     });
     setDragPos({ x: 0, y: 0 }); // reset drag pos
     setIsOpen(true);
@@ -935,6 +950,7 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
     let nextPositionX = positionX;
     let nextPositionY = positionY;
     let nextObjectFit = objectFit;
+    let nextBgColor = bgColor;
 
     if (propsObj.url !== undefined) { setUrl(propsObj.url); nextUrl = propsObj.url; }
     if (propsObj.type !== undefined) { setType(propsObj.type); nextType = propsObj.type; }
@@ -946,6 +962,7 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
     if (propsObj.positionX !== undefined) { setPositionX(propsObj.positionX); nextPositionX = propsObj.positionX; }
     if (propsObj.positionY !== undefined) { setPositionY(propsObj.positionY); nextPositionY = propsObj.positionY; }
     if (propsObj.objectFit !== undefined) { setObjectFit(propsObj.objectFit); nextObjectFit = propsObj.objectFit; }
+    if (propsObj.bgColor !== undefined) { setBgColor(propsObj.bgColor); nextBgColor = propsObj.bgColor; }
 
     onUpdate({
       url: nextUrl,
@@ -957,7 +974,8 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
       scale: parseFloat(nextScale),
       positionX: parseInt(nextPositionX),
       positionY: parseInt(nextPositionY),
-      objectFit: nextObjectFit
+      objectFit: nextObjectFit,
+      bgColor: nextBgColor
     });
   };
 
@@ -1000,10 +1018,19 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
                           cleanName.endsWith('.mov');
       const mediaType = isVideoFile ? 'video' : 'image';
 
-      // Actualizar URL y Tipo atómicamente para prevenir que se sobrescriban mutuamente
+      // Actualizar URL y Tipo atómicamente, y resetear las transformaciones para que no se hereden recortes anteriores
       updateMediaProps({
         url: uploadedUrl,
-        type: mediaType
+        type: mediaType,
+        scale: 1,
+        positionX: 0,
+        positionY: 0,
+        objectFit: defaultObjectFit,
+        bgColor: defaultBgColor,
+        opacity: defaultOpacity,
+        blur: 0,
+        brightness: 100,
+        contrast: 100
       });
       if (logCMS) logCMS(`➡️ Tipo establecido como: ${mediaType}`, "info");
     } catch (err) {
@@ -1037,6 +1064,7 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
       setPositionX(backupMedia.positionX);
       setPositionY(backupMedia.positionY);
       setObjectFit(backupMedia.objectFit);
+      setBgColor(backupMedia.bgColor);
     }
     setIsOpen(false);
   };
@@ -1048,8 +1076,9 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
       opacity: disableFilters ? 1 : opacity,
       filter: disableFilters ? 'none' : `blur(${blur}px) brightness(${brightness}%) contrast(${contrast}%)`,
       objectFit: objectFit,
-      transform: `scale(${scale}) translate(${positionX}%, ${positionY}%)`,
-      transition: 'transform 0.15s ease-out'
+      transform: `translate(${positionX}%, ${positionY}%) scale(${scale})`,
+      transition: 'transform 0.15s ease-out',
+      backgroundColor: bgColor || 'transparent'
     };
 
     if (isVideoUrl(url, type)) {
@@ -1078,7 +1107,8 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
       opacity: disableFilters ? 1 : currentOpacity,
       filter: disableFilters ? 'none' : `blur(${currentBlur}px) brightness(${currentBrightness}%) contrast(${currentContrast}%)`,
       objectFit: currentObjectFit,
-      transform: `scale(${currentScale}) translate(${currentPositionX}%, ${currentPositionY}%)`,
+      transform: `translate(${currentPositionX}%, ${currentPositionY}%) scale(${currentScale})`,
+      backgroundColor: currentBgColor || 'transparent'
     };
 
     if (isVideoUrl(currentUrl, currentType)) {
@@ -1157,7 +1187,7 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
             </div>
 
             {/* Preview Box */}
-            <div className="w-full h-[90px] bg-black/40 rounded-lg overflow-hidden border border-white/5 flex items-center justify-center relative">
+            <div className={`w-full ${aspectClass} bg-black/40 rounded-lg overflow-hidden border border-white/5 flex items-center justify-center relative`}>
               {url ? renderLivePreview() : <span className="text-white/30 text-[10px]">Sin archivo multimedia</span>}
               {isUploading && (
                 <div className="absolute inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center text-[10px] gap-2">
@@ -1234,10 +1264,13 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
                   <span className="text-[9px] font-black uppercase text-[#FFD700] tracking-wider block">Ajustes de Vista</span>
                   <button
                     onClick={() => {
-                      updateMediaProp('scale', 1);
-                      updateMediaProp('positionX', 0);
-                      updateMediaProp('positionY', 0);
-                      updateMediaProp('objectFit', 'cover');
+                      updateMediaProps({
+                        scale: 1,
+                        positionX: 0,
+                        positionY: 0,
+                        objectFit: defaultObjectFit,
+                        bgColor: defaultBgColor
+                      });
                     }}
                     className="bg-white/5 hover:bg-white/10 text-white/80 hover:text-white border border-white/10 px-1.5 py-0.5 rounded text-[8px] font-bold uppercase transition-all"
                   >
@@ -1250,16 +1283,55 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
                   <label className="text-[8px] uppercase font-bold text-white/40 tracking-wider">Ajuste de Imagen (Object Fit)</label>
                   <div className="grid grid-cols-2 gap-1 bg-white/5 p-0.5 rounded-lg border border-white/5">
                     <button 
-                      onClick={() => updateMediaProp('objectFit', 'cover')}
+                      onClick={() => {
+                        updateMediaProps({
+                          objectFit: 'cover',
+                          scale: 1,
+                          positionX: 0,
+                          positionY: 0
+                        });
+                      }}
                       className={`py-0.5 text-[9px] font-bold rounded transition-all ${objectFit === 'cover' ? 'bg-[#FFD700] text-black' : 'text-white/60 hover:text-white'}`}
                     >
                       Rellenar (Cover)
                     </button>
                     <button 
-                      onClick={() => updateMediaProp('objectFit', 'contain')}
+                      onClick={() => {
+                        updateMediaProps({
+                          objectFit: 'contain',
+                          scale: 1,
+                          positionX: 0,
+                          positionY: 0
+                        });
+                      }}
                       className={`py-0.5 text-[9px] font-bold rounded transition-all ${objectFit === 'contain' ? 'bg-[#FFD700] text-black' : 'text-white/60 hover:text-white'}`}
                     >
                       Ajustar (Contain)
+                    </button>
+                  </div>
+                </div>
+
+                {/* Color de Fondo */}
+                <div className="flex flex-col gap-0.5">
+                  <label className="text-[8px] uppercase font-bold text-white/40 tracking-wider">Color de Fondo (Background Color)</label>
+                  <div className="grid grid-cols-3 gap-1 bg-white/5 p-0.5 rounded-lg border border-white/5">
+                    <button 
+                      onClick={() => updateMediaProp('bgColor', 'transparent')}
+                      className={`py-0.5 text-[9px] font-bold rounded transition-all ${(!bgColor || bgColor === 'transparent') ? 'bg-[#FFD700] text-black' : 'text-white/60 hover:text-white'}`}
+                    >
+                      Transp.
+                    </button>
+                    <button 
+                      onClick={() => updateMediaProp('bgColor', 'white')}
+                      className={`py-0.5 text-[9px] font-bold rounded transition-all ${bgColor === 'white' ? 'bg-[#FFD700] text-black' : 'text-white/60 hover:text-white'}`}
+                    >
+                      Blanco
+                    </button>
+                    <button 
+                      onClick={() => updateMediaProp('bgColor', 'black')}
+                      className={`py-0.5 text-[9px] font-bold rounded transition-all ${bgColor === 'black' ? 'bg-[#FFD700] text-black' : 'text-white/60 hover:text-white'}`}
+                    >
+                      Negro
                     </button>
                   </div>
                 </div>
@@ -1268,12 +1340,12 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
                 <div className="flex flex-col gap-0.5">
                   <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
                     <span>Zoom / Escala</span>
-                    <span className="text-[#FFD700]">${Math.round(scale * 100)}%</span>
+                    <span className="text-[#FFD700]">{Math.round(scale * 100)}%</span>
                   </div>
                   <input 
                     type="range" 
-                    min="1" 
-                    max="2.5" 
+                    min="0.1" 
+                    max="3.0" 
                     step="0.05" 
                     value={scale} 
                     onChange={(e) => updateMediaProp('scale', parseFloat(e.target.value))} 
@@ -1286,7 +1358,7 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
                   <div className="flex flex-col gap-0.5">
                     <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
                       <span>Mover X</span>
-                      <span className="text-[#FFD700]">${positionX}%</span>
+                      <span className="text-[#FFD700]">{positionX}%</span>
                     </div>
                     <input 
                       type="range" 
@@ -1302,7 +1374,7 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
                   <div className="flex flex-col gap-0.5">
                     <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
                       <span>Mover Y</span>
-                      <span className="text-[#FFD700]">${positionY}%</span>
+                      <span className="text-[#FFD700]">{positionY}%</span>
                     </div>
                     <input 
                       type="range" 
@@ -1325,7 +1397,7 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
                 <div className="flex flex-col gap-0.5">
                   <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
                     <span>Transparencia (Opacidad)</span>
-                    <span className="text-[#FFD700]">${Math.round((1 - opacity) * 100)}%</span>
+                    <span className="text-[#FFD700]">{Math.round((1 - opacity) * 100)}%</span>
                   </div>
                   <input 
                     type="range" 
@@ -1342,7 +1414,7 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
                 <div className="flex flex-col gap-0.5">
                   <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
                     <span>Nitidez / Difuminado (Blur)</span>
-                    <span className="text-[#FFD700]">${blur}px</span>
+                    <span className="text-[#FFD700]">{blur}px</span>
                   </div>
                   <input 
                     type="range" 
@@ -1359,7 +1431,7 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
                 <div className="flex flex-col gap-0.5">
                   <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
                     <span>Brillo</span>
-                    <span className="text-[#FFD700]">${brightness}%</span>
+                    <span className="text-[#FFD700]">{brightness}%</span>
                   </div>
                   <input 
                     type="range" 
@@ -1376,7 +1448,7 @@ const EditableMedia = ({ media, defaultOpacity = 1, className = '', onUpdate, is
                 <div className="flex flex-col gap-0.5">
                   <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
                     <span>Contraste</span>
-                    <span className="text-[#FFD700]">${contrast}%</span>
+                    <span className="text-[#FFD700]">{contrast}%</span>
                   </div>
                   <input 
                     type="range" 
@@ -2584,6 +2656,7 @@ const IndustriaDetalle = () => {
                   onUpdate={(newMedia) => handleUpdate('heroImage', newMedia)}
                   isEditorMode={isEditorMode}
                   label="Imagen/Video de Fondo Hero"
+                  aspectClass="aspect-[21/9]"
                 />
               )}
             </div>
@@ -2965,7 +3038,8 @@ const IndustriaDetalle = () => {
                                 <EditableMedia
                                   media={activeMedia || { url: '', type: mediaType }}
                                   defaultOpacity={1}
-                                  className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                                  defaultObjectFit="contain"
+                                  className="w-full h-full transition-transform duration-500 ease-out group-hover:scale-105"
                                   onUpdate={(newMedia) => handleItemUpdate(index, updateKey, newMedia)}
                                   isEditorMode={isEditorMode}
                                   label={activeLabel}
@@ -3160,7 +3234,19 @@ const IndustriaDetalle = () => {
                                         const uploadedUrl = await uploadFile(file, "media");
                                         logCMS(`✅ Subida de tarjeta exitosa: ${uploadedUrl}`, "success");
                                         const isVideoFile = file.type.startsWith('video/') || file.name.endsWith('.mp4') || file.name.endsWith('.webm');
-                                        handleItemUpdate(index, updateKey, { url: uploadedUrl, type: isVideoFile ? 'video' : 'image' });
+                                        handleItemUpdate(index, updateKey, { 
+                                          url: uploadedUrl, 
+                                          type: isVideoFile ? 'video' : 'image',
+                                          scale: 1,
+                                          positionX: 0,
+                                          positionY: 0,
+                                          objectFit: 'contain',
+                                          bgColor: 'transparent',
+                                          opacity: 1,
+                                          blur: 0,
+                                          brightness: 100,
+                                          contrast: 100
+                                        });
                                       } catch (err) {
                                         const errMsg = err.message || err.error_description || JSON.stringify(err);
                                         logCMS(`❌ Error en tarjeta: ${errMsg}`, "error");
