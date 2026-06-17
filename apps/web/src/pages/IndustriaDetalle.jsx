@@ -814,7 +814,7 @@ const EditableMedia = ({
   label = 'Multimedia', 
   logCMS, 
   aspectClass = 'aspect-[16/10]',
-  defaultObjectFit = 'contain',
+  defaultObjectFit = 'cover',
   defaultBgColor = 'transparent'
 }) => {
   const { cmsState } = useCMS();
@@ -3099,7 +3099,7 @@ const IndustriaDetalle = () => {
                                 <EditableMedia
                                   media={activeMedia || { url: '', type: mediaType }}
                                   defaultOpacity={1}
-                                  defaultObjectFit="contain"
+                                  defaultObjectFit="cover"
                                   className="w-full h-full transition-transform duration-500 ease-out group-hover:scale-105"
                                   onUpdate={(newMedia) => handleItemUpdate(index, updateKey, newMedia)}
                                   isEditorMode={isEditorMode}
