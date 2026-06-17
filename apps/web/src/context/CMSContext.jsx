@@ -822,11 +822,10 @@ export const CMSProvider = ({ children }) => {
                 const parsed = JSON.parse(saved);
                 const parsedSettings = parsed.settings || {};
                 
-                // Si la versión local es diferente a la versión del código base, descartar caché antigua
+                // Si la versión local es diferente a la versión del código base, actualizar versión sin descartar caché
                 if (parsedSettings.appVersion !== initialCMSState.settings.appVersion) {
-                    console.warn(`[CMS] Versión local obsoleta (${parsedSettings.appVersion} vs ${initialCMSState.settings.appVersion}). Reseteando caché.`);
-                    localStorage.removeItem('smqCMS');
-                    return initialCMSState;
+                    console.warn(`[CMS] Versión local obsoleta (${parsedSettings.appVersion} vs ${initialCMSState.settings.appVersion}). Actualizando versión.`);
+                    parsedSettings.appVersion = initialCMSState.settings.appVersion;
                 }
 
                 const loadedState = {
@@ -858,7 +857,7 @@ export const CMSProvider = ({ children }) => {
     const [isLoadedFromCloud, setIsLoadedFromCloud] = useState(false);
 
     // 1. Función para Descargar estado global desde Nube
-    const syncFromCloud = async () => {
+    const syncFromCloud = async (force = true) => {
         try {
             // Utilizamos la URL pública directa con cache-busting (timestamp) para forzar la actualización en Producción sin esperar horas de caché
             const { data: urlData } = supabase.storage.from('media').getPublicUrl('cms-state.json');
@@ -872,11 +871,10 @@ export const CMSProvider = ({ children }) => {
                     const parsed = JSON.parse(text);
                     const parsedSettings = parsed.settings || {};
                     
-                    // Si el estado en la nube pertenece a una versión anterior, usar el estado base inicial corregido
+                    // Si el estado en la nube pertenece a una versión anterior, actualizar versión en el estado sin resetear a inicial
                     if (parsedSettings.appVersion !== initialCMSState.settings.appVersion) {
-                        console.warn(`[CMS] Versión en la nube obsoleta (${parsedSettings.appVersion} vs ${initialCMSState.settings.appVersion}). Reseteando a inicial.`);
-                        setCmsState(initialCMSState);
-                        return;
+                        console.warn(`[CMS] Versión en la nube obsoleta (${parsedSettings.appVersion} vs ${initialCMSState.settings.appVersion}). Actualizando versión.`);
+                        parsedSettings.appVersion = initialCMSState.settings.appVersion;
                     }
 
                     const cloudState = {
@@ -892,10 +890,27 @@ export const CMSProvider = ({ children }) => {
                         menus: parsed.menus || initialCMSState.menus,
                         pages: parsed.pages || initialCMSState.pages
                     };
-                    setCmsState(migrateCMSState(cloudState));
+
+                    const saved = localStorage.getItem('smqCMS');
+                    let localState = null;
+                    if (saved) {
+                        try {
+                            localState = JSON.parse(saved);
+                        } catch (e) {}
+                    }
+
+                    const cloudTime = cloudState.settings?.updatedAt || 0;
+                    const localTime = localState?.settings?.updatedAt || 0;
+
+                    if (force || !localState || cloudTime >= localTime) {
+                        console.log(`[CMS] Sincronización: Cargando estado desde la Nube (force=${force}, cloudTime=${cloudTime}, localTime=${localTime}).`);
+                        setCmsState(migrateCMSState(cloudState));
+                    } else {
+                        console.log(`[CMS] Sincronización: Reteniendo cambios locales más recientes (localTime=${localTime} > cloudTime=${cloudTime}).`);
+                    }
                 }
             } else {
-                console.warn("CMS state no encontrado en nube o error. Cóodigo:", res.status);
+                console.warn("CMS state no encontrado en nube o error. Código:", res.status);
             }
         } catch (e) {
             console.error("No se pudo cargar el CMS desde la nube:", e);
@@ -905,14 +920,8 @@ export const CMSProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        // Prevenir que una recarga o el Hot-Reload local borre el trabajo no guardado del Editor.
-        const saved = localStorage.getItem('smqCMS');
-        if (!isEditorMode || !saved) {
-            syncFromCloud();
-        } else {
-            console.log("LocalHost/Editor detectado: reteniendo cambios locales no subidos. Usa el botón 'Bajar' para forzar sincronización de Nube.");
-            setIsLoadedFromCloud(true);
-        }
+        // Sincronización inicial inteligente en lugar de sobreescritura ciega
+        syncFromCloud(false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -997,16 +1006,24 @@ export const CMSProvider = ({ children }) => {
     const updateSettings = (updates) => {
         setCmsState(prev => ({
             ...prev,
-            settings: { ...prev.settings, ...updates }
+            settings: { ...prev.settings, ...updates, updatedAt: Date.now() }
         }));
     };
 
     const updateMenus = (menus) => {
-        setCmsState(prev => ({ ...prev, menus }));
+        setCmsState(prev => ({
+            ...prev,
+            menus,
+            settings: { ...prev.settings, updatedAt: Date.now() }
+        }));
     };
 
     const updatePages = (pages) => {
-        setCmsState(prev => ({ ...prev, pages }));
+        setCmsState(prev => ({
+            ...prev,
+            pages,
+            settings: { ...prev.settings, updatedAt: Date.now() }
+        }));
     };
 
     const updatePageModule = (pageId, moduleId, newData) => {
@@ -1042,7 +1059,11 @@ export const CMSProvider = ({ children }) => {
                 ];
             }
 
-            return { ...prev, pages: updatedPages };
+            return {
+                ...prev,
+                pages: updatedPages,
+                settings: { ...prev.settings, updatedAt: Date.now() }
+            };
         });
     };
 

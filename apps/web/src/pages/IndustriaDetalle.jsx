@@ -1136,23 +1136,36 @@ const EditableMedia = ({
       backgroundColor: currentBgColor || 'transparent'
     };
 
-    if (isVideoUrl(currentUrl, currentType)) {
+    // Separate hover / transition classes from functional layout classes to prevent scale transitions from overriding custom crop adjustments
+    const classes = (className || '').split(' ');
+    const hoverClasses = classes.filter(c => c.includes('hover:') || c.includes('transition') || c.includes('duration') || c.includes('ease')).join(' ');
+    const layoutClasses = classes.filter(c => !c.includes('hover:') && !c.includes('transition') && !c.includes('duration') && !c.includes('ease')).join(' ');
+
+    const mediaElement = isVideoUrl(currentUrl, currentType) ? (
+      <video 
+        key={currentUrl}
+        src={currentUrl} 
+        className={`${layoutClasses} origin-center`} 
+        autoPlay 
+        loop 
+        muted 
+        playsInline 
+        controls={false}
+        preload="auto"
+        style={style} 
+      />
+    ) : (
+      <img src={getOptimizedImageUrl(currentUrl)} className={`${layoutClasses} origin-center`} style={style} alt={label} loading="lazy" />
+    );
+
+    if (hoverClasses) {
       return (
-        <video 
-          key={currentUrl}
-          src={currentUrl} 
-          className={`${className} origin-center`} 
-          autoPlay 
-          loop 
-          muted 
-          playsInline 
-          controls={false}
-          preload="auto"
-          style={style} 
-        />
+        <div className={`w-full h-full overflow-hidden ${hoverClasses}`}>
+          {mediaElement}
+        </div>
       );
     }
-    return <img src={getOptimizedImageUrl(currentUrl)} className={`${className} origin-center`} style={style} alt={label} loading="lazy" />;
+    return mediaElement;
   };
 
   if (!isEditorMode) {

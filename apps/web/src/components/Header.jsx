@@ -45,17 +45,34 @@ const Header = () => {
       // 1. Guardar cambios en la nube (Supabase)
       await syncToCloud();
       
-      // 2. Sincronizar repositorio local y GitHub
-      const res = await fetch('/api/git-upload', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' }
-      });
-      const data = await res.json();
+      // Detectar si estamos en LocalHost o en Producción
+      const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
       
-      if (data.success) {
-        alert("¡Guardado y Sincronización Exitosos! Tus cambios se han guardado en la nube (Supabase) y sincronizado con el código local/GitHub.");
+      if (isLocal) {
+        // 2. Sincronizar repositorio local y GitHub (solo en LocalHost)
+        try {
+          const res = await fetch('/api/git-upload', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+          });
+          const text = await res.text();
+          if (text) {
+            const data = JSON.parse(text);
+            if (data.success) {
+              alert("¡Guardado y Sincronización Exitosos! Tus cambios se han guardado en la nube (Supabase) y sincronizado con el código local/GitHub.");
+            } else {
+              alert(`Guardado en la nube de Supabase, pero hubo un detalle al sincronizar con GitHub: ${data.error || 'Inténtalo nuevamente.'}`);
+            }
+          } else {
+            alert("¡Guardado Exitoso! Los cambios se subieron a la nube (Supabase), pero el servidor local no devolvió respuesta para la sincronización git.");
+          }
+        } catch (gitErr) {
+          console.error("Error al sincronizar con git:", gitErr);
+          alert(`Guardado en la nube de Supabase, pero no se pudo sincronizar localmente con git: ${gitErr.message}`);
+        }
       } else {
-        alert(`Guardado en la nube de Supabase, pero hubo un detalle al sincronizar con GitHub: ${data.error || 'Inténtalo nuevamente.'}`);
+        // En Producción (Vercel)
+        alert("¡Guardado y Publicación Exitosos! Tus cambios se han guardado permanentemente en la nube (Supabase) y están en vivo para todos los visitantes.");
       }
     } catch (err) {
       console.error(err);
