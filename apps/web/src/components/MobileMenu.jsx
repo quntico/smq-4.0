@@ -107,7 +107,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
       ]
     },
     {
-      title: 'Waste to Energy',
+      title: 'Valorización Energética',
       key: 'wastetoenergy',
       type: 'expandable',
       items: [

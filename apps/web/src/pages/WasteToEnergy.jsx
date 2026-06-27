@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet';
-import { Factory, Flame, Eye, Recycle, Zap, HardHat, ArrowRight, Shield, Settings, CheckCircle2, ArrowLeft, Image as ImageIcon } from 'lucide-react';
+import { Factory, Flame, Eye, Recycle, Zap, HardHat, ArrowRight, Shield, Settings, CheckCircle2, ArrowLeft, Image as ImageIcon, Video } from 'lucide-react';
 import Footer from '@/components/Footer.jsx';
 import { useCMS } from '@/context/CMSContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
@@ -134,7 +134,10 @@ const WasteToEnergy = () => {
 
   // Estados locales para carga
   const [uploadingHeroBg, setUploadingHeroBg] = useState(false);
+  const [uploadingHeroVideo, setUploadingHeroVideo] = useState(false);
   const [uploadingSectionId, setUploadingSectionId] = useState(null);
+  const [activeVideoIndex, setActiveVideoIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   // Obtener datos del CMS o usar fallback estático
   const pageData = cmsState?.pages?.find(p => p.id === 'wte');
@@ -143,9 +146,13 @@ const WasteToEnergy = () => {
 
   const activeHero = {
     title1: wteData.hero?.title1 ?? 'Soluciones',
-    title2: wteData.hero?.title2 ?? 'Waste to Energy',
+    title2: wteData.hero?.title2 ?? 'Valorización Energética',
     subtitle: wteData.hero?.subtitle ?? 'Tecnologías y sistemas integrados para el tratamiento, valorización y conversión de residuos en energía y recursos. Desarrollamos soluciones de alta ingeniería para mitigar el impacto ambiental y maximizar la rentabilidad operativa.',
     bgImage: wteData.hero?.bgImage ?? 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1600&auto=format&fit=crop',
+    bgVideo: wteData.hero?.bgVideo ?? '',
+    bgVideos: wteData.hero?.bgVideos ?? (wteData.hero?.bgVideo ? [wteData.hero.bgVideo] : []),
+    overlayOpacity: wteData.hero?.overlayOpacity ?? 0.8,
+    showStats: wteData.hero?.showStats ?? true,
     stats: wteData.hero?.stats ?? [
       { val: '99.2%', lbl: 'Eficiencia del Proceso' },
       { val: 'WTE-60', lbl: 'Estándar Tecnológico' },
@@ -204,6 +211,44 @@ const WasteToEnergy = () => {
       }
     };
     fileInput.click();
+  };
+
+  // Subida de video de fondo del Hero para un slot específico
+  const handleUploadHeroVideoSlot = async (slotIndex) => {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'video/*';
+    fileInput.onchange = async (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      try {
+        setUploadingHeroVideo(true);
+        const url = await uploadFile(file);
+        const newBgVideos = [...activeHero.bgVideos];
+        newBgVideos[slotIndex] = url;
+        const filteredVideos = newBgVideos.filter(v => !!v);
+        const primaryVideo = filteredVideos[0] || '';
+        updatePageModule('wte', 'content', {
+          hero: { ...activeHero, bgVideo: primaryVideo, bgVideos: filteredVideos }
+        });
+        setActiveVideoIndex(slotIndex);
+      } catch (error) {
+        console.error('Error uploading hero video:', error);
+        alert('Error al subir el video. Por favor intente de nuevo.');
+      } finally {
+        setUploadingHeroVideo(false);
+      }
+    };
+    fileInput.click();
+  };
+
+  const handleRemoveHeroVideoSlot = (slotIndex) => {
+    const newBgVideos = activeHero.bgVideos.filter((_, idx) => idx !== slotIndex);
+    const primaryVideo = newBgVideos[0] || '';
+    updatePageModule('wte', 'content', {
+      hero: { ...activeHero, bgVideo: primaryVideo, bgVideos: newBgVideos }
+    });
+    setActiveVideoIndex(0);
   };
 
   // Agregar imagen al carrusel de una sección
@@ -317,44 +362,203 @@ const WasteToEnergy = () => {
     }
   }, [hash]);
 
+  const hasBgVideos = activeHero.bgVideos && activeHero.bgVideos.length > 0;
+  const currentVideo = hasBgVideos ? activeHero.bgVideos[activeVideoIndex] : activeHero.bgVideo;
+
+  const changeVideoWithTransition = (slotIdx) => {
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setActiveVideoIndex(slotIdx);
+      setIsTransitioning(false);
+    }, 500);
+  };
+
+  const handleVideoEnded = () => {
+    if (activeHero.bgVideos && activeHero.bgVideos.length > 1) {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setActiveVideoIndex((prev) => (prev + 1) % activeHero.bgVideos.length);
+        setIsTransitioning(false);
+      }, 500);
+    }
+  };
+
   return (
     <div className="bg-[#05070a] text-white min-h-screen font-sans selection:bg-[#22C55E]/30 selection:text-[#22C55E] overflow-x-hidden">
       <Helmet>
-        <title>Soluciones Waste to Energy | SMQ Industrial Systems</title>
+        <title>Soluciones de Valorización Energética | SMQ Industrial Systems</title>
         <meta name="description" content="Tecnologías y sistemas integrados para el tratamiento, valorización y conversión de residuos sólidos urbanos e industriales en energía y recursos de alto valor." />
       </Helmet>
 
       {/* ── HERO SECTION ── */}
-      <section className="relative min-h-[75vh] flex items-center pt-24 pb-16 overflow-hidden">
-        {/* Background Parallax Image */}
-        <div className="absolute inset-0 z-0">
-          <img 
-            src={activeHero.bgImage} 
-            alt="Waste to Energy Industrial Plant" 
-            className="w-full h-full object-cover opacity-25 scale-105"
+      <section className="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden">
+        {/* Background Parallax Image or Video */}
+        <div className="absolute inset-0 z-0 bg-[#05070a]">
+          {currentVideo ? (
+            <video
+              key={currentVideo}
+              src={currentVideo}
+              autoPlay
+              loop={!activeHero.bgVideos || activeHero.bgVideos.length <= 1}
+              muted
+              playsInline
+              onEnded={handleVideoEnded}
+              className={`w-full h-full object-cover scale-105 transition-opacity duration-500 ease-in-out ${
+                isTransitioning ? 'opacity-0' : 'opacity-70'
+              }`}
+            />
+          ) : (
+            <img 
+              src={activeHero.bgImage} 
+              alt="Planta Industrial de Valorización Energética" 
+              className={`w-full h-full object-cover scale-105 transition-opacity duration-500 ease-in-out ${
+                isTransitioning ? 'opacity-0' : 'opacity-60'
+              }`}
+            />
+          )}
+          {/* Capa de opacidad regulable */}
+          <div 
+            className="absolute inset-0 bg-[#05070a] transition-opacity duration-300" 
+            style={{ opacity: activeHero.overlayOpacity }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#05070a] via-[#05070a]/80 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#05070a] via-transparent to-[#05070a]" />
+          {/* Degradados estáticos para difuminar bordes */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#05070a] via-transparent to-transparent opacity-80 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#05070a] via-transparent to-[#05070a] opacity-40 pointer-events-none" />
         </div>
 
         {isEditorMode && (
-          <button
-            onClick={handleUploadHeroBg}
-            disabled={uploadingHeroBg}
-            className="absolute top-28 right-8 bg-[#22C55E] text-black hover:bg-[#1f9d4b] px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider shadow-lg transition-all z-20 flex items-center gap-2"
-          >
-            {uploadingHeroBg ? (
-              <div className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
-            ) : (
-              <ImageIcon size={14} />
-            )}
-            <span>Cambiar Fondo Hero</span>
-          </button>
+          <div className="absolute top-28 right-8 flex flex-wrap gap-4 z-25 bg-[#05070a]/90 backdrop-blur-md p-4 rounded-2xl border border-white/10 shadow-2xl items-center">
+            
+            {/* Opacity Control */}
+            <div className="flex flex-col gap-1 pr-4 border-r border-white/10">
+              <span className="text-[9px] text-gray-400 font-bold uppercase tracking-wider">Opacidad de Capa</span>
+              <div className="flex items-center gap-2">
+                <input
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  value={activeHero.overlayOpacity}
+                  onChange={(e) => {
+                    updatePageModule('wte', 'content', {
+                      hero: { ...activeHero, overlayOpacity: parseFloat(e.target.value) }
+                    });
+                  }}
+                  className="w-36 h-1.5 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-[#22C55E]"
+                />
+                <span className="text-xs font-mono text-[#22C55E] w-10 text-right">{Math.round(activeHero.overlayOpacity * 100)}%</span>
+              </div>
+            </div>
+
+            {/* Show/Hide Stats Control */}
+            <div className="flex flex-col gap-1 pr-4 border-r border-white/10">
+              <span className="text-[9px] text-gray-400 font-bold uppercase tracking-wider block">Estadísticas</span>
+              <button
+                onClick={() => {
+                  updatePageModule('wte', 'content', {
+                    hero: { ...activeHero, showStats: !activeHero.showStats }
+                  });
+                }}
+                className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                  activeHero.showStats
+                    ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/30'
+                    : 'bg-gray-800/80 text-gray-400 border border-gray-700 hover:bg-gray-800'
+                }`}
+              >
+                <Eye size={12} className={activeHero.showStats ? 'opacity-100' : 'opacity-40'} />
+                <span>{activeHero.showStats ? 'Visibles' : 'Ocultas'}</span>
+              </button>
+            </div>
+
+            {/* Video Playlist Control (Up to 3 Videos) */}
+            <div className="flex flex-col gap-1 pr-4 border-r border-white/10">
+              <span className="text-[9px] text-gray-400 font-bold uppercase tracking-wider block">Videos de Fondo (Máx 3)</span>
+              <div className="flex gap-2 items-center mt-1">
+                {[0, 1, 2].map((slotIdx) => {
+                  const hasVideo = activeHero.bgVideos?.[slotIdx];
+                  const isActive = activeVideoIndex === slotIdx;
+                  return (
+                    <div key={slotIdx} className="flex items-center gap-1 bg-gray-900/60 px-2 py-1 rounded-lg border border-white/5">
+                      <button
+                        onClick={() => {
+                          if (hasVideo) {
+                            changeVideoWithTransition(slotIdx);
+                          } else {
+                            handleUploadHeroVideoSlot(slotIdx);
+                          }
+                        }}
+                        disabled={uploadingHeroVideo}
+                        className={`w-6 h-6 rounded-md text-[11px] font-bold transition-all flex items-center justify-center ${
+                          isActive
+                            ? 'bg-cyan-500 text-black font-extrabold shadow-md'
+                            : hasVideo
+                            ? 'bg-gray-800 text-cyan-400 hover:bg-gray-700'
+                            : 'bg-gray-900 text-gray-500 border border-dashed border-gray-700 hover:border-gray-500 hover:text-gray-300'
+                        }`}
+                        title={hasVideo ? `Reproducir/Ver Video ${slotIdx + 1}` : `Subir Video ${slotIdx + 1}`}
+                      >
+                        {slotIdx + 1}
+                      </button>
+                      {hasVideo ? (
+                        <button
+                          onClick={() => handleRemoveHeroVideoSlot(slotIdx)}
+                          className="text-red-400 hover:text-red-500 hover:bg-red-950/30 w-4 h-4 rounded flex items-center justify-center text-[8px]"
+                          title="Eliminar este video"
+                        >
+                          ✕
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => handleUploadHeroVideoSlot(slotIdx)}
+                          disabled={uploadingHeroVideo}
+                          className="text-gray-500 hover:text-cyan-400 w-4 h-4 flex items-center justify-center text-[10px]"
+                          title="Subir"
+                        >
+                          +
+                        </button>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Background Image Control */}
+            <div className="flex gap-2">
+              <button
+                onClick={handleUploadHeroBg}
+                disabled={uploadingHeroBg}
+                className="bg-[#22C55E] text-black hover:bg-[#1f9d4b] px-3 py-2 rounded-xl text-xs font-bold uppercase tracking-wider shadow-lg transition-all flex items-center gap-2"
+              >
+                {uploadingHeroBg ? (
+                  <div className="w-3.5 h-3.5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+                ) : (
+                  <ImageIcon size={12} />
+                )}
+                <span>Fondo Imagen</span>
+              </button>
+
+              {activeHero.bgVideo && (
+                <button
+                  onClick={() => {
+                    updatePageModule('wte', 'content', {
+                      hero: { ...activeHero, bgVideo: '', bgVideos: [] }
+                    });
+                    setActiveVideoIndex(0);
+                  }}
+                  className="bg-red-600 text-white hover:bg-red-700 px-3 py-2 rounded-xl text-xs font-bold uppercase tracking-wider shadow-lg transition-all flex items-center gap-2"
+                >
+                  <span>Limpiar Videos</span>
+                </button>
+              )}
+            </div>
+
+          </div>
         )}
 
         <div className="max-w-[1400px] mx-auto px-6 md:px-8 w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Hero Content */}
-          <div className="lg:col-span-7 space-y-6">
+          <div className={`${activeHero.showStats ? 'lg:col-span-7' : 'lg:col-span-10 lg:col-start-2'} space-y-6`}>
             <Link 
               to="/" 
               className="inline-flex items-center gap-2 text-[10px] font-bold tracking-widest text-[#22C55E] uppercase hover:text-white transition-colors"
@@ -425,43 +629,45 @@ const WasteToEnergy = () => {
           </div>
 
           {/* Hero Stats */}
-          <div className="lg:col-span-5 grid grid-cols-2 gap-4 bg-white/[0.02] border border-white/10 p-6 md:p-8 rounded-3xl backdrop-blur-md shadow-2xl">
-            {activeHero.stats.map((stat, i) => (
-              <div 
-                key={i} 
-                className="p-4 bg-black/40 border border-white/5 rounded-2xl flex flex-col justify-center"
-              >
-                <span 
-                  className={`text-2xl md:text-3xl font-black text-[#22C55E] tracking-tight leading-none mb-1 ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 p-0.5 rounded cursor-text' : ''}`}
-                  contentEditable={isEditorMode}
-                  suppressContentEditableWarning={true}
-                  onBlur={(e) => {
-                    const newStats = [...activeHero.stats];
-                    newStats[i] = { ...newStats[i], val: e.target.innerText };
-                    updatePageModule('wte', 'content', {
-                      hero: { ...activeHero, stats: newStats }
-                    });
-                  }}
+          {activeHero.showStats && (
+            <div className="lg:col-span-5 grid grid-cols-2 gap-4 bg-white/[0.02] border border-white/10 p-6 md:p-8 rounded-3xl backdrop-blur-md shadow-2xl">
+              {activeHero.stats.map((stat, i) => (
+                <div 
+                  key={i} 
+                  className="p-4 bg-black/40 border border-white/5 rounded-2xl flex flex-col justify-center"
                 >
-                  {stat.val}
-                </span>
-                <span 
-                  className={`text-[10px] text-white/50 uppercase tracking-wider font-bold leading-tight ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 p-0.5 rounded cursor-text' : ''}`}
-                  contentEditable={isEditorMode}
-                  suppressContentEditableWarning={true}
-                  onBlur={(e) => {
-                    const newStats = [...activeHero.stats];
-                    newStats[i] = { ...newStats[i], lbl: e.target.innerText };
-                    updatePageModule('wte', 'content', {
-                      hero: { ...activeHero, stats: newStats }
-                    });
-                  }}
-                >
-                  {stat.lbl}
-                </span>
-              </div>
-            ))}
-          </div>
+                  <span 
+                    className={`text-2xl md:text-3xl font-black text-[#22C55E] tracking-tight leading-none mb-1 ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 p-0.5 rounded cursor-text' : ''}`}
+                    contentEditable={isEditorMode}
+                    suppressContentEditableWarning={true}
+                    onBlur={(e) => {
+                      const newStats = [...activeHero.stats];
+                      newStats[i] = { ...newStats[i], val: e.target.innerText };
+                      updatePageModule('wte', 'content', {
+                        hero: { ...activeHero, stats: newStats }
+                      });
+                    }}
+                  >
+                    {stat.val}
+                  </span>
+                  <span 
+                    className={`text-[10px] text-white/50 uppercase tracking-wider font-bold leading-tight ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 p-0.5 rounded cursor-text' : ''}`}
+                    contentEditable={isEditorMode}
+                    suppressContentEditableWarning={true}
+                    onBlur={(e) => {
+                      const newStats = [...activeHero.stats];
+                      newStats[i] = { ...newStats[i], lbl: e.target.innerText };
+                      updatePageModule('wte', 'content', {
+                        hero: { ...activeHero, stats: newStats }
+                      });
+                    }}
+                  >
+                    {stat.lbl}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -790,7 +996,7 @@ const WasteToEnergy = () => {
             </p>
             <div className="pt-4 flex flex-wrap justify-center gap-4">
               <a 
-                href="mailto:ingenieria@smq.com?subject=Consulta%20Waste%20to%20Energy"
+                href="mailto:ingenieria@smq.com?subject=Consulta%20Valorizacion%20Energetica"
                 className="px-6 py-3 bg-[#22C55E] hover:bg-[#1f9d4b] text-black font-black text-xs tracking-widest uppercase rounded-full transition-all shadow-[0_4px_20px_rgba(34,197,94,0.3)] flex items-center gap-2"
               >
                 <span>Contactar a un Experto</span>

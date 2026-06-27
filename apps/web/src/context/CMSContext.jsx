@@ -22,7 +22,7 @@ const initialCMSState = {
         { id: '2', name: 'Soluciones', componentName: 'SolutionsMenu', order: 2 },
         { id: '3', name: 'Maquinaria', componentName: 'MachineryMenu', order: 3 },
         { id: '4', name: 'Tecnología', componentName: 'TechnologyMenu', order: 4 },
-        { id: '6', name: 'Waste to Energy', componentName: 'WasteToEnergyMenu', order: 5 },
+        { id: '6', name: 'Valorización Energética', componentName: 'WasteToEnergyMenu', order: 5 },
         { id: '7', name: 'Proyectos', componentName: 'ProjectsMenu', order: 6 },
         { id: '5', name: 'Empresa', componentName: 'CompanyMenu', order: 7 },
     ],
@@ -306,7 +306,7 @@ const initialCMSState = {
     },
     {
         "id": "wte",
-        "title": "Waste to Energy",
+        "title": "Valorización Energética",
         "slug": "/waste-to-energy",
         "modules": [
             {
@@ -1052,7 +1052,7 @@ export const CMSProvider = ({ children }) => {
                     ...updatedPages,
                     {
                         id: pageId,
-                        title: pageId === 'wte' ? 'Waste to Energy' : pageId,
+                        title: pageId === 'wte' ? 'Valorización Energética' : pageId,
                         slug: pageId === 'wte' ? '/waste-to-energy' : `/${pageId}`,
                         modules: [{ id: moduleId, type: moduleId, data: newData }]
                     }

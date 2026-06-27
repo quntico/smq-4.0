@@ -7,7 +7,7 @@ export const translations = {
       technology: "Tecnología",
       company: "Empresa",
       quote: "Cotizar",
-      wastetoenergy: "Waste to Energy",
+      wastetoenergy: "WtE",
       projects: "Proyectos"
     },
     hero: {

@@ -105,7 +105,7 @@ const NavMenu = () => {
       <NavItem label="Industrias" hasDropdown menuName="industrias" />
       <NavItem label="Maquinaria" hasDropdown menuName="maquinaria" />
       <NavItem label="Tecnología" hasDropdown menuName="tecnologia" />
-      <NavItem label="Waste to Energy" hasDropdown menuName="wasteToEnergy" />
+      <NavItem label="Valorización Energética" hasDropdown menuName="wasteToEnergy" />
       <NavItem label="Proyectos" />
       <NavItem label="Recursos" hasDropdown menuName="recursos" />
       <NavItem label="Nosotros" hasDropdown menuName="nosotros" />

@@ -5,7 +5,6 @@ import Footer from '@/components/Footer.jsx';
 import HeroSection from '@/components/HeroSection.jsx';
 import IndustriesSection from '@/components/IndustriesSection.jsx';
 import CapabilitiesSection from '@/components/CapabilitiesSection.jsx';
-import MachinerySection from '@/components/MachinerySection.jsx';
 import SolutionsSection from '@/components/SolutionsSection.jsx';
 import PlantVisualizerSection from '@/components/PlantVisualizerSection.jsx';
 import IndustrialProjectsSection from '@/components/IndustrialProjectsSection.jsx';
@@ -91,19 +90,19 @@ const HomePage = () => {
   return (
     <>
       <Helmet>
-        <title>SMQ Industrial Systems | Maquinaria Industrial para Reciclaje, Plásticos y Waste to Energy</title>
+        <title>SMQ Industrial Systems | Maquinaria Industrial para Reciclaje, Plásticos y Valorización Energética</title>
         <meta
           name="description"
-          content="SMQ Industrial Systems diseña, integra y suministra maquinaria industrial para reciclaje, valorización de residuos, procesamiento de plásticos y soluciones Waste to Energy. Trituradoras, lavado, peletizado, separación, compactación y plantas industriales llave en mano para México y Latinoamérica."
+          content="SMQ Industrial Systems diseña, integra y suministra maquinaria industrial para reciclaje, valorización de residuos, procesamiento de plásticos y soluciones de Valorización Energética. Trituradoras, lavado, peletizado, separación, compactación y plantas industriales llave en mano para México y Latinoamérica."
         />
-        <meta name="keywords" content="maquinaria industrial,reciclaje industrial,trituradoras industriales,peletizado plástico,waste to energy,rsu,rdf,srf,lavado de plástico,plantas llave en mano,compactadoras,separación industrial,automatización industrial,maquinaria reciclaje,soluciones industriales,smq" />
+        <meta name="keywords" content="maquinaria industrial,reciclaje industrial,trituradoras industriales,peletizado plástico,valorizacion energetica,rsu,rdf,srf,lavado de plástico,plantas llave en mano,compactadoras,separación industrial,automatización industrial,maquinaria reciclaje,soluciones industriales,smq" />
         <link rel="canonical" href="https://www.smq7.site" />
         <meta name="robots" content="index,follow,max-image-preview:large" />
         
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:title" content="SMQ Industrial Systems" />
-        <meta property="og:description" content="Maquinaria industrial para reciclaje, procesamiento de materiales y Waste to Energy." />
+        <meta property="og:description" content="Maquinaria industrial para reciclaje, procesamiento de materiales y Valorización Energética." />
         <meta property="og:url" content="https://www.smq7.site" />
         
         {/* Twitter */}
@@ -123,6 +122,7 @@ const HomePage = () => {
                 "Industrial Machinery",
                 "Plastic Recycling",
                 "Waste To Energy",
+                "Valorización Energética",
                 "RDF",
                 "SRF",
                 "Municipal Solid Waste",
@@ -142,7 +142,6 @@ const HomePage = () => {
             <IndustriesSection />
             <NosotrosSection />
             <CapabilitiesSection />
-            <MachinerySection />
             <SolutionsSection />
             <PlantVisualizerSection />
             <IndustrialProjectsSection />

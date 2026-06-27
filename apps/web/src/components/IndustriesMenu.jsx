@@ -125,7 +125,7 @@ const industriesData = [
       {
         name: 'Categorías',
         links: [
-          { code: 'WTE', name: 'Waste to Energy', desc: 'Conversión térmica y gasificación de RSU.', href: '/industrias/energia#wte' },
+          { code: 'WTE', name: 'Valorización Energética', desc: 'Conversión térmica y gasificación de RSU.', href: '/industrias/energia#wte' },
           { code: 'BIO', name: 'Biomasa', desc: 'Pelletizado de madera y residuos agrícolas.', href: '/industrias/energia#biomasa' },
           { code: 'IND', name: 'Energía Industrial', desc: 'Co-generación y calderas de vapor.', href: '/industrias/energia#energia-industrial' },
           { code: 'SRV', name: 'Servicios', desc: 'Eficiencia energética y auditorías térmicas.', href: '/industrias/energia#servicios' }

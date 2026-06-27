@@ -110,7 +110,7 @@ const WasteToEnergyMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
                 VALORIZACIÓN ENERGÉTICA Y AMBIENTAL
               </p>
               <h2 className="text-xl font-black text-white tracking-tight leading-none mb-1.5">
-                Soluciones Waste to Energy
+                Soluciones de Valorización Energética
               </h2>
               <p className="text-[11px] text-white/50 max-w-2xl leading-normal">
                 Tecnologías y sistemas integrados para el tratamiento, valorización y conversión de residuos en energía y recursos.

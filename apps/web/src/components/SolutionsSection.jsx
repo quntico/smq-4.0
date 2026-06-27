@@ -127,7 +127,7 @@ const defaultSolutions = [
   {
     id: 4,
     iconName: 'Zap',
-    title: 'WASTE TO ENERGY',
+    title: 'VALORIZACIÓN ENERGÉTICA',
     description: 'Tecnologías orientadas a recuperación energética, RDF, SRF, valorización térmica y aprovechamiento integral de residuos.',
     benefits: [
       'Generación de combustible alterno',

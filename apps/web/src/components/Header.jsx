@@ -159,7 +159,7 @@ const Header = () => {
     }
   };
 
-  const NavItem = ({ id, label, menuName, DropdownComponent }) => {
+  const NavItem = ({ id, label, menuName, componentName, DropdownComponent }) => {
     const handleBlur = (e) => {
       const val = e.target.innerText;
       const updatedMenus = cmsState.menus.map(menu =>
@@ -186,18 +186,15 @@ const Header = () => {
               e.preventDefault();
               handleOpenAdmin('menus');
             } else {
-              const nameLower = menuName.toLowerCase();
-              if (nameLower.includes('industria')) {
+              if (componentName === 'IndustriesMenu' || componentName === 'SolutionsMenu' || id === '2' || id === '3' || menuName.includes('industr') || menuName.includes('soluc')) {
                 navigate('/industria/reciclaje-y-plasticos');
-              } else if (nameLower.includes('solucion')) {
-                navigate('/industria/reciclaje-y-plasticos');
-              } else if (nameLower.includes('maquinaria')) {
+              } else if (componentName === 'MachineryMenu' || id === '4' || menuName.includes('maquin')) {
                 navigate('/envasadoras');
-              } else if (nameLower.includes('waste')) {
+              } else if (componentName === 'WasteToEnergyMenu' || id === '6' || menuName.includes('waste') || menuName.includes('valoriz') || menuName.includes('wte') || menuName.includes('wt')) {
                 navigate('/waste-to-energy');
-              } else if (nameLower.includes('proyecto')) {
+              } else if (componentName === 'ProjectsMenu' || id === '7' || menuName.includes('proy')) {
                 navigate('/proyectos');
-              } else if (nameLower.includes('empresa')) {
+              } else if (componentName === 'CompanyMenu' || id === '5' || menuName.includes('empr') || menuName.includes('nosot')) {
                 navigate('/nosotros');
               }
             }
@@ -218,18 +215,15 @@ const Header = () => {
                 e.preventDefault();
                 handleOpenAdmin('menus');
               } else {
-                const nameLower = menuName.toLowerCase();
-                if (nameLower.includes('industria')) {
+                if (componentName === 'IndustriesMenu' || componentName === 'SolutionsMenu' || id === '2' || id === '3' || menuName.includes('industr') || menuName.includes('soluc')) {
                   navigate('/industria/reciclaje-y-plasticos');
-                } else if (nameLower.includes('solucion')) {
-                  navigate('/industria/reciclaje-y-plasticos');
-                } else if (nameLower.includes('maquinaria')) {
+                } else if (componentName === 'MachineryMenu' || id === '4' || menuName.includes('maquin')) {
                   navigate('/envasadoras');
-                } else if (nameLower.includes('waste')) {
+                } else if (componentName === 'WasteToEnergyMenu' || id === '6' || menuName.includes('waste') || menuName.includes('valoriz') || menuName.includes('wte') || menuName.includes('wt')) {
                   navigate('/waste-to-energy');
-                } else if (nameLower.includes('proyecto')) {
+                } else if (componentName === 'ProjectsMenu' || id === '7' || menuName.includes('proy')) {
                   navigate('/proyectos');
-                } else if (nameLower.includes('empresa')) {
+                } else if (componentName === 'CompanyMenu' || id === '5' || menuName.includes('empr') || menuName.includes('nosot')) {
                   navigate('/nosotros');
                 }
               }
@@ -334,6 +328,7 @@ const Header = () => {
                 id={menu.id}
                 label={t(`header.${transKey}`) !== `header.${transKey}` ? t(`header.${transKey}`) : menu.name}
                 menuName={menu.name.toLowerCase()}
+                componentName={menu.componentName}
                 DropdownComponent={componentMap[menu.componentName]}
               />
             );
