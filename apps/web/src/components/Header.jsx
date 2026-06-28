@@ -172,31 +172,34 @@ const Header = () => {
       >
         <button
           onClick={(e) => {
+            e.stopPropagation();
             if (!isEditorMode) {
-              if (componentName === 'WasteToEnergyMenu' || id === '6' || menuName.includes('waste') || menuName.includes('valoriz') || menuName.includes('wte') || menuName.includes('wt')) {
-                navigate('/waste-to-energy');
+              if (activeMenu === menuName || lockedMenu === menuName) {
+                // If already open, navigate to the section
+                if (componentName === 'IndustriesMenu' || componentName === 'SolutionsMenu' || id === '2' || id === '3' || menuName.includes('industr') || menuName.includes('soluc')) {
+                  navigate('/industria/reciclaje-y-plasticos');
+                } else if (componentName === 'MachineryMenu' || id === '4' || menuName.includes('maquin')) {
+                  navigate('/envasadoras');
+                } else if (componentName === 'WasteToEnergyMenu' || id === '6' || menuName.includes('waste') || menuName.includes('valoriz') || menuName.includes('wte') || menuName.includes('wt')) {
+                  navigate('/waste-to-energy');
+                } else if (componentName === 'ProjectsMenu' || id === '7' || menuName.includes('proy')) {
+                  navigate('/proyectos');
+                } else if (componentName === 'CompanyMenu' || id === '5' || menuName.includes('empr') || menuName.includes('nosot')) {
+                  navigate('/nosotros');
+                }
+                setLockedMenu(null);
+                setActiveMenu(null);
               } else {
+                // If closed, open the menu
                 handleMenuClick(menuName);
               }
             }
           }}
           onDoubleClick={(e) => {
+            e.stopPropagation();
             if (isEditorMode) {
-              e.stopPropagation();
               e.preventDefault();
               handleOpenAdmin('menus');
-            } else {
-              if (componentName === 'IndustriesMenu' || componentName === 'SolutionsMenu' || id === '2' || id === '3' || menuName.includes('industr') || menuName.includes('soluc')) {
-                navigate('/industria/reciclaje-y-plasticos');
-              } else if (componentName === 'MachineryMenu' || id === '4' || menuName.includes('maquin')) {
-                navigate('/envasadoras');
-              } else if (componentName === 'WasteToEnergyMenu' || id === '6' || menuName.includes('waste') || menuName.includes('valoriz') || menuName.includes('wte') || menuName.includes('wt')) {
-                navigate('/waste-to-energy');
-              } else if (componentName === 'ProjectsMenu' || id === '7' || menuName.includes('proy')) {
-                navigate('/proyectos');
-              } else if (componentName === 'CompanyMenu' || id === '5' || menuName.includes('empr') || menuName.includes('nosot')) {
-                navigate('/nosotros');
-              }
             }
           }}
           className={`text-[15px] transition-all duration-200 relative py-2 ${(activeMenu === menuName || lockedMenu === menuName)
@@ -208,29 +211,38 @@ const Header = () => {
             contentEditable={isEditorMode}
             suppressContentEditableWarning={true}
             onBlur={handleBlur}
-            onClick={(e) => { if (isEditorMode) e.stopPropagation(); }}
-            onDoubleClick={(e) => {
-              if (isEditorMode) {
-                e.stopPropagation();
-                e.preventDefault();
-                handleOpenAdmin('menus');
-              } else {
-                if (componentName === 'IndustriesMenu' || menuName.includes('industr')) {
-                  navigate('/industria/reciclaje-y-plasticos');
-                } else if (componentName === 'TechnologyMenu' || menuName.includes('tecnol') || menuName.includes('soluc')) {
-                  navigate('/tecnologia/ia');
-                } else if (componentName === 'MachineryMenu' || menuName.includes('maquin')) {
-                  navigate('/envasadoras');
-                } else if (componentName === 'WasteToEnergyMenu' || menuName.includes('waste') || menuName.includes('valoriz') || menuName.includes('wte') || menuName.includes('wt')) {
-                  navigate('/waste-to-energy');
-                } else if (componentName === 'ProjectsMenu' || menuName.includes('proy')) {
-                  navigate('/proyectos');
-                } else if (componentName === 'CompanyMenu' || menuName.includes('empr') || menuName.includes('nosot')) {
-                  navigate('/nosotros');
+            onClick={(e) => { 
+              e.stopPropagation(); 
+              if (!isEditorMode) {
+                if (activeMenu === menuName || lockedMenu === menuName) {
+                  if (componentName === 'IndustriesMenu' || menuName.includes('industr')) {
+                    navigate('/industria/reciclaje-y-plasticos');
+                  } else if (componentName === 'TechnologyMenu' || menuName.includes('tecnol') || menuName.includes('soluc')) {
+                    navigate('/tecnologia/ia');
+                  } else if (componentName === 'MachineryMenu' || menuName.includes('maquin')) {
+                    navigate('/envasadoras');
+                  } else if (componentName === 'WasteToEnergyMenu' || menuName.includes('waste') || menuName.includes('valoriz') || menuName.includes('wte') || menuName.includes('wt')) {
+                    navigate('/waste-to-energy');
+                  } else if (componentName === 'ProjectsMenu' || menuName.includes('proy')) {
+                    navigate('/proyectos');
+                  } else if (componentName === 'CompanyMenu' || menuName.includes('empr') || menuName.includes('nosot')) {
+                    navigate('/nosotros');
+                  }
+                  setLockedMenu(null);
+                  setActiveMenu(null);
+                } else {
+                  handleMenuClick(menuName);
                 }
               }
             }}
-            className={`${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 p-1 cursor-text' : ''}`}
+            onDoubleClick={(e) => {
+              e.stopPropagation();
+              if (isEditorMode) {
+                e.preventDefault();
+                handleOpenAdmin('menus');
+              }
+            }}
+            className={`${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 p-1 cursor-text' : ''} select-none`}
           >
             {label}
           </span>
