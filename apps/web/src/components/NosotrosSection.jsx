@@ -349,19 +349,25 @@ const NosotrosSection = () => {
         <div className="max-w-[1400px] w-full mx-auto relative z-10 flex items-stretch justify-start">
           {/* Animated Vertical Line */}
           <motion.div 
-            initial={{ scaleY: 0 }}
-            whileInView={{ scaleY: 1 }}
+            initial={{ scaleY: 0, opacity: 0 }}
+            whileInView={{ scaleY: 1, opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="w-[4px] bg-[#3B82F6] shadow-[0_0_15px_#3B82F6] origin-top shrink-0"
+            transition={{ duration: 1.2, ease: "circOut" }}
+            className="w-[4px] bg-[#3B82F6] shadow-[0_0_20px_#3B82F6] origin-top shrink-0"
           />
           
           <div className="pl-6 md:pl-10 flex flex-col items-start gap-4 md:gap-6 py-2">
             
             {/* Main Title - NOSOTROS */}
-            <h2 className="text-5xl md:text-7xl lg:text-[90px] font-black tracking-tight text-white leading-none uppercase select-none font-sans drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
-              <DecipherText text="NOSOTROS" delay={200} />
-            </h2>
+            <motion.h2 
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+              className="text-5xl md:text-7xl lg:text-[90px] font-black tracking-tight text-white leading-none uppercase select-none font-sans drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]"
+            >
+              NOSOTROS
+            </motion.h2>
 
             {/* Subtitle - Empresa integradora y desarrolladora... */}
             <motion.p 
@@ -681,10 +687,10 @@ const NosotrosSection = () => {
               
               {/* 2005 */}
               <motion.div 
-                whileInView={{ opacity: 1, y: 0 }}
-                initial={{ opacity: 0, y: 20 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
+                whileInView={{ opacity: 1, scale: 1.05 }}
+                initial={{ opacity: 0.4, scale: 0.85 }}
+                viewport={{ margin: "-20% 0px -20% 0px", amount: 0.5 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
                 className="flex flex-col items-center text-center group cursor-pointer"
               >
                 <div className="w-16 h-16 rounded-full bg-black border border-white/10 flex items-center justify-center font-black text-lg text-white mb-6 shadow-xl relative z-10 transition-all duration-300 group-hover:border-[#F5C400] group-hover:shadow-[0_0_15px_#F5C400] group-hover:scale-110">
@@ -699,10 +705,10 @@ const NosotrosSection = () => {
 
               {/* 2010 */}
               <motion.div 
-                whileInView={{ opacity: 1, y: 0 }}
-                initial={{ opacity: 0, y: 20 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.1 }}
+                whileInView={{ opacity: 1, scale: 1.05 }}
+                initial={{ opacity: 0.4, scale: 0.85 }}
+                viewport={{ margin: "-20% 0px -20% 0px", amount: 0.5 }}
+                transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
                 className="flex flex-col items-center text-center group cursor-pointer"
               >
                 <div className="w-16 h-16 rounded-full bg-black border border-white/10 flex items-center justify-center font-black text-lg text-white mb-6 shadow-xl relative z-10 transition-all duration-300 group-hover:border-[#F5C400] group-hover:shadow-[0_0_15px_#F5C400] group-hover:scale-110">
@@ -717,10 +723,10 @@ const NosotrosSection = () => {
 
               {/* 2015 */}
               <motion.div 
-                whileInView={{ opacity: 1, y: 0 }}
-                initial={{ opacity: 0, y: 20 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
+                whileInView={{ opacity: 1, scale: 1.05 }}
+                initial={{ opacity: 0.4, scale: 0.85 }}
+                viewport={{ margin: "-20% 0px -20% 0px", amount: 0.5 }}
+                transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
                 className="flex flex-col items-center text-center group cursor-pointer"
               >
                 <div className="w-16 h-16 rounded-full bg-black border border-white/10 flex items-center justify-center font-black text-lg text-white mb-6 shadow-xl relative z-10 transition-all duration-300 group-hover:border-[#F5C400] group-hover:shadow-[0_0_15px_#F5C400] group-hover:scale-110">
@@ -735,10 +741,10 @@ const NosotrosSection = () => {
 
               {/* 2020 */}
               <motion.div 
-                whileInView={{ opacity: 1, y: 0 }}
-                initial={{ opacity: 0, y: 20 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3 }}
+                whileInView={{ opacity: 1, scale: 1.05 }}
+                initial={{ opacity: 0.4, scale: 0.85 }}
+                viewport={{ margin: "-20% 0px -20% 0px", amount: 0.5 }}
+                transition={{ duration: 0.5, ease: "easeOut", delay: 0.3 }}
                 className="flex flex-col items-center text-center group cursor-pointer"
               >
                 <div className="w-16 h-16 rounded-full bg-black border border-white/10 flex items-center justify-center font-black text-lg text-white mb-6 shadow-xl relative z-10 transition-all duration-300 group-hover:border-[#F5C400] group-hover:shadow-[0_0_15px_#F5C400] group-hover:scale-110">
@@ -753,10 +759,10 @@ const NosotrosSection = () => {
 
               {/* 2025+ */}
               <motion.div 
-                whileInView={{ opacity: 1, y: 0 }}
-                initial={{ opacity: 0, y: 20 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.4 }}
+                whileInView={{ opacity: 1, scale: 1.05 }}
+                initial={{ opacity: 0.4, scale: 0.85 }}
+                viewport={{ margin: "-20% 0px -20% 0px", amount: 0.5 }}
+                transition={{ duration: 0.5, ease: "easeOut", delay: 0.4 }}
                 className="flex flex-col items-center text-center group cursor-pointer"
               >
                 <div className="w-16 h-16 rounded-full bg-black border border-[#F5C400] flex items-center justify-center font-black text-lg text-[#F5C400] mb-6 shadow-[0_0_15px_rgba(245,196,0,0.3)] relative z-10 transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_20px_#F5C400]">

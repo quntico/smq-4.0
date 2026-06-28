@@ -169,8 +169,6 @@ const Header = () => {
     return (
       <div
         className="relative h-full flex items-center"
-        onMouseEnter={() => handleMouseEnter(menuName)}
-        onMouseLeave={handleMouseLeave}
       >
         <button
           onClick={(e) => {
@@ -246,8 +244,6 @@ const Header = () => {
         {DropdownComponent && (
           <DropdownComponent
             isOpen={activeMenu === menuName || lockedMenu === menuName}
-            onMouseEnter={() => handleMouseEnter(menuName)}
-            onMouseLeave={handleMouseLeave}
             onClose={() => {
               setActiveMenu(null);
               setLockedMenu(null);
