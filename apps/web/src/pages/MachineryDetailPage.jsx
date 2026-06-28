@@ -1840,10 +1840,10 @@ const MachineryDetailPage = () => {
 
                 {/* Step Cards Grid */}
                 <div className="relative">
-                  {/* Horizontal connector line */}
-                  <div className="absolute top-[52px] left-[12.5%] right-[12.5%] h-[2px] bg-white/5 hidden lg:block pointer-events-none" />
+                  {/* Horizontal connector line — placed behind cards (z-0) */}
+                  <div className="absolute top-[52px] left-[12.5%] right-[12.5%] h-[2px] bg-white/5 hidden lg:block pointer-events-none z-0" />
                   <div
-                    className="absolute top-[52px] left-[12.5%] h-[2px] hidden lg:block pointer-events-none transition-all duration-700"
+                    className="absolute top-[52px] left-[12.5%] h-[2px] hidden lg:block pointer-events-none transition-all duration-700 z-0"
                     style={{
                       width: `${(activeStep / Math.max(stationsList.length - 1, 1)) * 75}%`,
                       backgroundColor: data.theme.accent,
@@ -1851,7 +1851,7 @@ const MachineryDetailPage = () => {
                     }}
                   />
 
-                  <div className={`grid gap-4 ${stationsList.length <= 4 ? 'grid-cols-2 lg:grid-cols-4' : 'grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'}`}>
+                  <div className={`grid gap-4 relative z-10 ${stationsList.length <= 4 ? 'grid-cols-2 lg:grid-cols-4' : 'grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'}`}>
                     {stationsList.map((step, idx) => {
                       const StepIcon = iconMap[step.iconName] || Settings;
                       const isCurrent = idx === activeStep;
@@ -1862,15 +1862,14 @@ const MachineryDetailPage = () => {
                         <button
                           key={step.id}
                           onClick={() => setActiveStep(idx)}
-                          className={`group relative flex flex-col items-center text-center p-6 rounded-2xl border transition-all duration-300 cursor-pointer ${
+                          className={`group relative flex flex-col items-center text-center p-6 rounded-2xl border transition-all duration-300 cursor-pointer z-10 ${
                             isCurrent
-                              ? 'border-transparent scale-[1.03] shadow-2xl'
+                              ? 'border-transparent scale-[1.03] shadow-2xl bg-[#0C1220]'
                               : isCompleted
-                              ? 'border-white/10 bg-white/[0.02] hover:bg-white/[0.04]'
-                              : 'border-white/5 bg-[#0A0D14]/60 hover:border-white/15 hover:bg-white/[0.02]'
+                              ? 'border-white/10 bg-[#080C14] hover:bg-[#0E1524]'
+                              : 'border-white/5 bg-[#05080F] hover:border-white/15 hover:bg-[#080C14]'
                           }`}
                           style={isCurrent ? {
-                            backgroundColor: `${data.theme.accent}12`,
                             borderColor: `${data.theme.accent}50`,
                             boxShadow: `0 0 30px ${data.theme.accent}20`
                           } : {}}
