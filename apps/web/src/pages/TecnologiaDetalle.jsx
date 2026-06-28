@@ -194,6 +194,9 @@ const TecnologiaDetalle = () => {
   const fogDirection = heroBgModule?.data?.fogDirection ?? 'to-r';
   const objectFit = heroBgModule?.data?.objectFit || 'cover';
 
+  const [bgImageToRender, setBgImageToRender] = React.useState(currentBgImage);
+  const [isBgTransitioning, setIsBgTransitioning] = React.useState(false);
+
   const updateMediaProp = (prop, value) => {
     updatePageModule(pageId, 'hero-bg', {
       imageUrl: currentBgImage,
@@ -220,6 +223,40 @@ const TecnologiaDetalle = () => {
       e.target.value = '';
     }
   };
+
+  // Preload all technology background images on mount and when CMS state changes
+  useEffect(() => {
+    if (!cmsState?.pages) return;
+
+    const getSectorBgImage = (sec) => {
+      const pId = `tecnologia-${sec}`;
+      const pData = cmsState?.pages?.find(p => p.id === pId);
+      const bgMod = pData?.modules?.find(m => m.id === 'hero-bg');
+      return bgMod?.data?.imageUrl || technologyData[sec]?.robotImage;
+    };
+
+    techList.forEach(tech => {
+      const url = getSectorBgImage(tech.id);
+      if (url) {
+        const img = new Image();
+        img.src = url;
+      }
+    });
+  }, [cmsState]);
+
+  // Handle smooth background image transition on URL change
+  useEffect(() => {
+    if (currentBgImage === bgImageToRender) return;
+
+    setIsBgTransitioning(true);
+
+    const timer = setTimeout(() => {
+      setBgImageToRender(currentBgImage);
+      setIsBgTransitioning(false);
+    }, 200); // 200ms fast fade out
+
+    return () => clearTimeout(timer);
+  }, [currentBgImage, bgImageToRender]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -284,16 +321,17 @@ const TecnologiaDetalle = () => {
             onDoubleClick={() => isEditorMode && setShowControls(!showControls)}
           >
             <div 
-              className="absolute inset-0 transition-all duration-500 mix-blend-luminosity"
+              className="absolute inset-0 mix-blend-luminosity"
               style={{ 
-                backgroundImage: `url(${currentBgImage})`,
+                backgroundImage: `url(${bgImageToRender})`,
                 backgroundSize: objectFit === 'cover' ? 'cover' : 'contain',
                 backgroundPosition: `${positionX}% ${positionY}%`,
                 backgroundRepeat: 'no-repeat',
-                opacity: opacity / 100,
+                opacity: isBgTransitioning ? 0 : (opacity / 100),
                 filter: `brightness(${brightness}%)`,
                 transform: `scale(${scale})`,
-                transformOrigin: `${positionX}% ${positionY}%`
+                transformOrigin: `${positionX}% ${positionY}%`,
+                transition: 'opacity 0.2s ease-in-out, filter 0.5s ease, transform 0.5s ease'
               }}
             />
             {/* Fog Layer */}
