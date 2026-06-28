@@ -3865,6 +3865,39 @@ const IndustriaDetalle = () => {
                         </div>
                       </div>
                     )}
+
+                    {/* Tiny Edit Badge indicating click-to-edit is available */}
+                    {isEditorMode && (
+                      <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-md border border-white/10 text-white text-[10px] font-bold py-1.5 px-3 rounded-lg z-10 flex items-center gap-1.5 pointer-events-none group-hover:opacity-0 transition-opacity duration-300">
+                        <Upload size={10} className="text-[#3B82F6]" />
+                        <span>Editable</span>
+                      </div>
+                    )}
+
+                    {/* Hover Overlay for Editor Mode */}
+                    {isEditorMode && (
+                      <div className="absolute inset-0 bg-black/60 backdrop-blur-xs flex flex-col items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+                        <input 
+                          type="file" 
+                          className="hidden" 
+                          ref={instalacionesImageInputRef}
+                          accept="image/*,video/*" 
+                          onChange={handleInstalacionesImageUpload} 
+                        />
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            instalacionesImageInputRef.current?.click();
+                          }}
+                          className="bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider py-2.5 px-5 rounded-xl border border-white/10 transition-all flex items-center gap-2 cursor-pointer"
+                        >
+                          <Upload size={14} />
+                          Cambiar Imagen
+                        </button>
+                        <span className="text-xs text-white/50">o arrastra una imagen aquí</span>
+                      </div>
+                    )}
+
                     <img 
                       src={data.instalacionesImage || "/smq_factory_night2.png"} 
                       alt="SMQ High-Tech Factory" 
@@ -3872,26 +3905,6 @@ const IndustriaDetalle = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
                   </div>
-
-                  {/* Botón de carga — FUERA del overflow-hidden para que sea visible y clickeable */}
-                  {isEditorMode && (
-                    <div className="absolute top-3 right-3 z-30">
-                      <input 
-                        type="file" 
-                        className="hidden" 
-                        ref={instalacionesImageInputRef}
-                        accept="image/*,video/*" 
-                        onChange={handleInstalacionesImageUpload} 
-                      />
-                      <button 
-                        onClick={() => instalacionesImageInputRef.current?.click()}
-                        className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-bold text-xs px-3 py-2 rounded-xl transition-all shadow-[0_4px_20px_rgba(59,130,246,0.5)] cursor-pointer border border-blue-400/30"
-                      >
-                        <Upload size={13} />
-                        <span>Cambiar Imagen</span>
-                      </button>
-                    </div>
-                  )}
                 </div>
 
                 {/* Grid de Paneles Lado a Lado */}
