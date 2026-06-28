@@ -146,7 +146,6 @@ const HomePage = () => {
             <PlantVisualizerSection />
             <IndustrialProjectsSection />
             <TechnologySection />
-            <ContactSection />
             <Footer />
           </div>
         </main>

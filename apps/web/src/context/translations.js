@@ -8,7 +8,8 @@ export const translations = {
       company: "Empresa",
       quote: "Cotizar",
       wastetoenergy: "WtE",
-      projects: "Proyectos"
+      projects: "Proyectos",
+      contacto: "Contacto"
     },
     hero: {
       title1: "SOLUCIONES INDUSTRIALES",
@@ -25,7 +26,8 @@ export const translations = {
       company: "Company",
       quote: "Get Quote",
       wastetoenergy: "Waste to Energy",
-      projects: "Projects"
+      projects: "Projects",
+      contacto: "Contact"
     },
     hero: {
       title1: "INDUSTRIAL SOLUTIONS",
@@ -42,7 +44,8 @@ export const translations = {
       company: "Azienda",
       quote: "Preventivo",
       wastetoenergy: "Valorizzazione Energetica",
-      projects: "Progetti"
+      projects: "Progetti",
+      contacto: "Contatti"
     },
     hero: {
       title1: "SOLUZIONI INDUSTRIALI",
@@ -59,7 +62,8 @@ export const translations = {
       company: "شركة",
       quote: "اقتباس",
       wastetoenergy: "تحويل النفايات إلى طاقة",
-      projects: "مشاريع"
+      projects: "مشاريع",
+      contacto: "اتصل بنا"
     },
     hero: {
       title1: "حلول صناعية",

@@ -57,7 +57,7 @@ const SideMenu = ({ isOpen, onClose }) => {
       type: 'expandable', 
       items: ['Nosotros', 'Proyectos'] 
     },
-    { title: 'Contacto', type: 'link', href: '#contacto' }
+    { title: 'Contacto', type: 'link', href: '/contacto' }
   ];
 
   return (

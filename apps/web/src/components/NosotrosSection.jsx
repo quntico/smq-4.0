@@ -20,6 +20,7 @@ import {
 import { useCMS } from '@/context/CMSContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
 import { getOptimizedImageUrl } from '@/lib/utils.js';
+import DecipherText from '@/components/DecipherText.jsx';
 
 // Stat Counter with Ease-Out Deceleration
 const StatCounter = ({ target, suffix = '', duration = 2000, trigger = 0 }) => {
@@ -104,7 +105,7 @@ const NosotrosSection = () => {
   const fileInputRef = useRef(null);
 
   const collageImage = nosotrosFinalData.collageImage || '/nosotros_industrial_hero.png';
-  const collageVideo = nosotrosFinalData.collageVideo || 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780095574453_cajas%20fast%20webm.webm';
+  const collageVideo = nosotrosFinalData.collageVideo !== undefined ? nosotrosFinalData.collageVideo : 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780095574453_cajas%20fast%20webm.webm';
 
   const [isPlayingVideo, setIsPlayingVideo] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -145,7 +146,8 @@ const NosotrosSection = () => {
       const url = await uploadFile(file);
       updatePageModule('home', 'nosotros-final', { 
         ...nosotrosFinalData,
-        collageImage: url 
+        collageImage: url,
+        collageVideo: ''
       });
     } catch (error) {
       console.error("Error uploading collage image:", error);
@@ -344,28 +346,42 @@ const NosotrosSection = () => {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-[2]" />
         <div className="absolute top-1/4 left-1/4 w-[350px] h-[350px] bg-[#3B82F6]/5 rounded-full filter blur-[100px] pointer-events-none z-[2]" />
 
-        <div className="max-w-[1400px] w-full mx-auto relative z-10 flex items-center justify-start">
-          {/* Border-l accent line like Image 2 */}
+        <div className="max-w-[1400px] w-full mx-auto relative z-10 flex items-stretch justify-start">
+          {/* Animated Vertical Line */}
           <motion.div 
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="pl-6 md:pl-10 border-l-[4px] border-[#3B82F6] flex flex-col items-start gap-4 md:gap-6 py-2"
-          >
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="w-[4px] bg-[#3B82F6] shadow-[0_0_15px_#3B82F6] origin-top shrink-0"
+          />
+          
+          <div className="pl-6 md:pl-10 flex flex-col items-start gap-4 md:gap-6 py-2">
             
             {/* Main Title - NOSOTROS */}
             <h2 className="text-5xl md:text-7xl lg:text-[90px] font-black tracking-tight text-white leading-none uppercase select-none font-sans drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
-              NOSOTROS
+              <DecipherText text="NOSOTROS" delay={200} />
             </h2>
 
             {/* Subtitle - Empresa integradora y desarrolladora... */}
-            <p className="text-white/95 text-base md:text-xl lg:text-2xl font-bold tracking-wide leading-relaxed max-w-[650px] font-sans drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
-              Empresa integradora y desarrolladora de proyectos para la industria
-            </p>
+            <motion.p 
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="text-white/95 text-sm md:text-base lg:text-lg font-normal tracking-wide leading-relaxed max-w-[850px] font-sans drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]"
+            >
+              SMQ Industrial Systems desarrolla maquinaria industrial especializada para reciclaje, procesamiento y valorización de materiales. Integramos sistemas completos para trituración, separación, lavado, peletizado, recuperación de recursos y soluciones de Valorización Energética. Nuestro enfoque combina ingeniería aplicada, automatización y plantas industriales llave en mano adaptadas a las necesidades de cada cliente.
+            </motion.p>
 
             {/* Navigation links - Historia • Visión • Valores */}
-            <div className="flex flex-wrap items-center gap-3 md:gap-4 text-xs md:text-sm font-bold uppercase tracking-wider text-white/50 mt-2 font-mono">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.9 }}
+              className="flex flex-wrap items-center gap-3 md:gap-4 text-xs md:text-sm font-bold uppercase tracking-wider text-white/50 mt-2 font-mono"
+            >
               <a href="/nosotros#historia" className="hover:text-[#3B82F6] hover:text-white transition-colors duration-300">Historia</a>
               <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] shadow-[0_0_8px_#3B82F6]"></span>
               <a href="/nosotros#mision" className="hover:text-[#3B82F6] hover:text-white transition-colors duration-300">Misión</a>
@@ -373,9 +389,9 @@ const NosotrosSection = () => {
               <a href="/nosotros#vision" className="hover:text-[#3B82F6] hover:text-white transition-colors duration-300">Visión</a>
               <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] shadow-[0_0_8px_#3B82F6]"></span>
               <a href="/nosotros#valores" className="hover:text-[#3B82F6] hover:text-white transition-colors duration-300">Valores</a>
-            </div>
+            </motion.div>
 
-          </motion.div>
+          </div>
         </div>
 
         {/* Technical HUD details in corners to align with SMQ 4.0 style */}
@@ -399,6 +415,19 @@ const NosotrosSection = () => {
             >
               Subir Video
             </button>
+            {collageVideo && (
+              <button
+                onClick={() => {
+                  updatePageModule('home', 'nosotros-final', {
+                    ...nosotrosFinalData,
+                    collageVideo: ''
+                  });
+                }}
+                className="bg-red-600 hover:bg-red-700 text-white font-black text-[9px] tracking-wider uppercase py-1.5 px-2.5 rounded-md transition-all shadow-lg"
+              >
+                Eliminar Video
+              </button>
+            )}
             <input 
               type="file" 
               ref={collageImageInputRef} 
@@ -481,10 +510,13 @@ const NosotrosSection = () => {
 
             <div className="flex flex-col gap-5 text-[#A1A8B3] text-base leading-relaxed">
               <p>
-                SMQ nació con una visión clara: acercar tecnologías industriales avanzadas a empresas que buscan crecer mediante automatización, eficiencia e innovación.
+                SMQ Industrial Systems desarrolla maquinaria industrial especializada para reciclaje, procesamiento y valorización de materiales.
               </p>
               <p>
-                Desde nuestros inicios hemos participado en proyectos de reciclaje, alimentos, empaque, manufactura y automatización industrial, integrando ingeniería, software y maquinaria en una sola solución integral de vanguardia.
+                Integramos sistemas completos para trituración, separación, lavado, peletizado, recuperación de recursos y soluciones de Valorización Energética.
+              </p>
+              <p>
+                Nuestro enfoque combina ingeniería aplicada, automatización y plantas industriales llave en mano adaptadas a las necesidades de cada cliente.
               </p>
             </div>
           </motion.div>
@@ -513,8 +545,7 @@ const NosotrosSection = () => {
               initial={{ opacity: 0, y: 30 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              onClick={() => setActiveDialogCard('mision')}
-              className="cursor-pointer border-t border-l border-white/20 border-b border-r border-white/5 bg-[#0e131b]/60 backdrop-blur-xl rounded-2xl p-8 shadow-2xl relative overflow-hidden flex flex-col justify-start min-h-[460px] transition-all duration-300 hover:-translate-y-2 hover:border-[#F5C400]/40 group"
+              className="cursor-pointer border-t border-l border-white/20 border-b border-r border-white/5 bg-[#0e131b]/60 backdrop-blur-xl rounded-2xl p-8 shadow-2xl relative overflow-hidden flex flex-col justify-start min-h-[460px] transition-all duration-300 hover:-translate-y-2 hover:border-[#F5C400]/40 group active:scale-95 active:border-[#F5C400]"
             >
               <div 
                 className="absolute bottom-0 left-0 right-0 h-[55%] bg-cover bg-center bg-no-repeat opacity-40 group-hover:opacity-80 transition-opacity duration-700 pointer-events-none"
@@ -535,7 +566,7 @@ const NosotrosSection = () => {
                 </p>
               </div>
               <div className="relative z-10 text-[9px] font-mono text-white/50 mt-auto pt-8 tracking-widest uppercase text-center flex justify-between items-center w-full">
-                <span className="font-bold text-white/90 text-xs">Editar</span>
+                <span className="w-8"></span>
                 <span>SMQ_CORE_MISSION</span>
                 <span className="w-4"></span>
               </div>
@@ -547,8 +578,7 @@ const NosotrosSection = () => {
               initial={{ opacity: 0, y: 30 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              onClick={() => setActiveDialogCard('vision')}
-              className="cursor-pointer border-t border-l border-white/20 border-b border-r border-white/5 bg-[#0e131b]/60 backdrop-blur-xl rounded-2xl p-8 shadow-2xl relative overflow-hidden flex flex-col justify-start min-h-[460px] transition-all duration-300 hover:-translate-y-2 hover:border-[#06B6D4]/40 group"
+              className="cursor-pointer border-t border-l border-white/20 border-b border-r border-white/5 bg-[#0e131b]/60 backdrop-blur-xl rounded-2xl p-8 shadow-2xl relative overflow-hidden flex flex-col justify-start min-h-[460px] transition-all duration-300 hover:-translate-y-2 hover:border-[#06B6D4]/40 group active:scale-95 active:border-[#06B6D4]"
             >
               <div 
                 className="absolute bottom-0 left-0 right-0 h-[55%] bg-cover bg-center bg-no-repeat opacity-40 group-hover:opacity-80 transition-opacity duration-700 pointer-events-none"
@@ -569,7 +599,7 @@ const NosotrosSection = () => {
                 </p>
               </div>
               <div className="relative z-10 text-[9px] font-mono text-white/50 mt-auto pt-8 tracking-widest uppercase text-center flex justify-between items-center w-full">
-                <span className="font-bold text-white/90 text-xs">Editar</span>
+                <span className="w-8"></span>
                 <span>SMQ_FUTURE_VISION</span>
                 <span className="w-4"></span>
               </div>
@@ -581,8 +611,7 @@ const NosotrosSection = () => {
               initial={{ opacity: 0, y: 30 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              onClick={() => setActiveDialogCard('valores')}
-              className="cursor-pointer border-t border-l border-white/20 border-b border-r border-white/5 bg-[#0e131b]/60 backdrop-blur-xl rounded-2xl p-8 shadow-2xl relative overflow-hidden flex flex-col justify-start min-h-[460px] transition-all duration-300 hover:-translate-y-2 hover:border-[#84CC16]/40 group"
+              className="cursor-pointer border-t border-l border-white/20 border-b border-r border-white/5 bg-[#0e131b]/60 backdrop-blur-xl rounded-2xl p-8 shadow-2xl relative overflow-hidden flex flex-col justify-start min-h-[460px] transition-all duration-300 hover:-translate-y-2 hover:border-[#84CC16]/40 group active:scale-95 active:border-[#84CC16]"
             >
               <div 
                 className="absolute bottom-0 left-0 right-0 h-[55%] bg-cover bg-center bg-no-repeat opacity-40 group-hover:opacity-80 transition-opacity duration-700 pointer-events-none"
@@ -620,7 +649,7 @@ const NosotrosSection = () => {
                 </div>
               </div>
               <div className="relative z-10 text-[9px] font-mono text-white/50 mt-auto pt-8 tracking-widest uppercase text-center flex justify-between items-center w-full">
-                <span className="font-bold text-white/90 text-xs">Editar</span>
+                <span className="w-8"></span>
                 <span>SMQ_ETHICAL_VALUES</span>
                 <ArrowUpRight size={16} className="text-white/60" />
               </div>

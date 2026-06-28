@@ -10,7 +10,7 @@ const companyItems = [
     desc: 'HISTORIA, VISIÓN Y VALORES DE NUESTRA TRAYECTORIA INDUSTRIAL.',
     color: '#3B82F6', // Blue
     Icon: Building2,
-    href: '/nosotros#nosotros'
+    href: '/nosotros'
   },
   {
     num: '02',
@@ -18,7 +18,7 @@ const companyItems = [
     desc: 'NUESTRA INFRAESTRUCTURA DE FABRICACIÓN Y ALCANCE TECNOLÓGICO.',
     color: '#F59E0B', // Amber
     Icon: Layers,
-    href: '/nosotros#capacidades'
+    href: '/capacidades'
   },
   {
     num: '03',
@@ -26,7 +26,7 @@ const companyItems = [
     desc: 'ESTÁNDARES DE CALIDAD ISO, CERTIFICACIONES DE SEGURIDAD Y NORMATIVAS.',
     color: '#10B981', // Green
     Icon: ShieldCheck,
-    href: '/nosotros#certificaciones'
+    href: '/certificaciones'
   },
   {
     num: '04',
@@ -34,7 +34,7 @@ const companyItems = [
     desc: 'RED GLOBAL DE SOCIOS E INTEGRADORES DE MAQUINARIA INDUSTRIAL.',
     color: '#8B5CF6', // Purple
     Icon: Globe,
-    href: '/nosotros#alianzas'
+    href: '/alianzas'
   },
   {
     num: '05',
@@ -42,7 +42,7 @@ const companyItems = [
     desc: 'CENTROS DE I+D Y DESARROLLOS TECNOLÓGICOS DE PRÓXIMA GENERACIÓN.',
     color: '#06B6D4', // Cyan
     Icon: Cpu,
-    href: '/nosotros#innovacion'
+    href: '/innovacion'
   },
   {
     num: '06',
@@ -50,7 +50,7 @@ const companyItems = [
     desc: 'ÚNETE A NUESTRO EQUIPO GLOBAL DE INGENIERÍA Y MANUFACTURA.',
     color: '#EC4899', // Pink
     Icon: Briefcase,
-    href: '/nosotros#carrera'
+    href: '/carrera'
   },
   {
     num: '07',
@@ -58,7 +58,7 @@ const companyItems = [
     desc: 'ASISTENCIA TÉCNICA, OFICINAS REGIONALES Y COTIZACIÓN EXPRESS.',
     color: '#F97316', // Orange
     Icon: PhoneCall,
-    href: '/nosotros#contacto'
+    href: '/contacto'
   }
 ];
 
@@ -98,7 +98,7 @@ const CompanyMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
             </div>
             {/* Action button */}
             <a 
-              href="#contacto"
+              href="/contacto"
               className="px-4 py-2 rounded-full border border-white/10 text-[10px] font-bold tracking-widest uppercase hover:bg-white/10 hover:text-[#FFD700] transition-colors text-white/70"
             >
               Contactar Asesor

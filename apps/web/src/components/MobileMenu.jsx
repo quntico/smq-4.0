@@ -128,13 +128,13 @@ const MobileMenu = ({ isOpen, onClose }) => {
       key: 'company',
       type: 'expandable',
       items: [
-        { name: 'Nosotros', href: '/nosotros#nosotros' },
-        { name: 'Capacidades', href: '/nosotros#capacidades' },
-        { name: 'Certificaciones', href: '/nosotros#certificaciones' },
-        { name: 'Alianzas', href: '/nosotros#alianzas' },
-        { name: 'Innovación', href: '/nosotros#innovacion' },
-        { name: 'Carrera', href: '/nosotros#carrera' },
-        { name: 'Contacto', href: '/nosotros#contacto' }
+        { name: 'Nosotros', href: '/nosotros' },
+        { name: 'Capacidades', href: '/capacidades' },
+        { name: 'Certificaciones', href: '/certificaciones' },
+        { name: 'Alianzas', href: '/alianzas' },
+        { name: 'Innovación', href: '/innovacion' },
+        { name: 'Carrera', href: '/carrera' },
+        { name: 'Contacto', href: '/contacto' }
       ]
     }
   ];
@@ -260,14 +260,15 @@ const MobileMenu = ({ isOpen, onClose }) => {
                 );
               })}
               
+
               {/* Call to Action Button */}
               <div className="mt-8">
                 <Link
-                  to="/#contacto"
+                  to="/contacto"
                   className="block w-full text-center bg-[#FFD700] text-[#1A1F2E] font-black uppercase tracking-wider text-[13px] py-[14px] rounded-full transition-all hover:brightness-110 shadow-[0_4px_20px_rgba(255,215,0,0.25)]"
                   onClick={onClose}
                 >
-                  Cotizar Planta
+                  Contacto / Cotizar
                 </Link>
               </div>
             </nav>

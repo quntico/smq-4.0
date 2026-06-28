@@ -1562,7 +1562,8 @@ const IndustriaDetalle = () => {
   useEffect(() => {
     const techKeys = ['ia', 'inteligencia-artificial', 'smart-factory', 'digital-twin', 'plc-motion', 'iiot-edge', 'energia-inteligente', 'smq-os', 'economia-circular'];
     if (rawSector && techKeys.includes(rawSector.toLowerCase())) {
-      navigate(`/tecnologia/${rawSector.toLowerCase()}`, { replace: true });
+      const target = rawSector.toLowerCase() === 'inteligencia-artificial' ? 'ia' : rawSector.toLowerCase();
+      navigate(`/tecnologia/${target}`, { replace: true });
     }
   }, [rawSector, navigate]);
   

@@ -502,24 +502,7 @@ const SolutionsSection = () => {
           })}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isVisible ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-12 md:mt-16 glass-card rounded-xl p-8 md:p-12 text-center"
-        >
-          <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-            ¿Necesitas una solución a medida?
-          </h3>
-          <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-            Nuestro equipo de ingenieros está listo para diseñar la solución perfecta para tu planta industrial.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <span className="text-primary font-semibold text-lg">
-              Contáctanos y recibe una consultoría gratuita
-            </span>
-          </div>
-        </motion.div>
+
       </div>
 
       {/* Icon Selector Modal */}

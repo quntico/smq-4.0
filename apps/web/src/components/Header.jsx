@@ -337,6 +337,23 @@ const Header = () => {
               />
             );
           })}
+          
+          {/* Contacto menu item */}
+          <button
+            onClick={() => navigate('/contacto')}
+            className={`text-[15px] transition-all duration-200 relative py-2 ${
+              location.pathname === '/contacto'
+                ? 'text-[#FFD700] font-[600]'
+                : 'text-white hover:text-[#FFD700] hover:font-[600] font-medium'
+            }`}
+          >
+            <span>{t('header.contacto')}</span>
+            <span
+              className={`absolute bottom-0 left-0 w-full h-[2px] bg-[#FFD700] transition-transform duration-300 origin-left ${
+                location.pathname === '/contacto' ? 'scale-x-100' : 'scale-x-0'
+              }`}
+            />
+          </button>
         </nav>
 
         {/* Action Buttons */}

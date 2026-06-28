@@ -37,7 +37,7 @@ const Footer = () => {
     { label: 'Soluciones', href: '#soluciones' },
     { label: 'Tecnología', href: '#tecnologia' },
     { label: 'Proyectos', href: '#proyectos' },
-    { label: 'Contacto', href: '#contacto' },
+    { label: 'Contacto', href: '/contacto' },
   ];
 
   const socialLinks = [
@@ -48,6 +48,11 @@ const Footer = () => {
   ];
 
   const scrollToSection = (href) => {
+    if (href.startsWith('/')) {
+      navigate(href);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
     const targetId = href.replace('#', '');
     if (location.pathname !== '/') {
       navigate(`/#${targetId}`);
@@ -115,7 +120,7 @@ const Footer = () => {
               {companyDesc}
             </p>
             <Button 
-              onClick={() => scrollToSection('#contacto')}
+              onClick={() => scrollToSection('/contacto')}
               className="bg-[#FFD700] text-black hover:bg-[#FFC000] font-black uppercase tracking-wider text-xs px-6 py-3.5 rounded-xl transition-all duration-300 w-full sm:w-auto shadow-[0_0_20px_rgba(255,215,0,0.1)] hover:shadow-[0_0_25px_rgba(255,215,0,0.2)]"
             >
               Solicitar Cotización

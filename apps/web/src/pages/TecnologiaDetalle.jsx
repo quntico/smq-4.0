@@ -206,6 +206,28 @@ const TecnologiaDetalle = () => {
   const data = technologyData[sector] || technologyData.ia;
   const Icon = data.icon;
 
+  // Unify ia and inteligencia-artificial pages, and migrate customized background configurations
+  useEffect(() => {
+    if (sector === 'inteligencia-artificial') {
+      const oldPageId = 'tecnologia-inteligencia-artificial';
+      const oldPageData = cmsState?.pages?.find(p => p.id === oldPageId);
+      const oldHeroBg = oldPageData?.modules?.find(m => m.id === 'hero-bg')?.data;
+      
+      if (oldHeroBg && oldHeroBg.imageUrl) {
+        const newPageId = 'tecnologia-ia';
+        const newPageData = cmsState?.pages?.find(p => p.id === newPageId);
+        const newHeroBg = newPageData?.modules?.find(m => m.id === 'hero-bg')?.data;
+        
+        if (!newHeroBg || !newHeroBg.imageUrl || newHeroBg.imageUrl.includes('unsplash.com')) {
+          updatePageModule(newPageId, 'hero-bg', {
+            ...oldHeroBg
+          });
+        }
+      }
+      navigate('/tecnologia/ia', { replace: true });
+    }
+  }, [sector, cmsState, navigate, updatePageModule]);
+
   const pageId = `tecnologia-${sector}`;
   const pageData = cmsState?.pages?.find(p => p.id === pageId);
   const heroBgModule = pageData?.modules?.find(m => m.id === 'hero-bg');

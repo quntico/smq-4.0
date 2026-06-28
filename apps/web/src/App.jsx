@@ -17,6 +17,12 @@ import ScrollToTopButton from '@/components/ScrollToTopButton.jsx';
 import MachineryDetailPage from '@/pages/MachineryDetailPage.jsx';
 import WasteToEnergy from '@/pages/WasteToEnergy.jsx';
 import Projects from '@/pages/Projects.jsx';
+import Capacidades from '@/pages/Capacidades.jsx';
+import Certificaciones from '@/pages/Certificaciones.jsx';
+import Alianzas from '@/pages/Alianzas.jsx';
+import Innovacion from '@/pages/Innovacion.jsx';
+import Carrera from '@/pages/Carrera.jsx';
+import Contacto from '@/pages/Contacto.jsx';
 
 import { useCMS } from '@/context/CMSContext.jsx';
 import { getOptimizedImageUrl } from '@/lib/utils.js';
@@ -80,6 +86,12 @@ function AppContent() {
         <Route path="/envasadoras" element={<EnvasadoraDoypack />} />
         <Route path="/maquinaria/:machineId" element={<MachineryDetailPage />} />
         <Route path="/nosotros" element={<Nosotros />} />
+        <Route path="/capacidades" element={<Capacidades />} />
+        <Route path="/certificaciones" element={<Certificaciones />} />
+        <Route path="/alianzas" element={<Alianzas />} />
+        <Route path="/innovacion" element={<Innovacion />} />
+        <Route path="/carrera" element={<Carrera />} />
+        <Route path="/contacto" element={<Contacto />} />
         <Route path="/waste-to-energy" element={<WasteToEnergy />} />
         <Route path="/proyectos" element={<Projects />} />
         <Route path="/admin" element={<AdminDashboard />} />

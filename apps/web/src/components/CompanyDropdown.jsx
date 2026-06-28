@@ -4,11 +4,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const CompanyDropdown = ({ isOpen, onMouseEnter, onMouseLeave }) => {
   const items = [
-    { label: 'Nosotros', href: '#nosotros' },
-    { label: 'Proyectos', href: '#proyectos' },
-    { label: 'Certificaciones', href: '#certificaciones' },
-    { label: 'Descargables', href: '#descargables' },
-    { label: 'Contacto', href: '#contacto' }
+    { label: 'Nosotros', href: '/nosotros' },
+    { label: 'Proyectos', href: '/proyectos' },
+    { label: 'Certificaciones', href: '/certificaciones' },
+    { label: 'Descargables', href: '/proyectos#descargables' },
+    { label: 'Contacto', href: '/contacto' }
   ];
 
   return (
