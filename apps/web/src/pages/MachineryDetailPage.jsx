@@ -1185,9 +1185,74 @@ const MachineryDetailPage = () => {
     }
   };
 
+  const [dragActiveZone, setDragActiveZone] = useState(null);
+  const appFileRefs = useRef([]);
+
+  const makeDropZone = (zoneId, onFileDrop) => ({
+    onDragOver: (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (isEditorMode) setDragActiveZone(zoneId);
+    },
+    onDragLeave: (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setDragActiveZone(null);
+    },
+    onDrop: async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setDragActiveZone(null);
+      if (!isEditorMode) return;
+      const file = e.dataTransfer.files?.[0];
+      if (!file) return;
+      try {
+        setIsUploading(true);
+        const url = await uploadFile(file, 'media');
+        onFileDrop(url, file);
+      } catch (err) {
+        console.error("Error al subir archivo drag-drop:", err);
+        alert('Error al subir el archivo: ' + err.message);
+      } finally {
+        setIsUploading(false);
+      }
+    }
+  });
+
+  const handleAppImageUpload = async (e, idx) => {
+    const file = e.target.files[0] || e;
+    if (file instanceof File) {
+      try {
+        setIsUploading(true);
+        const url = await uploadFile(file, "media");
+        const rawApps = [...(data.applications || defaults.applications)];
+        if (!rawApps[idx]) {
+          rawApps[idx] = { name: `Aplicación ${idx + 1}`, icon: '⚙️', desc: '' };
+        }
+        rawApps[idx] = { ...rawApps[idx], image: url };
+        handleUpdate('applications', rawApps);
+      } catch (err) {
+        console.error("Error al subir imagen de aplicación:", err);
+        alert('No se pudo subir la imagen.');
+      } finally {
+        setIsUploading(false);
+      }
+    }
+  };
+
   const stationsList = data.stations || defaults.stations;
   const kpisList = data.kpis || defaults.kpis;
-  const applicationsList = data.applications || defaults.applications;
+  const rawApplications = data.applications || defaults.applications;
+  const applicationsList = rawApplications.map((app, idx) => {
+    const defaultImages = [
+      'https://images.unsplash.com/photo-1590779033100-9f60a05a013d?auto=format&fit=crop&w=800&q=80', // Potatoes washing
+      'https://images.unsplash.com/photo-1595855759920-86582396756a?auto=format&fit=crop&w=800&q=80'  // Tomatoes sorting
+    ];
+    return {
+      ...app,
+      image: app.image || defaultImages[idx % defaultImages.length]
+    };
+  });
   const advantagesList = data.advantages || defaults.advantages;
   const specsList = data.specs || defaults.specs;
   const configurationsList = data.configurations || defaults.configurations;
@@ -1981,35 +2046,126 @@ const MachineryDetailPage = () => {
               </div>
             </section>
 
-            {/* APPLICATIONS */}
-            <section className="py-20 max-w-[1400px] mx-auto px-[40px]">
+            {/* APPLICATIONS — Redesigned as premium split-layout cards (Image 1) */}
+            <section className="py-20 max-w-[1400px] mx-auto px-6 md:px-10">
               <div className="flex flex-col items-center gap-3 mb-16 text-center">
-                <span className="text-[11px] font-black uppercase tracking-[0.3em]" style={{ color: data.theme.accent }}>Sectores de Aplicación</span>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white">APLICACIONES INDUSTRIALES</h2>
+                <span className="text-[11px] font-black uppercase tracking-[0.3em]" style={{ color: data.theme.accent }}>
+                  Sectores de Aplicación
+                </span>
+                <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white uppercase">
+                  APLICACIONES INDUSTRIALES
+                </h2>
                 <div 
-                  className="w-48 h-[3px] rounded-full mt-2 mx-auto" 
+                  className="w-20 h-[3px] rounded-full mt-2 mx-auto" 
                   style={{ 
                     backgroundColor: data.theme.accent,
-                    boxShadow: `0 0 15px ${data.theme.accent}`
+                    boxShadow: `0 0 12px ${data.theme.accent}`
                   }}
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {applicationsList.map((app, idx) => (
-                  <div 
-                    key={idx}
-                    className="border border-white/5 bg-white/[0.01] hover:bg-white/[0.03] backdrop-blur-md rounded-xl p-6 transition-all duration-300 hover:scale-[1.02] text-left group"
-                  >
-                    <div className="text-3xl mb-4">{app.icon}</div>
-                    <h3 className="text-lg font-bold text-white mb-2 group-hover:text-primary transition-colors" style={{ groupHoverColor: data.theme.accent }}>
-                      {app.name}
-                    </h3>
-                    <p className="text-white/60 text-sm leading-relaxed">
-                      {app.desc}
-                    </p>
-                  </div>
-                ))}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {applicationsList.map((app, idx) => {
+                  const cardZoneId = `app-card-${idx}`;
+                  const isDragActive = dragActiveZone === cardZoneId;
+
+                  return (
+                    <div 
+                      key={idx}
+                      {...(isEditorMode ? makeDropZone(cardZoneId, (url) => {
+                        const rawApps = [...(data.applications || defaults.applications)];
+                        if (!rawApps[idx]) {
+                          rawApps[idx] = { name: `Aplicación ${idx + 1}`, icon: '⚙️', desc: '' };
+                        }
+                        rawApps[idx] = { ...rawApps[idx], image: url };
+                        handleUpdate('applications', rawApps);
+                      }) : {})}
+                      className={`relative border rounded-2xl overflow-hidden flex flex-col md:flex-row transition-all duration-500 hover:scale-[1.01] min-h-[220px] group ${
+                        isDragActive 
+                          ? 'scale-[1.02] border-dashed shadow-2xl' 
+                          : 'border-white/10 bg-[#080C14] hover:border-white/20'
+                      }`}
+                      style={isDragActive ? { borderColor: data.theme.accent, boxShadow: `0 0 30px ${data.theme.accent}30` } : {}}
+                    >
+                      {/* Hidden upload input for click-to-upload */}
+                      <input
+                        type="file"
+                        ref={el => appFileRefs.current[idx] = el}
+                        onChange={(e) => handleAppImageUpload(e, idx)}
+                        className="hidden"
+                        accept="image/*"
+                      />
+
+                      {/* HUD Corner Accents */}
+                      <span className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/20" />
+                      <span className="absolute top-0 right-0 w-2 h-2 border-t border-r border-white/20" />
+                      <span className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-white/20" />
+                      <span className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-white/20" />
+
+                      {/* Left Side: Content */}
+                      <div className="w-full md:w-1/2 p-7 md:p-8 flex flex-col justify-between relative z-10 text-left">
+                        {/* Header Badge & Icon */}
+                        <div className="flex items-center gap-3">
+                          <div 
+                            className="w-12 h-12 rounded-xl flex items-center justify-center border relative"
+                            style={{ borderColor: `${data.theme.accent}30`, background: `${data.theme.accent}05` }}
+                          >
+                            {/* HUD corner glowing ticks */}
+                            <span className="absolute top-0 left-0 w-1.5 h-1.5 border-t border-l" style={{ borderColor: data.theme.accent }} />
+                            <span className="absolute top-0 right-0 w-1.5 h-1.5 border-t border-r" style={{ borderColor: data.theme.accent }} />
+                            <span className="absolute bottom-0 left-0 w-1.5 h-1.5 border-b border-l" style={{ borderColor: data.theme.accent }} />
+                            <span className="absolute bottom-0 right-0 w-1.5 h-1.5 border-b border-r" style={{ borderColor: data.theme.accent }} />
+                            <span className="text-xl">{app.icon}</span>
+                          </div>
+                          
+                          <span 
+                            className="text-[9px] font-mono tracking-widest px-2.5 py-1 rounded border uppercase font-black"
+                            style={{ borderColor: `${data.theme.accent}20`, color: data.theme.accent, background: `${data.theme.accent}08` }}
+                          >
+                            AP-0{idx + 1}
+                          </span>
+                        </div>
+
+                        {/* Title & Description */}
+                        <div className="mt-8">
+                          <h3 className="text-lg md:text-xl font-black text-white tracking-tight uppercase group-hover:text-primary transition-colors duration-300" style={{ groupHoverColor: data.theme.accent }}>
+                            {app.name}
+                          </h3>
+                          <p className="text-white/45 text-xs mt-2.5 leading-relaxed">
+                            {app.desc}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Right Side: Image with Gradient Mask */}
+                      <div className="w-full md:w-1/2 relative h-48 md:h-auto overflow-hidden">
+                        <img 
+                          src={app.image} 
+                          alt={app.name} 
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                        {/* Desktop Side Fade */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#080C14] via-[#080C14]/75 to-transparent hidden md:block" />
+                        {/* Mobile Bottom Fade */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#080C14] via-[#080C14]/30 to-transparent md:hidden" />
+
+                        {/* Editor Controls Overlay */}
+                        {isEditorMode && (
+                          <div className="absolute inset-0 bg-black/60 backdrop-blur-xs flex flex-col items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <button
+                              onClick={() => appFileRefs.current[idx]?.click()}
+                              className="bg-white/10 hover:bg-white/20 text-white font-bold text-[10px] uppercase tracking-wider py-2 px-4 rounded-xl border border-white/10 transition-all flex items-center gap-2 cursor-pointer"
+                            >
+                              <Upload size={12} />
+                              Cambiar Imagen
+                            </button>
+                            <span className="text-[10px] text-white/50">o arrastra una imagen aquí</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </section>
 
