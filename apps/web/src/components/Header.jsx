@@ -177,7 +177,11 @@ const Header = () => {
         <button
           onClick={(e) => {
             if (!isEditorMode) {
-              handleMenuClick(menuName);
+              if (componentName === 'WasteToEnergyMenu' || id === '6' || menuName.includes('waste') || menuName.includes('valoriz') || menuName.includes('wte') || menuName.includes('wt')) {
+                navigate('/waste-to-energy');
+              } else {
+                handleMenuClick(menuName);
+              }
             }
           }}
           onDoubleClick={(e) => {

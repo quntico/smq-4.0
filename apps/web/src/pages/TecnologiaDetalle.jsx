@@ -306,81 +306,94 @@ const TecnologiaDetalle = () => {
                 opacity: fogOpacity / 100
               }}
             />
-            
-            {/* CMS Image Controls Panel */}
-            {isEditorMode && showControls && (
-              <div 
-                className="absolute top-4 right-4 z-50 bg-[#0C1017]/95 border border-white/10 p-5 rounded-xl backdrop-blur-xl shadow-2xl w-64 cursor-default" 
-                onClick={e => e.stopPropagation()}
-              >
-                <div className="flex justify-between items-center mb-4 border-b border-white/10 pb-2">
-                  <h3 className="text-[#FFD700] text-[10px] font-black uppercase tracking-widest">Ajustes de Imagen</h3>
-                  <button onClick={() => setShowControls(false)} className="text-white/40 hover:text-white transition-colors">✕</button>
-                </div>
-                
-                <div className="flex flex-col gap-4">
-                  <div className="flex flex-col gap-0.5">
-                    <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
-                      <span>Opacidad</span>
-                      <span className="text-[#FFD700]">{opacity}%</span>
-                    </div>
-                    <input type="range" min="0" max="100" value={opacity} onChange={(e) => updateMediaProp('opacity', parseInt(e.target.value))} className="w-full accent-[#FFD700] h-1 bg-white/10 appearance-none rounded-full" />
-                  </div>
-                  <div className="flex flex-col gap-0.5">
-                    <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
-                      <span>Brillo</span>
-                      <span className="text-[#FFD700]">{brightness}%</span>
-                    </div>
-                    <input type="range" min="50" max="200" value={brightness} onChange={(e) => updateMediaProp('brightness', parseInt(e.target.value))} className="w-full accent-[#FFD700] h-1 bg-white/10 appearance-none rounded-full" />
-                  </div>
-                  <div className="flex flex-col gap-0.5">
-                    <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
-                      <span>Fog Intensidad</span>
-                      <span className="text-[#FFD700]">{fogOpacity}%</span>
-                    </div>
-                    <input type="range" min="0" max="100" value={fogOpacity} onChange={(e) => updateMediaProp('fogOpacity', parseInt(e.target.value))} className="w-full accent-[#FFD700] h-1 bg-white/10 appearance-none rounded-full" />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-[8px] uppercase font-black text-white/50 tracking-wider">Dirección Fog</span>
-                    <button 
-                      onClick={() => updateMediaProp('fogDirection', fogDirection === 'to-r' ? 'to-l' : 'to-r')}
-                      className="text-[9px] font-bold bg-white/5 hover:bg-white/10 px-2 py-1 rounded text-[#FFD700] transition-colors"
-                    >
-                      {fogDirection === 'to-r' ? 'Izq a Der ⇾' : '⇽ Der a Izq'}
-                    </button>
-                  </div>
-                  <div className="flex flex-col gap-0.5">
-                    <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
-                      <span>Escala</span>
-                      <span className="text-[#FFD700]">{Math.round(scale * 100)}%</span>
-                    </div>
-                    <input type="range" min="1" max="3" step="0.05" value={scale} onChange={(e) => updateMediaProp('scale', parseFloat(e.target.value))} className="w-full accent-[#FFD700] h-1 bg-white/10 appearance-none rounded-full" />
-                  </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="flex flex-col gap-0.5">
-                      <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
-                        <span>Pos X</span>
-                        <span className="text-[#FFD700]">{positionX}%</span>
-                      </div>
-                      <input type="range" min="0" max="100" value={positionX} onChange={(e) => updateMediaProp('positionX', parseInt(e.target.value))} className="w-full accent-[#FFD700] h-1 bg-white/10 appearance-none rounded-full" />
-                    </div>
-                    <div className="flex flex-col gap-0.5">
-                      <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
-                        <span>Pos Y</span>
-                        <span className="text-[#FFD700]">{positionY}%</span>
-                      </div>
-                      <input type="range" min="0" max="100" value={positionY} onChange={(e) => updateMediaProp('positionY', parseInt(e.target.value))} className="w-full accent-[#FFD700] h-1 bg-white/10 appearance-none rounded-full" />
-                    </div>
-                  </div>
-                  <label className="cursor-pointer flex items-center justify-center gap-2 bg-[#FFD700] hover:bg-[#FFC000] text-black border border-white/10 rounded py-2 mt-2 transition-colors text-[10px] font-bold">
-                    <ImageIcon size={14} />
-                    {isUploading ? 'Subiendo...' : 'Cambiar Imagen'}
-                    <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} disabled={isUploading} />
-                  </label>
-                </div>
-              </div>
-            )}
           </div>
+
+          {/* Floating Edit Button when in editor mode */}
+          {isEditorMode && (
+            <div className="absolute top-6 right-6 z-40 flex items-center gap-2 pointer-events-auto">
+              <button
+                onClick={() => setShowControls(!showControls)}
+                className="bg-black/85 hover:bg-black text-white hover:text-[#FFD700] border border-white/10 hover:border-[#FFD700]/30 px-4 py-2.5 rounded-2xl text-[11px] font-black uppercase tracking-wider shadow-2xl backdrop-blur-md transition-all flex items-center gap-2"
+              >
+                <ImageIcon size={14} className={showControls ? 'text-[#FFD700]' : ''} />
+                <span>{showControls ? 'Cerrar Ajustes' : 'Ajustes de Imagen'}</span>
+              </button>
+            </div>
+          )}
+
+          {/* CMS Image Controls Panel */}
+          {isEditorMode && showControls && (
+            <div 
+              className="absolute top-20 right-6 z-50 bg-[#0C1017]/95 border border-white/10 p-5 rounded-2xl backdrop-blur-xl shadow-2xl w-64 cursor-default pointer-events-auto" 
+              onClick={e => e.stopPropagation()}
+            >
+              <div className="flex justify-between items-center mb-4 border-b border-white/10 pb-2">
+                <h3 className="text-[#FFD700] text-[10px] font-black uppercase tracking-widest">Ajustes de Imagen</h3>
+                <button onClick={() => setShowControls(false)} className="text-white/40 hover:text-white transition-colors">✕</button>
+              </div>
+              
+              <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-0.5">
+                  <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
+                    <span>Opacidad</span>
+                    <span className="text-[#FFD700]">{opacity}%</span>
+                  </div>
+                  <input type="range" min="0" max="100" value={opacity} onChange={(e) => updateMediaProp('opacity', parseInt(e.target.value))} className="w-full accent-[#FFD700] h-1 bg-white/10 appearance-none rounded-full" />
+                </div>
+                <div className="flex flex-col gap-0.5">
+                  <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
+                    <span>Brillo</span>
+                    <span className="text-[#FFD700]">{brightness}%</span>
+                  </div>
+                  <input type="range" min="50" max="200" value={brightness} onChange={(e) => updateMediaProp('brightness', parseInt(e.target.value))} className="w-full accent-[#FFD700] h-1 bg-white/10 appearance-none rounded-full" />
+                </div>
+                <div className="flex flex-col gap-0.5">
+                  <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
+                    <span>Fog Intensidad</span>
+                    <span className="text-[#FFD700]">{fogOpacity}%</span>
+                  </div>
+                  <input type="range" min="0" max="100" value={fogOpacity} onChange={(e) => updateMediaProp('fogOpacity', parseInt(e.target.value))} className="w-full accent-[#FFD700] h-1 bg-white/10 appearance-none rounded-full" />
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-[8px] uppercase font-black text-white/50 tracking-wider">Dirección Fog</span>
+                  <button 
+                    onClick={() => updateMediaProp('fogDirection', fogDirection === 'to-r' ? 'to-l' : 'to-r')}
+                    className="text-[9px] font-bold bg-white/5 hover:bg-white/10 px-2 py-1 rounded text-[#FFD700] transition-colors"
+                  >
+                    {fogDirection === 'to-r' ? 'Izq a Der ⇾' : '⇽ Der a Izq'}
+                  </button>
+                </div>
+                <div className="flex flex-col gap-0.5">
+                  <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
+                    <span>Escala</span>
+                    <span className="text-[#FFD700]">{Math.round(scale * 100)}%</span>
+                  </div>
+                  <input type="range" min="1" max="3" step="0.05" value={scale} onChange={(e) => updateMediaProp('scale', parseFloat(e.target.value))} className="w-full accent-[#FFD700] h-1 bg-white/10 appearance-none rounded-full" />
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="flex flex-col gap-0.5">
+                    <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
+                      <span>Pos X</span>
+                      <span className="text-[#FFD700]">{positionX}%</span>
+                    </div>
+                    <input type="range" min="0" max="100" value={positionX} onChange={(e) => updateMediaProp('positionX', parseInt(e.target.value))} className="w-full accent-[#FFD700] h-1 bg-white/10 appearance-none rounded-full" />
+                  </div>
+                  <div className="flex flex-col gap-0.5">
+                    <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
+                      <span>Pos Y</span>
+                      <span className="text-[#FFD700]">{positionY}%</span>
+                    </div>
+                    <input type="range" min="0" max="100" value={positionY} onChange={(e) => updateMediaProp('positionY', parseInt(e.target.value))} className="w-full accent-[#FFD700] h-1 bg-white/10 appearance-none rounded-full" />
+                  </div>
+                </div>
+                <label className="cursor-pointer flex items-center justify-center gap-2 bg-[#FFD700] hover:bg-[#FFC000] text-black border border-white/10 rounded py-2 mt-2 transition-colors text-[10px] font-bold">
+                  <ImageIcon size={14} />
+                  {isUploading ? 'Subiendo...' : 'Cambiar Imagen'}
+                  <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} disabled={isUploading} />
+                </label>
+              </div>
+            </div>
+          )}
 
           <div 
             className="absolute top-0 left-0 w-[500px] h-[500px] rounded-full blur-[120px] opacity-20 pointer-events-none z-0"
