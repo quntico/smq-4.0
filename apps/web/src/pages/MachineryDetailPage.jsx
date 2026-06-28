@@ -15,6 +15,7 @@ import {
   FileText, 
   Check,
   ChevronRight,
+  ChevronLeft,
   TrendingUp,
   Cpu,
   Shield,
@@ -1812,122 +1813,170 @@ const MachineryDetailPage = () => {
 
             </div>
 
-            {/* INTERACTIVE TIMELINE */}
-            <section id="como-funciona" className="py-20 bg-transparent border-y border-white/5 mt-16 relative">
-              <div className="max-w-[1400px] mx-auto px-[40px] text-center">
-                
-                <div className="flex flex-col items-center gap-3 mb-16">
-                  <span className="text-[11px] font-black uppercase tracking-[0.3em]" style={{ color: data.theme.accent }}>Ingeniería de Procesos</span>
-                  <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white">¿CÓMO FUNCIONA?</h2>
-                  <div 
-                    className="w-48 h-[3px] rounded-full mt-2 mx-auto" 
-                    style={{ 
-                      backgroundColor: data.theme.accent,
-                      boxShadow: `0 0 15px ${data.theme.accent}`
-                    }}
+            {/* ¿CÓMO FUNCIONA? — Redesigned as numbered step cards */}
+            <section id="como-funciona" className="py-20 border-y border-white/5 mt-16 relative overflow-hidden">
+              {/* Subtle ambient glow */}
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{ background: `radial-gradient(ellipse 80% 40% at 50% 0%, ${data.theme.accent}08, transparent)` }}
+              />
+
+              <div className="max-w-[1400px] mx-auto px-6 md:px-10 relative z-10">
+
+                {/* Header */}
+                <div className="flex flex-col items-center gap-3 mb-16 text-center">
+                  <span className="text-[11px] font-black uppercase tracking-[0.3em]" style={{ color: data.theme.accent }}>
+                    Ingeniería de Procesos
+                  </span>
+                  <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white">¿CÓMO FUNCIONA?</h2>
+                  <p className="text-white/50 text-sm max-w-xl mt-1 leading-relaxed">
+                    Soluciones completas e integradas que transforman materias primas en productos de alta calidad con eficiencia, inocuidad y trazabilidad.
+                  </p>
+                  <div
+                    className="w-20 h-[3px] rounded-full mt-2"
+                    style={{ backgroundColor: data.theme.accent, boxShadow: `0 0 12px ${data.theme.accent}` }}
                   />
                 </div>
 
-                <div className="relative flex flex-col gap-10">
-                  <div className="absolute top-[38px] left-[5%] right-[5%] h-[2px] bg-white/10 hidden lg:block -z-10">
-                    <div 
-                      className="h-full transition-all duration-500 ease-out"
-                      style={{ 
-                        width: `${(activeStep / (stationsList.length - 1)) * 100}%`,
-                        backgroundColor: data.theme.accent,
-                        boxShadow: `0 0 10px ${data.theme.accent}`
-                      }}
-                    />
-                  </div>
+                {/* Step Cards Grid */}
+                <div className="relative">
+                  {/* Horizontal connector line */}
+                  <div className="absolute top-[52px] left-[12.5%] right-[12.5%] h-[2px] bg-white/5 hidden lg:block pointer-events-none" />
+                  <div
+                    className="absolute top-[52px] left-[12.5%] h-[2px] hidden lg:block pointer-events-none transition-all duration-700"
+                    style={{
+                      width: `${(activeStep / Math.max(stationsList.length - 1, 1)) * 75}%`,
+                      backgroundColor: data.theme.accent,
+                      boxShadow: `0 0 8px ${data.theme.accent}`
+                    }}
+                  />
 
-                  <div className="hidden lg:grid grid-cols-4 gap-4 px-4 max-w-4xl mx-auto w-full">
+                  <div className={`grid gap-4 ${stationsList.length <= 4 ? 'grid-cols-2 lg:grid-cols-4' : 'grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'}`}>
                     {stationsList.map((step, idx) => {
                       const StepIcon = iconMap[step.iconName] || Settings;
-                      const isActive = idx <= activeStep;
                       const isCurrent = idx === activeStep;
+                      const isCompleted = idx < activeStep;
+                      const num = String(idx + 1).padStart(2, '0');
 
                       return (
                         <button
                           key={step.id}
                           onClick={() => setActiveStep(idx)}
-                          className="flex flex-col items-center focus:outline-none group cursor-pointer"
+                          className={`group relative flex flex-col items-center text-center p-6 rounded-2xl border transition-all duration-300 cursor-pointer ${
+                            isCurrent
+                              ? 'border-transparent scale-[1.03] shadow-2xl'
+                              : isCompleted
+                              ? 'border-white/10 bg-white/[0.02] hover:bg-white/[0.04]'
+                              : 'border-white/5 bg-[#0A0D14]/60 hover:border-white/15 hover:bg-white/[0.02]'
+                          }`}
+                          style={isCurrent ? {
+                            backgroundColor: `${data.theme.accent}12`,
+                            borderColor: `${data.theme.accent}50`,
+                            boxShadow: `0 0 30px ${data.theme.accent}20`
+                          } : {}}
                         >
-                          <div 
-                            className={`w-16 h-16 rounded-2xl flex items-center justify-center border transition-all duration-300 ${
-                              isCurrent 
-                                ? 'border-transparent text-black scale-110' 
-                                : isActive
-                                  ? 'bg-[#0B0F19] text-white shadow-md'
-                                  : 'bg-[#0B0F19] border-white/10 text-white/30 hover:border-white/30 hover:text-white'
-                            }`}
-                            style={isCurrent ? { backgroundColor: data.theme.accent, boxShadow: `0 0 20px ${data.theme.accent}60` } : (isActive ? { borderColor: `${data.theme.accent}40`, color: data.theme.accent } : {})}
+                          {/* Step number */}
+                          <span
+                            className="text-4xl font-black font-mono mb-4 leading-none transition-colors duration-300"
+                            style={{ color: isCurrent ? data.theme.accent : isCompleted ? `${data.theme.accent}60` : 'rgba(255,255,255,0.12)' }}
                           >
-                            <StepIcon size={20} strokeWidth={2} />
+                            {num}
+                          </span>
+
+                          {/* Icon */}
+                          <div
+                            className={`w-14 h-14 rounded-xl flex items-center justify-center mb-4 transition-all duration-300 ${isCurrent ? 'shadow-xl' : ''}`}
+                            style={{
+                              backgroundColor: isCurrent ? data.theme.accent : `${data.theme.accent}10`,
+                              color: isCurrent ? '#000' : isCompleted ? data.theme.accent : 'rgba(255,255,255,0.3)',
+                              border: `1px solid ${isCurrent ? 'transparent' : `${data.theme.accent}20`}`
+                            }}
+                          >
+                            <StepIcon size={22} strokeWidth={2} />
                           </div>
 
-                          <span className={`text-[12px] font-bold mt-4 transition-colors tracking-wide ${
-                            isCurrent ? 'text-white' : 'text-white/60 group-hover:text-white'
-                          }`}
-                          style={isCurrent ? { color: data.theme.accent } : {}}
+                          {/* Title */}
+                          <h3
+                            className="font-black text-sm uppercase tracking-wide mb-2 transition-colors"
+                            style={{ color: isCurrent ? data.theme.accent : isCompleted ? 'rgba(255,255,255,0.8)' : 'rgba(255,255,255,0.5)' }}
                           >
-                            Etapa {step.id}
-                          </span>
-
-                          <span className="text-[11px] text-white/40 mt-1">
                             {step.title}
-                          </span>
+                          </h3>
+
+                          {/* Description — always visible */}
+                          <p className="text-[11px] text-white/40 leading-relaxed line-clamp-3 group-hover:text-white/60 transition-colors">
+                            {step.desc}
+                          </p>
+
+                          {/* Active indicator dot */}
+                          {isCurrent && (
+                            <span
+                              className="absolute -top-1 -right-1 w-3 h-3 rounded-full border-2 border-[#0A0D14] animate-pulse"
+                              style={{ backgroundColor: data.theme.accent }}
+                            />
+                          )}
                         </button>
                       );
                     })}
                   </div>
+                </div>
 
-                  <div className="mt-8 max-w-[850px] mx-auto w-full">
-                    <motion.div
-                      key={activeStep}
-                      initial={{ opacity: 0, y: 15 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.4 }}
-                      className="border border-white/10 bg-white/[0.02] backdrop-blur-xl rounded-2xl p-8 flex flex-col md:flex-row items-center gap-8 shadow-2xl relative text-left"
+                {/* Active Step Detail Panel */}
+                <div className="mt-10 max-w-[850px] mx-auto">
+                  <motion.div
+                    key={activeStep}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.35 }}
+                    className="border border-white/10 bg-[#06090F]/80 backdrop-blur-xl rounded-2xl p-7 flex flex-col md:flex-row items-center gap-6 shadow-2xl relative text-left"
+                  >
+                    <div
+                      className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl"
+                      style={{ background: `linear-gradient(to right, transparent, ${data.theme.accent}, transparent)` }}
+                    />
+
+                    <div
+                      className="w-16 h-16 rounded-2xl flex items-center justify-center shrink-0"
+                      style={{ backgroundColor: `${data.theme.accent}10`, borderColor: `${data.theme.accent}25`, border: '1px solid', color: data.theme.accent }}
                     >
-                      <div 
-                        className="absolute top-0 left-0 right-0 h-[2px]" 
-                        style={{ background: `linear-gradient(to right, transparent, ${data.theme.accent}, transparent)` }}
-                      />
-                      
-                      <div 
-                        className="w-20 h-20 rounded-2xl border flex items-center justify-center shrink-0"
-                        style={{ 
-                          backgroundColor: `${data.theme.accent}08`, 
-                          borderColor: `${data.theme.accent}20`,
-                          color: data.theme.accent
-                        }}
+                      {React.createElement(iconMap[stationsList[activeStep].iconName] || Settings, { size: 30, strokeWidth: 1.5 })}
+                    </div>
+
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-2 flex-wrap">
+                        <span
+                          className="font-black text-[10px] uppercase px-2.5 py-1 rounded-md border tracking-wider"
+                          style={{ backgroundColor: `${data.theme.accent}15`, color: data.theme.accent, borderColor: `${data.theme.accent}30` }}
+                        >
+                          Etapa {stationsList[activeStep].id} de {stationsList.length}
+                        </span>
+                        <h3 className="text-lg md:text-xl font-black text-white tracking-tight">
+                          {stationsList[activeStep].title}
+                        </h3>
+                      </div>
+                      <p className="text-white/65 text-sm leading-relaxed">
+                        {stationsList[activeStep].desc}
+                      </p>
+                    </div>
+
+                    {/* Navigation arrows */}
+                    <div className="flex items-center gap-2 shrink-0">
+                      <button
+                        onClick={() => setActiveStep(Math.max(0, activeStep - 1))}
+                        disabled={activeStep === 0}
+                        className="w-9 h-9 rounded-xl border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:border-white/30 transition-all disabled:opacity-20 cursor-pointer"
                       >
-                        {React.createElement(iconMap[stationsList[activeStep].iconName] || Settings, { size: 36, strokeWidth: 1.5 })}
-                      </div>
-
-                      <div className="text-left flex-1">
-                        <div className="flex items-center gap-3 mb-2">
-                          <span 
-                            className="font-bold text-[10px] uppercase px-2.5 py-1 rounded-md border tracking-wider"
-                            style={{ 
-                              backgroundColor: `${data.theme.accent}15`, 
-                              color: data.theme.accent, 
-                              borderColor: `${data.theme.accent}30` 
-                            }}
-                          >
-                            Etapa {stationsList[activeStep].id} de {stationsList.length}
-                          </span>
-                          <h3 className="text-lg md:text-xl font-bold text-white tracking-tight">
-                            {stationsList[activeStep].title}
-                          </h3>
-                        </div>
-                        <p className="text-white/70 text-[14px] leading-relaxed">
-                          {stationsList[activeStep].desc}
-                        </p>
-                      </div>
-                    </motion.div>
-                  </div>
-
+                        <ChevronLeft size={16} />
+                      </button>
+                      <button
+                        onClick={() => setActiveStep(Math.min(stationsList.length - 1, activeStep + 1))}
+                        disabled={activeStep === stationsList.length - 1}
+                        className="w-9 h-9 rounded-xl border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:border-white/30 transition-all disabled:opacity-20 cursor-pointer"
+                      >
+                        <ChevronRight size={16} />
+                      </button>
+                    </div>
+                  </motion.div>
                 </div>
 
               </div>
