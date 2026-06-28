@@ -136,7 +136,7 @@ const industriesData = [
 ];
 
 const IndustriesMenu = ({ isOpen, onMouseEnter, onMouseLeave, onClose }) => {
-  const [activeIndustry, setActiveIndustry] = useState('reciclaje');
+  const [activeIndustry, setActiveIndustry] = useState('alimentos');
   const { cmsState } = useCMS();
   const headerHeight = cmsState?.settings?.headerHeight || 80;
   const active = industriesData.find(i => i.key === activeIndustry);

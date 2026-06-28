@@ -805,6 +805,18 @@ const EditableText = ({ value, onChange, className = '', tag: Tag = 'span', plac
   return <Tag className={className}>{value}</Tag>;
 };
 
+// Helper to robustly check if media is video, handling URLs with query parameters/tokens
+const isVideoUrl = (mediaUrl, mediaType) => {
+  if (mediaType === 'video') return true;
+  if (!mediaUrl) return false;
+  const cleanUrl = mediaUrl.split('?')[0].toLowerCase();
+  return cleanUrl.endsWith('.mp4') || 
+         cleanUrl.endsWith('.webm') || 
+         cleanUrl.endsWith('.ogg') || 
+         cleanUrl.endsWith('.mov') || 
+         cleanUrl.includes('/video/');
+};
+
 const EditableMedia = ({ 
   media, 
   defaultOpacity = 1, 
@@ -825,7 +837,7 @@ const EditableMedia = ({
   // Resolve media settings
   const isObj = typeof media === 'object' && media !== null;
   const currentUrl = isObj ? media.url : (media || '');
-  const currentType = isObj ? (media.type || 'image') : 'image';
+  const currentType = isObj ? (media.type || 'image') : (isVideoUrl(currentUrl) ? 'video' : 'image');
   const currentOpacity = isObj ? (media.opacity !== undefined ? media.opacity : defaultOpacity) : defaultOpacity;
   const currentBlur = isObj ? (media.blur !== undefined ? media.blur : 0) : 0;
   const currentBrightness = isObj ? (media.brightness !== undefined ? media.brightness : 100) : 100;
@@ -983,17 +995,7 @@ const EditableMedia = ({
     updateMediaProps({ [key]: val });
   };
 
-  // Helper to robustly check if media is video, handling URLs with query parameters/tokens
-  const isVideoUrl = (mediaUrl, mediaType) => {
-    if (mediaType === 'video') return true;
-    if (!mediaUrl) return false;
-    const cleanUrl = mediaUrl.split('?')[0].toLowerCase();
-    return cleanUrl.endsWith('.mp4') || 
-           cleanUrl.endsWith('.webm') || 
-           cleanUrl.endsWith('.ogg') || 
-           cleanUrl.endsWith('.mov') || 
-           cleanUrl.includes('/video/');
-  };
+  // Using top-level isVideoUrl helper
 
   const [isDragOver, setIsDragOver] = useState(false);
 
@@ -2193,7 +2195,14 @@ const IndustriaDetalle = () => {
         setIsUploading(true);
         const url = await uploadFile(file, "media");
         logCMS(`✅ Hero subido con éxito: ${url}`, "success");
-        handleUpdate('heroImage', url);
+        
+        const isObj = typeof data.heroImage === 'object' && data.heroImage !== null;
+        const currentHero = isObj ? data.heroImage : { url: data.heroImage || '' };
+        handleUpdate('heroImage', {
+          ...currentHero,
+          url,
+          type: isVideoUrl(url) ? 'video' : 'image'
+        });
       } catch (err) {
         const errMsg = err.message || err.error_description || JSON.stringify(err);
         logCMS(`❌ Error Hero: ${errMsg}`, "error");
@@ -2243,6 +2252,29 @@ const IndustriaDetalle = () => {
         e.target.value = '';
       }
     }
+  };
+
+  const isHeroBgObj = typeof data?.heroImage === 'object' && data?.heroImage !== null;
+  const heroBgUrl = isHeroBgObj ? data.heroImage.url : (data?.heroImage || '');
+  const heroBgType = isHeroBgObj ? (data.heroImage.type || 'image') : (isVideoUrl(heroBgUrl) ? 'video' : 'image');
+  const heroBgOpacity = isHeroBgObj ? (data.heroImage.opacity !== undefined ? data.heroImage.opacity : 0.2) : 0.2;
+  const heroBgBrightness = isHeroBgObj ? (data.heroImage.brightness !== undefined ? data.heroImage.brightness : 100) : 100;
+  const heroBgBlur = isHeroBgObj ? (data.heroImage.blur !== undefined ? data.heroImage.blur : 0) : 0;
+  const heroBgContrast = isHeroBgObj ? (data.heroImage.contrast !== undefined ? data.heroImage.contrast : 100) : 100;
+  const heroBgScale = isHeroBgObj ? (data.heroImage.scale !== undefined ? data.heroImage.scale : 1.05) : 1.05;
+  const heroBgPositionX = isHeroBgObj ? (data.heroImage.positionX !== undefined ? data.heroImage.positionX : 0) : 0;
+  const heroBgPositionY = isHeroBgObj ? (data.heroImage.positionY !== undefined ? data.heroImage.positionY : 0) : 0;
+  const heroBgObjectFit = isHeroBgObj ? (data.heroImage.objectFit || 'cover') : 'cover';
+  const heroBgBgColor = isHeroBgObj ? (data.heroImage.bgColor || 'transparent') : 'transparent';
+  const heroBgFogOpacity = isHeroBgObj ? (data.heroImage.fogOpacity !== undefined ? data.heroImage.fogOpacity : 100) : 100;
+  const heroBgFogDirection = isHeroBgObj ? (data.heroImage.fogDirection || 'to-r') : 'to-r';
+
+  const updateHeroBgProp = (propName, propValue) => {
+    const currentHeroImage = isHeroBgObj ? data.heroImage : { url: data?.heroImage || '' };
+    handleUpdate('heroImage', {
+      ...currentHeroImage,
+      [propName]: propValue
+    });
   };
 
   if (!staticData) {
@@ -2333,6 +2365,26 @@ const IndustriaDetalle = () => {
               {/* Tab 1: Hero & Info */}
               {activeTab === 'hero' && (
                 <div className="flex flex-col gap-4 text-xs">
+                  {/* Visibilidad del Panel de Métricas (FDA/HACCP) */}
+                  <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                    <div className="flex flex-col gap-0.5 text-left">
+                      <span className="text-white text-[10px] uppercase font-bold tracking-wider">Panel de Métricas (FDA/HACCP)</span>
+                      <span className="text-white/40 text-[9px]">Mostrar/Ocultar cuadro lateral de cumplimiento</span>
+                    </div>
+                    <button
+                      onClick={() => handleUpdate('showStats', data.showStats === false ? true : false)}
+                      className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
+                        data.showStats !== false ? 'bg-[#FFD700]' : 'bg-white/10'
+                      }`}
+                    >
+                      <span
+                        className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-black shadow ring-0 transition duration-200 ease-in-out ${
+                          data.showStats !== false ? 'translate-x-4' : 'translate-x-0'
+                        }`}
+                      />
+                    </button>
+                  </div>
+
                   <div className="flex flex-col gap-1.5">
                     <label className="text-white/50 text-[10px] uppercase font-bold tracking-wider">Título de Sector</label>
                     <input
@@ -2356,19 +2408,168 @@ const IndustriaDetalle = () => {
                   <div className="flex flex-col gap-1.5">
                     <label className="text-white/50 text-[10px] uppercase font-bold tracking-wider">Descripción del Sector</label>
                     <textarea
-                      rows={4}
+                      rows={3}
                       value={data.description || ''}
                       onChange={(e) => handleUpdate('description', e.target.value)}
                       className="bg-white/5 border border-white/10 rounded-lg p-2.5 text-xs text-white focus:border-[#FFD700] outline-none resize-none"
                     />
                   </div>
 
+                  {/* Ajustes de Fondo Hero */}
+                  <div className="flex flex-col gap-3.5 border-t border-white/10 pt-3 text-left">
+                    <span className="text-[#FFD700] text-[10px] font-black uppercase tracking-widest">Ajustes del Fondo Hero</span>
+                    
+                    {/* URL de Fondo */}
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-white/50 text-[9px] uppercase font-bold tracking-wider">URL del Recurso (Imagen o Video)</label>
+                      <input
+                        type="text"
+                        value={heroBgUrl}
+                        onChange={(e) => updateHeroBgProp('url', e.target.value)}
+                        placeholder="https://..."
+                        className="bg-white/5 border border-white/10 rounded-lg p-2 text-xs text-white focus:border-[#FFD700] outline-none"
+                      />
+                    </div>
+
+                    {/* Tipo de Media */}
+                    <div className="flex items-center justify-between">
+                      <span className="text-white/50 text-[9px] uppercase font-bold tracking-wider">Tipo de Recurso</span>
+                      <div className="flex bg-white/5 p-0.5 rounded-lg border border-white/10">
+                        <button
+                          onClick={() => updateHeroBgProp('type', 'image')}
+                          className={`px-3 py-1 rounded text-[9px] font-bold uppercase transition-all cursor-pointer ${
+                            heroBgType === 'image' ? 'bg-[#FFD700] text-black' : 'text-white/60 hover:text-white'
+                          }`}
+                        >
+                          Imagen
+                        </button>
+                        <button
+                          onClick={() => updateHeroBgProp('type', 'video')}
+                          className={`px-3 py-1 rounded text-[9px] font-bold uppercase transition-all cursor-pointer ${
+                            heroBgType === 'video' ? 'bg-[#FFD700] text-black' : 'text-white/60 hover:text-white'
+                          }`}
+                        >
+                          Video
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Opacidad */}
+                    <div className="flex flex-col gap-1">
+                      <div className="flex justify-between text-[9px] uppercase font-bold text-white/50 tracking-wider">
+                        <span>Opacidad del Fondo</span>
+                        <span className="text-[#FFD700]">{Math.round(heroBgOpacity * 100)}%</span>
+                      </div>
+                      <input 
+                        type="range" 
+                        min="0" 
+                        max="1" 
+                        step="0.05"
+                        value={heroBgOpacity} 
+                        onChange={(e) => updateHeroBgProp('opacity', parseFloat(e.target.value))} 
+                        className="w-full accent-[#FFD700] h-1 bg-white/10 appearance-none rounded-full" 
+                      />
+                    </div>
+
+                    {/* Brillo */}
+                    <div className="flex flex-col gap-1">
+                      <div className="flex justify-between text-[9px] uppercase font-bold text-white/50 tracking-wider">
+                        <span>Brillo del Fondo</span>
+                        <span className="text-[#FFD700]">{heroBgBrightness}%</span>
+                      </div>
+                      <input 
+                        type="range" 
+                        min="20" 
+                        max="200" 
+                        value={heroBgBrightness} 
+                        onChange={(e) => updateHeroBgProp('brightness', parseInt(e.target.value))} 
+                        className="w-full accent-[#FFD700] h-1 bg-white/10 appearance-none rounded-full" 
+                      />
+                    </div>
+
+                    {/* Fog Intensidad */}
+                    <div className="flex flex-col gap-1">
+                      <div className="flex justify-between text-[9px] uppercase font-bold text-white/50 tracking-wider">
+                        <span>Intensidad de Neblina (Fog)</span>
+                        <span className="text-[#FFD700]">{heroBgFogOpacity}%</span>
+                      </div>
+                      <input 
+                        type="range" 
+                        min="0" 
+                        max="100" 
+                        value={heroBgFogOpacity} 
+                        onChange={(e) => updateHeroBgProp('fogOpacity', parseInt(e.target.value))} 
+                        className="w-full accent-[#FFD700] h-1 bg-white/10 appearance-none rounded-full" 
+                      />
+                    </div>
+
+                    {/* Dirección Fog */}
+                    <div className="flex items-center justify-between">
+                      <span className="text-white/50 text-[9px] uppercase font-bold tracking-wider">Dirección de Neblina</span>
+                      <button 
+                        onClick={() => updateHeroBgProp('fogDirection', heroBgFogDirection === 'to-r' ? 'to-l' : 'to-r')}
+                        className="text-[9px] font-bold bg-white/5 hover:bg-white/10 px-2 py-1 rounded text-[#FFD700] transition-all cursor-pointer"
+                      >
+                        {heroBgFogDirection === 'to-r' ? 'Izquierda a Derecha' : 'Derecha a Izquierda'}
+                      </button>
+                    </div>
+
+                    {/* Escala */}
+                    <div className="flex flex-col gap-1">
+                      <div className="flex justify-between text-[9px] uppercase font-bold text-white/50 tracking-wider">
+                        <span>Escala del Fondo</span>
+                        <span className="text-[#FFD700]">{Math.round(heroBgScale * 100)}%</span>
+                      </div>
+                      <input 
+                        type="range" 
+                        min="1" 
+                        max="3" 
+                        step="0.05" 
+                        value={heroBgScale} 
+                        onChange={(e) => updateHeroBgProp('scale', parseFloat(e.target.value))} 
+                        className="w-full accent-[#FFD700] h-1 bg-white/10 appearance-none rounded-full" 
+                      />
+                    </div>
+
+                    {/* Pos X */}
+                    <div className="flex flex-col gap-1">
+                      <div className="flex justify-between text-[9px] uppercase font-bold text-white/50 tracking-wider">
+                        <span>Posición Horizontal (X)</span>
+                        <span className="text-[#FFD700]">{heroBgPositionX}%</span>
+                      </div>
+                      <input 
+                        type="range" 
+                        min="0" 
+                        max="100" 
+                        value={heroBgPositionX} 
+                        onChange={(e) => updateHeroBgProp('positionX', parseInt(e.target.value))} 
+                        className="w-full accent-[#FFD700] h-1 bg-white/10 appearance-none rounded-full" 
+                      />
+                    </div>
+
+                    {/* Pos Y */}
+                    <div className="flex flex-col gap-1">
+                      <div className="flex justify-between text-[9px] uppercase font-bold text-white/50 tracking-wider">
+                        <span>Posición Vertical (Y)</span>
+                        <span className="text-[#FFD700]">{heroBgPositionY}%</span>
+                      </div>
+                      <input 
+                        type="range" 
+                        min="0" 
+                        max="100" 
+                        value={heroBgPositionY} 
+                        onChange={(e) => updateHeroBgProp('positionY', parseInt(e.target.value))} 
+                        className="w-full accent-[#FFD700] h-1 bg-white/10 appearance-none rounded-full" 
+                      />
+                    </div>
+                  </div>
+
                   <div className="flex flex-col gap-1.5 border-t border-white/10 pt-3">
-                    <label className="text-white/50 text-[10px] uppercase font-bold tracking-wider">Imagen de Fondo (Banner Superior)</label>
-                    <span className="text-[10px] text-white/40 block mt-0.5 leading-normal">(Esta imagen de fondo se aplica al inicio superior de la página, NO en las especialidades/equipos individuales)</span>
+                    <label className="text-white/50 text-[10px] uppercase font-bold tracking-wider">Subir Archivo de Fondo</label>
+                    <span className="text-[9px] text-white/40 block mt-0.5 leading-normal">(Sube una imagen o video para el fondo del Hero)</span>
                     <input
                       type="file"
-                      accept="image/*,.png,.jpg,.jpeg,.webp,.svg,.gif,.bmp,.tiff,.heic,.heif,.jfif,.PNG,.JPG,.JPEG,.WEBP,.SVG,.GIF,.BMP,.TIFF,.HEIC,.HEIF,.JFIF"
+                      accept="image/*,video/*,.png,.jpg,.jpeg,.webp,.svg,.gif,.mp4,.webm"
                       className="hidden"
                       ref={heroImageInputRef}
                       onChange={handleHeroImageUpload}
@@ -2383,7 +2584,7 @@ const IndustriaDetalle = () => {
                       ) : (
                         <Upload size={14} />
                       )}
-                      <span>Subir Imagen de Cabecera</span>
+                      <span>Subir Imagen/Video de Fondo</span>
                     </button>
                   </div>
 
@@ -2707,23 +2908,68 @@ const IndustriaDetalle = () => {
           <section className="relative w-full py-16 md:py-24 px-6 md:px-8 overflow-hidden border-b border-white/5">
             {/* Background overlay */}
             <div className="absolute inset-0 z-0">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#0B0F14] via-[#0B0F14]/90 to-transparent z-10" />
+              <div 
+                className="absolute inset-0 z-10 pointer-events-none transition-all duration-300"
+                style={{
+                  background: heroBgFogDirection === 'to-r' 
+                    ? 'linear-gradient(to right, #0B0F14 15%, rgba(11,15,20,0.85) 45%, rgba(11,15,20,0.3) 70%, transparent 100%)'
+                    : 'linear-gradient(to left, #0B0F14 15%, rgba(11,15,20,0.85) 45%, rgba(11,15,20,0.3) 70%, transparent 100%)',
+                  opacity: heroBgFogOpacity / 100
+                }}
+              />
               {data.heroImage && (
-                <EditableMedia
-                  media={data.heroImage}
-                  defaultOpacity={0.2}
-                  defaultObjectFit="cover"
-                  className="w-full h-full object-cover scale-105"
-                  onUpdate={(newMedia) => handleUpdate('heroImage', newMedia)}
-                  isEditorMode={isEditorMode}
-                  label="Imagen/Video de Fondo Hero"
-                  aspectClass="aspect-[21/9]"
-                />
+                <div className="hero-editable-bg w-full h-full">
+                  <EditableMedia
+                    media={data.heroImage}
+                    defaultOpacity={0.2}
+                    defaultObjectFit="cover"
+                    className="w-full h-full object-cover scale-105"
+                    onUpdate={(newMedia) => handleUpdate('heroImage', newMedia)}
+                    isEditorMode={isEditorMode}
+                    label="Imagen/Video de Fondo Hero"
+                    aspectClass="aspect-[21/9]"
+                  />
+                </div>
               )}
             </div>
 
+            {/* Floating Editor Controls for Hero background & stats */}
+            {isEditorMode && (
+              <div className="absolute top-6 right-6 z-30 flex items-center gap-3">
+                {/* Stats Panel visibility toggle */}
+                <button
+                  onClick={() => handleUpdate('showStats', data.showStats === false ? true : false)}
+                  className={`flex items-center gap-2 bg-[#0B0F14]/90 text-white border border-white/10 px-3.5 py-2 rounded-xl text-[10px] font-black uppercase tracking-wider shadow-lg hover:scale-105 active:scale-95 transition-all pointer-events-auto cursor-pointer`}
+                >
+                  <Grid size={12} className={data.showStats !== false ? 'text-[#FFD700]' : ''} />
+                  <span>{data.showStats !== false ? 'Ocultar Panel Métricas' : 'Mostrar Panel Métricas'}</span>
+                </button>
+
+                {/* Change Hero background image/video */}
+                <button
+                  onClick={() => {
+                    const bgEl = document.querySelector('.hero-editable-bg > div');
+                    if (bgEl) {
+                      const dblClickEvent = new MouseEvent('dblclick', {
+                        bubbles: true,
+                        cancelable: true,
+                        view: window
+                      });
+                      bgEl.dispatchEvent(dblClickEvent);
+                    } else {
+                      alert('Haz doble clic en el fondo para cambiar el archivo multimedia.');
+                    }
+                  }}
+                  className="flex items-center gap-2 bg-[#0B0F14]/90 text-white border border-white/10 px-3.5 py-2 rounded-xl text-[10px] font-black uppercase tracking-wider shadow-lg hover:scale-105 active:scale-95 transition-all pointer-events-auto cursor-pointer"
+                >
+                  <ImageIcon size={12} className="text-[#FFD700]" />
+                  <span>Cambiar Fondo Hero</span>
+                </button>
+              </div>
+            )}
+
             <div className="max-w-[1400px] mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-7 space-y-6">
+              <div className={`${data.showStats !== false ? 'lg:col-span-7' : 'lg:col-span-12 max-w-4xl'} space-y-6`}>
                 <motion.span 
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -2775,37 +3021,39 @@ const IndustriaDetalle = () => {
               </div>
 
               {/* Stats Panel */}
-              <div className="lg:col-span-5 grid grid-cols-2 gap-4 bg-white/5 border border-white/10 p-6 md:p-8 rounded-2xl backdrop-blur-md shadow-2xl">
-                {data.stats && data.stats.map((stat, i) => (
-                  <motion.div 
-                    key={stat.label || i}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.2 + i * 0.1 }}
-                    className="p-4 bg-black/40 border border-white/5 rounded-xl flex flex-col justify-center animate-pulse-once"
-                  >
-                    <span 
-                      style={{ color: colorScheme.accent }}
-                      className="text-[24px] md:text-[32px] font-black tracking-tight leading-none mb-2 block"
+              {data.showStats !== false && (
+                <div className="lg:col-span-5 grid grid-cols-2 gap-4 bg-white/5 border border-white/10 p-6 md:p-8 rounded-2xl backdrop-blur-md shadow-2xl">
+                  {data.stats && data.stats.map((stat, i) => (
+                    <motion.div 
+                      key={stat.label || i}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.2 + i * 0.1 }}
+                      className="p-4 bg-black/40 border border-white/5 rounded-xl flex flex-col justify-center animate-pulse-once"
                     >
-                      <EditableText 
-                        value={stat.value} 
-                        onChange={(val) => handleStatUpdate(i, 'value', val)} 
-                        tag="span" 
-                        isEditorMode={isEditorMode} 
-                      />
-                    </span>
-                    <span className="text-[11px] text-white/50 uppercase tracking-wider font-bold leading-tight">
-                      <EditableText 
-                        value={stat.label} 
-                        onChange={(val) => handleStatUpdate(i, 'label', val)} 
-                        tag="span" 
-                        isEditorMode={isEditorMode} 
-                      />
-                    </span>
-                  </motion.div>
-                ))}
-              </div>
+                      <span 
+                        style={{ color: colorScheme.accent }}
+                        className="text-[24px] md:text-[32px] font-black tracking-tight leading-none mb-2 block"
+                      >
+                        <EditableText 
+                          value={stat.value} 
+                          onChange={(val) => handleStatUpdate(i, 'value', val)} 
+                          tag="span" 
+                          isEditorMode={isEditorMode} 
+                        />
+                      </span>
+                      <span className="text-[11px] text-white/50 uppercase tracking-wider font-bold leading-tight">
+                        <EditableText 
+                          value={stat.label} 
+                          onChange={(val) => handleStatUpdate(i, 'label', val)} 
+                          tag="span" 
+                          isEditorMode={isEditorMode} 
+                        />
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
+              )}
             </div>
           </section>
 
