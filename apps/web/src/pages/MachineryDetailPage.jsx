@@ -2080,7 +2080,7 @@ const MachineryDetailPage = () => {
                         rawApps[idx] = { ...rawApps[idx], image: url };
                         handleUpdate('applications', rawApps);
                       }) : {})}
-                      className={`relative border rounded-2xl overflow-hidden flex flex-col md:flex-row transition-all duration-500 hover:scale-[1.01] min-h-[220px] group ${
+                      className={`relative border rounded-2xl overflow-hidden min-h-[240px] group transition-all duration-500 hover:scale-[1.01] ${
                         isDragActive 
                           ? 'scale-[1.02] border-dashed shadow-2xl' 
                           : 'border-white/10 bg-[#080C14] hover:border-white/20'
@@ -2096,14 +2096,27 @@ const MachineryDetailPage = () => {
                         accept="image/*"
                       />
 
-                      {/* HUD Corner Accents */}
-                      <span className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/20" />
-                      <span className="absolute top-0 right-0 w-2 h-2 border-t border-r border-white/20" />
-                      <span className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-white/20" />
-                      <span className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-white/20" />
+                      {/* Full-width Background Image & Gradients */}
+                      <div className="absolute inset-0 z-0">
+                        <img 
+                          src={app.image} 
+                          alt={app.name} 
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                        />
+                        {/* Desktop Side Fade (Left to Right) */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#080C14] via-[#080C14]/90 to-[#080C14]/30 hidden md:block" />
+                        {/* Mobile Bottom Fade (Bottom to Top) */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#080C14] via-[#080C14]/90 to-[#080C14]/20 md:hidden" />
+                      </div>
 
-                      {/* Left Side: Content */}
-                      <div className="w-full md:w-1/2 p-7 md:p-8 flex flex-col justify-between relative z-10 text-left">
+                      {/* HUD Corner Accents */}
+                      <span className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/20 z-10" />
+                      <span className="absolute top-0 right-0 w-2 h-2 border-t border-r border-white/20 z-10" />
+                      <span className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-white/20 z-10" />
+                      <span className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-white/20 z-10" />
+
+                      {/* Content Overlay (z-10, limited width for text readability) */}
+                      <div className="relative z-10 w-full p-8 flex flex-col justify-between min-h-[240px] text-left max-w-[90%] md:max-w-[60%]">
                         {/* Header Badge & Icon */}
                         <div className="flex items-center gap-3">
                           <div 
@@ -2128,41 +2141,31 @@ const MachineryDetailPage = () => {
 
                         {/* Title & Description */}
                         <div className="mt-8">
-                          <h3 className="text-lg md:text-xl font-black text-white tracking-tight uppercase group-hover:text-primary transition-colors duration-300" style={{ groupHoverColor: data.theme.accent }}>
+                          <h3 
+                            className="text-lg md:text-xl font-black text-white tracking-tight uppercase transition-colors duration-300"
+                            style={{ color: '#fff', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}
+                          >
                             {app.name}
                           </h3>
-                          <p className="text-white/45 text-xs mt-2.5 leading-relaxed">
+                          <p className="text-white/70 text-xs mt-2.5 leading-relaxed" style={{ textShadow: '0 1px 2px rgba(0,0,0,0.5)' }}>
                             {app.desc}
                           </p>
                         </div>
                       </div>
 
-                      {/* Right Side: Image with Gradient Mask */}
-                      <div className="w-full md:w-1/2 relative h-48 md:h-auto overflow-hidden">
-                        <img 
-                          src={app.image} 
-                          alt={app.name} 
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        />
-                        {/* Desktop Side Fade */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-[#080C14] via-[#080C14]/75 to-transparent hidden md:block" />
-                        {/* Mobile Bottom Fade */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#080C14] via-[#080C14]/30 to-transparent md:hidden" />
-
-                        {/* Editor Controls Overlay */}
-                        {isEditorMode && (
-                          <div className="absolute inset-0 bg-black/60 backdrop-blur-xs flex flex-col items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <button
-                              onClick={() => appFileRefs.current[idx]?.click()}
-                              className="bg-white/10 hover:bg-white/20 text-white font-bold text-[10px] uppercase tracking-wider py-2 px-4 rounded-xl border border-white/10 transition-all flex items-center gap-2 cursor-pointer"
-                            >
-                              <Upload size={12} />
-                              Cambiar Imagen
-                            </button>
-                            <span className="text-[10px] text-white/50">o arrastra una imagen aquí</span>
-                          </div>
-                        )}
-                      </div>
+                      {/* Editor Controls Overlay */}
+                      {isEditorMode && (
+                        <div className="absolute inset-0 bg-black/60 backdrop-blur-xs flex flex-col items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+                          <button
+                            onClick={() => appFileRefs.current[idx]?.click()}
+                            className="bg-white/10 hover:bg-white/20 text-white font-bold text-[10px] uppercase tracking-wider py-2 px-4 rounded-xl border border-white/10 transition-all flex items-center gap-2 cursor-pointer"
+                          >
+                            <Upload size={12} />
+                            Cambiar Imagen
+                          </button>
+                          <span className="text-[10px] text-white/50">o arrastra una imagen aquí</span>
+                        </div>
+                      )}
                     </div>
                   );
                 })}
