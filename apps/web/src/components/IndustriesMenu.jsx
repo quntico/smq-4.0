@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Wheat, Package, Layers, Recycle, HeartPulse, Bot, ChevronRight, HardHat, Zap, ArrowRight } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext.jsx';
 
@@ -138,6 +138,7 @@ const industriesData = [
 const IndustriesMenu = ({ isOpen, onMouseEnter, onMouseLeave, onClose }) => {
   const [activeIndustry, setActiveIndustry] = useState('alimentos');
   const { cmsState } = useCMS();
+  const navigate = useNavigate();
   const headerHeight = cmsState?.settings?.headerHeight || 80;
   const active = industriesData.find(i => i.key === activeIndustry);
 
@@ -173,7 +174,11 @@ const IndustriesMenu = ({ isOpen, onMouseEnter, onMouseLeave, onClose }) => {
                 <button
                   key={ind.key}
                   onMouseEnter={() => setActiveIndustry(ind.key)}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all duration-200 border"
+                  onClick={() => {
+                    navigate(`/industria/${ind.key}`);
+                    if (onClose) onClose();
+                  }}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all duration-200 border cursor-pointer"
                   style={{
                     backgroundColor: isAct ? `${ind.color}12` : 'transparent',
                     borderColor:     isAct ? `${ind.color}35` : 'transparent',

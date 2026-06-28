@@ -2065,6 +2065,14 @@ const IndustriaDetalle = () => {
   }, [data?.items]);
 
   useEffect(() => {
+    // Only scroll to top when switching between different industry sectors
+    if (!location.hash) {
+      window.scrollTo(0, 0);
+    }
+    lastScrolledHashRef.current = '';
+  }, [sector]);
+
+  useEffect(() => {
     // Scroll to hash element smoothly if exists
     if (location.hash) {
       const currentHash = location.hash;
@@ -2089,11 +2097,8 @@ const IndustriaDetalle = () => {
       }, 300);
 
       return () => clearTimeout(timer);
-    } else {
-      lastScrolledHashRef.current = '';
-      window.scrollTo(0, 0);
     }
-  }, [sector, location.hash, data]);
+  }, [location.hash, sector]);
 
   useEffect(() => {
     if (activeItem && data?.items) {
