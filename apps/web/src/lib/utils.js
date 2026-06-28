@@ -8,6 +8,9 @@ export function cn(...inputs) {
 export function getOptimizedImageUrl(url, width = 800) {
   if (!url || typeof url !== 'string') return url || '';
   if (url.includes('supabase.co/storage/v1/object/')) {
+    if (url.endsWith('.webp') || url.includes('.webp?') || width >= 800) {
+      return url;
+    }
     const optimized = url.replace('/storage/v1/object/', '/storage/v1/render/image/');
     const separator = optimized.includes('?') ? '&' : '?';
     return `${optimized}${separator}width=${width}&quality=80&format=webp`;

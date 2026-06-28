@@ -197,6 +197,7 @@ const sectorsData = {
     subtitle: 'Velocidad, sellado hermético y empaque inteligente',
     description: 'Sistemas avanzados de envasado primario y secundario para formatos rígidos y flexibles. Ofrecemos envasadoras Doypack, líneas de llenado volumétrico y maquinaria de conversión de film.',
     heroImage: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115213579_choco%20bN%202.png',
+    instalacionesImage: '/smq_factory_night2.png',
     stats: [
       { label: 'Velocidad de Llenado', value: '150 ppm' },
       { label: 'Hermeticidad de Sello', value: '99.99%' },
@@ -206,15 +207,21 @@ const sectorsData = {
     items: [
       {
         id: 'flexible',
-        title: 'Formatos Flexibles (Doypack)',
-        description: 'Llenadoras automáticas rotativas de pouches Stand-up y bolsas con zipper.',
-        longDescription: 'Flujo de envasado automático con apertura positiva de zipper por vacío, codificación por chorro de tinta, llenado volumétrico/multicabezal e inyección de gas para mayor vida útil del producto.',
+        title: 'Premade Pouch (PMP)',
+        description: 'Llenadoras automáticas rotativas para bolsas prefabricadas tipo pouch, stand-up pouch y zipper.',
+        longDescription: 'Flujo de envasado automático para bolsas premade pouch con apertura por vacío, codificación por chorro de tinta, llenado volumétrico/multicabezal y opción de inyección de gas para mayor vida útil del producto.',
         features: ['[icon:Shield] Apertura y sellado neumático servo-sincronizado', '[icon:Zap] Inyección de gas inerte N2 para conservación', '[icon:Cpu] Control total por PLC con recetas pregrabadas'],
         image: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png',
-        tableHeaders: ['Modelo', 'Tipo de Pouch', 'Velocidad', 'Presión Aire', 'Potencia'],
+        tableHeaders: ['Especificación', 'PMP-180', 'PMP-250'],
         equipmentTable: [
-          { model: 'DP8-PRO', width: 'Doypack Rotativa 8 Estaciones', capacity: '60 bpm', power: '0.6 MPa', weight: '4.5 kW' },
-          { model: 'VP-100', width: 'Vertical Form-Fill-Seal (VFFS)', capacity: '100 bpm', power: '0.6 MPa', weight: '5.5 kW' }
+          { model: 'Velocidad máxima de empaque', width: '40 bolsas/min', capacity: '40 bolsas/min' },
+          { model: 'Ancho de bolsa', width: '80–180 mm', capacity: '150–250 mm' },
+          { model: 'Largo de bolsa', width: '150–350 mm', capacity: '150–350 mm' },
+          { model: 'Peso de llenado', width: '10–1,500 g', capacity: '10–1,500 g' },
+          { model: 'Consumo de aire comprimido', width: '≥ 0.8 m³/min', capacity: '≥ 0.8 m³/min' },
+          { model: 'Potencia instalada', width: '7 kW', capacity: '7 kW' },
+          { model: 'Dimensiones L×A×H', width: '2,070 × 1,810 × 1,620 mm', capacity: '2,020 × 1,910 × 1,620 mm' },
+          { model: 'Peso de máquina', width: '2,400 kg', capacity: '2,600 kg' }
         ]
       },
       {
@@ -1684,6 +1691,46 @@ const IndustriaDetalle = () => {
   const heroImageInputRef = useRef(null);
   const itemImageInputRef = useRef(null);
   const instalacionesImageInputRef = useRef(null);
+  const instalacionesCard1InputRef = useRef(null);
+  const instalacionesCard2InputRef = useRef(null);
+
+  // ─── Drag-and-Drop global helper ──────────────────────────────────────────
+  const [dragActiveZone, setDragActiveZone] = useState(null);
+
+  const makeDropZone = (zoneId, onFileDrop) => ({
+    onDragOver: (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (isEditorMode) setDragActiveZone(zoneId);
+    },
+    onDragLeave: (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setDragActiveZone(null);
+    },
+    onDrop: async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setDragActiveZone(null);
+      if (!isEditorMode) return;
+      const file = e.dataTransfer.files?.[0];
+      if (!file) return;
+      logCMS(`\uD83D\uDCF3 Drag-drop: ${file.name}`, 'info');
+      try {
+        setIsUploading(true);
+        const url = await uploadFile(file, 'media');
+        logCMS(`\u2705 Drag-drop subido: ${url}`, 'success');
+        onFileDrop(url, file);
+      } catch (err) {
+        const msg = err.message || JSON.stringify(err);
+        logCMS(`\u274C Drag-drop error: ${msg}`, 'error');
+        alert('Error al subir el archivo: ' + msg);
+      } finally {
+        setIsUploading(false);
+      }
+    }
+  });
+  // ──────────────────────────────────────────────────────────────────────────
 
   const handleSaveToCloud = async () => {
     try {
@@ -1754,7 +1801,83 @@ const IndustriaDetalle = () => {
     }
   }, [sector, industryPage, pageId, cmsState.pages, updatePages]);
 
-  // Data to render
+  // Autoclean & normalize "Formatos Flexibles (Doypack)" to "Premade Pouch (PMP)" in packaging
+  useEffect(() => {
+    if (sector === 'packaging' && industryPage?.modules?.[0]?.data?.items) {
+      const items = industryPage.modules[0].data.items;
+      let needsUpdate = false;
+      const updatedItems = items.map(item => {
+        if (item.id === 'flexible' && (item.title === 'Formatos Flexibles (Doypack)' || item.title.includes('Formatos Flexibles') || !item.tableHeaders || item.tableHeaders.length !== 3 || item.tableHeaders[0] === 'Modelo')) {
+          needsUpdate = true;
+          return {
+            ...item,
+            title: 'Premade Pouch (PMP)',
+            description: 'Llenadoras automáticas rotativas para bolsas prefabricadas tipo pouch, stand-up pouch y zipper.',
+            longDescription: 'Flujo de envasado automático para bolsas premade pouch con apertura por vacío, codificación por chorro de tinta, llenado volumétrico/multicabezal y opción de inyección de gas para mayor vida útil del producto.',
+            features: [
+              '[icon:Shield] Apertura y sellado neumático servo-sincronizado',
+              '[icon:Zap] Inyección de gas inerte N2 para conservación',
+              '[icon:Cpu] Control total por PLC con recetas pregrabadas'
+            ],
+            tableHeaders: ['Especificación', 'PMP-180', 'PMP-250'],
+            equipmentTable: [
+              { model: 'Velocidad máxima de empaque', width: '40 bolsas/min', capacity: '40 bolsas/min' },
+              { model: 'Ancho de bolsa', width: '80–180 mm', capacity: '150–250 mm' },
+              { model: 'Largo de bolsa', width: '150–350 mm', capacity: '150–350 mm' },
+              { model: 'Peso de llenado', width: '10–1,500 g', capacity: '10–1,500 g' },
+              { model: 'Consumo de aire comprimido', width: '≥ 0.8 m³/min', capacity: '≥ 0.8 m³/min' },
+              { model: 'Potencia instalada', width: '7 kW', capacity: '7 kW' },
+              { model: 'Dimensiones L×A×H', width: '2,070 × 1,810 × 1,620 mm', capacity: '2,020 × 1,910 × 1,620 mm' },
+              { model: 'Peso de máquina', width: '2,400 kg', capacity: '2,600 kg' }
+            ]
+          };
+        }
+        return item;
+      });
+
+      if (needsUpdate) {
+        const updatedPage = {
+          ...industryPage,
+          modules: [
+            {
+              ...industryPage.modules[0],
+              data: {
+                ...industryPage.modules[0].data,
+                items: updatedItems
+              }
+            }
+          ]
+        };
+        const otherPages = cmsState.pages.filter(p => p.id !== pageId);
+        updatePages([...otherPages, updatedPage]);
+      }
+    }
+  }, [sector, industryPage, pageId, cmsState.pages, updatePages]);
+
+  // ── Normalización: Imagen de Instalaciones ─────────────────────────────────
+  // Aplica la nueva imagen de fachada SMQ a la sección de packaging si aún
+  // tiene la imagen antigua o no tiene ninguna guardada en la nube.
+  useEffect(() => {
+    if (sector !== 'packaging' || !industryPage) return;
+    const currentData = industryPage?.modules?.[0]?.data || {};
+    const currentImg = currentData.instalacionesImage;
+    const OLD_IMG = '/smq_factory_night.png';
+    const NEW_IMG = '/smq_factory_night2.png';
+    if (!currentImg || currentImg === OLD_IMG) {
+      const updatedPage = {
+        ...industryPage,
+        modules: [{
+          ...industryPage.modules[0],
+          data: { ...currentData, instalacionesImage: NEW_IMG }
+        }]
+      };
+      const otherPages = cmsState.pages.filter(p => p.id !== pageId);
+      updatePages([...otherPages, updatedPage]);
+    }
+  }, [sector, industryPage, pageId, cmsState.pages, updatePages]);
+  // ──────────────────────────────────────────────────────────────────────────
+
+
   let data = industryPage?.modules?.[0]?.data || staticData;
   if (sector === 'alimentos' && data && data.items) {
     const cleanedItems = data.items
@@ -1767,6 +1890,40 @@ const IndustriaDetalle = () => {
         else if (item.id === 'sistemas-de-separacion') newId = 'separadoras';
         return { ...item, id: newId };
       });
+    data = {
+      ...data,
+      items: cleanedItems
+    };
+  }
+
+  if (sector === 'packaging' && data && data.items) {
+    const cleanedItems = data.items.map(item => {
+      if (item.id === 'flexible' && (item.title === 'Formatos Flexibles (Doypack)' || item.title.includes('Formatos Flexibles') || !item.tableHeaders || item.tableHeaders.length !== 3 || item.tableHeaders[0] === 'Modelo')) {
+        return {
+          ...item,
+          title: 'Premade Pouch (PMP)',
+          description: 'Llenadoras automáticas rotativas para bolsas prefabricadas tipo pouch, stand-up pouch y zipper.',
+          longDescription: 'Flujo de envasado automático para bolsas premade pouch con apertura por vacío, codificación por chorro de tinta, llenado volumétrico/multicabezal y opción de inyección de gas para mayor vida útil del producto.',
+          features: [
+            '[icon:Shield] Apertura y sellado neumático servo-sincronizado',
+            '[icon:Zap] Inyección de gas inerte N2 para conservación',
+            '[icon:Cpu] Control total por PLC con recetas pregrabadas'
+          ],
+          tableHeaders: ['Especificación', 'PMP-180', 'PMP-250'],
+          equipmentTable: [
+            { model: 'Velocidad máxima de empaque', width: '40 bolsas/min', capacity: '40 bolsas/min' },
+            { model: 'Ancho de bolsa', width: '80–180 mm', capacity: '150–250 mm' },
+            { model: 'Largo de bolsa', width: '150–350 mm', capacity: '150–350 mm' },
+            { model: 'Peso de llenado', width: '10–1,500 g', capacity: '10–1,500 g' },
+            { model: 'Consumo de aire comprimido', width: '≥ 0.8 m³/min', capacity: '≥ 0.8 m³/min' },
+            { model: 'Potencia instalada', width: '7 kW', capacity: '7 kW' },
+            { model: 'Dimensiones L×A×H', width: '2,070 × 1,810 × 1,620 mm', capacity: '2,020 × 1,910 × 1,620 mm' },
+            { model: 'Peso de máquina', width: '2,400 kg', capacity: '2,600 kg' }
+          ]
+        };
+      }
+      return item;
+    });
     data = {
       ...data,
       items: cleanedItems
@@ -2231,6 +2388,46 @@ const IndustriaDetalle = () => {
       } catch (err) {
         const errMsg = err.message || err.error_description || JSON.stringify(err);
         logCMS(`❌ Error Instalaciones: ${errMsg}`, "error");
+        alert('No se pudo subir la imagen: ' + errMsg);
+      } finally {
+        setIsUploading(false);
+        e.target.value = '';
+      }
+    }
+  };
+
+  const handleInstalacionesCard1ImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      logCMS(`Iniciada subida de Tarjeta Instalación 1: ${file.name}`, "info");
+      try {
+        setIsUploading(true);
+        const url = await uploadFile(file, "media");
+        logCMS(`✅ Tarjeta 1 subida con éxito: ${url}`, "success");
+        handleUpdate('instalacionesCard1Image', url);
+      } catch (err) {
+        const errMsg = err.message || err.error_description || JSON.stringify(err);
+        logCMS(`❌ Error Tarjeta 1: ${errMsg}`, "error");
+        alert('No se pudo subir la imagen: ' + errMsg);
+      } finally {
+        setIsUploading(false);
+        e.target.value = '';
+      }
+    }
+  };
+
+  const handleInstalacionesCard2ImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      logCMS(`Iniciada subida de Tarjeta Instalación 2: ${file.name}`, "info");
+      try {
+        setIsUploading(true);
+        const url = await uploadFile(file, "media");
+        logCMS(`✅ Tarjeta 2 subida con éxito: ${url}`, "success");
+        handleUpdate('instalacionesCard2Image', url);
+      } catch (err) {
+        const errMsg = err.message || err.error_description || JSON.stringify(err);
+        logCMS(`❌ Error Tarjeta 2: ${errMsg}`, "error");
         alert('No se pudo subir la imagen: ' + errMsg);
       } finally {
         setIsUploading(false);
@@ -3072,6 +3269,8 @@ const IndustriaDetalle = () => {
             <div className="space-y-24">
               {data.items && data.items.map((item, index) => {
                 const formattedNum = index + 1 < 10 ? `0${index + 1}` : index + 1;
+                const defaultHeaders = ["Modelo", "Ancho Pila", "Capacidad", "Potencia", "Peso"];
+                const currentHeaders = item.tableHeaders || defaultHeaders;
 
                 return (
                   <motion.div 
@@ -3179,74 +3378,106 @@ const IndustriaDetalle = () => {
                   <div className={`lg:col-span-6 ${index % 2 === 1 ? 'lg:order-1' : ''}`}>
                     {((item.image || item.image2 || item.video || (item.images && item.images.length > 0)) || isEditorMode) ? (
                       <div className="flex flex-col shadow-2xl">
-                        {/* Contenedor Superior de la Imagen/Video */}
-                        <div className="relative group overflow-hidden rounded-t-2xl border-t border-l border-r border-white/10 bg-white/5 aspect-[16/10]">
-                          {isUploading && (
-                            <div className="absolute inset-0 bg-black/75 backdrop-blur-sm flex flex-col items-center justify-center text-xs gap-2 z-50">
-                              <RefreshCw size={24} className="animate-spin text-[#FFD700]" />
-                              <span className="font-bold text-white/90">Subiendo archivo...</span>
-                            </div>
-                          )}
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity z-10 pointer-events-none" />
-                          {(() => {
-                            let currentTab = activeMediaTabs[index] || item.defaultMediaTab || 'tab1';
-                            const hasImage2 = (item.images && item.images[1]?.url) || item.image2?.url;
-                            if (!isEditorMode) {
-                              if (currentTab === 'tab2' && !hasImage2) {
-                                currentTab = 'tab1';
-                              } else if (currentTab === 'tab3' && !item.video?.url) {
-                                currentTab = 'tab1';
-                              }
-                            }
-                            let activeMedia = (item.images && item.images[0]) ? item.images[0] : item.image;
-                            let activeLabel = `Foto Real de ${item.title}`;
-                            let updateKey = 'image';
-                            let mediaType = 'image';
-
-                            if (currentTab === 'tab2') {
-                              activeMedia = (item.images && item.images[1]) ? item.images[1] : item.image2;
-                              activeLabel = `Twin Digital de ${item.title}`;
-                              updateKey = 'image2';
-                            } else if (currentTab === 'tab3') {
-                              activeMedia = item.video;
-                              activeLabel = `Animación de ${item.title}`;
-                              updateKey = 'video';
-                              mediaType = 'video';
-                            }
-
-                            return (
-                              <>
-                                <EditableMedia
-                                  media={activeMedia || { url: '', type: mediaType }}
-                                  defaultOpacity={1}
-                                  defaultObjectFit="cover"
-                                  className="w-full h-full transition-transform duration-500 ease-out group-hover:scale-105"
-                                  onUpdate={(newMedia) => handleItemUpdate(index, updateKey, newMedia)}
-                                  isEditorMode={isEditorMode}
-                                  label={activeLabel}
-                                  logCMS={logCMS}
-                                />
-
-                                {/* Botón flotante superior con z-[60] para evitar overlays */}
-                                {isEditorMode && (
-                                  <div className="absolute top-4 right-4 z-[60]">
-                                    <button
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        const inputId = `file-upload-input-${index}-${currentTab}`;
-                                        document.getElementById(inputId)?.click();
-                                      }}
-                                      className="flex items-center gap-2 bg-[#0B0F14]/90 hover:bg-[#FFD700] hover:text-black text-white/90 backdrop-blur border border-white/15 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider shadow-lg transition-all cursor-pointer hover:scale-105 active:scale-95 pointer-events-auto"
-                                    >
-                                      <Upload size={12} />
-                                      <span>Subir</span>
-                                    </button>
+                        {/* Contenedor Superior de la Imagen/Video con Drag & Drop */}
+                        {(() => {
+                          const itemZoneId = `item-${index}-${(activeMediaTabs[index] || item.defaultMediaTab || 'tab1')}`;
+                          const isDragHere = dragActiveZone === itemZoneId;
+                          const dropHandlers = makeDropZone(itemZoneId, (url, file) => {
+                            const tab = activeMediaTabs[index] || item.defaultMediaTab || 'tab1';
+                            const updateKey = tab === 'tab2' ? 'image2' : tab === 'tab3' ? 'video' : 'image';
+                            const isVideoFile = file.type.startsWith('video/');
+                            handleItemUpdate(index, updateKey, {
+                              url, type: isVideoFile ? 'video' : 'image',
+                              scale: 1, positionX: 0, positionY: 0,
+                              objectFit: 'contain', bgColor: 'transparent',
+                              opacity: 1, blur: 0, brightness: 100, contrast: 100
+                            });
+                          });
+                          return (
+                            <div
+                              className={`relative group overflow-hidden rounded-t-2xl border-t border-l border-r border-white/10 bg-white/5 aspect-[16/10] transition-all duration-200 ${
+                                isDragHere ? 'ring-2 ring-[#FFD700] ring-offset-1 ring-offset-black/50 bg-[#FFD700]/5' : ''
+                              }`}
+                              {...(isEditorMode ? dropHandlers : {})}
+                            >
+                              {/* Drag-over visual indicator */}
+                              {isDragHere && isEditorMode && (
+                                <div className="absolute inset-0 z-[70] flex flex-col items-center justify-center gap-2 pointer-events-none">
+                                  <div className="bg-[#FFD700] text-black font-black text-sm px-5 py-3 rounded-xl shadow-2xl flex items-center gap-2 animate-bounce">
+                                    <Upload size={18} />
+                                    <span>Soltar para reemplazar imagen</span>
                                   </div>
-                                )}
-                              </>
-                            );
-                          })()}
-                        </div>
+                                </div>
+                              )}
+
+                              {isUploading && (
+                                <div className="absolute inset-0 bg-black/75 backdrop-blur-sm flex flex-col items-center justify-center text-xs gap-2 z-50">
+                                  <RefreshCw size={24} className="animate-spin text-[#FFD700]" />
+                                  <span className="font-bold text-white/90">Subiendo archivo...</span>
+                                </div>
+                              )}
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity z-10 pointer-events-none" />
+                              {(() => {
+                                let currentTab = activeMediaTabs[index] || item.defaultMediaTab || 'tab1';
+                                const hasImage2 = (item.images && item.images[1]?.url) || item.image2?.url;
+                                if (!isEditorMode) {
+                                  if (currentTab === 'tab2' && !hasImage2) {
+                                    currentTab = 'tab1';
+                                  } else if (currentTab === 'tab3' && !item.video?.url) {
+                                    currentTab = 'tab1';
+                                  }
+                                }
+                                let activeMedia = (item.images && item.images[0]) ? item.images[0] : item.image;
+                                let activeLabel = `Foto Real de ${item.title}`;
+                                let updateKey = 'image';
+                                let mediaType = 'image';
+
+                                if (currentTab === 'tab2') {
+                                  activeMedia = (item.images && item.images[1]) ? item.images[1] : item.image2;
+                                  activeLabel = `Twin Digital de ${item.title}`;
+                                  updateKey = 'image2';
+                                } else if (currentTab === 'tab3') {
+                                  activeMedia = item.video;
+                                  activeLabel = `Animación de ${item.title}`;
+                                  updateKey = 'video';
+                                  mediaType = 'video';
+                                }
+
+                                return (
+                                  <>
+                                    <EditableMedia
+                                      media={activeMedia || { url: '', type: mediaType }}
+                                      defaultOpacity={1}
+                                      defaultObjectFit="cover"
+                                      className="w-full h-full transition-transform duration-500 ease-out group-hover:scale-105"
+                                      onUpdate={(newMedia) => handleItemUpdate(index, updateKey, newMedia)}
+                                      isEditorMode={isEditorMode}
+                                      label={activeLabel}
+                                      logCMS={logCMS}
+                                    />
+
+                                    {/* Botón flotante superior con z-[60] para evitar overlays */}
+                                    {isEditorMode && (
+                                      <div className="absolute top-4 right-4 z-[60]">
+                                        <button
+                                          onClick={(e) => {
+                                            e.stopPropagation();
+                                            const inputId = `file-upload-input-${index}-${currentTab}`;
+                                            document.getElementById(inputId)?.click();
+                                          }}
+                                          className="flex items-center gap-2 bg-[#0B0F14]/90 hover:bg-[#FFD700] hover:text-black text-white/90 backdrop-blur border border-white/15 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider shadow-lg transition-all cursor-pointer hover:scale-105 active:scale-95 pointer-events-auto"
+                                        >
+                                          <Upload size={12} />
+                                          <span>Subir</span>
+                                        </button>
+                                      </div>
+                                    )}
+                                  </>
+                                );
+                              })()}
+                            </div>
+                          );
+                        })()}
 
                         {/* Contenedor Inferior de Botones/Tabs (Fuera del overlay de la imagen) */}
                         {(() => {
@@ -3485,98 +3716,73 @@ const IndustriaDetalle = () => {
                       <table className="w-full text-left border-collapse text-xs">
                         <thead>
                           <tr className={`border-b border-white/10 bg-white/[0.04] text-[10px] uppercase tracking-wider ${colorScheme.text} font-bold`}>
-                            {(() => {
-                              const defaultHeaders = ["Modelo", "Ancho Pila", "Capacidad", "Potencia", "Peso"];
-                              const currentHeaders = item.tableHeaders || defaultHeaders;
-                              return currentHeaders.map((headerText, hIdx) => (
-                                <th key={hIdx} className="p-3">
-                                  <EditableText
-                                    value={headerText}
-                                    onChange={(val) => {
-                                      const newHeaders = [...(item.tableHeaders || defaultHeaders)];
-                                      newHeaders[hIdx] = val;
-                                      handleItemUpdate(index, 'tableHeaders', newHeaders);
-                                    }}
-                                    isEditorMode={isEditorMode}
-                                  />
-                                </th>
-                              ));
-                            })()}
+                            {currentHeaders.map((headerText, hIdx) => (
+                              <th key={hIdx} className="p-3">
+                                <EditableText
+                                  value={headerText}
+                                  onChange={(val) => {
+                                    const newHeaders = [...(item.tableHeaders || defaultHeaders)];
+                                    newHeaders[hIdx] = val;
+                                    handleItemUpdate(index, 'tableHeaders', newHeaders);
+                                  }}
+                                  isEditorMode={isEditorMode}
+                                />
+                              </th>
+                            ))}
                             {isEditorMode && <th className="p-3 text-center w-12">Acciones</th>}
                           </tr>
                         </thead>
                         <tbody>
                           {item.equipmentTable.map((row, rIdx) => (
                             <tr key={rIdx} className="border-b border-white/5 hover:bg-white/[0.02] transition-colors text-white/90">
-                              <td className="p-3 font-semibold">
-                                {isEditorMode ? (
-                                  <EditableText
-                                    value={row.model}
-                                    onChange={(val) => {
-                                      const newTable = [...item.equipmentTable];
-                                      newTable[rIdx].model = val;
-                                      handleItemUpdate(index, 'equipmentTable', newTable);
-                                    }}
-                                    isEditorMode={isEditorMode}
-                                  />
-                                ) : (
-                                  <Link
-                                    to={getMachineLink(row.model)}
-                                    onClick={() => {
-                                      localStorage.setItem('last_sector_path', window.location.pathname + '#' + item.id);
-                                      localStorage.setItem('last_sector_name', data.title || 'Sector');
-                                    }}
-                                    className={`inline-flex items-center gap-1.5 font-bold hover:underline decoration-2 underline-offset-4 cursor-pointer transition-all duration-300 ${colorScheme.text} hover:opacity-85 hover:scale-[1.02]`}
-                                  >
-                                    <span>{row.model}</span>
-                                    <ArrowUpRight size={12} className="opacity-70 transition-transform duration-300" />
-                                  </Link>
-                                )}
-                              </td>
-                              <td className="p-3">
-                                <EditableText
-                                  value={row.width}
-                                  onChange={(val) => {
-                                    const newTable = [...item.equipmentTable];
-                                    newTable[rIdx].width = val;
-                                    handleItemUpdate(index, 'equipmentTable', newTable);
-                                  }}
-                                  isEditorMode={isEditorMode}
-                                />
-                              </td>
-                              <td className="p-3">
-                                <EditableText
-                                  value={row.capacity}
-                                  onChange={(val) => {
-                                    const newTable = [...item.equipmentTable];
-                                    newTable[rIdx].capacity = val;
-                                    handleItemUpdate(index, 'equipmentTable', newTable);
-                                  }}
-                                  isEditorMode={isEditorMode}
-                                />
-                              </td>
-                              <td className="p-3">
-                                <EditableText
-                                  value={row.power}
-                                  onChange={(val) => {
-                                    const newTable = [...item.equipmentTable];
-                                    newTable[rIdx].power = val;
-                                    handleItemUpdate(index, 'equipmentTable', newTable);
-                                  }}
-                                  isEditorMode={isEditorMode}
-                                />
-                              </td>
-                              <td className="p-3">
-                                <EditableText
-                                  value={row.weight}
-                                  onChange={(val) => {
-                                    const newTable = [...item.equipmentTable];
-                                    newTable[rIdx].weight = val;
-                                    handleItemUpdate(index, 'equipmentTable', newTable);
-                                  }}
-                                  isEditorMode={isEditorMode}
-                                />
-                              </td>
+                              {currentHeaders.map((headerText, colIdx) => {
+                                if (colIdx === 0) {
+                                  return (
+                                    <td key={colIdx} className="p-3 font-semibold">
+                                      {isEditorMode ? (
+                                        <EditableText
+                                          value={row.model}
+                                          onChange={(val) => {
+                                            const newTable = [...item.equipmentTable];
+                                            newTable[rIdx].model = val;
+                                            handleItemUpdate(index, 'equipmentTable', newTable);
+                                          }}
+                                          isEditorMode={isEditorMode}
+                                        />
+                                      ) : (
+                                        <Link
+                                          to={getMachineLink(row.model)}
+                                          onClick={() => {
+                                            localStorage.setItem('last_sector_path', window.location.pathname + '#' + item.id);
+                                            localStorage.setItem('last_sector_name', data.title || 'Sector');
+                                          }}
+                                          className={`inline-flex items-center gap-1.5 font-bold hover:underline decoration-2 underline-offset-4 cursor-pointer transition-all duration-300 ${colorScheme.text} hover:opacity-85 hover:scale-[1.02]`}
+                                        >
+                                          <span>{row.model}</span>
+                                          <ArrowUpRight size={12} className="opacity-70 transition-transform duration-300" />
+                                        </Link>
+                                      )}
+                                    </td>
+                                  );
+                                }
+
+                                const fieldNames = ['model', 'width', 'capacity', 'power', 'weight'];
+                                const fieldName = fieldNames[colIdx];
+
+                                return (
+                                  <td key={colIdx} className="p-3">
+                                    <EditableText
+                                      value={row[fieldName] || ''}
+                                      onChange={(val) => {
+                                        const newTable = [...item.equipmentTable];
+                                        newTable[rIdx][fieldName] = val;
+                                        handleItemUpdate(index, 'equipmentTable', newTable);
+                                      }}
+                                      isEditorMode={isEditorMode}
+                                    />
+                                  </td>
+                                );
+                              })}
                               {isEditorMode && (
                                 <td className="p-3 text-center">
                                   <button
@@ -3604,283 +3810,7 @@ const IndustriaDetalle = () => {
             </div>
           </section>
 
-          {/* Sección de Casos de Éxito */}
-          <section id="casos-exito" className="max-w-[1400px] mx-auto px-6 md:px-8 py-16 md:py-24 border-t border-white/5 relative overflow-hidden font-['Poppins']">
-            {/* Fondo de red digital sutil */}
-            <div className="absolute inset-0 bg-[#080B11]/50 pointer-events-none z-0" />
-            
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-stretch relative z-10">
-              {/* Columna Izquierda: Selector de Casos de Éxito */}
-              <div className="lg:col-span-5 flex flex-col justify-between space-y-8">
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <span className={`w-10 h-10 rounded-xl ${colorScheme.bg} border ${colorScheme.border} flex items-center justify-center ${colorScheme.text}`}>
-                        <Award size={20} className="stroke-[1.5]" />
-                      </span>
-                      <h2 className="text-[10px] font-black uppercase tracking-[0.25em] text-white/40">Estudios de Campo</h2>
-                    </div>
-                    <span className={`text-3xl font-black font-mono tracking-tighter opacity-15 ${colorScheme.text}`}>01</span>
-                  </div>
 
-                  <h3 className="text-4xl md:text-5xl font-black uppercase tracking-tight leading-[1.05] text-white">
-                    Casos de Éxito
-                  </h3>
-                  
-                  <p className="text-white/40 text-xs font-bold uppercase tracking-wider leading-relaxed">
-                    ESTUDIOS DE CASOS REALES Y RESULTADOS OPERATIVOS DE NUESTROS CLIENTES.
-                  </p>
-                  
-                  <div className="w-12 h-[3px] rounded-full" style={{ backgroundColor: colorScheme.accent }} />
-
-                  <p className="text-white/70 text-sm leading-relaxed">
-                    En SMQ impulsamos la eficiencia y la innovación en la industria alimentaria a nivel global. Seleccione uno de nuestros casos emblemáticos en México para analizar los datos analíticos de rendimiento en tiempo real.
-                  </p>
-                </div>
-
-                {/* Casos de Éxito Destacados en México */}
-                <div className="space-y-4 pt-4 border-t border-white/5">
-                  <p className="text-[10px] font-black uppercase tracking-widest" style={{ color: colorScheme.accent }}>
-                    CASOS DE ÉXITO DESTACADOS EN MÉXICO
-                  </p>
-
-                  <div className="space-y-3">
-                    {[
-                      {
-                        company: 'BIMBO',
-                        plant: 'Planta Azcapotzalco, CDMX',
-                        desc: 'Modernización de línea de producción de panificación.',
-                        val: '+28%',
-                        metric: 'Eficiencia',
-                        sub: 'Operativa'
-                      },
-                      {
-                        company: 'HERDEZ',
-                        plant: 'Planta Tecámac, Edo. de México',
-                        desc: 'Automatización de proceso de envasado de alimentos.',
-                        val: '+32%',
-                        metric: 'Rendimiento',
-                        sub: 'De Línea'
-                      },
-                      {
-                        company: 'NESTLÉ',
-                        plant: 'Planta Coatepec, Veracruz',
-                        desc: 'Implementación de sistema de clasificación de granos por IA.',
-                        val: '+24%',
-                        metric: 'Clasificación',
-                        sub: 'Automatizada'
-                      }
-                    ].map((proj, pIdx) => (
-                      <button
-                        key={pIdx}
-                        onClick={() => setActiveProjectIdx(pIdx)}
-                        className={`w-full flex items-center justify-between p-4 rounded-xl border text-left transition-all duration-300 ${
-                          activeProjectIdx === pIdx
-                            ? `bg-white/[0.03] border-white/15 shadow-[0_0_20px_rgba(255,255,255,0.03)]`
-                            : 'bg-white/[0.01] border-white/5 hover:bg-white/[0.02]'
-                        }`}
-                      >
-                        <div className="flex items-center gap-4">
-                          <div className={`w-16 h-10 rounded-lg flex items-center justify-center border transition-colors ${
-                            activeProjectIdx === pIdx ? 'bg-black border-white/10' : 'bg-black/45 border-white/5'
-                          }`}>
-                            <span className="text-[11px] font-black text-white tracking-widest">{proj.company}</span>
-                          </div>
-                          <div className="flex flex-col">
-                            <span className="text-[11px] font-bold text-white">{proj.plant}</span>
-                            <span className="text-[10px] text-white/50">{proj.desc}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-2.5 text-right">
-                          <TrendingUp size={16} style={{ color: activeProjectIdx === pIdx ? colorScheme.accent : 'rgba(255,255,255,0.3)' }} />
-                          <div className="flex flex-col leading-none">
-                            <span className="text-sm font-black text-white" style={{ color: activeProjectIdx === pIdx ? colorScheme.accent : 'white' }}>{proj.val}</span>
-                            <span className="text-[7px] text-white/40 uppercase font-black tracking-wider">{proj.metric}</span>
-                            <span className="text-[6px] text-white/30 uppercase font-bold">{proj.sub}</span>
-                          </div>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-
-                  <Link to="/proyectos" className={`inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-wider ${colorScheme.text} hover:opacity-80 transition-opacity mt-2 cursor-pointer`}>
-                    <span>VER TODOS LOS CASOS DE ÉXITO</span>
-                    <span className="text-xs">➔</span>
-                  </Link>
-                </div>
-              </div>
-
-              {/* Columna Derecha: Consola de Rendimiento Operativo */}
-              <div className="lg:col-span-7 bg-[#080B11]/85 border border-white/5 rounded-2xl p-6 md:p-8 relative flex flex-col justify-between min-h-[480px] shadow-2xl overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-b from-white/[0.01] to-transparent pointer-events-none" />
-                
-                {/* Cabecera del Panel */}
-                <div className="flex justify-between items-start border-b border-white/5 pb-4 relative z-10">
-                  <div>
-                    <span className="text-[8px] uppercase tracking-widest text-white/40 font-bold">MONITOR OPERATIVO</span>
-                    <h4 className="text-lg font-bold text-white uppercase tracking-tight">
-                      {activeProjectIdx === 0 && "BIMBO - EFICIENCIA AZCAPOTZALCO"}
-                      {activeProjectIdx === 1 && "HERDEZ - AUTOMATIZACIÓN TECÁMAC"}
-                      {activeProjectIdx === 2 && "NESTLÉ - CLASIFICACIÓN COATEPEC"}
-                    </h4>
-                  </div>
-                  <div className="flex items-center gap-2 bg-white/[0.03] border border-white/10 rounded-lg px-2.5 py-1 text-[8px] font-bold text-white/60">
-                    <span className="w-1.5 h-1.5 rounded-full bg-lime-500 animate-pulse" />
-                    ANALÍTICA ACTIVA
-                  </div>
-                </div>
-
-                {/* Gráfico de Rendimiento */}
-                <div className="py-6 relative z-10 flex-1 flex flex-col justify-center">
-                  <div className="flex justify-between items-center mb-3">
-                    <span className="text-[9px] font-black uppercase text-white/40 tracking-wider">INCREMENTO OPERATIVO vs BASELINE</span>
-                    <div className="flex gap-4">
-                      <span className="flex items-center gap-1.5 text-[8px] font-bold text-white/40">
-                        <span className="w-2 h-0.5 border-t border-dashed border-white/30" /> BASELINE
-                      </span>
-                      <span className="flex items-center gap-1.5 text-[8px] font-black text-white" style={{ color: colorScheme.accent }}>
-                        <span className="w-2 h-0.5 rounded" style={{ backgroundColor: colorScheme.accent }} /> OPTIMIZADO
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Gráfico Realista SVG */}
-                  <div className="w-full bg-black/40 border border-white/5 rounded-xl p-4 relative overflow-hidden">
-                    <svg viewBox="0 0 500 180" className="w-full h-auto overflow-visible">
-                      <defs>
-                        <linearGradient id="optGradient" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor={colorScheme.accent} stopOpacity="0.25" />
-                          <stop offset="100%" stopColor={colorScheme.accent} stopOpacity="0" />
-                        </linearGradient>
-                      </defs>
-                      
-                      {/* Rejilla de fondo */}
-                      <line x1="0" y1="30" x2="500" y2="30" stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
-                      <line x1="0" y1="75" x2="500" y2="75" stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
-                      <line x1="0" y1="120" x2="500" y2="120" stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
-                      <line x1="0" y1="160" x2="500" y2="160" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
-                      
-                      {/* Curva de Baseline (Gris discontinua) */}
-                      <path
-                        d={
-                          activeProjectIdx === 0 ? "M 20,130 Q 100,125 180,120 T 340,122 T 480,115" :
-                          activeProjectIdx === 1 ? "M 20,140 Q 100,138 180,135 T 340,132 T 480,130" :
-                          "M 20,120 Q 100,118 180,122 T 340,115 T 480,112"
-                        }
-                        fill="none"
-                        stroke="rgba(255,255,255,0.2)"
-                        strokeWidth="1.5"
-                        strokeDasharray="4 4"
-                      />
-
-                      {/* Área debajo de la optimizada */}
-                      <path
-                        d={
-                          activeProjectIdx === 0 ? "M 20,130 Q 100,85 180,60 T 340,45 T 480,35 L 480,160 L 20,160 Z" :
-                          activeProjectIdx === 1 ? "M 20,140 Q 100,80 180,50 T 340,38 T 480,25 L 480,160 L 20,160 Z" :
-                          "M 20,120 Q 100,88 180,70 T 340,55 T 480,48 L 480,160 L 20,160 Z"
-                        }
-                        fill="url(#optGradient)"
-                      />
-
-                      {/* Curva de Optimización SMQ (Verde brillante) */}
-                      <path
-                        d={
-                          activeProjectIdx === 0 ? "M 20,130 Q 100,85 180,60 T 340,45 T 480,35" :
-                          activeProjectIdx === 1 ? "M 20,140 Q 100,80 180,50 T 340,38 T 480,25" :
-                          "M 20,120 Q 100,88 180,70 T 340,55 T 480,48"
-                        }
-                        fill="none"
-                        stroke={colorScheme.accent}
-                        strokeWidth="3"
-                      />
-
-                      {/* Nodos de datos activos */}
-                      {activeProjectIdx === 0 && (
-                        <>
-                          <circle cx="180" cy="60" r="5" fill="#080B11" stroke={colorScheme.accent} strokeWidth="2" />
-                          <circle cx="340" cy="45" r="5" fill="#080B11" stroke={colorScheme.accent} strokeWidth="2" />
-                          <circle cx="480" cy="35" r="5" fill={colorScheme.accent} />
-                        </>
-                      )}
-                      {activeProjectIdx === 1 && (
-                        <>
-                          <circle cx="180" cy="50" r="5" fill="#080B11" stroke={colorScheme.accent} strokeWidth="2" />
-                          <circle cx="340" cy="38" r="5" fill="#080B11" stroke={colorScheme.accent} strokeWidth="2" />
-                          <circle cx="480" cy="25" r="5" fill={colorScheme.accent} />
-                        </>
-                      )}
-                      {activeProjectIdx === 2 && (
-                        <>
-                          <circle cx="180" cy="70" r="5" fill="#080B11" stroke={colorScheme.accent} strokeWidth="2" />
-                          <circle cx="340" cy="55" r="5" fill="#080B11" stroke={colorScheme.accent} strokeWidth="2" />
-                          <circle cx="480" cy="48" r="5" fill={colorScheme.accent} />
-                        </>
-                      )}
-                    </svg>
-                  </div>
-                </div>
-
-                {/* Métricas e Impacto del Proyecto */}
-                <div className="grid grid-cols-3 gap-4 border-t border-white/5 pt-4 relative z-10 bg-black/10 p-4 rounded-xl">
-                  <div className="flex flex-col text-center">
-                    <span className="text-[8px] font-black uppercase text-white/40 tracking-wider">Ahorro Energía</span>
-                    <span className="text-xl font-black text-white mt-1" style={{ color: colorScheme.accent }}>
-                      {activeProjectIdx === 0 && "22%"}
-                      {activeProjectIdx === 1 && "25%"}
-                      {activeProjectIdx === 2 && "18%"}
-                    </span>
-                    <span className="text-[7px] text-white/30 uppercase mt-0.5">Certificado Anual</span>
-                  </div>
-                  
-                  <div className="flex flex-col text-center border-x border-white/5">
-                    <span className="text-[8px] font-black uppercase text-white/40 tracking-wider">OEE Alcanzado</span>
-                    <span className="text-xl font-black text-white mt-1">
-                      {activeProjectIdx === 0 && "94.5%"}
-                      {activeProjectIdx === 1 && "96.2%"}
-                      {activeProjectIdx === 2 && "93.8%"}
-                    </span>
-                    <span className="text-[7px] text-white/30 uppercase mt-0.5">Disponibilidad Planta</span>
-                  </div>
-
-                  <div className="flex flex-col text-center">
-                    <span className="text-[8px] font-black uppercase text-white/40 tracking-wider">Retorno (ROI)</span>
-                    <span className="text-xl font-black text-white mt-1">
-                      {activeProjectIdx === 0 && "14 Meses"}
-                      {activeProjectIdx === 1 && "11 Meses"}
-                      {activeProjectIdx === 2 && "16 Meses"}
-                    </span>
-                    <span className="text-[7px] text-white/30 uppercase mt-0.5">Periodo Payback</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Barra de Estadísticas Horizontales Inferiores */}
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-6 border-t border-white/10 pt-10 mt-12 relative z-10">
-              {[
-                { icon: Grid, value: '+540', label: 'PROYECTOS EXITOSOS', sublabel: 'A NIVEL MUNDIAL' },
-                { icon: Globe, value: '+60', label: 'PAÍSES CON', sublabel: 'PRESENCIA ACTIVA' },
-                { icon: Users, value: '+300', label: 'CLIENTES', sublabel: 'SATISFECHOS' },
-                { icon: TrendingUp, value: '+98%', label: 'EFICIENCIA OPERATIVA', sublabel: 'PROMEDIO ALCANZADA' },
-                { icon: Headphones, value: '24/7', label: 'SOPORTE TÉCNICO', sublabel: 'GLOBAL' }
-              ].map((metric, mIdx) => {
-                const MetricIcon = metric.icon;
-                return (
-                  <div key={mIdx} className="flex items-center gap-3.5 group/metric">
-                    <div className={`w-10 h-10 rounded-xl bg-white/[0.02] border border-white/5 flex items-center justify-center text-white/50 group-hover/metric:text-white group-hover/metric:border-white/15 transition-all duration-300`}>
-                      <MetricIcon size={18} className="stroke-[1.5]" style={{ color: colorScheme.accent }} />
-                    </div>
-                    <div className="flex flex-col leading-none">
-                      <span className={`text-xl font-black text-white group-hover/metric:${colorScheme.text} transition-colors tracking-tight`}>{metric.value}</span>
-                      <span className="text-[9px] font-bold text-white/40 uppercase tracking-wider mt-0.5">{metric.label}</span>
-                      <span className="text-[8px] text-white/20 uppercase tracking-widest mt-0.5">{metric.sublabel}</span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </section>
 
           {/* 02. INSTALACIONES */}
           <section id="instalaciones" className="scroll-mt-32 max-w-[1400px] mx-auto px-6 md:px-8 py-16 md:py-24 border-t border-white/5 relative overflow-hidden font-['Poppins']">
@@ -3916,29 +3846,49 @@ const IndustriaDetalle = () => {
 
               {/* Columna Derecha (8/12): Imagen y Paneles de Información */}
               <div className="lg:col-span-8 flex flex-col gap-6">
-                {/* Gran Imagen Principal */}
-                <div className="relative w-full aspect-[21/9] rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_40px_rgba(59,130,246,0.15)] group">
-                  <img 
-                    src={data.instalacionesImage || "/smq_factory_night.png"} 
-                    alt="SMQ High-Tech Factory" 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-                  
+                {/* Gran Imagen Principal con Drag & Drop */}
+                <div className="relative">
+                  <div
+                    className={`relative w-full aspect-[21/9] rounded-2xl overflow-hidden border shadow-[0_0_40px_rgba(59,130,246,0.15)] group transition-all duration-200 ${
+                      dragActiveZone === 'instalaciones-main'
+                        ? 'border-[#FFD700] ring-2 ring-[#FFD700]/50 bg-[#FFD700]/5'
+                        : 'border-white/10'
+                    }`}
+                    {...(isEditorMode ? makeDropZone('instalaciones-main', (url) => handleUpdate('instalacionesImage', url)) : {})}
+                  >
+                    {/* Drag-over indicator */}
+                    {dragActiveZone === 'instalaciones-main' && isEditorMode && (
+                      <div className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none">
+                        <div className="bg-[#FFD700] text-black font-black text-sm px-5 py-3 rounded-xl shadow-2xl flex items-center gap-2 animate-bounce">
+                          <Upload size={18} />
+                          <span>Soltar para cambiar imagen</span>
+                        </div>
+                      </div>
+                    )}
+                    <img 
+                      src={data.instalacionesImage || "/smq_factory_night2.png"} 
+                      alt="SMQ High-Tech Factory" 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                  </div>
+
+                  {/* Botón de carga — FUERA del overflow-hidden para que sea visible y clickeable */}
                   {isEditorMode && (
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-20">
+                    <div className="absolute top-3 right-3 z-30">
                       <input 
                         type="file" 
                         className="hidden" 
                         ref={instalacionesImageInputRef}
-                        accept="image/*" 
+                        accept="image/*,video/*" 
                         onChange={handleInstalacionesImageUpload} 
                       />
                       <button 
                         onClick={() => instalacionesImageInputRef.current?.click()}
-                        className="bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs px-4 py-2 rounded-xl flex items-center gap-2 transition-all shadow-lg cursor-pointer"
+                        className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-bold text-xs px-3 py-2 rounded-xl transition-all shadow-[0_4px_20px_rgba(59,130,246,0.5)] cursor-pointer border border-blue-400/30"
                       >
-                        <Upload size={14} /> Cambiar Fachada
+                        <Upload size={13} />
+                        <span>Cambiar Imagen</span>
                       </button>
                     </div>
                   )}
@@ -3947,8 +3897,32 @@ const IndustriaDetalle = () => {
                 {/* Grid de Paneles Lado a Lado */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   
-                  {/* Tarjeta 1: Planta Principal */}
-                  <div className="bg-[#080B11]/85 border border-white/5 rounded-2xl p-5 relative overflow-hidden flex flex-col justify-between min-h-[260px] shadow-lg">
+                  {/* Tarjeta 1: Planta Principal con Drag & Drop */}
+                  <div
+                    className={`bg-[#080B11]/85 border rounded-2xl p-5 relative overflow-hidden flex flex-col justify-between min-h-[260px] shadow-lg group/card1 transition-all duration-200 ${
+                      dragActiveZone === 'instalaciones-card1' ? 'border-[#FFD700] ring-2 ring-[#FFD700]/40' : 'border-white/5'
+                    }`}
+                    {...(isEditorMode ? makeDropZone('instalaciones-card1', (url) => handleUpdate('instalacionesCard1Image', url)) : {})}
+                  >
+                    {dragActiveZone === 'instalaciones-card1' && isEditorMode && (
+                      <div className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none rounded-2xl bg-[#FFD700]/10">
+                        <div className="bg-[#FFD700] text-black font-black text-xs px-4 py-2 rounded-xl shadow-xl flex items-center gap-2 animate-bounce">
+                          <Upload size={14} /> Soltar imagen
+                        </div>
+                      </div>
+                    )}
+                    {/* Imagen de fondo editable */}
+                    {data.instalacionesCard1Image && (
+                      <img src={data.instalacionesCard1Image} alt="Planta" className="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none z-0" />
+                    )}
+                    {isEditorMode && (
+                      <div className="absolute top-2 right-2 z-20">
+                        <input type="file" className="hidden" ref={instalacionesCard1InputRef} accept="image/*" onChange={handleInstalacionesCard1ImageUpload} />
+                        <button onClick={() => instalacionesCard1InputRef.current?.click()} className="bg-blue-600/90 hover:bg-blue-500 text-white font-bold text-[9px] px-2 py-1 rounded-lg flex items-center gap-1 transition-all shadow-lg cursor-pointer">
+                          <Upload size={10} /> Imagen
+                        </button>
+                      </div>
+                    )}
                     {/* SVG Dotted Map de China de fondo sutil */}
                     <div className="absolute right-2 bottom-6 w-32 h-32 opacity-15 pointer-events-none z-0">
                       <svg viewBox="0 0 120 120" className="w-full h-full fill-white">
@@ -4021,8 +3995,32 @@ const IndustriaDetalle = () => {
                     </div>
                   </div>
 
-                  {/* Tarjeta 2: Oficina Comercial */}
-                  <div className="bg-[#080B11]/85 border border-white/5 rounded-2xl p-5 relative overflow-hidden flex flex-col justify-between min-h-[260px] shadow-lg">
+                  {/* Tarjeta 2: Oficina Comercial con Drag & Drop */}
+                  <div
+                    className={`bg-[#080B11]/85 border rounded-2xl p-5 relative overflow-hidden flex flex-col justify-between min-h-[260px] shadow-lg group/card2 transition-all duration-200 ${
+                      dragActiveZone === 'instalaciones-card2' ? 'border-[#FFD700] ring-2 ring-[#FFD700]/40' : 'border-white/5'
+                    }`}
+                    {...(isEditorMode ? makeDropZone('instalaciones-card2', (url) => handleUpdate('instalacionesCard2Image', url)) : {})}
+                  >
+                    {dragActiveZone === 'instalaciones-card2' && isEditorMode && (
+                      <div className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none rounded-2xl bg-[#FFD700]/10">
+                        <div className="bg-[#FFD700] text-black font-black text-xs px-4 py-2 rounded-xl shadow-xl flex items-center gap-2 animate-bounce">
+                          <Upload size={14} /> Soltar imagen
+                        </div>
+                      </div>
+                    )}
+                    {/* Imagen de fondo editable */}
+                    {data.instalacionesCard2Image && (
+                      <img src={data.instalacionesCard2Image} alt="Oficina" className="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none z-0" />
+                    )}
+                    {isEditorMode && (
+                      <div className="absolute top-2 right-2 z-20">
+                        <input type="file" className="hidden" ref={instalacionesCard2InputRef} accept="image/*" onChange={handleInstalacionesCard2ImageUpload} />
+                        <button onClick={() => instalacionesCard2InputRef.current?.click()} className="bg-blue-600/90 hover:bg-blue-500 text-white font-bold text-[9px] px-2 py-1 rounded-lg flex items-center gap-1 transition-all shadow-lg cursor-pointer">
+                          <Upload size={10} /> Imagen
+                        </button>
+                      </div>
+                    )}
                     {/* SVG Dotted Map de América de fondo sutil */}
                     <div className="absolute right-2 bottom-6 w-32 h-32 opacity-15 pointer-events-none z-0">
                       <svg viewBox="0 0 120 120" className="w-full h-full fill-white">

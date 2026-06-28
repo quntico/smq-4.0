@@ -97,7 +97,7 @@ export async function uploadFile(file, bucket = "media") {
         .from(bucket)
         .upload(fileName, targetFile, { 
             contentType,
-            cacheControl: '3600',
+            cacheControl: 'public, max-age=31536000, immutable',
             upsert: false
         });
 
