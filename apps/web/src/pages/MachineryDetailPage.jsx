@@ -38,7 +38,8 @@ import {
   Tag,
   Sun,
   Cable,
-  Activity
+  Activity,
+  Factory
 } from 'lucide-react';
 import Footer from '@/components/Footer.jsx';
 import { useCMS } from '@/context/CMSContext.jsx';
@@ -77,7 +78,22 @@ const iconMap = {
   Sun,
   Cable
 };
-
+const emojiIconMap = {
+  '🏭': Factory,
+  '⚙️': Settings,
+  '⚙': Settings,
+  '🔧': Settings,
+  '⚡': Zap,
+  '🛡️': Shield,
+  '🛡': Shield,
+  '📦': Package,
+  '🍃': Leaf,
+  '💧': Droplet,
+  '🔥': Flame,
+  '🌪️': Wind,
+  '🌪': Wind,
+  '🌱': Leaf
+};
 // Default machinery datasets
 const machineryDataMap = {
   ...catalogDataMap,
@@ -1758,16 +1774,23 @@ const MachineryDetailPage = () => {
                   <div className="border-t border-white/5 pt-5 flex flex-col gap-3">
                     <span className="text-[9px] font-black tracking-widest text-white/40 uppercase font-mono">Aplicaciones Principales</span>
                     <div className="flex flex-wrap gap-2.5">
-                      {data.applications.map((app, index) => (
-                        <div 
-                          key={index} 
-                          className="px-3 py-1.5 rounded border flex items-center gap-2 bg-white/[0.01]"
-                          style={{ borderColor: `${data.theme.accent}15` }}
-                        >
-                          <span className="text-xs shrink-0">{app.icon}</span>
-                          <span className="text-[9px] font-bold uppercase tracking-wider text-white/70">{app.name}</span>
-                        </div>
-                      ))}
+                      {applicationsList.map((app, index) => {
+                        const IconComponent = emojiIconMap[app.icon];
+                        return (
+                          <div 
+                            key={index} 
+                            className="px-3 py-1.5 rounded border flex items-center gap-2 bg-white/[0.01]"
+                            style={{ borderColor: `${data.theme.accent}15` }}
+                          >
+                            {IconComponent ? (
+                              React.createElement(IconComponent, { size: 12, strokeWidth: 1.5, style: { color: data.theme.accent } })
+                            ) : (
+                              <span className="text-xs shrink-0">{app.icon}</span>
+                            )}
+                            <span className="text-[9px] font-bold uppercase tracking-wider text-white/70">{app.name}</span>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
 
@@ -2128,7 +2151,11 @@ const MachineryDetailPage = () => {
                             <span className="absolute top-0 right-0 w-1.5 h-1.5 border-t border-r" style={{ borderColor: data.theme.accent }} />
                             <span className="absolute bottom-0 left-0 w-1.5 h-1.5 border-b border-l" style={{ borderColor: data.theme.accent }} />
                             <span className="absolute bottom-0 right-0 w-1.5 h-1.5 border-b border-r" style={{ borderColor: data.theme.accent }} />
-                            <span className="text-xl">{app.icon}</span>
+                            {emojiIconMap[app.icon] ? (
+                              React.createElement(emojiIconMap[app.icon], { size: 20, strokeWidth: 1.5, style: { color: data.theme.accent } })
+                            ) : (
+                              <span className="text-xl">{app.icon}</span>
+                            )}
                           </div>
                           
                           <span 
