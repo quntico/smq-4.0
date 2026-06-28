@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Award, Factory, Tv, TrendingUp, DownloadCloud, BookOpen, ArrowUpRight, Calculator, FileText, CheckCircle2, Play, Pause, RefreshCw, Layers, Globe, Users, Headphones, Grid, Building2, MapPin, Hammer, Cpu } from 'lucide-react';
+import { Award, Factory, Tv, TrendingUp, DownloadCloud, BookOpen, ArrowUpRight, Calculator, FileText, CheckCircle2, Play, Pause, RefreshCw, Layers, Globe, Users, Headphones, Grid, Building2, MapPin, Hammer, Cpu, Briefcase, Clock } from 'lucide-react';
 import Footer from '@/components/Footer.jsx';
 
 const Projects = () => {
@@ -319,54 +319,90 @@ const Projects = () => {
           </section>
 
           {/* 02. INSTALACIONES */}
-          <section id="instalaciones" className="scroll-mt-32 max-w-[1400px] mx-auto px-6 md:px-8 py-16 md:py-24 border-t border-white/5 relative overflow-hidden font-['Poppins']">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-stretch relative z-10">
+          <section id="instalaciones" className="scroll-mt-32 max-w-[1400px] mx-auto px-6 md:px-8 py-20 md:py-28 border-t border-white/5 relative overflow-hidden font-['Poppins']">
+            {/* Ambient glows */}
+            <div className="absolute top-1/4 -left-20 w-[400px] h-[400px] bg-blue-500/5 rounded-full filter blur-[100px] pointer-events-none" />
+            <div className="absolute bottom-1/4 -right-20 w-[400px] h-[400px] bg-indigo-500/5 rounded-full filter blur-[100px] pointer-events-none" />
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-stretch relative z-10">
               
               {/* Columna Izquierda (4/12): Encabezado de Instalaciones */}
-              <div className="lg:col-span-4 flex flex-col justify-start space-y-6">
-                <div className="flex items-center gap-3">
-                  <span className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-[#3B82F6]">
-                    <Factory size={20} className="stroke-[1.5]" />
-                  </span>
-                  <div className="flex flex-col">
-                    <span className="text-[20px] font-black text-[#3B82F6] font-mono leading-none">02</span>
-                    <div className="w-6 h-[1.5px] bg-[#3B82F6] mt-1" />
+              <div className="lg:col-span-4 flex flex-col justify-between py-2 border-l-2 border-blue-500/30 pl-6 md:pl-8 space-y-8">
+                <div className="space-y-6">
+                  <div className="flex items-center gap-3">
+                    <span className="w-11 h-11 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-[#3B82F6] shadow-[0_0_15px_rgba(59,130,246,0.15)]">
+                      <Factory size={22} className="stroke-[1.5]" />
+                    </span>
+                    <div className="flex flex-col">
+                      <span className="text-[22px] font-black text-[#3B82F6] font-mono leading-none tracking-wider">02</span>
+                      <div className="w-8 h-[1.5px] bg-[#3B82F6] mt-1" />
+                    </div>
                   </div>
-                </div>
 
-                <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight text-white leading-none">
-                  Instalaciones
-                </h2>
+                  <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight text-white leading-none">
+                    Instalaciones
+                  </h2>
 
-                <div className="space-y-4">
                   <p className="text-white/40 text-[10px] font-black uppercase tracking-widest leading-relaxed">
                     GALERÍA Y DETALLES DE PLANTAS EN FUNCIONAMIENTO A NIVEL MUNDIAL.
                   </p>
-                  <div className="w-12 h-[3px] rounded-full bg-[#3B82F6]" />
+
+                  <p className="text-white/60 text-xs md:text-sm leading-relaxed font-medium">
+                    Contamos con instalaciones de clase mundial equipadas con tecnología de última generación, diseñadas para garantizar eficiencia, calidad y escalabilidad en cada proyecto que desarrollamos.
+                  </p>
                 </div>
 
-                <p className="text-white/60 text-xs md:text-sm leading-relaxed font-medium">
-                  Contamos con instalaciones de clase mundial equipadas con tecnología de última generación, diseñadas para garantizar eficiencia, calidad y escalabilidad en cada proyecto que desarrollamos.
-                </p>
+                <div className="pt-6 hidden lg:block">
+                  <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 space-y-3">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                      <span className="text-[9px] font-mono text-white/50 uppercase tracking-widest">SISTEMA INTEGRAL GLOBAL</span>
+                    </div>
+                    <p className="text-[10px] text-white/40 leading-normal">
+                      Monitoreo centralizado y asistencia técnica en tiempo real para todas nuestras plantas de conversión y packaging.
+                    </p>
+                  </div>
+                </div>
               </div>
 
               {/* Columna Derecha (8/12): Imagen y Paneles de Información */}
-              <div className="lg:col-span-8 flex flex-col gap-6">
+              <div className="lg:col-span-8 flex flex-col gap-8">
                 {/* Gran Imagen Principal */}
-                <div className="relative w-full aspect-[21/9] rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_40px_rgba(59,130,246,0.15)] group">
-                  <img 
-                    src="/smq_factory_night.png" 
-                    alt="SMQ High-Tech Factory" 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                <div className="relative">
+                  <div className="relative w-full aspect-[21/9] rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_50px_rgba(59,130,246,0.25)] group transition-all duration-300">
+                    {/* HUD Top Bar */}
+                    <div className="absolute top-0 left-0 right-0 h-8 bg-black/50 backdrop-blur-md border-b border-white/5 px-4 flex items-center justify-between text-[8px] font-mono text-white/50 tracking-widest z-10 pointer-events-none uppercase">
+                      <div className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] animate-pulse" />
+                        <span>FACILITY STATUS: ACTIVE</span>
+                      </div>
+                      <span>REF: SMQ-GLOBAL-HQ-SYS</span>
+                    </div>
+
+                    {/* HUD Bottom Bar */}
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-4 flex items-end justify-between z-10 pointer-events-none">
+                      <div className="flex flex-col">
+                        <span className="text-[9px] font-black uppercase text-white/40 tracking-wider">MONITOREO DE PLANTA</span>
+                        <span className="text-[11px] font-black text-white mt-1">OPERACIONES GLOBALES SMQ</span>
+                      </div>
+                      <div className="text-[8px] font-mono text-white/40">
+                        SEC_ID: 02 // LAT: 31.2304° N, LON: 121.4737° E
+                      </div>
+                    </div>
+
+                    <img 
+                      src="/smq_factory_night2.png" 
+                      alt="SMQ High-Tech Factory" 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
                 </div>
 
                 {/* Grid de Paneles Lado a Lado */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   
                   {/* Tarjeta 1: Planta Principal */}
-                  <div className="bg-[#080B11]/85 border border-white/5 rounded-2xl p-5 relative overflow-hidden flex flex-col justify-between min-h-[260px] shadow-lg">
+                  <div className="bg-gradient-to-br from-[#0a0f1d]/90 to-[#070b14]/90 border border-white/5 rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between min-h-[300px] shadow-[0_4px_30px_rgba(0,0,0,0.4)] group/card1 transition-all duration-300 hover:border-blue-500/30">
                     {/* SVG Dotted Map de China de fondo sutil */}
                     <div className="absolute right-2 bottom-6 w-32 h-32 opacity-15 pointer-events-none z-0">
                       <svg viewBox="0 0 120 120" className="w-full h-full fill-white">
@@ -386,33 +422,39 @@ const Projects = () => {
                       </svg>
                     </div>
 
-                    <div className="relative z-10 space-y-4">
+                    <div className="relative z-10 space-y-5">
                       {/* Cabecera Tarjeta */}
-                      <div className="flex items-center gap-3">
-                        <span className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-[#3B82F6]">
-                          <Factory size={16} />
-                        </span>
-                        <div className="flex flex-col leading-none">
-                          <span className="text-[8px] font-black uppercase text-white/40 tracking-wider">PLANTA PRINCIPAL</span>
-                          <span className="text-sm font-black text-white tracking-tight mt-0.5">SHANGHAI, CHINA</span>
+                      <div className="flex items-center justify-between border-b border-white/5 pb-3">
+                        <div className="flex items-center gap-3">
+                          <span className="w-9 h-9 rounded-lg bg-blue-500/10 border border-blue-500/25 flex items-center justify-center text-[#3B82F6]">
+                            <Factory size={18} />
+                          </span>
+                          <div className="flex flex-col leading-none">
+                            <span className="text-[8px] font-black uppercase text-white/40 tracking-wider">PLANTA PRINCIPAL</span>
+                            <span className="text-sm font-black text-white tracking-tight mt-0.5">SHANGHAI, CHINA</span>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+                          <span className="w-1 h-1 rounded-full bg-emerald-400 animate-pulse" />
+                          <span className="text-[7px] font-mono text-emerald-400 font-bold uppercase tracking-wider">ONLINE</span>
                         </div>
                       </div>
 
                       {/* Lista de Detalles */}
                       <ul className="space-y-2 text-[10px] text-white/70 font-semibold pl-1">
-                        <li className="flex items-center gap-2">
+                        <li className="flex items-center gap-2.5">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
                           <span>5,000 m² de superficie total</span>
                         </li>
-                        <li className="flex items-center gap-2">
+                        <li className="flex items-center gap-2.5">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
                           <span>Centro de manufactura y ensamblaje</span>
                         </li>
-                        <li className="flex items-center gap-2">
+                        <li className="flex items-center gap-2.5">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
                           <span>Tecnología de producción de última generación</span>
                         </li>
-                        <li className="flex items-center gap-2">
+                        <li className="flex items-center gap-2.5">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
                           <span>Capacidad instalada para más de 200 líneas/año</span>
                         </li>
@@ -420,27 +462,27 @@ const Projects = () => {
                     </div>
 
                     {/* Footer de la Tarjeta */}
-                    <div className="grid grid-cols-3 gap-2 border-t border-white/5 pt-3.5 mt-4 text-center relative z-10">
-                      <div className="flex flex-col items-center">
-                        <Building2 size={12} className="text-[#3B82F6]" />
-                        <span className="text-[10px] font-black text-white mt-1">5,000 m²</span>
-                        <span className="text-[6px] text-white/30 uppercase font-bold">Superficie Total</span>
+                    <div className="grid grid-cols-3 gap-2 border-t border-white/5 pt-4 mt-5 text-center relative z-10">
+                      <div className="flex flex-col items-center bg-white/[0.02] border border-white/5 hover:border-blue-500/20 hover:bg-white/[0.04] p-2.5 rounded-xl transition-all duration-200">
+                        <Building2 size={13} className="text-[#3B82F6] mb-1" />
+                        <span className="text-[10px] font-black text-white">5,000 m²</span>
+                        <span className="text-[6px] text-white/30 uppercase font-bold tracking-wider mt-0.5">Superficie</span>
                       </div>
-                      <div className="flex flex-col items-center border-x border-white/5">
-                        <Hammer size={12} className="text-[#3B82F6]" />
-                        <span className="text-[10px] font-black text-white mt-1">200+</span>
-                        <span className="text-[6px] text-white/30 uppercase font-bold">Líneas/Año</span>
+                      <div className="flex flex-col items-center bg-white/[0.02] border border-white/5 hover:border-blue-500/20 hover:bg-white/[0.04] p-2.5 rounded-xl transition-all duration-200">
+                        <Hammer size={13} className="text-[#3B82F6] mb-1" />
+                        <span className="text-[10px] font-black text-white">200+</span>
+                        <span className="text-[6px] text-white/30 uppercase font-bold tracking-wider mt-0.5">Líneas/Año</span>
                       </div>
-                      <div className="flex flex-col items-center">
-                        <Users size={12} className="text-[#3B82F6]" />
-                        <span className="text-[10px] font-black text-white mt-1">300+</span>
-                        <span className="text-[6px] text-white/30 uppercase font-bold">Colaboradores</span>
+                      <div className="flex flex-col items-center bg-white/[0.02] border border-white/5 hover:border-blue-500/20 hover:bg-white/[0.04] p-2.5 rounded-xl transition-all duration-200">
+                        <Users size={13} className="text-[#3B82F6] mb-1" />
+                        <span className="text-[10px] font-black text-white">300+</span>
+                        <span className="text-[6px] text-white/30 uppercase font-bold tracking-wider mt-0.5">Equipo</span>
                       </div>
                     </div>
                   </div>
 
                   {/* Tarjeta 2: Oficina Comercial */}
-                  <div className="bg-[#080B11]/85 border border-white/5 rounded-2xl p-5 relative overflow-hidden flex flex-col justify-between min-h-[260px] shadow-lg">
+                  <div className="bg-gradient-to-br from-[#0a0f1d]/90 to-[#070b14]/90 border border-white/5 rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between min-h-[300px] shadow-[0_4px_30px_rgba(0,0,0,0.4)] group/card2 transition-all duration-300 hover:border-blue-500/30">
                     {/* SVG Dotted Map de América de fondo sutil */}
                     <div className="absolute right-2 bottom-6 w-32 h-32 opacity-15 pointer-events-none z-0">
                       <svg viewBox="0 0 120 120" className="w-full h-full fill-white">
@@ -457,55 +499,61 @@ const Projects = () => {
                       </svg>
                     </div>
 
-                    <div className="relative z-10 space-y-4">
+                    <div className="relative z-10 space-y-5">
                       {/* Cabecera Tarjeta */}
-                      <div className="flex items-center gap-3">
-                        <span className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-[#3B82F6]">
-                          <Building2 size={16} />
-                        </span>
-                        <div className="flex flex-col leading-none">
-                          <span className="text-[8px] font-black uppercase text-white/40 tracking-wider">OFICINA COMERCIAL</span>
-                          <span className="text-sm font-black text-white tracking-tight mt-0.5">CDMX, MÉXICO</span>
-                          <span className="text-[7px] font-bold text-white/50 tracking-wide uppercase mt-0.5 font-mono">POLANCO | CARSO</span>
+                      <div className="flex items-center justify-between border-b border-white/5 pb-3">
+                        <div className="flex items-center gap-3">
+                          <span className="w-9 h-9 rounded-lg bg-blue-500/10 border border-blue-500/25 flex items-center justify-center text-[#3B82F6]">
+                            <Building2 size={18} />
+                          </span>
+                          <div className="flex flex-col leading-none">
+                            <span className="text-[8px] font-black uppercase text-white/40 tracking-wider">OFICINA COMERCIAL</span>
+                            <span className="text-sm font-black text-white tracking-tight mt-0.5">CDMX, MÉXICO</span>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-1.5 bg-cyan-500/10 border border-cyan-500/20 px-2 py-0.5 rounded-full">
+                          <span className="w-1 h-1 rounded-full bg-cyan-400 animate-pulse" />
+                          <span className="text-[7px] font-mono text-cyan-400 font-bold uppercase tracking-wider">SUPPORT ACTIVE</span>
                         </div>
                       </div>
 
                       {/* Lista de Detalles */}
                       <ul className="space-y-2 text-[10px] text-white/70 font-semibold pl-1">
-                        <li className="flex items-center gap-2">
+                        <li className="flex items-center gap-2.5">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
-                          <span>Atención y soporte comercial</span>
+                          <span>Atención y soporte comercial de primer nivel</span>
                         </li>
-                        <li className="flex items-center gap-2">
+                        <li className="flex items-center gap-2.5">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
-                          <span>Desarrollo de soluciones a la medida</span>
+                          <span>Desarrollo y diseño de soluciones a la medida</span>
                         </li>
-                        <li className="flex items-center gap-2">
+                        <li className="flex items-center gap-2.5">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
-                          <span>Relación cercana con nuestros clientes</span>
+                          <span>Showroom corporativo en Corporativo Carso</span>
                         </li>
-                        <li className="flex items-center gap-2">
+                        <li className="flex items-center gap-2.5">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
-                          <span>Cobertura en toda Latinoamérica</span>
+                          <span>Cobertura total en México y Latinoamérica</span>
                         </li>
                       </ul>
                     </div>
 
                     {/* Footer de la Tarjeta */}
-                    <div className="border-t border-white/5 pt-3.5 mt-4 flex justify-between items-center gap-4 text-left relative z-10">
-                      <div className="flex items-center gap-2">
-                        <MapPin size={14} className="text-[#3B82F6] shrink-0" />
-                        <div className="flex flex-col leading-none">
-                          <span className="text-[8px] text-white/70 font-bold">Lago Zurich 245, Polanco, Miguel Hidalgo</span>
-                          <span className="text-[6px] text-white/40 uppercase mt-0.5">11529, CDMX, México</span>
-                        </div>
+                    <div className="grid grid-cols-3 gap-2 border-t border-white/5 pt-4 mt-5 text-center relative z-10">
+                      <div className="flex flex-col items-center bg-white/[0.02] border border-white/5 hover:border-blue-500/20 hover:bg-white/[0.04] p-2.5 rounded-xl transition-all duration-200">
+                        <Building2 size={13} className="text-[#3B82F6] mb-1" />
+                        <span className="text-[10px] font-black text-white">1,200 m²</span>
+                        <span className="text-[6px] text-white/30 uppercase font-bold tracking-wider mt-0.5">Oficinas</span>
                       </div>
-                      <div className="flex items-center gap-1.5 shrink-0 border-l border-white/5 pl-2.5">
-                        <Building2 size={12} className="text-[#3B82F6]" />
-                        <div className="flex flex-col leading-none">
-                          <span className="text-[8px] text-white/80 font-black tracking-tight">Corporativo Carso</span>
-                          <span className="text-[6px] text-white/30 uppercase mt-0.5 font-bold">Grupo Carso</span>
-                        </div>
+                      <div className="flex flex-col items-center bg-white/[0.02] border border-white/5 hover:border-blue-500/20 hover:bg-white/[0.04] p-2.5 rounded-xl transition-all duration-200">
+                        <Briefcase size={13} className="text-[#3B82F6] mb-1" />
+                        <span className="text-[10px] font-black text-white">80+</span>
+                        <span className="text-[6px] text-white/30 uppercase font-bold tracking-wider mt-0.5">Proyectos</span>
+                      </div>
+                      <div className="flex flex-col items-center bg-white/[0.02] border border-white/5 hover:border-blue-500/20 hover:bg-white/[0.04] p-2.5 rounded-xl transition-all duration-200">
+                        <Clock size={13} className="text-[#3B82F6] mb-1" />
+                        <span className="text-[10px] font-black text-white">24/7</span>
+                        <span className="text-[6px] text-white/30 uppercase font-bold tracking-wider mt-0.5">Soporte</span>
                       </div>
                     </div>
                   </div>
