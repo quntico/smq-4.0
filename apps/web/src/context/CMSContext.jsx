@@ -19,12 +19,11 @@ const initialCMSState = {
     },
     menus: [
         { id: '1', name: 'Industrias', componentName: 'IndustriesMenu', order: 1 },
-        { id: '2', name: 'Soluciones', componentName: 'SolutionsMenu', order: 2 },
+        { id: '4', name: 'Tecnología', componentName: 'TechnologyMenu', order: 2 },
         { id: '3', name: 'Maquinaria', componentName: 'MachineryMenu', order: 3 },
-        { id: '4', name: 'Tecnología', componentName: 'TechnologyMenu', order: 4 },
-        { id: '6', name: 'Valorización Energética', componentName: 'WasteToEnergyMenu', order: 5 },
-        { id: '7', name: 'Proyectos', componentName: 'ProjectsMenu', order: 6 },
-        { id: '5', name: 'Empresa', componentName: 'CompanyMenu', order: 7 },
+        { id: '6', name: 'Valorización Energética', componentName: 'WasteToEnergyMenu', order: 4 },
+        { id: '7', name: 'Proyectos', componentName: 'ProjectsMenu', order: 5 },
+        { id: '5', name: 'Empresa', componentName: 'CompanyMenu', order: 6 },
     ],
     pages: [
     {
@@ -794,7 +793,27 @@ const initialCMSState = {
 };
 
 const migrateCMSState = (state) => {
-    if (!state || !state.pages) return state;
+    if (!state) return state;
+    
+    // Ensure SolutionsMenu is removed and TechnologyMenu has order 2
+    if (state.menus && Array.isArray(state.menus)) {
+        const hasSolutions = state.menus.some(m => m.componentName === 'SolutionsMenu');
+        if (hasSolutions) {
+            state.menus = state.menus
+                .filter(m => m.componentName !== 'SolutionsMenu')
+                .map(m => {
+                    if (m.componentName === 'TechnologyMenu') {
+                        return { ...m, name: 'Tecnología', order: 2 };
+                    }
+                    if (m.order > 2) {
+                        return { ...m, order: m.order - 1 };
+                    }
+                    return m;
+                });
+        }
+    }
+
+    if (!state.pages) return state;
     try {
         let serialized = JSON.stringify(state);
         // Reemplazar de forma masiva los colores esmeralda/verde por verde lima

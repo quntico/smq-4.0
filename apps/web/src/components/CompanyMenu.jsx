@@ -10,7 +10,7 @@ const companyItems = [
     desc: 'HISTORIA, VISIÓN Y VALORES DE NUESTRA TRAYECTORIA INDUSTRIAL.',
     color: '#3B82F6', // Blue
     Icon: Building2,
-    href: '/empresa#nosotros'
+    href: '/nosotros#nosotros'
   },
   {
     num: '02',
@@ -18,7 +18,7 @@ const companyItems = [
     desc: 'NUESTRA INFRAESTRUCTURA DE FABRICACIÓN Y ALCANCE TECNOLÓGICO.',
     color: '#F59E0B', // Amber
     Icon: Layers,
-    href: '/empresa#capacidades'
+    href: '/nosotros#capacidades'
   },
   {
     num: '03',
@@ -26,7 +26,7 @@ const companyItems = [
     desc: 'ESTÁNDARES DE CALIDAD ISO, CERTIFICACIONES DE SEGURIDAD Y NORMATIVAS.',
     color: '#10B981', // Green
     Icon: ShieldCheck,
-    href: '/empresa#certificaciones'
+    href: '/nosotros#certificaciones'
   },
   {
     num: '04',
@@ -34,7 +34,7 @@ const companyItems = [
     desc: 'RED GLOBAL DE SOCIOS E INTEGRADORES DE MAQUINARIA INDUSTRIAL.',
     color: '#8B5CF6', // Purple
     Icon: Globe,
-    href: '/empresa#alianzas'
+    href: '/nosotros#alianzas'
   },
   {
     num: '05',
@@ -42,7 +42,7 @@ const companyItems = [
     desc: 'CENTROS DE I+D Y DESARROLLOS TECNOLÓGICOS DE PRÓXIMA GENERACIÓN.',
     color: '#06B6D4', // Cyan
     Icon: Cpu,
-    href: '/empresa#innovacion'
+    href: '/nosotros#innovacion'
   },
   {
     num: '06',
@@ -50,7 +50,7 @@ const companyItems = [
     desc: 'ÚNETE A NUESTRO EQUIPO GLOBAL DE INGENIERÍA Y MANUFACTURA.',
     color: '#EC4899', // Pink
     Icon: Briefcase,
-    href: '/empresa#carrera'
+    href: '/nosotros#carrera'
   },
   {
     num: '07',
@@ -58,7 +58,7 @@ const companyItems = [
     desc: 'ASISTENCIA TÉCNICA, OFICINAS REGIONALES Y COTIZACIÓN EXPRESS.',
     color: '#F97316', // Orange
     Icon: PhoneCall,
-    href: '/empresa#contacto'
+    href: '/nosotros#contacto'
   }
 ];
 

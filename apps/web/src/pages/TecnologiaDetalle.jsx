@@ -6,7 +6,7 @@ import {
   AlertTriangle, Info, CheckCircle2, Factory, BarChart2, Settings,
   DollarSign, Clock, ShieldCheck, Image as ImageIcon, Wifi, Zap, Shield,
   Box, LineChart, TrendingDown, Database, Gauge, Leaf, Cloud, ClipboardCheck, ArrowDownCircle,
-  Star, LayoutDashboard, Sliders, Bell, Maximize
+  Star, LayoutDashboard, Sliders, Bell, Maximize, Recycle
 } from 'lucide-react';
 import Footer from '@/components/Footer.jsx';
 import { useCMS } from '@/context/CMSContext.jsx';
@@ -20,6 +20,7 @@ const techList = [
   { id: 'iiot-edge', label: 'IIoT + Edge', icon: Wifi, color: '#3B82F6' },
   { id: 'energia-inteligente', label: 'Energía Inteligente', icon: Zap, color: '#F97316' },
   { id: 'smq-os', label: 'SMQ OS™', icon: Shield, color: '#EAB308' },
+  { id: 'economia-circular', label: 'Economía Circular', icon: Recycle, color: '#14B8A6' },
 ];
 
 const technologyData = {
@@ -167,8 +168,33 @@ const technologyData = {
       { icon: Clock, value: '', label: 'Reducción de paros\nno planificados' },
       { icon: Maximize, value: '', label: 'Escalabilidad y\nadaptabilidad' }
     ]
+  },
+  'economia-circular': {
+    number: '08',
+    title: 'ECONOMÍA CIRCULAR',
+    subtitle: 'VALORIZACIÓN DE RESIDUOS Y PROCESOS\nSIN DESPERDICIO (ZERO WASTE).',
+    color: '#14B8A6', // Teal
+    icon: Recycle,
+    robotImage: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=1200&q=80',
+    features: [
+      { icon: Leaf, title: 'VALORIZACIÓN', desc: 'Diseñamos sistemas que convierten los subproductos industriales en recursos valiosos.' },
+      { icon: Network, title: 'SEPARACIÓN ÓPTICA', desc: 'Espectrometría NIR de alta resolución para clasificar polímeros por firma química.' },
+      { icon: Settings, title: 'SOSTENIBILIDAD ESG', desc: 'Procesos de lavado, molienda y extrusión alineados con las normas y estándares de cumplimiento global.' }
+    ],
+    footerType: 'metrics',
+    footerTitle: 'BENEFICIOS CLAVE',
+    footerIcon: Leaf,
+    metrics: [
+      { icon: Leaf, value: '95%', label: 'Recuperación\nde Material' },
+      { icon: Activity, value: 'Circular', label: 'Cierre de Ciclo\n(Bottle-to-Bottle)' },
+      { icon: Zap, value: '>70%', label: 'Ahorro de Agua\nFresca' },
+      { icon: ShieldCheck, value: 'ESG', label: 'Cumplimiento y\nCertificación' }
+    ]
   }
 };
+
+technologyData['inteligencia-artificial'] = technologyData.ia;
+technologyData['economia-circular-alias'] = technologyData['economia-circular'];
 
 const TecnologiaDetalle = () => {
   const { sector } = useParams();

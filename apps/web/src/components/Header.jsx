@@ -2,7 +2,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import IndustriesMenu from '@/components/IndustriesMenu.jsx';
-import SolutionsMenu from '@/components/SolutionsMenu.jsx';
 import MachineryMenu from '@/components/MachineryMenu.jsx';
 import TechnologyMenu from '@/components/TechnologyMenu.jsx';
 import CompanyMenu from '@/components/CompanyMenu.jsx';
@@ -17,7 +16,6 @@ import { Menu } from 'lucide-react';
 
 const componentMap = {
   IndustriesMenu,
-  SolutionsMenu,
   MachineryMenu,
   TechnologyMenu,
   WasteToEnergyMenu,
@@ -219,15 +217,17 @@ const Header = () => {
                 e.preventDefault();
                 handleOpenAdmin('menus');
               } else {
-                if (componentName === 'IndustriesMenu' || componentName === 'SolutionsMenu' || id === '2' || id === '3' || menuName.includes('industr') || menuName.includes('soluc')) {
+                if (componentName === 'IndustriesMenu' || menuName.includes('industr')) {
                   navigate('/industria/reciclaje-y-plasticos');
-                } else if (componentName === 'MachineryMenu' || id === '4' || menuName.includes('maquin')) {
+                } else if (componentName === 'TechnologyMenu' || menuName.includes('tecnol') || menuName.includes('soluc')) {
+                  navigate('/tecnologia/ia');
+                } else if (componentName === 'MachineryMenu' || menuName.includes('maquin')) {
                   navigate('/envasadoras');
-                } else if (componentName === 'WasteToEnergyMenu' || id === '6' || menuName.includes('waste') || menuName.includes('valoriz') || menuName.includes('wte') || menuName.includes('wt')) {
+                } else if (componentName === 'WasteToEnergyMenu' || menuName.includes('waste') || menuName.includes('valoriz') || menuName.includes('wte') || menuName.includes('wt')) {
                   navigate('/waste-to-energy');
-                } else if (componentName === 'ProjectsMenu' || id === '7' || menuName.includes('proy')) {
+                } else if (componentName === 'ProjectsMenu' || menuName.includes('proy')) {
                   navigate('/proyectos');
-                } else if (componentName === 'CompanyMenu' || id === '5' || menuName.includes('empr') || menuName.includes('nosot')) {
+                } else if (componentName === 'CompanyMenu' || menuName.includes('empr') || menuName.includes('nosot')) {
                   navigate('/nosotros');
                 }
               }

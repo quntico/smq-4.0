@@ -54,18 +54,6 @@ const MobileMenu = ({ isOpen, onClose }) => {
       ]
     },
     {
-      title: 'Soluciones',
-      key: 'solutions',
-      type: 'expandable',
-      items: [
-        { name: 'Plantas Llave en Mano', href: '/soluciones/plantas-llave-en-mano' },
-        { name: 'Líneas de Producción', href: '/soluciones/lineas-produccion' },
-        { name: 'Infraestructura Industrial', href: '/soluciones/infraestructura-industrial' },
-        { name: 'Automatización', href: '/soluciones/automatizacion' },
-        { name: 'Operación y Soporte', href: '/soluciones/operacion-soporte' }
-      ]
-    },
-    {
       title: 'Maquinaria',
       key: 'machinery',
       type: 'expandable',
@@ -103,7 +91,8 @@ const MobileMenu = ({ isOpen, onClose }) => {
         { name: 'PLC + Motion', href: '/tecnologia/plc-motion' },
         { name: 'IIOT + Edge', href: '/tecnologia/iiot-edge' },
         { name: 'Energía Inteligente', href: '/tecnologia/energia-inteligente' },
-        { name: 'Plataforma SMQ OS™', href: '/tecnologia/smq-os' }
+        { name: 'Plataforma SMQ OS™', href: '/tecnologia/smq-os' },
+        { name: 'Economía Circular', href: '/tecnologia/economia-circular' }
       ]
     },
     {
@@ -139,13 +128,13 @@ const MobileMenu = ({ isOpen, onClose }) => {
       key: 'company',
       type: 'expandable',
       items: [
-        { name: 'Nosotros', href: '/empresa#nosotros' },
-        { name: 'Capacidades', href: '/empresa#capacidades' },
-        { name: 'Certificaciones', href: '/empresa#certificaciones' },
-        { name: 'Alianzas', href: '/empresa#alianzas' },
-        { name: 'Innovación', href: '/empresa#innovacion' },
-        { name: 'Carrera', href: '/empresa#carrera' },
-        { name: 'Contacto', href: '/empresa#contacto' }
+        { name: 'Nosotros', href: '/nosotros#nosotros' },
+        { name: 'Capacidades', href: '/nosotros#capacidades' },
+        { name: 'Certificaciones', href: '/nosotros#certificaciones' },
+        { name: 'Alianzas', href: '/nosotros#alianzas' },
+        { name: 'Innovación', href: '/nosotros#innovacion' },
+        { name: 'Carrera', href: '/nosotros#carrera' },
+        { name: 'Contacto', href: '/nosotros#contacto' }
       ]
     }
   ];

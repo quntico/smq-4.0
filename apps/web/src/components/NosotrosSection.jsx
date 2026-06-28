@@ -316,158 +316,109 @@ const NosotrosSection = () => {
     <div id="nosotros" className="relative bg-[#030712] text-white overflow-hidden font-['Poppins'] scroll-mt-[100px]">
       
       {/* 1. HERO NOSOTROS */}
-      <section className="relative min-h-[80vh] flex items-center justify-center py-20 px-[40px] border-b border-white/5 bg-gradient-to-b from-[#030712] via-[#080d1a] to-[#030712]">
-        {/* Subtle Grid overlay */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-[#F5C400]/5 rounded-full filter blur-[120px] pointer-events-none" />
+      <section 
+        className="relative min-h-[60vh] md:min-h-[75vh] flex items-center justify-start py-20 px-8 md:px-16 lg:px-[80px] border-b border-white/5 bg-cover bg-center bg-no-repeat overflow-hidden group"
+        style={{ backgroundImage: `url('${collageImage || '/smq_nosotros.jpg'}')` }}
+      >
+        {/* Background Video Loop if present */}
+        {collageVideo && (
+          <video
+            src={collageVideo}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
+          />
+        )}
 
-        <div className="max-w-[1400px] w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start relative z-10">
-          
-          {/* Left Content */}
+        {/* Premium Gradient Overlay to completely hide baked-in text on the left and blend to the right */}
+        <div 
+          className="absolute inset-0 z-[1] pointer-events-none"
+          style={{
+            background: "linear-gradient(90deg, #030712 0%, #030712 25%, rgba(3, 7, 18, 0.95) 45%, rgba(3, 7, 18, 0.6) 70%, rgba(3, 7, 18, 0) 100%)"
+          }}
+        />
+
+        {/* Tech Grid overlay for micro-telemetry feel */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-[2]" />
+        <div className="absolute top-1/4 left-1/4 w-[350px] h-[350px] bg-[#3B82F6]/5 rounded-full filter blur-[100px] pointer-events-none z-[2]" />
+
+        <div className="max-w-[1400px] w-full mx-auto relative z-10 flex items-center justify-start">
+          {/* Border-l accent line like Image 2 */}
           <motion.div 
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="flex flex-col items-start gap-6"
+            className="pl-6 md:pl-10 border-l-[4px] border-[#3B82F6] flex flex-col items-start gap-4 md:gap-6 py-2"
           >
-            {/* Badge */}
-            <div className="flex items-center gap-2 bg-[#F5C400]/10 border border-[#F5C400]/30 rounded-full px-4 py-1.5 backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-[#F5C400] animate-ping"></span>
-              <span className="text-[11px] font-black uppercase tracking-[0.2em] text-[#F5C400]">Desde 2005</span>
-            </div>
-
-            {/* Main Title */}
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tighter leading-[1.05] uppercase">
-              <span className="text-white">NOSOTROS</span>
+            
+            {/* Main Title - NOSOTROS */}
+            <h2 className="text-5xl md:text-7xl lg:text-[90px] font-black tracking-tight text-white leading-none uppercase select-none font-sans drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
+              NOSOTROS
             </h2>
 
-            {/* Divider */}
-            <div className="w-24 h-[3px] bg-[#F5C400] shadow-[0_0_10px_#F5C400] my-2" />
+            {/* Subtitle - Empresa integradora y desarrolladora... */}
+            <p className="text-white/95 text-base md:text-xl lg:text-2xl font-bold tracking-wide leading-relaxed max-w-[650px] font-sans drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
+              Empresa integradora y desarrolladora de proyectos para la industria
+            </p>
 
-            {/* Description */}
-            <div className="flex flex-col gap-4 text-base md:text-lg text-[#A1A8B3] leading-relaxed max-w-[600px]">
-              <p>
-                SMQ Industrial Systems desarrolla maquinaria industrial especializada para reciclaje, procesamiento y valorización de materiales. Integramos sistemas completos para trituración, separación, lavado, peletizado, recuperación de recursos y soluciones de Valorización Energética. Nuestro enfoque combina ingeniería aplicada, automatización y plantas industriales llave en mano adaptadas a las necesidades de cada cliente.
-              </p>
+            {/* Navigation links - Historia • Visión • Valores */}
+            <div className="flex flex-wrap items-center gap-3 md:gap-4 text-xs md:text-sm font-bold uppercase tracking-wider text-white/50 mt-2 font-mono">
+              <a href="/nosotros#historia" className="hover:text-[#3B82F6] hover:text-white transition-colors duration-300">Historia</a>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] shadow-[0_0_8px_#3B82F6]"></span>
+              <a href="/nosotros#mision" className="hover:text-[#3B82F6] hover:text-white transition-colors duration-300">Misión</a>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] shadow-[0_0_8px_#3B82F6]"></span>
+              <a href="/nosotros#vision" className="hover:text-[#3B82F6] hover:text-white transition-colors duration-300">Visión</a>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] shadow-[0_0_8px_#3B82F6]"></span>
+              <a href="/nosotros#valores" className="hover:text-[#3B82F6] hover:text-white transition-colors duration-300">Valores</a>
             </div>
 
-            {/* CTAs */}
-            <div className="flex flex-wrap gap-4 mt-6">
-              <a 
-                href="#historia-seccion"
-                className="bg-[#F5C400] text-black font-bold text-sm tracking-widest uppercase py-4 px-8 rounded-lg transition-all duration-300 hover:brightness-110 hover:shadow-[0_0_20px_#F5C400] transform hover:-translate-y-0.5"
-              >
-                NUESTRA HISTORIA
-              </a>
-              <a 
-                href="#proyectos"
-                className="bg-transparent border border-white/20 text-white font-bold text-sm tracking-widest uppercase py-4 px-8 rounded-lg transition-all duration-300 hover:bg-white/5 hover:border-[#F5C400] transform hover:-translate-y-0.5"
-              >
-                VER PROYECTOS
-              </a>
-            </div>
           </motion.div>
-
-          {/* Right Media */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => {
-              setIsHovered(false);
-              setIsPlayingVideo(false);
-            }}
-            onClick={() => {
-              if (isHovered && collageVideo) {
-                setIsPlayingVideo(true);
-              }
-            }}
-            className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.6)] group cursor-pointer"
-          >
-            <div className="absolute inset-0 bg-gradient-to-tr from-black/80 via-transparent to-transparent z-10 pointer-events-none" />
-            
-            {/* Loop Video */}
-            {collageVideo && (
-              <video
-                ref={videoRef}
-                src={collageVideo}
-                loop
-                muted
-                playsInline
-                className={`absolute inset-0 w-full h-full object-cover transition-all duration-500 z-0 ${isPlayingVideo ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'}`}
-              />
-            )}
-
-            {/* Static Image */}
-            <img 
-              src={getOptimizedImageUrl(collageImage, 800)} 
-              alt="SMQ High Tech Collage" 
-              className={`w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-all duration-700 ${isPlayingVideo ? 'opacity-0 scale-95 pointer-events-none' : 'opacity-100'}`}
-              loading="lazy"
-            />
-            
-            {/* Hover to play hint overlay (Premium micro-animation) */}
-            {isHovered && !isPlayingVideo && collageVideo && (
-              <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px] z-20 flex flex-col items-center justify-center gap-3 transition-all duration-300 pointer-events-none">
-                <div className="w-16 h-16 rounded-full bg-[#F5C400]/90 border border-white/20 flex items-center justify-center shadow-[0_0_30px_#F5C400] transform scale-90 hover:scale-100 transition-all duration-300 animate-pulse">
-                  <svg className="w-6 h-6 text-black ml-1" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </div>
-                <span className="text-xs text-white font-black tracking-widest uppercase bg-black/60 px-3 py-1 rounded border border-white/10">Haz click para reproducir</span>
-              </div>
-            )}
-            
-            {/* Technical CAD overlay label */}
-            <div className="absolute top-4 right-4 z-20 bg-black/80 backdrop-blur-md border border-white/15 px-3 py-1.5 rounded-lg flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
-              <span className="text-[10px] text-white/90 font-mono tracking-wider">COLLAGE_SYS.V4.1</span>
-            </div>
-            <div className="absolute bottom-4 left-4 z-20 bg-black/80 backdrop-blur-md border border-white/15 px-4 py-2 rounded-lg font-mono text-[10px] text-[#F5C400]">
-              ENGINEERED_IN_MEXICO // AUTOMATION_CORE
-            </div>
-
-            {/* Editor upload triggers */}
-            {isEditorMode && (
-              <div className="absolute top-4 left-4 z-30 flex gap-2 pointer-events-auto" onClick={e => e.stopPropagation()}>
-                <button
-                  onClick={() => collageImageInputRef.current.click()}
-                  className="bg-[#F5C400] text-black font-black text-[9px] tracking-wider uppercase py-1.5 px-2.5 rounded-md hover:bg-white transition-all shadow-lg"
-                >
-                  Cambiar Imagen
-                </button>
-                <button
-                  onClick={() => collageVideoInputRef.current.click()}
-                  className="bg-white/20 border border-white/30 text-white font-black text-[9px] tracking-wider uppercase py-1.5 px-2.5 rounded-md hover:bg-white hover:text-black transition-all shadow-lg backdrop-blur-md"
-                >
-                  Subir Video
-                </button>
-                <input 
-                  type="file" 
-                  ref={collageImageInputRef} 
-                  onChange={handleCollageImageChange} 
-                  accept="image/*,.png,.jpg,.jpeg,.webp,.svg,.gif,.bmp,.tiff,.heic,.heif,.jfif,.PNG,.JPG,.JPEG,.WEBP,.SVG,.GIF,.BMP,.TIFF,.HEIC,.HEIF,.JFIF" 
-                  className="hidden" 
-                />
-                <input 
-                  type="file" 
-                  ref={collageVideoInputRef} 
-                  onChange={handleCollageVideoChange} 
-                  accept="video/*,.mp4,.webm,.ogg,.mov,.avi,.MP4,.WEBM,.OGG,.MOV,.AVI" 
-                  className="hidden" 
-                />
-              </div>
-            )}
-          </motion.div>
-
         </div>
+
+        {/* Technical HUD details in corners to align with SMQ 4.0 style */}
+        <div className="absolute bottom-6 right-8 z-10 bg-black/60 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded font-mono text-[9px] text-white/50 select-none hidden md:flex items-center gap-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] animate-pulse"></span>
+          <span>SYSTEM: ONLINE // ADVISORY ACTIVE</span>
+        </div>
+
+        {/* Editor upload triggers */}
+        {isEditorMode && (
+          <div className="absolute top-4 left-4 z-30 flex gap-2 pointer-events-auto" onClick={e => e.stopPropagation()}>
+            <button
+              onClick={() => collageImageInputRef.current.click()}
+              className="bg-[#F5C400] text-black font-black text-[9px] tracking-wider uppercase py-1.5 px-2.5 rounded-md hover:bg-white transition-all shadow-lg"
+            >
+              Cambiar Fondo
+            </button>
+            <button
+              onClick={() => collageVideoInputRef.current.click()}
+              className="bg-white/20 border border-white/30 text-white font-black text-[9px] tracking-wider uppercase py-1.5 px-2.5 rounded-md hover:bg-white hover:text-black transition-all shadow-lg backdrop-blur-md"
+            >
+              Subir Video
+            </button>
+            <input 
+              type="file" 
+              ref={collageImageInputRef} 
+              onChange={handleCollageImageChange} 
+              accept="image/*,.png,.jpg,.jpeg,.webp,.svg,.gif,.bmp,.tiff,.heic,.heif,.jfif,.PNG,.JPG,.JPEG,.WEBP,.SVG,.GIF,.BMP,.TIFF,.HEIC,.HEIF,.JFIF" 
+              className="hidden" 
+            />
+            <input 
+              type="file" 
+              ref={collageVideoInputRef} 
+              onChange={handleCollageVideoChange} 
+              accept="video/*,.mp4,.webm,.ogg,.mov,.avi,.MP4,.WEBM,.OGG,.MOV,.AVI" 
+              className="hidden" 
+            />
+          </div>
+        )}
       </section>
 
       {/* 2. BLOQUE DE ESTADÍSTICAS */}
-      <section className="bg-black py-8 relative border-b border-white/5">
+      <section className="bg-[#030712] py-8 relative border-b border-white/5 mt-[-10px]">
         <div className="max-w-[1400px] mx-auto px-[40px] grid grid-cols-2 md:grid-cols-9 gap-4 text-center">
           
           <StatCard target="20" suffix="+" label="Años de experiencia" />

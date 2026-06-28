@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Cpu, Activity, Shield, BrainCircuit, Wifi, Factory, Zap, ArrowRight } from 'lucide-react';
+import { Cpu, Activity, Shield, BrainCircuit, Wifi, Factory, Zap, Recycle, ArrowRight } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext.jsx';
 
 const techItems = [
@@ -60,6 +60,14 @@ const techItems = [
     color: '#EAB308',
     Icon: Shield,
     href: '/tecnologia/smq-os'
+  },
+  {
+    num: '08',
+    title: 'Economía Circular',
+    desc: 'VALORIZACIÓN DE RESIDUOS Y PROCESOS DE RECICLAJE SIN DESPERDICIO (ZERO WASTE).',
+    color: '#14B8A6',
+    Icon: Recycle,
+    href: '/tecnologia/economia-circular'
   }
 ];
 

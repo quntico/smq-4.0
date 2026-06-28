@@ -1557,6 +1557,14 @@ const EditableMedia = ({
 
 const IndustriaDetalle = () => {
   const { sector: rawSector } = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const techKeys = ['ia', 'inteligencia-artificial', 'smart-factory', 'digital-twin', 'plc-motion', 'iiot-edge', 'energia-inteligente', 'smq-os', 'economia-circular'];
+    if (rawSector && techKeys.includes(rawSector.toLowerCase())) {
+      navigate(`/tecnologia/${rawSector.toLowerCase()}`, { replace: true });
+    }
+  }, [rawSector, navigate]);
   
   // Normalizar sector
   const normalizeSector = (sec) => {
@@ -1600,7 +1608,6 @@ const IndustriaDetalle = () => {
   };
 
   const location = useLocation();
-  const navigate = useNavigate();
   const { cmsState, updatePages, isEditorMode, syncToCloud } = useCMS();
   
   const combinedData = { ...sectorsData, ...technologyDataMap };
