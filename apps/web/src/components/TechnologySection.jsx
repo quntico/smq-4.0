@@ -319,8 +319,8 @@ const technologies = [
     telemetry: {
       unit: 'SYS_CORE // PLC_RTU_01',
       status: 'NOMINAL',
-      metrics: 'CYCLE_TIME: 0.8ms | FAULT_RATE: 0.0%',
-      hardware: 'CPU S7-1500 REDUNDANT'
+      metrics: 'TIEMPO_CICLO: 0.8ms | TASA_FALLAS: 0.0%',
+      hardware: 'CPU S7-1500 REDUNDANTE'
     },
     color: '#06B6D4',
     bgClass: 'hover:border-[#06B6D4]/40 hover:shadow-[0_15px_40px_rgba(6,182,212,0.12)]',
@@ -338,9 +338,9 @@ const technologies = [
     desc: 'Réplicas digitales interactivas en 3D que simulan el comportamiento físico e hidráulico de líneas de producción completas. Permiten realizar análisis de escenarios hipotéticos (what-if), optimizar flujos de material y diagnosticar desviaciones de forma virtual antes de realizar ajustes en el mundo real.',
     telemetry: {
       unit: 'SYS_CORE // SCR_HUB_02',
-      status: 'ACTIVE',
-      metrics: 'FPS: 60 | RENDER_LATENCY: 1.5ms',
-      hardware: '3D WEBGL CORE RENDERER'
+      status: 'ACTIVO',
+      metrics: 'FPS: 60 | LATENCIA_RENDER: 1.5ms',
+      hardware: 'RENDERER NÚCLEO WEBGL 3D'
     },
     color: '#10B981',
     bgClass: 'hover:border-[#10B981]/40 hover:shadow-[0_15px_40px_rgba(16,185,129,0.12)]',
@@ -358,9 +358,9 @@ const technologies = [
     desc: 'Diseño e integración de tableros de control de potencia, arrancadores suaves, variadores de frecuencia y sistemas de filtrado activo de armónicos para garantizar la calidad de la energía y proteger los motores industriales.',
     telemetry: {
       unit: 'SYS_CORE // POWER_DIST_03',
-      status: 'STABLE',
-      metrics: 'THD_V: 1.8% | POWER_FACTOR: 0.98',
-      hardware: 'ACTIVE POWER FILTER 400A'
+      status: 'ESTABLE',
+      metrics: 'THD_V: 1.8% | FACTOR_POTENCIA: 0.98',
+      hardware: 'FILTRO ACTIVO DE POTENCIA 400A'
     },
     color: '#8B5CF6',
     bgClass: 'hover:border-[#8B5CF6]/40 hover:shadow-[0_15px_40px_rgba(139,92,246,0.12)]',
@@ -378,9 +378,9 @@ const technologies = [
     desc: 'Modelos de Inteligencia Artificial que procesan datos de visión multiespectral y cámaras de alta velocidad en el borde. Automatizamos la clasificación fina de materiales y plásticos por tipo de polímero, además de predecir fallas mecánicas en base a patrones de vibración.',
     telemetry: {
       unit: 'SYS_CORE // AI_APPLIED_04',
-      status: 'LEARNING',
-      metrics: 'ACCURACY: 99.85% | INFERENCE: 3.4ms',
-      hardware: 'EDGE TPU CORE ACCELERATOR'
+      status: 'APRENDIENDO',
+      metrics: 'PRECISIÓN: 99.85% | INFERENCIA: 3.4ms',
+      hardware: 'ACELERADOR NÚCLEO EDGE TPU'
     },
     color: '#F97316',
     bgClass: 'hover:border-[#F97316]/40 hover:shadow-[0_15px_40px_rgba(249,115,22,0.12)]',
@@ -398,8 +398,8 @@ const technologies = [
     desc: 'Integración segura de Internet de las Cosas Industrial (IIoT), analítica en la nube y sensores inteligentes en tiempo real. Habilitamos la supervisión continua de indicadores clave de rendimiento (OEE), telemetría de variables operativas y monitoreo de eficiencia para un control industrial inteligente y descentralizado.',
     telemetry: {
       unit: 'SYS_CORE // REMOTE_05',
-      status: 'ONLINE',
-      metrics: 'SYS_LOAD: 42.8% | CON_STABILITY: 100%',
+      status: 'EN LÍNEA',
+      metrics: 'CARGA_SYS: 42.8% | ESTABILIDAD_CON: 100%',
       hardware: 'EDGE GATEWAY IIOT V5'
     },
     color: '#3B82F6',
@@ -418,8 +418,8 @@ const technologies = [
     desc: 'Diseño de interfaces HMI/SCADA avanzadas y celdas de producción con robots colaborativos (Cobots) que interactúan de forma segura con los operadores para optimizar la productividad y ergonomía laboral.',
     telemetry: {
       unit: 'SYS_CORE // I5_COLLAB_06',
-      status: 'CONNECTED',
-      metrics: 'COLLISION_SENSITIVITY: HIGH | SPEED: 1.2 m/s',
+      status: 'CONECTADO',
+      metrics: 'SENSIBILIDAD_COLISIÓN: ALTA | VELOCIDAD: 1.2 m/s',
       hardware: 'COBOT INDUSTRIAL KUKA/UR'
     },
     color: '#EAB308',
@@ -1032,29 +1032,29 @@ const TechnologySection = () => {
         }
       };
 
-      let logMsg = `[CONFIG] Parameter '${key.toUpperCase()}' adjusted to '${value}'`;
+      let logMsg = `[CONFIG] Parámetro '${key.toUpperCase()}' ajustado a '${value}'`;
       
-      // Dynamic contextual responses
+      // Respuestas dinámicas contextuales
       if (key === 'redundancia') {
         if (value === 'Inactiva') {
-          logMsg = `[WARNING] Primary Hot-Standby redundancy disabled. System operating in degraded mode.`;
+          logMsg = `[WARNING] Redundancia Hot-Standby primaria desactivada. Sistema operando en modo degradado.`;
         } else {
-          logMsg = `[OK] Secondary controller core synchronized. Redundancy state: ACTIVE.`;
+          logMsg = `[OK] Núcleo del controlador secundario sincronizado. Estado de redundancia: ACTIVO.`;
         }
       } else if (key === 'ciclo') {
-        logMsg = `[SYSTEM] RTOS clock cycle set to ${value}ms. Hardware interrupts updated.`;
+        logMsg = `[SYSTEM] Ciclo de reloj RTOS establecido en ${value}ms. Interrupciones de hardware actualizadas.`;
       } else if (key === 'protocolo') {
-        logMsg = `[BUS] Protocol changed to ${value}. Re-initializing fieldbus network topology...`;
+        logMsg = `[BUS] Protocolo cambiado a ${value}. Reinicializando topología de red fieldbus...`;
       } else if (key === 'inferencia') {
-        logMsg = `[AI_ENGINE] Edge TPU model inference latency adjusted to ${value}ms. Adjusting live FPS.`;
+        logMsg = `[AI_ENGINE] Latencia de inferencia del modelo Edge TPU ajustada a ${value}ms. Ajustando FPS en tiempo real.`;
       } else if (key === 'acelerador') {
-        logMsg = `[HARDWARE] Coprocessor swapped to ${value}. Refreshing neural weights.`;
+        logMsg = `[HARDWARE] Coprocesador cambiado a ${value}. Actualizando pesos neuronales.`;
       } else if (key === 'filtrado') {
-        logMsg = `[POWER] Harmonics filter configured to ${value}. Active filtering parameters loaded.`;
+        logMsg = `[POWER] Filtro de armónicos configurado a ${value}. Parámetros de filtrado activo cargados.`;
       } else if (key === 'red') {
-        logMsg = `[UPLINK] Network carrier shifted to ${value}. Aligning telemetry antenna.`;
+        logMsg = `[UPLINK] Proveedor de red cambiado a ${value}. Alineando antena de telemetría.`;
       } else if (key === 'encriptacion') {
-        logMsg = `[SECURITY] Stream cipher switched to ${value}. Regenerating session keys.`;
+        logMsg = `[SECURITY] Cifrado de flujo cambiado a ${value}. Regenerando claves de sesión.`;
       }
 
       setLogs(l => [...l, logMsg]);
@@ -1067,16 +1067,16 @@ const TechnologySection = () => {
     if (isDiagnosticRunning) return;
     setIsDiagnosticRunning(true);
     setDiagnosticProgress(0);
-    setLogs([`[INITIALIZING] Diagnostic protocol sequence initiated...`]);
+    setLogs([`[INICIALIZANDO] Secuencia de protocolo de diagnóstico iniciada...`]);
 
     const steps = [
-      'Establishing secure TLS tunnel handshake...',
-      'Mapping neural network node weights...',
-      'Verifying redundant PLC Hot-Standby cycles...',
-      'Measuring phase balance and voltage stability...',
-      'Satcom carrier-to-noise check completed...',
-      'Calibrating RTOS clock cycles and interrupt vectors...',
-      'Diagnostic complete. Systems fully operational.'
+      'Estableciendo handshake seguro del túnel TLS...',
+      'Mapeando pesos de los nodos de la red neuronal...',
+      'Verificando ciclos redundantes PLC Hot-Standby...',
+      'Midiendo balance de fases y estabilidad de voltaje...',
+      'Comprobación de portadora a ruido de Satcom completada...',
+      'Calibrando ciclos de reloj RTOS y vectores de interrupción...',
+      'Diagnóstico completado. Sistemas totalmente operativos.'
     ];
 
     let currentStep = 0;
@@ -1134,11 +1134,11 @@ const TechnologySection = () => {
 
       if (selectedTech.id === 'plc') {
         const plcMsgs = [
-          `[PLC] Cycle execution time: ${(techParams.plc.ciclo * 1.0 + (Math.random() - 0.5) * 0.05).toFixed(2)}ms (Stable)`,
-          `[BUS] ${techParams.plc.protocolo} IO-Device communication check: OK`,
-          `[RTOS] Thread scheduler jitter: ${(0.003 + Math.random() * 0.001).toFixed(4)}ms`,
-          `[PLC] Redundant Hot-Standby link status: ${techParams.plc.redundancia === 'Activa' ? 'SYNCHRONIZED' : 'DEGRADED'}`,
-          `[PLC] I/O scan completed. Inputs: 128, Outputs: 64`
+          `[PLC] Tiempo de ejecución del ciclo: ${(techParams.plc.ciclo * 1.0 + (Math.random() - 0.5) * 0.05).toFixed(2)}ms (Estable)`,
+          `[BUS] Comprobación de comunicación IO-Device ${techParams.plc.protocolo}: OK`,
+          `[RTOS] Jitter del planificador de hilos: ${(0.003 + Math.random() * 0.001).toFixed(4)}ms`,
+          `[PLC] Estado del enlace Hot-Standby redundante: ${techParams.plc.redundancia === 'Activa' ? 'SINCRONIZADO' : 'DEGRADADO'}`,
+          `[PLC] Escaneo de E/S completado. Entradas: 128, Salidas: 64`
         ];
         logMsg = plcMsgs[Math.floor(rand * plcMsgs.length)];
       } else if (selectedTech.id === 'control') {
@@ -1147,38 +1147,38 @@ const TechnologySection = () => {
         const thdi = activeFilter ? 3.4 : passiveFilter ? 8.2 : 18.5;
         
         const controlMsgs = [
-          `[POWER] Three-phase line current balance: ${(99.5 + Math.random() * 0.4).toFixed(1)}%`,
-          `[HARMONICS] Active filter attenuation: -${activeFilter ? 42 : passiveFilter ? 22 : 0}dB THDi (${thdi}% measured)`,
-          `[THERMAL] Thyristor deck heat dissipation: nominal (${techParams.control.enfriamiento === 'Líquido' ? '34.2' : techParams.control.enfriamiento === 'Aire' ? '48.6' : '65.8'}°C)`,
-          `[GRID] Voltage reference phase lock: STABLE (${techParams.control.tension})`,
-          `[POWER] Main circuit breaker temperature: ${(42.5 + Math.random() * 1.5).toFixed(1)}°C`
+          `[POWER] Balance de corriente de línea trifásica: ${(99.5 + Math.random() * 0.4).toFixed(1)}%`,
+          `[HARMONICS] Atenuación del filtro activo: -${activeFilter ? 42 : passiveFilter ? 22 : 0}dB THDi (${thdi}% medido)`,
+          `[THERMAL] Disipación térmica de la cubierta del tiristor: nominal (${techParams.control.enfriamiento === 'Líquido' ? '34.2' : techParams.control.enfriamiento === 'Aire' ? '48.6' : '65.8'}°C)`,
+          `[GRID] Bloqueo de fase de referencia de voltaje: ESTABLE (${techParams.control.tension})`,
+          `[POWER] Temperatura del disyuntor principal: ${(42.5 + Math.random() * 1.5).toFixed(1)}°C`
         ];
         logMsg = controlMsgs[Math.floor(rand * controlMsgs.length)];
       } else if (selectedTech.id === 'sistemas-inteligentes') {
         const sisMsgs = [
-          `[SYS] CPU Core load: ${(techParams.sistemas.procesador === 'ARM A72' ? 38 : techParams.sistemas.procesador === 'Intel i5' ? 14 : 62)}% (nominal)`,
-          `[TELEMETRY] Scanning ${techParams.sistemas.entradas} at 100kS/s`,
-          `[UPLINK] MQTT transmission state: ${techParams.sistemas.conectividad.toUpperCase()} - CONNECTED`,
-          `[SYS] RTOS task manager: 24 active tasks running`,
-          `[SYS] Disk write rate: 1.2 MB/s. Log rotations active`
+          `[SYS] Carga de CPU Core: ${(techParams.sistemas.procesador === 'ARM A72' ? 38 : techParams.sistemas.procesador === 'Intel i5' ? 14 : 62)}% (nominal)`,
+          `[TELEMETRY] Escaneando ${techParams.sistemas.entradas} a 100kS/s`,
+          `[UPLINK] Estado de transmisión MQTT: ${techParams.sistemas.conectividad.toUpperCase()} - CONECTADO`,
+          `[SYS] Gestor de tareas RTOS: 24 tareas activas ejecutándose`,
+          `[SYS] Tasa de escritura en disco: 1.2 MB/s. Rotación de logs activa`
         ];
         logMsg = sisMsgs[Math.floor(rand * sisMsgs.length)];
       } else if (selectedTech.id === 'monitoreo') {
         const monMsgs = [
-          `[SATCOM] Link path status: ${techParams.monitoreo.red.toUpperCase()} (latency: ${techParams.monitoreo.red === 'Starlink' ? '28ms' : techParams.monitoreo.red === 'Cellular' ? '54ms' : '680ms'})`,
-          `[UPLINK] Payload packet sent using ${techParams.monitoreo.encriptacion} cipher`,
-          `[SECURITY] VPN tunnel keepalive handshake: OK`,
-          `[IIOT] Modbus/TCP polling cycle: 100ms. 48 registers scanned`,
-          `[UPLINK] Signal strength: ${techParams.monitoreo.red === 'Starlink' ? '-54' : techParams.monitoreo.red === 'Cellular' ? '-72' : '-115'} dBm`
+          `[SATCOM] Estado del enlace de datos: ${techParams.monitoreo.red.toUpperCase()} (latencia: ${techParams.monitoreo.red === 'Starlink' ? '28ms' : techParams.monitoreo.red === 'Cellular' ? '54ms' : '680ms'})`,
+          `[UPLINK] Paquete de carga útil enviado usando cifrado ${techParams.monitoreo.encriptacion}`,
+          `[SECURITY] Handshake keepalive del túnel VPN: OK`,
+          `[IIOT] Ciclo de consulta Modbus/TCP: 100ms. 48 registros escaneados`,
+          `[UPLINK] Fuerza de señal: ${techParams.monitoreo.red === 'Starlink' ? '-54' : techParams.monitoreo.red === 'Cellular' ? '-72' : '-115'} dBm`
         ];
         logMsg = monMsgs[Math.floor(rand * monMsgs.length)];
       } else if (selectedTech.id === 'colaborativa') {
         const cobotMsgs = [
-          `[COBOT] Safety bubble clearance: ${(1.2 + Math.random() * 1.5).toFixed(2)}m (Field safe)`,
-          `[COBOT] Joint 1-6 current loop feedback: stable`,
-          `[RADAR] Safety scanner field state: ${techParams.colaborativa.sensibilidad === 'Alta' ? 'MAX_SECURITY' : techParams.colaborativa.sensibilidad === 'Media' ? 'STANDARD' : 'LOW_SENSITIVITY'}`,
-          `[COBOT] Target speed limited to ${techParams.colaborativa.velocidad.toFixed(1)} m/s (Modo: ${techParams.colaborativa.modo})`,
-          `[COBOT] Cartesian force vectors inside limits (< 150 N)`
+          `[COBOT] Distancia de seguridad de la burbuja: ${(1.2 + Math.random() * 1.5).toFixed(2)}m (Campo seguro)`,
+          `[COBOT] Retroalimentación del bucle de corriente de juntas 1-6: estable`,
+          `[RADAR] Estado del campo del escáner de seguridad: ${techParams.colaborativa.sensibilidad === 'Alta' ? 'MÁXIMA_SEGURIDAD' : techParams.colaborativa.sensibilidad === 'Media' ? 'ESTÁNDAR' : 'BAJA_SENSIBILIDAD'}`,
+          `[COBOT] Velocidad objetivo limitada a ${techParams.colaborativa.velocidad.toFixed(1)} m/s (Modo: ${techParams.colaborativa.modo})`,
+          `[COBOT] Vectores de fuerza cartesiana dentro de límites (< 150 N)`
         ];
         logMsg = cobotMsgs[Math.floor(rand * cobotMsgs.length)];
       }
@@ -1213,7 +1213,7 @@ const TechnologySection = () => {
           </div>
           <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-ping" />
-            <span className="font-bold text-[#10B981] border border-[#10B981]/30 rounded px-2 py-0.5 text-[8px] bg-[#10B981]/10">CORE_STATE: STABLE</span>
+            <span className="font-bold text-[#10B981] border border-[#10B981]/30 rounded px-2 py-0.5 text-[8px] bg-[#10B981]/10">CORE_STATE: ESTABLE</span>
           </div>
         </div>
 
@@ -1743,7 +1743,7 @@ const TechnologySection = () => {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
             </span>
             <span className="text-white/30 uppercase">SYS_MONITOR //</span>
-            <span className="text-cyan-400 font-bold">ONLINE</span>
+            <span className="text-cyan-400 font-bold">EN LÍNEA</span>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6 text-[11px]">
@@ -2027,12 +2027,12 @@ const TechnologySection = () => {
                       <span className="flex items-center gap-2" style={{ color: selectedTech.color }}>
                         {selectedTech.id === 'plc' ? (
                           <span className="flex items-center gap-1.5 text-[8px]">
-                            <span>ESTADO: <span className="text-emerald-400 font-bold">ACTIVE</span></span>
+                            <span>ESTADO: <span className="text-emerald-400 font-bold">ACTIVO</span></span>
                             <span className="opacity-30">|</span>
-                            <span className="flex items-center gap-0.5">ENLACE: <span className="text-emerald-400 font-bold">SECURE</span> <Lock size={8} className="text-emerald-400 inline" /></span>
+                            <span className="flex items-center gap-0.5">ENLACE: <span className="text-emerald-400 font-bold">SEGURO</span> <Lock size={8} className="text-emerald-400 inline" /></span>
                           </span>
                         ) : (
-                          'ACTIVE // SECURE_LINK'
+                          'ACTIVO // ENLACE_SEGURO'
                         )}
                       </span>
                     </div>
@@ -2254,21 +2254,21 @@ const TechnologySection = () => {
 
                           <div className="grid grid-cols-3 gap-2 border-t border-white/5 pt-2 text-[7px] text-white/50 text-center">
                             <div className="flex flex-col gap-0.5">
-                                <span>THD (DISTORTION)</span>
+                                <span>THD (DISTORSIÓN)</span>
                                 <span className={`font-bold ${techParams.control.filtrado === 'Ninguno' ? 'text-rose-400' : ''}`} style={techParams.control.filtrado === 'Ninguno' ? {} : { color: selectedTech.color }}>
                                   {techParams.control.filtrado === 'Ninguno' ? '18.4%' : techParams.control.filtrado === 'Pasivo' ? '7.9%' : '1.2%'}
                                 </span>
                               </div>
                               <div className="flex flex-col gap-0.5 border-l border-white/5">
-                                <span>POWER FACTOR</span>
+                                <span>FACTOR DE POTENCIA</span>
                                 <span className="font-bold text-[#FFD700]">
                                   {techParams.control.filtrado === 'Ninguno' ? '0.86' : techParams.control.filtrado === 'Pasivo' ? '0.94' : '0.99'}
                                 </span>
                               </div>
                               <div className="flex flex-col gap-0.5 border-l border-white/5">
-                                <span>COOLING SPEED</span>
+                                <span>VELOCIDAD DE ENFRIAMIENTO</span>
                                 <span className="font-bold" style={{ color: selectedTech.color }}>
-                                  {techParams.control.enfriamiento === 'Líquido' ? '820 RPM' : techParams.control.enfriamiento === 'Aire' ? '3200 RPM' : '0 RPM (PASSIVE)'}
+                                  {techParams.control.enfriamiento === 'Líquido' ? '820 RPM' : techParams.control.enfriamiento === 'Aire' ? '3200 RPM' : '0 RPM (PASIVO)'}
                                 </span>
                               </div>
                           </div>
@@ -2327,17 +2327,17 @@ const TechnologySection = () => {
 
                           <div className="grid grid-cols-3 gap-2 border-t border-white/5 pt-1.5 text-[7px] text-white/50 text-center">
                             <div className="flex flex-col gap-0.5">
-                              <span>NET CARRIER</span>
+                              <span>PROVEEDOR DE RED</span>
                               <span className="font-bold" style={{ color: selectedTech.color }}>{techParams.monitoreo.red.toUpperCase()}</span>
                             </div>
                             <div className="flex flex-col gap-0.5 border-l border-white/5">
-                              <span>ENCRYPTION</span>
+                              <span>CIFRADO</span>
                               <span className="font-bold text-[#FFD700]">{techParams.monitoreo.encriptacion}</span>
                             </div>
                             <div className="flex flex-col gap-0.5 border-l border-white/5">
-                              <span>PING STATUS</span>
+                              <span>ESTADO DE PING</span>
                               <span className="font-bold" style={{ color: selectedTech.color }}>
-                                {techParams.monitoreo.red === 'Starlink' ? '28 ms (STABLE)' : techParams.monitoreo.red === 'Cellular' ? '54 ms (CELL)' : '680 ms (LATENCY)'}
+                                {techParams.monitoreo.red === 'Starlink' ? '28 ms (ESTABLE)' : techParams.monitoreo.red === 'Cellular' ? '54 ms (CELULAR)' : '680 ms (LATENCIA)'}
                               </span>
                             </div>
                           </div>
@@ -2448,19 +2448,19 @@ const TechnologySection = () => {
  
                           <div className="grid grid-cols-4 gap-1 text-[7px] text-white/50 text-center border-t border-white/5 pt-1.5">
                             <div className="flex flex-col gap-0.5">
-                              <span>PET COUNT</span>
+                              <span>CANTIDAD PET</span>
                               <span className="font-bold" style={{ color: selectedTech.color }}>{sortedCounters.PET_BOTTLE}</span>
                             </div>
                             <div className="flex flex-col gap-0.5 border-l border-white/5">
-                              <span>AL_CAN COUNT</span>
+                              <span>CANTIDAD LATAS</span>
                               <span className="font-bold" style={{ color: selectedTech.color }}>{sortedCounters.ALUMINUM_CAN}</span>
                             </div>
                             <div className="flex flex-col gap-0.5 border-l border-white/5">
-                              <span>GLASS COUNT</span>
+                              <span>CANTIDAD VIDRIO</span>
                               <span className="font-bold" style={{ color: selectedTech.color }}>{sortedCounters.GLASS_BOTTLE}</span>
                             </div>
                             <div className="flex flex-col gap-0.5 border-l border-white/5">
-                              <span>TOTAL SCANS</span>
+                              <span>ESCANEOS TOTALES</span>
                               <span className="font-bold text-[#FFD700]">{sortedCounters.total}</span>
                             </div>
                           </div>
@@ -2506,7 +2506,7 @@ const TechnologySection = () => {
                                     <g className="animate-pulse" style={{ animationDuration: '2s' }}>
                                       <circle cx="78" cy="35" r="4.5" fill="none" stroke="#EAB308" strokeWidth="0.5" />
                                       <circle cx="78" cy="35" r="2" fill="#EAB308" />
-                                      <text x="84" y="37" fill="#EAB308" className="text-[5px] font-bold">OPERATOR_DETECT</text>
+                                      <text x="84" y="37" fill="#EAB308" className="text-[5px] font-bold">OPERADOR_DETECTADO</text>
                                       <line x1={joint2X} y1={joint2Y} x2="78" y2="35" stroke="rgba(234,179,8,0.2)" strokeWidth="0.5" strokeDasharray="1 1" />
                                     </g>
                                   </>
@@ -2520,7 +2520,7 @@ const TechnologySection = () => {
                               const val = Math.floor(45 + Math.sin(graphTicks * 0.1 + jIdx) * 15);
                               return (
                                 <div key={jIdx} className="flex flex-col gap-0.5">
-                                  <span>J{jIdx+1} TORQUE</span>
+                                  <span>PAR J{jIdx+1} (TORQUE)</span>
                                   <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden">
                                     <div className="h-full bg-[#EAB308]" style={{ width: `${val}%` }} />
                                   </div>
@@ -2545,7 +2545,7 @@ const TechnologySection = () => {
                       {/* Metric 1: CPU load */}
                       <div className="flex flex-col gap-0.5 border border-white/5 rounded-lg p-2 bg-black/20">
                         <div className="flex justify-between items-center text-[7px] text-white/40 uppercase tracking-widest font-mono">
-                          <span>{selectedTech.id === 'control' ? 'LOAD CURRENT' : 'CPU CORE LOAD'}</span>
+                          <span>{selectedTech.id === 'control' ? 'CORRIENTE DE CARGA' : 'CARGA NÚCLEO CPU'}</span>
                           <CpuIcon size={9} style={{ color: selectedTech.color }} />
                         </div>
                         <span className="font-mono text-sm font-bold text-white mt-0.5">
@@ -2565,7 +2565,7 @@ const TechnologySection = () => {
                       {/* Metric 2: Dissipated Temperature */}
                       <div className="flex flex-col gap-0.5 border border-white/5 rounded-lg p-2 bg-black/20">
                         <div className="flex justify-between items-center text-[7px] text-white/40 uppercase tracking-widest font-mono">
-                          <span>THERMAL DECK</span>
+                          <span>CUBIERTA TÉRMICA</span>
                           <Flame size={9} className="text-[#FFD700]" />
                         </div>
                         <span className="font-mono text-sm font-bold text-white mt-0.5">
@@ -2585,7 +2585,7 @@ const TechnologySection = () => {
                       {/* Metric 3: Power Draw */}
                       <div className="flex flex-col gap-0.5 border border-white/5 rounded-lg p-2 bg-black/20">
                         <div className="flex justify-between items-center text-[7px] text-white/40 uppercase tracking-widest font-mono">
-                          <span>POWER DRAW</span>
+                          <span>POTENCIA ABSORBIDA</span>
                           <Zap size={9} className="text-[#FFD700]" />
                         </div>
                         <span className="font-mono text-sm font-bold text-white mt-0.5">
@@ -3069,7 +3069,7 @@ const TechnologySection = () => {
                   <div className="mt-4 pt-2.5 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-center font-mono text-[9px] text-white/30 uppercase tracking-widest gap-2">
                     {selectedTech.id === 'plc' ? (
                       <div className="flex flex-wrap items-center gap-4 text-[7.5px] font-bold">
-                        <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />SECURE COUPLING: CONNECTED</span>
+                        <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />CONEXIÓN SEGURA: CONECTADA</span>
                         <span className="flex items-center gap-1 text-[#00D2FF]"><span className="w-1 h-1 rounded-full bg-[#00D2FF]" />PROTOCOLO: {techParams.plc.protocolo.toUpperCase()}</span>
                         <span className="flex items-center gap-1" style={{ color: techParams.plc.redundancia === 'Activa' ? '#10B981' : '#ef4444' }}>
                           <span className="w-1 h-1 rounded-full" style={{ backgroundColor: techParams.plc.redundancia === 'Activa' ? '#10B981' : '#ef4444' }} />
@@ -3078,7 +3078,7 @@ const TechnologySection = () => {
                         <span className="flex items-center gap-1 text-emerald-400"><span className="w-1 h-1 rounded-full bg-emerald-400" />SINCRONIZACIÓN: OK</span>
                       </div>
                     ) : (
-                      <span>SECURE COUPLING: CONNECTED</span>
+                      <span>CONEXIÓN SEGURA: CONECTADA</span>
                     )}
                     <span>SMQ SYSTEMS CORPORATION • DIAGNOSTICS DECK_V2</span>
                   </div>

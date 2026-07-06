@@ -229,7 +229,7 @@ const Nosotros = () => {
           {/* Technical HUD details in corners to align with SMQ 4.0 style */}
           <div className="absolute bottom-6 right-8 z-10 bg-black/60 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded font-mono text-[9px] text-white/50 select-none hidden md:flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] animate-pulse"></span>
-            <span>SYSTEM: ONLINE // ADVISORY ACTIVE</span>
+            <span>SISTEMA: EN LÍNEA // ASESORÍA ACTIVA</span>
           </div>
           {/* Editor upload triggers */}
           {isEditorMode && (

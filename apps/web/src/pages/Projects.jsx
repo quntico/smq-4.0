@@ -374,7 +374,7 @@ const Projects = () => {
                     <div className="absolute top-0 left-0 right-0 h-8 bg-black/50 backdrop-blur-md border-b border-white/5 px-4 flex items-center justify-between text-[8px] font-mono text-white/50 tracking-widest z-10 pointer-events-none uppercase">
                       <div className="flex items-center gap-2">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] animate-pulse" />
-                        <span>FACILITY STATUS: ACTIVE</span>
+                        <span>ESTADO DE PLANTA: ACTIVO</span>
                       </div>
                       <span>REF: SMQ-GLOBAL-HQ-SYS</span>
                     </div>
@@ -513,7 +513,7 @@ const Projects = () => {
                         </div>
                         <div className="flex items-center gap-1.5 bg-cyan-500/10 border border-cyan-500/20 px-2 py-0.5 rounded-full">
                           <span className="w-1 h-1 rounded-full bg-cyan-400 animate-pulse" />
-                          <span className="text-[7px] font-mono text-cyan-400 font-bold uppercase tracking-wider">SUPPORT ACTIVE</span>
+                          <span className="text-[7px] font-mono text-cyan-400 font-bold uppercase tracking-wider">SOPORTE ACTIVO</span>
                         </div>
                       </div>
 
