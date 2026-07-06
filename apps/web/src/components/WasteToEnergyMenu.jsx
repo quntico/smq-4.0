@@ -8,8 +8,8 @@ const wasteItems = [
   {
     num: '01',
     title: 'PLANTAS RSU',
-    desc: 'Tratamiento y valorización integral de residuos sólidos urbanos. Capacidades: 300 TPD, 600 TPD y 1200+ TPD.',
-    color: '#22C55E', // Esmeralda / Verde
+    desc: 'Tratamiento y valorización integral de residuos sólidos urbanos mediante procesos mecánicos y automatizados.',
+    color: '#22C55E', // Verde
     Icon: Factory,
     bgImage: 'https://images.unsplash.com/photo-1590674899484-d5640e854abe?auto=format&fit=crop&q=80&w=600',
     href: '/waste-to-energy#plantas-rsu'
@@ -25,21 +25,21 @@ const wasteItems = [
   },
   {
     num: '03',
-    title: 'RECUPERACIÓN DE MATERIALES',
-    desc: 'Extracción eficiente de metales, plásticos y materiales reciclables con tecnologías de separación avanzadas.',
-    color: '#8B5CF6', // Morado
-    Icon: Recycle,
-    bgImage: 'https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?auto=format&fit=crop&q=80&w=600',
-    href: '/waste-to-energy#recuperacion-materiales'
-  },
-  {
-    num: '04',
     title: 'CLASIFICACIÓN INTELIGENTE',
     desc: 'Separación automatizada por NIR, inducción y sistemas multisensoriales con inteligencia artificial.',
     color: '#06B6D4', // Azul Cian
     Icon: Eye,
     bgImage: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=600',
     href: '/waste-to-energy#clasificacion-inteligente'
+  },
+  {
+    num: '04',
+    title: 'RECUPERACIÓN DE MATERIALES',
+    desc: 'Extracción eficiente de metales, plásticos y materiales reciclables con tecnologías de separación avanzadas.',
+    color: '#8B5CF6', // Morado
+    Icon: Recycle,
+    bgImage: 'https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?auto=format&fit=crop&q=80&w=600',
+    href: '/waste-to-energy#recuperacion-materiales'
   },
   {
     num: '05',
@@ -52,30 +52,12 @@ const wasteItems = [
   },
   {
     num: '06',
-    title: 'SENTINEL™',
-    desc: 'Sistema inteligente de monitoreo térmico preventivo para la seguridad operativa de fosas y pilas de RSU.',
-    color: '#3B82F6', // Azul
-    Icon: Shield,
-    bgImage: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=600',
-    href: '/waste-to-energy#sentinel'
-  },
-  {
-    num: '07',
-    title: 'ECONOMÍA CIRCULAR',
-    desc: 'Modelos de negocio e ingeniería de procesos cerrados para reincorporar subproductos a la cadena de valor.',
-    color: '#84CC16', // Verde lima
-    Icon: Globe,
-    bgImage: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&q=80&w=600',
-    href: '/waste-to-energy#economia-circular'
-  },
-  {
-    num: '08',
-    title: 'CONSULTORÍA Y EPC',
-    desc: 'Estudios de viabilidad, caracterización de residuos, diseño conceptual y ejecución completa de plantas.',
-    color: '#F97316', // Naranja brillante
+    title: 'PLANTAS LLAVE EN MANO',
+    desc: 'Ingeniería completa desde el diseño, fabricación, instalación y automatización hasta la puesta en marcha.',
+    color: '#10B981', // Verde Esmeralda / Menta
     Icon: HardHat,
-    bgImage: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80&w=600',
-    href: '/waste-to-energy#consultoria-epc'
+    bgImage: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=600',
+    href: '/waste-to-energy#plantas-llave-en-mano'
   }
 ];
 
@@ -125,8 +107,8 @@ const WasteToEnergyMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
             </Link>
           </div>
 
-          {/* Grid de 8 tecnologías - 4 columnas para simetría en 2 filas */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {/* Grid de 6 tecnologías - 3 columnas para simetría en 2 filas */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {wasteItems.map((item) => {
               const Icon = item.Icon;
               return (
