@@ -379,6 +379,9 @@ export default function inlineEditPlugin() {
 						const output = generateSourceWithMap(babelAst, webRelativeFilePath, originalContent);
 						const newContent = output.code;
 
+						// Save the changes back to the actual file on disk
+						fs.writeFileSync(absoluteFilePath, newContent, 'utf-8');
+
 						res.writeHead(200, { 'Content-Type': 'application/json' });
 						res.end(JSON.stringify({
 							success: true,
