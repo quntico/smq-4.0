@@ -85,7 +85,7 @@ const sectionsData = [
     longDesc: 'Implementamos sistemas avanzados de conversión térmica (Waste-to-Energy). Nuestras soluciones incluyen reactores de gasificación de lecho fluidizado y plantas de pirólisis para convertir fracciones de polímeros y biomasa en gas de síntesis (syngas), vapor de proceso y energía eléctrica limpia, respetando las más estrictas normativas ambientales globales.',
     color: '#EC4899', // Rosa
     iconName: 'Zap',
-    bgImage: 'https://images.unsplash.com/photo-1513828742140-ccaa34f3158e?auto=format&fit=crop&q=80&w=800',
+    bgImage: 'https://images.unsplash.com/photo-1521618755572-156ae0cdd74d?auto=format&fit=crop&q=80&w=800',
     specs: [
       'Reactores de conversión térmica de alta eficiencia termodinámica',
       'Sistemas de lavado de gases de combustión multietapa (SCR/SnCR)',

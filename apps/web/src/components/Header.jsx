@@ -51,7 +51,8 @@ const Header = () => {
         try {
           const res = await fetch('/api/git-upload', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ cmsState })
           });
           const text = await res.text();
           if (text) {

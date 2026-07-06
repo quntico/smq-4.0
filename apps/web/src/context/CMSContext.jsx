@@ -394,7 +394,7 @@ const initialCMSState = {
                             "longDesc": "Implementamos sistemas avanzados de conversión térmica (Waste-to-Energy). Nuestras soluciones incluyen reactores de gasificación de lecho fluidizado y plantas de pirólisis para convertir fracciones de polímeros y biomasa en gas de síntesis (syngas), vapor de proceso y energía eléctrica limpia, respetando las más estrictas normativas ambientales globales.",
                             "color": "#EC4899",
                             "iconName": "Zap",
-                            "bgImage": "https://images.unsplash.com/photo-1513828742140-ccaa34f3158e?auto=format&fit=crop&q=80&w=800",
+                            "bgImage": "https://images.unsplash.com/photo-1521618755572-156ae0cdd74d?auto=format&fit=crop&q=80&w=800",
                             "specs": [
                                 "Reactores de conversión térmica de alta eficiencia termodinámica",
                                 "Sistemas de lavado de gases de combustión multietapa (SCR/SnCR)",
@@ -403,7 +403,7 @@ const initialCMSState = {
                             ],
                             "images": [
                                 {
-                                    "url": "https://images.unsplash.com/photo-1513828742140-ccaa34f3158e?auto=format&fit=crop&q=80&w=800",
+                                    "url": "https://images.unsplash.com/photo-1521618755572-156ae0cdd74d?auto=format&fit=crop&q=80&w=800",
                                     "name": "CONVERSIÓN ENERGÉTICA"
                                 },
                                 {
@@ -878,14 +878,15 @@ export const CMSProvider = ({ children }) => {
     // 1. Función para Descargar estado global desde Nube
     const syncFromCloud = async (force = true) => {
         try {
-            // Utilizamos la URL pública directa con cache-busting (timestamp) para forzar la actualización en Producción sin esperar horas de caché
-            const { data: urlData } = supabase.storage.from('media').getPublicUrl('cms-state.json');
-            const url = `${urlData.publicUrl}?t=${Date.now()}`;
-
-            const res = await fetch(url, { cache: 'no-store' });
-            if (res.ok) {
-                const text = await res.text();
-                // Check if not empty
+            const { data, error } = await supabase.storage.from('media').download('cms-state.json');
+            if (error) {
+                if (error.status === 404 || error.message?.includes('Object not found')) {
+                    console.log("[CMS] cms-state.json no encontrado en Supabase. Usando estado local o inicial.");
+                } else {
+                    throw error;
+                }
+            } else if (data) {
+                const text = await data.text();
                 if (text) {
                     const parsed = JSON.parse(text);
                     const parsedSettings = parsed.settings || {};
@@ -928,8 +929,6 @@ export const CMSProvider = ({ children }) => {
                         console.log(`[CMS] Sincronización: Reteniendo cambios locales más recientes (localTime=${localTime} > cloudTime=${cloudTime}).`);
                     }
                 }
-            } else {
-                console.warn("CMS state no encontrado en nube o error. Código:", res.status);
             }
         } catch (e) {
             console.error("No se pudo cargar el CMS desde la nube:", e);

@@ -47,7 +47,7 @@ const wasteItems = [
     desc: 'Tecnologías de gasificación, pirólisis, biomasa y co-generación para transformar residuos en energía útil.',
     color: '#EC4899', // Rosa
     Icon: Zap,
-    bgImage: 'https://images.unsplash.com/photo-1513828742140-ccaa34f3158e?auto=format&fit=crop&q=80&w=600',
+    bgImage: 'https://images.unsplash.com/photo-1521618755572-156ae0cdd74d?auto=format&fit=crop&q=80&w=600',
     href: '/waste-to-energy#conversion-energetica'
   },
   {

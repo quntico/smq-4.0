@@ -5,12 +5,21 @@
     "logoSize": 98,
     "headerHeight": 100,
     "headerOpacity": 60,
-    "appVersion": "7.12",
+    "appVersion": "7.13",
     "globalImageSharpness": 100,
     "globalFilterColor": "#000000",
     "globalFilterOpacity": 75,
     "textJustify": true,
-    "disableImageFilters": false
+    "disableImageFilters": false,
+    "updatedAt": 1783379616512,
+    "footerCompanyName": "SMQ  SA de CV",
+    "footerCompanyDesc": "Soluciones industriales de alta ingenieria, proyectos llave en mano y maquinaria para  procesamiento de alimentos y automatización.",
+    "footerPhones": [
+      "+52 (55) 22444153",
+      ""
+    ],
+    "footerAddress": " Lago Zurich 219-Piso 12, Amp Granada, Miguel Hidalgo, 11529 Ciudad de México, CDMX",
+    "footerEmail": "info@smq.mx"
   },
   "menus": [
     {
@@ -20,40 +29,34 @@
       "order": 1
     },
     {
-      "id": "2",
-      "name": "Soluciones",
-      "componentName": "SolutionsMenu",
-      "order": 2
-    },
-    {
       "id": "3",
       "name": "Maquinaria",
       "componentName": "MachineryMenu",
-      "order": 3
+      "order": 2
     },
     {
       "id": "4",
       "name": "Tecnología",
       "componentName": "TechnologyMenu",
-      "order": 4
+      "order": 2
     },
     {
       "id": "6",
-      "name": "Waste to Energy",
+      "name": "WtE",
       "componentName": "WasteToEnergyMenu",
-      "order": 5
+      "order": 4
     },
     {
       "id": "7",
       "name": "Proyectos",
       "componentName": "ProjectsMenu",
-      "order": 6
+      "order": 5
     },
     {
       "id": "5",
       "name": "Empresa",
       "componentName": "CompanyMenu",
-      "order": 7
+      "order": 6
     }
   ],
   "pages": [
@@ -305,7 +308,9 @@
           "data": {
             "imageOpacity": 100,
             "backgroundImageUrl": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780101709421_industria%204.0.png",
-            "filterOpacity": 47
+            "filterOpacity": 47,
+            "collageImage": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782626112584_nosotros_sin_texto.webp",
+            "collageVideo": ""
           }
         },
         {
@@ -314,7 +319,7 @@
           "data": {
             "card-image-0": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780102328210_1.%20auto%20industrial.png",
             "card-image-opacity-0": 100,
-            "card-filter-opacity-0": 33,
+            "card-filter-opacity-0": 46,
             "card-image-1": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780108959001_2..png",
             "card-image-opacity-1": 100,
             "card-filter-opacity-1": 46,
@@ -425,7 +430,7 @@
                 "longDesc": "Implementamos sistemas avanzados de conversión térmica (Waste-to-Energy). Nuestras soluciones incluyen reactores de gasificación de lecho fluidizado y plantas de pirólisis para convertir fracciones de polímeros y biomasa en gas de síntesis (syngas), vapor de proceso y energía eléctrica limpia, respetando las más estrictas normativas ambientales globales.",
                 "color": "#EC4899",
                 "iconName": "Zap",
-                "bgImage": "https://images.unsplash.com/photo-1513828742140-ccaa34f3158e?auto=format&fit=crop&q=80&w=800",
+                "bgImage": "https://images.unsplash.com/photo-1521618755572-156ae0cdd74d?auto=format&fit=crop&q=80&w=800",
                 "specs": [
                   "Reactores de conversión térmica de alta eficiencia termodinámica",
                   "Sistemas de lavado de gases de combustión multietapa (SCR/SnCR)",
@@ -434,23 +439,11 @@
                 ],
                 "images": [
                   {
-                    "url": "https://images.unsplash.com/photo-1513828742140-ccaa34f3158e?auto=format&fit=crop&q=80&w=800",
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783379575691_waste_to_energy_2_.webp",
                     "name": "CONVERSIÓN ENERGÉTICA"
-                  },
-                  {
-                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780809601884_pirolisis_1.png",
-                    "name": "Nombre del Equipo"
-                  },
-                  {
-                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780809824744_04_material_recovery.png",
-                    "name": "Nombre del Equipo"
-                  },
-                  {
-                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780810858568_pirolisis_1.png",
-                    "name": "Nombre del Equipo"
                   }
                 ],
-                "disableFilters": true
+                "disableFilters": false
               },
               {
                 "id": "plantas-llave-en-mano",
@@ -467,9 +460,48 @@
                   "Gabinetes de control centralizados con protocolos Profinet / Ethernet",
                   "Puesta en marcha y pruebas de rendimiento de planta (FAT / SAT)",
                   "Soporte técnico posventa garantizado y stock de repuestos"
-                ]
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783378388651_plantas_llave_en_mano.webp",
+                    "name": "Planta WtE"
+                  }
+                ],
+                "disableFilters": true
               }
-            ]
+            ],
+            "hero": {
+              "title1": "SOLUCIONES TEST",
+              "title2": "Valorización Energética",
+              "subtitle": "Tecnologías y sistemas integrados para el tratamiento, valorización y conversión de residuos en energía y recursos. Desarrollamos soluciones de alta ingeniería para mitigar el impacto ambiental y maximizar la rentabilidad operativa.",
+              "bgImage": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1600&auto=format&fit=crop",
+              "bgVideo": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782603598739_VID_1.mp4",
+              "bgVideos": [
+                "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782603598739_VID_1.mp4",
+                "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782603766004_VID_2.mp4",
+                "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782603820564_vid_4.mp4"
+              ],
+              "overlayOpacity": 0.07,
+              "showStats": false,
+              "stats": [
+                {
+                  "val": "99.2%",
+                  "lbl": "Eficiencia del Proceso"
+                },
+                {
+                  "val": "WTE-60",
+                  "lbl": "Estándar Tecnológico"
+                },
+                {
+                  "val": "100%",
+                  "lbl": "Cumplimiento Ambiental"
+                },
+                {
+                  "val": "CO2-Neg",
+                  "lbl": "Reducción de Huella"
+                }
+              ]
+            }
           }
         }
       ]
@@ -821,6 +853,287 @@
       ]
     },
     {
+      "id": "machinery-alimentos-lpc-500",
+      "title": "LÍNEA DE PRODUCCIÓN DE PAPAS FRITAS LPC-500",
+      "slug": "/maquinaria/alimentos-lpc-500",
+      "modules": [
+        {
+          "id": "machinery-data-alimentos-lpc-500",
+          "type": "machinery-product",
+          "data": {
+            "industry": "alimentos",
+            "machineCode": "alimentos-lpc-500",
+            "pageNumber": "15",
+            "theme": {
+              "accent": "#F97316",
+              "accentGlow": "rgba(249, 115, 22, 0.4)",
+              "bgStart": "#120702",
+              "bgEnd": "#2C1103",
+              "glowColor": "orange"
+            },
+            "heroTitle": "LÍNEA DE PRODUCCIÓN DE PAPAS FRITAS LPC-500",
+            "heroSubtitle": "Fritura industrial continua con control preciso de temperatura.",
+            "heroDesc": "Descripción detallada para Línea de Producción de Papas Fritas LPC-500. El sistema está diseñado para cumplir con los estándares industriales más exigentes. Puedes editar este contenido desde el CMS para especificar el funcionamiento exacto y los beneficios de esta línea.",
+            "heroMedia": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
+            "kpis": [
+              {
+                "value": "100%",
+                "unit": "EFICIENCIA",
+                "label": "Rendimiento",
+                "desc": "Producción continua"
+              },
+              {
+                "value": "24/7",
+                "unit": "OPERACIÓN",
+                "label": "Disponibilidad",
+                "desc": "Sistemas redundantes"
+              },
+              {
+                "value": "Auto",
+                "unit": "CONTROL",
+                "label": "Precisión",
+                "desc": "Control avanzado por PLC"
+              },
+              {
+                "value": "Premium",
+                "unit": "CALIDAD",
+                "label": "Estándar",
+                "desc": "Materiales duraderos"
+              }
+            ],
+            "stations": [
+              {
+                "id": 1,
+                "title": "Alimentación",
+                "desc": "Ingreso del material al sistema automatizado.",
+                "iconName": "Inbox"
+              },
+              {
+                "id": 2,
+                "title": "Procesamiento",
+                "desc": "Transformación del producto bajo estrictos controles.",
+                "iconName": "Layers"
+              },
+              {
+                "id": 3,
+                "title": "Control de Calidad",
+                "desc": "Verificación en línea del producto final.",
+                "iconName": "Eye"
+              },
+              {
+                "id": 4,
+                "title": "Descarga",
+                "desc": "Salida del material terminado y empacado.",
+                "iconName": "LogOut"
+              }
+            ],
+            "applications": [
+              {
+                "name": "Sector Primario",
+                "icon": "🏭",
+                "desc": "Aplicación en las industrias de mayor demanda"
+              },
+              {
+                "name": "Aplicación Especial",
+                "icon": "⚙️",
+                "desc": "Procesos personalizados para este equipo"
+              }
+            ],
+            "advantages": [
+              {
+                "title": "ALTA CONFIABILIDAD",
+                "desc": "Equipos diseñados para funcionar sin interrupciones con mínimo mantenimiento.",
+                "highlight": "Durabilidad"
+              },
+              {
+                "title": "INTEGRACIÓN 4.0",
+                "desc": "Monitoreo remoto y conexión con sistemas de gestión de planta.",
+                "highlight": "Tecnología"
+              }
+            ],
+            "specs": [
+              {
+                "param": "Modelo Base",
+                "value": "Serie SMQ-LPC-500"
+              },
+              {
+                "param": "Capacidad",
+                "value": "Configurable según requerimientos"
+              },
+              {
+                "param": "Controlador",
+                "value": "PLC de última generación con pantalla HMI"
+              }
+            ],
+            "configurations": [
+              {
+                "name": "Automatización Completa",
+                "desc": "Módulos adicionales para operación desatendida."
+              },
+              {
+                "name": "Sensores Avanzados",
+                "desc": "Sistemas de inspección óptica y láser."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "tecnologia-ia",
+      "title": "tecnologia-ia",
+      "slug": "/tecnologia-ia",
+      "modules": [
+        {
+          "id": "hero-bg",
+          "type": "hero-bg",
+          "data": {
+            "imageUrl": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782605839532_ia.png",
+            "scale": 1,
+            "positionX": 50,
+            "positionY": 50,
+            "opacity": 74,
+            "brightness": 100,
+            "fogOpacity": 100,
+            "fogDirection": "to-r",
+            "objectFit": "cover"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tecnologia-smart-factory",
+      "title": "tecnologia-smart-factory",
+      "slug": "/tecnologia-smart-factory",
+      "modules": [
+        {
+          "id": "hero-bg",
+          "type": "hero-bg",
+          "data": {
+            "imageUrl": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782607309944_SMART_FACTORY_2.0.png",
+            "scale": 1,
+            "positionX": 50,
+            "positionY": 50,
+            "opacity": 80,
+            "brightness": 178,
+            "fogOpacity": 100,
+            "fogDirection": "to-r",
+            "objectFit": "cover"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tecnologia-digital-twin",
+      "title": "tecnologia-digital-twin",
+      "slug": "/tecnologia-digital-twin",
+      "modules": [
+        {
+          "id": "hero-bg",
+          "type": "hero-bg",
+          "data": {
+            "imageUrl": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782607399291_dtwin.png",
+            "scale": 1,
+            "positionX": 50,
+            "positionY": 50,
+            "opacity": 81,
+            "brightness": 100,
+            "fogOpacity": 100,
+            "fogDirection": "to-r",
+            "objectFit": "cover"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tecnologia-plc-motion",
+      "title": "tecnologia-plc-motion",
+      "slug": "/tecnologia-plc-motion",
+      "modules": [
+        {
+          "id": "hero-bg",
+          "type": "hero-bg",
+          "data": {
+            "imageUrl": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782607450662_plc_motion_pic.png",
+            "scale": 1,
+            "positionX": 50,
+            "positionY": 50,
+            "opacity": 81,
+            "brightness": 100,
+            "fogOpacity": 100,
+            "fogDirection": "to-r",
+            "objectFit": "cover"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tecnologia-iiot-edge",
+      "title": "tecnologia-iiot-edge",
+      "slug": "/tecnologia-iiot-edge",
+      "modules": [
+        {
+          "id": "hero-bg",
+          "type": "hero-bg",
+          "data": {
+            "imageUrl": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782607517222_IIOT_EDGE_PIC.png",
+            "scale": 1,
+            "positionX": 50,
+            "positionY": 50,
+            "opacity": 79,
+            "brightness": 100,
+            "fogOpacity": 100,
+            "fogDirection": "to-r",
+            "objectFit": "cover"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tecnologia-energia-inteligente",
+      "title": "tecnologia-energia-inteligente",
+      "slug": "/tecnologia-energia-inteligente",
+      "modules": [
+        {
+          "id": "hero-bg",
+          "type": "hero-bg",
+          "data": {
+            "imageUrl": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782607900160_energia_inteligente_pic.webp",
+            "scale": 1,
+            "positionX": 50,
+            "positionY": 50,
+            "opacity": 72,
+            "brightness": 100,
+            "fogOpacity": 100,
+            "fogDirection": "to-r",
+            "objectFit": "cover"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tecnologia-smq-os",
+      "title": "tecnologia-smq-os",
+      "slug": "/tecnologia-smq-os",
+      "modules": [
+        {
+          "id": "hero-bg",
+          "type": "hero-bg",
+          "data": {
+            "imageUrl": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782608061926_smq_OS_pic.webp",
+            "scale": 1,
+            "positionX": 50,
+            "positionY": 50,
+            "opacity": 88,
+            "brightness": 100,
+            "fogOpacity": 92,
+            "fogDirection": "to-r",
+            "objectFit": "cover"
+          }
+        }
+      ]
+    },
+    {
       "id": "industria-reciclaje",
       "title": "Industria de Reciclaje y Economía Circular",
       "slug": "/industria/reciclaje",
@@ -832,7 +1145,12 @@
             "title": "Industria de Reciclaje y Economía Circular",
             "subtitle": "Tecnología líder para la economía circular y recuperación de materiales",
             "description": "Diseñamos y fabricamos sistemas llave en mano de alto rendimiento para el procesamiento, triturado, lavado y extrusión de polímeros, metales y residuos. Nuestras soluciones maximizan la pureza del material recuperado y reducen el consumo energético operativo.",
-            "heroImage": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png",
+            "heroImage": {
+              "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png",
+              "brightness": 168,
+              "opacity": 0.7,
+              "fogOpacity": 86
+            },
             "stats": [
               {
                 "label": "Eficiencia de Lavado",
@@ -998,7 +1316,7 @@
                   "scale": 1,
                   "positionX": 0,
                   "positionY": 0,
-                  "objectFit": "contain",
+                  "objectFit": "cover",
                   "bgColor": "transparent"
                 },
                 "tableHeaders": [
@@ -1023,6 +1341,22 @@
                     "power": "97%",
                     "weight": "15 kW"
                   }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781667983304_RSU.png",
+                    "type": "image",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100,
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "cover",
+                    "bgColor": "transparent"
+                  },
+                  ""
                 ]
               },
               {
@@ -1045,7 +1379,7 @@
                   "scale": 1,
                   "positionX": 0,
                   "positionY": 0,
-                  "objectFit": "contain",
+                  "objectFit": "cover",
                   "bgColor": "transparent"
                 },
                 "tableHeaders": [
@@ -1070,6 +1404,22 @@
                     "power": "99%",
                     "weight": "Acero SUS304"
                   }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781666288358_clasificadora_2.png",
+                    "type": "image",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100,
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "cover",
+                    "bgColor": "transparent"
+                  },
+                  ""
                 ]
               },
               {
@@ -1078,7 +1428,7 @@
                 "description": "Compounding, aditivos especiales y valorización completa de mermas.",
                 "longDescription": "Asesoría y desarrollo técnico para la transformación de descartes de producción en materias primas secundarias de alta calidad listas para inyección.",
                 "features": [
-                  "[icon:Shield] Compounding piloto de polímeros y fibras naturales",
+                  "[icon:Shield] Hola mundo.",
                   "[icon:Zap] Aditivos avanzados para restauración de viscosidad",
                   "[icon:Cpu] Plantas modulares de micronizado a medida"
                 ],
@@ -1092,7 +1442,7 @@
                   "scale": 1,
                   "positionX": 0,
                   "positionY": 0,
-                  "objectFit": "contain",
+                  "objectFit": "cover",
                   "bgColor": "transparent"
                 },
                 "tableHeaders": [
@@ -1117,9 +1467,1888 @@
                     "power": "CE",
                     "weight": "2 Años"
                   }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781666099054_economia_circular.png",
+                    "type": "image",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100,
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "cover",
+                    "bgColor": "transparent"
+                  },
+                  ""
                 ]
               }
             ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "machinery-alimentos-lwv-500",
+      "title": "LÍNEA DE LAVADO Y CORTE LWV-500",
+      "slug": "/maquinaria/alimentos-lwv-500",
+      "modules": [
+        {
+          "id": "machinery-data-alimentos-lwv-500",
+          "type": "machinery-product",
+          "data": {
+            "industry": "alimentos",
+            "machineCode": "alimentos-lwv-500",
+            "pageNumber": "11",
+            "theme": {
+              "accent": "#F97316",
+              "accentGlow": "rgba(249, 115, 22, 0.4)",
+              "bgStart": "#120702",
+              "bgEnd": "#2C1103",
+              "glowColor": "orange"
+            },
+            "heroTitle": "LÍNEA DE LAVADO Y CORTE LWV-500",
+            "heroSubtitle": "Procesamiento y troceado automático de vegetales.",
+            "heroDesc": "Descripción detallada para Línea de Lavado y Corte LWV-500. El sistema está diseñado para cumplir con los estándares industriales más exigentes. Puedes editar este contenido desde el CMS para especificar el funcionamiento exacto y los beneficios de esta línea.",
+            "heroMedia": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
+            "kpis": [
+              {
+                "value": "100%",
+                "unit": "EFICIENCIA",
+                "label": "Rendimiento",
+                "desc": "Producción continua"
+              },
+              {
+                "value": "24/7",
+                "unit": "OPERACIÓN",
+                "label": "Disponibilidad",
+                "desc": "Sistemas redundantes"
+              },
+              {
+                "value": "Auto",
+                "unit": "CONTROL",
+                "label": "Precisión",
+                "desc": "Control avanzado por PLC"
+              },
+              {
+                "value": "Premium",
+                "unit": "CALIDAD",
+                "label": "Estándar",
+                "desc": "Materiales duraderos"
+              }
+            ],
+            "stations": [
+              {
+                "id": 1,
+                "title": "Alimentación",
+                "desc": "Ingreso del material al sistema automatizado.",
+                "iconName": "Inbox"
+              },
+              {
+                "id": 2,
+                "title": "Procesamiento",
+                "desc": "Transformación del producto bajo estrictos controles.",
+                "iconName": "Layers"
+              },
+              {
+                "id": 3,
+                "title": "Control de Calidad",
+                "desc": "Verificación en línea del producto final.",
+                "iconName": "Eye"
+              },
+              {
+                "id": 4,
+                "title": "Descarga",
+                "desc": "Salida del material terminado y empacado.",
+                "iconName": "LogOut"
+              }
+            ],
+            "applications": [
+              {
+                "name": "Sector Primario",
+                "icon": "🏭",
+                "desc": "Aplicación en las industrias de mayor demanda"
+              },
+              {
+                "name": "Aplicación Especial",
+                "icon": "⚙️",
+                "desc": "Procesos personalizados para este equipo"
+              }
+            ],
+            "advantages": [
+              {
+                "title": "ALTA CONFIABILIDAD",
+                "desc": "Equipos diseñados para funcionar sin interrupciones con mínimo mantenimiento.",
+                "highlight": "Durabilidad"
+              },
+              {
+                "title": "INTEGRACIÓN 4.0",
+                "desc": "Monitoreo remoto y conexión con sistemas de gestión de planta.",
+                "highlight": "Tecnología"
+              }
+            ],
+            "specs": [
+              {
+                "param": "Modelo Base",
+                "value": "Serie SMQ-LWV-500"
+              },
+              {
+                "param": "Capacidad",
+                "value": "Configurable según requerimientos"
+              },
+              {
+                "param": "Controlador",
+                "value": "PLC de última generación con pantalla HMI"
+              }
+            ],
+            "configurations": [
+              {
+                "name": "Automatización Completa",
+                "desc": "Módulos adicionales para operación desatendida."
+              },
+              {
+                "name": "Sensores Avanzados",
+                "desc": "Sistemas de inspección óptica y láser."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "machinery-alimentos-lwf-500",
+      "title": "LÍNEA DE LAVADO Y SECADO LWF-500",
+      "slug": "/maquinaria/alimentos-lwf-500",
+      "modules": [
+        {
+          "id": "machinery-data-alimentos-lwf-500",
+          "type": "machinery-product",
+          "data": {
+            "industry": "alimentos",
+            "machineCode": "alimentos-lwf-500",
+            "pageNumber": "10",
+            "theme": {
+              "accent": "#F97316",
+              "accentGlow": "rgba(249, 115, 22, 0.4)",
+              "bgStart": "#080B12",
+              "bgEnd": "#0A0B10",
+              "glowColor": "orange"
+            },
+            "heroTitle": "LÍNEA DE LAVADO Y SECADO LWF-500",
+            "heroSubtitle": "Lavado y secado industrial continuo de frutas y hortalizas.",
+            "heroDesc": "Descripción detallada para Línea de Lavado y Secado LWF-500. El sistema está diseñado para cumplir con los estándares industriales más exigentes. Puedes editar este contenido desde el CMS para especificar el funcionamiento exacto y los beneficios de esta línea.",
+            "heroMedia": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782617836782_LAVADO_Y_SECASDO.webp",
+            "kpis": [
+              {
+                "value": "100%",
+                "unit": "EFICIENCIA",
+                "label": "Rendimiento",
+                "desc": "Producción continua"
+              },
+              {
+                "value": "24/7",
+                "unit": "OPERACIÓN",
+                "label": "Disponibilidad",
+                "desc": "Sistemas redundantes"
+              },
+              {
+                "value": "Auto",
+                "unit": "CONTROL",
+                "label": "Precisión",
+                "desc": "Control avanzado por PLC"
+              },
+              {
+                "value": "Premium",
+                "unit": "CALIDAD",
+                "label": "Estándar",
+                "desc": "Materiales duraderos"
+              }
+            ],
+            "stations": [
+              {
+                "id": 1,
+                "title": "Alimentación",
+                "desc": "Ingreso del material al sistema automatizado.",
+                "iconName": "Inbox"
+              },
+              {
+                "id": 2,
+                "title": "Procesamiento",
+                "desc": "Transformación del producto bajo estrictos controles.",
+                "iconName": "Layers"
+              },
+              {
+                "id": 3,
+                "title": "Control de Calidad",
+                "desc": "Verificación en línea del producto final.",
+                "iconName": "Eye"
+              },
+              {
+                "id": 4,
+                "title": "Descarga",
+                "desc": "Salida del material terminado y empacado.",
+                "iconName": "LogOut"
+              }
+            ],
+            "applications": [
+              {
+                "name": "Sector Primario",
+                "icon": "🏭",
+                "desc": "Aplicación en las industrias de mayor demanda",
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782621167412_papas.webp"
+              },
+              {
+                "name": "Aplicación Especial",
+                "icon": "⚙️",
+                "desc": "Procesos personalizados para este equipo",
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782622261601_tomates.webp"
+              }
+            ],
+            "advantages": [
+              {
+                "title": "ALTA CONFIABILIDAD",
+                "desc": "Equipos diseñados para funcionar sin interrupciones con mínimo mantenimiento.",
+                "highlight": "Durabilidad"
+              },
+              {
+                "title": "INTEGRACIÓN 4.0",
+                "desc": "Monitoreo remoto y conexión con sistemas de gestión de planta.",
+                "highlight": "Tecnología"
+              }
+            ],
+            "specs": [
+              {
+                "param": "Modelo Base",
+                "value": "Serie SMQ-LWF-500"
+              },
+              {
+                "param": "Capacidad",
+                "value": "Configurable según requerimientos"
+              },
+              {
+                "param": "Controlador",
+                "value": "PLC de última generación con pantalla HMI"
+              }
+            ],
+            "configurations": [
+              {
+                "name": "Automatización Completa",
+                "desc": "Módulos adicionales para operación desatendida."
+              },
+              {
+                "name": "Sensores Avanzados",
+                "desc": "Sistemas de inspección óptica y láser."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "industria-alimentos",
+      "title": "Industria de Alimentos y Bebidas",
+      "slug": "/industria/alimentos",
+      "modules": [
+        {
+          "id": "sector-data",
+          "type": "sector-detail",
+          "data": {
+            "title": "Industria de Alimentos y Bebidas",
+            "subtitle": "Higiene óptima, precisión y control absoluto",
+            "description": "Equipos diseñados bajo los más estrictos estándares de sanidad (HACCP / FDA) y procesamiento de alimentos. Desarrollamos tecnologías avanzadas para procesamiento, dosificación y empaque de alta eficiencia.",
+            "heroImage": {
+              "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782610171141_alimentos_y_bebidas.webp",
+              "fogOpacity": 74,
+              "brightness": 200,
+              "opacity": 0.55
+            },
+            "stats": [
+              {
+                "label": "Eficiencia de Proceso",
+                "value": "99.5%"
+              },
+              {
+                "label": "Grado Sanitario",
+                "value": "FDA / HACCP"
+              },
+              {
+                "label": "Operación Continua",
+                "value": "24/7"
+              },
+              {
+                "label": "Control Autónomo",
+                "value": "Sí"
+              }
+            ],
+            "items": [
+              {
+                "id": "lavado",
+                "title": "LÍNEAS DE LAVADO Y PELADO",
+                "description": "Sistemas integrados de lavado, desinfección, corte y pelado para vegetales y frutas.",
+                "longDescription": "Nuestros equipos de lavado por burbujas y sistemas de pelado garantizan un tratamiento delicado y óptimo de la materia prima, reduciendo mermas y cumpliendo rigurosos estándares higiénicos.",
+                "features": [
+                  "[icon:Shield] Construcción completa en acero inoxidable AISI 304",
+                  "[icon:Zap] Consumo eficiente de agua con sistema de recirculación",
+                  "[icon:Cpu] Regulación de velocidad de banda y flujo de aire"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781671531983_lavadora_burbujas.png",
+                  "type": "image",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100,
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "cover",
+                  "bgColor": "transparent"
+                },
+                "tableHeaders": [
+                  "Modelo",
+                  "Función",
+                  "Capacidad",
+                  "Potencia",
+                  "Material"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "LWF-500",
+                    "width": "Lavado y Secado",
+                    "capacity": "500 kg/h",
+                    "power": "3.2 kW",
+                    "weight": "AISI 304"
+                  },
+                  {
+                    "model": "LWV-500",
+                    "width": "Lavado y Corte",
+                    "capacity": "500 kg/h",
+                    "power": "4.5 kW",
+                    "weight": "AISI 304"
+                  },
+                  {
+                    "model": "LWL-500",
+                    "width": "Lavado de Hojas",
+                    "capacity": "400 kg/h",
+                    "power": "2.8 kW",
+                    "weight": "AISI 304"
+                  },
+                  {
+                    "model": "LBW-500",
+                    "width": "Tina de Lavado Burbujas",
+                    "capacity": "600 kg/h",
+                    "power": "3.5 kW",
+                    "weight": "AISI 304"
+                  },
+                  {
+                    "model": "GPL-300",
+                    "width": "Peladora de Ajos",
+                    "capacity": "300 kg/h",
+                    "power": "1.5 kW",
+                    "weight": "AISI 304"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781671531983_lavadora_burbujas.png",
+                    "type": "image",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100,
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "cover",
+                    "bgColor": "transparent"
+                  },
+                  ""
+                ]
+              },
+              {
+                "id": "produccion",
+                "title": "LÍNEAS DE PRODUCCIÓN DE ALIMENTOS",
+                "description": "Líneas completas de procesamiento para papas fritas, chocolate, pastas, frutas y snacks.",
+                "longDescription": "Líneas integradas modulares diseñadas para procesamiento continuo con máxima eficiencia energética y consistencia de producto en cada lote.",
+                "features": [
+                  "[icon:Shield] Control total automático vía panel PLC touch",
+                  "[icon:Zap] Sistemas de calentamiento eficientes e inteligentes",
+                  "[icon:Cpu] Fácil limpieza con estándar CIP (Clean in Place)"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115231575_choco%20color%202.png",
+                "tableHeaders": [
+                  "Modelo",
+                  "Producto",
+                  "Capacidad",
+                  "Energía/Potencia",
+                  "Peso Línea"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "LPC-500",
+                    "width": "Papas Fritas",
+                    "capacity": "500 kg/h",
+                    "power": "GLP / Vapor",
+                    "weight": "4,200 kg"
+                  },
+                  {
+                    "model": "LCH-500",
+                    "width": "Chocolate en Polvo",
+                    "capacity": "500 kg/h",
+                    "power": "18.5 kW",
+                    "weight": "2,800 kg"
+                  },
+                  {
+                    "model": "LMC-100",
+                    "width": "Pastas",
+                    "capacity": "100 kg/h",
+                    "power": "11.0 kW",
+                    "weight": "1,200 kg"
+                  },
+                  {
+                    "model": "LMC-200",
+                    "width": "Pastas",
+                    "capacity": "200 kg/h",
+                    "power": "15.0 kW",
+                    "weight": "1,800 kg"
+                  },
+                  {
+                    "model": "LFC-300",
+                    "width": "Frutas Congeladas",
+                    "capacity": "300 kg/h",
+                    "power": "IQF / Nitrógeno",
+                    "weight": "2,100 kg"
+                  },
+                  {
+                    "model": "LCB-300",
+                    "width": "Barras de Cereal",
+                    "capacity": "300 kg/h",
+                    "power": "12.0 kW",
+                    "weight": "1,600 kg"
+                  },
+                  {
+                    "model": "LSN-250",
+                    "width": "Snacks Inflados",
+                    "capacity": "250 kg/h",
+                    "power": "22.0 kW",
+                    "weight": "2,300 kg"
+                  },
+                  {
+                    "model": "LPT-250",
+                    "width": "Alimento para Mascotas",
+                    "capacity": "250 kg/h",
+                    "power": "30.0 kW",
+                    "weight": "3,100 kg"
+                  }
+                ]
+              },
+              {
+                "id": "empaquetado",
+                "title": "LÍNEAS DE EMPAQUETADO Y LLENADO",
+                "description": "Sistemas automáticos de empaque para polvos, líquidos, pouches, cartón y botellas.",
+                "longDescription": "Sistemas avanzados de alta velocidad y hermeticidad de sellado para todo tipo de formatos rígidos y flexibles.",
+                "features": [
+                  "[icon:Shield] Sensores de precisión para detección de presencia de envase",
+                  "[icon:Zap] Servomotores de alta precisión de marca líder",
+                  "[icon:Cpu] Construcción higiénica y libre de mantenimiento constante"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115213579_choco%20bN%202.png",
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo de Empaque",
+                  "Velocidad",
+                  "Potencia",
+                  "Precisión"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "PKB-70",
+                    "width": "Empaquetado y Llenado",
+                    "capacity": "70 bpm",
+                    "power": "4.2 kW",
+                    "weight": "±0.5%"
+                  },
+                  {
+                    "model": "PKW-130",
+                    "width": "Empaquetado Polvos",
+                    "capacity": "130 bpm",
+                    "power": "5.5 kW",
+                    "weight": "±0.2%"
+                  },
+                  {
+                    "model": "PCP-40",
+                    "width": "Llenado y Empaquetado Pouch",
+                    "capacity": "40 bpm",
+                    "power": "3.8 kW",
+                    "weight": "±0.4%"
+                  },
+                  {
+                    "model": "PCT-80",
+                    "width": "Empaquetado de Cartón",
+                    "capacity": "80 cpm",
+                    "power": "7.5 kW",
+                    "weight": "±0.1%"
+                  },
+                  {
+                    "model": "PBK-60",
+                    "width": "Llenado y Empaquetado",
+                    "capacity": "60 bpm",
+                    "power": "4.0 kW",
+                    "weight": "±0.5%"
+                  },
+                  {
+                    "model": "BTL-200",
+                    "width": "Etiquetado Double Side",
+                    "capacity": "200 bpm",
+                    "power": "2.2 kW",
+                    "weight": "±0.5 mm"
+                  }
+                ]
+              },
+              {
+                "id": "separadoras",
+                "title": "SISTEMAS DE SEPARACIÓN",
+                "description": "Sistemas inteligentes de clasificación y separación por color, tamaño y peso.",
+                "longDescription": "Sistemas ópticos y gravimétricos de alta tecnología para garantizar la máxima pureza de su producto final, eliminando cuerpos extraños y piezas fuera de especificación.",
+                "features": [
+                  "[icon:Shield] Cámaras CCD de ultra alta resolución (Full HD)",
+                  "[icon:Zap] Eyectores neumáticos de respuesta ultrarrápida",
+                  "[icon:Cpu] Algoritmos de inteligencia artificial para clasificación compleja"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png",
+                "tableHeaders": [
+                  "Modelo",
+                  "Criterio Separación",
+                  "Capacidad",
+                  "Precisión",
+                  "Cámaras/Sensores"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "CS-500",
+                    "width": "Separadora por Color",
+                    "capacity": "500 kg/h",
+                    "power": "99.9%",
+                    "weight": "Cámaras CCD HD"
+                  },
+                  {
+                    "model": "TS-1000",
+                    "width": "Separadora por Tamaño",
+                    "capacity": "1000 kg/h",
+                    "power": "99.5%",
+                    "weight": "Sensores Láser"
+                  },
+                  {
+                    "model": "WS-500",
+                    "width": "Separadora por Peso",
+                    "capacity": "500 kg/h",
+                    "power": "99.8%",
+                    "weight": "Celdas de Carga C3"
+                  }
+                ]
+              }
+            ],
+            "showStats": false,
+            "instalacionesImage": "/smq_factory_night2.png"
+          }
+        }
+      ]
+    },
+    {
+      "id": "industria-smart-factory",
+      "title": "SMART FACTORY",
+      "slug": "/industria/smart-factory",
+      "modules": [
+        {
+          "id": "sector-data",
+          "type": "sector-detail",
+          "data": {
+            "title": "SMART FACTORY",
+            "subtitle": "Líneas totalmente interconectadas con toma de decisiones autónoma",
+            "description": "Transformamos plantas convencionales en ecosistemas Cyber-Físicos donde la maquinaria, los sistemas logísticos y los operarios interactúan sin fricción, garantizando agilidad y personalización masiva sin sacrificar la eficiencia operativa.",
+            "heroImage": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png",
+            "stats": [
+              {
+                "label": "Aumento de Flexibilidad",
+                "value": "+40%"
+              },
+              {
+                "label": "Tiempo de Cambio",
+                "value": "-80%"
+              },
+              {
+                "label": "Reducción de Inventario",
+                "value": "WIP -30%"
+              },
+              {
+                "label": "Trazabilidad",
+                "value": "Unitaria (Lote 1)"
+              }
+            ],
+            "items": [
+              {
+                "id": "agv",
+                "title": "Robótica Móvil Autónoma (AMR/AGV)",
+                "description": "Logística intralogística flexible y sin guías físicas.",
+                "longDescription": "Eliminamos las cintas transportadoras rígidas. Desplegamos flotas de robots móviles que navegan mediante SLAM (Simultaneous Localization and Mapping), alimentando las líneas justo a tiempo (JIT) y adaptando sus rutas dinámicamente frente a obstáculos.",
+                "features": [
+                  "[icon:Shield] Navegación natural láser sin necesidad de cintas o reflectores",
+                  "[icon:Zap] Gestión de flotas (Fleet Management) centralizada",
+                  "[icon:Cpu] Integración con puertas automáticas y ascensores de carga"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115231575_choco%20color%202.png",
+                "tableHeaders": [
+                  "Tipo de Robot",
+                  "Carga Útil",
+                  "Velocidad Máxima",
+                  "Precisión de Parada",
+                  "Navegación"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "AMR Paletero",
+                    "width": "Hasta 1,500 kg",
+                    "capacity": "1.5 m/s",
+                    "power": "±10 mm",
+                    "weight": "LiDAR + 3D Camera"
+                  },
+                  {
+                    "model": "AGV Remolcador",
+                    "width": "Hasta 3,000 kg",
+                    "capacity": "2.0 m/s",
+                    "power": "±20 mm",
+                    "weight": "Magnética / Óptica"
+                  }
+                ]
+              },
+              {
+                "id": "mes",
+                "title": "Sistemas de Ejecución MES / MOM",
+                "description": "Orquestación de la producción, recetas y calidad desde el ERP hasta la máquina.",
+                "longDescription": "El puente digital entre el negocio (IT) y la planta (OT). Un sistema MES ejecuta órdenes de trabajo, descarga recetas directamente al PLC, captura el consumo real de materiales y calcula el OEE global con una precisión absoluta.",
+                "features": [
+                  "[icon:Shield] Genealogía completa y trazabilidad \"Forward & Backward\"",
+                  "[icon:Zap] Control Estadístico de Proceso (SPC) en tiempo real",
+                  "[icon:Cpu] Cumplimiento normativo ISA-95 e ISA-88"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png",
+                "tableHeaders": [
+                  "Módulo",
+                  "Función Principal",
+                  "Interfaces",
+                  "Reporte",
+                  "Cumplimiento"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "Gestión de Órdenes",
+                    "width": "Secuenciación y Despacho",
+                    "capacity": "SAP / Oracle / MS Dynamics",
+                    "power": "WIP Actualizado",
+                    "weight": "ISA-95"
+                  },
+                  {
+                    "model": "Control de Calidad",
+                    "width": "Captura de Ensayos / SPC",
+                    "capacity": "LIMS / Instrumentos",
+                    "power": "Gráficos X-R",
+                    "weight": "CFR 21 Part 11"
+                  }
+                ]
+              }
+            ],
+            "instalacionesImage": "/smq_factory_night2.png"
+          }
+        }
+      ]
+    },
+    {
+      "id": "industria-plc-motion",
+      "title": "PLC + MOTION",
+      "slug": "/industria/plc-motion",
+      "modules": [
+        {
+          "id": "sector-data",
+          "type": "sector-detail",
+          "data": {
+            "title": "PLC + MOTION",
+            "subtitle": "Determinismo de microsegundos para maquinarias ultra-rápidas",
+            "description": "Dominamos las arquitecturas de control más exigentes del mundo. Implementamos plataformas que sincronizan docenas de servo-ejes en perfecta armonía, permitiendo velocidades de empaque y procesamiento que rompen récords de la industria.",
+            "heroImage": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png",
+            "stats": [
+              {
+                "label": "Jitter de Red",
+                "value": "< 1 µs"
+              },
+              {
+                "label": "Tiempo de Ciclo",
+                "value": "125 µs"
+              },
+              {
+                "label": "Sincronización",
+                "value": "Nanosegundos"
+              },
+              {
+                "label": "Safety Integrado",
+                "value": "SIL 3 / PLe"
+              }
+            ],
+            "items": [
+              {
+                "id": "motion-control",
+                "title": "Control de Ejes y Cinemática Compleja",
+                "description": "Levas electrónicas, interpolación CNC y control robótico integrado.",
+                "longDescription": "Sincronizamos ejes maestros y esclavos utilizando redes Ethernet en tiempo real (EtherCAT, Profinet IRT). Reemplazamos complejos trenes de engranajes mecánicos por perfiles de leva electrónica dinámicos, permitiendo cambios de formato con presionar un botón.",
+                "features": [
+                  "[icon:Shield] Perfiles de movimiento avanzados (Gearing, Camming, Flying Saw)",
+                  "[icon:Zap] Interpolación espacial para brazos Delta, SCARA y Antropomórficos",
+                  "[icon:Cpu] Regeneración de energía hacia el bus de DC continuo"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115231575_choco%20color%202.png",
+                "tableHeaders": [
+                  "Función",
+                  "Aplicación Típica",
+                  "Precisión de Posición",
+                  "Red Requerida",
+                  "Ventaja Mecánica"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "Leva Electrónica",
+                    "width": "Envolvedoras Flow-Pack",
+                    "capacity": "±0.001 Grados",
+                    "power": "EtherCAT",
+                    "weight": "Cero Desgaste Mecánico"
+                  },
+                  {
+                    "model": "Corte al Vuelo",
+                    "width": "Líneas de Extrusión / Cartón",
+                    "capacity": "±0.5 mm @ 300m/min",
+                    "power": "Profinet IRT",
+                    "weight": "Corte Sin Paro"
+                  }
+                ]
+              }
+            ],
+            "instalacionesImage": "/smq_factory_night2.png"
+          }
+        }
+      ]
+    },
+    {
+      "id": "industria-inteligencia-artificial",
+      "title": "INTELIGENCIA ARTIFICIAL",
+      "slug": "/industria/inteligencia-artificial",
+      "modules": [
+        {
+          "id": "sector-data",
+          "type": "sector-detail",
+          "data": {
+            "title": "INTELIGENCIA ARTIFICIAL",
+            "subtitle": "Aprendizaje profundo y optimización autónoma",
+            "description": "Implementamos algoritmos de Inteligencia Artificial que aprenden de sus procesos históricos y en tiempo real para predecir fallas, optimizar variables de control complejas y detectar anomalías imposibles de ver a simple vista.",
+            "heroImage": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115213579_choco%20bN%202.png",
+            "stats": [
+              {
+                "label": "Reducción de Fallos",
+                "value": "Hasta 60%"
+              },
+              {
+                "label": "Precisión Predictiva",
+                "value": "> 98%"
+              },
+              {
+                "label": "Tiempo de Procesamiento",
+                "value": "< 10 ms"
+              },
+              {
+                "label": "ROI Estimado",
+                "value": "< 8 Meses"
+              }
+            ],
+            "items": [
+              {
+                "id": "vision",
+                "title": "Visión Artificial (Deep Learning)",
+                "description": "Inspección de defectos cosméticos complejos con redes neuronales.",
+                "longDescription": "Sistemas de inspección óptica que superan la visión tradicional basada en reglas. Entrenamos modelos convolucionales (CNN) para detectar micro-fisuras, variaciones de color y defectos orgánicos a velocidades superiores a 1,000 piezas por minuto.",
+                "features": [
+                  "[icon:Shield] Tolerancia a variaciones de iluminación natural",
+                  "[icon:Zap] Clasificación de defectos con precisión superior humana",
+                  "[icon:Cpu] Integración directa a expulsores neumáticos de alta velocidad"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782621688898_DEEP_LEARNING.webp",
+                  "type": "image",
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "contain",
+                  "bgColor": "transparent",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100
+                },
+                "tableHeaders": [
+                  "Aplicación",
+                  "Velocidad",
+                  "Resolución",
+                  "Hardware",
+                  "Precisión"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "Inspección Superficial",
+                    "width": "1200 ppm",
+                    "capacity": "Hasta 12 MP",
+                    "power": "NVIDIA Jetson / IPC",
+                    "weight": "99.9%"
+                  },
+                  {
+                    "model": "Verificación de Ensambles",
+                    "width": "800 ppm",
+                    "capacity": "Cámaras 3D",
+                    "power": "GPU Dedicada",
+                    "weight": "99.5%"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782621688898_DEEP_LEARNING.webp",
+                    "type": "image",
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "contain",
+                    "bgColor": "transparent",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100
+                  },
+                  ""
+                ]
+              },
+              {
+                "id": "mantenimiento",
+                "title": "Mantenimiento Predictivo (PdM)",
+                "description": "Prevención de paros no planeados mediante análisis de vibración espectral.",
+                "longDescription": "Predecimos fallas catastróficas en motores, reductores y rodamientos semanas antes de que ocurran. Los modelos de IA analizan la firma espectral de vibración y temperatura en tiempo real para alertar sobre desbalanceo, cavitación o desgaste de rodamientos.",
+                "features": [
+                  "[icon:Shield] Modelos de Anomaly Detection y Random Forest",
+                  "[icon:Zap] Reducción drástica del MTTR (Mean Time to Repair)",
+                  "[icon:Cpu] Alertas automáticas directas al sistema CMMS / SAP PM"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782623043810_mantenimiento_predictivo.webp",
+                  "type": "image",
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "contain",
+                  "bgColor": "transparent",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100
+                },
+                "tableHeaders": [
+                  "Falla Detectable",
+                  "Sensor Requerido",
+                  "Anticipación",
+                  "Diagnóstico",
+                  "Efectividad"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "Desgaste Rodamientos",
+                    "width": "Vibración Triaxial",
+                    "capacity": "3 a 6 Semanas",
+                    "power": "Automático",
+                    "weight": "Alto"
+                  },
+                  {
+                    "model": "Cavitación en Bombas",
+                    "width": "Vibración + Acústico",
+                    "capacity": "Inmediata",
+                    "power": "Por Severidad",
+                    "weight": "Muy Alto"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782623043810_mantenimiento_predictivo.webp",
+                    "type": "image",
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "contain",
+                    "bgColor": "transparent",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100
+                  },
+                  ""
+                ]
+              }
+            ],
+            "instalacionesImage": "/smq_factory_night2.png"
+          }
+        }
+      ]
+    },
+    {
+      "id": "industria-economia-circular",
+      "title": "ECONOMÍA CIRCULAR",
+      "slug": "/industria/economia-circular",
+      "modules": [
+        {
+          "id": "sector-data",
+          "type": "sector-detail",
+          "data": {
+            "title": "ECONOMÍA CIRCULAR",
+            "subtitle": "Valorización de residuos y procesos sin desperdicio (Zero Waste)",
+            "description": "Diseñamos sistemas que convierten los subproductos industriales en recursos valiosos. Soluciones de separación inteligente, tratamiento de efluentes y reciclaje de plásticos post-consumo que habilitan una manufactura genuinamente sostenible.",
+            "heroImage": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png",
+            "stats": [
+              {
+                "label": "Recuperación de Material",
+                "value": "Hasta 95%"
+              },
+              {
+                "label": "Cierre de Ciclo",
+                "value": "Bottle-to-Bottle"
+              },
+              {
+                "label": "Ahorro de Agua Fresca",
+                "value": "> 70%"
+              },
+              {
+                "label": "Certificación",
+                "value": "Cumplimiento ESG"
+              }
+            ],
+            "items": [
+              {
+                "id": "reciclaje-avanzado",
+                "title": "Plantas de Reciclaje y Separación Óptica",
+                "description": "Extracción de valor desde el flujo de residuos mixtos.",
+                "longDescription": "Líneas completas de lavado, molienda y extrusión para plásticos (PET, HDPE). Incorporamos separadores ópticos NIR (Near Infrared) de alta resolución que discriminan polímeros por su firma química a velocidades increíbles, asegurando purezas grado alimenticio (FDA/EFSA).",
+                "features": [
+                  "[icon:Shield] Espectrometría NIR para clasificación de resinas por tipo y color",
+                  "[icon:Zap] Sistemas de lavado en caliente con recuperación química y térmica",
+                  "[icon:Cpu] Filtración de masa fundida ultra-fina automática (Melt Filtration)"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png",
+                "tableHeaders": [
+                  "Proceso Circular",
+                  "Tecnología Clave",
+                  "Eficiencia de Separación",
+                  "Rendimiento",
+                  "Aplicación Final"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "Clasificación",
+                    "width": "Sensor NIR + AI",
+                    "capacity": "> 98% Pureza",
+                    "power": "Hasta 10 Ton/hora",
+                    "weight": "Separación por Polímero"
+                  },
+                  {
+                    "model": "Extrusión",
+                    "width": "Doble Husillo Co-rotante",
+                    "capacity": "Desgasificación Alto Vacío",
+                    "power": "Hasta 4 Ton/hora",
+                    "weight": "Pellet Grado Alimenticio"
+                  }
+                ]
+              }
+            ],
+            "instalacionesImage": "/smq_factory_night2.png"
+          }
+        }
+      ]
+    },
+    {
+      "id": "industria-digital-twin",
+      "title": "DIGITAL TWIN",
+      "slug": "/industria/digital-twin",
+      "modules": [
+        {
+          "id": "sector-data",
+          "type": "sector-detail",
+          "data": {
+            "title": "DIGITAL TWIN",
+            "subtitle": "Simulación inmersiva y comisionamiento virtual",
+            "description": "El Gemelo Digital es una réplica exacta de sus activos físicos. Permite simular modificaciones de línea, validar lógicas de PLC antes de construir y monitorear el desgaste de equipos remotos en un entorno 3D hiperrealista.",
+            "heroImage": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png",
+            "stats": [
+              {
+                "label": "Tiempo de Arranque",
+                "value": "-60%"
+              },
+              {
+                "label": "Riesgo de Colisión",
+                "value": "0%"
+              },
+              {
+                "label": "Ahorro en Pruebas",
+                "value": "Hasta 70%"
+              },
+              {
+                "label": "Precisión Física",
+                "value": "Alta Fidelidad"
+              }
+            ],
+            "items": [
+              {
+                "id": "virtual-commissioning",
+                "title": "Comisionamiento Virtual (VC)",
+                "description": "Pruebas del código PLC contra un modelo 3D con físicas reales.",
+                "longDescription": "Validamos hasta el 90% del software de control en oficina. Conectamos el PLC real a un gemelo 3D que simula gravedad, fricción, sensores y actuadores. Esto elimina los retrasos en sitio y previene colisiones mecánicas costosas.",
+                "features": [
+                  "[icon:Shield] Simulación cinemática y dinámica de multi-cuerpos",
+                  "[icon:Zap] Emulación de señales I/O por protocolos como OPC-UA / Profinet",
+                  "[icon:Cpu] Validación de Safety (paros de emergencia) en entorno seguro"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png",
+                "tableHeaders": [
+                  "Fase",
+                  "Técnica",
+                  "Fidelidad",
+                  "Hardware In Loop",
+                  "Beneficio"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "Prueba de Lógica",
+                    "width": "Emulación I/O",
+                    "capacity": "Baja-Media",
+                    "power": "Software PLC Emulado",
+                    "weight": "Depuración de Secuencias"
+                  },
+                  {
+                    "model": "Prueba Cinemática",
+                    "width": "Simulación Dinámica",
+                    "capacity": "Alta (Físicas Reales)",
+                    "power": "Hardware PLC Real",
+                    "weight": "Prevención de Colisiones"
+                  }
+                ]
+              }
+            ],
+            "instalacionesImage": "/smq_factory_night2.png"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tecnologia-mecanica",
+      "title": "tecnologia-mecanica",
+      "slug": "/tecnologia-mecanica",
+      "modules": [
+        {
+          "id": "hero-bg",
+          "type": "hero-bg",
+          "data": {
+            "imageUrl": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782625532409_ia.webp",
+            "scale": 1,
+            "positionX": 50,
+            "positionY": 50,
+            "opacity": 74,
+            "brightness": 100,
+            "fogOpacity": 75,
+            "fogDirection": "to-r",
+            "objectFit": "cover"
+          }
+        }
+      ]
+    },
+    {
+      "id": "industria-construccion",
+      "title": "Materiales de Construcción e Infraestructura",
+      "slug": "/industria/construccion",
+      "modules": [
+        {
+          "id": "sector-data",
+          "type": "sector-detail",
+          "data": {
+            "title": "Materiales de Construcción e Infraestructura",
+            "subtitle": "Robustez y consistencia para procesos de alta exigencia",
+            "description": "Desarrollamos líneas completas de extrusión y trituración para la fabricación de compuestos de madera plástica (WPC), láminas corrugadas y sistemas de trituración/dosificación de agregados estructurales.",
+            "heroImage": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png",
+            "stats": [
+              {
+                "label": "Relación L/D Extrusor",
+                "value": "38:1"
+              },
+              {
+                "label": "Producción Horaria",
+                "value": "800 kg/h"
+              },
+              {
+                "label": "Potencia de Motor",
+                "value": "132 kW+"
+              },
+              {
+                "label": "Estructura de Aleación",
+                "value": "Acero Hardox"
+              }
+            ],
+            "items": [
+              {
+                "id": "materiales",
+                "title": "Plantas de Dosificación de Materiales",
+                "description": "Sistemas para mezcla y dosificación de áridos, cementos y aditivos.",
+                "longDescription": "Diseño integral de silos, básculas de pesaje dinámico y mezcladoras intensivas de doble eje para asegurar la máxima homogeneidad del mortero y hormigón preparado.",
+                "features": [
+                  "[icon:Shield] Celdas de carga autolimpiantes de alta precisión",
+                  "[icon:Zap] Mezcladoras planetarias de turbina con paletas de carburo",
+                  "[icon:Cpu] Sistemas SCADA de dosificación automatizada por lotes"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png",
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Mezcla",
+                  "Capacidad",
+                  "Precisión",
+                  "Potencia Mezclador"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "BM-800",
+                    "width": "Mezcladora de Turbina",
+                    "capacity": "800 L/lote",
+                    "power": "±0.5%",
+                    "weight": "37 kW"
+                  },
+                  {
+                    "model": "BM-1500",
+                    "width": "Mezclador Planetario",
+                    "capacity": "1500 L/lote",
+                    "power": "±0.3%",
+                    "weight": "55 kW"
+                  }
+                ]
+              },
+              {
+                "id": "compuestos",
+                "title": "Líneas de Extrusión WPC",
+                "description": "Extrusoras de doble husillo cónico y paralelo para compuestos de madera y plástico.",
+                "longDescription": "Nuestros sistemas de co-extrusión WPC logran una dispersión perfecta del aserrín de madera o cáscara de arroz con PE/PP/PVC, produciendo decks, fachadas y marcos con excelentes propiedades mecánicas e impermeabilidad.",
+                "features": [
+                  "[icon:Shield] Husillos co-rotativos o cónicos con camisa bimetálica",
+                  "[icon:Zap] Dosificadores gravimétricos con control de par",
+                  "[icon:Cpu] Calibradores de enfriamiento rápido por vacío"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png",
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Extrusor",
+                  "Capacidad Máxima",
+                  "Relación L/D",
+                  "Potencia Motor"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "WPC-120",
+                    "width": "Doble Husillo Cónico",
+                    "capacity": "450 kg/h",
+                    "power": "28:1",
+                    "weight": "75 kW"
+                  },
+                  {
+                    "model": "WPC-200",
+                    "width": "Doble Husillo Paralelo",
+                    "capacity": "800 kg/h",
+                    "power": "36:1",
+                    "weight": "132 kW"
+                  }
+                ]
+              },
+              {
+                "id": "materiales-reciclados",
+                "title": "Valorización de Escombros y RCD",
+                "description": "Trituradoras y clasificadoras para escombros y asfalto reciclado.",
+                "longDescription": "Soluciones robustas para la recuperación de agregados reciclados de RCD (Residuos de Construcción y Demolición). Sistemas equipados con imanes overbelt y separadores de aire.",
+                "features": [
+                  "[icon:Shield] Trituradoras de mandíbula y de impacto de gran par",
+                  "[icon:Zap] Cintas magnéticas de separación de ferrita/neodimio",
+                  "[icon:Cpu] Cribas vibratorias multideck de clasificación fina"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png",
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Triturador",
+                  "Capacidad Entrada",
+                  "Abertura Boca",
+                  "Potencia"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "RCD-500",
+                    "width": "Trituradora de Mandíbula",
+                    "capacity": "50 Ton/h",
+                    "power": "600x400 mm",
+                    "weight": "55 kW"
+                  },
+                  {
+                    "model": "RCD-800",
+                    "width": "Trituradora de Impacto",
+                    "capacity": "100 Ton/h",
+                    "power": "800x600 mm",
+                    "weight": "110 kW"
+                  }
+                ]
+              },
+              {
+                "id": "infraestructura",
+                "title": "Prefabricados de Hormigón",
+                "description": "Sistemas automáticos para la fabricación de prefabricados de hormigón y tuberías.",
+                "longDescription": "Maquinaria de encofrado dinámico y curado acelerado para vigas, tuberías de hormigón y paneles arquitectónicos. Incluye telemetría y monitoreo de maduración de fraguado.",
+                "features": [
+                  "[icon:Shield] Moldes neumáticos autovibrantes con control de frecuencia",
+                  "[icon:Zap] Sistemas de transporte de hormigón aéreo rápido",
+                  "[icon:Cpu] Monitoreo inalámbrico IoT de temperatura de fraguado"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png",
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Prefabricación",
+                  "Ciclo Producción",
+                  "Presión Hidráulica",
+                  "Dimensiones Máx"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "AP-300",
+                    "width": "Prensa Bloquera Automática",
+                    "capacity": "15 s/ciclo",
+                    "power": "16 MPa",
+                    "weight": "1200x800 mm"
+                  },
+                  {
+                    "model": "AP-600",
+                    "width": "Moldeadora de Tuberías",
+                    "capacity": "4 min/tubo",
+                    "power": "20 MPa",
+                    "weight": "Diám. 1500 mm"
+                  }
+                ]
+              }
+            ],
+            "instalacionesImage": "/smq_factory_night2.png"
+          }
+        }
+      ]
+    },
+    {
+      "id": "machinery-ext",
+      "title": "EXTRUSORA  LDPE",
+      "slug": "/maquinaria/ext",
+      "modules": [
+        {
+          "id": "machinery-data-ext",
+          "type": "machinery-product",
+          "data": {
+            "pageNumber": "00",
+            "theme": {
+              "accent": "#FFD700",
+              "accentGlow": "rgba(255, 215, 0, 0.4)",
+              "bgStart": "#080B12",
+              "bgEnd": "#0A0B10",
+              "glowColor": "yellow"
+            },
+            "heroTitle": "EXTRUSORA  LDPE",
+            "heroSubtitle": "Máquinas de extrusión monocapa para LDPE, HDPE, LLDPE, de alta capacidad de producción.",
+            "heroDesc": "Línea de maquinaria industrial SMQ optimizada para máxima eficiencia, precisión y control absoluto en flujos de trabajo continuos.",
+            "heroMedia": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
+            "kpis": [
+              {
+                "value": "99.2%",
+                "unit": "EFICIENCIA",
+                "label": "Rendimiento",
+                "desc": "Producción continua"
+              },
+              {
+                "value": "24/7",
+                "unit": "OPERACIÓN",
+                "label": "Disponibilidad",
+                "desc": "Sistemas redundantes"
+              },
+              {
+                "value": "Auto",
+                "unit": "CONTROL",
+                "label": "Precisión",
+                "desc": "Control avanzado por PLC"
+              },
+              {
+                "value": "Premium",
+                "unit": "CALIDAD",
+                "label": "Estándar",
+                "desc": "Materiales duraderos"
+              }
+            ],
+            "stations": [
+              {
+                "id": 1,
+                "title": "Alimentación",
+                "desc": "Ingreso del material al sistema automatizado.",
+                "iconName": "Inbox"
+              },
+              {
+                "id": 2,
+                "title": "Procesamiento",
+                "desc": "Transformación del producto bajo estrictos controles.",
+                "iconName": "Layers"
+              },
+              {
+                "id": 3,
+                "title": "Control de Calidad",
+                "desc": "Verificación en línea del producto final.",
+                "iconName": "Eye"
+              },
+              {
+                "id": 4,
+                "title": "Descarga",
+                "desc": "Salida del material terminado y empacado.",
+                "iconName": "LogOut"
+              }
+            ],
+            "applications": [
+              {
+                "name": "Sector Industrial",
+                "icon": "🏭",
+                "desc": "Diseñado para entornos exigentes"
+              }
+            ],
+            "advantages": [
+              {
+                "title": "CONSTRUCCIÓN PREMIUM",
+                "desc": "Estructura sólida anticorrosiva con materiales de alta calidad.",
+                "highlight": "Durabilidad"
+              }
+            ],
+            "specs": [
+              {
+                "param": "Modelo",
+                "value": "EXT"
+              },
+              {
+                "param": "Capacidad",
+                "value": "Configurable según requerimiento"
+              },
+              {
+                "param": "Material",
+                "value": "Acero Inoxidable"
+              }
+            ],
+            "configurations": [
+              {
+                "name": "Automatización Completa",
+                "desc": "Módulos adicionales para operación desatendida."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "industria-agroindustria",
+      "title": "Agroindustria y Procesamiento Agrícola",
+      "slug": "/industria/agroindustria",
+      "modules": [
+        {
+          "id": "sector-data",
+          "type": "sector-detail",
+          "data": {
+            "title": "Agroindustria y Procesamiento Agrícola",
+            "subtitle": "Rendimiento y optimización en el campo y la planta",
+            "description": "Soluciones llave en mano para el manejo, limpieza, secado y clasificación de granos, semillas y café, así como plantas completas para la producción de alimentos balanceados.",
+            "heroImage": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png",
+            "stats": [
+              {
+                "label": "Capacidad Secado",
+                "value": "50 Ton/h"
+              },
+              {
+                "label": "CV Mezclado",
+                "value": "< 5%"
+              },
+              {
+                "label": "Presión Extrusor",
+                "value": "120 Bar"
+              },
+              {
+                "label": "Acondicionamiento",
+                "value": "Hasta 95°C"
+              }
+            ],
+            "items": [
+              {
+                "id": "procesamiento",
+                "title": "Manejo y Limpieza de Granos",
+                "description": "Limpiadoras neumáticas y mesas densimétricas para granos, semillas y leguminosas.",
+                "longDescription": "Limpieza primaria y secundaria que elimina polvo, paja y semillas extrañas. Las mesas densimétricas clasifican por peso específico, garantizando lotes homogéneos.",
+                "features": [
+                  "[icon:Shield] Zarandas vibratorias de doble nivel intercambiables",
+                  "[icon:Zap] Aspiradores de polvo integrados con filtros de mangas",
+                  "[icon:Cpu] Mesas densimétricas de oscilación regulable por variador"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png",
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Limpieza",
+                  "Capacidad",
+                  "Eficiencia Cribado",
+                  "Potencia Ventilador"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "GC-120",
+                    "width": "Limpiadora de Zaranda",
+                    "capacity": "12 Ton/h",
+                    "power": "99%",
+                    "weight": "5.5 kW"
+                  },
+                  {
+                    "model": "GC-250",
+                    "width": "Limpiadora Neumática Combinada",
+                    "capacity": "25 Ton/h",
+                    "power": "99.5%",
+                    "weight": "11 kW"
+                  }
+                ]
+              },
+              {
+                "id": "balanceados",
+                "title": "Líneas de Alimento Balanceado",
+                "description": "Plantas integradas de molienda, dosificación, mezcla y peletizado.",
+                "longDescription": "Diseño higiénico para alimentación animal. Incluye acondicionador de vapor de doble paso para cocción y gelatinización de almidones, y matrices de peletizado en aleación templada.",
+                "features": [
+                  "[icon:Shield] Molinos de martillos con cambio rápido de cribas",
+                  "[icon:Zap] Mezcladoras de doble eje de paletas de alta velocidad",
+                  "[icon:Cpu] Peletizadoras con acondicionador térmico de inyección"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png",
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Mezclador/Peletizadora",
+                  "Rendimiento",
+                  "Diámetro Pellet",
+                  "Potencia Motor"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "AB-500",
+                    "width": "Mezcladora de Paletas",
+                    "capacity": "2.5 Ton/h",
+                    "power": "Mezcla homogénea",
+                    "weight": "22 kW"
+                  },
+                  {
+                    "model": "AB-1000",
+                    "width": "Peletizadora de Matriz Plana",
+                    "capacity": "5.0 Ton/h",
+                    "power": "2 - 12 mm",
+                    "weight": "110 kW"
+                  }
+                ]
+              },
+              {
+                "id": "postcosecha",
+                "title": "Enfriamiento y Calibración",
+                "description": "Sistemas de lavado, encerado, desinfección y clasificación óptica para frutas frescas.",
+                "longDescription": "Tratamiento postcosecha de precisión. Sistemas ópticos de clasificación que analizan el color, diámetro y defectos externos del fruto para embalar únicamente producto premium.",
+                "features": [
+                  "[icon:Shield] Lavadoras de cepillos rotativos con desinfección UV",
+                  "[icon:Zap] Secadores de túnel por aire caliente controlado",
+                  "[icon:Cpu] Clasificación óptica multicanal por cámaras colorimétricas"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png",
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Fruto",
+                  "Capacidad Línea",
+                  "Canales Clasificación",
+                  "Estructura"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "FC-400",
+                    "width": "Línea Cítricos / Manzanas",
+                    "capacity": "4 Ton/h",
+                    "power": "2 Canales Ópticos",
+                    "weight": "Acero Inoxidable/PE"
+                  },
+                  {
+                    "model": "FC-800",
+                    "width": "Línea de Selección de Berries",
+                    "capacity": "8 Ton/h",
+                    "power": "4 Canales NIR",
+                    "weight": "Grado Alimentario"
+                  }
+                ]
+              },
+              {
+                "id": "automatizacion",
+                "title": "Monitoreo de Silos y Carga",
+                "description": "Sistemas automáticos de control de temperatura y aireación de silos agrícolas.",
+                "longDescription": "Digitalización del almacenamiento de granos. Termometría digital multipunto que monitorea la temperatura en tiempo real y activa automáticamente ventiladores de aireación.",
+                "features": [
+                  "[icon:Shield] Sondas de temperatura colgantes con bus RS485",
+                  "[icon:Zap] Sensores de nivel capacitivos y de radar continuo",
+                  "[icon:Cpu] Tablero de control con SCADA y alertas vía Telegram/Email"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115231575_choco%20color%202.png",
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Sensor/Control",
+                  "Alcance Sondas",
+                  "Protocolo",
+                  "Protección Gabinete"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "SM-100",
+                    "width": "Módulo Termometría Silos",
+                    "capacity": "Hasta 30m altura",
+                    "power": "Modbus RTU",
+                    "weight": "IP66"
+                  },
+                  {
+                    "model": "SM-200",
+                    "width": "Controlador de Aireación Automático",
+                    "capacity": "Hasta 4 silos",
+                    "power": "Ethernet / IoT",
+                    "weight": "IP66"
+                  }
+                ]
+              }
+            ],
+            "instalacionesImage": "/smq_factory_night2.png"
+          }
+        }
+      ]
+    },
+    {
+      "id": "industria-packaging",
+      "title": "Packaging y Conversión",
+      "slug": "/industria/packaging",
+      "modules": [
+        {
+          "id": "sector-data",
+          "type": "sector-detail",
+          "data": {
+            "title": "Packaging y Conversión",
+            "subtitle": "Velocidad, sellado hermético y empaque inteligente",
+            "description": "Sistemas avanzados de envasado primario y secundario para formatos rígidos y flexibles. Ofrecemos envasadoras Doypack, líneas de llenado volumétrico y maquinaria de conversión de film.",
+            "heroImage": {
+              "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782615435986_pmp_seires.webp",
+              "type": "image",
+              "opacity": 0.5,
+              "brightness": 168,
+              "fogOpacity": 66,
+              "positionX": 0
+            },
+            "stats": [
+              {
+                "label": "Velocidad de Llenado",
+                "value": "150 ppm"
+              },
+              {
+                "label": "Hermeticidad de Sello",
+                "value": "99.99%"
+              },
+              {
+                "label": "Tiempo de Ajuste",
+                "value": "< 15 min"
+              },
+              {
+                "label": "Precisión de Peso",
+                "value": "±0.2%"
+              }
+            ],
+            "items": [
+              {
+                "id": "flexible",
+                "title": "Premade Pouch (PMP)",
+                "description": "Llenadoras automáticas rotativas para bolsas prefabricadas tipo pouch, stand-up pouch y zipper.",
+                "longDescription": "Flujo de envasado automático para bolsas premade pouch con apertura por vacío, codificación por chorro de tinta, llenado volumétrico/multicabezal y opción de inyección de gas para mayor vida útil del producto.",
+                "features": [
+                  "[icon:Shield] Apertura y sellado neumático servo-sincronizado",
+                  "[icon:Zap] Inyección de gas inerte N2 para conservación",
+                  "[icon:Cpu] Control total por PLC con recetas pregrabadas"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782615509627_pmp_seires.webp",
+                  "type": "image",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100,
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "cover",
+                  "bgColor": "transparent"
+                },
+                "tableHeaders": [
+                  "Especificación",
+                  "PMP-180",
+                  "PMP-250"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "Velocidad máxima de empaque",
+                    "width": "40 bolsas/min",
+                    "capacity": "40 bolsas/min"
+                  },
+                  {
+                    "model": "Ancho de bolsa",
+                    "width": "80–180 mm",
+                    "capacity": "150–250 mm"
+                  },
+                  {
+                    "model": "Largo de bolsa",
+                    "width": "150–350 mm",
+                    "capacity": "150–350 mm"
+                  },
+                  {
+                    "model": "Peso de llenado",
+                    "width": "10–1,500 g",
+                    "capacity": "10–1,500 g"
+                  },
+                  {
+                    "model": "Consumo de aire comprimido",
+                    "width": "≥ 0.8 m³/min",
+                    "capacity": "≥ 0.8 m³/min"
+                  },
+                  {
+                    "model": "Potencia instalada",
+                    "width": "7 kW",
+                    "capacity": "7 kW"
+                  },
+                  {
+                    "model": "Dimensiones L×A×H",
+                    "width": "2,070 × 1,810 × 1,620 mm",
+                    "capacity": "2,020 × 1,910 × 1,620 mm"
+                  },
+                  {
+                    "model": "Peso de máquina",
+                    "width": "2,400 kg",
+                    "capacity": "2,600 kg"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782615509627_pmp_seires.webp",
+                    "type": "image",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100,
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "cover",
+                    "bgColor": "transparent"
+                  },
+                  ""
+                ]
+              },
+              {
+                "id": "rigido",
+                "title": "Líneas de Envases Rígidos",
+                "description": "Llenadoras y tapadoras lineales/rotativas para botellas de plástico y vidrio.",
+                "longDescription": "Sistemas de dosificación por gravedad o caudalímetros inductivos que garantizan un llenado sin derrames. Tapadoras automáticas adaptables a tapas corona, rosca plástica o metálica.",
+                "features": [
+                  "[icon:Shield] Caudalímetros electromagnéticos de alta precisión",
+                  "[icon:Zap] Torque de tapado regulable por embrague magnético",
+                  "[icon:Cpu] CIP (Clean In Place) automático sin desmontaje de piezas"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png",
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Envase",
+                  "Capacidad",
+                  "Precisión Llenado",
+                  "Grado Higiene"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "RF-200",
+                    "width": "Llenadora Rotativa 24 Válvulas",
+                    "capacity": "180 bpm",
+                    "power": "±0.2%",
+                    "weight": "Grado Alimentario/GMP"
+                  },
+                  {
+                    "model": "LT-120",
+                    "width": "Tapadora Lineal Automática",
+                    "capacity": "120 bpm",
+                    "power": "±0.5%",
+                    "weight": "Acero AISI 304"
+                  }
+                ]
+              },
+              {
+                "id": "impresion",
+                "title": "Sistemas de Impresión y Flexo",
+                "description": "Sistemas flexográficos de tambor central e impresión digital para películas plásticas.",
+                "longDescription": "Tecnología avanzada para impresión de alta velocidad sobre películas de PE, PP, BOPP, PET y papel. Sistemas de secado eficiente por aire caliente y curado UV.",
+                "features": [
+                  "[icon:Shield] Registro de color automático servomotorizado",
+                  "[icon:Zap] Secadores de alta eficiencia térmica por aire forzado",
+                  "[icon:Cpu] Control de tensión de película por celda de carga"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png",
+                "tableHeaders": [
+                  "Modelo",
+                  "Ancho Máximo",
+                  "Velocidad Impresión",
+                  "Colores",
+                  "Resolución"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "FL-4",
+                    "width": "Flexográfica 4 Colores",
+                    "capacity": "1200 mm",
+                    "power": "150 m/min",
+                    "weight": "80 LPI"
+                  },
+                  {
+                    "model": "FL-8",
+                    "width": "Flexo Tambor Central 8 Colores",
+                    "capacity": "1600 mm",
+                    "power": "250 m/min",
+                    "weight": "120 LPI"
+                  }
+                ]
+              },
+              {
+                "id": "etiquetado",
+                "title": "Etiquetadoras Industriales",
+                "description": "Aplicadoras de etiquetas autoadhesivas y túneles de manga termoencogible (Sleeve).",
+                "longDescription": "Colocación precisa y uniforme de etiquetas en botellas, tarros y cajas. Sistemas con motores paso a paso de gran par y lectura por fotoceldas de alta velocidad.",
+                "features": [
+                  "[icon:Shield] Dispensadores servomotorizados de alta respuesta",
+                  "[icon:Zap] Sensores de contraste y ultrasonido para etiquetas transparentes",
+                  "[icon:Cpu] Banda superior estabilizadora de envase para alineación perfecta"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115231575_choco%20color%202.png",
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Aplicador",
+                  "Velocidad Máxima",
+                  "Ancho Etiqueta",
+                  "Tolerancia"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "ET-200",
+                    "width": "Etiquetadora Doble Cara",
+                    "capacity": "200 bpm",
+                    "power": "150 mm",
+                    "weight": "±0.5 mm"
+                  },
+                  {
+                    "model": "SLV-150",
+                    "width": "Aplicadora de Sleeve Termoencogible",
+                    "capacity": "150 bpm",
+                    "power": "200 mm",
+                    "weight": "±1.0 mm"
+                  }
+                ]
+              },
+              {
+                "id": "conversion",
+                "title": "Conversión y Rebobinado de Film",
+                "description": "Cortadoras, rebobinadoras y termoformadoras de film flexible.",
+                "longDescription": "Maquinaria de conversión de precisión para fraccionar bobinas anchas, rebobinar películas y fabricar empaques termoformados a partir de lámina rígida.",
+                "features": [
+                  "[icon:Shield] Ejes expansibles neumáticos de cambio rápido",
+                  "[icon:Zap] Cuchillas circulares y de corte por cizalla",
+                  "[icon:Cpu] Posicionamiento automático de cuchillas"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png",
+                "tableHeaders": [
+                  "Modelo",
+                  "Ancho Bobina",
+                  "Diámetro Desbobinado",
+                  "Velocidad Corte",
+                  "Tensión control"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "CV-1200",
+                    "width": "Cortadora Rebobinadora",
+                    "capacity": "1200 mm",
+                    "power": "800 mm",
+                    "weight": "400 m/min"
+                  },
+                  {
+                    "model": "TF-600",
+                    "width": "Termoformadora Industrial",
+                    "capacity": "600 mm",
+                    "power": "600 mm",
+                    "weight": "35 ciclos/min"
+                  }
+                ]
+              }
+            ],
+            "showStats": false,
+            "instalacionesImage": "/smq_factory_night2.png"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tecnologia-robotica",
+      "title": "tecnologia-robotica",
+      "slug": "/tecnologia-robotica",
+      "modules": [
+        {
+          "id": "hero-bg",
+          "type": "hero-bg",
+          "data": {
+            "imageUrl": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782631086002_ia.webp",
+            "scale": 1,
+            "positionX": 50,
+            "positionY": 50,
+            "opacity": 40,
+            "brightness": 100,
+            "fogOpacity": 100,
+            "fogDirection": "to-r",
+            "objectFit": "cover"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tecnologia-automatizacion",
+      "title": "tecnologia-automatizacion",
+      "slug": "/tecnologia-automatizacion",
+      "modules": [
+        {
+          "id": "hero-bg",
+          "type": "hero-bg",
+          "data": {
+            "imageUrl": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783375731149_ia.webp",
+            "scale": 1,
+            "positionX": 50,
+            "positionY": 50,
+            "opacity": 64,
+            "brightness": 100,
+            "fogOpacity": 100,
+            "fogDirection": "to-r",
+            "objectFit": "cover"
           }
         }
       ]
