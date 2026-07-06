@@ -348,9 +348,11 @@ const WasteToEnergy = () => {
         const element = document.getElementById(id);
         if (element) {
           lastScrolledHashRef.current = currentHash;
-          element.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
+          const yOffset = -150; // Baja el ancla 50px adicionales para centrar correctamente debajo del header de 80px
+          const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({
+            top: y,
+            behavior: 'smooth'
           });
         }
       }, 350);
@@ -685,7 +687,7 @@ const WasteToEnergy = () => {
             <div 
               key={sec.id}
               id={sec.id}
-              className="scroll-mt-[100px] grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 items-center border-b border-white/5 pb-20 md:pb-28 last:border-b-0 last:pb-0 relative"
+              className="scroll-mt-[150px] grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 items-center border-b border-white/5 pb-20 md:pb-28 last:border-b-0 last:pb-0 relative"
             >
               {/* Text Column */}
               <div className="lg:col-span-6 space-y-6">
