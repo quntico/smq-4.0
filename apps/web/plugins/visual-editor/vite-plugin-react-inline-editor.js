@@ -398,15 +398,39 @@ export default function inlineEditPlugin() {
 				if (req.method !== 'POST') return next();
 
 				const { exec } = await import('child_process');
-				exec('git add . && git commit -m "CMS Update: Auto-save from editor" && git push', { cwd: VITE_PROJECT_ROOT }, (error, stdout, stderr) => {
-					if (error) {
-						console.error(`[git-upload error]:`, error);
+				exec('git status --porcelain', { cwd: VITE_PROJECT_ROOT }, (statusError, statusStdout) => {
+					if (statusError) {
+						console.error(`[git-upload status error]:`, statusError);
 						res.writeHead(500, { 'Content-Type': 'application/json' });
-						return res.end(JSON.stringify({ success: false, error: error.message, stderr }));
+						return res.end(JSON.stringify({ success: false, error: statusError.message }));
 					}
-					console.log(`[git-upload success]:`, stdout);
-					res.writeHead(200, { 'Content-Type': 'application/json' });
-					res.end(JSON.stringify({ success: true, stdout, stderr }));
+
+					// If there are no modified or untracked files
+					if (!statusStdout.trim()) {
+						exec('git push', { cwd: VITE_PROJECT_ROOT }, (pushError, pushStdout, pushStderr) => {
+							if (pushError) {
+								console.error(`[git-upload push error]:`, pushError);
+								res.writeHead(500, { 'Content-Type': 'application/json' });
+								return res.end(JSON.stringify({ success: false, error: pushError.message, stderr: pushStderr }));
+							}
+							console.log(`[git-upload success]: No changes to commit, pushed pending commits.`);
+							res.writeHead(200, { 'Content-Type': 'application/json' });
+							res.end(JSON.stringify({ success: true, stdout: 'Working tree clean. Pushed pending commits.', stderr: pushStderr }));
+						});
+						return;
+					}
+
+					// If there are changes, proceed with commit & push
+					exec('git add . && git commit -m "CMS Update: Auto-save from editor" && git push', { cwd: VITE_PROJECT_ROOT }, (error, stdout, stderr) => {
+						if (error) {
+							console.error(`[git-upload error]:`, error);
+							res.writeHead(500, { 'Content-Type': 'application/json' });
+							return res.end(JSON.stringify({ success: false, error: error.message, stderr }));
+						}
+						console.log(`[git-upload success]:`, stdout);
+						res.writeHead(200, { 'Content-Type': 'application/json' });
+						res.end(JSON.stringify({ success: true, stdout, stderr }));
+					});
 				});
 			});
 		}
