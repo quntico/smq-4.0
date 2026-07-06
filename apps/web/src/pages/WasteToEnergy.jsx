@@ -251,7 +251,7 @@ const WasteToEnergy = () => {
     setActiveVideoIndex(0);
   };
 
-  // Agregar imagen al carrusel de una sección
+  // Agregar o reemplazar imagen de una sección
   const handleAddSectionImage = async (sectionId) => {
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
@@ -264,19 +264,24 @@ const WasteToEnergy = () => {
         const url = await uploadFile(file);
         
         const sec = activeSections.find(s => s.id === sectionId);
-        const currentImages = sec.images || [{ url: sec.bgImage, name: sec.title }];
+        const isCarouselDisabled = sectionId === 'conversion-energetica';
         
-        const updatedImages = [...currentImages, { url, name: 'Nombre del Equipo' }];
+        let updatedImages;
+        if (isCarouselDisabled) {
+          updatedImages = [{ url, name: sec.title }];
+        } else {
+          const currentImages = sec.images || [{ url: sec.bgImage, name: sec.title }];
+          updatedImages = [...currentImages, { url, name: 'Nombre del Equipo' }];
+        }
         
         const updatedSections = activeSections.map(s =>
           s.id === sectionId ? { ...s, images: updatedImages } : s
         );
         updatePageModule('wte', 'content', { sections: updatedSections });
         
-        // Mover el índice al último agregado
         setActiveImageIndices(prev => ({
           ...prev,
-          [sectionId]: updatedImages.length - 1
+          [sectionId]: isCarouselDisabled ? 0 : updatedImages.length - 1
         }));
       } catch (error) {
         console.error('Error adding section image:', error);
@@ -680,7 +685,9 @@ const WasteToEnergy = () => {
       <section className="max-w-[1400px] mx-auto px-6 md:px-8 py-20 space-y-32">
         {activeSections.map((sec, idx) => {
           const Icon = iconMap[sec.iconName] || Factory;
-          const sectionImages = sec.images || [{ url: sec.bgImage, name: sec.title }];
+          const isCarouselDisabledForSection = sec.id === 'conversion-energetica';
+          const allImages = sec.images || [{ url: sec.bgImage, name: sec.title }];
+          const sectionImages = isCarouselDisabledForSection ? [allImages[0]] : allImages;
           const activeIdx = getActiveIndex(sec.id, sectionImages.length);
           const currentImage = sectionImages[activeIdx] || { url: sec.bgImage, name: sec.title };
           return (
@@ -862,14 +869,14 @@ const WasteToEnergy = () => {
                         onClick={() => handleAddSectionImage(sec.id)}
                         disabled={uploadingSectionId === sec.id}
                         className="bg-black/80 hover:bg-black text-[#22C55E] px-2.5 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider border border-white/20 shadow-lg transition-all flex items-center gap-1"
-                        title="Agregar nueva imagen de equipo"
+                        title={isCarouselDisabledForSection ? "Cambiar imagen de equipo" : "Agregar nueva imagen de equipo"}
                       >
                         {uploadingSectionId === sec.id ? (
                           <div className="w-3 h-3 border border-white/30 border-t-white rounded-full animate-spin" />
                         ) : (
                           <span className="text-xs font-bold">+</span>
                         )}
-                        <span>Subir</span>
+                        <span>{isCarouselDisabledForSection ? 'Cambiar' : 'Subir'}</span>
                       </button>
                       
                       {sectionImages.length > 1 && (
