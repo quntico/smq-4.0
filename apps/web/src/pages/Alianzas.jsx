@@ -56,12 +56,12 @@ const Alianzas = () => {
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
-                { name: 'Siemens Partner', type: 'PLC & AUTOMATION SYSTEM', desc: 'Soluciones integrales de hardware de control y buses de comunicación Profinet.' },
-                { name: 'Rockwell Integration', type: 'ALLEN-BRADLEY HARDWARE', desc: 'Desarrollo en arquitecturas Logix para sistemas redundantes de alta disponibilidad.' },
-                { name: 'Festo Partner', type: 'PNEUMATICS & MOTION CONTROL', desc: 'Integración neumática proporcional de alta eficiencia y actuadores servocontrolados.' },
-                { name: 'ABB Systems', type: 'DRIVES & INDUSTRIAL ROBOTICS', desc: 'Variadores de frecuencia regenerativos y controladores robóticos multieje.' },
-                { name: 'Schneider Certified', type: 'POWER DISTRIBUTION & SAFETY', desc: 'Equipamiento electromecánico robusto y sistemas de seguridad intrínseca.' },
-                { name: 'Fanuc Integrator', type: 'ARTICULATED ROBOTIC ARMS', desc: 'Diseño de garras mecánicas y programación nativa para celdas robotizadas complejas.' }
+                { name: 'Siemens Partner', type: 'PLC & AUTOMATION SYSTEM', desc: 'Soluciones integrales de hardware de control y buses de comunicación Profinet.', logo: '/alianzas/siemens.svg' },
+                { name: 'Rockwell Integration', type: 'ALLEN-BRADLEY HARDWARE', desc: 'Desarrollo en arquitecturas Logix para sistemas redundantes de alta disponibilidad.', logo: '/alianzas/rockwell.svg' },
+                { name: 'Festo Partner', type: 'PNEUMATICS & MOTION CONTROL', desc: 'Integración neumática proporcional de alta eficiencia y actuadores servocontrolados.', logo: '/alianzas/festo.svg' },
+                { name: 'ABB Systems', type: 'DRIVES & INDUSTRIAL ROBOTICS', desc: 'Variadores de frecuencia regenerativos y controladores robóticos multieje.', logo: '/alianzas/abb.svg' },
+                { name: 'Schneider Certified', type: 'POWER DISTRIBUTION & SAFETY', desc: 'Equipamiento electromecánico robusto y sistemas de seguridad intrínseca.', logo: '/alianzas/schneider.svg' },
+                { name: 'Fanuc Integrator', type: 'ARTICULATED ROBOTIC ARMS', desc: 'Diseño de garras mecánicas y programación nativa para celdas robotizadas complejas.', logo: '/alianzas/fanuc.svg' }
               ].map((partner, index) => (
                 <motion.div
                   key={index}
@@ -69,17 +69,21 @@ const Alianzas = () => {
                   initial={{ opacity: 0, scale: 0.9 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.05 }}
-                  className="bg-[#0e131b]/30 border border-white/5 rounded-xl p-6 flex flex-col justify-between min-h-[200px] transition-all duration-300 hover:border-[#8B5CF6]/30 hover:bg-[#8B5CF6]/5 group cursor-pointer"
+                  className="bg-[#0e131b]/30 border border-white/5 rounded-xl p-6 flex flex-col justify-between min-h-[260px] transition-all duration-300 hover:border-[#8B5CF6]/30 hover:bg-[#8B5CF6]/5 group cursor-pointer"
                 >
-                  <div>
-                    <div className="w-10 h-10 rounded bg-white/5 flex items-center justify-center mb-4 group-hover:bg-[#8B5CF6]/20 transition-all">
-                      <Users size={20} className="text-white/60 group-hover:text-[#8B5CF6]" />
+                  <div className="flex flex-col items-center">
+                    <div className="w-full h-16 rounded bg-white/5 flex items-center justify-center mb-6 group-hover:bg-[#8B5CF6]/10 transition-all p-3">
+                      <img 
+                        src={partner.logo} 
+                        alt={partner.name} 
+                        className="max-h-full max-w-[65%] object-contain filter brightness-0 invert opacity-60 group-hover:opacity-100 transition-all duration-300"
+                      />
                     </div>
-                    <h3 className="text-lg font-bold text-white group-hover:text-[#8B5CF6] transition-colors">{partner.name}</h3>
-                    <p className="text-[10px] font-mono text-white/40 mt-1 uppercase tracking-wider">{partner.type}</p>
-                    <p className="text-xs text-[#A1A8B3] leading-relaxed mt-3">{partner.desc}</p>
+                    <h3 className="text-lg font-bold text-white group-hover:text-[#8B5CF6] transition-colors text-center">{partner.name}</h3>
+                    <p className="text-[10px] font-mono text-white/40 mt-1 uppercase tracking-wider text-center">{partner.type}</p>
+                    <p className="text-xs text-[#A1A8B3] leading-relaxed mt-3 text-center">{partner.desc}</p>
                   </div>
-                  <div className="text-[8px] font-mono text-[#8B5CF6]/70 mt-4 tracking-wider uppercase">[ VERIFIED_INTEGRATION_PARTNER ]</div>
+                  <div className="text-[8px] font-mono text-[#8B5CF6]/70 mt-5 tracking-wider uppercase text-center">[ VERIFIED_INTEGRATION_PARTNER ]</div>
                 </motion.div>
               ))}
             </div>
