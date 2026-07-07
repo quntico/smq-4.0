@@ -1032,7 +1032,7 @@ const MachineryDetailPage = () => {
   const fileInputRef = useRef(null);
 
   // Fallback defaults or dynamic models
-  const resolvedId = machineId || 'etiquetadoras';
+  const resolvedId = (machineId || 'etiquetadoras').trim().toLowerCase().replace(/\s+/g, '-').replace(/-+/g, '-');
   
   // Dynamic defaults generator
   const getDynamicDefaults = (id) => {
@@ -1041,10 +1041,48 @@ const MachineryDetailPage = () => {
     }
     
     // Create a high-fidelity dynamic fallback for any custom model (e.g. lwf-500)
-    const modelName = id.toUpperCase();
+    const modelName = id.toUpperCase().replace(/-/g, ' ');
+    
+    // Detect industry dynamically
+    let fallbackIndustry = 'alimentos';
+    const cleanId = id.toLowerCase();
+    if (cleanId.startsWith('reciclaje')) {
+      fallbackIndustry = 'reciclaje';
+    } else if (cleanId.startsWith('alimentos')) {
+      fallbackIndustry = 'alimentos';
+    } else if (cleanId.startsWith('packaging')) {
+      fallbackIndustry = 'packaging';
+    } else if (cleanId.startsWith('construccion')) {
+      fallbackIndustry = 'construccion';
+    } else if (cleanId.startsWith('agroindustria')) {
+      fallbackIndustry = 'agroindustria';
+    } else if (
+      cleanId.startsWith('manufactura') || 
+      cleanId.startsWith('salud') || 
+      cleanId.startsWith('mm-') || 
+      cleanId.startsWith('fm-') || 
+      cleanId.startsWith('cn-') || 
+      cleanId.startsWith('map-') ||
+      cleanId.includes('1050') ||
+      cleanId.includes('300') ||
+      cleanId.includes('120') ||
+      cleanId.includes('200') ||
+      cleanId.includes('100') ||
+      cleanId.includes('800')
+    ) {
+      fallbackIndustry = 'manufactura';
+    }
+
     return {
       pageNumber: '00',
-      theme: {
+      industry: fallbackIndustry,
+      theme: fallbackIndustry === 'manufactura' ? {
+        accent: '#0078D7',
+        accentGlow: 'rgba(0, 120, 215, 0.4)',
+        bgStart: '#040d1a',
+        bgEnd: '#081426',
+        glowColor: 'blue'
+      } : {
         accent: '#FFD700',
         accentGlow: 'rgba(255, 215, 0, 0.4)',
         bgStart: '#080B12',

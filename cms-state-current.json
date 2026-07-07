@@ -11,7 +11,7 @@
     "globalFilterOpacity": 75,
     "textJustify": true,
     "disableImageFilters": false,
-    "updatedAt": 1783458954224,
+    "updatedAt": 1783460287173,
     "footerCompanyName": "SMQ  SA de CV",
     "footerCompanyDesc": "Soluciones industriales de alta ingenieria, proyectos llave en mano y maquinaria para  procesamiento de alimentos y automatización.",
     "footerPhones": [
@@ -2330,184 +2330,6 @@
       ]
     },
     {
-      "id": "industria-agroindustria",
-      "title": "Agroindustria y Procesamiento Agrícola",
-      "slug": "/industria/agroindustria",
-      "modules": [
-        {
-          "id": "sector-data",
-          "type": "sector-detail",
-          "data": {
-            "title": "Agroindustria y Procesamiento Agrícola",
-            "subtitle": "Rendimiento y optimización en el campo y la planta",
-            "description": "Soluciones llave en mano para el manejo, limpieza, secado y clasificación de granos, semillas y café, así como plantas completas para la producción de alimentos balanceados.",
-            "heroImage": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png",
-            "stats": [
-              {
-                "label": "Capacidad Secado",
-                "value": "50 Ton/h"
-              },
-              {
-                "label": "CV Mezclado",
-                "value": "< 5%"
-              },
-              {
-                "label": "Presión Extrusor",
-                "value": "120 Bar"
-              },
-              {
-                "label": "Acondicionamiento",
-                "value": "Hasta 95°C"
-              }
-            ],
-            "items": [
-              {
-                "id": "procesamiento",
-                "title": "Manejo y Limpieza de Granos",
-                "description": "Limpiadoras neumáticas y mesas densimétricas para granos, semillas y leguminosas.",
-                "longDescription": "Limpieza primaria y secundaria que elimina polvo, paja y semillas extrañas. Las mesas densimétricas clasifican por peso específico, garantizando lotes homogéneos.",
-                "features": [
-                  "[icon:Shield] Zarandas vibratorias de doble nivel intercambiables",
-                  "[icon:Zap] Aspiradores de polvo integrados con filtros de mangas",
-                  "[icon:Cpu] Mesas densimétricas de oscilación regulable por variador"
-                ],
-                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png",
-                "tableHeaders": [
-                  "Modelo",
-                  "Tipo Limpieza",
-                  "Capacidad",
-                  "Eficiencia Cribado",
-                  "Potencia Ventilador"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "GC-120",
-                    "width": "Limpiadora de Zaranda",
-                    "capacity": "12 Ton/h",
-                    "power": "99%",
-                    "weight": "5.5 kW"
-                  },
-                  {
-                    "model": "GC-250",
-                    "width": "Limpiadora Neumática Combinada",
-                    "capacity": "25 Ton/h",
-                    "power": "99.5%",
-                    "weight": "11 kW"
-                  }
-                ]
-              },
-              {
-                "id": "balanceados",
-                "title": "Líneas de Alimento Balanceado",
-                "description": "Plantas integradas de molienda, dosificación, mezcla y peletizado.",
-                "longDescription": "Diseño higiénico para alimentación animal. Incluye acondicionador de vapor de doble paso para cocción y gelatinización de almidones, y matrices de peletizado en aleación templada.",
-                "features": [
-                  "[icon:Shield] Molinos de martillos con cambio rápido de cribas",
-                  "[icon:Zap] Mezcladoras de doble eje de paletas de alta velocidad",
-                  "[icon:Cpu] Peletizadoras con acondicionador térmico de inyección"
-                ],
-                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png",
-                "tableHeaders": [
-                  "Modelo",
-                  "Tipo Mezclador/Peletizadora",
-                  "Rendimiento",
-                  "Diámetro Pellet",
-                  "Potencia Motor"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "AB-500",
-                    "width": "Mezcladora de Paletas",
-                    "capacity": "2.5 Ton/h",
-                    "power": "Mezcla homogénea",
-                    "weight": "22 kW"
-                  },
-                  {
-                    "model": "AB-1000",
-                    "width": "Peletizadora de Matriz Plana",
-                    "capacity": "5.0 Ton/h",
-                    "power": "2 - 12 mm",
-                    "weight": "110 kW"
-                  }
-                ]
-              },
-              {
-                "id": "postcosecha",
-                "title": "Enfriamiento y Calibración",
-                "description": "Sistemas de lavado, encerado, desinfección y clasificación óptica para frutas frescas.",
-                "longDescription": "Tratamiento postcosecha de precisión. Sistemas ópticos de clasificación que analizan el color, diámetro y defectos externos del fruto para embalar únicamente producto premium.",
-                "features": [
-                  "[icon:Shield] Lavadoras de cepillos rotativos con desinfección UV",
-                  "[icon:Zap] Secadores de túnel por aire caliente controlado",
-                  "[icon:Cpu] Clasificación óptica multicanal por cámaras colorimétricas"
-                ],
-                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png",
-                "tableHeaders": [
-                  "Modelo",
-                  "Tipo Fruto",
-                  "Capacidad Línea",
-                  "Canales Clasificación",
-                  "Estructura"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "FC-400",
-                    "width": "Línea Cítricos / Manzanas",
-                    "capacity": "4 Ton/h",
-                    "power": "2 Canales Ópticos",
-                    "weight": "Acero Inoxidable/PE"
-                  },
-                  {
-                    "model": "FC-800",
-                    "width": "Línea de Selección de Berries",
-                    "capacity": "8 Ton/h",
-                    "power": "4 Canales NIR",
-                    "weight": "Grado Alimentario"
-                  }
-                ]
-              },
-              {
-                "id": "automatizacion",
-                "title": "Monitoreo de Silos y Carga",
-                "description": "Sistemas automáticos de control de temperatura y aireación de silos agrícolas.",
-                "longDescription": "Digitalización del almacenamiento de granos. Termometría digital multipunto que monitorea la temperatura en tiempo real y activa automáticamente ventiladores de aireación.",
-                "features": [
-                  "[icon:Shield] Sondas de temperatura colgantes con bus RS485",
-                  "[icon:Zap] Sensores de nivel capacitivos y de radar continuo",
-                  "[icon:Cpu] Tablero de control con SCADA y alertas vía Telegram/Email"
-                ],
-                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115231575_choco%20color%202.png",
-                "tableHeaders": [
-                  "Modelo",
-                  "Tipo Sensor/Control",
-                  "Alcance Sondas",
-                  "Protocolo",
-                  "Protección Gabinete"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "SM-100",
-                    "width": "Módulo Termometría Silos",
-                    "capacity": "Hasta 30m altura",
-                    "power": "Modbus RTU",
-                    "weight": "IP66"
-                  },
-                  {
-                    "model": "SM-200",
-                    "width": "Controlador de Aireación Automático",
-                    "capacity": "Hasta 4 silos",
-                    "power": "Ethernet / IoT",
-                    "weight": "IP66"
-                  }
-                ]
-              }
-            ],
-            "instalacionesImage": "/smq_factory_night2.png"
-          }
-        }
-      ]
-    },
-    {
       "id": "industria-packaging",
       "title": "Packaging y Conversión",
       "slug": "/industria/packaging",
@@ -3974,6 +3796,296 @@
                     "positionY": 0,
                     "objectFit": "cover",
                     "bgColor": "transparent"
+                  },
+                  ""
+                ]
+              }
+            ],
+            "instalacionesImage": "/smq_factory_night2.png"
+          }
+        }
+      ]
+    },
+    {
+      "id": "industria-agroindustria",
+      "title": "Agroindustria y Procesamiento Agrícola",
+      "slug": "/industria/agroindustria",
+      "modules": [
+        {
+          "id": "sector-data",
+          "type": "sector-detail",
+          "data": {
+            "title": "Agroindustria y Procesamiento Agrícola",
+            "subtitle": "Rendimiento y optimización en el campo y la planta",
+            "description": "Soluciones llave en mano para el manejo, limpieza, secado y clasificación de granos, semillas y café, así como plantas completas para la producción de alimentos balanceados.",
+            "heroImage": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png",
+            "stats": [
+              {
+                "label": "Capacidad Secado",
+                "value": "50 Ton/h"
+              },
+              {
+                "label": "CV Mezclado",
+                "value": "< 5%"
+              },
+              {
+                "label": "Presión Extrusor",
+                "value": "120 Bar"
+              },
+              {
+                "label": "Acondicionamiento",
+                "value": "Hasta 95°C"
+              }
+            ],
+            "items": [
+              {
+                "id": "procesamiento",
+                "title": "Manejo y Limpieza de Granos",
+                "description": "Limpiadoras neumáticas y mesas densimétricas para granos, semillas y leguminosas.",
+                "longDescription": "Limpieza primaria y secundaria que elimina polvo, paja y semillas extrañas. Las mesas densimétricas clasifican por peso específico, garantizando lotes homogéneos.",
+                "features": [
+                  "[icon:Shield] Zarandas vibratorias de doble nivel intercambiables",
+                  "[icon:Zap] Aspiradores de polvo integrados con filtros de mangas",
+                  "[icon:Cpu] Mesas densimétricas de oscilación regulable por variador"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783459668270_separacion_de_cafe.webp",
+                  "type": "image",
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "contain",
+                  "bgColor": "transparent",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100
+                },
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Limpieza",
+                  "Capacidad",
+                  "Eficiencia Cribado",
+                  "Potencia Ventilador"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "GC-120",
+                    "width": "Limpiadora de Zaranda",
+                    "capacity": "12 Ton/h",
+                    "power": "99%",
+                    "weight": "5.5 kW"
+                  },
+                  {
+                    "model": "GC-250",
+                    "width": "Limpiadora Neumática Combinada",
+                    "capacity": "25 Ton/h",
+                    "power": "99.5%",
+                    "weight": "11 kW"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783459668270_separacion_de_cafe.webp",
+                    "type": "image",
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "contain",
+                    "bgColor": "transparent",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100
+                  },
+                  ""
+                ]
+              },
+              {
+                "id": "balanceados",
+                "title": "Líneas de Alimento Balanceado",
+                "description": "Plantas integradas de molienda, dosificación, mezcla y peletizado.",
+                "longDescription": "Diseño higiénico para alimentación animal. Incluye acondicionador de vapor de doble paso para cocción y gelatinización de almidones, y matrices de peletizado en aleación templada.",
+                "features": [
+                  "[icon:Shield] Molinos de martillos con cambio rápido de cribas",
+                  "[icon:Zap] Mezcladoras de doble eje de paletas de alta velocidad",
+                  "[icon:Cpu] Peletizadoras con acondicionador térmico de inyección"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783459984678_alimento_balanceado.webp",
+                  "type": "image",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100,
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "cover",
+                  "bgColor": "transparent"
+                },
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Mezclador/Peletizadora",
+                  "Rendimiento",
+                  "Diámetro Pellet",
+                  "Potencia Motor"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "AB-500",
+                    "width": "Mezcladora de Paletas",
+                    "capacity": "2.5 Ton/h",
+                    "power": "Mezcla homogénea",
+                    "weight": "22 kW"
+                  },
+                  {
+                    "model": "AB-1000",
+                    "width": "Peletizadora de Matriz Plana",
+                    "capacity": "5.0 Ton/h",
+                    "power": "2 - 12 mm",
+                    "weight": "110 kW"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783459984678_alimento_balanceado.webp",
+                    "type": "image",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100,
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "cover",
+                    "bgColor": "transparent"
+                  },
+                  ""
+                ]
+              },
+              {
+                "id": "postcosecha",
+                "title": "Enfriamiento y Calibración",
+                "description": "Sistemas de lavado, encerado, desinfección y clasificación óptica para frutas frescas.",
+                "longDescription": "Tratamiento postcosecha de precisión. Sistemas ópticos de clasificación que analizan el color, diámetro y defectos externos del fruto para embalar únicamente producto premium.",
+                "features": [
+                  "[icon:Shield] Lavadoras de cepillos rotativos con desinfección UV",
+                  "[icon:Zap] Secadores de túnel por aire caliente controlado",
+                  "[icon:Cpu] Clasificación óptica multicanal por cámaras colorimétricas"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783460159646_limpieza.webp",
+                  "type": "image",
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "contain",
+                  "bgColor": "transparent",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100
+                },
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Fruto",
+                  "Capacidad Línea",
+                  "Canales Clasificación",
+                  "Estructura"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "FC-400",
+                    "width": "Línea Cítricos / Manzanas",
+                    "capacity": "4 Ton/h",
+                    "power": "2 Canales Ópticos",
+                    "weight": "Acero Inoxidable/PE"
+                  },
+                  {
+                    "model": "FC-800",
+                    "width": "Línea de Selección de Berries",
+                    "capacity": "8 Ton/h",
+                    "power": "4 Canales NIR",
+                    "weight": "Grado Alimentario"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783460159646_limpieza.webp",
+                    "type": "image",
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "contain",
+                    "bgColor": "transparent",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100
+                  },
+                  ""
+                ]
+              },
+              {
+                "id": "automatizacion",
+                "title": "Monitoreo de Silos y Carga",
+                "description": "Sistemas automáticos de control de temperatura y aireación de silos agrícolas.",
+                "longDescription": "Digitalización del almacenamiento de granos. Termometría digital multipunto que monitorea la temperatura en tiempo real y activa automáticamente ventiladores de aireación.",
+                "features": [
+                  "[icon:Shield] Sondas de temperatura colgantes con bus RS485",
+                  "[icon:Zap] Sensores de nivel capacitivos y de radar continuo",
+                  "[icon:Cpu] Tablero de control con SCADA y alertas vía Telegram/Email"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783460286639_monitoreo_y_carga_de_silos.webp",
+                  "type": "image",
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "contain",
+                  "bgColor": "transparent",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100
+                },
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Sensor/Control",
+                  "Alcance Sondas",
+                  "Protocolo",
+                  "Protección Gabinete"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "SM-100",
+                    "width": "Módulo Termometría Silos",
+                    "capacity": "Hasta 30m altura",
+                    "power": "Modbus RTU",
+                    "weight": "IP66"
+                  },
+                  {
+                    "model": "SM-200",
+                    "width": "Controlador de Aireación Automático",
+                    "capacity": "Hasta 4 silos",
+                    "power": "Ethernet / IoT",
+                    "weight": "IP66"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783460286639_monitoreo_y_carga_de_silos.webp",
+                    "type": "image",
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "contain",
+                    "bgColor": "transparent",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100
                   },
                   ""
                 ]

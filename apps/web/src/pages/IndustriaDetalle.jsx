@@ -1586,7 +1586,7 @@ const IndustriaDetalle = () => {
   // Resolver ruta de maquinaria de forma segura previniendo 404
   const getMachineLink = (modelStr) => {
     if (!modelStr) return '/';
-    const cleanModel = modelStr.trim().toLowerCase();
+    const cleanModel = modelStr.trim().toLowerCase().replace(/\s+/g, '-').replace(/-+/g, '-');
     const withSector = `${sector}-${cleanModel}`;
     if (machineryDataMap && machineryDataMap[withSector]) {
       return `/maquinaria/${withSector}`;
