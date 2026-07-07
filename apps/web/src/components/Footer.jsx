@@ -11,14 +11,19 @@ const Footer = () => {
   const location = useLocation();
   const currentYear = new Date().getFullYear();
   const fileInputRef = useRef(null);
+  const bgFileInputRef = useRef(null);
 
   const { isEditorMode, cmsState, updateSettings, syncToCloud } = useCMS();
 
   const [isEditing, setIsEditing] = useState(false);
   const [uploadingLogo, setUploadingLogo] = useState(false);
+  const [uploadingBg, setUploadingBg] = useState(false);
 
   const settings = cmsState?.settings || {};
   const logoUrl = settings.footerLogoUrl || settings.logoUrl || '';
+  const bgUrl = settings.footerBgUrl || '';
+  const bgOpacity = settings.footerBgOpacity !== undefined ? settings.footerBgOpacity : 40;
+  
   const companyName = settings.footerCompanyName || 'SMQ Industrial Systems';
   const companyDesc = settings.footerCompanyDesc || 'Soluciones industriales de alta ingeniería para reciclaje, procesamiento de alimentos y automatización.';
   const phones = settings.footerPhones || ['+52 (55) 1234-5678', '+52 (55) 8765-4321'];
@@ -33,7 +38,6 @@ const Footer = () => {
   const quickLinks = [
     { label: 'Inicio', href: '#inicio', icon: Home },
     { label: 'Industrias', href: '#industrias', icon: Factory },
-    { label: 'Maquinaria', href: '#maquinaria', icon: Settings },
     { label: 'Soluciones', href: '#soluciones', icon: Box },
     { label: 'Proyectos', href: '#proyectos', icon: FileText },
     { label: 'Tecnología', href: '#tecnologia', icon: Cpu },
@@ -85,69 +89,109 @@ const Footer = () => {
     updateSettings({ footerLogoUrl: '' });
   };
 
+  const handleBgUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadingBg(true);
+    try {
+      const url = await uploadFile(file);
+      if (url) {
+        updateSettings({ footerBgUrl: url });
+      }
+    } catch (err) {
+      console.error("Error al subir fondo del footer:", err);
+      alert("No se pudo subir la imagen.");
+    } finally {
+      setUploadingBg(false);
+    }
+  };
+
+  const handleRemoveBg = () => {
+    updateSettings({ footerBgUrl: '' });
+  };
+
   return (
-    <footer className="bg-[#070b13] border-t border-cyan-500/10 relative overflow-hidden text-sm">
+    <footer className="bg-[#050B12] border-t border-[#009FE3]/20 relative overflow-hidden font-['Poppins']">
       {/* Editor Trigger Overlay */}
       {isEditorMode && (
         <div className="absolute top-4 right-4 z-30">
           <button
             onClick={() => setIsEditing(true)}
-            className="flex items-center gap-2 bg-cyan-500 hover:bg-cyan-400 text-[#070b13] px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-[0_4px_20px_rgba(0,240,255,0.25)] border border-cyan-400/30"
+            className="flex items-center gap-2 bg-[#009FE3] hover:bg-[#00D4FF] text-[#EAF4FF] px-4 py-2.5 rounded text-xs font-black uppercase tracking-wider transition-all shadow-[0_4px_15px_rgba(0,159,227,0.25)] border border-[#009FE3]/30"
           >
             <Settings size={14} className="animate-spin" style={{ animationDuration: '6s' }} />
-            <span>Editar Contacto & Redes</span>
+            <span>Editar Configuración Footer</span>
           </button>
         </div>
       )}
 
-      {/* Dotted World Map Background (Decorative) */}
-      <div className="absolute right-0 bottom-0 w-1/2 h-full bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20 pointer-events-none" />
+      {/* Background layer */}
+      {bgUrl ? (
+        <div 
+          className="absolute inset-0 bg-cover bg-center pointer-events-none" 
+          style={{ backgroundImage: `url(${bgUrl})`, opacity: bgOpacity / 100 }} 
+        />
+      ) : (
+        <div 
+          className="absolute inset-0 bg-[#07111C] pointer-events-none" 
+          style={{ opacity: bgOpacity / 100 }} 
+        />
+      )}
 
-      <div className="container mx-auto px-6 md:px-12 py-20 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
-          {/* 1. Company Info */}
-          <div className="space-y-6 flex flex-col items-start">
-            <div className="flex flex-col">
+      <div className="container mx-auto px-6 md:px-12 pt-10 pb-8 relative z-10">
+        {/* 4-Column Grid Desktop, 2 Tablet, 1 Mobile */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10 items-start">
+          
+          {/* 1. Company Info (Brand Anchor) */}
+          <div className="flex flex-col items-start w-full">
+            <div className="flex flex-col items-start mb-3">
               {logoUrl ? (
-                <img src={logoUrl} alt={companyName} className="h-16 w-auto object-contain" />
+                <img 
+                  src={logoUrl} 
+                  alt={companyName} 
+                  className="w-[130px] md:w-[150px] max-h-[60px] object-contain object-left" 
+                  style={{ imageRendering: 'high-quality' }}
+                />
               ) : (
-                <span className="text-4xl font-black text-cyan-500 uppercase tracking-wider font-sans">
+                <span className="text-4xl font-black text-[#009FE3] tracking-widest font-sans">
                   {companyName.split(' ')[0] || 'SMQ'}
                 </span>
               )}
-              <span className="text-sm font-bold text-white/80 tracking-widest mt-1 ml-2">
+              <span className="text-[10px] font-bold text-[#8E9BAA] tracking-[0.2em] uppercase mt-1 ml-1">
                 SA DE CV
               </span>
             </div>
-            <p className="text-white/60 text-[13px] leading-relaxed font-light mt-4">
-              {companyDesc}
+            
+            <p className="text-[#8E9BAA] text-[13px] leading-relaxed font-light mb-5 max-w-[280px]">
+              Soluciones industriales de alta ingeniería, proyectos llave en mano y maquinaria para procesamiento de alimentos y automatización.
             </p>
-            <div className="w-8 h-[1px] bg-cyan-500/50 mt-2 mb-4" />
+            
             <button 
               onClick={() => scrollToSection('/contacto')}
-              className="flex items-center gap-3 bg-transparent border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10 font-bold uppercase tracking-wider text-xs px-6 py-3 rounded-lg transition-all duration-300"
+              className="group flex items-center justify-center gap-2 bg-transparent border border-[#00D4FF] text-[#00D4FF] hover:bg-[#009FE3] hover:border-[#009FE3] hover:text-[#EAF4FF] font-semibold uppercase tracking-wider text-[11px] px-5 py-2 rounded transition-all duration-300"
             >
-              <ArrowRight size={16} className="text-cyan-500" />
               Solicitar Cotización
+              <ArrowRight size={13} className="transition-transform group-hover:translate-x-1" />
             </button>
           </div>
 
           {/* 2. Quick Links */}
-          <div className="space-y-6">
-            <div className="flex items-center border-l-[3px] border-cyan-500 pl-3">
-              <span className="text-[13px] font-bold uppercase tracking-wider text-cyan-400">Menú Principal</span>
+          <div className="flex flex-col w-full">
+            <div className="mb-4">
+              <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#00D4FF]">Menú Principal</span>
+              <div className="w-6 h-[2px] bg-[#009FE3]/40 mt-2.5" />
             </div>
-            <div className="flex flex-col gap-y-4">
+            <div className="flex flex-col gap-y-3">
               {quickLinks.map((link) => {
                 const Icon = link.icon;
                 return (
                   <button
                     key={link.label}
                     onClick={() => scrollToSection(link.href)}
-                    className="flex items-center gap-4 text-white/60 hover:text-white transition-all text-left group"
+                    className="flex items-center gap-3 text-[#8E9BAA] hover:text-[#EAF4FF] transition-all text-left group w-max"
                   >
-                    <Icon size={18} className="text-cyan-500/70 group-hover:text-cyan-400 transition-colors" />
-                    <span className="text-sm font-light group-hover:translate-x-1 transition-transform">{link.label}</span>
+                    <Icon size={15} strokeWidth={1.5} className="text-[#009FE3] group-hover:text-[#00D4FF] transition-colors" />
+                    <span className="text-[13px] font-light">{link.label}</span>
                   </button>
                 )
               })}
@@ -155,43 +199,45 @@ const Footer = () => {
           </div>
 
           {/* 3. Contact Info */}
-          <div className="space-y-6">
-            <div className="flex items-center border-l-[3px] border-cyan-500 pl-3">
-              <span className="text-[13px] font-bold uppercase tracking-wider text-cyan-400">Contacto Directo</span>
+          <div className="flex flex-col w-full">
+            <div className="mb-4">
+              <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#00D4FF]">Contacto Directo</span>
+              <div className="w-6 h-[2px] bg-[#009FE3]/40 mt-2.5" />
             </div>
-            <div className="flex flex-col space-y-6">
-              <div className="flex items-center space-x-4 text-white/60 text-[13px]">
-                <Phone size={20} className="text-cyan-500 shrink-0" />
+            <div className="flex flex-col space-y-4">
+              <div className="flex items-start space-x-3 text-[#8E9BAA]">
+                <Phone size={15} strokeWidth={1.5} className="text-[#009FE3] shrink-0 mt-[2px]" />
                 <div className="flex flex-col space-y-1">
                   {phones.map((phone, i) => (
-                    <a key={i} href={`tel:${phone.replace(/[^0-9+]/g, '')}`} className="hover:text-cyan-400 transition-colors font-light">
+                    <a key={i} href={`tel:${phone.replace(/[^0-9+]/g, '')}`} className="text-[13px] hover:text-[#EAF4FF] transition-colors font-light">
                       {phone}
                     </a>
                   ))}
                 </div>
               </div>
-              <div className="flex items-center space-x-4 text-white/60 text-[13px]">
-                <Mail size={20} className="text-cyan-500 shrink-0" />
-                <a href={`mailto:${email}`} className="hover:text-cyan-400 transition-colors font-light">
+              <div className="flex items-center space-x-3 text-[#8E9BAA]">
+                <Mail size={15} strokeWidth={1.5} className="text-[#009FE3] shrink-0" />
+                <a href={`mailto:${email}`} className="text-[13px] hover:text-[#EAF4FF] transition-colors font-light">
                   {email}
                 </a>
               </div>
-              <div className="flex items-start space-x-4 text-white/60 text-[13px]">
-                <MapPin size={20} className="text-cyan-500 mt-1 shrink-0" />
-                <span className="font-light leading-relaxed max-w-[200px]">{address}</span>
+              <div className="flex items-start space-x-3 text-[#8E9BAA]">
+                <MapPin size={15} strokeWidth={1.5} className="text-[#009FE3] shrink-0 mt-[3px]" />
+                <span className="text-[13px] font-light leading-relaxed max-w-[220px]">{address}</span>
               </div>
             </div>
           </div>
 
           {/* 4. Social Media */}
-          <div className="space-y-6">
-            <div className="flex items-center border-l-[3px] border-cyan-500 pl-3">
-              <span className="text-[13px] font-bold uppercase tracking-wider text-cyan-400">Redes Sociales</span>
+          <div className="flex flex-col w-full">
+            <div className="mb-4">
+              <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#00D4FF]">Redes Sociales</span>
+              <div className="w-6 h-[2px] bg-[#009FE3]/40 mt-2.5" />
             </div>
-            <p className="text-[13px] text-white/60 font-light leading-relaxed pr-8">
+            <p className="text-[13px] text-[#8E9BAA] font-light leading-relaxed mb-4 max-w-[240px]">
               Síguenos para conocer nuestros últimos proyectos y tecnologías.
             </p>
-            <div className="flex space-x-4 mt-6">
+            <div className="flex space-x-3">
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
@@ -199,9 +245,9 @@ const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="w-10 h-10 rounded-full border border-cyan-500/50 flex items-center justify-center text-cyan-500 hover:bg-cyan-500 hover:text-[#070b13] hover:border-cyan-400 transition-all duration-300"
+                  className="w-8 h-8 rounded border border-[#009FE3]/30 flex items-center justify-center text-[#00D4FF] hover:bg-[#009FE3] hover:text-[#EAF4FF] hover:border-[#009FE3] transition-all duration-300 bg-[#050B12]"
                 >
-                  <social.icon size={18} />
+                  <social.icon size={15} strokeWidth={1.5} />
                 </a>
               ))}
             </div>
@@ -209,24 +255,17 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Bottom Bar with Tech Lines */}
-      <div className="relative border-t border-cyan-500/20 bg-[#0a0f18] py-6 px-6 md:px-12 mt-8 flex flex-col md:flex-row justify-between items-center gap-4 z-10 overflow-hidden">
-        {/* Decorative tech lines */}
-        <div className="absolute right-0 bottom-0 w-64 h-full pointer-events-none">
-           <svg width="100%" height="100%" viewBox="0 0 200 50" preserveAspectRatio="none">
-             <path d="M 50 50 L 100 0 L 200 0" fill="none" stroke="rgba(0, 240, 255, 0.2)" strokeWidth="1" />
-             <path d="M 80 50 L 130 0 L 200 0" fill="none" stroke="rgba(0, 240, 255, 0.4)" strokeWidth="2" />
-           </svg>
-        </div>
-
-        <p className="text-white/40 text-[11px] font-light text-center md:text-left relative z-10">
-          © {currentYear} <span className="font-bold text-cyan-500">{companyName.split(' ')[0] || 'SMQ'}</span> SA de CV. Todos los derechos reservados.
-        </p>
-        <div className="flex items-center space-x-6 text-[11px] text-white/50 font-light relative z-10">
-          <a href="#" className="hover:text-cyan-400 transition-colors">Aviso de Privacidad</a>
-          <span className="text-cyan-500/30">|</span>
-          <a href="#" className="hover:text-cyan-400 transition-colors">Términos de Servicio</a>
-          <ShieldCheck size={16} className="text-cyan-500 ml-2" />
+      {/* Bottom Bar: Compact, clean, 1 line */}
+      <div className="border-t border-[#009FE3]/20 bg-[#050B12] py-4 px-6 md:px-12 relative z-10">
+        <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-[#8E9BAA] text-[11px] font-light">
+            © 2026 SMQ SA de CV. Todos los derechos reservados.
+          </p>
+          <div className="flex items-center space-x-4 text-[11px] text-[#8E9BAA] font-light">
+            <a href="#" className="hover:text-[#EAF4FF] transition-colors">Aviso de Privacidad</a>
+            <span className="text-[#009FE3]/30">|</span>
+            <a href="#" className="hover:text-[#EAF4FF] transition-colors">Términos de Servicio</a>
+          </div>
         </div>
       </div>
 
@@ -238,24 +277,24 @@ const Footer = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-black/70 backdrop-blur-md pointer-events-auto"
+              className="absolute inset-0 bg-black/80 backdrop-blur-sm pointer-events-auto"
               onClick={() => setIsEditing(false)}
             />
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative w-full max-w-2xl bg-[#0C1017]/95 border border-white/10 rounded-[28px] shadow-2xl p-6 md:p-8 backdrop-blur-xl overflow-y-auto max-h-[90vh] z-10 text-white pointer-events-auto"
+              className="relative w-full max-w-2xl bg-[#07111C] border border-[#009FE3]/30 rounded-xl shadow-2xl p-6 md:p-8 overflow-y-auto max-h-[90vh] z-10 text-[#EAF4FF] pointer-events-auto"
             >
               {/* Header */}
-              <div className="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
+              <div className="flex justify-between items-center mb-6 border-b border-[#009FE3]/20 pb-4">
                 <div>
-                  <h3 className="text-xl font-bold tracking-wide uppercase">Ajustes del Footer</h3>
-                  <p className="text-xs text-white/50 mt-1 font-light">Actualiza los datos corporativos, logotipo y enlaces del pie de página.</p>
+                  <h3 className="text-xl font-bold tracking-wide uppercase text-[#00D4FF]">Ajustes del Footer</h3>
+                  <p className="text-xs text-[#8E9BAA] mt-1 font-light">Actualiza los datos corporativos, logotipo y enlaces del pie de página.</p>
                 </div>
                 <button 
                   onClick={() => setIsEditing(false)} 
-                  className="p-2 hover:bg-white/5 rounded-full transition-colors text-white/70 hover:text-white cursor-pointer"
+                  className="p-2 hover:bg-white/5 rounded transition-colors text-[#8E9BAA] hover:text-[#EAF4FF] cursor-pointer"
                 >
                   <X size={20} />
                 </button>
@@ -266,30 +305,30 @@ const Footer = () => {
                 {/* Logo & Company Info Row */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Left: Logo uploader */}
-                  <div className="flex items-center gap-4 bg-white/5 p-4 rounded-2xl border border-white/10">
+                  <div className="flex items-center gap-4 bg-[#050B12] p-4 rounded border border-[#009FE3]/20">
                     {logoUrl ? (
-                      <div className="relative group w-16 h-16 bg-black/30 border border-white/10 rounded-xl flex items-center justify-center p-2">
+                      <div className="relative group w-24 h-24 bg-black/40 border border-[#009FE3]/20 rounded flex items-center justify-center p-2">
                         <img src={logoUrl} alt="Preview" className="max-w-full max-h-full object-contain" />
                         <button 
                           onClick={handleRemoveLogo}
-                          className="absolute -top-2 -right-2 p-1 bg-red-500 hover:bg-red-600 rounded-full text-white shadow-lg transition-colors cursor-pointer"
+                          className="absolute -top-2 -right-2 p-1.5 bg-red-500 hover:bg-red-600 rounded text-white shadow transition-colors cursor-pointer"
                           title="Remover Logo"
                         >
-                          <Trash2 size={10} />
+                          <Trash2 size={12} />
                         </button>
                       </div>
                     ) : (
-                      <div className="w-16 h-16 bg-white/5 border border-dashed border-white/20 rounded-xl flex items-center justify-center text-white/30 text-xs">
+                      <div className="w-24 h-24 bg-black/40 border border-dashed border-[#009FE3]/20 rounded flex items-center justify-center text-[#8E9BAA] text-xs">
                         Sin Logo
                       </div>
                     )}
                     <div className="flex-grow">
-                      <label className="block text-[10px] font-black uppercase tracking-wider text-white/50 mb-1.5">Logotipo Footer</label>
+                      <label className="block text-[10px] font-bold uppercase tracking-wider text-[#8E9BAA] mb-2">Logotipo Azul SMQ</label>
                       <button
                         type="button"
                         disabled={uploadingLogo}
                         onClick={() => fileInputRef.current?.click()}
-                        className="bg-white/10 hover:bg-white/15 text-white text-xs font-bold py-2 px-4 rounded-xl transition-all flex items-center gap-2 border border-white/10 cursor-pointer"
+                        className="bg-[#009FE3]/10 hover:bg-[#009FE3]/20 text-[#00D4FF] text-xs font-semibold py-2 px-4 rounded transition-all flex items-center gap-2 border border-[#009FE3]/30 cursor-pointer w-full justify-center"
                       >
                         <Upload size={14} />
                         {uploadingLogo ? 'Subiendo...' : 'Subir Imagen'}
@@ -300,36 +339,94 @@ const Footer = () => {
 
                   {/* Right: Company Name */}
                   <div className="flex flex-col justify-end">
-                    <label className="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-2">Nombre de la Empresa</label>
+                    <label className="block text-[10px] font-bold uppercase tracking-widest text-[#8E9BAA] mb-2">Nombre de la Empresa</label>
                     <input 
                       type="text" 
                       value={companyName}
                       onChange={(e) => updateSettings({ footerCompanyName: e.target.value })}
-                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#FFD700] transition-colors"
+                      className="w-full bg-[#050B12] border border-[#009FE3]/20 rounded px-4 py-2 text-[13px] focus:outline-none focus:border-[#00D4FF] transition-colors text-[#EAF4FF]"
                     />
+                  </div>
+                </div>
+
+                {/* Background Settings */}
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2 mb-2 border-b border-[#009FE3]/10 pb-2">
+                    <h4 className="text-[11px] font-bold uppercase tracking-wider text-[#00D4FF]">Fondo del Footer</h4>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Background Uploader */}
+                    <div className="flex items-center gap-4 bg-[#050B12] p-4 rounded border border-[#009FE3]/20">
+                      {bgUrl ? (
+                        <div className="relative group w-24 h-24 bg-black/40 border border-[#009FE3]/20 rounded flex items-center justify-center p-1">
+                          <img src={bgUrl} alt="Bg Preview" className="max-w-full max-h-full object-cover rounded" />
+                          <button 
+                            onClick={handleRemoveBg}
+                            className="absolute -top-2 -right-2 p-1.5 bg-red-500 hover:bg-red-600 rounded text-white shadow transition-colors cursor-pointer"
+                            title="Remover Fondo"
+                          >
+                            <Trash2 size={12} />
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="w-24 h-24 bg-black/40 border border-dashed border-[#009FE3]/20 rounded flex items-center justify-center text-[#8E9BAA] text-[10px] text-center p-2 uppercase font-bold tracking-wider">
+                          Sin Imagen
+                        </div>
+                      )}
+                      <div className="flex-grow">
+                        <label className="block text-[10px] font-bold uppercase tracking-wider text-[#8E9BAA] mb-2">Imagen de Fondo</label>
+                        <button
+                          type="button"
+                          disabled={uploadingBg}
+                          onClick={() => bgFileInputRef.current?.click()}
+                          className="bg-[#009FE3]/10 hover:bg-[#009FE3]/20 text-[#00D4FF] text-xs font-semibold py-2 px-4 rounded transition-all flex items-center gap-2 border border-[#009FE3]/30 cursor-pointer w-full justify-center"
+                        >
+                          <Upload size={14} />
+                          {uploadingBg ? 'Subiendo...' : 'Subir Fondo'}
+                        </button>
+                        <input type="file" ref={bgFileInputRef} onChange={handleBgUpload} className="hidden" accept="image/*" />
+                      </div>
+                    </div>
+                    {/* Opacity Slider */}
+                    <div className="flex flex-col justify-center bg-[#050B12] p-4 rounded border border-[#009FE3]/20">
+                      <label className="block text-[10px] font-bold uppercase tracking-widest text-[#8E9BAA] mb-4 flex justify-between">
+                        <span>Transparencia / Opacidad</span>
+                        <span className="text-[#00D4FF]">{bgOpacity}%</span>
+                      </label>
+                      <input 
+                        type="range" 
+                        min="0" max="100" 
+                        value={bgOpacity}
+                        onChange={(e) => updateSettings({ footerBgOpacity: parseInt(e.target.value) })}
+                        className="w-full h-1.5 bg-black/60 rounded-lg appearance-none cursor-pointer"
+                        style={{
+                          background: `linear-gradient(to right, #009FE3 ${bgOpacity}%, #000 ${bgOpacity}%)`
+                        }}
+                      />
+                      <p className="text-[9.5px] text-[#8E9BAA] mt-4 font-light leading-relaxed">Ajusta la visibilidad de la imagen o del color secundario para no opacar el contenido del footer.</p>
+                    </div>
                   </div>
                 </div>
 
                 {/* Company Desc */}
                 <div>
-                  <label className="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-2">Descripción de la Empresa</label>
+                  <label className="block text-[10px] font-bold uppercase tracking-widest text-[#8E9BAA] mb-2">Descripción de la Empresa</label>
                   <textarea 
                     rows={2}
                     value={companyDesc}
                     onChange={(e) => updateSettings({ footerCompanyDesc: e.target.value })}
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#FFD700] transition-colors resize-none font-light leading-relaxed"
+                    className="w-full bg-[#050B12] border border-[#009FE3]/20 rounded px-4 py-2.5 text-[13px] focus:outline-none focus:border-[#00D4FF] transition-colors resize-none font-light leading-relaxed text-[#EAF4FF]"
                   />
                 </div>
 
                 {/* Contacts Grid */}
                 <div className="space-y-4">
-                  <div className="flex items-center gap-2 mb-1">
-                    <div className="w-1.5 h-3.5 bg-[#FFD700] rounded-full"></div>
-                    <h4 className="text-xs font-black uppercase tracking-wider text-white/80">Información de Contacto</h4>
+                  <div className="flex items-center gap-2 mb-2 border-b border-[#009FE3]/10 pb-2">
+                    <h4 className="text-[11px] font-bold uppercase tracking-wider text-[#00D4FF]">Información de Contacto</h4>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-2">Teléfono Principal</label>
+                      <label className="block text-[10px] font-bold uppercase tracking-widest text-[#8E9BAA] mb-2">Teléfono Principal</label>
                       <input 
                         type="text" 
                         value={phones[0] || ''}
@@ -338,11 +435,11 @@ const Footer = () => {
                           newPhones[0] = e.target.value;
                           updateSettings({ footerPhones: newPhones });
                         }}
-                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#FFD700] transition-colors"
+                        className="w-full bg-[#050B12] border border-[#009FE3]/20 rounded px-4 py-2 text-[13px] focus:outline-none focus:border-[#00D4FF] transition-colors text-[#EAF4FF]"
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-2">Teléfono Secundario</label>
+                      <label className="block text-[10px] font-bold uppercase tracking-widest text-[#8E9BAA] mb-2">Teléfono Secundario</label>
                       <input 
                         type="text" 
                         value={phones[1] || ''}
@@ -351,28 +448,28 @@ const Footer = () => {
                           newPhones[1] = e.target.value;
                           updateSettings({ footerPhones: newPhones });
                         }}
-                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#FFD700] transition-colors"
+                        className="w-full bg-[#050B12] border border-[#009FE3]/20 rounded px-4 py-2 text-[13px] focus:outline-none focus:border-[#00D4FF] transition-colors text-[#EAF4FF]"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-2">Correo Electrónico</label>
+                      <label className="block text-[10px] font-bold uppercase tracking-widest text-[#8E9BAA] mb-2">Correo Electrónico</label>
                       <input 
                         type="email" 
                         value={email}
                         onChange={(e) => updateSettings({ footerEmail: e.target.value })}
-                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#FFD700] transition-colors"
+                        className="w-full bg-[#050B12] border border-[#009FE3]/20 rounded px-4 py-2 text-[13px] focus:outline-none focus:border-[#00D4FF] transition-colors text-[#EAF4FF]"
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-2">Dirección Física</label>
+                      <label className="block text-[10px] font-bold uppercase tracking-widest text-[#8E9BAA] mb-2">Dirección Física</label>
                       <input 
                         type="text" 
                         value={address}
                         onChange={(e) => updateSettings({ footerAddress: e.target.value })}
-                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#FFD700] transition-colors"
+                        className="w-full bg-[#050B12] border border-[#009FE3]/20 rounded px-4 py-2 text-[13px] focus:outline-none focus:border-[#00D4FF] transition-colors text-[#EAF4FF]"
                       />
                     </div>
                   </div>
@@ -380,48 +477,47 @@ const Footer = () => {
 
                 {/* Social Networks Links */}
                 <div className="space-y-4">
-                  <div className="flex items-center gap-2 mb-1">
-                    <div className="w-1.5 h-3.5 bg-[#FFD700] rounded-full"></div>
-                    <h4 className="text-xs font-black uppercase tracking-wider text-white/80">Enlaces de Redes Sociales</h4>
+                  <div className="flex items-center gap-2 mb-2 border-b border-[#009FE3]/10 pb-2">
+                    <h4 className="text-[11px] font-bold uppercase tracking-wider text-[#00D4FF]">Enlaces de Redes Sociales</h4>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-2">Enlace Facebook</label>
+                      <label className="block text-[10px] font-bold uppercase tracking-widest text-[#8E9BAA] mb-2">Facebook</label>
                       <input 
                         type="text" 
                         value={fbLink}
                         onChange={(e) => updateSettings({ footerFbLink: e.target.value })}
-                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#FFD700] transition-colors"
+                        className="w-full bg-[#050B12] border border-[#009FE3]/20 rounded px-4 py-2 text-[13px] focus:outline-none focus:border-[#00D4FF] transition-colors text-[#EAF4FF]"
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-2">Enlace Twitter</label>
+                      <label className="block text-[10px] font-bold uppercase tracking-widest text-[#8E9BAA] mb-2">Twitter (X)</label>
                       <input 
                         type="text" 
                         value={twLink}
                         onChange={(e) => updateSettings({ footerTwLink: e.target.value })}
-                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#FFD700] transition-colors"
+                        className="w-full bg-[#050B12] border border-[#009FE3]/20 rounded px-4 py-2 text-[13px] focus:outline-none focus:border-[#00D4FF] transition-colors text-[#EAF4FF]"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-2">Enlace LinkedIn</label>
+                      <label className="block text-[10px] font-bold uppercase tracking-widest text-[#8E9BAA] mb-2">LinkedIn</label>
                       <input 
                         type="text" 
                         value={liLink}
                         onChange={(e) => updateSettings({ footerLiLink: e.target.value })}
-                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#FFD700] transition-colors"
+                        className="w-full bg-[#050B12] border border-[#009FE3]/20 rounded px-4 py-2 text-[13px] focus:outline-none focus:border-[#00D4FF] transition-colors text-[#EAF4FF]"
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-2">Enlace Instagram</label>
+                      <label className="block text-[10px] font-bold uppercase tracking-widest text-[#8E9BAA] mb-2">Instagram</label>
                       <input 
                         type="text" 
                         value={igLink}
                         onChange={(e) => updateSettings({ footerIgLink: e.target.value })}
-                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#FFD700] transition-colors"
+                        className="w-full bg-[#050B12] border border-[#009FE3]/20 rounded px-4 py-2 text-[13px] focus:outline-none focus:border-[#00D4FF] transition-colors text-[#EAF4FF]"
                       />
                     </div>
                   </div>
@@ -429,14 +525,14 @@ const Footer = () => {
               </div>
 
               {/* Action Buttons Footer */}
-              <div className="mt-8 pt-6 border-t border-white/10 flex items-center justify-between">
-                <p className="text-white/40 text-xs">Los cambios se guardan localmente y se envían a la nube.</p>
+              <div className="mt-8 pt-6 border-t border-[#009FE3]/20 flex items-center justify-between">
+                <p className="text-[#8E9BAA] text-[11px]">Los cambios se guardan localmente y se envían a la nube.</p>
                 <button
                   onClick={async () => {
                     await syncToCloud();
                     setIsEditing(false);
                   }}
-                  className="bg-[#FFD700] hover:bg-[#FFC000] text-black font-black text-xs uppercase tracking-wider py-3.5 px-6 rounded-xl transition-all shadow-[0_4px_20px_rgba(255,215,0,0.25)] cursor-pointer"
+                  className="bg-[#009FE3] hover:bg-[#00D4FF] text-[#EAF4FF] font-bold text-[11px] uppercase tracking-wider py-2.5 px-6 rounded transition-all shadow-[0_4px_15px_rgba(0,159,227,0.25)] cursor-pointer"
                 >
                   Guardar y Sincronizar
                 </button>

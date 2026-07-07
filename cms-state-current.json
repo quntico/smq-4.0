@@ -11,20 +11,22 @@
     "globalFilterOpacity": 75,
     "textJustify": true,
     "disableImageFilters": false,
-    "updatedAt": 1783461828636,
+    "updatedAt": 1783465644010,
     "footerCompanyName": "SMQ  SA de CV",
     "footerCompanyDesc": "Soluciones industriales de alta ingenieria, proyectos llave en mano y maquinaria para  procesamiento de alimentos y automatización.",
     "footerPhones": [
-      "+52 (55) 22444153",
+      "+52 (55) 88517873",
       ""
     ],
-    "footerAddress": " Lago Zurich 219-Piso 12, Amp Granada, Miguel Hidalgo, 11529 Ciudad de México, CDMX",
+    "footerAddress": "Arquímedes 130, Piso 5,  Polanco, C.P. 11560, Miguel hidalgo , CDMX",
     "footerEmail": "info@smq.mx",
     "contactBgImage": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783380620405_gov_command_pic.webp",
     "contactPhone1": "+555588517873",
     "contactPhone2": "+52 (55) 88517874",
     "contactEmail1": "info@smq.mx",
-    "contactEmail2": "direccion@smq.mx"
+    "contactEmail2": "direccion@smq.mx",
+    "footerBgUrl": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783465508103_ChatGPT_Image_7_jul_2026_17_02_56.webp",
+    "footerBgOpacity": 37
   },
   "menus": [
     {
@@ -4102,6 +4104,260 @@
               {
                 "param": "Modelo Base",
                 "value": "Serie SMQ-LWV-500"
+              },
+              {
+                "param": "Capacidad",
+                "value": "Configurable según requerimientos"
+              },
+              {
+                "param": "Controlador",
+                "value": "PLC de última generación con pantalla HMI"
+              }
+            ],
+            "configurations": [
+              {
+                "name": "Automatización Completa",
+                "desc": "Módulos adicionales para operación desatendida."
+              },
+              {
+                "name": "Sensores Avanzados",
+                "desc": "Sistemas de inspección óptica y láser."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "machinery-alimentos-lwl-500",
+      "title": "LÍNEA DE LAVADO DE HOJAS LWL-500",
+      "slug": "/maquinaria/alimentos-lwl-500",
+      "modules": [
+        {
+          "id": "machinery-data-alimentos-lwl-500",
+          "type": "machinery-product",
+          "data": {
+            "industry": "alimentos",
+            "machineCode": "alimentos-lwl-500",
+            "pageNumber": "12",
+            "theme": {
+              "accent": "#F97316",
+              "accentGlow": "rgba(249, 115, 22, 0.4)",
+              "bgStart": "#120702",
+              "bgEnd": "#2C1103",
+              "glowColor": "orange"
+            },
+            "heroTitle": "LÍNEA DE LAVADO DE HOJAS LWL-500",
+            "heroSubtitle": "Lavado por inmersión y desinfección de hojas verdes.",
+            "heroDesc": "Descripción detallada para Línea de Lavado de Hojas LWL-500. El sistema está diseñado para cumplir con los estándares industriales más exigentes. Puedes editar este contenido desde el CMS para especificar el funcionamiento exacto y los beneficios de esta línea.",
+            "heroMedia": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
+            "kpis": [
+              {
+                "value": "100%",
+                "unit": "EFICIENCIA",
+                "label": "Rendimiento",
+                "desc": "Producción continua"
+              },
+              {
+                "value": "24/7",
+                "unit": "OPERACIÓN",
+                "label": "Disponibilidad",
+                "desc": "Sistemas redundantes"
+              },
+              {
+                "value": "Auto",
+                "unit": "CONTROL",
+                "label": "Precisión",
+                "desc": "Control avanzado por PLC"
+              },
+              {
+                "value": "Premium",
+                "unit": "CALIDAD",
+                "label": "Estándar",
+                "desc": "Materiales duraderos"
+              }
+            ],
+            "stations": [
+              {
+                "id": 1,
+                "title": "Alimentación",
+                "desc": "Ingreso del material al sistema automatizado.",
+                "iconName": "Inbox"
+              },
+              {
+                "id": 2,
+                "title": "Procesamiento",
+                "desc": "Transformación del producto bajo estrictos controles.",
+                "iconName": "Layers"
+              },
+              {
+                "id": 3,
+                "title": "Control de Calidad",
+                "desc": "Verificación en línea del producto final.",
+                "iconName": "Eye"
+              },
+              {
+                "id": 4,
+                "title": "Descarga",
+                "desc": "Salida del material terminado y empacado.",
+                "iconName": "LogOut"
+              }
+            ],
+            "applications": [
+              {
+                "name": "Sector Primario",
+                "icon": "🏭",
+                "desc": "Aplicación en las industrias de mayor demanda"
+              },
+              {
+                "name": "Aplicación Especial",
+                "icon": "⚙️",
+                "desc": "Procesos personalizados para este equipo"
+              }
+            ],
+            "advantages": [
+              {
+                "title": "ALTA CONFIABILIDAD",
+                "desc": "Equipos diseñados para funcionar sin interrupciones con mínimo mantenimiento.",
+                "highlight": "Durabilidad"
+              },
+              {
+                "title": "INTEGRACIÓN 4.0",
+                "desc": "Monitoreo remoto y conexión con sistemas de gestión de planta.",
+                "highlight": "Tecnología"
+              }
+            ],
+            "specs": [
+              {
+                "param": "Modelo Base",
+                "value": "Serie SMQ-LWL-500"
+              },
+              {
+                "param": "Capacidad",
+                "value": "Configurable según requerimientos"
+              },
+              {
+                "param": "Controlador",
+                "value": "PLC de última generación con pantalla HMI"
+              }
+            ],
+            "configurations": [
+              {
+                "name": "Automatización Completa",
+                "desc": "Módulos adicionales para operación desatendida."
+              },
+              {
+                "name": "Sensores Avanzados",
+                "desc": "Sistemas de inspección óptica y láser."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "machinery-alimentos-lbw-500",
+      "title": "TINA DE LAVADO BURBUJAS LBW-500",
+      "slug": "/maquinaria/alimentos-lbw-500",
+      "modules": [
+        {
+          "id": "machinery-data-alimentos-lbw-500",
+          "type": "machinery-product",
+          "data": {
+            "industry": "alimentos",
+            "machineCode": "alimentos-lbw-500",
+            "pageNumber": "13",
+            "theme": {
+              "accent": "#F97316",
+              "accentGlow": "rgba(249, 115, 22, 0.4)",
+              "bgStart": "#120702",
+              "bgEnd": "#2C1103",
+              "glowColor": "orange"
+            },
+            "heroTitle": "TINA DE LAVADO BURBUJAS LBW-500",
+            "heroSubtitle": "Lavado hidrodinámico por burbujeo para productos delicados.",
+            "heroDesc": "Descripción detallada para Tina de Lavado Burbujas LBW-500. El sistema está diseñado para cumplir con los estándares industriales más exigentes. Puedes editar este contenido desde el CMS para especificar el funcionamiento exacto y los beneficios de esta línea.",
+            "heroMedia": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
+            "kpis": [
+              {
+                "value": "100%",
+                "unit": "EFICIENCIA",
+                "label": "Rendimiento",
+                "desc": "Producción continua"
+              },
+              {
+                "value": "24/7",
+                "unit": "OPERACIÓN",
+                "label": "Disponibilidad",
+                "desc": "Sistemas redundantes"
+              },
+              {
+                "value": "Auto",
+                "unit": "CONTROL",
+                "label": "Precisión",
+                "desc": "Control avanzado por PLC"
+              },
+              {
+                "value": "Premium",
+                "unit": "CALIDAD",
+                "label": "Estándar",
+                "desc": "Materiales duraderos"
+              }
+            ],
+            "stations": [
+              {
+                "id": 1,
+                "title": "Alimentación",
+                "desc": "Ingreso del material al sistema automatizado.",
+                "iconName": "Inbox"
+              },
+              {
+                "id": 2,
+                "title": "Procesamiento",
+                "desc": "Transformación del producto bajo estrictos controles.",
+                "iconName": "Layers"
+              },
+              {
+                "id": 3,
+                "title": "Control de Calidad",
+                "desc": "Verificación en línea del producto final.",
+                "iconName": "Eye"
+              },
+              {
+                "id": 4,
+                "title": "Descarga",
+                "desc": "Salida del material terminado y empacado.",
+                "iconName": "LogOut"
+              }
+            ],
+            "applications": [
+              {
+                "name": "Sector Primario",
+                "icon": "🏭",
+                "desc": "Aplicación en las industrias de mayor demanda"
+              },
+              {
+                "name": "Aplicación Especial",
+                "icon": "⚙️",
+                "desc": "Procesos personalizados para este equipo"
+              }
+            ],
+            "advantages": [
+              {
+                "title": "ALTA CONFIABILIDAD",
+                "desc": "Equipos diseñados para funcionar sin interrupciones con mínimo mantenimiento.",
+                "highlight": "Durabilidad"
+              },
+              {
+                "title": "INTEGRACIÓN 4.0",
+                "desc": "Monitoreo remoto y conexión con sistemas de gestión de planta.",
+                "highlight": "Tecnología"
+              }
+            ],
+            "specs": [
+              {
+                "param": "Modelo Base",
+                "value": "Serie SMQ-LBW-500"
               },
               {
                 "param": "Capacidad",
