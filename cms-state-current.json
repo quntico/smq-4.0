@@ -11,7 +11,7 @@
     "globalFilterOpacity": 75,
     "textJustify": true,
     "disableImageFilters": false,
-    "updatedAt": 1783456448430,
+    "updatedAt": 1783456751975,
     "footerCompanyName": "SMQ  SA de CV",
     "footerCompanyDesc": "Soluciones industriales de alta ingenieria, proyectos llave en mano y maquinaria para  procesamiento de alimentos y automatización.",
     "footerPhones": [
@@ -123,10 +123,10 @@
                 "id": 2,
                 "title": "Alimentos",
                 "description": "Líneas de procesamiento alimentario",
-                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1773020673672_CHOCOLATE%20A.jpg",
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783456746628_alimentos.webp",
                 "titleAlign": "center",
                 "descAlign": "center",
-                "imageOpacity": 0.1
+                "imageOpacity": 0.45
               },
               {
                 "id": 3,

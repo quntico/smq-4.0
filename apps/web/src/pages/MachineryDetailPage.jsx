@@ -1128,6 +1128,46 @@ const MachineryDetailPage = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(true);
 
+  const getSectorInfo = (industry) => {
+    if (!industry) return { path: '/industria/alimentos', name: 'Alimentos y Bebidas' };
+    const s = industry.toLowerCase();
+    if (s === 'reciclaje-y-plasticos' || s === 'reciclaje') {
+      return { path: '/industria/reciclaje', name: 'Reciclaje y Economía Circular' };
+    }
+    if (s === 'alimentos-y-bebidas' || s === 'alimentos') {
+      return { path: '/industria/alimentos', name: 'Alimentos y Bebidas' };
+    }
+    if (s === 'packaging-y-conversion' || s === 'packaging') {
+      return { path: '/industria/packaging', name: 'Packaging y Conversión' };
+    }
+    if (s === 'construccion-e-infraestructura' || s === 'construccion') {
+      return { path: '/industria/construccion', name: 'Construcción e Infraestructura' };
+    }
+    if (s === 'agroindustria-y-procesamiento' || s === 'agroindustria') {
+      return { path: '/industria/agroindustria', name: 'Agroindustria' };
+    }
+    if (s === 'salud-y-manufactura' || s === 'manufactura') {
+      return { path: '/industria/manufactura', name: 'Salud y Manufactura Avanzada' };
+    }
+    if (s === 'energia-y-utilidades' || s === 'energia') {
+      return { path: '/industria/energia', name: 'Energía y Utilidades' };
+    }
+    return { path: `/industria/${s}`, name: s.charAt(0).toUpperCase() + s.slice(1) };
+  };
+
+  const normalizeKey = (ind) => {
+    if (!ind) return 'alimentos';
+    const s = ind.toLowerCase();
+    if (s.includes('reciclaje')) return 'reciclaje';
+    if (s.includes('alimento')) return 'alimentos';
+    if (s.includes('packaging')) return 'packaging';
+    if (s.includes('construccion')) return 'construccion';
+    if (s.includes('agroindustria')) return 'agroindustria';
+    if (s.includes('manufactura') || s.includes('salud')) return 'manufactura';
+    if (s.includes('energia')) return 'energia';
+    return s;
+  };
+
   const [backPath, setBackPath] = useState('/industria/alimentos');
   const [backName, setBackName] = useState('Sector Alimentos');
 
@@ -1135,27 +1175,21 @@ const MachineryDetailPage = () => {
     const savedPath = localStorage.getItem('last_sector_path');
     const savedName = localStorage.getItem('last_sector_name');
     const currentIndustry = data.industry || defaults.industry;
-    const isRecycling = currentIndustry === 'reciclaje' || currentIndustry === 'reciclaje-y-plasticos';
+    const sectorInfo = getSectorInfo(currentIndustry);
 
-    // Forzar consistencia: si es reciclaje, el path de retorno debe ser reciclaje
-    if (savedPath && ((isRecycling && savedPath.includes('reciclaje')) || (!isRecycling && savedPath.includes('alimentos')))) {
+    const expectedKey = normalizeKey(currentIndustry);
+    const matchesSaved = savedPath && (savedPath.includes(expectedKey) || (expectedKey === 'reciclaje' && savedPath.includes('reciclaje-y-plasticos')));
+
+    if (savedPath && matchesSaved) {
       setBackPath(savedPath);
     } else {
-      if (isRecycling) {
-        setBackPath('/industria/reciclaje-y-plasticos');
-      } else {
-        setBackPath('/industria/alimentos');
-      }
+      setBackPath(sectorInfo.path);
     }
 
-    if (savedName && ((isRecycling && savedName.toLowerCase().includes('reciclaje')) || (!isRecycling && savedName.toLowerCase().includes('alimento')))) {
+    if (savedName && matchesSaved) {
       setBackName(savedName);
     } else {
-      if (isRecycling) {
-        setBackName('Sector Reciclaje');
-      } else {
-        setBackName('Sector Alimentos');
-      }
+      setBackName(sectorInfo.name);
     }
   }, [data.industry, defaults.industry]);
 
