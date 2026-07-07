@@ -2,7 +2,7 @@
 import React, { Suspense, useState, useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { Canvas, useLoader } from '@react-three/fiber';
-import { OrbitControls, Stage, useGLTF, Grid, ContactShadows } from '@react-three/drei';
+import { OrbitControls, Stage, useGLTF, Grid, ContactShadows, Html, useProgress } from '@react-three/drei';
 import { Play, Pause, RotateCcw, BoxSelect, Lock, Unlock } from 'lucide-react';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
@@ -42,6 +42,20 @@ const Model3ds = ({ url }) => {
 const ModelGltf = ({ url }) => {
     const { scene } = useGLTF(url);
     return <primitive object={scene} />;
+};
+
+const Loader = () => {
+    const { progress } = useProgress();
+    return (
+        <Html center>
+            <div className="flex flex-col items-center justify-center pointer-events-none w-64">
+                <div className="w-12 h-12 border-4 border-[#009FE3]/20 border-t-[#00D4FF] rounded-full animate-spin mb-4 shadow-[0_0_15px_rgba(0,212,255,0.5)]" />
+                <span className="text-[#00D4FF] font-black tracking-widest text-[11px] uppercase whitespace-nowrap bg-[#050B12]/80 px-4 py-2 rounded border border-[#009FE3]/30 backdrop-blur-md">
+                    CARGANDO MODELO 3D {progress ? `${progress.toFixed(0)}%` : ''}
+                </span>
+            </div>
+        </Html>
+    );
 };
 
 const ModelContainer = ({ children, wireframe, fxMode }) => {
@@ -167,7 +181,7 @@ const ModelViewer = ({ url, moduleData, updatePageModule, children, isEditorMode
                     fadeStrength={1}
                 />
 
-                <Suspense fallback={null}>
+                <Suspense fallback={<Loader />}>
                     <group position={[0, parseFloat(altitude), 0]} rotation={[0, rotationY * (Math.PI / 180), 0]}>
                         <Stage environment="city" intensity={0.4} shadows={false} adjustCamera={1.2}>
                             <ModelContainer wireframe={wireframe} fxMode={fxMode}>

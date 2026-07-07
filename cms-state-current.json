@@ -11,7 +11,7 @@
     "globalFilterOpacity": 75,
     "textJustify": true,
     "disableImageFilters": false,
-    "updatedAt": 1783465695856,
+    "updatedAt": 1783466392605,
     "footerCompanyName": "SMQ  SA de CV",
     "footerCompanyDesc": "Soluciones industriales de alta ingenieria, proyectos llave en mano y maquinaria para  procesamiento de alimentos y automatización.",
     "footerPhones": [
@@ -2384,279 +2384,6 @@
       ]
     },
     {
-      "id": "industria-packaging",
-      "title": "Packaging y Conversión",
-      "slug": "/industria/packaging",
-      "modules": [
-        {
-          "id": "sector-data",
-          "type": "sector-detail",
-          "data": {
-            "title": "Packaging y Conversión",
-            "subtitle": "Velocidad, sellado hermético y empaque inteligente",
-            "description": "Sistemas avanzados de envasado primario y secundario para formatos rígidos y flexibles. Ofrecemos envasadoras Doypack, líneas de llenado volumétrico y maquinaria de conversión de film.",
-            "heroImage": {
-              "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782615435986_pmp_seires.webp",
-              "type": "image",
-              "opacity": 0.5,
-              "brightness": 168,
-              "fogOpacity": 66,
-              "positionX": 0
-            },
-            "stats": [
-              {
-                "label": "Velocidad de Llenado",
-                "value": "150 ppm"
-              },
-              {
-                "label": "Hermeticidad de Sello",
-                "value": "99.99%"
-              },
-              {
-                "label": "Tiempo de Ajuste",
-                "value": "< 15 min"
-              },
-              {
-                "label": "Precisión de Peso",
-                "value": "±0.2%"
-              }
-            ],
-            "items": [
-              {
-                "id": "flexible",
-                "title": "Premade Pouch (PMP)",
-                "description": "Llenadoras automáticas rotativas para bolsas prefabricadas tipo pouch, stand-up pouch y zipper.",
-                "longDescription": "Flujo de envasado automático para bolsas premade pouch con apertura por vacío, codificación por chorro de tinta, llenado volumétrico/multicabezal y opción de inyección de gas para mayor vida útil del producto.",
-                "features": [
-                  "[icon:Shield] Apertura y sellado neumático servo-sincronizado",
-                  "[icon:Zap] Inyección de gas inerte N2 para conservación",
-                  "[icon:Cpu] Control total por PLC con recetas pregrabadas"
-                ],
-                "image": {
-                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782615509627_pmp_seires.webp",
-                  "type": "image",
-                  "opacity": 1,
-                  "blur": 0,
-                  "brightness": 100,
-                  "contrast": 100,
-                  "scale": 1,
-                  "positionX": 0,
-                  "positionY": 0,
-                  "objectFit": "cover",
-                  "bgColor": "transparent"
-                },
-                "tableHeaders": [
-                  "Especificación",
-                  "PMP-180",
-                  "PMP-250"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "Velocidad máxima de empaque",
-                    "width": "40 bolsas/min",
-                    "capacity": "40 bolsas/min"
-                  },
-                  {
-                    "model": "Ancho de bolsa",
-                    "width": "80–180 mm",
-                    "capacity": "150–250 mm"
-                  },
-                  {
-                    "model": "Largo de bolsa",
-                    "width": "150–350 mm",
-                    "capacity": "150–350 mm"
-                  },
-                  {
-                    "model": "Peso de llenado",
-                    "width": "10–1,500 g",
-                    "capacity": "10–1,500 g"
-                  },
-                  {
-                    "model": "Consumo de aire comprimido",
-                    "width": "≥ 0.8 m³/min",
-                    "capacity": "≥ 0.8 m³/min"
-                  },
-                  {
-                    "model": "Potencia instalada",
-                    "width": "7 kW",
-                    "capacity": "7 kW"
-                  },
-                  {
-                    "model": "Dimensiones L×A×H",
-                    "width": "2,070 × 1,810 × 1,620 mm",
-                    "capacity": "2,020 × 1,910 × 1,620 mm"
-                  },
-                  {
-                    "model": "Peso de máquina",
-                    "width": "2,400 kg",
-                    "capacity": "2,600 kg"
-                  }
-                ],
-                "images": [
-                  {
-                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782615509627_pmp_seires.webp",
-                    "type": "image",
-                    "opacity": 1,
-                    "blur": 0,
-                    "brightness": 100,
-                    "contrast": 100,
-                    "scale": 1,
-                    "positionX": 0,
-                    "positionY": 0,
-                    "objectFit": "cover",
-                    "bgColor": "transparent"
-                  },
-                  ""
-                ]
-              },
-              {
-                "id": "rigido",
-                "title": "Líneas de Envases Rígidos",
-                "description": "Llenadoras y tapadoras lineales/rotativas para botellas de plástico y vidrio.",
-                "longDescription": "Sistemas de dosificación por gravedad o caudalímetros inductivos que garantizan un llenado sin derrames. Tapadoras automáticas adaptables a tapas corona, rosca plástica o metálica.",
-                "features": [
-                  "[icon:Shield] Caudalímetros electromagnéticos de alta precisión",
-                  "[icon:Zap] Torque de tapado regulable por embrague magnético",
-                  "[icon:Cpu] CIP (Clean In Place) automático sin desmontaje de piezas"
-                ],
-                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png",
-                "tableHeaders": [
-                  "Modelo",
-                  "Tipo Envase",
-                  "Capacidad",
-                  "Precisión Llenado",
-                  "Grado Higiene"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "RF-200",
-                    "width": "Llenadora Rotativa 24 Válvulas",
-                    "capacity": "180 bpm",
-                    "power": "±0.2%",
-                    "weight": "Grado Alimentario/GMP"
-                  },
-                  {
-                    "model": "LT-120",
-                    "width": "Tapadora Lineal Automática",
-                    "capacity": "120 bpm",
-                    "power": "±0.5%",
-                    "weight": "Acero AISI 304"
-                  }
-                ]
-              },
-              {
-                "id": "impresion",
-                "title": "Sistemas de Impresión y Flexo",
-                "description": "Sistemas flexográficos de tambor central e impresión digital para películas plásticas.",
-                "longDescription": "Tecnología avanzada para impresión de alta velocidad sobre películas de PE, PP, BOPP, PET y papel. Sistemas de secado eficiente por aire caliente y curado UV.",
-                "features": [
-                  "[icon:Shield] Registro de color automático servomotorizado",
-                  "[icon:Zap] Secadores de alta eficiencia térmica por aire forzado",
-                  "[icon:Cpu] Control de tensión de película por celda de carga"
-                ],
-                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png",
-                "tableHeaders": [
-                  "Modelo",
-                  "Ancho Máximo",
-                  "Velocidad Impresión",
-                  "Colores",
-                  "Resolución"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "FL-4",
-                    "width": "Flexográfica 4 Colores",
-                    "capacity": "1200 mm",
-                    "power": "150 m/min",
-                    "weight": "80 LPI"
-                  },
-                  {
-                    "model": "FL-8",
-                    "width": "Flexo Tambor Central 8 Colores",
-                    "capacity": "1600 mm",
-                    "power": "250 m/min",
-                    "weight": "120 LPI"
-                  }
-                ]
-              },
-              {
-                "id": "etiquetado",
-                "title": "Etiquetadoras Industriales",
-                "description": "Aplicadoras de etiquetas autoadhesivas y túneles de manga termoencogible (Sleeve).",
-                "longDescription": "Colocación precisa y uniforme de etiquetas en botellas, tarros y cajas. Sistemas con motores paso a paso de gran par y lectura por fotoceldas de alta velocidad.",
-                "features": [
-                  "[icon:Shield] Dispensadores servomotorizados de alta respuesta",
-                  "[icon:Zap] Sensores de contraste y ultrasonido para etiquetas transparentes",
-                  "[icon:Cpu] Banda superior estabilizadora de envase para alineación perfecta"
-                ],
-                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115231575_choco%20color%202.png",
-                "tableHeaders": [
-                  "Modelo",
-                  "Tipo Aplicador",
-                  "Velocidad Máxima",
-                  "Ancho Etiqueta",
-                  "Tolerancia"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "ET-200",
-                    "width": "Etiquetadora Doble Cara",
-                    "capacity": "200 bpm",
-                    "power": "150 mm",
-                    "weight": "±0.5 mm"
-                  },
-                  {
-                    "model": "SLV-150",
-                    "width": "Aplicadora de Sleeve Termoencogible",
-                    "capacity": "150 bpm",
-                    "power": "200 mm",
-                    "weight": "±1.0 mm"
-                  }
-                ]
-              },
-              {
-                "id": "conversion",
-                "title": "Conversión y Rebobinado de Film",
-                "description": "Cortadoras, rebobinadoras y termoformadoras de film flexible.",
-                "longDescription": "Maquinaria de conversión de precisión para fraccionar bobinas anchas, rebobinar películas y fabricar empaques termoformados a partir de lámina rígida.",
-                "features": [
-                  "[icon:Shield] Ejes expansibles neumáticos de cambio rápido",
-                  "[icon:Zap] Cuchillas circulares y de corte por cizalla",
-                  "[icon:Cpu] Posicionamiento automático de cuchillas"
-                ],
-                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png",
-                "tableHeaders": [
-                  "Modelo",
-                  "Ancho Bobina",
-                  "Diámetro Desbobinado",
-                  "Velocidad Corte",
-                  "Tensión control"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "CV-1200",
-                    "width": "Cortadora Rebobinadora",
-                    "capacity": "1200 mm",
-                    "power": "800 mm",
-                    "weight": "400 m/min"
-                  },
-                  {
-                    "model": "TF-600",
-                    "width": "Termoformadora Industrial",
-                    "capacity": "600 mm",
-                    "power": "600 mm",
-                    "weight": "35 ciclos/min"
-                  }
-                ]
-              }
-            ],
-            "showStats": false,
-            "instalacionesImage": "/smq_factory_night2.png"
-          }
-        }
-      ]
-    },
-    {
       "id": "tecnologia-robotica",
       "title": "tecnologia-robotica",
       "slug": "/tecnologia-robotica",
@@ -4378,6 +4105,658 @@
                 "desc": "Sistemas de inspección óptica y láser."
               }
             ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "machinery-fl-4",
+      "title": "MODELO FL 4",
+      "slug": "/maquinaria/fl-4",
+      "modules": [
+        {
+          "id": "machinery-data-fl-4",
+          "type": "machinery-product",
+          "data": {
+            "pageNumber": "00",
+            "industry": "alimentos",
+            "theme": {
+              "accent": "#FFD700",
+              "accentGlow": "rgba(255, 215, 0, 0.4)",
+              "bgStart": "#080B12",
+              "bgEnd": "#0A0B10",
+              "glowColor": "yellow"
+            },
+            "heroTitle": "MODELO FL 4",
+            "heroSubtitle": "Especificaciones de ingeniería y desempeño para el equipo FL 4.",
+            "heroDesc": "Línea de maquinaria industrial SMQ optimizada para máxima eficiencia, precisión y control absoluto en flujos de trabajo continuos.",
+            "heroMedia": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
+            "kpis": [
+              {
+                "value": "99.2%",
+                "unit": "EFICIENCIA",
+                "label": "Rendimiento",
+                "desc": "Producción continua"
+              },
+              {
+                "value": "24/7",
+                "unit": "OPERACIÓN",
+                "label": "Disponibilidad",
+                "desc": "Sistemas redundantes"
+              },
+              {
+                "value": "Auto",
+                "unit": "CONTROL",
+                "label": "Precisión",
+                "desc": "Control avanzado por PLC"
+              },
+              {
+                "value": "Premium",
+                "unit": "CALIDAD",
+                "label": "Estándar",
+                "desc": "Materiales duraderos"
+              }
+            ],
+            "stations": [
+              {
+                "id": 1,
+                "title": "Alimentación",
+                "desc": "Ingreso del material al sistema automatizado.",
+                "iconName": "Inbox"
+              },
+              {
+                "id": 2,
+                "title": "Procesamiento",
+                "desc": "Transformación del producto bajo estrictos controles.",
+                "iconName": "Layers"
+              },
+              {
+                "id": 3,
+                "title": "Control de Calidad",
+                "desc": "Verificación en línea del producto final.",
+                "iconName": "Eye"
+              },
+              {
+                "id": 4,
+                "title": "Descarga",
+                "desc": "Salida del material terminado y empacado.",
+                "iconName": "LogOut"
+              }
+            ],
+            "applications": [
+              {
+                "name": "Sector Industrial",
+                "icon": "🏭",
+                "desc": "Diseñado para entornos exigentes"
+              }
+            ],
+            "advantages": [
+              {
+                "title": "CONSTRUCCIÓN PREMIUM",
+                "desc": "Estructura sólida anticorrosiva con materiales de alta calidad.",
+                "highlight": "Durabilidad"
+              }
+            ],
+            "specs": [
+              {
+                "param": "Modelo",
+                "value": "FL 4"
+              },
+              {
+                "param": "Capacidad",
+                "value": "Configurable según requerimiento"
+              },
+              {
+                "param": "Material",
+                "value": "Acero Inoxidable"
+              }
+            ],
+            "configurations": [
+              {
+                "name": "Automatización Completa",
+                "desc": "Módulos adicionales para operación desatendida."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "machinery-dimensiones-l×a×h",
+      "title": "MODELO DIMENSIONES L×A×H",
+      "slug": "/maquinaria/dimensiones-l×a×h",
+      "modules": [
+        {
+          "id": "machinery-data-dimensiones-l×a×h",
+          "type": "machinery-product",
+          "data": {
+            "pageNumber": "00",
+            "industry": "alimentos",
+            "theme": {
+              "accent": "#FFD700",
+              "accentGlow": "rgba(255, 215, 0, 0.4)",
+              "bgStart": "#080B12",
+              "bgEnd": "#0A0B10",
+              "glowColor": "yellow"
+            },
+            "heroTitle": "MODELO DIMENSIONES L×A×H",
+            "heroSubtitle": "Especificaciones de ingeniería y desempeño para el equipo DIMENSIONES L×A×H.",
+            "heroDesc": "Línea de maquinaria industrial SMQ optimizada para máxima eficiencia, precisión y control absoluto en flujos de trabajo continuos.",
+            "heroMedia": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
+            "kpis": [
+              {
+                "value": "99.2%",
+                "unit": "EFICIENCIA",
+                "label": "Rendimiento",
+                "desc": "Producción continua"
+              },
+              {
+                "value": "24/7",
+                "unit": "OPERACIÓN",
+                "label": "Disponibilidad",
+                "desc": "Sistemas redundantes"
+              },
+              {
+                "value": "Auto",
+                "unit": "CONTROL",
+                "label": "Precisión",
+                "desc": "Control avanzado por PLC"
+              },
+              {
+                "value": "Premium",
+                "unit": "CALIDAD",
+                "label": "Estándar",
+                "desc": "Materiales duraderos"
+              }
+            ],
+            "stations": [
+              {
+                "id": 1,
+                "title": "Alimentación",
+                "desc": "Ingreso del material al sistema automatizado.",
+                "iconName": "Inbox"
+              },
+              {
+                "id": 2,
+                "title": "Procesamiento",
+                "desc": "Transformación del producto bajo estrictos controles.",
+                "iconName": "Layers"
+              },
+              {
+                "id": 3,
+                "title": "Control de Calidad",
+                "desc": "Verificación en línea del producto final.",
+                "iconName": "Eye"
+              },
+              {
+                "id": 4,
+                "title": "Descarga",
+                "desc": "Salida del material terminado y empacado.",
+                "iconName": "LogOut"
+              }
+            ],
+            "applications": [
+              {
+                "name": "Sector Industrial",
+                "icon": "🏭",
+                "desc": "Diseñado para entornos exigentes"
+              }
+            ],
+            "advantages": [
+              {
+                "title": "CONSTRUCCIÓN PREMIUM",
+                "desc": "Estructura sólida anticorrosiva con materiales de alta calidad.",
+                "highlight": "Durabilidad"
+              }
+            ],
+            "specs": [
+              {
+                "param": "Modelo",
+                "value": "DIMENSIONES L×A×H"
+              },
+              {
+                "param": "Capacidad",
+                "value": "Configurable según requerimiento"
+              },
+              {
+                "param": "Material",
+                "value": "Acero Inoxidable"
+              }
+            ],
+            "configurations": [
+              {
+                "name": "Automatización Completa",
+                "desc": "Módulos adicionales para operación desatendida."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "machinery-alimentos-pkw-130",
+      "title": "LÍNEA DE EMPAQUETADO POLVOS PKW-130",
+      "slug": "/maquinaria/alimentos-pkw-130",
+      "modules": [
+        {
+          "id": "machinery-data-alimentos-pkw-130",
+          "type": "machinery-product",
+          "data": {
+            "industry": "alimentos",
+            "machineCode": "alimentos-pkw-130",
+            "pageNumber": "24",
+            "theme": {
+              "accent": "#F97316",
+              "accentGlow": "rgba(249, 115, 22, 0.4)",
+              "bgStart": "#120702",
+              "bgEnd": "#2C1103",
+              "glowColor": "orange"
+            },
+            "heroTitle": "LÍNEA DE EMPAQUETADO POLVOS PKW-130",
+            "heroSubtitle": "Empacado vertical de productos pulverulentos.",
+            "heroDesc": "Descripción detallada para Línea de Empaquetado Polvos PKW-130. El sistema está diseñado para cumplir con los estándares industriales más exigentes. Puedes editar este contenido desde el CMS para especificar el funcionamiento exacto y los beneficios de esta línea.",
+            "heroMedia": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
+            "kpis": [
+              {
+                "value": "100%",
+                "unit": "EFICIENCIA",
+                "label": "Rendimiento",
+                "desc": "Producción continua"
+              },
+              {
+                "value": "24/7",
+                "unit": "OPERACIÓN",
+                "label": "Disponibilidad",
+                "desc": "Sistemas redundantes"
+              },
+              {
+                "value": "Auto",
+                "unit": "CONTROL",
+                "label": "Precisión",
+                "desc": "Control avanzado por PLC"
+              },
+              {
+                "value": "Premium",
+                "unit": "CALIDAD",
+                "label": "Estándar",
+                "desc": "Materiales duraderos"
+              }
+            ],
+            "stations": [
+              {
+                "id": 1,
+                "title": "Alimentación",
+                "desc": "Ingreso del material al sistema automatizado.",
+                "iconName": "Inbox"
+              },
+              {
+                "id": 2,
+                "title": "Procesamiento",
+                "desc": "Transformación del producto bajo estrictos controles.",
+                "iconName": "Layers"
+              },
+              {
+                "id": 3,
+                "title": "Control de Calidad",
+                "desc": "Verificación en línea del producto final.",
+                "iconName": "Eye"
+              },
+              {
+                "id": 4,
+                "title": "Descarga",
+                "desc": "Salida del material terminado y empacado.",
+                "iconName": "LogOut"
+              }
+            ],
+            "applications": [
+              {
+                "name": "Sector Primario",
+                "icon": "🏭",
+                "desc": "Aplicación en las industrias de mayor demanda"
+              },
+              {
+                "name": "Aplicación Especial",
+                "icon": "⚙️",
+                "desc": "Procesos personalizados para este equipo"
+              }
+            ],
+            "advantages": [
+              {
+                "title": "ALTA CONFIABILIDAD",
+                "desc": "Equipos diseñados para funcionar sin interrupciones con mínimo mantenimiento.",
+                "highlight": "Durabilidad"
+              },
+              {
+                "title": "INTEGRACIÓN 4.0",
+                "desc": "Monitoreo remoto y conexión con sistemas de gestión de planta.",
+                "highlight": "Tecnología"
+              }
+            ],
+            "specs": [
+              {
+                "param": "Modelo Base",
+                "value": "Serie SMQ-PKW-130"
+              },
+              {
+                "param": "Capacidad",
+                "value": "Configurable según requerimientos"
+              },
+              {
+                "param": "Controlador",
+                "value": "PLC de última generación con pantalla HMI"
+              }
+            ],
+            "configurations": [
+              {
+                "name": "Automatización Completa",
+                "desc": "Módulos adicionales para operación desatendida."
+              },
+              {
+                "name": "Sensores Avanzados",
+                "desc": "Sistemas de inspección óptica y láser."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "industria-packaging",
+      "title": "Packaging y Conversión",
+      "slug": "/industria/packaging",
+      "modules": [
+        {
+          "id": "sector-data",
+          "type": "sector-detail",
+          "data": {
+            "title": "Packaging y Conversión",
+            "subtitle": "Velocidad, sellado hermético y empaque inteligente",
+            "description": "Sistemas avanzados de envasado primario y secundario para formatos rígidos y flexibles. Ofrecemos envasadoras Doypack, líneas de llenado volumétrico y maquinaria de conversión de film.",
+            "heroImage": {
+              "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782615435986_pmp_seires.webp",
+              "type": "image",
+              "opacity": 0.5,
+              "brightness": 168,
+              "fogOpacity": 66,
+              "positionX": 0
+            },
+            "stats": [
+              {
+                "label": "Velocidad de Llenado",
+                "value": "150 ppm"
+              },
+              {
+                "label": "Hermeticidad de Sello",
+                "value": "99.99%"
+              },
+              {
+                "label": "Tiempo de Ajuste",
+                "value": "< 15 min"
+              },
+              {
+                "label": "Precisión de Peso",
+                "value": "±0.2%"
+              }
+            ],
+            "items": [
+              {
+                "id": "flexible",
+                "title": "Premade Pouch (PMP)",
+                "description": "Llenadoras automáticas rotativas para bolsas prefabricadas tipo pouch, stand-up pouch y zipper.",
+                "longDescription": "Flujo de envasado automático para bolsas premade pouch con apertura por vacío, codificación por chorro de tinta, llenado volumétrico/multicabezal y opción de inyección de gas para mayor vida útil del producto.",
+                "features": [
+                  "[icon:Shield] Apertura y sellado neumático servo-sincronizado",
+                  "[icon:Zap] Inyección de gas inerte N2 para conservación",
+                  "[icon:Cpu] Control total por PLC con recetas pregrabadas"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782615509627_pmp_seires.webp",
+                  "type": "image",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100,
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "cover",
+                  "bgColor": "transparent"
+                },
+                "tableHeaders": [
+                  "Especificación",
+                  "PMP-180",
+                  "PMP-250"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "Velocidad máxima de empaque",
+                    "width": "40 bolsas/min",
+                    "capacity": "40 bolsas/min"
+                  },
+                  {
+                    "model": "Ancho de bolsa",
+                    "width": "80–180 mm",
+                    "capacity": "150–250 mm"
+                  },
+                  {
+                    "model": "Largo de bolsa",
+                    "width": "150–350 mm",
+                    "capacity": "150–350 mm"
+                  },
+                  {
+                    "model": "Peso de llenado",
+                    "width": "10–1,500 g",
+                    "capacity": "10–1,500 g"
+                  },
+                  {
+                    "model": "Consumo de aire comprimido",
+                    "width": "≥ 0.8 m³/min",
+                    "capacity": "≥ 0.8 m³/min"
+                  },
+                  {
+                    "model": "Potencia instalada",
+                    "width": "7 kW",
+                    "capacity": "7 kW"
+                  },
+                  {
+                    "model": "Dimensiones L×A×H",
+                    "width": "2,070 × 1,810 × 1,620 mm",
+                    "capacity": "2,020 × 1,910 × 1,620 mm"
+                  },
+                  {
+                    "model": "Peso de máquina",
+                    "width": "2,400 kg",
+                    "capacity": "2,600 kg"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782615509627_pmp_seires.webp",
+                    "type": "image",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100,
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "cover",
+                    "bgColor": "transparent"
+                  },
+                  ""
+                ]
+              },
+              {
+                "id": "rigido",
+                "title": "Líneas de Envases Rígidos",
+                "description": "Llenadoras y tapadoras lineales/rotativas para botellas de plástico y vidrio.",
+                "longDescription": "Sistemas de dosificación por gravedad o caudalímetros inductivos que garantizan un llenado sin derrames. Tapadoras automáticas adaptables a tapas corona, rosca plástica o metálica.",
+                "features": [
+                  "[icon:Shield] Caudalímetros electromagnéticos de alta precisión",
+                  "[icon:Zap] Torque de tapado regulable por embrague magnético",
+                  "[icon:Cpu] CIP (Clean In Place) automático sin desmontaje de piezas"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png",
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Envase",
+                  "Capacidad",
+                  "Precisión Llenado",
+                  "Grado Higiene"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "RF-200",
+                    "width": "Llenadora Rotativa 24 Válvulas",
+                    "capacity": "180 bpm",
+                    "power": "±0.2%",
+                    "weight": "Grado Alimentario/GMP"
+                  },
+                  {
+                    "model": "LT-120",
+                    "width": "Tapadora Lineal Automática",
+                    "capacity": "120 bpm",
+                    "power": "±0.5%",
+                    "weight": "Acero AISI 304"
+                  }
+                ]
+              },
+              {
+                "id": "impresion",
+                "title": "Sistemas de Impresión y Flexo",
+                "description": "Sistemas flexográficos de tambor central e impresión digital para películas plásticas.",
+                "longDescription": "Tecnología avanzada para impresión de alta velocidad sobre películas de PE, PP, BOPP, PET y papel. Sistemas de secado eficiente por aire caliente y curado UV.",
+                "features": [
+                  "[icon:Shield] Registro de color automático servomotorizado",
+                  "[icon:Zap] Secadores de alta eficiencia térmica por aire forzado",
+                  "[icon:Cpu] Control de tensión de película por celda de carga"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783466392238_ALPHA.webp",
+                  "type": "image",
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "contain",
+                  "bgColor": "transparent",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100
+                },
+                "tableHeaders": [
+                  "Modelo",
+                  "Ancho Máximo",
+                  "Velocidad Impresión",
+                  "Colores",
+                  "Resolución"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "FL-4",
+                    "width": "Flexográfica 4 Colores",
+                    "capacity": "1200 mm",
+                    "power": "150 m/min",
+                    "weight": "80 LPI"
+                  },
+                  {
+                    "model": "FL-8",
+                    "width": "Flexo Tambor Central 8 Colores",
+                    "capacity": "1600 mm",
+                    "power": "250 m/min",
+                    "weight": "120 LPI"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783466392238_ALPHA.webp",
+                    "type": "image",
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "contain",
+                    "bgColor": "transparent",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100
+                  },
+                  ""
+                ]
+              },
+              {
+                "id": "etiquetado",
+                "title": "Etiquetadoras Industriales",
+                "description": "Aplicadoras de etiquetas autoadhesivas y túneles de manga termoencogible (Sleeve).",
+                "longDescription": "Colocación precisa y uniforme de etiquetas en botellas, tarros y cajas. Sistemas con motores paso a paso de gran par y lectura por fotoceldas de alta velocidad.",
+                "features": [
+                  "[icon:Shield] Dispensadores servomotorizados de alta respuesta",
+                  "[icon:Zap] Sensores de contraste y ultrasonido para etiquetas transparentes",
+                  "[icon:Cpu] Banda superior estabilizadora de envase para alineación perfecta"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115231575_choco%20color%202.png",
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Aplicador",
+                  "Velocidad Máxima",
+                  "Ancho Etiqueta",
+                  "Tolerancia"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "ET-200",
+                    "width": "Etiquetadora Doble Cara",
+                    "capacity": "200 bpm",
+                    "power": "150 mm",
+                    "weight": "±0.5 mm"
+                  },
+                  {
+                    "model": "SLV-150",
+                    "width": "Aplicadora de Sleeve Termoencogible",
+                    "capacity": "150 bpm",
+                    "power": "200 mm",
+                    "weight": "±1.0 mm"
+                  }
+                ]
+              },
+              {
+                "id": "conversion",
+                "title": "Conversión y Rebobinado de Film",
+                "description": "Cortadoras, rebobinadoras y termoformadoras de film flexible.",
+                "longDescription": "Maquinaria de conversión de precisión para fraccionar bobinas anchas, rebobinar películas y fabricar empaques termoformados a partir de lámina rígida.",
+                "features": [
+                  "[icon:Shield] Ejes expansibles neumáticos de cambio rápido",
+                  "[icon:Zap] Cuchillas circulares y de corte por cizalla",
+                  "[icon:Cpu] Posicionamiento automático de cuchillas"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png",
+                "tableHeaders": [
+                  "Modelo",
+                  "Ancho Bobina",
+                  "Diámetro Desbobinado",
+                  "Velocidad Corte",
+                  "Tensión control"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "CV-1200",
+                    "width": "Cortadora Rebobinadora",
+                    "capacity": "1200 mm",
+                    "power": "800 mm",
+                    "weight": "400 m/min"
+                  },
+                  {
+                    "model": "TF-600",
+                    "width": "Termoformadora Industrial",
+                    "capacity": "600 mm",
+                    "power": "600 mm",
+                    "weight": "35 ciclos/min"
+                  }
+                ]
+              }
+            ],
+            "showStats": false,
+            "instalacionesImage": "/smq_factory_night2.png"
           }
         }
       ]
