@@ -11,7 +11,7 @@
     "globalFilterOpacity": 75,
     "textJustify": true,
     "disableImageFilters": false,
-    "updatedAt": 1783456112653,
+    "updatedAt": 1783456448430,
     "footerCompanyName": "SMQ  SA de CV",
     "footerCompanyDesc": "Soluciones industriales de alta ingenieria, proyectos llave en mano y maquinaria para  procesamiento de alimentos y automatización.",
     "footerPhones": [
@@ -3470,6 +3470,117 @@
       ]
     },
     {
+      "id": "machinery-map - 1050",
+      "title": "MODELO MAP - 1050",
+      "slug": "/maquinaria/map - 1050",
+      "modules": [
+        {
+          "id": "machinery-data-map - 1050",
+          "type": "machinery-product",
+          "data": {
+            "pageNumber": "00",
+            "theme": {
+              "accent": "#FFD700",
+              "accentGlow": "rgba(255, 215, 0, 0.4)",
+              "bgStart": "#080B12",
+              "bgEnd": "#0A0B10",
+              "glowColor": "yellow"
+            },
+            "heroTitle": "MODELO MAP - 1050",
+            "heroSubtitle": "Especificaciones de ingeniería y desempeño para el equipo MAP - 1050.",
+            "heroDesc": "Línea de maquinaria industrial SMQ optimizada para máxima eficiencia, precisión y control absoluto en flujos de trabajo continuos.",
+            "heroMedia": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
+            "kpis": [
+              {
+                "value": "99.2%",
+                "unit": "EFICIENCIA",
+                "label": "Rendimiento",
+                "desc": "Producción continua"
+              },
+              {
+                "value": "24/7",
+                "unit": "OPERACIÓN",
+                "label": "Disponibilidad",
+                "desc": "Sistemas redundantes"
+              },
+              {
+                "value": "Auto",
+                "unit": "CONTROL",
+                "label": "Precisión",
+                "desc": "Control avanzado por PLC"
+              },
+              {
+                "value": "Premium",
+                "unit": "CALIDAD",
+                "label": "Estándar",
+                "desc": "Materiales duraderos"
+              }
+            ],
+            "stations": [
+              {
+                "id": 1,
+                "title": "Alimentación",
+                "desc": "Ingreso del material al sistema automatizado.",
+                "iconName": "Inbox"
+              },
+              {
+                "id": 2,
+                "title": "Procesamiento",
+                "desc": "Transformación del producto bajo estrictos controles.",
+                "iconName": "Layers"
+              },
+              {
+                "id": 3,
+                "title": "Control de Calidad",
+                "desc": "Verificación en línea del producto final.",
+                "iconName": "Eye"
+              },
+              {
+                "id": 4,
+                "title": "Descarga",
+                "desc": "Salida del material terminado y empacado.",
+                "iconName": "LogOut"
+              }
+            ],
+            "applications": [
+              {
+                "name": "Sector Industrial",
+                "icon": "🏭",
+                "desc": "Diseñado para entornos exigentes"
+              }
+            ],
+            "advantages": [
+              {
+                "title": "CONSTRUCCIÓN PREMIUM",
+                "desc": "Estructura sólida anticorrosiva con materiales de alta calidad.",
+                "highlight": "Durabilidad"
+              }
+            ],
+            "specs": [
+              {
+                "param": "Modelo",
+                "value": "MAP - 1050"
+              },
+              {
+                "param": "Capacidad",
+                "value": "Configurable según requerimiento"
+              },
+              {
+                "param": "Material",
+                "value": "Acero Inoxidable"
+              }
+            ],
+            "configurations": [
+              {
+                "name": "Automatización Completa",
+                "desc": "Módulos adicionales para operación desatendida."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "industria-manufactura",
       "title": "Salud y Manufactura Avanzada",
       "slug": "/industria/manufactura",
@@ -3700,7 +3811,19 @@
                   "[icon:Zap] Brazos robóticos articulados o tipo SCARA (Stäubli/Fanuc)",
                   "[icon:Cpu] Pruebas integradas de estanqueidad y conductividad eléctrica"
                 ],
-                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115231575_choco%20color%202.png",
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783456447607_ensamblaje.webp",
+                  "type": "image",
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "contain",
+                  "bgColor": "transparent",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100
+                },
                 "tableHeaders": [
                   "Modelo",
                   "Tipo Automatización",
@@ -3723,6 +3846,22 @@
                     "power": "Indexador 8 Estaciones",
                     "weight": "EtherNet/IP"
                   }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783456447607_ensamblaje.webp",
+                    "type": "image",
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "contain",
+                    "bgColor": "transparent",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100
+                  },
+                  ""
                 ]
               }
             ],
