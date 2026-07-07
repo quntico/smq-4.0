@@ -11,7 +11,7 @@
     "globalFilterOpacity": 75,
     "textJustify": true,
     "disableImageFilters": false,
-    "updatedAt": 1783466392605,
+    "updatedAt": 1783466528763,
     "footerCompanyName": "SMQ  SA de CV",
     "footerCompanyDesc": "Soluciones industriales de alta ingenieria, proyectos llave en mano y maquinaria para  procesamiento de alimentos y automatización.",
     "footerPhones": [
@@ -4632,7 +4632,7 @@
                   "[icon:Cpu] Control de tensión de película por celda de carga"
                 ],
                 "image": {
-                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783466392238_ALPHA.webp",
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783466528126_alpha_4.webp",
                   "type": "image",
                   "scale": 1,
                   "positionX": 0,
@@ -4653,23 +4653,23 @@
                 ],
                 "equipmentTable": [
                   {
-                    "model": "FL-4",
-                    "width": "Flexográfica 4 Colores",
-                    "capacity": "1200 mm",
-                    "power": "150 m/min",
-                    "weight": "80 LPI"
+                    "model": "ALPHA 4 ",
+                    "width": "Flexográfica  Tambor central 4 y 6 Colores",
+                    "capacity": "200 m/min",
+                    "power": "04 / 06",
+                    "weight": "650 LPI"
                   },
                   {
-                    "model": "FL-8",
+                    "model": "ATHENA-8",
                     "width": "Flexo Tambor Central 8 Colores",
                     "capacity": "1600 mm",
                     "power": "250 m/min",
-                    "weight": "120 LPI"
+                    "weight": "850 LPI"
                   }
                 ],
                 "images": [
                   {
-                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783466392238_ALPHA.webp",
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783466528126_alpha_4.webp",
                     "type": "image",
                     "scale": 1,
                     "positionX": 0,
