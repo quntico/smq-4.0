@@ -11,7 +11,7 @@
     "globalFilterOpacity": 75,
     "textJustify": true,
     "disableImageFilters": false,
-    "updatedAt": 1783458807289,
+    "updatedAt": 1783458954224,
     "footerCompanyName": "SMQ  SA de CV",
     "footerCompanyDesc": "Soluciones industriales de alta ingenieria, proyectos llave en mano y maquinaria para  procesamiento de alimentos y automatización.",
     "footerPhones": [
@@ -1135,363 +1135,6 @@
             "fogOpacity": 92,
             "fogDirection": "to-r",
             "objectFit": "cover"
-          }
-        }
-      ]
-    },
-    {
-      "id": "industria-reciclaje",
-      "title": "Industria de Reciclaje y Economía Circular",
-      "slug": "/industria/reciclaje",
-      "modules": [
-        {
-          "id": "sector-data",
-          "type": "sector-detail",
-          "data": {
-            "title": "Industria de Reciclaje y Economía Circular",
-            "subtitle": "Tecnología líder para la economía circular y recuperación de materiales",
-            "description": "Diseñamos y fabricamos sistemas llave en mano de alto rendimiento para el procesamiento, triturado, lavado y extrusión de polímeros, metales y residuos. Nuestras soluciones maximizan la pureza del material recuperado y reducen el consumo energético operativo.",
-            "heroImage": {
-              "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png",
-              "brightness": 168,
-              "opacity": 0.7,
-              "fogOpacity": 86
-            },
-            "stats": [
-              {
-                "label": "Eficiencia de Lavado",
-                "value": "99.2%"
-              },
-              {
-                "label": "Rendimiento Máximo",
-                "value": "2.5 Ton/h"
-              },
-              {
-                "label": "Ahorro de Energía",
-                "value": "Hasta 30%"
-              },
-              {
-                "label": "Vida Útil Husillo",
-                "value": "25,000h+"
-              }
-            ],
-            "items": [
-              {
-                "id": "plasticos",
-                "title": "Líneas de Reciclaje de Plásticos",
-                "description": "Lavado, extrusión y peletizado de polímeros de alta pureza.",
-                "longDescription": "Módulos modulares integrados para la remoción completa de adhesivos, contaminantes y etiquetas en botellas PET post-consumo, y peletizado con humedad residual inferior al 1%.",
-                "features": [
-                  "[icon:Shield] Trituración en húmedo de alta fricción",
-                  "[icon:Zap] Flotación por densidad en tinas gravimétricas",
-                  "[icon:Cpu] Extrusión y desgasificación al vacío"
-                ],
-                "image": {
-                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png",
-                  "type": "image",
-                  "opacity": 1,
-                  "blur": 0,
-                  "brightness": 100,
-                  "contrast": 100,
-                  "scale": 1,
-                  "positionX": 0,
-                  "positionY": 0,
-                  "objectFit": "cover",
-                  "bgColor": "transparent"
-                },
-                "tableHeaders": [
-                  "Modelo",
-                  "Capacidad",
-                  "Eficiencia",
-                  "Potencia",
-                  "Material"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "PL-120",
-                    "width": "Lavado y Extrusión PET",
-                    "capacity": "1.2 Ton/h",
-                    "power": "99.2%",
-                    "weight": "110 kW"
-                  },
-                  {
-                    "model": "PL-250",
-                    "width": "Planta PE/PP Film",
-                    "capacity": "2.5 Ton/h",
-                    "power": "98.8%",
-                    "weight": "160 kW"
-                  }
-                ],
-                "images": [
-                  {
-                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png",
-                    "type": "image",
-                    "opacity": 1,
-                    "blur": 0,
-                    "brightness": 100,
-                    "contrast": 100,
-                    "scale": 1,
-                    "positionX": 0,
-                    "positionY": 0,
-                    "objectFit": "cover",
-                    "bgColor": "transparent"
-                  },
-                  ""
-                ]
-              },
-              {
-                "id": "metales",
-                "title": "Trituradoras de Alta Eficiencia.",
-                "description": "Trituradoras para Plástico, Papel, Madera, Metales y órgánicos.",
-                "longDescription": "Sistemas de trituración con rotores fabricados con tecnología láser clading para asegurar una alta eficiencia y garantía del rotor de hasta 5 años. Diseñadas para trabajos industriales.",
-                "features": [
-                  "[icon:Shield] Imán de tierras raras de neodimio de alto Gauss",
-                  "[icon:Zap] Rotor de polos múltiples para corrientes Foucault",
-                  "[icon:Cpu] Clasificación automatizada de metales no ferrosos"
-                ],
-                "image": {
-                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781667218635_trit_portada.png",
-                  "type": "image",
-                  "opacity": 1,
-                  "blur": 0,
-                  "brightness": 100,
-                  "contrast": 100,
-                  "scale": 1,
-                  "positionX": 0,
-                  "positionY": 0,
-                  "objectFit": "cover",
-                  "bgColor": "transparent"
-                },
-                "tableHeaders": [
-                  "Modelo",
-                  "Tipo Separador",
-                  "Capacidad",
-                  "Eficiencia",
-                  "Potencia"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "MS-800",
-                    "width": "Separador Overbelt Magnético",
-                    "capacity": "1.5 Ton/h",
-                    "power": "98.5%",
-                    "weight": "5.5 kW"
-                  },
-                  {
-                    "model": "ECS-600",
-                    "width": "Corrientes de Foucault (Eddy)",
-                    "capacity": "2.0 Ton/h",
-                    "power": "99.1%",
-                    "weight": "11 kW"
-                  }
-                ],
-                "images": [
-                  {
-                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781667218635_trit_portada.png",
-                    "type": "image",
-                    "opacity": 1,
-                    "blur": 0,
-                    "brightness": 100,
-                    "contrast": 100,
-                    "scale": 1,
-                    "positionX": 0,
-                    "positionY": 0,
-                    "objectFit": "cover",
-                    "bgColor": "transparent"
-                  },
-                  ""
-                ]
-              },
-              {
-                "id": "rsu",
-                "title": "Tratamiento de Residuos Sólidos Urbanos (RSU)",
-                "description": "Separación, trituración y preparación de combustibles alternativos.",
-                "longDescription": "Sistemas llave en mano de clasificación mecánica y biológica combinando trómeles de cribado, separadores ópticos NIR y desgasificadores neumáticos.",
-                "features": [
-                  "[icon:Shield] Trómeles rotativos de clasificación por size",
-                  "[icon:Zap] Separación óptica de polímeros por espectrometría",
-                  "[icon:Cpu] Preparación de Combustibles Derivados de Residuo (CDR)"
-                ],
-                "image": {
-                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781667983304_RSU.png",
-                  "type": "image",
-                  "opacity": 1,
-                  "blur": 0,
-                  "brightness": 100,
-                  "contrast": 100,
-                  "scale": 1,
-                  "positionX": 0,
-                  "positionY": 0,
-                  "objectFit": "cover",
-                  "bgColor": "transparent"
-                },
-                "tableHeaders": [
-                  "Modelo",
-                  "Componente RSU",
-                  "Capacidad",
-                  "Grado Clasificación",
-                  "Potencia"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "MSW-1500",
-                    "width": "Trómel Separador Rotativo",
-                    "capacity": "15 Ton/h",
-                    "power": "90%",
-                    "weight": "45 kW"
-                  },
-                  {
-                    "model": "NIR-1200",
-                    "width": "Clasificador Óptico Infrarrojo",
-                    "capacity": "8 Ton/h",
-                    "power": "97%",
-                    "weight": "15 kW"
-                  }
-                ],
-                "images": [
-                  {
-                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781667983304_RSU.png",
-                    "type": "image",
-                    "opacity": 1,
-                    "blur": 0,
-                    "brightness": 100,
-                    "contrast": 100,
-                    "scale": 1,
-                    "positionX": 0,
-                    "positionY": 0,
-                    "objectFit": "cover",
-                    "bgColor": "transparent"
-                  },
-                  ""
-                ]
-              },
-              {
-                "id": "recuperacion",
-                "title": "Recuperación Avanzada de Materiales",
-                "description": "Clasificación automatizada de subproductos secos como papel, cartón y vidrio.",
-                "longDescription": "Estaciones de selección automática optimizadas para el flujo inverso de plantas municipales, utilizando tecnología de cribado balístico.",
-                "features": [
-                  "[icon:Shield] Separación balística de fracciones planas y rodantes",
-                  "[icon:Zap] Sensores ópticos inductivos de alta resolución",
-                  "[icon:Cpu] Control por red SCADA integrada en sala de control"
-                ],
-                "image": {
-                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781666288358_clasificadora_2.png",
-                  "type": "image",
-                  "opacity": 1,
-                  "blur": 0,
-                  "brightness": 100,
-                  "contrast": 100,
-                  "scale": 1,
-                  "positionX": 0,
-                  "positionY": 0,
-                  "objectFit": "cover",
-                  "bgColor": "transparent"
-                },
-                "tableHeaders": [
-                  "Modelo",
-                  "Aplicación",
-                  "Rendimiento",
-                  "Separación",
-                  "Estructura"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "MR-600",
-                    "width": "Clasificador Balístico",
-                    "capacity": "6 Ton/h",
-                    "power": "95%",
-                    "weight": "Acero Soldado"
-                  },
-                  {
-                    "model": "VIS-400",
-                    "width": "Inspección Óptica Vidrio",
-                    "capacity": "4 Ton/h",
-                    "power": "99%",
-                    "weight": "Acero SUS304"
-                  }
-                ],
-                "images": [
-                  {
-                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781666288358_clasificadora_2.png",
-                    "type": "image",
-                    "opacity": 1,
-                    "blur": 0,
-                    "brightness": 100,
-                    "contrast": 100,
-                    "scale": 1,
-                    "positionX": 0,
-                    "positionY": 0,
-                    "objectFit": "cover",
-                    "bgColor": "transparent"
-                  },
-                  ""
-                ]
-              },
-              {
-                "id": "economia-circular",
-                "title": "Estrategias de Economía Circular",
-                "description": "Compounding, aditivos especiales y valorización completa de mermas.",
-                "longDescription": "Asesoría y desarrollo técnico para la transformación de descartes de producción en materias primas secundarias de alta calidad listas para inyección.",
-                "features": [
-                  "[icon:Shield] Hola mundo.",
-                  "[icon:Zap] Aditivos avanzados para restauración de viscosidad",
-                  "[icon:Cpu] Plantas modulares de micronizado a medida"
-                ],
-                "image": {
-                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781666099054_economia_circular.png",
-                  "type": "image",
-                  "opacity": 1,
-                  "blur": 0,
-                  "brightness": 100,
-                  "contrast": 100,
-                  "scale": 1,
-                  "positionX": 0,
-                  "positionY": 0,
-                  "objectFit": "cover",
-                  "bgColor": "transparent"
-                },
-                "tableHeaders": [
-                  "Modelo",
-                  "Servicio/Equipo",
-                  "Capacidad",
-                  "Normativa",
-                  "Garantía"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "EC-200",
-                    "width": "Línea Compounding Piloto",
-                    "capacity": "200 kg/h",
-                    "power": "ISO 9001",
-                    "weight": "2 Años"
-                  },
-                  {
-                    "model": "EC-500",
-                    "width": "Sistemas de Micronización",
-                    "capacity": "500 kg/h",
-                    "power": "CE",
-                    "weight": "2 Años"
-                  }
-                ],
-                "images": [
-                  {
-                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781666099054_economia_circular.png",
-                    "type": "image",
-                    "opacity": 1,
-                    "blur": 0,
-                    "brightness": 100,
-                    "contrast": 100,
-                    "scale": 1,
-                    "positionX": 0,
-                    "positionY": 0,
-                    "objectFit": "cover",
-                    "bgColor": "transparent"
-                  },
-                  ""
-                ]
-              }
-            ]
           }
         }
       ]
@@ -3973,6 +3616,364 @@
                     "blur": 0,
                     "brightness": 100,
                     "contrast": 100
+                  },
+                  ""
+                ]
+              }
+            ],
+            "instalacionesImage": "/smq_factory_night2.png"
+          }
+        }
+      ]
+    },
+    {
+      "id": "industria-reciclaje",
+      "title": "Industria de Reciclaje y Economía Circular",
+      "slug": "/industria/reciclaje",
+      "modules": [
+        {
+          "id": "sector-data",
+          "type": "sector-detail",
+          "data": {
+            "title": "Industria de Reciclaje y Economía Circular",
+            "subtitle": "Tecnología líder para la economía circular y recuperación de materiales",
+            "description": "Diseñamos y fabricamos sistemas llave en mano de alto rendimiento para el procesamiento, triturado, lavado y extrusión de polímeros, metales y residuos. Nuestras soluciones maximizan la pureza del material recuperado y reducen el consumo energético operativo.",
+            "heroImage": {
+              "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png",
+              "brightness": 168,
+              "opacity": 0.7,
+              "fogOpacity": 86
+            },
+            "stats": [
+              {
+                "label": "Eficiencia de Lavado",
+                "value": "99.2%"
+              },
+              {
+                "label": "Rendimiento Máximo",
+                "value": "2.5 Ton/h"
+              },
+              {
+                "label": "Ahorro de Energía",
+                "value": "Hasta 30%"
+              },
+              {
+                "label": "Vida Útil Husillo",
+                "value": "25,000h+"
+              }
+            ],
+            "items": [
+              {
+                "id": "plasticos",
+                "title": "Líneas de Reciclaje de Plásticos",
+                "description": "Lavado, extrusión y peletizado de polímeros de alta pureza.",
+                "longDescription": "Módulos modulares integrados para la remoción completa de adhesivos, contaminantes y etiquetas en botellas PET post-consumo, y peletizado con humedad residual inferior al 1%.",
+                "features": [
+                  "[icon:Shield] Trituración en húmedo de alta fricción",
+                  "[icon:Zap] Flotación por densidad en tinas gravimétricas",
+                  "[icon:Cpu] Extrusión y desgasificación al vacío"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png",
+                  "type": "image",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100,
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "cover",
+                  "bgColor": "transparent"
+                },
+                "tableHeaders": [
+                  "Modelo",
+                  "Capacidad",
+                  "Eficiencia",
+                  "Potencia",
+                  "Material"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "PL-120",
+                    "width": "Lavado y Extrusión PET",
+                    "capacity": "1.2 Ton/h",
+                    "power": "99.2%",
+                    "weight": "110 kW"
+                  },
+                  {
+                    "model": "PL-250",
+                    "width": "Planta PE/PP Film",
+                    "capacity": "2.5 Ton/h",
+                    "power": "98.8%",
+                    "weight": "160 kW"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png",
+                    "type": "image",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100,
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "cover",
+                    "bgColor": "transparent"
+                  },
+                  ""
+                ]
+              },
+              {
+                "id": "metales",
+                "title": "Trituradoras de Alta Eficiencia.",
+                "description": "Trituradoras para Plástico, Papel, Madera, Metales y órgánicos.",
+                "longDescription": "Sistemas de trituración con rotores fabricados con tecnología láser clading para asegurar una alta eficiencia y garantía del rotor de hasta 5 años. Diseñadas para trabajos industriales.",
+                "features": [
+                  "[icon:Shield] Imán de tierras raras de neodimio de alto Gauss",
+                  "[icon:Zap] Rotor de polos múltiples para corrientes Foucault",
+                  "[icon:Cpu] Clasificación automatizada de metales no ferrosos"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781667218635_trit_portada.png",
+                  "type": "image",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100,
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "cover",
+                  "bgColor": "transparent"
+                },
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Separador",
+                  "Capacidad",
+                  "Eficiencia",
+                  "Potencia"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "MS-800",
+                    "width": "Separador Overbelt Magnético",
+                    "capacity": "1.5 Ton/h",
+                    "power": "98.5%",
+                    "weight": "5.5 kW"
+                  },
+                  {
+                    "model": "ECS-600",
+                    "width": "Corrientes de Foucault (Eddy)",
+                    "capacity": "2.0 Ton/h",
+                    "power": "99.1%",
+                    "weight": "11 kW"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781667218635_trit_portada.png",
+                    "type": "image",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100,
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "cover",
+                    "bgColor": "transparent"
+                  },
+                  ""
+                ]
+              },
+              {
+                "id": "rsu",
+                "title": "Tratamiento de Residuos Sólidos Urbanos (RSU)",
+                "description": "Separación, trituración y preparación de combustibles alternativos.",
+                "longDescription": "Sistemas llave en mano de clasificación mecánica y biológica combinando trómeles de cribado, separadores ópticos NIR y desgasificadores neumáticos.",
+                "features": [
+                  "[icon:Shield] Trómeles rotativos de clasificación por size",
+                  "[icon:Zap] Separación óptica de polímeros por espectrometría",
+                  "[icon:Cpu] Preparación de Combustibles Derivados de Residuo (CDR)"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781667983304_RSU.png",
+                  "type": "image",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100,
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "cover",
+                  "bgColor": "transparent"
+                },
+                "tableHeaders": [
+                  "Modelo",
+                  "Componente RSU",
+                  "Capacidad",
+                  "Grado Clasificación",
+                  "Potencia"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "MSW-1500",
+                    "width": "Trómel Separador Rotativo",
+                    "capacity": "15 Ton/h",
+                    "power": "90%",
+                    "weight": "45 kW"
+                  },
+                  {
+                    "model": "NIR-1200",
+                    "width": "Clasificador Óptico Infrarrojo",
+                    "capacity": "8 Ton/h",
+                    "power": "97%",
+                    "weight": "15 kW"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781667983304_RSU.png",
+                    "type": "image",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100,
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "cover",
+                    "bgColor": "transparent"
+                  },
+                  ""
+                ]
+              },
+              {
+                "id": "recuperacion",
+                "title": "Recuperación Avanzada de Materiales",
+                "description": "Clasificación automatizada de subproductos secos como papel, cartón y vidrio.",
+                "longDescription": "Estaciones de selección automática optimizadas para el flujo inverso de plantas municipales, utilizando tecnología de cribado balístico.",
+                "features": [
+                  "[icon:Shield] Separación balística de fracciones planas y rodantes",
+                  "[icon:Zap] Sensores ópticos inductivos de alta resolución",
+                  "[icon:Cpu] Control por red SCADA integrada en sala de control"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781666288358_clasificadora_2.png",
+                  "type": "image",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100,
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "cover",
+                  "bgColor": "transparent"
+                },
+                "tableHeaders": [
+                  "Modelo",
+                  "Aplicación",
+                  "Rendimiento",
+                  "Separación",
+                  "Estructura"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "MR-600",
+                    "width": "Clasificador Balístico",
+                    "capacity": "6 Ton/h",
+                    "power": "95%",
+                    "weight": "Acero Soldado"
+                  },
+                  {
+                    "model": "VIS-400",
+                    "width": "Inspección Óptica Vidrio",
+                    "capacity": "4 Ton/h",
+                    "power": "99%",
+                    "weight": "Acero SUS304"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781666288358_clasificadora_2.png",
+                    "type": "image",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100,
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "cover",
+                    "bgColor": "transparent"
+                  },
+                  ""
+                ]
+              },
+              {
+                "id": "economia-circular",
+                "title": "Estrategias de Economía Circular",
+                "description": "Compounding, aditivos especiales y valorización completa de mermas.",
+                "longDescription": "Asesoría y desarrollo técnico para la transformación de descartes de producción en materias primas secundarias de alta calidad listas para inyección.",
+                "features": [
+                  "[icon:Shield] Sistemas automatizados de de compounding ",
+                  "[icon:Zap] Aditivos avanzados para restauración de viscosidad",
+                  "[icon:Cpu] Plantas modulares de micronizado a medida"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781666099054_economia_circular.png",
+                  "type": "image",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100,
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "cover",
+                  "bgColor": "transparent"
+                },
+                "tableHeaders": [
+                  "Modelo",
+                  "Servicio/Equipo",
+                  "Capacidad",
+                  "Normativa",
+                  "Garantía"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "EC-200",
+                    "width": "Línea Compounding Piloto",
+                    "capacity": "200 kg/h",
+                    "power": "ISO 9001",
+                    "weight": "2 Años"
+                  },
+                  {
+                    "model": "EC-500",
+                    "width": "Sistemas de Micronización",
+                    "capacity": "500 kg/h",
+                    "power": "CE",
+                    "weight": "2 Años"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781666099054_economia_circular.png",
+                    "type": "image",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100,
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "cover",
+                    "bgColor": "transparent"
                   },
                   ""
                 ]
