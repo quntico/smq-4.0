@@ -11,7 +11,7 @@
     "globalFilterOpacity": 75,
     "textJustify": true,
     "disableImageFilters": false,
-    "updatedAt": 1783460287173,
+    "updatedAt": 1783460769938,
     "footerCompanyName": "SMQ  SA de CV",
     "footerCompanyDesc": "Soluciones industriales de alta ingenieria, proyectos llave en mano y maquinaria para  procesamiento de alimentos y automatización.",
     "footerPhones": [
@@ -312,7 +312,7 @@
           "id": "nosotros-final",
           "type": "nosotros-final",
           "data": {
-            "imageOpacity": 100,
+            "imageOpacity": 48,
             "backgroundImageUrl": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780101709421_industria%204.0.png",
             "filterOpacity": 47,
             "collageImage": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782626112584_nosotros_sin_texto.webp",
@@ -1135,6 +1135,363 @@
             "fogOpacity": 92,
             "fogDirection": "to-r",
             "objectFit": "cover"
+          }
+        }
+      ]
+    },
+    {
+      "id": "industria-reciclaje",
+      "title": "Industria de Reciclaje y Economía Circular",
+      "slug": "/industria/reciclaje",
+      "modules": [
+        {
+          "id": "sector-data",
+          "type": "sector-detail",
+          "data": {
+            "title": "Industria de Reciclaje y Economía Circular",
+            "subtitle": "Tecnología líder para la economía circular y recuperación de materiales",
+            "description": "Diseñamos y fabricamos sistemas llave en mano de alto rendimiento para el procesamiento, triturado, lavado y extrusión de polímeros, metales y residuos. Nuestras soluciones maximizan la pureza del material recuperado y reducen el consumo energético operativo.",
+            "heroImage": {
+              "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png",
+              "brightness": 168,
+              "opacity": 0.7,
+              "fogOpacity": 86
+            },
+            "stats": [
+              {
+                "label": "Eficiencia de Lavado",
+                "value": "99.2%"
+              },
+              {
+                "label": "Rendimiento Máximo",
+                "value": "2.5 Ton/h"
+              },
+              {
+                "label": "Ahorro de Energía",
+                "value": "Hasta 30%"
+              },
+              {
+                "label": "Vida Útil Husillo",
+                "value": "25,000h+"
+              }
+            ],
+            "items": [
+              {
+                "id": "plasticos",
+                "title": "Líneas de Reciclaje de Plásticos",
+                "description": "Lavado, extrusión y peletizado de polímeros de alta pureza.",
+                "longDescription": "Módulos modulares integrados para la remoción completa de adhesivos, contaminantes y etiquetas en botellas PET post-consumo, y peletizado con humedad residual inferior al 1%.",
+                "features": [
+                  "[icon:Shield] Trituración en húmedo de alta fricción",
+                  "[icon:Zap] Flotación por densidad en tinas gravimétricas",
+                  "[icon:Cpu] Extrusión y desgasificación al vacío"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png",
+                  "type": "image",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100,
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "cover",
+                  "bgColor": "transparent"
+                },
+                "tableHeaders": [
+                  "Modelo",
+                  "Capacidad",
+                  "Eficiencia",
+                  "Potencia",
+                  "Material"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "PL-120",
+                    "width": "Lavado y Extrusión PET",
+                    "capacity": "1.2 Ton/h",
+                    "power": "99.2%",
+                    "weight": "110 kW"
+                  },
+                  {
+                    "model": "PL-250",
+                    "width": "Planta PE/PP Film",
+                    "capacity": "2.5 Ton/h",
+                    "power": "98.8%",
+                    "weight": "160 kW"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png",
+                    "type": "image",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100,
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "cover",
+                    "bgColor": "transparent"
+                  },
+                  ""
+                ]
+              },
+              {
+                "id": "metales",
+                "title": "Trituradoras de Alta Eficiencia.",
+                "description": "Trituradoras para Plástico, Papel, Madera, Metales y órgánicos.",
+                "longDescription": "Sistemas de trituración con rotores fabricados con tecnología láser clading para asegurar una alta eficiencia y garantía del rotor de hasta 5 años. Diseñadas para trabajos industriales.",
+                "features": [
+                  "[icon:Shield] Imán de tierras raras de neodimio de alto Gauss",
+                  "[icon:Zap] Rotor de polos múltiples para corrientes Foucault",
+                  "[icon:Cpu] Clasificación automatizada de metales no ferrosos"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781667218635_trit_portada.png",
+                  "type": "image",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100,
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "cover",
+                  "bgColor": "transparent"
+                },
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Separador",
+                  "Capacidad",
+                  "Eficiencia",
+                  "Potencia"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "MS-800",
+                    "width": "Separador Overbelt Magnético",
+                    "capacity": "1.5 Ton/h",
+                    "power": "98.5%",
+                    "weight": "5.5 kW"
+                  },
+                  {
+                    "model": "ECS-600",
+                    "width": "Corrientes de Foucault (Eddy)",
+                    "capacity": "2.0 Ton/h",
+                    "power": "99.1%",
+                    "weight": "11 kW"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781667218635_trit_portada.png",
+                    "type": "image",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100,
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "cover",
+                    "bgColor": "transparent"
+                  },
+                  ""
+                ]
+              },
+              {
+                "id": "rsu",
+                "title": "Tratamiento de Residuos Sólidos Urbanos (RSU)",
+                "description": "Separación, trituración y preparación de combustibles alternativos.",
+                "longDescription": "Sistemas llave en mano de clasificación mecánica y biológica combinando trómeles de cribado, separadores ópticos NIR y desgasificadores neumáticos.",
+                "features": [
+                  "[icon:Shield] Trómeles rotativos de clasificación por size",
+                  "[icon:Zap] Separación óptica de polímeros por espectrometría",
+                  "[icon:Cpu] Preparación de Combustibles Derivados de Residuo (CDR)"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781667983304_RSU.png",
+                  "type": "image",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100,
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "cover",
+                  "bgColor": "transparent"
+                },
+                "tableHeaders": [
+                  "Modelo",
+                  "Componente RSU",
+                  "Capacidad",
+                  "Grado Clasificación",
+                  "Potencia"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "MSW-1500",
+                    "width": "Trómel Separador Rotativo",
+                    "capacity": "15 Ton/h",
+                    "power": "90%",
+                    "weight": "45 kW"
+                  },
+                  {
+                    "model": "NIR-1200",
+                    "width": "Clasificador Óptico Infrarrojo",
+                    "capacity": "8 Ton/h",
+                    "power": "97%",
+                    "weight": "15 kW"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781667983304_RSU.png",
+                    "type": "image",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100,
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "cover",
+                    "bgColor": "transparent"
+                  },
+                  ""
+                ]
+              },
+              {
+                "id": "recuperacion",
+                "title": "Recuperación Avanzada de Materiales",
+                "description": "Clasificación automatizada de subproductos secos como papel, cartón y vidrio.",
+                "longDescription": "Estaciones de selección automática optimizadas para el flujo inverso de plantas municipales, utilizando tecnología de cribado balístico.",
+                "features": [
+                  "[icon:Shield] Separación balística de fracciones planas y rodantes",
+                  "[icon:Zap] Sensores ópticos inductivos de alta resolución",
+                  "[icon:Cpu] Control por red SCADA integrada en sala de control"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781666288358_clasificadora_2.png",
+                  "type": "image",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100,
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "cover",
+                  "bgColor": "transparent"
+                },
+                "tableHeaders": [
+                  "Modelo",
+                  "Aplicación",
+                  "Rendimiento",
+                  "Separación",
+                  "Estructura"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "MR-600",
+                    "width": "Clasificador Balístico",
+                    "capacity": "6 Ton/h",
+                    "power": "95%",
+                    "weight": "Acero Soldado"
+                  },
+                  {
+                    "model": "VIS-400",
+                    "width": "Inspección Óptica Vidrio",
+                    "capacity": "4 Ton/h",
+                    "power": "99%",
+                    "weight": "Acero SUS304"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781666288358_clasificadora_2.png",
+                    "type": "image",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100,
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "cover",
+                    "bgColor": "transparent"
+                  },
+                  ""
+                ]
+              },
+              {
+                "id": "economia-circular",
+                "title": "Estrategias de Economía Circular",
+                "description": "Compounding, aditivos especiales y valorización completa de mermas.",
+                "longDescription": "Asesoría y desarrollo técnico para la transformación de descartes de producción en materias primas secundarias de alta calidad listas para inyección.",
+                "features": [
+                  "[icon:Shield] Hola mundo.",
+                  "[icon:Zap] Aditivos avanzados para restauración de viscosidad",
+                  "[icon:Cpu] Plantas modulares de micronizado a medida"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781666099054_economia_circular.png",
+                  "type": "image",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100,
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "cover",
+                  "bgColor": "transparent"
+                },
+                "tableHeaders": [
+                  "Modelo",
+                  "Servicio/Equipo",
+                  "Capacidad",
+                  "Normativa",
+                  "Garantía"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "EC-200",
+                    "width": "Línea Compounding Piloto",
+                    "capacity": "200 kg/h",
+                    "power": "ISO 9001",
+                    "weight": "2 Años"
+                  },
+                  {
+                    "model": "EC-500",
+                    "width": "Sistemas de Micronización",
+                    "capacity": "500 kg/h",
+                    "power": "CE",
+                    "weight": "2 Años"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781666099054_economia_circular.png",
+                    "type": "image",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100,
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "cover",
+                    "bgColor": "transparent"
+                  },
+                  ""
+                ]
+              }
+            ]
           }
         }
       ]
@@ -2330,6 +2687,184 @@
       ]
     },
     {
+      "id": "industria-agroindustria",
+      "title": "Agroindustria y Procesamiento Agrícola",
+      "slug": "/industria/agroindustria",
+      "modules": [
+        {
+          "id": "sector-data",
+          "type": "sector-detail",
+          "data": {
+            "title": "Agroindustria y Procesamiento Agrícola",
+            "subtitle": "Rendimiento y optimización en el campo y la planta",
+            "description": "Soluciones llave en mano para el manejo, limpieza, secado y clasificación de granos, semillas y café, así como plantas completas para la producción de alimentos balanceados.",
+            "heroImage": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png",
+            "stats": [
+              {
+                "label": "Capacidad Secado",
+                "value": "50 Ton/h"
+              },
+              {
+                "label": "CV Mezclado",
+                "value": "< 5%"
+              },
+              {
+                "label": "Presión Extrusor",
+                "value": "120 Bar"
+              },
+              {
+                "label": "Acondicionamiento",
+                "value": "Hasta 95°C"
+              }
+            ],
+            "items": [
+              {
+                "id": "procesamiento",
+                "title": "Manejo y Limpieza de Granos",
+                "description": "Limpiadoras neumáticas y mesas densimétricas para granos, semillas y leguminosas.",
+                "longDescription": "Limpieza primaria y secundaria que elimina polvo, paja y semillas extrañas. Las mesas densimétricas clasifican por peso específico, garantizando lotes homogéneos.",
+                "features": [
+                  "[icon:Shield] Zarandas vibratorias de doble nivel intercambiables",
+                  "[icon:Zap] Aspiradores de polvo integrados con filtros de mangas",
+                  "[icon:Cpu] Mesas densimétricas de oscilación regulable por variador"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png",
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Limpieza",
+                  "Capacidad",
+                  "Eficiencia Cribado",
+                  "Potencia Ventilador"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "GC-120",
+                    "width": "Limpiadora de Zaranda",
+                    "capacity": "12 Ton/h",
+                    "power": "99%",
+                    "weight": "5.5 kW"
+                  },
+                  {
+                    "model": "GC-250",
+                    "width": "Limpiadora Neumática Combinada",
+                    "capacity": "25 Ton/h",
+                    "power": "99.5%",
+                    "weight": "11 kW"
+                  }
+                ]
+              },
+              {
+                "id": "balanceados",
+                "title": "Líneas de Alimento Balanceado",
+                "description": "Plantas integradas de molienda, dosificación, mezcla y peletizado.",
+                "longDescription": "Diseño higiénico para alimentación animal. Incluye acondicionador de vapor de doble paso para cocción y gelatinización de almidones, y matrices de peletizado en aleación templada.",
+                "features": [
+                  "[icon:Shield] Molinos de martillos con cambio rápido de cribas",
+                  "[icon:Zap] Mezcladoras de doble eje de paletas de alta velocidad",
+                  "[icon:Cpu] Peletizadoras con acondicionador térmico de inyección"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png",
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Mezclador/Peletizadora",
+                  "Rendimiento",
+                  "Diámetro Pellet",
+                  "Potencia Motor"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "AB-500",
+                    "width": "Mezcladora de Paletas",
+                    "capacity": "2.5 Ton/h",
+                    "power": "Mezcla homogénea",
+                    "weight": "22 kW"
+                  },
+                  {
+                    "model": "AB-1000",
+                    "width": "Peletizadora de Matriz Plana",
+                    "capacity": "5.0 Ton/h",
+                    "power": "2 - 12 mm",
+                    "weight": "110 kW"
+                  }
+                ]
+              },
+              {
+                "id": "postcosecha",
+                "title": "Enfriamiento y Calibración",
+                "description": "Sistemas de lavado, encerado, desinfección y clasificación óptica para frutas frescas.",
+                "longDescription": "Tratamiento postcosecha de precisión. Sistemas ópticos de clasificación que analizan el color, diámetro y defectos externos del fruto para embalar únicamente producto premium.",
+                "features": [
+                  "[icon:Shield] Lavadoras de cepillos rotativos con desinfección UV",
+                  "[icon:Zap] Secadores de túnel por aire caliente controlado",
+                  "[icon:Cpu] Clasificación óptica multicanal por cámaras colorimétricas"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png",
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Fruto",
+                  "Capacidad Línea",
+                  "Canales Clasificación",
+                  "Estructura"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "FC-400",
+                    "width": "Línea Cítricos / Manzanas",
+                    "capacity": "4 Ton/h",
+                    "power": "2 Canales Ópticos",
+                    "weight": "Acero Inoxidable/PE"
+                  },
+                  {
+                    "model": "FC-800",
+                    "width": "Línea de Selección de Berries",
+                    "capacity": "8 Ton/h",
+                    "power": "4 Canales NIR",
+                    "weight": "Grado Alimentario"
+                  }
+                ]
+              },
+              {
+                "id": "automatizacion",
+                "title": "Monitoreo de Silos y Carga",
+                "description": "Sistemas automáticos de control de temperatura y aireación de silos agrícolas.",
+                "longDescription": "Digitalización del almacenamiento de granos. Termometría digital multipunto que monitorea la temperatura en tiempo real y activa automáticamente ventiladores de aireación.",
+                "features": [
+                  "[icon:Shield] Sondas de temperatura colgantes con bus RS485",
+                  "[icon:Zap] Sensores de nivel capacitivos y de radar continuo",
+                  "[icon:Cpu] Tablero de control con SCADA y alertas vía Telegram/Email"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115231575_choco%20color%202.png",
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Sensor/Control",
+                  "Alcance Sondas",
+                  "Protocolo",
+                  "Protección Gabinete"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "SM-100",
+                    "width": "Módulo Termometría Silos",
+                    "capacity": "Hasta 30m altura",
+                    "power": "Modbus RTU",
+                    "weight": "IP66"
+                  },
+                  {
+                    "model": "SM-200",
+                    "width": "Controlador de Aireación Automático",
+                    "capacity": "Hasta 4 silos",
+                    "power": "Ethernet / IoT",
+                    "weight": "IP66"
+                  }
+                ]
+              }
+            ],
+            "instalacionesImage": "/smq_factory_night2.png"
+          }
+        }
+      ]
+    },
+    {
       "id": "industria-packaging",
       "title": "Packaging y Conversión",
       "slug": "/industria/packaging",
@@ -2869,6 +3404,324 @@
       ]
     },
     {
+      "id": "industria-construccion",
+      "title": "Materiales de Construcción e Infraestructura",
+      "slug": "/industria/construccion",
+      "modules": [
+        {
+          "id": "sector-data",
+          "type": "sector-detail",
+          "data": {
+            "title": "Materiales de Construcción e Infraestructura",
+            "subtitle": "Robustez y consistencia para procesos de alta exigencia",
+            "description": "Desarrollamos líneas completas de extrusión y trituración para la fabricación de compuestos de madera plástica (WPC), láminas corrugadas y sistemas de trituración/dosificación de agregados estructurales.",
+            "heroImage": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png",
+            "stats": [
+              {
+                "label": "Relación L/D Extrusor",
+                "value": "38:1"
+              },
+              {
+                "label": "Producción Horaria",
+                "value": "800 kg/h"
+              },
+              {
+                "label": "Potencia de Motor",
+                "value": "132 kW+"
+              },
+              {
+                "label": "Estructura de Aleación",
+                "value": "Acero Hardox"
+              }
+            ],
+            "items": [
+              {
+                "id": "materiales",
+                "title": "Plantas de Dosificación de Materiales",
+                "description": "Sistemas para mezcla y dosificación de áridos, cementos y aditivos.",
+                "longDescription": "Diseño integral de silos, básculas de pesaje dinámico y mezcladoras intensivas de doble eje para asegurar la máxima homogeneidad del mortero y hormigón preparado.",
+                "features": [
+                  "[icon:Shield] Celdas de carga autolimpiantes de alta precisión",
+                  "[icon:Zap] Mezcladoras planetarias de turbina con paletas de carburo",
+                  "[icon:Cpu] Sistemas SCADA de dosificación automatizada por lotes"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png",
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Mezcla",
+                  "Capacidad",
+                  "Precisión",
+                  "Potencia Mezclador"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "BM-800",
+                    "width": "Mezcladora de Turbina",
+                    "capacity": "800 L/lote",
+                    "power": "±0.5%",
+                    "weight": "37 kW"
+                  },
+                  {
+                    "model": "BM-1500",
+                    "width": "Mezclador Planetario",
+                    "capacity": "1500 L/lote",
+                    "power": "±0.3%",
+                    "weight": "55 kW"
+                  }
+                ]
+              },
+              {
+                "id": "compuestos",
+                "title": "Líneas de Extrusión WPC",
+                "description": "Extrusoras de doble husillo cónico y paralelo para compuestos de madera y plástico.",
+                "longDescription": "Nuestros sistemas de co-extrusión WPC logran una dispersión perfecta del aserrín de madera o cáscara de arroz con PE/PP/PVC, produciendo decks, fachadas y marcos con excelentes propiedades mecánicas e impermeabilidad.",
+                "features": [
+                  "[icon:Shield] Husillos co-rotativos o cónicos con camisa bimetálica",
+                  "[icon:Zap] Dosificadores gravimétricos con control de par",
+                  "[icon:Cpu] Calibradores de enfriamiento rápido por vacío"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783457617336_wpc.webp",
+                  "type": "image",
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "contain",
+                  "bgColor": "transparent",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100
+                },
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Extrusor",
+                  "Capacidad Máxima",
+                  "Relación L/D",
+                  "Potencia Motor"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "WPC-120",
+                    "width": "Doble Husillo Cónico",
+                    "capacity": "450 kg/h",
+                    "power": "28:1",
+                    "weight": "75 kW"
+                  },
+                  {
+                    "model": "WPC-200",
+                    "width": "Doble Husillo Paralelo",
+                    "capacity": "800 kg/h",
+                    "power": "36:1",
+                    "weight": "132 kW"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783457617336_wpc.webp",
+                    "type": "image",
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "contain",
+                    "bgColor": "transparent",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100
+                  },
+                  ""
+                ]
+              },
+              {
+                "id": "materiales-reciclados",
+                "title": "Valorización de Escombros y RCD",
+                "description": "Trituradoras y clasificadoras para escombros y asfalto reciclado.",
+                "longDescription": "Soluciones robustas para la recuperación de agregados reciclados de RCD (Residuos de Construcción y Demolición). Sistemas equipados con imanes overbelt y separadores de aire.",
+                "features": [
+                  "[icon:Shield] Trituradoras de mandíbula y de impacto de gran par",
+                  "[icon:Zap] Cintas magnéticas de separación de ferrita/neodimio",
+                  "[icon:Cpu] Cribas vibratorias multideck de clasificación fina"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png",
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Triturador",
+                  "Capacidad Entrada",
+                  "Abertura Boca",
+                  "Potencia"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "RCD-500",
+                    "width": "Trituradora de Mandíbula",
+                    "capacity": "50 Ton/h",
+                    "power": "600x400 mm",
+                    "weight": "55 kW"
+                  },
+                  {
+                    "model": "RCD-800",
+                    "width": "Trituradora de Impacto",
+                    "capacity": "100 Ton/h",
+                    "power": "800x600 mm",
+                    "weight": "110 kW"
+                  }
+                ]
+              },
+              {
+                "id": "infraestructura",
+                "title": "Prefabricados de Hormigón",
+                "description": "Sistemas automáticos para la fabricación de prefabricados de hormigón y tuberías.",
+                "longDescription": "Maquinaria de encofrado dinámico y curado acelerado para vigas, tuberías de hormigón y paneles arquitectónicos. Incluye telemetría y monitoreo de maduración de fraguado.",
+                "features": [
+                  "[icon:Shield] Moldes neumáticos autovibrantes con control de frecuencia",
+                  "[icon:Zap] Sistemas de transporte de hormigón aéreo rápido",
+                  "[icon:Cpu] Monitoreo inalámbrico IoT de temperatura de fraguado"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png",
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Prefabricación",
+                  "Ciclo Producción",
+                  "Presión Hidráulica",
+                  "Dimensiones Máx"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "AP-300",
+                    "width": "Prensa Bloquera Automática",
+                    "capacity": "15 s/ciclo",
+                    "power": "16 MPa",
+                    "weight": "1200x800 mm"
+                  },
+                  {
+                    "model": "AP-600",
+                    "width": "Moldeadora de Tuberías",
+                    "capacity": "4 min/tubo",
+                    "power": "20 MPa",
+                    "weight": "Diám. 1500 mm"
+                  }
+                ]
+              }
+            ],
+            "instalacionesImage": "/smq_factory_night2.png"
+          }
+        }
+      ]
+    },
+    {
+      "id": "machinery-map-1050",
+      "title": "MODELO MAP 1050",
+      "slug": "/maquinaria/map-1050",
+      "modules": [
+        {
+          "id": "machinery-data-map-1050",
+          "type": "machinery-product",
+          "data": {
+            "pageNumber": "00",
+            "industry": "manufactura",
+            "theme": {
+              "accent": "#0078D7",
+              "accentGlow": "rgba(0, 120, 215, 0.4)",
+              "bgStart": "#040d1a",
+              "bgEnd": "#081426",
+              "glowColor": "blue"
+            },
+            "heroTitle": "MODELO MAP 1050",
+            "heroSubtitle": "Especificaciones de ingeniería y desempeño para el equipo MAP 1050.",
+            "heroDesc": "Línea de maquinaria industrial SMQ optimizada para máxima eficiencia, precisión y control absoluto en flujos de trabajo continuos.",
+            "heroMedia": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
+            "kpis": [
+              {
+                "value": "99.2%",
+                "unit": "EFICIENCIA",
+                "label": "Rendimiento",
+                "desc": "Producción continua"
+              },
+              {
+                "value": "24/7",
+                "unit": "OPERACIÓN",
+                "label": "Disponibilidad",
+                "desc": "Sistemas redundantes"
+              },
+              {
+                "value": "Auto",
+                "unit": "CONTROL",
+                "label": "Precisión",
+                "desc": "Control avanzado por PLC"
+              },
+              {
+                "value": "Premium",
+                "unit": "CALIDAD",
+                "label": "Estándar",
+                "desc": "Materiales duraderos"
+              }
+            ],
+            "stations": [
+              {
+                "id": 1,
+                "title": "Alimentación",
+                "desc": "Ingreso del material al sistema automatizado.",
+                "iconName": "Inbox"
+              },
+              {
+                "id": 2,
+                "title": "Procesamiento",
+                "desc": "Transformación del producto bajo estrictos controles.",
+                "iconName": "Layers"
+              },
+              {
+                "id": 3,
+                "title": "Control de Calidad",
+                "desc": "Verificación en línea del producto final.",
+                "iconName": "Eye"
+              },
+              {
+                "id": 4,
+                "title": "Descarga",
+                "desc": "Salida del material terminado y empacado.",
+                "iconName": "LogOut"
+              }
+            ],
+            "applications": [
+              {
+                "name": "Sector Industrial",
+                "icon": "🏭",
+                "desc": "Diseñado para entornos exigentes"
+              }
+            ],
+            "advantages": [
+              {
+                "title": "CONSTRUCCIÓN PREMIUM",
+                "desc": "Estructura sólida anticorrosiva con materiales de alta calidad.",
+                "highlight": "Durabilidad"
+              }
+            ],
+            "specs": [
+              {
+                "param": "Modelo",
+                "value": "MAP 1050"
+              },
+              {
+                "param": "Capacidad",
+                "value": "Configurable según requerimiento"
+              },
+              {
+                "param": "Material",
+                "value": "Acero Inoxidable"
+              }
+            ],
+            "configurations": [
+              {
+                "name": "Automatización Completa",
+                "desc": "Módulos adicionales para operación desatendida."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "industria-manufactura",
       "title": "Salud y Manufactura Avanzada",
       "slug": "/industria/manufactura",
@@ -2961,7 +3814,8 @@
                     "bgColor": "transparent"
                   },
                   ""
-                ]
+                ],
+                "lockLinks": false
               },
               {
                 "id": "farma",
@@ -3138,944 +3992,6 @@
                 "images": [
                   {
                     "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783456447607_ensamblaje.webp",
-                    "type": "image",
-                    "scale": 1,
-                    "positionX": 0,
-                    "positionY": 0,
-                    "objectFit": "contain",
-                    "bgColor": "transparent",
-                    "opacity": 1,
-                    "blur": 0,
-                    "brightness": 100,
-                    "contrast": 100
-                  },
-                  ""
-                ]
-              }
-            ],
-            "instalacionesImage": "/smq_factory_night2.png"
-          }
-        }
-      ]
-    },
-    {
-      "id": "industria-construccion",
-      "title": "Materiales de Construcción e Infraestructura",
-      "slug": "/industria/construccion",
-      "modules": [
-        {
-          "id": "sector-data",
-          "type": "sector-detail",
-          "data": {
-            "title": "Materiales de Construcción e Infraestructura",
-            "subtitle": "Robustez y consistencia para procesos de alta exigencia",
-            "description": "Desarrollamos líneas completas de extrusión y trituración para la fabricación de compuestos de madera plástica (WPC), láminas corrugadas y sistemas de trituración/dosificación de agregados estructurales.",
-            "heroImage": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png",
-            "stats": [
-              {
-                "label": "Relación L/D Extrusor",
-                "value": "38:1"
-              },
-              {
-                "label": "Producción Horaria",
-                "value": "800 kg/h"
-              },
-              {
-                "label": "Potencia de Motor",
-                "value": "132 kW+"
-              },
-              {
-                "label": "Estructura de Aleación",
-                "value": "Acero Hardox"
-              }
-            ],
-            "items": [
-              {
-                "id": "materiales",
-                "title": "Plantas de Dosificación de Materiales",
-                "description": "Sistemas para mezcla y dosificación de áridos, cementos y aditivos.",
-                "longDescription": "Diseño integral de silos, básculas de pesaje dinámico y mezcladoras intensivas de doble eje para asegurar la máxima homogeneidad del mortero y hormigón preparado.",
-                "features": [
-                  "[icon:Shield] Celdas de carga autolimpiantes de alta precisión",
-                  "[icon:Zap] Mezcladoras planetarias de turbina con paletas de carburo",
-                  "[icon:Cpu] Sistemas SCADA de dosificación automatizada por lotes"
-                ],
-                "image": {
-                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783458806779_automat_dosificacion.webp",
-                  "type": "image",
-                  "opacity": 1,
-                  "blur": 0,
-                  "brightness": 100,
-                  "contrast": 100,
-                  "scale": 1,
-                  "positionX": 0,
-                  "positionY": 0,
-                  "objectFit": "cover",
-                  "bgColor": "transparent"
-                },
-                "tableHeaders": [
-                  "Modelo",
-                  "Tipo Mezcla",
-                  "Capacidad",
-                  "Precisión",
-                  "Potencia Mezclador"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "BM-800",
-                    "width": "Mezcladora de Turbina",
-                    "capacity": "800 L/lote",
-                    "power": "±0.5%",
-                    "weight": "37 kW"
-                  },
-                  {
-                    "model": "BM-1500",
-                    "width": "Mezclador Planetario",
-                    "capacity": "1500 L/lote",
-                    "power": "±0.3%",
-                    "weight": "55 kW"
-                  }
-                ],
-                "images": [
-                  {
-                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783458806779_automat_dosificacion.webp",
-                    "type": "image",
-                    "opacity": 1,
-                    "blur": 0,
-                    "brightness": 100,
-                    "contrast": 100,
-                    "scale": 1,
-                    "positionX": 0,
-                    "positionY": 0,
-                    "objectFit": "cover",
-                    "bgColor": "transparent"
-                  },
-                  ""
-                ]
-              },
-              {
-                "id": "compuestos",
-                "title": "Líneas de Extrusión WPC",
-                "description": "Extrusoras de doble husillo cónico y paralelo para compuestos de madera y plástico.",
-                "longDescription": "Nuestros sistemas de co-extrusión WPC logran una dispersión perfecta del aserrín de madera o cáscara de arroz con PE/PP/PVC, produciendo decks, fachadas y marcos con excelentes propiedades mecánicas e impermeabilidad.",
-                "features": [
-                  "[icon:Shield] Husillos co-rotativos o cónicos con camisa bimetálica",
-                  "[icon:Zap] Dosificadores gravimétricos con control de par",
-                  "[icon:Cpu] Calibradores de enfriamiento rápido por vacío"
-                ],
-                "image": {
-                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783457617336_wpc.webp",
-                  "type": "image",
-                  "scale": 1,
-                  "positionX": 0,
-                  "positionY": 0,
-                  "objectFit": "contain",
-                  "bgColor": "transparent",
-                  "opacity": 1,
-                  "blur": 0,
-                  "brightness": 100,
-                  "contrast": 100
-                },
-                "tableHeaders": [
-                  "Modelo",
-                  "Tipo Extrusor",
-                  "Capacidad Máxima",
-                  "Relación L/D",
-                  "Potencia Motor"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "WPC-120",
-                    "width": "Doble Husillo Cónico",
-                    "capacity": "450 kg/h",
-                    "power": "28:1",
-                    "weight": "75 kW"
-                  },
-                  {
-                    "model": "WPC-200",
-                    "width": "Doble Husillo Paralelo",
-                    "capacity": "800 kg/h",
-                    "power": "36:1",
-                    "weight": "132 kW"
-                  }
-                ],
-                "images": [
-                  {
-                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783457617336_wpc.webp",
-                    "type": "image",
-                    "scale": 1,
-                    "positionX": 0,
-                    "positionY": 0,
-                    "objectFit": "contain",
-                    "bgColor": "transparent",
-                    "opacity": 1,
-                    "blur": 0,
-                    "brightness": 100,
-                    "contrast": 100
-                  },
-                  ""
-                ]
-              },
-              {
-                "id": "materiales-reciclados",
-                "title": "Valorización de Escombros y RCD",
-                "description": "Trituradoras y clasificadoras para escombros y asfalto reciclado.",
-                "longDescription": "Soluciones robustas para la recuperación de agregados reciclados de RCD (Residuos de Construcción y Demolición). Sistemas equipados con imanes overbelt y separadores de aire.",
-                "features": [
-                  "[icon:Shield] Trituradoras de mandíbula y de impacto de gran par",
-                  "[icon:Zap] Cintas magnéticas de separación de ferrita/neodimio",
-                  "[icon:Cpu] Cribas vibratorias multideck de clasificación fina"
-                ],
-                "image": {
-                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783457972587_VALORIZACION.webp",
-                  "type": "image",
-                  "opacity": 1,
-                  "blur": 0,
-                  "brightness": 100,
-                  "contrast": 100,
-                  "scale": 1,
-                  "positionX": 0,
-                  "positionY": 0,
-                  "objectFit": "cover",
-                  "bgColor": "transparent"
-                },
-                "tableHeaders": [
-                  "Modelo",
-                  "Tipo Triturador",
-                  "Capacidad Entrada",
-                  "Abertura Boca",
-                  "Potencia"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "RCD-500",
-                    "width": "Trituradora de Mandíbula",
-                    "capacity": "50 Ton/h",
-                    "power": "600x400 mm",
-                    "weight": "55 kW"
-                  },
-                  {
-                    "model": "RCD-800",
-                    "width": "Trituradora de Impacto",
-                    "capacity": "100 Ton/h",
-                    "power": "800x600 mm",
-                    "weight": "110 kW"
-                  }
-                ],
-                "images": [
-                  {
-                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783457972587_VALORIZACION.webp",
-                    "type": "image",
-                    "opacity": 1,
-                    "blur": 0,
-                    "brightness": 100,
-                    "contrast": 100,
-                    "scale": 1,
-                    "positionX": 0,
-                    "positionY": 0,
-                    "objectFit": "cover",
-                    "bgColor": "transparent"
-                  },
-                  ""
-                ]
-              },
-              {
-                "id": "infraestructura",
-                "title": "Prefabricados de Hormigón",
-                "description": "Sistemas automáticos para la fabricación de prefabricados de hormigón y tuberías.",
-                "longDescription": "Maquinaria de encofrado dinámico y curado acelerado para vigas, tuberías de hormigón y paneles arquitectónicos. Incluye telemetría y monitoreo de maduración de fraguado.",
-                "features": [
-                  "[icon:Shield] Moldes neumáticos autovibrantes con control de frecuencia",
-                  "[icon:Zap] Sistemas de transporte de hormigón aéreo rápido",
-                  "[icon:Cpu] Monitoreo inalámbrico IoT de temperatura de fraguado"
-                ],
-                "image": {
-                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783458307253_CONCRETO.webp",
-                  "type": "image",
-                  "scale": 1,
-                  "positionX": 0,
-                  "positionY": 0,
-                  "objectFit": "contain",
-                  "bgColor": "transparent",
-                  "opacity": 1,
-                  "blur": 0,
-                  "brightness": 100,
-                  "contrast": 100
-                },
-                "tableHeaders": [
-                  "Modelo",
-                  "Tipo Prefabricación",
-                  "Ciclo Producción",
-                  "Presión Hidráulica",
-                  "Dimensiones Máx"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "AP-300",
-                    "width": "Prensa Bloquera Automática",
-                    "capacity": "15 s/ciclo",
-                    "power": "16 MPa",
-                    "weight": "1200x800 mm"
-                  },
-                  {
-                    "model": "AP-600",
-                    "width": "Moldeadora de Tuberías",
-                    "capacity": "4 min/tubo",
-                    "power": "20 MPa",
-                    "weight": "Diám. 1500 mm"
-                  }
-                ],
-                "images": [
-                  {
-                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783458307253_CONCRETO.webp",
-                    "type": "image",
-                    "scale": 1,
-                    "positionX": 0,
-                    "positionY": 0,
-                    "objectFit": "contain",
-                    "bgColor": "transparent",
-                    "opacity": 1,
-                    "blur": 0,
-                    "brightness": 100,
-                    "contrast": 100
-                  },
-                  ""
-                ]
-              }
-            ],
-            "instalacionesImage": "/smq_factory_night2.png"
-          }
-        }
-      ]
-    },
-    {
-      "id": "industria-reciclaje",
-      "title": "Industria de Reciclaje y Economía Circular",
-      "slug": "/industria/reciclaje",
-      "modules": [
-        {
-          "id": "sector-data",
-          "type": "sector-detail",
-          "data": {
-            "title": "Industria de Reciclaje y Economía Circular",
-            "subtitle": "Tecnología líder para la economía circular y recuperación de materiales",
-            "description": "Diseñamos y fabricamos sistemas llave en mano de alto rendimiento para el procesamiento, triturado, lavado y extrusión de polímeros, metales y residuos. Nuestras soluciones maximizan la pureza del material recuperado y reducen el consumo energético operativo.",
-            "heroImage": {
-              "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png",
-              "brightness": 168,
-              "opacity": 0.7,
-              "fogOpacity": 86
-            },
-            "stats": [
-              {
-                "label": "Eficiencia de Lavado",
-                "value": "99.2%"
-              },
-              {
-                "label": "Rendimiento Máximo",
-                "value": "2.5 Ton/h"
-              },
-              {
-                "label": "Ahorro de Energía",
-                "value": "Hasta 30%"
-              },
-              {
-                "label": "Vida Útil Husillo",
-                "value": "25,000h+"
-              }
-            ],
-            "items": [
-              {
-                "id": "plasticos",
-                "title": "Líneas de Reciclaje de Plásticos",
-                "description": "Lavado, extrusión y peletizado de polímeros de alta pureza.",
-                "longDescription": "Módulos modulares integrados para la remoción completa de adhesivos, contaminantes y etiquetas en botellas PET post-consumo, y peletizado con humedad residual inferior al 1%.",
-                "features": [
-                  "[icon:Shield] Trituración en húmedo de alta fricción",
-                  "[icon:Zap] Flotación por densidad en tinas gravimétricas",
-                  "[icon:Cpu] Extrusión y desgasificación al vacío"
-                ],
-                "image": {
-                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png",
-                  "type": "image",
-                  "opacity": 1,
-                  "blur": 0,
-                  "brightness": 100,
-                  "contrast": 100,
-                  "scale": 1,
-                  "positionX": 0,
-                  "positionY": 0,
-                  "objectFit": "cover",
-                  "bgColor": "transparent"
-                },
-                "tableHeaders": [
-                  "Modelo",
-                  "Capacidad",
-                  "Eficiencia",
-                  "Potencia",
-                  "Material"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "PL-120",
-                    "width": "Lavado y Extrusión PET",
-                    "capacity": "1.2 Ton/h",
-                    "power": "99.2%",
-                    "weight": "110 kW"
-                  },
-                  {
-                    "model": "PL-250",
-                    "width": "Planta PE/PP Film",
-                    "capacity": "2.5 Ton/h",
-                    "power": "98.8%",
-                    "weight": "160 kW"
-                  }
-                ],
-                "images": [
-                  {
-                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117410783_pellet%201.png",
-                    "type": "image",
-                    "opacity": 1,
-                    "blur": 0,
-                    "brightness": 100,
-                    "contrast": 100,
-                    "scale": 1,
-                    "positionX": 0,
-                    "positionY": 0,
-                    "objectFit": "cover",
-                    "bgColor": "transparent"
-                  },
-                  ""
-                ]
-              },
-              {
-                "id": "metales",
-                "title": "Trituradoras de Alta Eficiencia.",
-                "description": "Trituradoras para Plástico, Papel, Madera, Metales y órgánicos.",
-                "longDescription": "Sistemas de trituración con rotores fabricados con tecnología láser clading para asegurar una alta eficiencia y garantía del rotor de hasta 5 años. Diseñadas para trabajos industriales.",
-                "features": [
-                  "[icon:Shield] Imán de tierras raras de neodimio de alto Gauss",
-                  "[icon:Zap] Rotor de polos múltiples para corrientes Foucault",
-                  "[icon:Cpu] Clasificación automatizada de metales no ferrosos"
-                ],
-                "image": {
-                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781667218635_trit_portada.png",
-                  "type": "image",
-                  "opacity": 1,
-                  "blur": 0,
-                  "brightness": 100,
-                  "contrast": 100,
-                  "scale": 1,
-                  "positionX": 0,
-                  "positionY": 0,
-                  "objectFit": "cover",
-                  "bgColor": "transparent"
-                },
-                "tableHeaders": [
-                  "Modelo",
-                  "Tipo Separador",
-                  "Capacidad",
-                  "Eficiencia",
-                  "Potencia"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "MS-800",
-                    "width": "Separador Overbelt Magnético",
-                    "capacity": "1.5 Ton/h",
-                    "power": "98.5%",
-                    "weight": "5.5 kW"
-                  },
-                  {
-                    "model": "ECS-600",
-                    "width": "Corrientes de Foucault (Eddy)",
-                    "capacity": "2.0 Ton/h",
-                    "power": "99.1%",
-                    "weight": "11 kW"
-                  }
-                ],
-                "images": [
-                  {
-                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781667218635_trit_portada.png",
-                    "type": "image",
-                    "opacity": 1,
-                    "blur": 0,
-                    "brightness": 100,
-                    "contrast": 100,
-                    "scale": 1,
-                    "positionX": 0,
-                    "positionY": 0,
-                    "objectFit": "cover",
-                    "bgColor": "transparent"
-                  },
-                  ""
-                ]
-              },
-              {
-                "id": "rsu",
-                "title": "Tratamiento de Residuos Sólidos Urbanos (RSU)",
-                "description": "Separación, trituración y preparación de combustibles alternativos.",
-                "longDescription": "Sistemas llave en mano de clasificación mecánica y biológica combinando trómeles de cribado, separadores ópticos NIR y desgasificadores neumáticos.",
-                "features": [
-                  "[icon:Shield] Trómeles rotativos de clasificación por size",
-                  "[icon:Zap] Separación óptica de polímeros por espectrometría",
-                  "[icon:Cpu] Preparación de Combustibles Derivados de Residuo (CDR)"
-                ],
-                "image": {
-                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781667983304_RSU.png",
-                  "type": "image",
-                  "opacity": 1,
-                  "blur": 0,
-                  "brightness": 100,
-                  "contrast": 100,
-                  "scale": 1,
-                  "positionX": 0,
-                  "positionY": 0,
-                  "objectFit": "cover",
-                  "bgColor": "transparent"
-                },
-                "tableHeaders": [
-                  "Modelo",
-                  "Componente RSU",
-                  "Capacidad",
-                  "Grado Clasificación",
-                  "Potencia"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "MSW-1500",
-                    "width": "Trómel Separador Rotativo",
-                    "capacity": "15 Ton/h",
-                    "power": "90%",
-                    "weight": "45 kW"
-                  },
-                  {
-                    "model": "NIR-1200",
-                    "width": "Clasificador Óptico Infrarrojo",
-                    "capacity": "8 Ton/h",
-                    "power": "97%",
-                    "weight": "15 kW"
-                  }
-                ],
-                "images": [
-                  {
-                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781667983304_RSU.png",
-                    "type": "image",
-                    "opacity": 1,
-                    "blur": 0,
-                    "brightness": 100,
-                    "contrast": 100,
-                    "scale": 1,
-                    "positionX": 0,
-                    "positionY": 0,
-                    "objectFit": "cover",
-                    "bgColor": "transparent"
-                  },
-                  ""
-                ]
-              },
-              {
-                "id": "recuperacion",
-                "title": "Recuperación Avanzada de Materiales",
-                "description": "Clasificación automatizada de subproductos secos como papel, cartón y vidrio.",
-                "longDescription": "Estaciones de selección automática optimizadas para el flujo inverso de plantas municipales, utilizando tecnología de cribado balístico.",
-                "features": [
-                  "[icon:Shield] Separación balística de fracciones planas y rodantes",
-                  "[icon:Zap] Sensores ópticos inductivos de alta resolución",
-                  "[icon:Cpu] Control por red SCADA integrada en sala de control"
-                ],
-                "image": {
-                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781666288358_clasificadora_2.png",
-                  "type": "image",
-                  "opacity": 1,
-                  "blur": 0,
-                  "brightness": 100,
-                  "contrast": 100,
-                  "scale": 1,
-                  "positionX": 0,
-                  "positionY": 0,
-                  "objectFit": "cover",
-                  "bgColor": "transparent"
-                },
-                "tableHeaders": [
-                  "Modelo",
-                  "Aplicación",
-                  "Rendimiento",
-                  "Separación",
-                  "Estructura"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "MR-600",
-                    "width": "Clasificador Balístico",
-                    "capacity": "6 Ton/h",
-                    "power": "95%",
-                    "weight": "Acero Soldado"
-                  },
-                  {
-                    "model": "VIS-400",
-                    "width": "Inspección Óptica Vidrio",
-                    "capacity": "4 Ton/h",
-                    "power": "99%",
-                    "weight": "Acero SUS304"
-                  }
-                ],
-                "images": [
-                  {
-                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781666288358_clasificadora_2.png",
-                    "type": "image",
-                    "opacity": 1,
-                    "blur": 0,
-                    "brightness": 100,
-                    "contrast": 100,
-                    "scale": 1,
-                    "positionX": 0,
-                    "positionY": 0,
-                    "objectFit": "cover",
-                    "bgColor": "transparent"
-                  },
-                  ""
-                ]
-              },
-              {
-                "id": "economia-circular",
-                "title": "Estrategias de Economía Circular",
-                "description": "Compounding, aditivos especiales y valorización completa de mermas.",
-                "longDescription": "Asesoría y desarrollo técnico para la transformación de descartes de producción en materias primas secundarias de alta calidad listas para inyección.",
-                "features": [
-                  "[icon:Shield] Sistemas automatizados de de compounding ",
-                  "[icon:Zap] Aditivos avanzados para restauración de viscosidad",
-                  "[icon:Cpu] Plantas modulares de micronizado a medida"
-                ],
-                "image": {
-                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781666099054_economia_circular.png",
-                  "type": "image",
-                  "opacity": 1,
-                  "blur": 0,
-                  "brightness": 100,
-                  "contrast": 100,
-                  "scale": 1,
-                  "positionX": 0,
-                  "positionY": 0,
-                  "objectFit": "cover",
-                  "bgColor": "transparent"
-                },
-                "tableHeaders": [
-                  "Modelo",
-                  "Servicio/Equipo",
-                  "Capacidad",
-                  "Normativa",
-                  "Garantía"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "EC-200",
-                    "width": "Línea Compounding Piloto",
-                    "capacity": "200 kg/h",
-                    "power": "ISO 9001",
-                    "weight": "2 Años"
-                  },
-                  {
-                    "model": "EC-500",
-                    "width": "Sistemas de Micronización",
-                    "capacity": "500 kg/h",
-                    "power": "CE",
-                    "weight": "2 Años"
-                  }
-                ],
-                "images": [
-                  {
-                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781666099054_economia_circular.png",
-                    "type": "image",
-                    "opacity": 1,
-                    "blur": 0,
-                    "brightness": 100,
-                    "contrast": 100,
-                    "scale": 1,
-                    "positionX": 0,
-                    "positionY": 0,
-                    "objectFit": "cover",
-                    "bgColor": "transparent"
-                  },
-                  ""
-                ]
-              }
-            ],
-            "instalacionesImage": "/smq_factory_night2.png"
-          }
-        }
-      ]
-    },
-    {
-      "id": "industria-agroindustria",
-      "title": "Agroindustria y Procesamiento Agrícola",
-      "slug": "/industria/agroindustria",
-      "modules": [
-        {
-          "id": "sector-data",
-          "type": "sector-detail",
-          "data": {
-            "title": "Agroindustria y Procesamiento Agrícola",
-            "subtitle": "Rendimiento y optimización en el campo y la planta",
-            "description": "Soluciones llave en mano para el manejo, limpieza, secado y clasificación de granos, semillas y café, así como plantas completas para la producción de alimentos balanceados.",
-            "heroImage": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png",
-            "stats": [
-              {
-                "label": "Capacidad Secado",
-                "value": "50 Ton/h"
-              },
-              {
-                "label": "CV Mezclado",
-                "value": "< 5%"
-              },
-              {
-                "label": "Presión Extrusor",
-                "value": "120 Bar"
-              },
-              {
-                "label": "Acondicionamiento",
-                "value": "Hasta 95°C"
-              }
-            ],
-            "items": [
-              {
-                "id": "procesamiento",
-                "title": "Manejo y Limpieza de Granos",
-                "description": "Limpiadoras neumáticas y mesas densimétricas para granos, semillas y leguminosas.",
-                "longDescription": "Limpieza primaria y secundaria que elimina polvo, paja y semillas extrañas. Las mesas densimétricas clasifican por peso específico, garantizando lotes homogéneos.",
-                "features": [
-                  "[icon:Shield] Zarandas vibratorias de doble nivel intercambiables",
-                  "[icon:Zap] Aspiradores de polvo integrados con filtros de mangas",
-                  "[icon:Cpu] Mesas densimétricas de oscilación regulable por variador"
-                ],
-                "image": {
-                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783459668270_separacion_de_cafe.webp",
-                  "type": "image",
-                  "scale": 1,
-                  "positionX": 0,
-                  "positionY": 0,
-                  "objectFit": "contain",
-                  "bgColor": "transparent",
-                  "opacity": 1,
-                  "blur": 0,
-                  "brightness": 100,
-                  "contrast": 100
-                },
-                "tableHeaders": [
-                  "Modelo",
-                  "Tipo Limpieza",
-                  "Capacidad",
-                  "Eficiencia Cribado",
-                  "Potencia Ventilador"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "GC-120",
-                    "width": "Limpiadora de Zaranda",
-                    "capacity": "12 Ton/h",
-                    "power": "99%",
-                    "weight": "5.5 kW"
-                  },
-                  {
-                    "model": "GC-250",
-                    "width": "Limpiadora Neumática Combinada",
-                    "capacity": "25 Ton/h",
-                    "power": "99.5%",
-                    "weight": "11 kW"
-                  }
-                ],
-                "images": [
-                  {
-                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783459668270_separacion_de_cafe.webp",
-                    "type": "image",
-                    "scale": 1,
-                    "positionX": 0,
-                    "positionY": 0,
-                    "objectFit": "contain",
-                    "bgColor": "transparent",
-                    "opacity": 1,
-                    "blur": 0,
-                    "brightness": 100,
-                    "contrast": 100
-                  },
-                  ""
-                ]
-              },
-              {
-                "id": "balanceados",
-                "title": "Líneas de Alimento Balanceado",
-                "description": "Plantas integradas de molienda, dosificación, mezcla y peletizado.",
-                "longDescription": "Diseño higiénico para alimentación animal. Incluye acondicionador de vapor de doble paso para cocción y gelatinización de almidones, y matrices de peletizado en aleación templada.",
-                "features": [
-                  "[icon:Shield] Molinos de martillos con cambio rápido de cribas",
-                  "[icon:Zap] Mezcladoras de doble eje de paletas de alta velocidad",
-                  "[icon:Cpu] Peletizadoras con acondicionador térmico de inyección"
-                ],
-                "image": {
-                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783459984678_alimento_balanceado.webp",
-                  "type": "image",
-                  "opacity": 1,
-                  "blur": 0,
-                  "brightness": 100,
-                  "contrast": 100,
-                  "scale": 1,
-                  "positionX": 0,
-                  "positionY": 0,
-                  "objectFit": "cover",
-                  "bgColor": "transparent"
-                },
-                "tableHeaders": [
-                  "Modelo",
-                  "Tipo Mezclador/Peletizadora",
-                  "Rendimiento",
-                  "Diámetro Pellet",
-                  "Potencia Motor"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "AB-500",
-                    "width": "Mezcladora de Paletas",
-                    "capacity": "2.5 Ton/h",
-                    "power": "Mezcla homogénea",
-                    "weight": "22 kW"
-                  },
-                  {
-                    "model": "AB-1000",
-                    "width": "Peletizadora de Matriz Plana",
-                    "capacity": "5.0 Ton/h",
-                    "power": "2 - 12 mm",
-                    "weight": "110 kW"
-                  }
-                ],
-                "images": [
-                  {
-                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783459984678_alimento_balanceado.webp",
-                    "type": "image",
-                    "opacity": 1,
-                    "blur": 0,
-                    "brightness": 100,
-                    "contrast": 100,
-                    "scale": 1,
-                    "positionX": 0,
-                    "positionY": 0,
-                    "objectFit": "cover",
-                    "bgColor": "transparent"
-                  },
-                  ""
-                ]
-              },
-              {
-                "id": "postcosecha",
-                "title": "Enfriamiento y Calibración",
-                "description": "Sistemas de lavado, encerado, desinfección y clasificación óptica para frutas frescas.",
-                "longDescription": "Tratamiento postcosecha de precisión. Sistemas ópticos de clasificación que analizan el color, diámetro y defectos externos del fruto para embalar únicamente producto premium.",
-                "features": [
-                  "[icon:Shield] Lavadoras de cepillos rotativos con desinfección UV",
-                  "[icon:Zap] Secadores de túnel por aire caliente controlado",
-                  "[icon:Cpu] Clasificación óptica multicanal por cámaras colorimétricas"
-                ],
-                "image": {
-                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783460159646_limpieza.webp",
-                  "type": "image",
-                  "scale": 1,
-                  "positionX": 0,
-                  "positionY": 0,
-                  "objectFit": "contain",
-                  "bgColor": "transparent",
-                  "opacity": 1,
-                  "blur": 0,
-                  "brightness": 100,
-                  "contrast": 100
-                },
-                "tableHeaders": [
-                  "Modelo",
-                  "Tipo Fruto",
-                  "Capacidad Línea",
-                  "Canales Clasificación",
-                  "Estructura"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "FC-400",
-                    "width": "Línea Cítricos / Manzanas",
-                    "capacity": "4 Ton/h",
-                    "power": "2 Canales Ópticos",
-                    "weight": "Acero Inoxidable/PE"
-                  },
-                  {
-                    "model": "FC-800",
-                    "width": "Línea de Selección de Berries",
-                    "capacity": "8 Ton/h",
-                    "power": "4 Canales NIR",
-                    "weight": "Grado Alimentario"
-                  }
-                ],
-                "images": [
-                  {
-                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783460159646_limpieza.webp",
-                    "type": "image",
-                    "scale": 1,
-                    "positionX": 0,
-                    "positionY": 0,
-                    "objectFit": "contain",
-                    "bgColor": "transparent",
-                    "opacity": 1,
-                    "blur": 0,
-                    "brightness": 100,
-                    "contrast": 100
-                  },
-                  ""
-                ]
-              },
-              {
-                "id": "automatizacion",
-                "title": "Monitoreo de Silos y Carga",
-                "description": "Sistemas automáticos de control de temperatura y aireación de silos agrícolas.",
-                "longDescription": "Digitalización del almacenamiento de granos. Termometría digital multipunto que monitorea la temperatura en tiempo real y activa automáticamente ventiladores de aireación.",
-                "features": [
-                  "[icon:Shield] Sondas de temperatura colgantes con bus RS485",
-                  "[icon:Zap] Sensores de nivel capacitivos y de radar continuo",
-                  "[icon:Cpu] Tablero de control con SCADA y alertas vía Telegram/Email"
-                ],
-                "image": {
-                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783460286639_monitoreo_y_carga_de_silos.webp",
-                  "type": "image",
-                  "scale": 1,
-                  "positionX": 0,
-                  "positionY": 0,
-                  "objectFit": "contain",
-                  "bgColor": "transparent",
-                  "opacity": 1,
-                  "blur": 0,
-                  "brightness": 100,
-                  "contrast": 100
-                },
-                "tableHeaders": [
-                  "Modelo",
-                  "Tipo Sensor/Control",
-                  "Alcance Sondas",
-                  "Protocolo",
-                  "Protección Gabinete"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "SM-100",
-                    "width": "Módulo Termometría Silos",
-                    "capacity": "Hasta 30m altura",
-                    "power": "Modbus RTU",
-                    "weight": "IP66"
-                  },
-                  {
-                    "model": "SM-200",
-                    "width": "Controlador de Aireación Automático",
-                    "capacity": "Hasta 4 silos",
-                    "power": "Ethernet / IoT",
-                    "weight": "IP66"
-                  }
-                ],
-                "images": [
-                  {
-                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783460286639_monitoreo_y_carga_de_silos.webp",
                     "type": "image",
                     "scale": 1,
                     "positionX": 0,

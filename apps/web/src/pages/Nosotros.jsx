@@ -566,10 +566,10 @@ const Nosotros = () => {
             
             {/* Huge typographic visual */}
             <h2 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white via-[#8d94a0] to-[#202530] leading-none uppercase select-none">
-              PIENSA.<br />
-              DISEÑA.<br />
+              THINK.<br />
+              DESIGN.<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F5C400] via-yellow-400 to-[#F5C400] drop-shadow-[0_0_30px_rgba(245,196,0,0.15)] font-black">
-                AUTOMATIZA.
+                AUTOMATE.
               </span>
             </h2>
 
