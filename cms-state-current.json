@@ -11,7 +11,7 @@
     "globalFilterOpacity": 75,
     "textJustify": true,
     "disableImageFilters": false,
-    "updatedAt": 1783456751975,
+    "updatedAt": 1783456895948,
     "footerCompanyName": "SMQ  SA de CV",
     "footerCompanyDesc": "Soluciones industriales de alta ingenieria, proyectos llave en mano y maquinaria para  procesamiento de alimentos y automatización.",
     "footerPhones": [
@@ -132,9 +132,10 @@
                 "id": 3,
                 "title": "Packaging",
                 "description": "Sistemas de llenado y envasado",
-                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1772950025146_PREMIER.png",
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783456890873_packaging.webp",
                 "titleAlign": "center",
-                "descAlign": "center"
+                "descAlign": "center",
+                "imageOpacity": 0.4
               },
               {
                 "id": 4,
