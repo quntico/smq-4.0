@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram, Settings, Upload, X, Trash2 } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram, Settings, Upload, X, Trash2, Home, Factory, Box, FileText, Cpu, ArrowRight, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useCMS } from '@/context/CMSContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
@@ -31,13 +31,13 @@ const Footer = () => {
   const igLink = settings.footerIgLink || '#';
 
   const quickLinks = [
-    { label: 'Inicio', href: '#inicio' },
-    { label: 'Industrias', href: '#industrias' },
-    { label: 'Maquinaria', href: '#maquinaria' },
-    { label: 'Soluciones', href: '#soluciones' },
-    { label: 'Tecnología', href: '#tecnologia' },
-    { label: 'Proyectos', href: '#proyectos' },
-    { label: 'Contacto', href: '/contacto' },
+    { label: 'Inicio', href: '#inicio', icon: Home },
+    { label: 'Industrias', href: '#industrias', icon: Factory },
+    { label: 'Maquinaria', href: '#maquinaria', icon: Settings },
+    { label: 'Soluciones', href: '#soluciones', icon: Box },
+    { label: 'Proyectos', href: '#proyectos', icon: FileText },
+    { label: 'Tecnología', href: '#tecnologia', icon: Cpu },
+    { label: 'Contacto', href: '/contacto', icon: Mail },
   ];
 
   const socialLinks = [
@@ -86,13 +86,13 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-[#080B11] border-t border-white/5 relative">
+    <footer className="bg-[#070b13] border-t border-cyan-500/10 relative overflow-hidden text-sm">
       {/* Editor Trigger Overlay */}
       {isEditorMode && (
         <div className="absolute top-4 right-4 z-30">
           <button
             onClick={() => setIsEditing(true)}
-            className="flex items-center gap-2 bg-[#FFD700] hover:bg-[#FFC000] text-black px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-[0_4px_20px_rgba(255,215,0,0.25)] border border-[#FFD700]/30"
+            className="flex items-center gap-2 bg-cyan-500 hover:bg-cyan-400 text-[#070b13] px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-[0_4px_20px_rgba(0,240,255,0.25)] border border-cyan-400/30"
           >
             <Settings size={14} className="animate-spin" style={{ animationDuration: '6s' }} />
             <span>Editar Contacto & Redes</span>
@@ -100,92 +100,98 @@ const Footer = () => {
         </div>
       )}
 
-      <div className="container mx-auto px-6 md:px-12 py-20">
+      {/* Dotted World Map Background (Decorative) */}
+      <div className="absolute right-0 bottom-0 w-1/2 h-full bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20 pointer-events-none" />
+
+      <div className="container mx-auto px-6 md:px-12 py-20 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
-          {/* Company Info */}
-          <div className="space-y-6">
-            <div className="flex items-center space-x-3">
+          {/* 1. Company Info */}
+          <div className="space-y-6 flex flex-col items-start">
+            <div className="flex flex-col">
               {logoUrl ? (
-                <img src={logoUrl} alt={companyName} className="h-10 w-auto object-contain" />
+                <img src={logoUrl} alt={companyName} className="h-16 w-auto object-contain" />
               ) : (
-                <div className="w-10 h-10 bg-[#FFD700] rounded-xl flex items-center justify-center shadow-[0_0_15px_rgba(255,215,0,0.15)]">
-                  <span className="text-black font-black text-xl">S</span>
-                </div>
+                <span className="text-4xl font-black text-cyan-500 uppercase tracking-wider font-sans">
+                  {companyName.split(' ')[0] || 'SMQ'}
+                </span>
               )}
-              <span className="text-lg font-black text-white uppercase tracking-wider">
-                {companyName}
+              <span className="text-sm font-bold text-white/80 tracking-widest mt-1 ml-2">
+                SA DE CV
               </span>
             </div>
-            <p className="text-white/50 text-sm leading-relaxed font-light">
+            <p className="text-white/60 text-[13px] leading-relaxed font-light mt-4">
               {companyDesc}
             </p>
-            <Button 
+            <div className="w-8 h-[1px] bg-cyan-500/50 mt-2 mb-4" />
+            <button 
               onClick={() => scrollToSection('/contacto')}
-              className="bg-[#FFD700] text-black hover:bg-[#FFC000] font-black uppercase tracking-wider text-xs px-6 py-3.5 rounded-xl transition-all duration-300 w-full sm:w-auto shadow-[0_0_20px_rgba(255,215,0,0.1)] hover:shadow-[0_0_25px_rgba(255,215,0,0.2)]"
+              className="flex items-center gap-3 bg-transparent border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10 font-bold uppercase tracking-wider text-xs px-6 py-3 rounded-lg transition-all duration-300"
             >
+              <ArrowRight size={16} className="text-cyan-500" />
               Solicitar Cotización
-            </Button>
+            </button>
           </div>
 
-          {/* Quick Links */}
+          {/* 2. Quick Links */}
           <div className="space-y-6">
-            <div className="flex items-center gap-2">
-              <div className="w-1.5 h-4 bg-[#FFD700] rounded-full"></div>
-              <span className="text-xs font-black uppercase tracking-widest text-white/80">Menú Principal</span>
+            <div className="flex items-center border-l-[3px] border-cyan-500 pl-3">
+              <span className="text-[13px] font-bold uppercase tracking-wider text-cyan-400">Menú Principal</span>
             </div>
-            <div className="grid grid-cols-2 gap-x-4 gap-y-2.5">
-              {quickLinks.map((link) => (
-                <button
-                  key={link.label}
-                  onClick={() => scrollToSection(link.href)}
-                  className="text-white/50 hover:text-white hover:translate-x-1 transition-all text-left text-sm font-light py-1"
-                >
-                  {link.label}
-                </button>
-              ))}
+            <div className="flex flex-col gap-y-4">
+              {quickLinks.map((link) => {
+                const Icon = link.icon;
+                return (
+                  <button
+                    key={link.label}
+                    onClick={() => scrollToSection(link.href)}
+                    className="flex items-center gap-4 text-white/60 hover:text-white transition-all text-left group"
+                  >
+                    <Icon size={18} className="text-cyan-500/70 group-hover:text-cyan-400 transition-colors" />
+                    <span className="text-sm font-light group-hover:translate-x-1 transition-transform">{link.label}</span>
+                  </button>
+                )
+              })}
             </div>
           </div>
 
-          {/* Contact Info */}
+          {/* 3. Contact Info */}
           <div className="space-y-6">
-            <div className="flex items-center gap-2">
-              <div className="w-1.5 h-4 bg-[#FFD700] rounded-full"></div>
-              <span className="text-xs font-black uppercase tracking-widest text-white/80">Contacto Directo</span>
+            <div className="flex items-center border-l-[3px] border-cyan-500 pl-3">
+              <span className="text-[13px] font-bold uppercase tracking-wider text-cyan-400">Contacto Directo</span>
             </div>
-            <div className="flex flex-col space-y-4">
-              <div className="flex items-start space-x-3 text-white/50 text-sm">
-                <Phone size={18} className="text-[#FFD700] mt-0.5 shrink-0" />
+            <div className="flex flex-col space-y-6">
+              <div className="flex items-center space-x-4 text-white/60 text-[13px]">
+                <Phone size={20} className="text-cyan-500 shrink-0" />
                 <div className="flex flex-col space-y-1">
                   {phones.map((phone, i) => (
-                    <a key={i} href={`tel:${phone.replace(/[^0-9+]/g, '')}`} className="hover:text-[#FFD700] transition-colors font-medium">
+                    <a key={i} href={`tel:${phone.replace(/[^0-9+]/g, '')}`} className="hover:text-cyan-400 transition-colors font-light">
                       {phone}
                     </a>
                   ))}
                 </div>
               </div>
-              <div className="flex items-center space-x-3 text-white/50 text-sm">
-                <Mail size={18} className="text-[#FFD700] shrink-0" />
-                <a href={`mailto:${email}`} className="hover:text-[#FFD700] transition-colors font-medium">
+              <div className="flex items-center space-x-4 text-white/60 text-[13px]">
+                <Mail size={20} className="text-cyan-500 shrink-0" />
+                <a href={`mailto:${email}`} className="hover:text-cyan-400 transition-colors font-light">
                   {email}
                 </a>
               </div>
-              <div className="flex items-start space-x-3 text-white/50 text-sm">
-                <MapPin size={18} className="text-[#FFD700] mt-0.5 shrink-0" />
-                <span className="font-light leading-relaxed">{address}</span>
+              <div className="flex items-start space-x-4 text-white/60 text-[13px]">
+                <MapPin size={20} className="text-cyan-500 mt-1 shrink-0" />
+                <span className="font-light leading-relaxed max-w-[200px]">{address}</span>
               </div>
             </div>
           </div>
 
-          {/* Social Media */}
+          {/* 4. Social Media */}
           <div className="space-y-6">
-            <div className="flex items-center gap-2">
-              <div className="w-1.5 h-4 bg-[#FFD700] rounded-full"></div>
-              <span className="text-xs font-black uppercase tracking-widest text-white/80">Redes Sociales</span>
+            <div className="flex items-center border-l-[3px] border-cyan-500 pl-3">
+              <span className="text-[13px] font-bold uppercase tracking-wider text-cyan-400">Redes Sociales</span>
             </div>
-            <p className="text-sm text-white/50 font-light leading-relaxed">
+            <p className="text-[13px] text-white/60 font-light leading-relaxed pr-8">
               Síguenos para conocer nuestros últimos proyectos y tecnologías.
             </p>
-            <div className="flex space-x-3">
+            <div className="flex space-x-4 mt-6">
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
@@ -193,7 +199,7 @@ const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="w-10 h-10 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-white/60 hover:text-[#FFD700] hover:border-[#FFD700]/30 hover:bg-[#FFD700]/10 transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]"
+                  className="w-10 h-10 rounded-full border border-cyan-500/50 flex items-center justify-center text-cyan-500 hover:bg-cyan-500 hover:text-[#070b13] hover:border-cyan-400 transition-all duration-300"
                 >
                   <social.icon size={18} />
                 </a>
@@ -201,15 +207,26 @@ const Footer = () => {
             </div>
           </div>
         </div>
+      </div>
 
-        <div className="border-t border-white/5 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-white/40 text-xs font-light text-center md:text-left">
-            © {currentYear} {companyName}. Todos los derechos reservados.
-          </p>
-          <div className="flex space-x-6 text-xs text-white/40 font-light">
-            <a href="#" className="hover:text-[#FFD700] transition-colors">Aviso de Privacidad</a>
-            <a href="#" className="hover:text-[#FFD700] transition-colors">Términos de Servicio</a>
-          </div>
+      {/* Bottom Bar with Tech Lines */}
+      <div className="relative border-t border-cyan-500/20 bg-[#0a0f18] py-6 px-6 md:px-12 mt-8 flex flex-col md:flex-row justify-between items-center gap-4 z-10 overflow-hidden">
+        {/* Decorative tech lines */}
+        <div className="absolute right-0 bottom-0 w-64 h-full pointer-events-none">
+           <svg width="100%" height="100%" viewBox="0 0 200 50" preserveAspectRatio="none">
+             <path d="M 50 50 L 100 0 L 200 0" fill="none" stroke="rgba(0, 240, 255, 0.2)" strokeWidth="1" />
+             <path d="M 80 50 L 130 0 L 200 0" fill="none" stroke="rgba(0, 240, 255, 0.4)" strokeWidth="2" />
+           </svg>
+        </div>
+
+        <p className="text-white/40 text-[11px] font-light text-center md:text-left relative z-10">
+          © {currentYear} <span className="font-bold text-cyan-500">{companyName.split(' ')[0] || 'SMQ'}</span> SA de CV. Todos los derechos reservados.
+        </p>
+        <div className="flex items-center space-x-6 text-[11px] text-white/50 font-light relative z-10">
+          <a href="#" className="hover:text-cyan-400 transition-colors">Aviso de Privacidad</a>
+          <span className="text-cyan-500/30">|</span>
+          <a href="#" className="hover:text-cyan-400 transition-colors">Términos de Servicio</a>
+          <ShieldCheck size={16} className="text-cyan-500 ml-2" />
         </div>
       </div>
 

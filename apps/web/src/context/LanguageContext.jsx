@@ -5,12 +5,14 @@ const LanguageContext = createContext();
 
 export const LanguageProvider = ({ children }) => {
   const [language, setLanguage] = useState(() => {
-    localStorage.setItem('smq_language', 'es');
+    const savedLang = localStorage.getItem('smq_lang_v2');
+    if (savedLang) return savedLang;
+    localStorage.setItem('smq_lang_v2', 'es');
     return 'es';
   });
 
   useEffect(() => {
-    localStorage.setItem('smq_language', language);
+    localStorage.setItem('smq_lang_v2', language);
     document.documentElement.lang = language;
     
     // Si el idioma es árabe, cambiamos la dirección del texto (opcional, pero recomendado)

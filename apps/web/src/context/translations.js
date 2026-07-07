@@ -15,9 +15,9 @@ export const translations = {
       title1: "SOLUCIONES INDUSTRIALES",
       title2: "DE ALTA INGENIERÍA",
       subtitle: "Maquinaria avanzada para reciclaje, procesamiento de alimentos y automatización industrial.",
-      think: "PIENSA.",
-      design: "DISEÑA.",
-      automate: "AUTOMATIZA."
+      think: "THINK.",
+      design: "DESIGN.",
+      automate: "AUTOMATE."
     }
   },
   en: {

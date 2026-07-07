@@ -12,7 +12,7 @@ import LanguageSelector from '@/components/LanguageSelector.jsx';
 import { useCMS } from '@/context/CMSContext.jsx';
 import { useLanguage } from '@/context/LanguageContext.jsx';
 import MobileMenu from '@/components/MobileMenu.jsx';
-import { Menu } from 'lucide-react';
+import { Menu, Eye, EyeOff } from 'lucide-react';
 
 const componentMap = {
   IndustriesMenu,
@@ -158,7 +158,7 @@ const Header = () => {
     }
   };
 
-  const NavItem = ({ id, label, menuName, componentName, DropdownComponent }) => {
+  const NavItem = ({ id, label, menuName, componentName, DropdownComponent, isHidden }) => {
     const handleBlur = (e) => {
       const val = e.target.innerText;
       const updatedMenus = cmsState.menus.map(menu =>
@@ -167,10 +167,28 @@ const Header = () => {
       updateMenus(updatedMenus);
     };
 
+    const toggleVisibility = (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      const updatedMenus = cmsState.menus.map(menu =>
+        menu.id === id ? { ...menu, isHidden: !menu.isHidden } : menu
+      );
+      updateMenus(updatedMenus);
+    };
+
     return (
       <div
-        className="relative h-full flex items-center"
+        className={`relative h-full flex items-center ${isHidden ? 'opacity-40 grayscale' : ''}`}
       >
+        {isEditorMode && (
+          <button
+            onClick={toggleVisibility}
+            className="absolute top-[28%] right-[-14px] text-gray-400 hover:text-white transition-colors z-50 bg-black/60 rounded-full p-1"
+            title={isHidden ? "Mostrar Menú" : "Ocultar Menú"}
+          >
+            {isHidden ? <EyeOff size={12} /> : <Eye size={12} />}
+          </button>
+        )}
         <button
           onClick={(e) => {
             e.stopPropagation();
@@ -334,6 +352,7 @@ const Header = () => {
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center h-full gap-[40px]">
           {cmsState.menus.sort((a, b) => a.order - b.order).map(menu => {
+            if (!isEditorMode && menu.isHidden) return null;
             const transKey = menu.componentName.replace('Menu', '').toLowerCase();
             return (
               <NavItem
@@ -343,6 +362,7 @@ const Header = () => {
                 menuName={menu.name.toLowerCase()}
                 componentName={menu.componentName}
                 DropdownComponent={componentMap[menu.componentName]}
+                isHidden={menu.isHidden}
               />
             );
           })}
