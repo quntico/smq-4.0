@@ -11,7 +11,7 @@
     "globalFilterOpacity": 75,
     "textJustify": true,
     "disableImageFilters": false,
-    "updatedAt": 1783457617819,
+    "updatedAt": 1783458308150,
     "footerCompanyName": "SMQ  SA de CV",
     "footerCompanyDesc": "Soluciones industriales de alta ingenieria, proyectos llave en mano y maquinaria para  procesamiento de alimentos y automatización.",
     "footerPhones": [
@@ -3833,7 +3833,19 @@
                   "[icon:Zap] Cintas magnéticas de separación de ferrita/neodimio",
                   "[icon:Cpu] Cribas vibratorias multideck de clasificación fina"
                 ],
-                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png",
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783457972587_VALORIZACION.webp",
+                  "type": "image",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100,
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "cover",
+                  "bgColor": "transparent"
+                },
                 "tableHeaders": [
                   "Modelo",
                   "Tipo Triturador",
@@ -3856,6 +3868,22 @@
                     "power": "800x600 mm",
                     "weight": "110 kW"
                   }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783457972587_VALORIZACION.webp",
+                    "type": "image",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100,
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "cover",
+                    "bgColor": "transparent"
+                  },
+                  ""
                 ]
               },
               {
@@ -3868,7 +3896,19 @@
                   "[icon:Zap] Sistemas de transporte de hormigón aéreo rápido",
                   "[icon:Cpu] Monitoreo inalámbrico IoT de temperatura de fraguado"
                 ],
-                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png",
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783458307253_CONCRETO.webp",
+                  "type": "image",
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "contain",
+                  "bgColor": "transparent",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100
+                },
                 "tableHeaders": [
                   "Modelo",
                   "Tipo Prefabricación",
@@ -3891,6 +3931,22 @@
                     "power": "20 MPa",
                     "weight": "Diám. 1500 mm"
                   }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783458307253_CONCRETO.webp",
+                    "type": "image",
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "contain",
+                    "bgColor": "transparent",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100
+                  },
+                  ""
                 ]
               }
             ],

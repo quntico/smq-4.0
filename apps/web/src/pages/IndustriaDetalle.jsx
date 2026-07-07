@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Footer from '@/components/Footer.jsx';
-import { ChevronRight, ArrowLeft, Cpu, Compass, Settings, Zap, Shield, ArrowUpRight, Upload, Image as ImageIcon, Plus, Trash2, Minimize2, Maximize2, ArrowLeftRight, Cloud, Save, Layers, RefreshCw, Scissors, Package, Clock, Star, Leaf, Droplet, Grid, HardHat, Recycle, Wheat, HeartPulse, Bot, Award, TrendingUp, Globe, Users, BarChart3, Headphones, Briefcase, Building2, MapPin, Hammer, Factory } from 'lucide-react';
+import { ChevronRight, ArrowLeft, Cpu, Compass, Settings, Zap, Shield, ArrowUpRight, Upload, Image as ImageIcon, Plus, Trash2, Minimize2, Maximize2, ArrowLeftRight, Cloud, Save, Layers, RefreshCw, Scissors, Package, Clock, Star, Leaf, Droplet, Grid, HardHat, Recycle, Wheat, HeartPulse, Bot, Award, TrendingUp, Globe, Users, BarChart3, Headphones, Briefcase, Building2, MapPin, Hammer, Factory, Lock, Unlock } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCMS } from '@/context/CMSContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
@@ -3707,17 +3707,33 @@ const IndustriaDetalle = () => {
                         Tabla de Equipos / Especificaciones:
                       </h4>
                       {isEditorMode && (
-                        <button
-                          onClick={() => {
-                            const newRow = { model: 'Modelo-TG', width: '0.0 m', capacity: '0 m³/h', power: '0 HP', weight: '0 kg' };
-                            const newTable = [...(item.equipmentTable || []), newRow];
-                            handleItemUpdate(index, 'equipmentTable', newTable);
-                          }}
-                          className="flex items-center gap-1 bg-white/5 hover:bg-white/10 text-white/80 border border-white/10 px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer"
-                        >
-                          <Plus size={12} />
-                          <span>Añadir Fila</span>
-                        </button>
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => {
+                              const currentLock = !!item.lockLinks;
+                              handleItemUpdate(index, 'lockLinks', !currentLock);
+                            }}
+                            className={`flex items-center gap-1 border px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer ${
+                              item.lockLinks 
+                                ? 'bg-red-500/20 text-red-300 border-red-500/40 hover:bg-red-500/30' 
+                                : 'bg-white/5 hover:bg-white/10 text-white/80 border-white/10'
+                            }`}
+                          >
+                            {item.lockLinks ? <Lock size={12} /> : <Unlock size={12} />}
+                            <span>{item.lockLinks ? 'Enlaces Bloqueados' : 'Bloquear Enlaces'}</span>
+                          </button>
+                          <button
+                            onClick={() => {
+                              const newRow = { model: 'Modelo-TG', width: '0.0 m', capacity: '0 m³/h', power: '0 HP', weight: '0 kg' };
+                              const newTable = [...(item.equipmentTable || []), newRow];
+                              handleItemUpdate(index, 'equipmentTable', newTable);
+                            }}
+                            className="flex items-center gap-1 bg-white/5 hover:bg-white/10 text-white/80 border border-white/10 px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer"
+                          >
+                            <Plus size={12} />
+                            <span>Añadir Fila</span>
+                          </button>
+                        </div>
                       )}
                     </div>
                     <div className="overflow-x-auto rounded-xl border border-white/10 bg-[#0B0F14]/40 backdrop-blur-md">
@@ -3757,6 +3773,8 @@ const IndustriaDetalle = () => {
                                           }}
                                           isEditorMode={isEditorMode}
                                         />
+                                      ) : item.lockLinks ? (
+                                        <span className="font-bold text-white/70">{row.model}</span>
                                       ) : (
                                         <Link
                                           to={getMachineLink(row.model)}
