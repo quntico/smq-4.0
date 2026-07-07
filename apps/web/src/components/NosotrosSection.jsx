@@ -403,7 +403,7 @@ const NosotrosSection = () => {
         {/* Technical HUD details in corners to align with SMQ 4.0 style */}
         <div className="absolute bottom-6 right-8 z-10 bg-black/60 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded font-mono text-[9px] text-white/50 select-none hidden md:flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] animate-pulse"></span>
-          <span>SYSTEM: ONLINE // ADVISORY ACTIVE</span>
+          <span>SISTEMA: EN LÍNEA // ASESORÍA ACTIVA</span>
         </div>
 
         {/* Editor upload triggers */}
@@ -494,7 +494,7 @@ const NosotrosSection = () => {
             />
             <div className="absolute bottom-4 left-4 z-20 bg-black/80 backdrop-blur-md border border-white/15 px-3.5 py-1.5 rounded-lg flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#F5C400]"></span>
-              <span className="text-[10px] text-white/90 font-mono tracking-wider">SMQ_PRODUCTION_PLANT</span>
+              <span className="text-[10px] text-white/90 font-mono tracking-wider">PLANTA DE PRODUCCIÓN SMQ</span>
             </div>
           </motion.div>
 
@@ -573,7 +573,7 @@ const NosotrosSection = () => {
               </div>
               <div className="relative z-10 text-[9px] font-mono text-white/50 mt-auto pt-8 tracking-widest uppercase text-center flex justify-between items-center w-full">
                 <span className="w-8"></span>
-                <span>SMQ_CORE_MISSION</span>
+                <span>MISIÓN CORPORATIVA SMQ</span>
                 <span className="w-4"></span>
               </div>
             </motion.div>
@@ -606,7 +606,7 @@ const NosotrosSection = () => {
               </div>
               <div className="relative z-10 text-[9px] font-mono text-white/50 mt-auto pt-8 tracking-widest uppercase text-center flex justify-between items-center w-full">
                 <span className="w-8"></span>
-                <span>SMQ_FUTURE_VISION</span>
+                <span>VISIÓN DE FUTURO SMQ</span>
                 <span className="w-4"></span>
               </div>
             </motion.div>
@@ -656,7 +656,7 @@ const NosotrosSection = () => {
               </div>
               <div className="relative z-10 text-[9px] font-mono text-white/50 mt-auto pt-8 tracking-widest uppercase text-center flex justify-between items-center w-full">
                 <span className="w-8"></span>
-                <span>SMQ_ETHICAL_VALUES</span>
+                <span>VALORES ÉTICOS SMQ</span>
                 <ArrowUpRight size={16} className="text-white/60" />
               </div>
             </motion.div>
@@ -790,10 +790,10 @@ const NosotrosSection = () => {
           <span className="text-[11px] font-black uppercase tracking-[0.3em] text-[#F5C400]">Filosofía SMQ</span>
           
           <h3 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white via-[#8d94a0] to-[#202530] leading-none uppercase select-none">
-            THINK.<br />
-            DESIGN.<br />
+            PIENSA.<br />
+            DISEÑA.<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F5C400] via-yellow-400 to-[#F5C400] drop-shadow-[0_0_30px_rgba(245,196,0,0.15)] font-black">
-              AUTOMATE.
+              AUTOMATIZA.
             </span>
           </h3>
 

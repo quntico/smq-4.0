@@ -314,7 +314,7 @@ const HeroSection = () => {
                 transition={{ delay: 0.4, duration: 0.6, ease: "easeOut" }}
                 className="text-white font-black text-5xl md:text-7xl tracking-tighter uppercase leading-none m-0 p-0"
               >
-                THINK.
+                {t('hero.think')}
               </motion.h1>
 
               {/* DESIGN. */}
@@ -324,7 +324,7 @@ const HeroSection = () => {
                 transition={{ delay: 1.2, duration: 0.6, ease: "easeOut" }}
                 className="text-transparent bg-clip-text bg-gradient-to-b from-[#A1A8B3] via-[#8d94a0] to-[#606773] font-black text-5xl md:text-7xl tracking-tighter uppercase leading-none m-0 p-0"
               >
-                DESIGN.
+                {t('hero.design')}
               </motion.h1>
 
               {/* AUTOMATE. + PULSING LED */}
@@ -335,7 +335,7 @@ const HeroSection = () => {
                   transition={{ delay: 2.0, duration: 0.6, ease: "easeOut" }}
                   className="text-transparent bg-clip-text bg-gradient-to-r from-[#F5C400] via-yellow-400 to-[#F5C400] drop-shadow-[0_0_30px_rgba(245,196,0,0.25)] font-black text-5xl md:text-7xl tracking-tighter uppercase leading-none m-0 p-0"
                 >
-                  AUTOMATE.
+                  {t('hero.automate')}
                 </motion.h1>
                 
                 {/* Green Pulsing LED next to AUTOMATE. */}

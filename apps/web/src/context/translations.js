@@ -14,7 +14,10 @@ export const translations = {
     hero: {
       title1: "SOLUCIONES INDUSTRIALES",
       title2: "DE ALTA INGENIERÍA",
-      subtitle: "Maquinaria avanzada para reciclaje, procesamiento de alimentos y automatización industrial."
+      subtitle: "Maquinaria avanzada para reciclaje, procesamiento de alimentos y automatización industrial.",
+      think: "PIENSA.",
+      design: "DISEÑA.",
+      automate: "AUTOMATIZA."
     }
   },
   en: {
@@ -32,7 +35,10 @@ export const translations = {
     hero: {
       title1: "INDUSTRIAL SOLUTIONS",
       title2: "OF HIGH ENGINEERING",
-      subtitle: "Advanced machinery for recycling, food processing, and industrial automation."
+      subtitle: "Advanced machinery for recycling, food processing, and industrial automation.",
+      think: "THINK.",
+      design: "DESIGN.",
+      automate: "AUTOMATE."
     }
   },
   it: {
@@ -50,7 +56,10 @@ export const translations = {
     hero: {
       title1: "SOLUZIONI INDUSTRIALI",
       title2: "DI ALTA INGEGNERIA",
-      subtitle: "Macchinari avanzati per il riciclaggio, la lavorazione alimentare e l'automazione industriale."
+      subtitle: "Macchinari avanzati per il riciclaggio, la lavorazione alimentare e l'automazione industriale.",
+      think: "PENSA.",
+      design: "DISEGNA.",
+      automate: "AUTOMATIZZA."
     }
   },
   ar: {
@@ -68,7 +77,11 @@ export const translations = {
     hero: {
       title1: "حلول صناعية",
       title2: "من الهندسة العالية",
-      subtitle: "آلات متقدمة لإعادة التدوير، معalجة الأغذية، والأتمتة الصناعية."
+      subtitle: "آلات متقدمة لإعادة التدوير، معalجة الأغذية، والأتمتة الصناعية.",
+      think: "فكر.",
+      design: "صمم.",
+      automate: "أتمت."
     }
   }
 };
+

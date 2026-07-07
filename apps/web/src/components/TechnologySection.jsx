@@ -1769,7 +1769,7 @@ const TechnologySection = () => {
           </div>
           
           <div className="hidden lg:block text-white/30 uppercase text-[9px]">
-            SMQ_TELEMETRY_PORTAL v2.5
+            PORTAL DE TELEMETRÍA SMQ v2.5
           </div>
         </div>
 

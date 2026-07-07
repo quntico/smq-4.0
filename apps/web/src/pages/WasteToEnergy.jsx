@@ -685,7 +685,7 @@ const WasteToEnergy = () => {
       <section className="max-w-[1400px] mx-auto px-6 md:px-8 py-20 space-y-32">
         {activeSections.map((sec, idx) => {
           const Icon = iconMap[sec.iconName] || Factory;
-          const isCarouselDisabledForSection = sec.id === 'conversion-energetica';
+          const isCarouselDisabledForSection = true;
           const allImages = sec.images || [{ url: sec.bgImage, name: sec.title }];
           const sectionImages = isCarouselDisabledForSection ? [allImages[0]] : allImages;
           const activeIdx = getActiveIndex(sec.id, sectionImages.length);

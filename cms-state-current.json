@@ -11,7 +11,7 @@
     "globalFilterOpacity": 75,
     "textJustify": true,
     "disableImageFilters": false,
-    "updatedAt": 1783379616512,
+    "updatedAt": 1783455486945,
     "footerCompanyName": "SMQ  SA de CV",
     "footerCompanyDesc": "Soluciones industriales de alta ingenieria, proyectos llave en mano y maquinaria para  procesamiento de alimentos y automatización.",
     "footerPhones": [
@@ -19,7 +19,12 @@
       ""
     ],
     "footerAddress": " Lago Zurich 219-Piso 12, Amp Granada, Miguel Hidalgo, 11529 Ciudad de México, CDMX",
-    "footerEmail": "info@smq.mx"
+    "footerEmail": "info@smq.mx",
+    "contactBgImage": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783380620405_gov_command_pic.webp",
+    "contactPhone1": "+555588517873",
+    "contactPhone2": "+52 (55) 88517874",
+    "contactEmail1": "info@smq.mx",
+    "contactEmail2": "direccion@smq.mx"
   },
   "menus": [
     {
@@ -3349,6 +3354,212 @@
             "fogOpacity": 100,
             "fogDirection": "to-r",
             "objectFit": "cover"
+          }
+        }
+      ]
+    },
+    {
+      "id": "industria-manufactura",
+      "title": "Salud y Manufactura Avanzada",
+      "slug": "/industria/manufactura",
+      "modules": [
+        {
+          "id": "sector-data",
+          "type": "sector-detail",
+          "data": {
+            "title": "Salud y Manufactura Avanzada",
+            "subtitle": "Precisión estéril y automatización de alta velocidad",
+            "description": "Soluciones de envasado, dosificación y ensamblaje bajo normas GMP e higiene estricta. Ofrecemos líneas automatizadas para dispositivos médicos, farmacéutica y conversión de no tejidos.",
+            "heroImage": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png",
+            "stats": [
+              {
+                "label": "Clasificación Sala",
+                "value": "Clase 100 / ISO 5"
+              },
+              {
+                "label": "Tolerancia Dosif.",
+                "value": "±0.1%"
+              },
+              {
+                "label": "OEE Promedio",
+                "value": "95%"
+              },
+              {
+                "label": "Estándar Norma",
+                "value": "GMP / FDA"
+              }
+            ],
+            "items": [
+              {
+                "id": "medico",
+                "title": "Líneas de Dispositivos Médicos",
+                "description": "Maquinaria de conformado y empaque de jeringas, mascarillas y apósitos.",
+                "longDescription": "Sistemas automáticos de ensamblaje en sala limpia para insumos médicos. Cuentan con desbobinado de alta precisión, soldadura por ultrasonidos y empaque hermético Blíster.",
+                "features": [
+                  "[icon:Shield] Soldadura ultrasónica de alta frecuencia (20/40 kHz)",
+                  "[icon:Zap] Empacadoras blíster termoformadoras integradas",
+                  "[icon:Cpu] Sistemas de visión artificial Cognex para rechazo de fallas"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783455486059_MEDICOS.webp",
+                  "type": "image",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100,
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "cover",
+                  "bgColor": "transparent"
+                },
+                "tableHeaders": [
+                  "Modelo",
+                  "Dispositivo Fabricado",
+                  "Rendimiento",
+                  "Soldadura",
+                  "Materiales Permitidos"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "MM-300",
+                    "width": "Fabricación Mascarillas Quirúrgicas",
+                    "capacity": "300 ppm",
+                    "power": "Ultrasonido Integrado",
+                    "weight": "TNT PP"
+                  },
+                  {
+                    "model": "MM-120",
+                    "width": "Ensamblaje Jeringas Descartables",
+                    "capacity": "120 ppm",
+                    "power": "Servocontrolado",
+                    "weight": "PP / Agujas Metal"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783455486059_MEDICOS.webp",
+                    "type": "image",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100,
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "cover",
+                    "bgColor": "transparent"
+                  },
+                  ""
+                ]
+              },
+              {
+                "id": "farma",
+                "title": "Dosificación y Llenado (GMP)",
+                "description": "Llenadoras automáticas de viales, ampollas, jeringas prellenadas y dosificadoras de polvos.",
+                "longDescription": "Diseño estéril libre de rincones ciegos, fabricado en acero inoxidable AISI 316L con pulido espejo. Dosificación de alta precisión mediante bombas peristálticas o de pistón cerámico sin contacto.",
+                "features": [
+                  "[icon:Shield] Bombas dosificadoras peristálticas de cambio rápido",
+                  "[icon:Zap] Sistemas de flujo laminar y sellado con nitrógeno líquido",
+                  "[icon:Cpu] Conectividad para validación de datos conforme a CFR 21 Parte 11"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png",
+                "tableHeaders": [
+                  "Modelo",
+                  "Formato Vial/Envase",
+                  "Velocidad Llenado",
+                  "Rango Volumétrico",
+                  "Precisión Dosificación"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "FM-200",
+                    "width": "Llenadora Viales Estéril",
+                    "capacity": "120 vpm",
+                    "power": "2 - 100 mL",
+                    "weight": "±0.1%"
+                  },
+                  {
+                    "model": "FM-100",
+                    "width": "Dosificadora Polvos Farmacéuticos",
+                    "capacity": "80 vpm",
+                    "power": "0.5 - 50 g",
+                    "weight": "±0.2%"
+                  }
+                ]
+              },
+              {
+                "id": "conversion",
+                "title": "Conversión de No Tejidos",
+                "description": "Cortadoras, plegadoras y bobinadoras de telas no tejidas (Spunbond, Meltblown).",
+                "longDescription": "Maquinaria diseñada para el corte longitudinal y plegado automático de toallitas húmedas, gasas no tejidas y sábanas quirúrgicas desechables con sistemas de humectación controlada.",
+                "features": [
+                  "[icon:Shield] Corte longitudinal por cuchillas rotativas de alta dureza",
+                  "[icon:Zap] Sistemas de dosificación de loción líquida automáticos",
+                  "[icon:Cpu] Plegadores mecánicos multiformato (plegado en Z, C, W)"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780117396267_pellet%20BN.png",
+                "tableHeaders": [
+                  "Modelo",
+                  "Ancho Útil",
+                  "Diámetro Desbobinador",
+                  "Capacidad Plegado",
+                  "Potencia Instalada"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "CN-800",
+                    "width": "Cortadora Toallitas Húmedas",
+                    "capacity": "800 mm",
+                    "power": "1000 mm",
+                    "weight": "12 kW"
+                  },
+                  {
+                    "model": "CN-1200",
+                    "width": "Línea Sábanas Quirúrgicas",
+                    "capacity": "1200 mm",
+                    "power": "1200 mm",
+                    "weight": "18.5 kW"
+                  }
+                ]
+              },
+              {
+                "id": "produccion",
+                "title": "Sistemas de Ensamblaje",
+                "description": "Líneas robotizadas multieje para embalaje primario y empaque de alta densidad.",
+                "longDescription": "Celdas robotizadas e integradas con indexadores rotativos de alta velocidad para montar, atornillar, pegar y probar componentes en tiempo real.",
+                "features": [
+                  "[icon:Shield] Indexadores rotativos de levas mecánicas de gran precisión",
+                  "[icon:Zap] Brazos robóticos articulados o tipo SCARA (Stäubli/Fanuc)",
+                  "[icon:Cpu] Pruebas integradas de estanqueidad y conductividad eléctrica"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115231575_choco%20color%202.png",
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Automatización",
+                  "Ciclo Ensamblaje",
+                  "Número Ejes",
+                  "Interfaz Comunicación"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "AS-150",
+                    "width": "Celda Robótica SCARA",
+                    "capacity": "1.2 s/pieza",
+                    "power": "4 Ejes",
+                    "weight": "Profinet / OPC UA"
+                  },
+                  {
+                    "model": "AS-80",
+                    "width": "Línea de Ensamblaje Rotativa",
+                    "capacity": "0.8 s/pieza",
+                    "power": "Indexador 8 Estaciones",
+                    "weight": "EtherNet/IP"
+                  }
+                ]
+              }
+            ],
+            "instalacionesImage": "/smq_factory_night2.png"
           }
         }
       ]

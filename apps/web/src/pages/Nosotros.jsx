@@ -318,7 +318,7 @@ const Nosotros = () => {
               />
               <div className="absolute bottom-4 left-4 z-20 bg-black/80 backdrop-blur-md border border-white/15 px-3.5 py-1.5 rounded-lg flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#F5C400]"></span>
-                <span className="text-[10px] text-white/90 font-mono tracking-wider">SMQ_PRODUCTION_PLANT</span>
+                <span className="text-[10px] text-white/90 font-mono tracking-wider">PLANTA DE PRODUCCIÓN SMQ</span>
               </div>
             </motion.div>
 
@@ -382,7 +382,7 @@ const Nosotros = () => {
                     Automatizar procesos industriales mediante soluciones de ingeniería que incrementen productividad, calidad y competitividad.
                   </p>
                 </div>
-                <div className="text-[9px] font-mono text-white/30 mt-6 tracking-widest uppercase text-center">SMQ_CORE_MISSION</div>
+                <div className="text-[9px] font-mono text-white/30 mt-6 tracking-widest uppercase text-center">MISIÓN CORPORATIVA SMQ</div>
               </motion.div>
 
               {/* Visión */}
@@ -404,7 +404,7 @@ const Nosotros = () => {
                     Convertirnos en la empresa referente de automatización e integración industrial en Latinoamérica.
                   </p>
                 </div>
-                <div className="text-[9px] font-mono text-white/30 mt-6 tracking-widest uppercase text-center">SMQ_FUTURE_VISION</div>
+                <div className="text-[9px] font-mono text-white/30 mt-6 tracking-widest uppercase text-center">VISIÓN DE FUTURO SMQ</div>
               </motion.div>
 
               {/* Valores */}
@@ -433,7 +433,7 @@ const Nosotros = () => {
                     ))}
                   </div>
                 </div>
-                <div className="text-[9px] font-mono text-white/30 mt-6 tracking-widest uppercase text-center">SMQ_ETHICAL_VALUES</div>
+                <div className="text-[9px] font-mono text-white/30 mt-6 tracking-widest uppercase text-center">VALORES ÉTICOS SMQ</div>
               </motion.div>
 
             </div>
@@ -566,10 +566,10 @@ const Nosotros = () => {
             
             {/* Huge typographic visual */}
             <h2 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white via-[#8d94a0] to-[#202530] leading-none uppercase select-none">
-              THINK.<br />
-              DESIGN.<br />
+              PIENSA.<br />
+              DISEÑA.<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F5C400] via-yellow-400 to-[#F5C400] drop-shadow-[0_0_30px_rgba(245,196,0,0.15)] font-black">
-                AUTOMATE.
+                AUTOMATIZA.
               </span>
             </h2>
 
