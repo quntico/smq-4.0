@@ -18,7 +18,7 @@ const Projects = () => {
   const [simTemp, setSimTemp] = useState(82); // °C
   const [simPressure, setSimPressure] = useState(5.6); // bar
   const [simTime, setSimTime] = useState(768); // 12:48 starting time
-  const [simMode, setSimMode] = useState('activo');
+  const [simMode, setSimMode] = useState('pausa');
   const [activeProjectIdx, setActiveProjectIdx] = useState(0);
   const { isEditorMode, cmsState, updatePageModule } = useCMS();
   const [uploadingId, setUploadingId] = useState(null);
@@ -51,6 +51,15 @@ const Projects = () => {
     return { 1: 160, 2: 160, 3: 160, 4: 160, 5: 160 };
   });
 
+  const [nodeDelays, setNodeDelays] = useState(() => {
+    try {
+      const local = localStorage.getItem('smq_sim_nodes_delays');
+      if (local) return JSON.parse(local);
+    } catch(e) {}
+    if (simModule.data.nodeDelays) return simModule.data.nodeDelays;
+    return { 1: 100, 2: 100, 3: 100, 4: 100, 5: 100 };
+  });
+
   const [isSyncing, setIsSyncing] = useState(false);
 
   const getSafeNodeImages = (images) => {
@@ -81,7 +90,7 @@ const Projects = () => {
       localStorage.setItem('smq_sim_nodes', JSON.stringify(updatedImages));
       
       // Clean up any existing base64 in cmsState as well
-      updatePageModule('projects', 'sim-nodes', { nodeImages: getSafeNodeImages(updatedImages), nodeSizes });
+      updatePageModule('projects', 'sim-nodes', { nodeImages: getSafeNodeImages(updatedImages), nodeSizes, nodeDelays });
       alert("¡Assets 3D sincronizados con la nube correctamente! Ahora haz clic en el botón global de 'Publicar' para reflejarlo en producción.");
     } catch (err) {
       console.error(err);
@@ -100,7 +109,7 @@ const Projects = () => {
         const newImages = { ...nodeImages, [nodeId]: url };
         setNodeImages(newImages);
         localStorage.setItem('smq_sim_nodes', JSON.stringify(newImages));
-        updatePageModule('projects', 'sim-nodes', { nodeImages: getSafeNodeImages(newImages), nodeSizes });
+        updatePageModule('projects', 'sim-nodes', { nodeImages: getSafeNodeImages(newImages), nodeSizes, nodeDelays });
       } catch (error) {
         console.error("Error uploading image:", error);
       } finally {
@@ -113,7 +122,14 @@ const Projects = () => {
     const newSizes = { ...nodeSizes, [nodeId]: parseInt(e.target.value) };
     setNodeSizes(newSizes);
     localStorage.setItem('smq_sim_nodes_sizes', JSON.stringify(newSizes));
-    updatePageModule('projects', 'sim-nodes', { nodeImages: getSafeNodeImages(nodeImages), nodeSizes: newSizes });
+    updatePageModule('projects', 'sim-nodes', { nodeImages: getSafeNodeImages(nodeImages), nodeSizes: newSizes, nodeDelays });
+  };
+
+  const handleNodeDelayChange = (nodeId, e) => {
+    const newDelays = { ...nodeDelays, [nodeId]: parseInt(e.target.value) || 0 };
+    setNodeDelays(newDelays);
+    localStorage.setItem('smq_sim_nodes_delays', JSON.stringify(newDelays));
+    updatePageModule('projects', 'sim-nodes', { nodeImages: getSafeNodeImages(nodeImages), nodeSizes, nodeDelays: newDelays });
   };
 
   const [activeNodeCount, setActiveNodeCount] = useState(0);
@@ -121,12 +137,14 @@ const Projects = () => {
   useEffect(() => {
     let timer;
     if (simMode === 'activo' && activeNodeCount < 5) {
-      timer = setInterval(() => {
-        setActiveNodeCount(prev => (prev >= 5 ? 5 : prev + 1));
-      }, 100);
+      const nextNode = activeNodeCount + 1;
+      const currentDelay = nodeDelays[nextNode] !== undefined ? nodeDelays[nextNode] : 100;
+      timer = setTimeout(() => {
+        setActiveNodeCount(nextNode);
+      }, currentDelay);
     }
-    return () => clearInterval(timer);
-  }, [simMode, activeNodeCount]);
+    return () => clearTimeout(timer);
+  }, [simMode, activeNodeCount, nodeDelays]);
 
   useEffect(() => {
     let interval = null;
@@ -703,7 +721,15 @@ const Projects = () => {
                   <span className="text-[#06B6D4] text-[10px] font-black tracking-widest font-mono">03 / TECNOLOGÍA</span>
                   <Tv size={12} className="text-[#06B6D4]" />
                 </div>
-                <h2 className="text-xl md:text-3xl font-bold uppercase tracking-tight">Simulador de Procesos 3D</h2>
+                <motion.h2 
+                  initial={{ opacity: 0, y: -20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  className="text-xl md:text-3xl font-bold uppercase tracking-tight"
+                >
+                  Simulador de Procesos 3D
+                </motion.h2>
               </div>
               <div className="flex items-center gap-3">
                 <p className="text-white/40 text-[10px] md:text-xs max-w-sm">Interactúa con los controles del flujo de la planta para simular presiones y temperaturas en tiempo real.</p>
@@ -828,33 +854,34 @@ const Projects = () => {
                 <div className="absolute inset-0 bg-[#050B12]/80 z-0 pointer-events-none" />
                 <div className="absolute inset-0 opacity-[0.15] pointer-events-none" style={{ backgroundImage: 'radial-gradient(rgba(234, 244, 255, 1) 1px, transparent 1px)', backgroundSize: '32px 32px' }}></div>
                 
+                
                 {/* Floating Stats - Top Row */}
-                <div className="relative z-10 flex flex-wrap justify-between gap-3 mb-10 mt-2 px-8">
-                  <div className="flex-1 bg-[#050B12]/80 backdrop-blur-sm border border-[#009FE3]/30 p-3 rounded-xl text-center shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
-                    <span className="block text-[#EAF4FF] font-black text-lg mb-1">{simFlow}%</span>
-                    <span className="block text-[9px] text-[#8E9BAA] uppercase tracking-widest font-bold">Flujo</span>
-                    <div className="w-10 h-3 mx-auto mt-2 border-b border-[#00D4FF]/40 relative overflow-hidden"><div className="absolute bottom-0 w-full h-[2px] bg-[#00D4FF] opacity-60" /></div>
+                <div className="relative z-10 flex flex-wrap justify-between gap-3 mb-6 mt-1 px-4">
+                  <div className="flex-1 bg-[#050B12]/80 backdrop-blur-sm border border-[#009FE3]/30 p-2 md:p-3 rounded-xl text-center shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
+                    <span className="block text-[#EAF4FF] font-black text-sm md:text-lg mb-1">{simFlow}%</span>
+                    <span className="block text-[8px] md:text-[9px] text-[#8E9BAA] uppercase tracking-widest font-bold">Flujo</span>
+                    <div className="w-10 h-2 md:h-3 mx-auto mt-2 border-b border-[#00D4FF]/40 relative overflow-hidden"><div className="absolute bottom-0 w-full h-[2px] bg-[#00D4FF] opacity-60" /></div>
                   </div>
-                  <div className="flex-1 bg-[#050B12]/80 backdrop-blur-sm border border-[#009FE3]/30 p-3 rounded-xl text-center shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
-                    <span className="block text-[#EAF4FF] font-black text-lg mb-1">{simTemp} °C</span>
-                    <span className="block text-[9px] text-[#8E9BAA] uppercase tracking-widest font-bold">Temperatura</span>
-                    <div className="w-10 h-3 mx-auto mt-2 border-b border-red-500/40 relative overflow-hidden"><div className="absolute bottom-0 w-full h-[2px] bg-red-500 opacity-60" /></div>
+                  <div className="flex-1 bg-[#050B12]/80 backdrop-blur-sm border border-[#009FE3]/30 p-2 md:p-3 rounded-xl text-center shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
+                    <span className="block text-[#EAF4FF] font-black text-sm md:text-lg mb-1">{simTemp} °C</span>
+                    <span className="block text-[8px] md:text-[9px] text-[#8E9BAA] uppercase tracking-widest font-bold">Temperatura</span>
+                    <div className="w-10 h-2 md:h-3 mx-auto mt-2 border-b border-red-500/40 relative overflow-hidden"><div className="absolute bottom-0 w-full h-[2px] bg-red-500 opacity-60" /></div>
                   </div>
-                  <div className="flex-1 bg-[#050B12]/80 backdrop-blur-sm border border-[#009FE3]/30 p-3 rounded-xl text-center shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
-                    <span className="block text-[#EAF4FF] font-black text-lg mb-1">{simPressure.toFixed(1)} bar</span>
-                    <span className="block text-[9px] text-[#8E9BAA] uppercase tracking-widest font-bold">Presión</span>
-                    <div className="w-10 h-3 mx-auto mt-2 border-b border-[#00D4FF]/40 relative overflow-hidden"><div className="absolute bottom-0 w-full h-[2px] bg-[#00D4FF] opacity-60" /></div>
+                  <div className="flex-1 bg-[#050B12]/80 backdrop-blur-sm border border-[#009FE3]/30 p-2 md:p-3 rounded-xl text-center shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
+                    <span className="block text-[#EAF4FF] font-black text-sm md:text-lg mb-1">{simPressure.toFixed(1)} bar</span>
+                    <span className="block text-[8px] md:text-[9px] text-[#8E9BAA] uppercase tracking-widest font-bold">Presión</span>
+                    <div className="w-10 h-2 md:h-3 mx-auto mt-2 border-b border-[#00D4FF]/40 relative overflow-hidden"><div className="absolute bottom-0 w-full h-[2px] bg-[#00D4FF] opacity-60" /></div>
                   </div>
-                  <div className="flex-1 bg-[#050B12]/80 backdrop-blur-sm border border-[#009FE3]/30 p-3 rounded-xl text-center shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
-                    <span className="block text-[#EAF4FF] font-black text-lg mb-1">{simMode === 'activo' ? '98 %' : '0 %'}</span>
-                    <span className="block text-[9px] text-[#8E9BAA] uppercase tracking-widest font-bold">Eficiencia</span>
-                    <div className="w-10 h-3 mx-auto mt-2 border-b border-emerald-500/40 relative overflow-hidden"><div className="absolute bottom-0 w-full h-[2px] bg-emerald-500 opacity-60" /></div>
+                  <div className="flex-1 bg-[#050B12]/80 backdrop-blur-sm border border-[#009FE3]/30 p-2 md:p-3 rounded-xl text-center shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
+                    <span className="block text-[#EAF4FF] font-black text-sm md:text-lg mb-1">{simMode === 'activo' ? '98 %' : '0 %'}</span>
+                    <span className="block text-[8px] md:text-[9px] text-[#8E9BAA] uppercase tracking-widest font-bold">Eficiencia</span>
+                    <div className="w-10 h-2 md:h-3 mx-auto mt-2 border-b border-emerald-500/40 relative overflow-hidden"><div className="absolute bottom-0 w-full h-[2px] bg-emerald-500 opacity-60" /></div>
                   </div>
                 </div>
 
                 {/* The 3D Equipment Diagram */}
-                <div className="relative z-10 flex-1 flex flex-col justify-center py-6 px-4">
-                  <div className="flex items-end justify-between w-full relative h-[180px] md:h-[220px]">
+                <div className="relative z-10 flex-1 flex flex-col justify-center py-4 md:py-6 px-2 md:px-4">
+                  <div className="flex items-end justify-between w-full relative h-[140px] md:h-[180px]">
                     {/* Glowing Pipeline Background connecting all nodes */}
                     <div className={`absolute left-10 right-10 h-[3px] top-[60%] -translate-y-1/2 z-0 transition-colors duration-500 ${activeNodeCount > 0 ? 'bg-[#009FE3] shadow-[0_0_12px_rgba(0,212,255,0.7)]' : 'bg-white/5'}`} />
                     
@@ -914,7 +941,17 @@ const Projects = () => {
                                    max="350" 
                                    value={nodeSizes[node.id] || 160} 
                                    onChange={(e) => handleNodeSizeChange(node.id, e)}
-                                   className="w-full h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-[#00D4FF]" 
+                                   className="w-full h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-[#00D4FF] mb-2" 
+                                 />
+                                 <span className="text-[7px] text-white/70 mb-1">Arranque: {nodeDelays[node.id] !== undefined ? nodeDelays[node.id] : 100}ms</span>
+                                 <input 
+                                   type="range" 
+                                   min="0" 
+                                   max="2000"
+                                   step="50" 
+                                   value={nodeDelays[node.id] !== undefined ? nodeDelays[node.id] : 100} 
+                                   onChange={(e) => handleNodeDelayChange(node.id, e)}
+                                   className="w-full h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-[#84CC16]" 
                                  />
                                </div>
                              </div>
@@ -956,7 +993,7 @@ const Projects = () => {
                 </div>
 
                 {/* Bottom Stats Bar */}
-                <div className="relative z-10 mt-10 pt-4 border-t border-[#009FE3]/20 flex flex-wrap md:flex-nowrap justify-between items-center bg-[#050B12]/80 backdrop-blur-md rounded-xl p-3 md:p-4 shadow-lg">
+                <div className="relative z-10 mt-6 pt-4 border-t border-[#009FE3]/20 flex flex-wrap md:flex-nowrap justify-between items-center bg-[#050B12]/80 backdrop-blur-md rounded-xl p-3 md:p-4 shadow-lg">
                   <div className="flex items-center gap-2 w-1/2 md:w-auto mb-3 md:mb-0">
                     <Activity size={18} className="text-[#00D4FF]" />
                     <div>
