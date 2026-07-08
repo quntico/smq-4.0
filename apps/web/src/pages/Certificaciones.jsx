@@ -18,7 +18,7 @@ const Certificaciones = () => {
 
       <div className="min-h-screen bg-[#030712] text-white flex flex-col font-sans select-none overflow-x-hidden">
         {/* HERO SECTION */}
-        <section className="relative h-[50vh] min-h-[400px] flex items-center justify-start px-[40px] border-b border-white/5 bg-gradient-to-b from-[#080b12] to-[#030712] overflow-hidden pt-20">
+        <section className="relative flex flex-col justify-center px-[40px] md:px-[80px] border-b border-white/5 bg-gradient-to-b from-[#080b12] to-[#030712] overflow-hidden pt-28 pb-8 z-10">
           {/* Sci-fi tech grid background */}
           <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(rgba(16,185,129,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(16,185,129,0.15)_1px,transparent_1px)] bg-[size:30px_30px]" />
           <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-[#10B981]/5 rounded-full filter blur-[120px] pointer-events-none z-[1]" />
@@ -39,7 +39,7 @@ const Certificaciones = () => {
               <h1 className="text-4xl md:text-6xl lg:text-[75px] font-black tracking-tight leading-none uppercase font-sans">
                 <DecipherText text="CERTIFICACIONES" delay={200} />
               </h1>
-              <p className="text-white/60 text-sm md:text-base tracking-wide max-w-[600px] font-mono mt-2 uppercase">
+              <p className="text-white/60 text-sm tracking-wide max-w-[600px] font-mono mt-1 uppercase">
                 Cumplimiento con normativas internacionales que respaldan la seguridad, calidad y confiabilidad de todos nuestros equipos industriales.
               </p>
             </div>
@@ -51,10 +51,10 @@ const Certificaciones = () => {
         </section>
 
         {/* CERTIFICACIONES GRID */}
-        <section className="py-24 px-[40px] relative border-b border-white/5 bg-[#030712]">
+        <section className="py-10 px-[40px] md:px-[80px] relative border-b border-white/5 bg-[#030712] z-10 flex-1 flex flex-col justify-center">
           <div className="max-w-[1400px] w-full mx-auto">
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
                 {
                   title: 'ISO 9001:2015',
@@ -87,13 +87,13 @@ const Certificaciones = () => {
                 >
                   <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#10B981]/25 to-transparent" />
                   <div>
-                    <div className="w-12 h-12 rounded-lg bg-[#10B981]/10 flex items-center justify-center border border-[#10B981]/20 mb-6 group-hover:bg-[#10B981]/25 transition-all">
-                      <Award size={24} className="text-[#10B981]" />
+                    <div className="w-10 h-10 rounded-lg bg-[#10B981]/10 flex items-center justify-center border border-[#10B981]/20 mb-4 group-hover:bg-[#10B981]/25 transition-all">
+                      <Award size={20} className="text-[#10B981]" />
                     </div>
-                    <h3 className="text-xl font-bold text-white mb-2">{cert.title}</h3>
-                    <p className="text-sm text-[#A1A8B3] leading-relaxed">{cert.desc}</p>
+                    <h3 className="text-lg font-bold text-white mb-2">{cert.title}</h3>
+                    <p className="text-xs text-[#A1A8B3] leading-relaxed">{cert.desc}</p>
                   </div>
-                  <div className="text-[9px] font-mono text-white/30 mt-4 tracking-wider">{cert.badge}</div>
+                  <div className="text-[9px] font-mono text-white/30 mt-3 tracking-wider">{cert.badge}</div>
                 </motion.div>
               ))}
             </div>
