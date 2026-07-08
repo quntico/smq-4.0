@@ -11,7 +11,7 @@
     "globalFilterOpacity": 75,
     "textJustify": true,
     "disableImageFilters": false,
-    "updatedAt": 1783486155400,
+    "updatedAt": 1783486489107,
     "footerCompanyName": "SMQ  SA de CV",
     "footerCompanyDesc": "Soluciones industriales de alta ingenieria, proyectos llave en mano y maquinaria para  procesamiento de alimentos y automatización.",
     "footerPhones": [
@@ -1276,316 +1276,6 @@
                 "desc": "Sistemas de inspección óptica y láser."
               }
             ]
-          }
-        }
-      ]
-    },
-    {
-      "id": "industria-alimentos",
-      "title": "Industria de Alimentos y Bebidas",
-      "slug": "/industria/alimentos",
-      "modules": [
-        {
-          "id": "sector-data",
-          "type": "sector-detail",
-          "data": {
-            "title": "Industria de Alimentos y Bebidas",
-            "subtitle": "Higiene óptima, precisión y control absoluto",
-            "description": "Equipos diseñados bajo los más estrictos estándares de sanidad (HACCP / FDA) y procesamiento de alimentos. Desarrollamos tecnologías avanzadas para procesamiento, dosificación y empaque de alta eficiencia.",
-            "heroImage": {
-              "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782610171141_alimentos_y_bebidas.webp",
-              "fogOpacity": 74,
-              "brightness": 200,
-              "opacity": 0.55
-            },
-            "stats": [
-              {
-                "label": "Eficiencia de Proceso",
-                "value": "99.5%"
-              },
-              {
-                "label": "Grado Sanitario",
-                "value": "FDA / HACCP"
-              },
-              {
-                "label": "Operación Continua",
-                "value": "24/7"
-              },
-              {
-                "label": "Control Autónomo",
-                "value": "Sí"
-              }
-            ],
-            "items": [
-              {
-                "id": "lavado",
-                "title": "LÍNEAS DE LAVADO Y PELADO",
-                "description": "Sistemas integrados de lavado, desinfección, corte y pelado para vegetales y frutas.",
-                "longDescription": "Nuestros equipos de lavado por burbujas y sistemas de pelado garantizan un tratamiento delicado y óptimo de la materia prima, reduciendo mermas y cumpliendo rigurosos estándares higiénicos.",
-                "features": [
-                  "[icon:Shield] Construcción completa en acero inoxidable AISI 304",
-                  "[icon:Zap] Consumo eficiente de agua con sistema de recirculación",
-                  "[icon:Cpu] Regulación de velocidad de banda y flujo de aire"
-                ],
-                "image": {
-                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781671531983_lavadora_burbujas.png",
-                  "type": "image",
-                  "opacity": 1,
-                  "blur": 0,
-                  "brightness": 100,
-                  "contrast": 100,
-                  "scale": 1,
-                  "positionX": 0,
-                  "positionY": 0,
-                  "objectFit": "cover",
-                  "bgColor": "transparent"
-                },
-                "tableHeaders": [
-                  "Modelo",
-                  "Función",
-                  "Capacidad",
-                  "Potencia",
-                  "Material"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "LWF-500",
-                    "width": "Lavado y Secado",
-                    "capacity": "500 kg/h",
-                    "power": "3.2 kW",
-                    "weight": "AISI 304"
-                  },
-                  {
-                    "model": "LWV-500",
-                    "width": "Lavado y Corte",
-                    "capacity": "500 kg/h",
-                    "power": "4.5 kW",
-                    "weight": "AISI 304"
-                  },
-                  {
-                    "model": "LWL-500",
-                    "width": "Lavado de Hojas",
-                    "capacity": "400 kg/h",
-                    "power": "2.8 kW",
-                    "weight": "AISI 304"
-                  },
-                  {
-                    "model": "LBW-500",
-                    "width": "Tina de Lavado Burbujas",
-                    "capacity": "600 kg/h",
-                    "power": "3.5 kW",
-                    "weight": "AISI 304"
-                  },
-                  {
-                    "model": "GPL-300",
-                    "width": "Peladora de Ajos",
-                    "capacity": "300 kg/h",
-                    "power": "1.5 kW",
-                    "weight": "AISI 304"
-                  }
-                ],
-                "images": [
-                  {
-                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781671531983_lavadora_burbujas.png",
-                    "type": "image",
-                    "opacity": 1,
-                    "blur": 0,
-                    "brightness": 100,
-                    "contrast": 100,
-                    "scale": 1,
-                    "positionX": 0,
-                    "positionY": 0,
-                    "objectFit": "cover",
-                    "bgColor": "transparent"
-                  },
-                  ""
-                ]
-              },
-              {
-                "id": "produccion",
-                "title": "LÍNEAS DE PRODUCCIÓN DE ALIMENTOS",
-                "description": "Líneas completas de procesamiento para papas fritas, chocolate, pastas, frutas y snacks.",
-                "longDescription": "Líneas integradas modulares diseñadas para procesamiento continuo con máxima eficiencia energética y consistencia de producto en cada lote.",
-                "features": [
-                  "[icon:Shield] Control total automático vía panel PLC touch",
-                  "[icon:Zap] Sistemas de calentamiento eficientes e inteligentes",
-                  "[icon:Cpu] Fácil limpieza con estándar CIP (Clean in Place)"
-                ],
-                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115231575_choco%20color%202.png",
-                "tableHeaders": [
-                  "Modelo",
-                  "Producto",
-                  "Capacidad",
-                  "Energía/Potencia",
-                  "Peso Línea"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "LPC-500",
-                    "width": "Papas Fritas",
-                    "capacity": "500 kg/h",
-                    "power": "GLP / Vapor",
-                    "weight": "4,200 kg"
-                  },
-                  {
-                    "model": "LCH-500",
-                    "width": "Chocolate en Polvo",
-                    "capacity": "500 kg/h",
-                    "power": "18.5 kW",
-                    "weight": "2,800 kg"
-                  },
-                  {
-                    "model": "LMC-100",
-                    "width": "Pastas",
-                    "capacity": "100 kg/h",
-                    "power": "11.0 kW",
-                    "weight": "1,200 kg"
-                  },
-                  {
-                    "model": "LMC-200",
-                    "width": "Pastas",
-                    "capacity": "200 kg/h",
-                    "power": "15.0 kW",
-                    "weight": "1,800 kg"
-                  },
-                  {
-                    "model": "LFC-300",
-                    "width": "Frutas Congeladas",
-                    "capacity": "300 kg/h",
-                    "power": "IQF / Nitrógeno",
-                    "weight": "2,100 kg"
-                  },
-                  {
-                    "model": "LCB-300",
-                    "width": "Barras de Cereal",
-                    "capacity": "300 kg/h",
-                    "power": "12.0 kW",
-                    "weight": "1,600 kg"
-                  },
-                  {
-                    "model": "LSN-250",
-                    "width": "Snacks Inflados",
-                    "capacity": "250 kg/h",
-                    "power": "22.0 kW",
-                    "weight": "2,300 kg"
-                  },
-                  {
-                    "model": "LPT-250",
-                    "width": "Alimento para Mascotas",
-                    "capacity": "250 kg/h",
-                    "power": "30.0 kW",
-                    "weight": "3,100 kg"
-                  }
-                ]
-              },
-              {
-                "id": "empaquetado",
-                "title": "LÍNEAS DE EMPAQUETADO Y LLENADO",
-                "description": "Sistemas automáticos de empaque para polvos, líquidos, pouches, cartón y botellas.",
-                "longDescription": "Sistemas avanzados de alta velocidad y hermeticidad de sellado para todo tipo de formatos rígidos y flexibles.",
-                "features": [
-                  "[icon:Shield] Sensores de precisión para detección de presencia de envase",
-                  "[icon:Zap] Servomotores de alta precisión de marca líder",
-                  "[icon:Cpu] Construcción higiénica y libre de mantenimiento constante"
-                ],
-                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115213579_choco%20bN%202.png",
-                "tableHeaders": [
-                  "Modelo",
-                  "Tipo de Empaque",
-                  "Velocidad",
-                  "Potencia",
-                  "Precisión"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "PKB-70",
-                    "width": "Empaquetado y Llenado",
-                    "capacity": "70 bpm",
-                    "power": "4.2 kW",
-                    "weight": "±0.5%"
-                  },
-                  {
-                    "model": "PKW-130",
-                    "width": "Empaquetado Polvos",
-                    "capacity": "130 bpm",
-                    "power": "5.5 kW",
-                    "weight": "±0.2%"
-                  },
-                  {
-                    "model": "PCP-40",
-                    "width": "Llenado y Empaquetado Pouch",
-                    "capacity": "40 bpm",
-                    "power": "3.8 kW",
-                    "weight": "±0.4%"
-                  },
-                  {
-                    "model": "PCT-80",
-                    "width": "Empaquetado de Cartón",
-                    "capacity": "80 cpm",
-                    "power": "7.5 kW",
-                    "weight": "±0.1%"
-                  },
-                  {
-                    "model": "PBK-60",
-                    "width": "Llenado y Empaquetado",
-                    "capacity": "60 bpm",
-                    "power": "4.0 kW",
-                    "weight": "±0.5%"
-                  },
-                  {
-                    "model": "BTL-200",
-                    "width": "Etiquetado Double Side",
-                    "capacity": "200 bpm",
-                    "power": "2.2 kW",
-                    "weight": "±0.5 mm"
-                  }
-                ]
-              },
-              {
-                "id": "separadoras",
-                "title": "SISTEMAS DE SEPARACIÓN",
-                "description": "Sistemas inteligentes de clasificación y separación por color, tamaño y peso.",
-                "longDescription": "Sistemas ópticos y gravimétricos de alta tecnología para garantizar la máxima pureza de su producto final, eliminando cuerpos extraños y piezas fuera de especificación.",
-                "features": [
-                  "[icon:Shield] Cámaras CCD de ultra alta resolución (Full HD)",
-                  "[icon:Zap] Eyectores neumáticos de respuesta ultrarrápida",
-                  "[icon:Cpu] Algoritmos de inteligencia artificial para clasificación compleja"
-                ],
-                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png",
-                "tableHeaders": [
-                  "Modelo",
-                  "Criterio Separación",
-                  "Capacidad",
-                  "Precisión",
-                  "Cámaras/Sensores"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "CS-500",
-                    "width": "Separadora por Color",
-                    "capacity": "500 kg/h",
-                    "power": "99.9%",
-                    "weight": "Cámaras CCD HD"
-                  },
-                  {
-                    "model": "TS-1000",
-                    "width": "Separadora por Tamaño",
-                    "capacity": "1000 kg/h",
-                    "power": "99.5%",
-                    "weight": "Sensores Láser"
-                  },
-                  {
-                    "model": "WS-500",
-                    "width": "Separadora por Peso",
-                    "capacity": "500 kg/h",
-                    "power": "99.8%",
-                    "weight": "Celdas de Carga C3"
-                  }
-                ]
-              }
-            ],
-            "showStats": false,
-            "instalacionesImage": "/smq_factory_night2.png"
           }
         }
       ]
@@ -5314,6 +5004,372 @@
                 ]
               }
             ],
+            "instalacionesImage": "/smq_factory_night2.png"
+          }
+        }
+      ]
+    },
+    {
+      "id": "industria-alimentos",
+      "title": "Industria de Alimentos y Bebidas",
+      "slug": "/industria/alimentos",
+      "modules": [
+        {
+          "id": "sector-data",
+          "type": "sector-detail",
+          "data": {
+            "title": "Industria de Alimentos y Bebidas",
+            "subtitle": "Higiene óptima, precisión y control absoluto",
+            "description": "Equipos diseñados bajo los más estrictos estándares de sanidad (HACCP / FDA) y procesamiento de alimentos. Desarrollamos tecnologías avanzadas para procesamiento, dosificación y empaque de alta eficiencia.",
+            "heroImage": {
+              "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782610171141_alimentos_y_bebidas.webp",
+              "fogOpacity": 74,
+              "brightness": 200,
+              "opacity": 0.55
+            },
+            "stats": [
+              {
+                "label": "Eficiencia de Proceso",
+                "value": "99.5%"
+              },
+              {
+                "label": "Grado Sanitario",
+                "value": "FDA / HACCP"
+              },
+              {
+                "label": "Operación Continua",
+                "value": "24/7"
+              },
+              {
+                "label": "Control Autónomo",
+                "value": "Sí"
+              }
+            ],
+            "items": [
+              {
+                "id": "lavado",
+                "title": "LÍNEAS DE LAVADO Y PELADO",
+                "description": "Sistemas integrados de lavado, desinfección, corte y pelado para vegetales y frutas.",
+                "longDescription": "Nuestros equipos de lavado por burbujas y sistemas de pelado garantizan un tratamiento delicado y óptimo de la materia prima, reduciendo mermas y cumpliendo rigurosos estándares higiénicos.",
+                "features": [
+                  "[icon:Shield] Construcción completa en acero inoxidable AISI 304",
+                  "[icon:Zap] Consumo eficiente de agua con sistema de recirculación",
+                  "[icon:Cpu] Regulación de velocidad de banda y flujo de aire"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781671531983_lavadora_burbujas.png",
+                  "type": "image",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100,
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "cover",
+                  "bgColor": "transparent"
+                },
+                "tableHeaders": [
+                  "Modelo",
+                  "Función",
+                  "Capacidad",
+                  "Potencia",
+                  "Material"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "LWF-500",
+                    "width": "Lavado y Secado",
+                    "capacity": "500 kg/h",
+                    "power": "3.2 kW",
+                    "weight": "AISI 304"
+                  },
+                  {
+                    "model": "LWV-500",
+                    "width": "Lavado y Corte",
+                    "capacity": "500 kg/h",
+                    "power": "4.5 kW",
+                    "weight": "AISI 304"
+                  },
+                  {
+                    "model": "LWL-500",
+                    "width": "Lavado de Hojas",
+                    "capacity": "400 kg/h",
+                    "power": "2.8 kW",
+                    "weight": "AISI 304"
+                  },
+                  {
+                    "model": "LBW-500",
+                    "width": "Tina de Lavado Burbujas",
+                    "capacity": "600 kg/h",
+                    "power": "3.5 kW",
+                    "weight": "AISI 304"
+                  },
+                  {
+                    "model": "GPL-300",
+                    "width": "Peladora de Ajos",
+                    "capacity": "300 kg/h",
+                    "power": "1.5 kW",
+                    "weight": "AISI 304"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1781671531983_lavadora_burbujas.png",
+                    "type": "image",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100,
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "cover",
+                    "bgColor": "transparent"
+                  },
+                  ""
+                ]
+              },
+              {
+                "id": "produccion",
+                "title": "LÍNEAS DE PRODUCCIÓN DE ALIMENTOS",
+                "description": "Líneas completas de procesamiento para papas fritas, chocolate, pastas, frutas y snacks.",
+                "longDescription": "Líneas integradas modulares diseñadas para procesamiento continuo con máxima eficiencia energética y consistencia de producto en cada lote.",
+                "features": [
+                  "[icon:Shield] Control total automático vía panel PLC touch",
+                  "[icon:Zap] Sistemas de calentamiento eficientes e inteligentes",
+                  "[icon:Cpu] Fácil limpieza con estándar CIP (Clean in Place)"
+                ],
+                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115231575_choco%20color%202.png",
+                "tableHeaders": [
+                  "Modelo",
+                  "Producto",
+                  "Capacidad",
+                  "Energía/Potencia",
+                  "Peso Línea"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "LPC-500",
+                    "width": "Papas Fritas",
+                    "capacity": "500 kg/h",
+                    "power": "GLP / Vapor",
+                    "weight": "4,200 kg"
+                  },
+                  {
+                    "model": "LCH-500",
+                    "width": "Chocolate en Polvo",
+                    "capacity": "500 kg/h",
+                    "power": "18.5 kW",
+                    "weight": "2,800 kg"
+                  },
+                  {
+                    "model": "LMC-100",
+                    "width": "Pastas",
+                    "capacity": "100 kg/h",
+                    "power": "11.0 kW",
+                    "weight": "1,200 kg"
+                  },
+                  {
+                    "model": "LMC-200",
+                    "width": "Pastas",
+                    "capacity": "200 kg/h",
+                    "power": "15.0 kW",
+                    "weight": "1,800 kg"
+                  },
+                  {
+                    "model": "LFC-300",
+                    "width": "Frutas Congeladas",
+                    "capacity": "300 kg/h",
+                    "power": "IQF / Nitrógeno",
+                    "weight": "2,100 kg"
+                  },
+                  {
+                    "model": "LCB-300",
+                    "width": "Barras de Cereal",
+                    "capacity": "300 kg/h",
+                    "power": "12.0 kW",
+                    "weight": "1,600 kg"
+                  },
+                  {
+                    "model": "LSN-250",
+                    "width": "Snacks Inflados",
+                    "capacity": "250 kg/h",
+                    "power": "22.0 kW",
+                    "weight": "2,300 kg"
+                  },
+                  {
+                    "model": "LPT-250",
+                    "width": "Alimento para Mascotas",
+                    "capacity": "250 kg/h",
+                    "power": "30.0 kW",
+                    "weight": "3,100 kg"
+                  }
+                ]
+              },
+              {
+                "id": "empaquetado",
+                "title": "LÍNEAS DE EMPAQUETADO Y LLENADO",
+                "description": "Sistemas automáticos de empaque para polvos, líquidos, pouches, cartón y botellas.",
+                "longDescription": "Sistemas avanzados de alta velocidad y hermeticidad de sellado para todo tipo de formatos rígidos y flexibles.",
+                "features": [
+                  "[icon:Shield] Sensores de precisión para detección de presencia de envase",
+                  "[icon:Zap] Servomotores de alta precisión de marca líder",
+                  "[icon:Cpu] Construcción higiénica y libre de mantenimiento constante"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783486470006_ChatGPT_Image_7_jul_2026_17_49_27.webp",
+                  "type": "image",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100,
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "cover",
+                  "bgColor": "transparent"
+                },
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo de Empaque",
+                  "Velocidad",
+                  "Potencia",
+                  "Precisión"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "PKB-70",
+                    "width": "Empaquetado y Llenado",
+                    "capacity": "70 bpm",
+                    "power": "4.2 kW",
+                    "weight": "±0.5%"
+                  },
+                  {
+                    "model": "PKW-130",
+                    "width": "Empaquetado Polvos",
+                    "capacity": "130 bpm",
+                    "power": "5.5 kW",
+                    "weight": "±0.2%"
+                  },
+                  {
+                    "model": "PCP-40",
+                    "width": "Llenado y Empaquetado Pouch",
+                    "capacity": "40 bpm",
+                    "power": "3.8 kW",
+                    "weight": "±0.4%"
+                  },
+                  {
+                    "model": "PCT-80",
+                    "width": "Empaquetado de Cartón",
+                    "capacity": "80 cpm",
+                    "power": "7.5 kW",
+                    "weight": "±0.1%"
+                  },
+                  {
+                    "model": "PBK-60",
+                    "width": "Llenado y Empaquetado",
+                    "capacity": "60 bpm",
+                    "power": "4.0 kW",
+                    "weight": "±0.5%"
+                  },
+                  {
+                    "model": "BTL-200",
+                    "width": "Etiquetado Double Side",
+                    "capacity": "200 bpm",
+                    "power": "2.2 kW",
+                    "weight": "±0.5 mm"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783486470006_ChatGPT_Image_7_jul_2026_17_49_27.webp",
+                    "type": "image",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100,
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "cover",
+                    "bgColor": "transparent"
+                  },
+                  ""
+                ]
+              },
+              {
+                "id": "separadoras",
+                "title": "SISTEMAS DE SEPARACIÓN",
+                "description": "Sistemas inteligentes de clasificación y separación por color, tamaño y peso.",
+                "longDescription": "Sistemas ópticos y gravimétricos de alta tecnología para garantizar la máxima pureza de su producto final, eliminando cuerpos extraños y piezas fuera de especificación.",
+                "features": [
+                  "[icon:Shield] Cámaras CCD de ultra alta resolución (Full HD)",
+                  "[icon:Zap] Eyectores neumáticos de respuesta ultrarrápida",
+                  "[icon:Cpu] Algoritmos de inteligencia artificial para clasificación compleja"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783486488355_limpieza.webp",
+                  "type": "image",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100,
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "cover",
+                  "bgColor": "transparent"
+                },
+                "tableHeaders": [
+                  "Modelo",
+                  "Criterio Separación",
+                  "Capacidad",
+                  "Precisión",
+                  "Cámaras/Sensores"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "CS-500",
+                    "width": "Separadora por Color",
+                    "capacity": "500 kg/h",
+                    "power": "99.9%",
+                    "weight": "Cámaras CCD HD"
+                  },
+                  {
+                    "model": "TS-1000",
+                    "width": "Separadora por Tamaño",
+                    "capacity": "1000 kg/h",
+                    "power": "99.5%",
+                    "weight": "Sensores Láser"
+                  },
+                  {
+                    "model": "WS-500",
+                    "width": "Separadora por Peso",
+                    "capacity": "500 kg/h",
+                    "power": "99.8%",
+                    "weight": "Celdas de Carga C3"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783486488355_limpieza.webp",
+                    "type": "image",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100,
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "cover",
+                    "bgColor": "transparent"
+                  },
+                  ""
+                ]
+              }
+            ],
+            "showStats": false,
             "instalacionesImage": "/smq_factory_night2.png"
           }
         }
