@@ -27,15 +27,56 @@ const Projects = () => {
   const projectsPage = cmsState.pages?.find(p => p.id === 'projects') || {};
   const simModule = projectsPage.modules?.find(m => m.id === 'sim-nodes') || { data: {} };
 
-  const nodeImages = simModule.data.nodeImages || {
-    1: '/images/sim/node1.png',
-    2: '/images/sim/node2.png',
-    3: '/images/sim/node4.png',
-    4: '/images/sim/node5.png',
-    5: '/images/sim/node6.png'
-  };
+  const [nodeImages, setNodeImages] = useState(() => {
+    try {
+      const local = localStorage.getItem('smq_sim_nodes');
+      if (local) return JSON.parse(local);
+    } catch(e) {}
+    if (simModule.data.nodeImages) return simModule.data.nodeImages;
+    return {
+      1: '/images/sim/node1.png',
+      2: '/images/sim/node2.png',
+      3: '/images/sim/node4.png',
+      4: '/images/sim/node5.png',
+      5: '/images/sim/node6.png'
+    };
+  });
 
-  const nodeSizes = simModule.data.nodeSizes || { 1: 160, 2: 160, 3: 160, 4: 160, 5: 160 };
+  const [nodeSizes, setNodeSizes] = useState(() => {
+    try {
+      const local = localStorage.getItem('smq_sim_nodes_sizes');
+      if (local) return JSON.parse(local);
+    } catch(e) {}
+    if (simModule.data.nodeSizes) return simModule.data.nodeSizes;
+    return { 1: 160, 2: 160, 3: 160, 4: 160, 5: 160 };
+  });
+
+  const [isSyncing, setIsSyncing] = useState(false);
+
+  const handleSyncToCloud = async () => {
+    setIsSyncing(true);
+    try {
+      const updatedImages = { ...nodeImages };
+      for (const [id, src] of Object.entries(nodeImages)) {
+        if (src && src.startsWith('data:image')) {
+          const res = await fetch(src);
+          const blob = await res.blob();
+          const file = new File([blob], `node_${id}.png`, { type: blob.type });
+          const url = await uploadFile(file, 'media');
+          updatedImages[id] = url;
+        }
+      }
+      setNodeImages(updatedImages);
+      localStorage.setItem('smq_sim_nodes', JSON.stringify(updatedImages));
+      updatePageModule('projects', 'sim-nodes', { nodeImages: updatedImages, nodeSizes });
+      alert("¡Assets 3D sincronizados con la nube correctamente! Ahora haz clic en el botón global de 'Publicar' para reflejarlo en producción.");
+    } catch (err) {
+      console.error(err);
+      alert("Error al sincronizar assets a la nube.");
+    } finally {
+      setIsSyncing(false);
+    }
+  };
 
   const handleNodeImageUpload = async (nodeId, e) => {
     const file = e.target.files[0];
@@ -44,6 +85,8 @@ const Projects = () => {
         setUploadingId(nodeId);
         const url = await uploadFile(file, 'media');
         const newImages = { ...nodeImages, [nodeId]: url };
+        setNodeImages(newImages);
+        localStorage.setItem('smq_sim_nodes', JSON.stringify(newImages));
         updatePageModule('projects', 'sim-nodes', { nodeImages: newImages, nodeSizes });
       } catch (error) {
         console.error("Error uploading image:", error);
@@ -55,6 +98,8 @@ const Projects = () => {
 
   const handleNodeSizeChange = (nodeId, e) => {
     const newSizes = { ...nodeSizes, [nodeId]: parseInt(e.target.value) };
+    setNodeSizes(newSizes);
+    localStorage.setItem('smq_sim_nodes_sizes', JSON.stringify(newSizes));
     updatePageModule('projects', 'sim-nodes', { nodeImages, nodeSizes: newSizes });
   };
 
@@ -635,7 +680,19 @@ const Projects = () => {
                 </div>
                 <h2 className="text-xl md:text-3xl font-bold uppercase tracking-tight">Simulador de Procesos 3D</h2>
               </div>
-              <p className="text-white/40 text-[10px] md:text-xs max-w-sm">Interactúa con los controles del flujo de la planta para simular presiones y temperaturas en tiempo real.</p>
+              <div className="flex items-center gap-3">
+                <p className="text-white/40 text-[10px] md:text-xs max-w-sm">Interactúa con los controles del flujo de la planta para simular presiones y temperaturas en tiempo real.</p>
+                {isEditorMode && (
+                  <button 
+                    onClick={handleSyncToCloud} 
+                    disabled={isSyncing}
+                    className="flex items-center gap-2 bg-[#00D4FF]/10 border border-[#00D4FF]/30 text-[#00D4FF] px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider hover:bg-[#00D4FF]/20 transition-colors"
+                  >
+                    {isSyncing ? <Loader2 size={12} className="animate-spin" /> : <DownloadCloud size={12} />}
+                    {isSyncing ? 'Sincronizando...' : 'Sincronizar Assets a Producción'}
+                  </button>
+                )}
+              </div>
             </div>
 
             <div className="grid grid-cols-1 xl:grid-cols-12 gap-4 xl:gap-5 items-stretch font-['Poppins']">
