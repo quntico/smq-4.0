@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Award, Factory, Tv, TrendingUp, DownloadCloud, BookOpen, ArrowUpRight, Calculator, FileText, CheckCircle2, Play, Pause, RefreshCw, Layers, Globe, Users, Headphones, Grid, Building2, MapPin, Hammer, Cpu, Briefcase, Clock, Database, Activity, Thermometer, Droplets, ShieldCheck, Gauge, Waves, RotateCcw, Camera, Loader2 } from 'lucide-react';
+import { Award, Factory, Tv, TrendingUp, DownloadCloud, BookOpen, ArrowUpRight, Calculator, FileText, CheckCircle2, Play, Pause, RefreshCw, Layers, Globe, Users, Headphones, Grid, Building2, MapPin, Hammer, Cpu, Briefcase, Clock, Database, Activity, Thermometer, Droplets, ShieldCheck, Gauge, Waves, RotateCcw, Camera, Loader2, Settings2, Image as ImageIcon, Video, Upload } from 'lucide-react';
 import Footer from '@/components/Footer.jsx';
 import DecipherText from '@/components/DecipherText.jsx';
 import { useCMS } from '@/context/CMSContext.jsx';
@@ -21,8 +21,38 @@ const Projects = () => {
   const [simTime, setSimTime] = useState(768); // 12:48 starting time
   const [simMode, setSimMode] = useState('pausa');
   const [activeProjectIdx, setActiveProjectIdx] = useState(0);
-  const { isEditorMode, cmsState, updatePageModule } = useCMS();
+  const { isEditorMode, cmsState, updatePageModule, updateSettings, syncToCloud } = useCMS();
   const [uploadingId, setUploadingId] = useState(null);
+  
+  // ROI Editor State
+  const [showRoiEditor, setShowRoiEditor] = useState(false);
+  const roiMediaKey = 'projectsRoiMedia';
+  const roiOpacityKey = 'projectsRoiOpacity';
+  const roiFogKey = 'projectsRoiFog';
+  const roiBrightnessKey = 'projectsRoiBrightness';
+
+  const roiMedia = cmsState?.settings?.[roiMediaKey] || 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop';
+  const roiOpacity = cmsState?.settings?.[roiOpacityKey] ?? 40;
+  const roiFog = cmsState?.settings?.[roiFogKey] ?? 100;
+  const roiBrightness = cmsState?.settings?.[roiBrightnessKey] ?? 100;
+  const isRoiVideo = roiMedia.endsWith('.mp4') || roiMedia.endsWith('.webm');
+
+  const handleRoiMediaUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadingId('roiMedia');
+    try {
+      const url = await uploadFile(file);
+      if (url) {
+        updateSettings({ [roiMediaKey]: url });
+        await syncToCloud();
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setUploadingId(null);
+    }
+  };
 
   // Derive node state from CMSContext instead of localStorage
   const projectsPage = cmsState.pages?.find(p => p.id === 'projects') || {};
@@ -1038,89 +1068,267 @@ const Projects = () => {
           </section>
 
           {/* 04. CALCULADORA ROI */}
-          <section id="roi" className="scroll-mt-32 space-y-12">
-            <div className="flex items-center gap-4 flex-wrap justify-between border-b border-white/5 pb-6">
-              <div className="space-y-2">
-                <div className="flex items-center gap-2.5">
-                  <span className="text-[#F97316] text-xs font-black tracking-widest font-mono">04 / RETORNO DE INVERSIÓN</span>
-                  <Calculator size={14} className="text-[#F97316]" />
-                </div>
-                <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tight">Calculadora ROI y Ahorro</h2>
+          <section id="roi" className="scroll-mt-32 max-w-[1400px] mx-auto px-6 md:px-8 py-20 font-['Poppins']">
+            {/* Header left floating over image */}
+            <div className="relative w-full rounded-[2rem] overflow-hidden border border-white/10 bg-[#050914] flex flex-col md:flex-row shadow-[0_0_50px_rgba(0,0,0,0.5)] group">
+              
+              {/* Background gradient & image */}
+              <div className="absolute inset-0 z-0">
+                <div 
+                  className="absolute inset-0 bg-gradient-to-r from-[#03060e] via-[#03060e]/95 to-transparent z-10 w-2/3 transition-opacity duration-300" 
+                  style={{ opacity: roiFog / 100 }}
+                />
+                <div 
+                  className="absolute inset-0 bg-gradient-to-t from-[#03060e] via-transparent to-transparent z-10 h-full transition-opacity duration-300"
+                  style={{ opacity: roiFog / 100 }}
+                />
+                {isRoiVideo ? (
+                  <video 
+                    autoPlay loop muted playsInline
+                    src={roiMedia} 
+                    className="absolute right-0 top-0 h-full w-[80%] md:w-[70%] object-cover object-right mix-blend-lighten transition-all duration-1000 group-hover:scale-105" 
+                    style={{ opacity: roiOpacity / 100, filter: `brightness(${roiBrightness}%)` }}
+                  />
+                ) : (
+                  <img 
+                    src={roiMedia} 
+                    alt="Industrial Equipment" 
+                    className="absolute right-0 top-0 h-full w-[80%] md:w-[70%] object-cover object-right mix-blend-lighten transition-all duration-1000 group-hover:scale-105" 
+                    style={{ opacity: roiOpacity / 100, filter: `brightness(${roiBrightness}%)` }}
+                  />
+                )}
               </div>
-              <p className="text-white/40 text-xs md:text-sm max-w-md">Calcula de manera inmediata el beneficio económico y energético al integrar maquinaria SMQ.</p>
+
+              {/* Editor Controls */}
+              {isEditorMode && (
+                <div className="absolute top-6 right-6 z-50">
+                  <button
+                    onClick={() => setShowRoiEditor(!showRoiEditor)}
+                    className="w-10 h-10 rounded-full bg-black/50 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white/10 transition-colors shadow-lg"
+                  >
+                    <Settings2 size={18} />
+                  </button>
+
+                  {showRoiEditor && (
+                    <div className="absolute top-14 right-0 w-72 bg-[#080B12]/95 backdrop-blur-xl border border-white/10 rounded-2xl p-5 shadow-2xl space-y-4">
+                      <h4 className="text-xs font-black uppercase tracking-wider text-[#F97316] border-b border-white/5 pb-2">Ajustes de Fondo</h4>
+                      
+                      <div className="space-y-4">
+                        <div className="flex flex-col gap-2">
+                          <label className="text-[10px] text-white/50 uppercase font-bold tracking-wider">Subir Imagen / Video</label>
+                          <label className="flex items-center justify-center gap-2 w-full h-10 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:bg-white/10 transition-colors">
+                            {uploadingId === 'roiMedia' ? (
+                              <Loader2 size={14} className="text-[#F97316] animate-spin" />
+                            ) : (
+                              <>
+                                <Upload size={14} className="text-[#F97316]" />
+                                <span className="text-[10px] text-white font-bold uppercase tracking-wider">Seleccionar</span>
+                              </>
+                            )}
+                            <input type="file" accept="image/*,video/*" className="hidden" onChange={handleRoiMediaUpload} disabled={uploadingId === 'roiMedia'} />
+                          </label>
+                        </div>
+
+                        <div className="space-y-1">
+                          <div className="flex justify-between text-[10px] text-white/50 font-bold uppercase">
+                            <span>Transparencia (Fog)</span>
+                            <span className="text-[#F97316]">{roiFog}%</span>
+                          </div>
+                          <input 
+                            type="range" min="0" max="100" 
+                            value={roiFog} 
+                            onChange={(e) => updateSettings({ [roiFogKey]: parseInt(e.target.value) })}
+                            onMouseUp={syncToCloud}
+                            onTouchEnd={syncToCloud}
+                            className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[#F97316]" 
+                          />
+                        </div>
+
+                        <div className="space-y-1">
+                          <div className="flex justify-between text-[10px] text-white/50 font-bold uppercase">
+                            <span>Visibilidad Media</span>
+                            <span className="text-[#F97316]">{roiOpacity}%</span>
+                          </div>
+                          <input 
+                            type="range" min="0" max="100" 
+                            value={roiOpacity} 
+                            onChange={(e) => updateSettings({ [roiOpacityKey]: parseInt(e.target.value) })}
+                            onMouseUp={syncToCloud}
+                            onTouchEnd={syncToCloud}
+                            className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[#F97316]" 
+                          />
+                        </div>
+
+                        <div className="space-y-1">
+                          <div className="flex justify-between text-[10px] text-white/50 font-bold uppercase">
+                            <span>Brillo</span>
+                            <span className="text-[#F97316]">{roiBrightness}%</span>
+                          </div>
+                          <input 
+                            type="range" min="0" max="200" 
+                            value={roiBrightness} 
+                            onChange={(e) => updateSettings({ [roiBrightnessKey]: parseInt(e.target.value) })}
+                            onMouseUp={syncToCloud}
+                            onTouchEnd={syncToCloud}
+                            className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[#F97316]" 
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Left Content (Text & Form) */}
+              <div className="relative z-20 w-full md:w-[50%] lg:w-[45%] p-8 md:p-12 lg:p-16 flex flex-col justify-center space-y-10">
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2.5">
+                    <span className="text-[#F97316] text-xs font-black tracking-widest font-mono">04 / RETORNO DE INVERSIÓN</span>
+                    <Calculator size={14} className="text-[#F97316]" />
+                  </div>
+                  <h2 className="text-3xl md:text-4xl lg:text-[42px] font-black uppercase tracking-tight leading-[1.1] text-white">
+                    Calculadora ROI <br/>
+                    Y Ahorro <span className="text-[#F97316]">Energético</span>
+                  </h2>
+                  <p className="text-white/60 text-sm md:text-sm max-w-sm leading-relaxed font-medium">
+                    Calcula de manera inmediata el beneficio económico y energético al integrar maquinaria en tu operación.
+                  </p>
+                </div>
+
+                {/* Form Card */}
+                <div className="bg-[#03060E]/80 backdrop-blur-xl border border-white/10 p-6 md:p-8 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
+                  <h3 className="text-xs font-black uppercase tracking-widest text-[#F97316] mb-6">Configuración Operativa</h3>
+                  
+                  <div className="space-y-4">
+                    {/* Input 1 */}
+                    <div className="flex items-center justify-between bg-white/[0.03] border border-white/5 rounded-xl px-4 py-3 hover:border-white/20 transition-colors">
+                      <div className="flex items-center gap-3">
+                        <Gauge size={16} className="text-white/40" />
+                        <label className="text-[10px] text-white/60 font-bold uppercase tracking-wider">Capacidad Nominal (ton/h)</label>
+                      </div>
+                      <input
+                        type="number"
+                        value={capacity}
+                        step="0.5" min="0.5" max="10"
+                        onChange={(e) => setCapacity(parseFloat(e.target.value) || 0)}
+                        className="w-20 bg-transparent text-right text-[#F97316] font-black text-lg focus:outline-none placeholder-white/20"
+                      />
+                    </div>
+
+                    {/* Input 2 */}
+                    <div className="flex items-center justify-between bg-white/[0.03] border border-white/5 rounded-xl px-4 py-3 hover:border-white/20 transition-colors">
+                      <div className="flex items-center gap-3">
+                        <Activity size={16} className="text-white/40" />
+                        <label className="text-[10px] text-white/60 font-bold uppercase tracking-wider">Costo de Energía (USD/kWh)</label>
+                      </div>
+                      <input
+                        type="number"
+                        value={energyCost}
+                        step="0.01" min="0.01" max="0.5"
+                        onChange={(e) => setEnergyCost(parseFloat(e.target.value) || 0)}
+                        className="w-20 bg-transparent text-right text-[#F97316] font-black text-lg focus:outline-none placeholder-white/20"
+                      />
+                    </div>
+
+                    {/* Input 3 */}
+                    <div className="flex items-center justify-between bg-white/[0.03] border border-white/5 rounded-xl px-4 py-3 hover:border-white/20 transition-colors">
+                      <div className="flex items-center gap-3">
+                        <Clock size={16} className="text-white/40" />
+                        <label className="text-[10px] text-white/60 font-bold uppercase tracking-wider">Horas de Operación al Año</label>
+                      </div>
+                      <input
+                        type="number"
+                        value={opHours}
+                        step="500" min="1000" max="8760"
+                        onChange={(e) => setOpHours(parseInt(e.target.value) || 0)}
+                        className="w-24 bg-transparent text-right text-[#F97316] font-black text-lg focus:outline-none placeholder-white/20"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-              {/* Formulario */}
-              <div className="lg:col-span-5 bg-white/[0.02] border border-white/5 p-6 rounded-2xl space-y-6">
-                <h3 className="text-sm font-black uppercase tracking-widest text-white/40">Configuración Operativa</h3>
-                
-                <div className="space-y-4">
-                  <div className="space-y-2">
-                    <label className="text-xs text-white/60 font-semibold uppercase tracking-wider block">Capacidad Nominal (ton/h)</label>
-                    <input
-                      type="number"
-                      value={capacity}
-                      step="0.5"
-                      min="0.5"
-                      max="10"
-                      onChange={(e) => setCapacity(parseFloat(e.target.value) || 0)}
-                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F97316] font-bold"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <label className="text-xs text-white/60 font-semibold uppercase tracking-wider block">Costo de Energía (USD/kWh)</label>
-                    <input
-                      type="number"
-                      value={energyCost}
-                      step="0.01"
-                      min="0.01"
-                      max="0.5"
-                      onChange={(e) => setEnergyCost(parseFloat(e.target.value) || 0)}
-                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F97316] font-bold"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <label className="text-xs text-white/60 font-semibold uppercase tracking-wider block">Horas de Operación al Año</label>
-                    <input
-                      type="number"
-                      value={opHours}
-                      step="500"
-                      min="1000"
-                      max="8760"
-                      onChange={(e) => setOpHours(parseInt(e.target.value) || 0)}
-                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F97316] font-bold"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Resultados */}
-              <div className="lg:col-span-7 bg-white/[0.01] border border-white/5 p-8 rounded-2xl flex flex-col justify-between space-y-8">
-                <div>
-                  <h3 className="text-xs font-black uppercase tracking-widest text-[#F97316] mb-6">Resultados del Análisis Financiero</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div className="space-y-2">
-                      <span className="text-white/50 text-[10px] uppercase font-bold tracking-wider">Ahorro Anual de Energía Estimado:</span>
-                      <span className="text-3xl md:text-4.5xl font-black text-white block">
+            {/* Results Bottom Bar */}
+            <div className="bg-[#050914]/90 backdrop-blur-xl border border-white/10 p-6 md:p-8 rounded-2xl flex flex-col xl:flex-row gap-8 justify-between items-start xl:items-center relative z-20 -mt-8 mx-6 shadow-2xl">
+              <div className="w-full xl:w-auto">
+                <h3 className="text-[10px] font-black uppercase tracking-widest text-[#F97316] mb-4">Resultados del Análisis Financiero</h3>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-6 xl:gap-12">
+                  
+                  <div className="flex items-center gap-4 border-b md:border-b-0 md:border-r border-white/10 pb-4 md:pb-0 md:pr-12">
+                    <div className="w-12 h-12 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-white/50 shrink-0">
+                      <TrendingUp size={20} />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-white/50 text-[9px] uppercase font-bold tracking-wider mb-1">Ahorro Anual de Energía</span>
+                      <span className="text-2xl md:text-3xl font-black text-white leading-none whitespace-nowrap">
                         ${annualSavings.toLocaleString('en-US', { maximumFractionDigits: 0 })} <span className="text-xs text-white/50">USD</span>
                       </span>
                     </div>
+                  </div>
 
-                    <div className="space-y-2">
-                      <span className="text-white/50 text-[10px] uppercase font-bold tracking-wider">Tiempo de Recuperación de Capital:</span>
-                      <span className="text-3xl md:text-4.5xl font-black text-[#10B981] block">
-                        ~{paybackMonths} <span className="text-xs text-[#10B981]/70">Meses</span>
+                  <div className="flex items-center gap-4 border-b md:border-b-0 md:border-r border-white/10 pb-4 md:pb-0 md:pr-12">
+                    <div className="w-12 h-12 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-white/50 shrink-0">
+                      <Clock size={20} />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-white/50 text-[9px] uppercase font-bold tracking-wider mb-1">Recuperación Capital</span>
+                      <span className="text-2xl md:text-3xl font-black text-[#F97316] leading-none whitespace-nowrap">
+                        ~{paybackMonths} <span className="text-xs text-[#F97316]/70 uppercase">Meses</span>
                       </span>
                     </div>
                   </div>
-                </div>
 
-                <div className="p-4 bg-white/[0.02] border border-white/5 rounded-xl text-xs leading-relaxed text-white/50">
-                  <span className="font-bold text-white block mb-1">Nota Metodológica:</span>
-                  El cálculo asume una eficiencia energética mejorada del 15% en motores con variador de frecuencia inteligente y una reducción del 8% de desperdicio operativo usando el sistema de control autónomo SMQ.
+                  <div className="flex items-center gap-4 border-b md:border-b-0 md:border-r border-white/10 pb-4 md:pb-0 md:pr-12">
+                    <div className="w-12 h-12 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-white/50 shrink-0">
+                      <Activity size={20} />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-white/50 text-[9px] uppercase font-bold tracking-wider mb-1">TIR Estimado</span>
+                      <span className="text-2xl md:text-3xl font-black text-[#F97316] leading-none whitespace-nowrap">
+                        {Math.max(15, Math.round((annualSavings / (capacity * 120000)) * 100) + 12)}%
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-white/50 shrink-0">
+                      <span className="font-serif font-black text-lg">$</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-white/50 text-[9px] uppercase font-bold tracking-wider mb-1">VAN (5 Años)</span>
+                      <span className="text-2xl md:text-3xl font-black text-white leading-none whitespace-nowrap">
+                        ${(annualSavings * 5).toLocaleString('en-US', { maximumFractionDigits: 0 })} <span className="text-xs text-white/50">USD</span>
+                      </span>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            {/* Metodology Bar */}
+            <div className="mt-4 bg-[#050914]/80 backdrop-blur-xl border border-white/10 p-6 rounded-2xl flex flex-col xl:flex-row gap-6 items-center mx-6 relative z-20 shadow-xl">
+              <div className="xl:w-1/3 flex flex-col text-[10px] leading-relaxed text-white/50">
+                <span className="font-black text-[#F97316] uppercase tracking-wider mb-1">Nota Metodológica</span>
+                <p>El cálculo asume una eficiencia energética mejorada del 15% en motores con variador de frecuencia inteligente y una reducción del 8% de desperdicio operativo usando el sistema de control autónomo.</p>
+              </div>
+              <div className="xl:w-2/3 grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-[#F97316]/10 border border-[#F97316]/20 rounded-lg text-[#F97316]"><Waves size={16} /></div>
+                  <span className="text-[9px] font-bold text-white uppercase tracking-wider leading-tight">Eficiencia<br/>Energética <span className="text-[#F97316]">+15%</span></span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-[#F97316]/10 border border-[#F97316]/20 rounded-lg text-[#F97316]"><RotateCcw size={16} /></div>
+                  <span className="text-[9px] font-bold text-white uppercase tracking-wider leading-tight">Reducción de<br/>Desperdicio <span className="text-[#F97316]">-8%</span></span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-[#F97316]/10 border border-[#F97316]/20 rounded-lg text-[#F97316]"><Tv size={16} /></div>
+                  <span className="text-[9px] font-bold text-white uppercase tracking-wider leading-tight">Control<br/>Autónomo <span className="text-[#F97316]">SMQ OS</span></span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-[#F97316]/10 border border-[#F97316]/20 rounded-lg text-[#F97316]"><Activity size={16} /></div>
+                  <span className="text-[9px] font-bold text-white uppercase tracking-wider leading-tight">Monitoreo<br/>En Tiempo Real</span>
                 </div>
               </div>
             </div>
