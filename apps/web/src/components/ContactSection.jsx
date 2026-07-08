@@ -119,7 +119,7 @@ const ContactSection = ({ hideHeader = false }) => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
           {/* Contact Form Card (Spans 6 cols on lg) */}
-          <div className="lg:col-span-6 bg-black/40 border border-white/5 hover:border-white/10 rounded-2xl p-6 md:p-8 backdrop-blur-md shadow-2xl flex flex-col justify-between transition-all duration-300">
+          <div className="lg:col-span-6 bg-[#040914]/80 border border-[#3b82f6]/30 hover:border-[#3b82f6]/50 rounded-2xl p-6 md:p-8 backdrop-blur-xl shadow-[0_0_30px_rgba(59,130,246,0.1)] flex flex-col justify-between transition-all duration-300 relative group">
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-lg bg-[#3b82f6]/10 flex items-center justify-center border border-[#3b82f6]/20">
@@ -220,7 +220,7 @@ const ContactSection = ({ hideHeader = false }) => {
 
                 <Button
                   type="submit"
-                  className="w-full bg-[#3b82f6] text-white hover:bg-[#2563eb] font-bold text-xs tracking-wider uppercase py-5 transition-colors duration-300 flex items-center justify-center gap-2 mt-4"
+                  className="w-full bg-[#2563EB] text-white hover:bg-[#1D4ED8] font-bold text-xs tracking-wider uppercase py-5 transition-colors duration-300 flex items-center justify-center gap-2 mt-4 shadow-[0_0_20px_rgba(37,99,235,0.4)]"
                 >
                   <Send size={14} />
                   Enviar mensaje
@@ -236,7 +236,7 @@ const ContactSection = ({ hideHeader = false }) => {
 
           {/* Contact Information Card with Tech Visual overlay (Spans 6 cols on lg) */}
           <div 
-            className="lg:col-span-6 bg-black/40 border border-[#3b82f6]/10 rounded-2xl p-6 md:p-8 backdrop-blur-md shadow-[0_0_40px_rgba(59,130,246,0.05)] relative overflow-hidden flex flex-col justify-between"
+            className="lg:col-span-6 bg-[#040914]/80 border border-[#3b82f6]/30 hover:border-[#3b82f6]/50 rounded-2xl p-6 md:p-8 backdrop-blur-xl shadow-[0_0_30px_rgba(59,130,246,0.1)] relative overflow-hidden flex flex-col justify-between transition-all duration-300 group"
             style={{
               backgroundImage: "radial-gradient(circle at 100% 50%, rgba(59, 130, 246, 0.12) 0%, transparent 70%)"
             }}

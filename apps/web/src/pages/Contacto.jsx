@@ -17,28 +17,39 @@ const Contacto = () => {
 
       <div className="min-h-screen bg-[#030712] text-white flex flex-col font-sans select-none overflow-x-hidden">
         {/* HERO SECTION */}
-        <section className="relative h-[50vh] min-h-[400px] flex items-center justify-start px-[40px] border-b border-white/5 bg-gradient-to-b from-[#080b12] to-[#030712] overflow-hidden pt-20">
-          {/* Sci-fi tech grid background */}
-          <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(rgba(249,115,22,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(249,115,22,0.15)_1px,transparent_1px)] bg-[size:30px_30px]" />
-          <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-[#F97316]/5 rounded-full filter blur-[120px] pointer-events-none z-[1]" />
+        <section 
+          className="relative h-[65vh] min-h-[500px] flex items-center justify-start px-[40px] md:px-[80px] border-b border-white/5 overflow-hidden pt-20"
+          style={{
+            backgroundImage: "linear-gradient(to right, rgba(3, 7, 18, 0.95) 0%, rgba(3, 7, 18, 0.7) 45%, rgba(3, 7, 18, 0.2) 75%, transparent 100%), url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1920&q=80')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center center',
+          }}
+        >
+          {/* Subtle grid pattern overlay */}
+          <div className="absolute inset-0 pointer-events-none opacity-[0.02] bg-[linear-gradient(rgba(249,115,22,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(249,115,22,0.15)_1px,transparent_1px)] bg-[size:30px_30px] z-[2]" />
           
           <div className="max-w-[1400px] w-full mx-auto relative z-10 flex items-stretch justify-start">
-            {/* Animated Vertical Line */}
-            <motion.div 
-              initial={{ scaleY: 0 }}
-              animate={{ scaleY: 1 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="w-[4px] bg-[#F97316] shadow-[0_0_15px_#F97316] origin-top shrink-0"
-            />
+            {/* Sci-fi Left Bracket Design */}
+            <div className="relative flex items-center justify-center mr-6 md:mr-8 shrink-0">
+              <motion.div 
+                initial={{ scaleY: 0 }}
+                animate={{ scaleY: 1 }}
+                transition={{ duration: 1, ease: "easeOut" }}
+                className="w-[2px] h-[200px] bg-gradient-to-b from-[#F59E0B] via-[#F97316] to-[#EF4444] shadow-[0_0_15px_rgba(249,115,22,0.5)] origin-center relative"
+              >
+                <div className="absolute top-0 left-0 w-3 h-[2px] bg-[#F59E0B]" />
+                <div className="absolute bottom-0 left-0 w-3 h-[2px] bg-[#EF4444]" />
+              </motion.div>
+            </div>
             
-            <div className="pl-6 md:pl-10 flex flex-col items-start gap-4 py-2">
+            <div className="flex flex-col items-start gap-4 py-2 justify-center">
               <span className="text-[11px] font-black uppercase tracking-[0.35em] text-[#F97316] font-mono">
                 [ ATENCION_GLOBAL ]
               </span>
-              <h1 className="text-4xl md:text-6xl lg:text-[75px] font-black tracking-tight leading-none uppercase font-sans">
+              <h1 className="text-5xl md:text-7xl lg:text-[90px] font-black tracking-tight leading-none uppercase font-sans text-white">
                 <DecipherText text="CONTACTO" delay={200} />
               </h1>
-              <p className="text-white/60 text-sm md:text-base tracking-wide max-w-[600px] font-mono mt-2 uppercase">
+              <p className="text-white/80 text-lg md:text-xl tracking-wide max-w-[600px] font-sans mt-2">
                 Oficinas de representación comercial y centros de servicio técnico para soporte local inmediato.
               </p>
             </div>
