@@ -17,7 +17,13 @@ const Innovacion = () => {
 
       <div className="min-h-screen bg-[#030712] text-white flex flex-col font-sans select-none overflow-x-hidden">
         {/* MAIN INTEGRATED SECTION */}
-        <section className="relative min-h-[calc(100vh-80px)] flex items-center justify-center px-[40px] border-b border-white/5 bg-gradient-to-b from-[#080b12] to-[#030712] overflow-hidden pt-28 pb-16">
+        <section className="relative min-h-[calc(100vh-80px)] flex items-center justify-center px-[40px] border-b border-white/5 bg-[#030712] overflow-hidden pt-40 pb-16 z-10">
+          <HeroBackgroundEditor 
+            pageId="innovacion" 
+            defaultMedia="" 
+            defaultOpacity={10} 
+            fogGradient="bg-gradient-to-b from-[#080b12] to-[#030712]"
+          />
           {/* Sci-fi tech grid background */}
           <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(rgba(6,182,212,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.15)_1px,transparent_1px)] bg-[size:30px_30px]" />
           <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-[#06B6D4]/5 rounded-full filter blur-[120px] pointer-events-none z-[1]" />
