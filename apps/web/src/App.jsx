@@ -31,12 +31,10 @@ function AppContent() {
   const { cmsState } = useCMS();
 
   React.useEffect(() => {
-    // 1. Critical local images
+    // 1. Critical local images (kept minimal)
     const localImages = [
       '/nosotros_industrial_hero.png',
-      '/nosotros_futuro_industrial.png',
-      '/nosotros_planta_moderna.png',
-      '/rotary_doypack_machine.png'
+      '/nosotros_futuro_industrial.png'
     ];
     
     localImages.forEach(src => {
@@ -44,30 +42,10 @@ function AppContent() {
       img.src = src;
     });
 
-    // 2. Preload dynamic CMS images in parallel
-    if (cmsState?.pages) {
-      cmsState.pages.forEach(page => {
-        page.modules?.forEach(module => {
-          // Check lists (collages, cards, grids)
-          const items = module.data?.items || [];
-          items.forEach(item => {
-            const imgSrc = item.image || item.defaultImage || item.bgImage || item.imgUrl;
-            if (imgSrc && typeof imgSrc === 'string') {
-              const img = new Image();
-              img.src = getOptimizedImageUrl(imgSrc, 800);
-            }
-          });
-
-          // Check single dynamic images
-          const singleImage = module.data?.backgroundMedia || module.data?.image || module.data?.bgImage;
-          if (singleImage && typeof singleImage === 'string') {
-            const img = new Image();
-            img.src = getOptimizedImageUrl(singleImage, 1200);
-          }
-        });
-      });
-    }
-  }, [cmsState]);
+    // NOTE: Aggressive global preloading of all CMS images has been removed 
+    // because it floods the browser's network queue and significantly slows down 
+    // the loading of images on the active page.
+  }, []);
 
   return (
     <>

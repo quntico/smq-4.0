@@ -273,25 +273,18 @@ const TecnologiaDetalle = () => {
     }
   };
 
-  // Preload all technology background images on mount and when CMS state changes
-  useEffect(() => {
+  // Preload image intelligently on hover instead of all at once to save bandwidth
+  const preloadImage = (sec) => {
     if (!cmsState?.pages) return;
-
-    const getSectorBgImage = (sec) => {
-      const pId = `tecnologia-${sec}`;
-      const pData = cmsState?.pages?.find(p => p.id === pId);
-      const bgMod = pData?.modules?.find(m => m.id === 'hero-bg');
-      return bgMod?.data?.imageUrl || technologyData[sec]?.robotImage;
-    };
-
-    techList.forEach(tech => {
-      const url = getSectorBgImage(tech.id);
-      if (url) {
-        const img = new Image();
-        img.src = url;
-      }
-    });
-  }, [cmsState]);
+    const pId = `tecnologia-${sec}`;
+    const pData = cmsState.pages.find(p => p.id === pId);
+    const bgMod = pData?.modules?.find(m => m.id === 'hero-bg');
+    const url = bgMod?.data?.imageUrl || technologyData[sec]?.robotImage;
+    if (url) {
+      const img = new Image();
+      img.src = url;
+    }
+  };
 
   // Handle smooth background image transition on URL change
   useEffect(() => {
@@ -331,6 +324,7 @@ const TecnologiaDetalle = () => {
               <button
                 key={tech.id}
                 onClick={() => navigate(`/tecnologia/${tech.id}`)}
+                onMouseEnter={() => preloadImage(tech.id)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all whitespace-nowrap shrink-0 group ${
                   isActive 
                     ? 'bg-white/10 border-white/20 shadow-[0_0_20px_rgba(255,255,255,0.05)]' 
