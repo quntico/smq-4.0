@@ -863,9 +863,9 @@ const Projects = () => {
                            {/* 3D Image (User will provide these assets in public folder) */}
                            <img 
                              src={nodeImages[node.id]} 
-                             alt={node.label} 
+                             alt="" 
                              className={`relative z-10 max-h-full object-contain transition-all duration-500 mix-blend-screen ${simMode === 'activo' ? 'drop-shadow-[0_0_12px_rgba(0,212,255,0.4)] brightness-110' : 'opacity-50 grayscale-[40%]'}`}
-                             style={{ transform: `scale(${nodeSizes[node.id] / 100})`, transformOrigin: 'bottom center' }}
+                             style={{ transform: `scale(${nodeSizes[node.id] / 100})`, transformOrigin: 'bottom center', color: 'transparent' }}
                              onError={(e) => { 
                                e.target.style.display = 'none'; 
                                e.target.nextSibling.style.display = 'flex'; 
