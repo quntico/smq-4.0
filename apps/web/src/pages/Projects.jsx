@@ -862,10 +862,10 @@ const Projects = () => {
                            
                            {/* 3D Image (User will provide these assets in public folder) */}
                            <img 
-                             src={nodeImages[node.id]} 
+                             src={nodeImages[node.id] || `/images/sim/node${node.id === 3 ? 4 : node.id === 4 ? 5 : node.id === 5 ? 6 : node.id}.png`} 
                              alt="" 
                              className={`relative z-10 max-h-full object-contain transition-all duration-500 mix-blend-screen ${simMode === 'activo' ? 'drop-shadow-[0_0_12px_rgba(0,212,255,0.4)] brightness-110' : 'opacity-50 grayscale-[40%]'}`}
-                             style={{ transform: `scale(${nodeSizes[node.id] / 100})`, transformOrigin: 'bottom center', color: 'transparent' }}
+                             style={{ transform: `scale(${(nodeSizes[node.id] || 160) / 100})`, transformOrigin: 'bottom center', color: 'transparent' }}
                              onError={(e) => { 
                                e.target.style.display = 'none'; 
                                e.target.nextSibling.style.display = 'flex'; 
@@ -891,12 +891,12 @@ const Projects = () => {
                                  </label>
                                )}
                                <div className="w-full flex flex-col items-center">
-                                 <span className="text-[7px] text-white/70 mb-1">Tamaño: {nodeSizes[node.id]}%</span>
+                                 <span className="text-[7px] text-white/70 mb-1">Tamaño: {nodeSizes[node.id] || 160}%</span>
                                  <input 
                                    type="range" 
                                    min="50" 
                                    max="350" 
-                                   value={nodeSizes[node.id]} 
+                                   value={nodeSizes[node.id] || 160} 
                                    onChange={(e) => handleNodeSizeChange(node.id, e)}
                                    className="w-full h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-[#00D4FF]" 
                                  />
