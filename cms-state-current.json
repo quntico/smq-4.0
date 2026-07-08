@@ -11,7 +11,7 @@
     "globalFilterOpacity": 75,
     "textJustify": true,
     "disableImageFilters": false,
-    "updatedAt": 1783472216970,
+    "updatedAt": 1783472826327,
     "footerCompanyName": "SMQ  SA de CV",
     "footerCompanyDesc": "Soluciones industriales de alta ingenieria, proyectos llave en mano y maquinaria para  procesamiento de alimentos y automatización.",
     "footerPhones": [
@@ -27,7 +27,9 @@
     "contactEmail2": "direccion@smq.mx",
     "footerBgUrl": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783465508103_ChatGPT_Image_7_jul_2026_17_02_56.webp",
     "footerBgOpacity": 23,
-    "contactAddress": "Arquimedes 130, piso  5, Polanco  11560, Miguel Hidalgo , CDMX"
+    "contactAddress": "Arquimedes 130, piso  5, Polanco  11560, Miguel Hidalgo , CDMX",
+    "contactoHeroImage": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783472821899_ChatGPT_Image_7_jul_2026_18_59_27.webp",
+    "contactoHeroOpacity": 75
   },
   "menus": [
     {
