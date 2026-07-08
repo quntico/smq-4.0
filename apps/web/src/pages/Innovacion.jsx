@@ -5,6 +5,7 @@ import Header from '@/components/Header.jsx';
 import Footer from '@/components/Footer.jsx';
 import DecipherText from '@/components/DecipherText.jsx';
 import CompanySectionsNav from '@/components/CompanySectionsNav.jsx';
+import HeroBackgroundEditor from '@/components/HeroBackgroundEditor.jsx';
 
 const Innovacion = () => {
   return (

@@ -20,6 +20,7 @@ import { useCMS } from '@/context/CMSContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
 import DecipherText from '@/components/DecipherText.jsx';
 import CompanySectionsNav from '@/components/CompanySectionsNav.jsx';
+import HeroBackgroundEditor from '@/components/HeroBackgroundEditor.jsx';
 
 // Reusable Stat Counter with Ease-Out Deceleration
 const StatCounter = ({ target, suffix = '', duration = 2000, trigger = 0 }) => {
@@ -87,55 +88,6 @@ const StatCard = ({ target, suffix = '', label }) => {
 };
 
 const Nosotros = () => {
-  const { cmsState, isEditorMode, updatePageModule } = useCMS();
-  const collageImageInputRef = useRef(null);
-  const collageVideoInputRef = useRef(null);
-  const [isUploading, setIsUploading] = useState(false);
-
-  // Extract page module data
-  const homePage = cmsState.pages?.find(p => p.id === 'home');
-  const nosotrosFinalData = homePage?.modules?.find(m => m.id === 'nosotros-final')?.data || {};
-
-  const collageImage = nosotrosFinalData.collageImage || '/smq_nosotros.jpg';
-  const collageVideo = nosotrosFinalData.collageVideo !== undefined ? nosotrosFinalData.collageVideo : 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780095574453_cajas%20fast%20webm.webm';
-
-  const handleCollageImageChange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    try {
-      setIsUploading(true);
-      const url = await uploadFile(file);
-      updatePageModule('home', 'nosotros-final', { 
-        ...nosotrosFinalData,
-        collageImage: url,
-        collageVideo: ''
-      });
-    } catch (error) {
-      console.error("Error uploading collage image:", error);
-      alert("Error al subir la imagen.");
-    } finally {
-      setIsUploading(false);
-    }
-  };
-
-  const handleCollageVideoChange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    try {
-      setIsUploading(true);
-      const url = await uploadFile(file);
-      updatePageModule('home', 'nosotros-final', { 
-        ...nosotrosFinalData,
-        collageVideo: url 
-      });
-    } catch (error) {
-      console.error("Error uploading collage video:", error);
-      alert("Error al subir el video.");
-    } finally {
-      setIsUploading(false);
-    }
-  };
-
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -155,20 +107,15 @@ const Nosotros = () => {
         <div className="md:pl-[76px] transition-all duration-300">
         {/* HERO SECTION */}
         <section 
-          className="relative min-h-[60vh] md:min-h-[75vh] flex items-center justify-start py-20 px-8 md:px-16 lg:px-[80px] border-b border-white/5 bg-cover bg-center bg-no-repeat overflow-hidden group"
-          style={{ backgroundImage: `url('${collageImage}')` }}
+          className="relative min-h-[60vh] md:min-h-[75vh] flex items-center justify-start py-20 px-8 md:px-16 lg:px-[80px] border-b border-white/5 overflow-hidden group bg-[#030712]"
         >
-          {/* Background Video Loop if present */}
-          {collageVideo && (
-            <video
-              src={collageVideo}
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
-            />
-          )}
+          {/* Dynamic Background */}
+          <HeroBackgroundEditor 
+            pageId="nosotros" 
+            defaultMedia="https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780095574453_cajas%20fast%20webm.webm" 
+            defaultOpacity={100} 
+          />
+          
           {/* Premium Gradient Overlay to completely hide baked-in text on the left and blend to the right */}
           <div 
             className="absolute inset-0 z-0 pointer-events-none"
@@ -231,50 +178,6 @@ const Nosotros = () => {
             <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] animate-pulse"></span>
             <span>SISTEMA: EN LÍNEA // ASESORÍA ACTIVA</span>
           </div>
-          {/* Editor upload triggers */}
-          {isEditorMode && (
-            <div className="absolute top-4 left-4 z-30 flex gap-2 pointer-events-auto" onClick={e => e.stopPropagation()}>
-              <button
-                onClick={() => collageImageInputRef.current.click()}
-                className="bg-[#F5C400] text-black font-black text-[9px] tracking-wider uppercase py-1.5 px-2.5 rounded-md hover:bg-white transition-all shadow-lg"
-              >
-                Cambiar Fondo
-              </button>
-              <button
-                onClick={() => collageVideoInputRef.current.click()}
-                className="bg-white/20 border border-white/30 text-white font-black text-[9px] tracking-wider uppercase py-1.5 px-2.5 rounded-md hover:bg-white hover:text-black transition-all shadow-lg backdrop-blur-md"
-              >
-                Subir Video
-              </button>
-              {collageVideo && (
-                <button
-                  onClick={() => {
-                    updatePageModule('home', 'nosotros-final', {
-                      ...nosotrosFinalData,
-                      collageVideo: ''
-                    });
-                  }}
-                  className="bg-red-600 hover:bg-red-700 text-white font-black text-[9px] tracking-wider uppercase py-1.5 px-2.5 rounded-md transition-all shadow-lg"
-                >
-                  Eliminar Video
-                </button>
-              )}
-              <input 
-                type="file" 
-                ref={collageImageInputRef} 
-                onChange={handleCollageImageChange} 
-                accept="image/*,.png,.jpg,.jpeg,.webp,.svg,.gif,.bmp,.tiff,.heic,.heif,.jfif,.PNG,.JPG,.JPEG,.WEBP,.SVG,.GIF,.BMP,.TIFF,.HEIC,.HEIF,.JFIF" 
-                className="hidden" 
-              />
-              <input 
-                type="file" 
-                ref={collageVideoInputRef} 
-                onChange={handleCollageVideoChange} 
-                accept="video/*,.mp4,.webm,.ogg,.mov,.avi,.MP4,.WEBM,.OGG,.MOV,.AVI" 
-                className="hidden" 
-              />
-            </div>
-          )}
         </section>
 
         {/* STATS STRIP */}

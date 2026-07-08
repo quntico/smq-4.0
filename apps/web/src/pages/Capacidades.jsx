@@ -5,6 +5,7 @@ import Header from '@/components/Header.jsx';
 import Footer from '@/components/Footer.jsx';
 import DecipherText from '@/components/DecipherText.jsx';
 import CompanySectionsNav from '@/components/CompanySectionsNav.jsx';
+import HeroBackgroundEditor from '@/components/HeroBackgroundEditor.jsx';
 
 const Capacidades = () => {
   return (
@@ -17,13 +18,14 @@ const Capacidades = () => {
       <div className="min-h-screen bg-[#030712] text-white flex flex-col font-sans select-none overflow-x-hidden">
         {/* HERO SECTION */}
         <section 
-          className="relative h-[85vh] min-h-[600px] flex items-center justify-start px-[40px] md:px-[80px] border-b border-white/5 overflow-hidden pt-20"
-          style={{
-            backgroundImage: "linear-gradient(to right, rgba(3, 7, 18, 0.95) 0%, rgba(3, 7, 18, 0.6) 45%, rgba(3, 7, 18, 0.1) 75%, transparent 100%), url('/capacidades_hero.png')",
-            backgroundSize: 'cover',
-            backgroundPosition: 'center center',
-          }}
+          className="relative h-[85vh] min-h-[600px] flex items-center justify-start px-[40px] md:px-[80px] border-b border-white/5 overflow-hidden pt-20 bg-[#030712]"
         >
+          <HeroBackgroundEditor 
+            pageId="capacidades" 
+            defaultMedia="/capacidades_hero.png" 
+            defaultOpacity={100} 
+          />
+          <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-[#030712] via-[#030712]/60 to-[#030712]/10 z-0" />
           {/* Subtle grid pattern overlay */}
           <div className="absolute inset-0 pointer-events-none opacity-[0.02] bg-[linear-gradient(rgba(249,115,22,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(249,115,22,0.15)_1px,transparent_1px)] bg-[size:30px_30px] z-[2]" />
           
