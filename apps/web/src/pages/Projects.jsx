@@ -714,8 +714,8 @@ const Projects = () => {
           </section>
 
           {/* 03. SIMULACIONES */}
-          <section id="simulaciones" className="scroll-mt-32 space-y-6">
-            <div className="flex items-center gap-4 flex-wrap justify-between border-b border-white/5 pb-4">
+          <section id="simulaciones" className="scroll-mt-32 space-y-3">
+            <div className="flex items-center gap-4 flex-wrap justify-between border-b border-white/5 pb-2">
               <div className="space-y-1">
                 <div className="flex items-center gap-2.5">
                   <span className="text-[#06B6D4] text-[10px] font-black tracking-widest font-mono">03 / TECNOLOGÍA</span>
@@ -748,11 +748,11 @@ const Projects = () => {
 
             <div className="grid grid-cols-1 xl:grid-cols-12 gap-4 xl:gap-5 items-stretch font-['Poppins']">
               {/* Controles de Simulación */}
-              <div className="xl:col-span-4 bg-[#07111C] border border-[#009FE3]/20 p-5 md:p-6 rounded-2xl flex flex-col justify-between space-y-4 shadow-[inset_0_0_80px_rgba(0,212,255,0.03)] relative z-10">
+              <div className="xl:col-span-4 bg-[#07111C] border border-[#009FE3]/20 p-4 md:p-5 rounded-2xl flex flex-col justify-between space-y-2 shadow-[inset_0_0_80px_rgba(0,212,255,0.03)] relative z-10">
                 <div className="absolute inset-0 bg-[#050B12]/80 rounded-2xl z-0 pointer-events-none" />
                 
-                <div className="space-y-6 relative z-10">
-                  <div className="flex items-center justify-between border-b border-[#009FE3]/20 pb-4">
+                <div className="space-y-4 relative z-10">
+                  <div className="flex items-center justify-between border-b border-[#009FE3]/20 pb-3">
                     <span className="text-sm font-black uppercase tracking-wider text-[#EAF4FF]">Consola de Control</span>
                     <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full border ${simMode === 'activo' ? 'bg-emerald-500/10 border-emerald-500/30' : 'bg-white/5 border-white/10'}`}>
                       <span className={`w-1.5 h-1.5 rounded-full ${simMode === 'activo' ? 'bg-emerald-400 animate-pulse' : 'bg-white/40'}`} />
@@ -811,7 +811,7 @@ const Projects = () => {
                   </div>
 
                   {/* Modos de Operación */}
-                  <div className="pt-6 space-y-3">
+                  <div className="pt-4 space-y-2">
                     <span className="text-[10px] font-black uppercase tracking-widest text-[#8E9BAA]">Modo de Operación</span>
                     <div className="flex gap-3">
                       <button onClick={() => { setSimActive(true); setSimMode('activo'); }} className={`flex-1 py-2.5 rounded-xl flex items-center justify-center gap-2 text-[11px] font-black uppercase tracking-wider transition-all ${simMode === 'activo' ? 'bg-[#00D4FF]/10 text-[#00D4FF] border-2 border-[#00D4FF] shadow-[0_0_20px_rgba(0,212,255,0.2)]' : 'bg-[#07111C] text-[#8E9BAA] border border-white/10 hover:bg-white/[0.05]'}`}>
@@ -830,7 +830,7 @@ const Projects = () => {
                   </div>
                 </div>
 
-                <div className="p-4 bg-[#050B12] border border-[#009FE3]/20 rounded-xl space-y-2 text-xs relative overflow-hidden mt-6 shadow-inner z-10">
+                <div className="p-3 bg-[#050B12] border border-[#009FE3]/20 rounded-xl space-y-2 text-xs relative overflow-hidden mt-4 shadow-inner z-10">
                   <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${simMode === 'activo' ? 'bg-[#00D4FF] shadow-[0_0_12px_rgba(0,212,255,0.8)]' : 'bg-white/10'}`} />
                   <div className="flex justify-between items-center pl-3">
                     <span className="font-black text-[#EAF4FF] text-[11px] uppercase tracking-wider flex items-center gap-2">
@@ -850,14 +850,14 @@ const Projects = () => {
               </div>
 
               {/* Panel de Simulación Visual */}
-              <div className="xl:col-span-8 bg-[#07111C] border border-[#009FE3]/20 rounded-2xl p-4 md:p-6 flex flex-col justify-between relative overflow-hidden group shadow-[inset_0_0_80px_rgba(0,212,255,0.03)] z-0">
+              <div className="xl:col-span-8 bg-[#07111C] border border-[#009FE3]/20 rounded-2xl p-3 md:p-4 flex flex-col justify-between relative overflow-hidden group shadow-[inset_0_0_80px_rgba(0,212,255,0.03)] z-0">
                 <div className="absolute inset-0 bg-[#050B12]/80 z-0 pointer-events-none" />
                 <div className="absolute inset-0 opacity-[0.15] pointer-events-none" style={{ backgroundImage: 'radial-gradient(rgba(234, 244, 255, 1) 1px, transparent 1px)', backgroundSize: '32px 32px' }}></div>
                 
                 
                 {/* Floating Stats - Top Row */}
-                <div className="relative z-10 flex flex-wrap justify-between gap-3 mb-6 mt-1 px-4">
-                  <div className="flex-1 bg-[#050B12]/80 backdrop-blur-sm border border-[#009FE3]/30 p-2 md:p-3 rounded-xl text-center shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
+                <div className="relative z-10 flex flex-wrap justify-between gap-3 mb-4 mt-0 px-2">
+                  <div className="flex-1 bg-[#050B12]/80 backdrop-blur-sm border border-[#009FE3]/30 p-2 rounded-xl text-center shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
                     <span className="block text-[#EAF4FF] font-black text-sm md:text-lg mb-1">{simFlow}%</span>
                     <span className="block text-[8px] md:text-[9px] text-[#8E9BAA] uppercase tracking-widest font-bold">Flujo</span>
                     <div className="w-10 h-2 md:h-3 mx-auto mt-2 border-b border-[#00D4FF]/40 relative overflow-hidden"><div className="absolute bottom-0 w-full h-[2px] bg-[#00D4FF] opacity-60" /></div>
@@ -880,8 +880,8 @@ const Projects = () => {
                 </div>
 
                 {/* The 3D Equipment Diagram */}
-                <div className="relative z-10 flex-1 flex flex-col justify-center py-4 md:py-6 px-2 md:px-4">
-                  <div className="flex items-end justify-between w-full relative h-[140px] md:h-[180px]">
+                <div className="relative z-10 flex-1 flex flex-col justify-center py-0 md:py-1 px-1 md:px-2">
+                  <div className="flex items-end justify-between w-full relative h-[120px] md:h-[160px]">
                     {/* Glowing Pipeline Background connecting all nodes */}
                     <div className={`absolute left-10 right-10 h-[3px] top-[60%] -translate-y-1/2 z-0 transition-colors duration-500 ${activeNodeCount > 0 ? 'bg-[#009FE3] shadow-[0_0_12px_rgba(0,212,255,0.7)]' : 'bg-white/5'}`} />
                     
@@ -993,7 +993,7 @@ const Projects = () => {
                 </div>
 
                 {/* Bottom Stats Bar */}
-                <div className="relative z-10 mt-6 pt-4 border-t border-[#009FE3]/20 flex flex-wrap md:flex-nowrap justify-between items-center bg-[#050B12]/80 backdrop-blur-md rounded-xl p-3 md:p-4 shadow-lg">
+                <div className="relative z-10 mt-4 pt-3 border-t border-[#009FE3]/20 flex flex-wrap md:flex-nowrap justify-between items-center bg-[#050B12]/80 backdrop-blur-md rounded-xl p-3 shadow-lg">
                   <div className="flex items-center gap-2 w-1/2 md:w-auto mb-3 md:mb-0">
                     <Activity size={18} className="text-[#00D4FF]" />
                     <div>
