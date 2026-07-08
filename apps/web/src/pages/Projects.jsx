@@ -1068,7 +1068,7 @@ const Projects = () => {
           </section>
 
           {/* 04. CALCULADORA ROI */}
-          <section id="roi" className="scroll-mt-32 max-w-[1400px] mx-auto px-6 md:px-8 py-20 font-['Poppins']">
+          <section id="roi" className="scroll-mt-32 max-w-[1400px] mx-auto px-6 md:px-8 py-10 md:py-12 min-h-[calc(100vh-80px)] flex flex-col justify-center font-['Poppins']">
             {/* Header left floating over image */}
             <div className="relative w-full rounded-[2rem] overflow-hidden border border-white/10 bg-[#050914] flex flex-col md:flex-row shadow-[0_0_50px_rgba(0,0,0,0.5)] group">
               
@@ -1180,15 +1180,15 @@ const Projects = () => {
               )}
 
               {/* Left Content (Text & Form) */}
-              <div className="relative z-20 w-full md:w-[50%] lg:w-[45%] p-8 md:p-12 lg:p-16 flex flex-col justify-center space-y-10">
-                <div className="space-y-4">
+              <div className="relative z-20 w-full md:w-[50%] lg:w-[45%] p-6 md:p-10 lg:p-12 flex flex-col justify-center space-y-6 md:space-y-8">
+                <div className="space-y-3">
                   <div className="flex items-center gap-2.5">
                     <span className="text-[#F97316] text-xs font-black tracking-widest font-mono">04 / RETORNO DE INVERSIÓN</span>
                     <Calculator size={14} className="text-[#F97316]" />
                   </div>
                   <h2 className="text-3xl md:text-4xl lg:text-[42px] font-black uppercase tracking-tight leading-[1.1] text-white">
-                    Calculadora ROI <br/>
-                    Y Ahorro <span className="text-[#F97316]">Energético</span>
+                    <DecipherText text="CALCULADORA ROI" delay={100} /> <br/>
+                    <DecipherText text="Y AHORRO" delay={500} /> <span className="text-[#F97316]"><DecipherText text="ENERGÉTICO" delay={900} /></span>
                   </h2>
                   <p className="text-white/60 text-sm md:text-sm max-w-sm leading-relaxed font-medium">
                     Calcula de manera inmediata el beneficio económico y energético al integrar maquinaria en tu operación.
@@ -1196,8 +1196,8 @@ const Projects = () => {
                 </div>
 
                 {/* Form Card */}
-                <div className="bg-[#03060E]/80 backdrop-blur-xl border border-white/10 p-6 md:p-8 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
-                  <h3 className="text-xs font-black uppercase tracking-widest text-[#F97316] mb-6">Configuración Operativa</h3>
+                <div className="bg-[#03060E]/80 backdrop-blur-xl border border-white/10 p-5 md:p-6 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
+                  <h3 className="text-[10px] font-black uppercase tracking-widest text-[#F97316] mb-4">Configuración Operativa</h3>
                   
                   <div className="space-y-4">
                     {/* Input 1 */}
@@ -1250,7 +1250,7 @@ const Projects = () => {
             </div>
 
             {/* Results Bottom Bar */}
-            <div className="bg-[#050914]/90 backdrop-blur-xl border border-white/10 p-6 md:p-8 rounded-2xl flex flex-col xl:flex-row gap-8 justify-between items-start xl:items-center relative z-20 -mt-8 mx-6 shadow-2xl">
+            <div className="bg-[#050914]/90 backdrop-blur-xl border border-white/10 p-5 md:p-6 rounded-2xl flex flex-col xl:flex-row gap-6 justify-between items-start xl:items-center relative z-20 -mt-6 mx-6 shadow-2xl">
               <div className="w-full xl:w-auto">
                 <h3 className="text-[10px] font-black uppercase tracking-widest text-[#F97316] mb-4">Resultados del Análisis Financiero</h3>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6 xl:gap-12">
@@ -1308,7 +1308,7 @@ const Projects = () => {
             </div>
 
             {/* Metodology Bar */}
-            <div className="mt-4 bg-[#050914]/80 backdrop-blur-xl border border-white/10 p-6 rounded-2xl flex flex-col xl:flex-row gap-6 items-center mx-6 relative z-20 shadow-xl">
+            <div className="mt-3 bg-[#050914]/80 backdrop-blur-xl border border-white/10 p-4 md:p-5 rounded-2xl flex flex-col xl:flex-row gap-4 items-center mx-6 relative z-20 shadow-xl">
               <div className="xl:w-1/3 flex flex-col text-[10px] leading-relaxed text-white/50">
                 <span className="font-black text-[#F97316] uppercase tracking-wider mb-1">Nota Metodológica</span>
                 <p>El cálculo asume una eficiencia energética mejorada del 15% en motores con variador de frecuencia inteligente y una reducción del 8% de desperdicio operativo usando el sistema de control autónomo.</p>
