@@ -63,10 +63,10 @@ const Contacto = () => {
           
           {/* Editor Controls */}
           {isEditorMode && (
-            <div className="absolute top-6 right-6 z-40 flex flex-col items-end gap-2 pointer-events-auto">
+            <div className="absolute bottom-10 right-8 z-40 flex flex-col items-end gap-2 pointer-events-auto">
               <button
                 onClick={() => setShowControls(!showControls)}
-                className="bg-black/85 hover:bg-black text-white hover:text-[#FFD700] border border-white/10 hover:border-[#FFD700]/30 px-4 py-2.5 rounded-2xl text-[11px] font-black uppercase tracking-wider shadow-2xl backdrop-blur-md transition-all flex items-center gap-2"
+                className="bg-[#0C1017]/90 hover:bg-black text-white hover:text-[#FFD700] border border-white/10 hover:border-[#FFD700]/50 px-5 py-3 rounded-2xl text-xs font-black uppercase tracking-wider shadow-[0_0_20px_rgba(0,0,0,0.5)] backdrop-blur-xl transition-all flex items-center gap-2"
               >
                 <ImageIcon size={14} className={showControls ? 'text-[#FFD700]' : ''} />
                 <span>{showControls ? 'Cerrar Ajustes' : 'Ajustes de Fondo'}</span>
