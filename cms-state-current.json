@@ -11,7 +11,7 @@
     "globalFilterOpacity": 75,
     "textJustify": true,
     "disableImageFilters": false,
-    "updatedAt": 1783473974072,
+    "updatedAt": 1783485743145,
     "footerCompanyName": "SMQ  SA de CV",
     "footerCompanyDesc": "Soluciones industriales de alta ingenieria, proyectos llave en mano y maquinaria para  procesamiento de alimentos y automatización.",
     "footerPhones": [
@@ -4913,6 +4913,296 @@
               "4": 450,
               "5": 650
             }
+          }
+        }
+      ]
+    },
+    {
+      "id": "industria-energia",
+      "title": "Energía y Utilidades Industriales",
+      "slug": "/industria/energia",
+      "modules": [
+        {
+          "id": "sector-data",
+          "type": "sector-detail",
+          "data": {
+            "title": "Energía y Utilidades Industriales",
+            "subtitle": "Sistemas de generación térmica, cogeneración y eficiencia energética",
+            "description": "Diseño y fabricación de calderas industriales, plantas de peletizado de biomasa y plantas modulares Waste-to-Energy (WTE) para la valorización energética de residuos.",
+            "heroImage": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png",
+            "stats": [
+              {
+                "label": "Eficiencia Caldera",
+                "value": "92%"
+              },
+              {
+                "label": "Potencia Térmica",
+                "value": "Hasta 20 MW"
+              },
+              {
+                "label": "Presión Operativa",
+                "value": "25 Bar"
+              },
+              {
+                "label": "Combustible",
+                "value": "Biomasa / Gas / RSU"
+              }
+            ],
+            "items": [
+              {
+                "id": "wte",
+                "title": "Valorización Energética (Waste-to-Energy)",
+                "description": "Plantas modulares de gasificación e incineración limpia de residuos sólidos.",
+                "longDescription": "Sistemas avanzados de combustión controlada que transforman fracciones no reciclables de RSU en energía térmica y eléctrica. Incluye sistemas de depuración de humos multiciclón y lavado húmedo conforme a Directivas Ambientales.",
+                "features": [
+                  "[icon:Shield] Parrilla de combustión reciprocante refrigerada por aire/agua",
+                  "[icon:Zap] Calderas de recuperación de vapor acuotubulares de alta presión",
+                  "[icon:Cpu] Sistemas de filtrado de gases activos de carbón y cal química"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783484563234_wte5.webp",
+                  "type": "image",
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "contain",
+                  "bgColor": "transparent",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100
+                },
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Conversión",
+                  "Capacidad Diaria",
+                  "Eficiencia Eléctrica",
+                  "Emisiones Norma"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "WTE-10",
+                    "width": "Planta Incineradora Modular",
+                    "capacity": "10 Ton/día",
+                    "power": "24%",
+                    "weight": "Directiva 2010/75/UE"
+                  },
+                  {
+                    "model": "WTE-50",
+                    "width": "Gasificador de Residuos",
+                    "capacity": "50 Ton/día",
+                    "power": "28%",
+                    "weight": "US EPA CFR 60"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783484563234_wte5.webp",
+                    "type": "image",
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "contain",
+                    "bgColor": "transparent",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100
+                  },
+                  ""
+                ]
+              },
+              {
+                "id": "biomasa",
+                "title": "Peletizado de Biomasa",
+                "description": "Líneas industriales de trituración, secado y peletizado de madera y subproductos.",
+                "longDescription": "Conversión de mermas forestales, cáscaras y pajas en pellets de alta densidad. Las peletizadoras cuentan con anillos de matriz reforzados y sistemas de lubricación automáticos.",
+                "features": [
+                  "[icon:Shield] Secadores de tambor rotativo de triple pase térmico",
+                  "[icon:Zap] Molinos refinadores de alta velocidad con deflectores neumáticos",
+                  "[icon:Cpu] Peletizadoras de gran robustez con lubricación forzada de rodillos"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783485292265_pellet_biomasa.webp",
+                  "type": "image",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100,
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "cover",
+                  "bgColor": "transparent"
+                },
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Biomasa",
+                  "Rendimiento Peletizado",
+                  "Diámetro Pellet",
+                  "Humedad Entrada"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "BP-500",
+                    "width": "Línea Astillas / Aserrín",
+                    "capacity": "1.5 Ton/h",
+                    "power": "6 - 8 mm",
+                    "weight": "< 12% requerido"
+                  },
+                  {
+                    "model": "BP-1000",
+                    "width": "Línea Residuos Agrícolas",
+                    "capacity": "3.0 Ton/h",
+                    "power": "6 - 10 mm",
+                    "weight": "< 15% requerido"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783485292265_pellet_biomasa.webp",
+                    "type": "image",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100,
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "cover",
+                    "bgColor": "transparent"
+                  },
+                  ""
+                ]
+              },
+              {
+                "id": "energia-industrial",
+                "title": "Cogeneración y Calderas",
+                "description": "Calderas pirotubulares y acuotubulares de vapor, agua caliente o fluido térmico.",
+                "longDescription": "Equipos de generación de calor industrial de alta eficiencia. Quemadores modulantes de bajo NOx compatibles con gas natural, GLP, biogás y combustibles líquidos.",
+                "features": [
+                  "[icon:Shield] Economizadores integrados para precalentamiento de agua de alimentación",
+                  "[icon:Zap] Quemadores industriales autoprogramados de bajo NOx",
+                  "[icon:Cpu] Automatización total de purgas y nivel de agua por PLC"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783485516750_cogeneracion.webp",
+                  "type": "image",
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "contain",
+                  "bgColor": "transparent",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100
+                },
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Generación",
+                  "Capacidad Térmica",
+                  "Presión Operación",
+                  "Combustible Principal"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "CG-3000",
+                    "width": "Caldera Vapor Pirotubular",
+                    "capacity": "3 Ton/h (2.0 MW)",
+                    "power": "12 Bar",
+                    "weight": "Gas / Biogás"
+                  },
+                  {
+                    "model": "CG-6000",
+                    "width": "Caldera de Fluido Térmico",
+                    "capacity": "6 Ton/h (4.0 MW)",
+                    "power": "10 Bar",
+                    "weight": "Biomasa / Astillas"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783485516750_cogeneracion.webp",
+                    "type": "image",
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "contain",
+                    "bgColor": "transparent",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100
+                  },
+                  ""
+                ]
+              },
+              {
+                "id": "servicios",
+                "title": "Auditorías de Eficiencia",
+                "description": "Estudios termográficos, optimización de balances térmicos y recuperación de calor.",
+                "longDescription": "Soluciones orientadas a reducir la huella de carbono industrial. Recuperación de calor residual en chimeneas para precalentar aire de combustión o agua de calderas.",
+                "features": [
+                  "[icon:Shield] Termografía infrarroja de alta resolución para aislamientos",
+                  "[icon:Zap] Medición de gases de combustión continua y eficiencia química",
+                  "[icon:Cpu] Diseño de intercambiadores de calor a medida para gases de escape"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783485742389_auditoria.webp",
+                  "type": "image",
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "contain",
+                  "bgColor": "transparent",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100
+                },
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Servicio",
+                  "Tiempo Ejecución",
+                  "Ahorro Potencial",
+                  "Garantía Retorno"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "EA-100",
+                    "width": "Auditoría Energética Integral",
+                    "capacity": "3 Semanas",
+                    "power": "Hasta 20%",
+                    "weight": "Retorno < 18 Meses"
+                  },
+                  {
+                    "model": "EA-200",
+                    "width": "Ingeniería Recuperador Calor",
+                    "capacity": "4 Semanas",
+                    "power": "Hasta 15%",
+                    "weight": "Retorno < 24 Meses"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783485742389_auditoria.webp",
+                    "type": "image",
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "contain",
+                    "bgColor": "transparent",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100
+                  },
+                  ""
+                ]
+              }
+            ],
+            "instalacionesImage": "/smq_factory_night2.png"
           }
         }
       ]

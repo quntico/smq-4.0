@@ -2822,6 +2822,23 @@ const IndustriaDetalle = () => {
                       <span>Subir Imagen de Instalaciones</span>
                     </button>
                   </div>
+
+                  {/* Toggle Mostrar Instalaciones */}
+                  <div className="flex items-center justify-between border-t border-white/10 pt-3">
+                    <div className="flex flex-col">
+                      <span className="text-white/50 text-[10px] uppercase font-bold tracking-wider">Mostrar Instalaciones</span>
+                      <span className="text-[9px] text-white/40 leading-normal">Ocultar o mostrar la sección inferior de plantas e instalaciones.</span>
+                    </div>
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input 
+                        type="checkbox" 
+                        className="sr-only peer"
+                        checked={data.showInstalaciones !== false}
+                        onChange={(e) => handleUpdate('showInstalaciones', e.target.checked)}
+                      />
+                      <div className="w-9 h-5 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#FFD700]"></div>
+                    </label>
+                  </div>
                 </div>
               )}
 
@@ -3835,6 +3852,7 @@ const IndustriaDetalle = () => {
 
 
           {/* 02. INSTALACIONES */}
+          {data.showInstalaciones !== false && (
           <section id="instalaciones" className="scroll-mt-32 max-w-[1400px] mx-auto px-6 md:px-8 py-20 md:py-28 border-t border-white/5 relative overflow-hidden font-['Poppins']">
             {/* Ambient glows */}
             <div className="absolute top-1/4 -left-20 w-[400px] h-[400px] bg-blue-500/5 rounded-full filter blur-[100px] pointer-events-none" />
@@ -4176,6 +4194,7 @@ const IndustriaDetalle = () => {
 
             </div>
           </section>
+          )}
 
           {/* Global CTA Section */}
           <section id="cotizar" className="bg-black/40 border-t border-b border-white/5 py-20 px-6 md:px-8 text-center relative overflow-hidden">
