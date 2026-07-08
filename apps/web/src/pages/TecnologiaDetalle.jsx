@@ -9,6 +9,7 @@ import {
   Star, LayoutDashboard, Sliders, Bell, Maximize, Recycle
 } from 'lucide-react';
 import Footer from '@/components/Footer.jsx';
+import DecipherText from '@/components/DecipherText.jsx';
 import { useCMS } from '@/context/CMSContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
 
@@ -505,7 +506,7 @@ const TecnologiaDetalle = () => {
                 <h1 className="text-4xl md:text-5xl lg:text-[46px] xl:text-[50px] font-black uppercase leading-[1.1] tracking-tight mb-5">
                   {data.title.split(' ').map((word, i) => (
                     <React.Fragment key={i}>
-                      {word} <br className="hidden md:block" />
+                      <DecipherText text={word} delay={i * 150 + 100} /> <br className="hidden md:block" />
                     </React.Fragment>
                   ))}
                 </h1>
