@@ -116,6 +116,18 @@ const Projects = () => {
     updatePageModule('projects', 'sim-nodes', { nodeImages: getSafeNodeImages(nodeImages), nodeSizes: newSizes });
   };
 
+  const [activeNodeCount, setActiveNodeCount] = useState(0);
+
+  useEffect(() => {
+    let timer;
+    if (simMode === 'activo' && activeNodeCount < 5) {
+      timer = setInterval(() => {
+        setActiveNodeCount(prev => (prev >= 5 ? 5 : prev + 1));
+      }, 100);
+    }
+    return () => clearInterval(timer);
+  }, [simMode, activeNodeCount]);
+
   useEffect(() => {
     let interval = null;
     if (simActive && simMode === 'activo') {
@@ -784,7 +796,7 @@ const Projects = () => {
                         <Pause size={14} className={simMode === 'pausa' ? 'fill-[#EAF4FF]' : ''} />
                         Pausa
                       </button>
-                      <button onClick={() => { setSimMode('pausa'); setSimFlow(75); setSimTemp(82); setSimPressure(5.6); setSimTime(0); }} className="flex-[0.6] py-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[10px] font-black uppercase tracking-wider bg-[#07111C] text-[#8E9BAA] border border-white/10 hover:bg-white/[0.05] transition-all">
+                      <button onClick={() => { setSimMode('pausa'); setSimFlow(75); setSimTemp(82); setSimPressure(5.6); setSimTime(0); setActiveNodeCount(0); }} className="flex-[0.6] py-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[10px] font-black uppercase tracking-wider bg-[#07111C] text-[#8E9BAA] border border-white/10 hover:bg-white/[0.05] transition-all">
                         <RotateCcw size={12} />
                         Reset
                       </button>
@@ -844,7 +856,7 @@ const Projects = () => {
                 <div className="relative z-10 flex-1 flex flex-col justify-center py-6 px-4">
                   <div className="flex items-end justify-between w-full relative h-[180px] md:h-[220px]">
                     {/* Glowing Pipeline Background connecting all nodes */}
-                    <div className={`absolute left-10 right-10 h-[3px] top-[60%] -translate-y-1/2 z-0 transition-colors duration-500 ${simMode === 'activo' ? 'bg-[#009FE3] shadow-[0_0_12px_rgba(0,212,255,0.7)]' : 'bg-white/5'}`} />
+                    <div className={`absolute left-10 right-10 h-[3px] top-[60%] -translate-y-1/2 z-0 transition-colors duration-500 ${activeNodeCount > 0 ? 'bg-[#009FE3] shadow-[0_0_12px_rgba(0,212,255,0.7)]' : 'bg-white/5'}`} />
                     
                     {[
                       { id: 1, label: 'Tanque de\nAlimentación', w: 'w-16 md:w-20' },
@@ -852,19 +864,23 @@ const Projects = () => {
                       { id: 3, label: 'Intercambiador', w: 'w-24 md:w-32' },
                       { id: 4, label: 'Bomba', w: 'w-12 md:w-16' },
                       { id: 5, label: 'Salida /\nProducto', w: 'w-16 md:w-20' }
-                    ].map((node, index) => (
+                    ].map((node, index) => {
+                      const isNodeActive = activeNodeCount > index;
+                      const isNodeRunning = isNodeActive && simMode === 'activo';
+                      
+                      return (
                       <div key={node.id} className="relative z-10 flex flex-col items-center group h-full justify-end">
                         
                         {/* 3D Asset Container */}
                         <div className={`relative flex flex-col items-center justify-end mb-4 ${node.w} flex-1 group/asset`}>
                            {/* Ambient Blue Glow behind active equipment */}
-                           {simMode === 'activo' && <div className="absolute inset-0 bg-[#00D4FF]/20 rounded-full filter blur-[20px] mix-blend-screen opacity-70 animate-pulse" />}
+                           {isNodeActive && <div className={`absolute inset-0 bg-[#00D4FF]/20 rounded-full filter blur-[20px] mix-blend-screen opacity-70 ${isNodeRunning ? 'animate-pulse' : ''}`} />}
                            
                            {/* 3D Image (User will provide these assets in public folder) */}
                            <img 
                              src={nodeImages[node.id] || `/images/sim/node${node.id === 3 ? 4 : node.id === 4 ? 5 : node.id === 5 ? 6 : node.id}.png`} 
                              alt="" 
-                             className={`relative z-10 max-h-full object-contain transition-all duration-500 mix-blend-screen ${simMode === 'activo' ? 'drop-shadow-[0_0_12px_rgba(0,212,255,0.4)] brightness-110' : 'opacity-50 grayscale-[40%]'}`}
+                             className={`relative z-10 max-h-full object-contain transition-all duration-500 mix-blend-screen ${isNodeActive ? 'drop-shadow-[0_0_12px_rgba(0,212,255,0.4)] brightness-110' : 'opacity-50 grayscale-[40%]'}`}
                              style={{ transform: `scale(${(nodeSizes[node.id] || 160) / 100})`, transformOrigin: 'bottom center', color: 'transparent' }}
                              onError={(e) => { 
                                e.target.style.display = 'none'; 
@@ -872,7 +888,7 @@ const Projects = () => {
                              }}
                            />
                            {/* Fallback box if image doesn't exist */}
-                           <div className={`hidden relative z-10 w-full h-[60%] border-2 rounded-lg items-center justify-center bg-black/50 ${simMode === 'activo' ? 'border-[#00D4FF] shadow-[0_0_15px_rgba(0,212,255,0.4)] text-[#00D4FF]' : 'border-white/10 text-white/20'}`}>
+                           <div className={`hidden relative z-10 w-full h-[60%] border-2 rounded-lg items-center justify-center bg-black/50 ${isNodeActive ? 'border-[#00D4FF] shadow-[0_0_15px_rgba(0,212,255,0.4)] text-[#00D4FF]' : 'border-white/10 text-white/20'}`}>
                              <span className="text-[8px] uppercase font-bold text-center px-1 text-inherit">Asset 3D<br/>{node.id}</span>
                            </div>
 
@@ -907,10 +923,10 @@ const Projects = () => {
 
                         {/* Node Number and Label */}
                         <div className="flex flex-col items-center gap-2 mt-auto">
-                           <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-black border transition-colors ${simMode === 'activo' ? 'bg-[#009FE3] text-[#EAF4FF] border-[#00D4FF] shadow-[0_0_10px_rgba(0,212,255,0.5)]' : 'bg-[#07111C] text-[#8E9BAA] border-white/10'}`}>
+                           <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-black border transition-colors ${isNodeActive ? 'bg-[#009FE3] text-[#EAF4FF] border-[#00D4FF] shadow-[0_0_10px_rgba(0,212,255,0.5)]' : 'bg-[#07111C] text-[#8E9BAA] border-white/10'}`}>
                              {node.id}
                            </div>
-                           <span className="text-[9px] font-black uppercase text-[#8E9BAA] text-center whitespace-pre-line leading-tight h-6">
+                           <span className={`text-[9px] font-black uppercase text-center whitespace-pre-line leading-tight h-6 transition-colors ${isNodeActive ? 'text-[#00D4FF]' : 'text-[#8E9BAA]'}`}>
                              {node.label}
                            </span>
                         </div>
@@ -918,8 +934,8 @@ const Projects = () => {
                         {/* Animated Arrows overlay on the pipeline */}
                         {index < 4 && (
                           <div className="absolute top-[60%] -right-[50%] md:-right-[40%] -translate-y-1/2 flex items-center text-[#00D4FF]">
-                             {simMode === 'activo' ? (
-                                <div className="flex gap-1 animate-shimmer" style={{ animationDuration: `${2.5 - (simFlow/100)}s` }}>
+                             {isNodeActive ? (
+                                <div className={`flex gap-1 ${isNodeRunning ? 'animate-shimmer' : ''}`} style={{ animationDuration: `${2.5 - (simFlow/100)}s` }}>
                                   <span className="text-xs md:text-sm drop-shadow-[0_0_6px_rgba(0,212,255,1)]">&gt;</span>
                                   <span className="text-xs md:text-sm drop-shadow-[0_0_6px_rgba(0,212,255,1)]">&gt;</span>
                                   <span className="text-xs md:text-sm drop-shadow-[0_0_6px_rgba(0,212,255,1)]">&gt;</span>
@@ -934,7 +950,8 @@ const Projects = () => {
                           </div>
                         )}
                       </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
 
