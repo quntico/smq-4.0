@@ -11,7 +11,7 @@
     "globalFilterOpacity": 75,
     "textJustify": true,
     "disableImageFilters": false,
-    "updatedAt": 1783466660843,
+    "updatedAt": 1783470505418,
     "footerCompanyName": "SMQ  SA de CV",
     "footerCompanyDesc": "Soluciones industriales de alta ingenieria, proyectos llave en mano y maquinaria para  procesamiento de alimentos y automatización.",
     "footerPhones": [
@@ -4869,6 +4869,34 @@
                 "desc": "Módulos adicionales para operación desatendida."
               }
             ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "projects",
+      "title": "projects",
+      "slug": "/projects",
+      "modules": [
+        {
+          "id": "sim-nodes",
+          "type": "sim-nodes",
+          "data": {
+            "nodeImages": {
+              "2": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783470397473_react_a_limpio.webp",
+              "3": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783470460177_bomba_limpia.webp",
+              "4": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783470483022_bomba_2_limpia.webp",
+              "5": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783470495463_final_limpio.webp",
+              "6": "/images/sim/node6.png"
+            },
+            "nodeSizes": {
+              "1": 350,
+              "2": 160,
+              "3": 119,
+              "4": 204,
+              "5": 238,
+              "6": 160
+            }
           }
         }
       ]
