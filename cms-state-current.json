@@ -11,7 +11,7 @@
     "globalFilterOpacity": 75,
     "textJustify": true,
     "disableImageFilters": false,
-    "updatedAt": 1783470505418,
+    "updatedAt": 1783471434362,
     "footerCompanyName": "SMQ  SA de CV",
     "footerCompanyDesc": "Soluciones industriales de alta ingenieria, proyectos llave en mano y maquinaria para  procesamiento de alimentos y automatización.",
     "footerPhones": [
@@ -4896,6 +4896,13 @@
               "4": 204,
               "5": 238,
               "6": 160
+            },
+            "nodeDelays": {
+              "1": 0,
+              "2": 350,
+              "3": 400,
+              "4": 450,
+              "5": 650
             }
           }
         }
