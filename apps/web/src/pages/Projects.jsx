@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Award, Factory, Tv, TrendingUp, DownloadCloud, BookOpen, ArrowUpRight, Calculator, FileText, CheckCircle2, Play, Pause, RefreshCw, Layers, Globe, Users, Headphones, Grid, Building2, MapPin, Hammer, Cpu, Briefcase, Clock, Database, Activity, Thermometer, Droplets, ShieldCheck, Gauge, Waves, RotateCcw, Camera } from 'lucide-react';
+import { Award, Factory, Tv, TrendingUp, DownloadCloud, BookOpen, ArrowUpRight, Calculator, FileText, CheckCircle2, Play, Pause, RefreshCw, Layers, Globe, Users, Headphones, Grid, Building2, MapPin, Hammer, Cpu, Briefcase, Clock, Database, Activity, Thermometer, Droplets, ShieldCheck, Gauge, Waves, RotateCcw, Camera, Loader2 } from 'lucide-react';
 import Footer from '@/components/Footer.jsx';
 import { useCMS } from '@/context/CMSContext.jsx';
+import { uploadFile } from '@/lib/storage.js';
 
 const Projects = () => {
   // ROI Calculator State
@@ -19,47 +20,42 @@ const Projects = () => {
   const [simTime, setSimTime] = useState(768); // 12:48 starting time
   const [simMode, setSimMode] = useState('activo');
   const [activeProjectIdx, setActiveProjectIdx] = useState(0);
-  const { isEditorMode } = useCMS();
+  const { isEditorMode, cmsState, updatePageModule } = useCMS();
+  const [uploadingId, setUploadingId] = useState(null);
 
-  const [nodeImages, setNodeImages] = useState(() => {
-    try {
-      const saved = localStorage.getItem('smq_sim_nodes');
-      if (saved) return JSON.parse(saved);
-    } catch(e) {}
-    return {
-      1: '/images/sim/node1.png',
-      2: '/images/sim/node2.png',
-      3: '/images/sim/node4.png',
-      4: '/images/sim/node5.png',
-      5: '/images/sim/node6.png'
-    };
-  });
+  // Derive node state from CMSContext instead of localStorage
+  const projectsPage = cmsState.pages?.find(p => p.id === 'projects') || {};
+  const simModule = projectsPage.modules?.find(m => m.id === 'sim-nodes') || { data: {} };
 
-  const [nodeSizes, setNodeSizes] = useState(() => {
-    try {
-      const saved = localStorage.getItem('smq_sim_nodes_sizes');
-      if (saved) return JSON.parse(saved);
-    } catch(e) {}
-    return { 1: 160, 2: 160, 3: 160, 4: 160, 5: 160 }; // Default to 160% bigger
-  });
+  const nodeImages = simModule.data.nodeImages || {
+    1: '/images/sim/node1.png',
+    2: '/images/sim/node2.png',
+    3: '/images/sim/node4.png',
+    4: '/images/sim/node5.png',
+    5: '/images/sim/node6.png'
+  };
 
-  const handleNodeImageUpload = (nodeId, e) => {
+  const nodeSizes = simModule.data.nodeSizes || { 1: 160, 2: 160, 3: 160, 4: 160, 5: 160 };
+
+  const handleNodeImageUpload = async (nodeId, e) => {
     const file = e.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const newImages = { ...nodeImages, [nodeId]: reader.result };
-        setNodeImages(newImages);
-        localStorage.setItem('smq_sim_nodes', JSON.stringify(newImages));
-      };
-      reader.readAsDataURL(file);
+      try {
+        setUploadingId(nodeId);
+        const url = await uploadFile(file, 'media');
+        const newImages = { ...nodeImages, [nodeId]: url };
+        updatePageModule('projects', 'sim-nodes', { nodeImages: newImages, nodeSizes });
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      } finally {
+        setUploadingId(null);
+      }
     }
   };
 
   const handleNodeSizeChange = (nodeId, e) => {
     const newSizes = { ...nodeSizes, [nodeId]: parseInt(e.target.value) };
-    setNodeSizes(newSizes);
-    localStorage.setItem('smq_sim_nodes_sizes', JSON.stringify(newSizes));
+    updatePageModule('projects', 'sim-nodes', { nodeImages, nodeSizes: newSizes });
   };
 
   useEffect(() => {
@@ -813,11 +809,17 @@ const Projects = () => {
                            {/* Editor Mode Upload Button */}
                            {isEditorMode && (
                              <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/70 rounded-xl opacity-0 group-hover/asset:opacity-100 transition-opacity backdrop-blur-sm border border-[#009FE3]/50 p-2">
-                               <label className="flex flex-col items-center cursor-pointer mb-2">
-                                 <input type="file" accept="image/*" className="hidden" onChange={(e) => handleNodeImageUpload(node.id, e)} />
-                                 <Camera size={14} className="text-[#00D4FF] mb-1" />
-                                 <span className="text-[7px] text-[#00D4FF] font-black uppercase text-center">Cambiar<br/>Imagen</span>
-                               </label>
+                               {uploadingId === node.id ? (
+                                 <div className="flex flex-col items-center justify-center mb-2 h-10">
+                                   <Loader2 size={16} className="text-[#00D4FF] animate-spin" />
+                                 </div>
+                               ) : (
+                                 <label className="flex flex-col items-center cursor-pointer mb-2 h-10 justify-center">
+                                   <input type="file" accept="image/*" className="hidden" onChange={(e) => handleNodeImageUpload(node.id, e)} disabled={uploadingId !== null} />
+                                   <Camera size={14} className="text-[#00D4FF] mb-1" />
+                                   <span className="text-[7px] text-[#00D4FF] font-black uppercase text-center">Cambiar<br/>Imagen</span>
+                                 </label>
+                               )}
                                <div className="w-full flex flex-col items-center">
                                  <span className="text-[7px] text-white/70 mb-1">Tamaño: {nodeSizes[node.id]}%</span>
                                  <input 
