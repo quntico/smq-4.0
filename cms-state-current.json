@@ -11,7 +11,7 @@
     "globalFilterOpacity": 75,
     "textJustify": true,
     "disableImageFilters": false,
-    "updatedAt": 1783486489107,
+    "updatedAt": 1783487336044,
     "footerCompanyName": "SMQ  SA de CV",
     "footerCompanyDesc": "Soluciones industriales de alta ingenieria, proyectos llave en mano y maquinaria para  procesamiento de alimentos y automatización.",
     "footerPhones": [
@@ -3982,307 +3982,6 @@
       ]
     },
     {
-      "id": "industria-packaging",
-      "title": "Packaging y Conversión",
-      "slug": "/industria/packaging",
-      "modules": [
-        {
-          "id": "sector-data",
-          "type": "sector-detail",
-          "data": {
-            "title": "Packaging y Conversión",
-            "subtitle": "Velocidad, sellado hermético y empaque inteligente",
-            "description": "Sistemas avanzados de envasado primario y secundario para formatos rígidos y flexibles. Ofrecemos envasadoras Doypack, líneas de llenado volumétrico y maquinaria de conversión de film.",
-            "heroImage": {
-              "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782615435986_pmp_seires.webp",
-              "type": "image",
-              "opacity": 0.5,
-              "brightness": 168,
-              "fogOpacity": 66,
-              "positionX": 0
-            },
-            "stats": [
-              {
-                "label": "Velocidad de Llenado",
-                "value": "150 ppm"
-              },
-              {
-                "label": "Hermeticidad de Sello",
-                "value": "99.99%"
-              },
-              {
-                "label": "Tiempo de Ajuste",
-                "value": "< 15 min"
-              },
-              {
-                "label": "Precisión de Peso",
-                "value": "±0.2%"
-              }
-            ],
-            "items": [
-              {
-                "id": "flexible",
-                "title": "Premade Pouch (PMP)",
-                "description": "Llenadoras automáticas rotativas para bolsas prefabricadas tipo pouch, stand-up pouch y zipper.",
-                "longDescription": "Flujo de envasado automático para bolsas premade pouch con apertura por vacío, codificación por chorro de tinta, llenado volumétrico/multicabezal y opción de inyección de gas para mayor vida útil del producto.",
-                "features": [
-                  "[icon:Shield] Apertura y sellado neumático servo-sincronizado",
-                  "[icon:Zap] Inyección de gas inerte N2 para conservación",
-                  "[icon:Cpu] Control total por PLC con recetas pregrabadas"
-                ],
-                "image": {
-                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782615509627_pmp_seires.webp",
-                  "type": "image",
-                  "opacity": 1,
-                  "blur": 0,
-                  "brightness": 100,
-                  "contrast": 100,
-                  "scale": 1,
-                  "positionX": 0,
-                  "positionY": 0,
-                  "objectFit": "cover",
-                  "bgColor": "transparent"
-                },
-                "tableHeaders": [
-                  "Especificación",
-                  "PMP-180",
-                  "PMP-250"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "Velocidad máxima de empaque",
-                    "width": "40 bolsas/min",
-                    "capacity": "40 bolsas/min"
-                  },
-                  {
-                    "model": "Ancho de bolsa",
-                    "width": "80–180 mm",
-                    "capacity": "150–250 mm"
-                  },
-                  {
-                    "model": "Largo de bolsa",
-                    "width": "150–350 mm",
-                    "capacity": "150–350 mm"
-                  },
-                  {
-                    "model": "Peso de llenado",
-                    "width": "10–1,500 g",
-                    "capacity": "10–1,500 g"
-                  },
-                  {
-                    "model": "Consumo de aire comprimido",
-                    "width": "≥ 0.8 m³/min",
-                    "capacity": "≥ 0.8 m³/min"
-                  },
-                  {
-                    "model": "Potencia instalada",
-                    "width": "7 kW",
-                    "capacity": "7 kW"
-                  },
-                  {
-                    "model": "Dimensiones L×A×H",
-                    "width": "2,070 × 1,810 × 1,620 mm",
-                    "capacity": "2,020 × 1,910 × 1,620 mm"
-                  },
-                  {
-                    "model": "Peso de máquina",
-                    "width": "2,400 kg",
-                    "capacity": "2,600 kg"
-                  }
-                ],
-                "images": [
-                  {
-                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782615509627_pmp_seires.webp",
-                    "type": "image",
-                    "opacity": 1,
-                    "blur": 0,
-                    "brightness": 100,
-                    "contrast": 100,
-                    "scale": 1,
-                    "positionX": 0,
-                    "positionY": 0,
-                    "objectFit": "cover",
-                    "bgColor": "transparent"
-                  },
-                  ""
-                ]
-              },
-              {
-                "id": "rigido",
-                "title": "Líneas de Envases Rígidos",
-                "description": "Llenadoras y tapadoras lineales/rotativas para botellas de plástico y vidrio.",
-                "longDescription": "Sistemas de dosificación por gravedad o caudalímetros inductivos que garantizan un llenado sin derrames. Tapadoras automáticas adaptables a tapas corona, rosca plástica o metálica.",
-                "features": [
-                  "[icon:Shield] Caudalímetros electromagnéticos de alta precisión",
-                  "[icon:Zap] Torque de tapado regulable por embrague magnético",
-                  "[icon:Cpu] CIP (Clean In Place) automático sin desmontaje de piezas"
-                ],
-                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113554541_planta%20600%201.png",
-                "tableHeaders": [
-                  "Modelo",
-                  "Tipo Envase",
-                  "Capacidad",
-                  "Precisión Llenado",
-                  "Grado Higiene"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "RF-200",
-                    "width": "Llenadora Rotativa 24 Válvulas",
-                    "capacity": "180 bpm",
-                    "power": "±0.2%",
-                    "weight": "Grado Alimentario/GMP"
-                  },
-                  {
-                    "model": "LT-120",
-                    "width": "Tapadora Lineal Automática",
-                    "capacity": "120 bpm",
-                    "power": "±0.5%",
-                    "weight": "Acero AISI 304"
-                  }
-                ]
-              },
-              {
-                "id": "impresion",
-                "title": "Sistemas de Impresión y Flexo",
-                "description": "Sistemas flexográficos de tambor central e impresión digital para películas plásticas.",
-                "longDescription": "Tecnología avanzada para impresión de alta velocidad sobre películas de PE, PP, BOPP, PET y papel. Sistemas de secado eficiente por aire caliente y curado UV.",
-                "features": [
-                  "[icon:Shield] Registro de color automático servomotorizado",
-                  "[icon:Zap] Secadores de alta eficiencia térmica por aire forzado",
-                  "[icon:Cpu] Control de tensión de película por celda de carga"
-                ],
-                "image": {
-                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783466528126_alpha_4.webp",
-                  "type": "image",
-                  "scale": 1,
-                  "positionX": 0,
-                  "positionY": 0,
-                  "objectFit": "contain",
-                  "bgColor": "transparent",
-                  "opacity": 1,
-                  "blur": 0,
-                  "brightness": 100,
-                  "contrast": 100
-                },
-                "tableHeaders": [
-                  "Modelo",
-                  "Ancho Máximo",
-                  "Velocidad Impresión",
-                  "Colores",
-                  "Resolución"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "ALPHA 4 ",
-                    "width": "Flexográfica  Tambor central 4 y 6 Colores",
-                    "capacity": "200 m/min",
-                    "power": "04 / 06",
-                    "weight": "650 LPI"
-                  },
-                  {
-                    "model": "ATHENA-8",
-                    "width": "Flexo Tambor Central 8 Colores",
-                    "capacity": "1600 mm",
-                    "power": "250 m/min",
-                    "weight": "850 LPI"
-                  }
-                ],
-                "images": [
-                  {
-                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783466528126_alpha_4.webp",
-                    "type": "image",
-                    "scale": 1,
-                    "positionX": 0,
-                    "positionY": 0,
-                    "objectFit": "contain",
-                    "bgColor": "transparent",
-                    "opacity": 1,
-                    "blur": 0,
-                    "brightness": 100,
-                    "contrast": 100
-                  },
-                  ""
-                ]
-              },
-              {
-                "id": "etiquetado",
-                "title": "Etiquetadoras Industriales",
-                "description": "Aplicadoras de etiquetas autoadhesivas y túneles de manga termoencogible (Sleeve).",
-                "longDescription": "Colocación precisa y uniforme de etiquetas en botellas, tarros y cajas. Sistemas con motores paso a paso de gran par y lectura por fotoceldas de alta velocidad.",
-                "features": [
-                  "[icon:Shield] Dispensadores servomotorizados de alta respuesta",
-                  "[icon:Zap] Sensores de contraste y ultrasonido para etiquetas transparentes",
-                  "[icon:Cpu] Banda superior estabilizadora de envase para alineación perfecta"
-                ],
-                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780115231575_choco%20color%202.png",
-                "tableHeaders": [
-                  "Modelo",
-                  "Tipo Aplicador",
-                  "Velocidad Máxima",
-                  "Ancho Etiqueta",
-                  "Tolerancia"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "ET-200",
-                    "width": "Etiquetadora Doble Cara",
-                    "capacity": "200 bpm",
-                    "power": "150 mm",
-                    "weight": "±0.5 mm"
-                  },
-                  {
-                    "model": "SLV-150",
-                    "width": "Aplicadora de Sleeve Termoencogible",
-                    "capacity": "150 bpm",
-                    "power": "200 mm",
-                    "weight": "±1.0 mm"
-                  }
-                ]
-              },
-              {
-                "id": "conversion",
-                "title": "Conversión y Rebobinado de Film",
-                "description": "Cortadoras, rebobinadoras y termoformadoras de film flexible.",
-                "longDescription": "Maquinaria de conversión de precisión para fraccionar bobinas anchas, rebobinar películas y fabricar empaques termoformados a partir de lámina rígida.",
-                "features": [
-                  "[icon:Shield] Ejes expansibles neumáticos de cambio rápido",
-                  "[icon:Zap] Cuchillas circulares y de corte por cizalla",
-                  "[icon:Cpu] Posicionamiento automático de cuchillas"
-                ],
-                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780113700590_planta%20600%202.png",
-                "tableHeaders": [
-                  "Modelo",
-                  "Ancho Bobina",
-                  "Diámetro Desbobinado",
-                  "Velocidad Corte",
-                  "Tensión control"
-                ],
-                "equipmentTable": [
-                  {
-                    "model": "CV-1200",
-                    "width": "Cortadora Rebobinadora",
-                    "capacity": "1200 mm",
-                    "power": "800 mm",
-                    "weight": "400 m/min"
-                  },
-                  {
-                    "model": "TF-600",
-                    "width": "Termoformadora Industrial",
-                    "capacity": "600 mm",
-                    "power": "600 mm",
-                    "weight": "35 ciclos/min"
-                  }
-                ]
-              }
-            ],
-            "showStats": false,
-            "instalacionesImage": "/smq_factory_night2.png"
-          }
-        }
-      ]
-    },
-    {
       "id": "machinery-alpha-4",
       "title": " ALPHA 4",
       "slug": "/maquinaria/alpha-4",
@@ -5364,6 +5063,391 @@
                     "positionY": 0,
                     "objectFit": "cover",
                     "bgColor": "transparent"
+                  },
+                  ""
+                ]
+              }
+            ],
+            "showStats": false,
+            "instalacionesImage": "/smq_factory_night2.png"
+          }
+        }
+      ]
+    },
+    {
+      "id": "industria-packaging",
+      "title": "Packaging y Conversión",
+      "slug": "/industria/packaging",
+      "modules": [
+        {
+          "id": "sector-data",
+          "type": "sector-detail",
+          "data": {
+            "title": "Packaging y Conversión",
+            "subtitle": "Velocidad, sellado hermético y empaque inteligente",
+            "description": "Sistemas avanzados de envasado primario y secundario para formatos rígidos y flexibles. Ofrecemos envasadoras Doypack, líneas de llenado volumétrico y maquinaria de conversión de film.",
+            "heroImage": {
+              "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782615435986_pmp_seires.webp",
+              "type": "image",
+              "opacity": 0.5,
+              "brightness": 168,
+              "fogOpacity": 66,
+              "positionX": 0
+            },
+            "stats": [
+              {
+                "label": "Velocidad de Llenado",
+                "value": "150 ppm"
+              },
+              {
+                "label": "Hermeticidad de Sello",
+                "value": "99.99%"
+              },
+              {
+                "label": "Tiempo de Ajuste",
+                "value": "< 15 min"
+              },
+              {
+                "label": "Precisión de Peso",
+                "value": "±0.2%"
+              }
+            ],
+            "items": [
+              {
+                "id": "flexible",
+                "title": "Premade Pouch (PMP)",
+                "description": "Llenadoras automáticas rotativas para bolsas prefabricadas tipo pouch, stand-up pouch y zipper.",
+                "longDescription": "Flujo de envasado automático para bolsas premade pouch con apertura por vacío, codificación por chorro de tinta, llenado volumétrico/multicabezal y opción de inyección de gas para mayor vida útil del producto.",
+                "features": [
+                  "[icon:Shield] Apertura y sellado neumático servo-sincronizado",
+                  "[icon:Zap] Inyección de gas inerte N2 para conservación",
+                  "[icon:Cpu] Control total por PLC con recetas pregrabadas"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782615509627_pmp_seires.webp",
+                  "type": "image",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100,
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "cover",
+                  "bgColor": "transparent"
+                },
+                "tableHeaders": [
+                  "Especificación",
+                  "PMP-180",
+                  "PMP-250"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "Velocidad máxima de empaque",
+                    "width": "40 bolsas/min",
+                    "capacity": "40 bolsas/min"
+                  },
+                  {
+                    "model": "Ancho de bolsa",
+                    "width": "80–180 mm",
+                    "capacity": "150–250 mm"
+                  },
+                  {
+                    "model": "Largo de bolsa",
+                    "width": "150–350 mm",
+                    "capacity": "150–350 mm"
+                  },
+                  {
+                    "model": "Peso de llenado",
+                    "width": "10–1,500 g",
+                    "capacity": "10–1,500 g"
+                  },
+                  {
+                    "model": "Consumo de aire comprimido",
+                    "width": "≥ 0.8 m³/min",
+                    "capacity": "≥ 0.8 m³/min"
+                  },
+                  {
+                    "model": "Potencia instalada",
+                    "width": "7 kW",
+                    "capacity": "7 kW"
+                  },
+                  {
+                    "model": "Dimensiones L×A×H",
+                    "width": "2,070 × 1,810 × 1,620 mm",
+                    "capacity": "2,020 × 1,910 × 1,620 mm"
+                  },
+                  {
+                    "model": "Peso de máquina",
+                    "width": "2,400 kg",
+                    "capacity": "2,600 kg"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1782615509627_pmp_seires.webp",
+                    "type": "image",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100,
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "cover",
+                    "bgColor": "transparent"
+                  },
+                  ""
+                ]
+              },
+              {
+                "id": "rigido",
+                "title": "Líneas de Envases Rígidos",
+                "description": "Llenadoras y tapadoras lineales/rotativas para botellas de plástico y vidrio.",
+                "longDescription": "Sistemas de dosificación por gravedad o caudalímetros inductivos que garantizan un llenado sin derrames. Tapadoras automáticas adaptables a tapas corona, rosca plástica o metálica.",
+                "features": [
+                  "[icon:Shield] Caudalímetros electromagnéticos de alta precisión",
+                  "[icon:Zap] Torque de tapado regulable por embrague magnético",
+                  "[icon:Cpu] CIP (Clean In Place) automático sin desmontaje de piezas"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783486702116_agua.webp",
+                  "type": "image",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100,
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "cover",
+                  "bgColor": "transparent"
+                },
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Envase",
+                  "Capacidad",
+                  "Precisión Llenado",
+                  "Grado Higiene"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "RF-200",
+                    "width": "Llenadora Rotativa 24 Válvulas",
+                    "capacity": "180 bpm",
+                    "power": "±0.2%",
+                    "weight": "Grado Alimentario/GMP"
+                  },
+                  {
+                    "model": "LT-120",
+                    "width": "Tapadora Lineal Automática",
+                    "capacity": "120 bpm",
+                    "power": "±0.5%",
+                    "weight": "Acero AISI 304"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783486702116_agua.webp",
+                    "type": "image",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100,
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "cover",
+                    "bgColor": "transparent"
+                  },
+                  ""
+                ]
+              },
+              {
+                "id": "impresion",
+                "title": "Sistemas de Impresión y Flexo",
+                "description": "Sistemas flexográficos de tambor central e impresión digital para películas plásticas.",
+                "longDescription": "Tecnología avanzada para impresión de alta velocidad sobre películas de PE, PP, BOPP, PET y papel. Sistemas de secado eficiente por aire caliente y curado UV.",
+                "features": [
+                  "[icon:Shield] Registro de color automático servomotorizado",
+                  "[icon:Zap] Secadores de alta eficiencia térmica por aire forzado",
+                  "[icon:Cpu] Control de tensión de película por celda de carga"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783466528126_alpha_4.webp",
+                  "type": "image",
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "contain",
+                  "bgColor": "transparent",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100
+                },
+                "tableHeaders": [
+                  "Modelo",
+                  "Ancho Máximo",
+                  "Velocidad Impresión",
+                  "Colores",
+                  "Resolución"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "ALPHA 4 ",
+                    "width": "Flexográfica  Tambor central 4 y 6 Colores",
+                    "capacity": "200 m/min",
+                    "power": "04 / 06",
+                    "weight": "650 LPI"
+                  },
+                  {
+                    "model": "ATHENA-8",
+                    "width": "Flexo Tambor Central 8 Colores",
+                    "capacity": "1600 mm",
+                    "power": "250 m/min",
+                    "weight": "850 LPI"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783466528126_alpha_4.webp",
+                    "type": "image",
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "contain",
+                    "bgColor": "transparent",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100
+                  },
+                  ""
+                ]
+              },
+              {
+                "id": "etiquetado",
+                "title": "Etiquetadoras Industriales",
+                "description": "Aplicadoras de etiquetas autoadhesivas y túneles de manga termoencogible (Sleeve).",
+                "longDescription": "Colocación precisa y uniforme de etiquetas en botellas, tarros y cajas. Sistemas con motores paso a paso de gran par y lectura por fotoceldas de alta velocidad.",
+                "features": [
+                  "[icon:Shield] Dispensadores servomotorizados de alta respuesta",
+                  "[icon:Zap] Sensores de contraste y ultrasonido para etiquetas transparentes",
+                  "[icon:Cpu] Banda superior estabilizadora de envase para alineación perfecta"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783487038947_etiquetadora.webp",
+                  "type": "image",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100,
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "cover",
+                  "bgColor": "transparent"
+                },
+                "tableHeaders": [
+                  "Modelo",
+                  "Tipo Aplicador",
+                  "Velocidad Máxima",
+                  "Ancho Etiqueta",
+                  "Tolerancia"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "ET-200",
+                    "width": "Etiquetadora Doble Cara",
+                    "capacity": "200 bpm",
+                    "power": "150 mm",
+                    "weight": "±0.5 mm"
+                  },
+                  {
+                    "model": "SLV-150",
+                    "width": "Aplicadora de Sleeve Termoencogible",
+                    "capacity": "150 bpm",
+                    "power": "200 mm",
+                    "weight": "±1.0 mm"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783487038947_etiquetadora.webp",
+                    "type": "image",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100,
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "cover",
+                    "bgColor": "transparent"
+                  },
+                  ""
+                ]
+              },
+              {
+                "id": "conversion",
+                "title": "Conversión y Rebobinado de Film",
+                "description": "Cortadoras, rebobinadoras y termoformadoras de film flexible.",
+                "longDescription": "Maquinaria de conversión de precisión para fraccionar bobinas anchas, rebobinar películas y fabricar empaques termoformados a partir de lámina rígida.",
+                "features": [
+                  "[icon:Shield] Ejes expansibles neumáticos de cambio rápido",
+                  "[icon:Zap] Cuchillas circulares y de corte por cizalla",
+                  "[icon:Cpu] Posicionamiento automático de cuchillas"
+                ],
+                "image": {
+                  "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783487335427_tf501.webp",
+                  "type": "image",
+                  "scale": 1,
+                  "positionX": 0,
+                  "positionY": 0,
+                  "objectFit": "contain",
+                  "bgColor": "transparent",
+                  "opacity": 1,
+                  "blur": 0,
+                  "brightness": 100,
+                  "contrast": 100
+                },
+                "tableHeaders": [
+                  "Modelo",
+                  "Ancho Bobina",
+                  "Diámetro Desbobinado",
+                  "Velocidad Corte",
+                  "Tensión control"
+                ],
+                "equipmentTable": [
+                  {
+                    "model": "CV-1200",
+                    "width": "Cortadora Rebobinadora",
+                    "capacity": "1200 mm",
+                    "power": "500 m/min",
+                    "weight": "400 m/min"
+                  },
+                  {
+                    "model": "TF-800",
+                    "width": "Termoformadora Industrial",
+                    "capacity": "600 mm",
+                    "power": "800 m/min",
+                    "weight": "35 ciclos/min"
+                  }
+                ],
+                "images": [
+                  {
+                    "url": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783487335427_tf501.webp",
+                    "type": "image",
+                    "scale": 1,
+                    "positionX": 0,
+                    "positionY": 0,
+                    "objectFit": "contain",
+                    "bgColor": "transparent",
+                    "opacity": 1,
+                    "blur": 0,
+                    "brightness": 100,
+                    "contrast": 100
                   },
                   ""
                 ]
