@@ -33,11 +33,11 @@ const industriesData = [
       {
         name: 'Categorías',
         links: [
-          { code: 'PLA', name: 'Plásticos', desc: 'Lavado, extrusión y peletizado de polímeros.', href: '/industrias/reciclaje#plasticos' },
-          { code: 'MET', name: 'Metales', desc: 'Separación magnética y trituración de chatarra.', href: '/industrias/reciclaje#metales' },
-          { code: 'RSU', name: 'RSU', desc: 'Tratamiento de residuos sólidos urbanos.', href: '/industrias/reciclaje#rsu' },
-          { code: 'REC', name: 'Recuperación de Materiales', desc: 'Clasificación automatizada de subproductos.', href: '/industrias/reciclaje#recuperacion' },
-          { code: 'ECO', name: 'Economía Circular', desc: 'Estrategias de valorización de residuos.', href: '/industrias/reciclaje#economia-circular' }
+          { code: 'PLA', name: 'Plásticos', desc: 'Lavado, extrusión y peletizado de polímeros.', href: '/industria/reciclaje#plasticos' },
+          { code: 'MET', name: 'Metales', desc: 'Separación magnética y trituración de chatarra.', href: '/industria/reciclaje#metales' },
+          { code: 'RSU', name: 'RSU', desc: 'Tratamiento de residuos sólidos urbanos.', href: '/industria/reciclaje#rsu' },
+          { code: 'REC', name: 'Recuperación de Materiales', desc: 'Clasificación automatizada de subproductos.', href: '/industria/reciclaje#recuperacion' },
+          { code: 'ECO', name: 'Economía Circular', desc: 'Estrategias de valorización de residuos.', href: '/industria/reciclaje#economia-circular' }
         ]
       }
     ]
@@ -52,11 +52,11 @@ const industriesData = [
       {
         name: 'Categorías',
         links: [
-          { code: 'FLX', name: 'Flexible', desc: 'Envasadoras doypack, vertical y flowpack.', href: '/industrias/packaging#flexible' },
-          { code: 'RGD', name: 'Rígido', desc: 'Líneas de llenado y taponado de botellas.', href: '/industrias/packaging#rigido' },
-          { code: 'PRN', name: 'Impresión', desc: 'Sistemas flexográficos y digitales.', href: '/industrias/packaging#impresion' },
-          { code: 'LBL', name: 'Etiquetado', desc: 'Aplicadores de etiquetas autoadheribles.', href: '/industrias/packaging#etiquetado' },
-          { code: 'CNV', name: 'Conversión', desc: 'Rebobinado, corte y termoformado.', href: '/industrias/packaging#conversion' }
+          { code: 'FLX', name: 'Flexible', desc: 'Envasadoras doypack, vertical y flowpack.', href: '/industria/packaging#flexible' },
+          { code: 'RGD', name: 'Rígido', desc: 'Líneas de llenado y taponado de botellas.', href: '/industria/packaging#rigido' },
+          { code: 'PRN', name: 'Impresión', desc: 'Sistemas flexográficos y digitales.', href: '/industria/packaging#impresion' },
+          { code: 'LBL', name: 'Etiquetado', desc: 'Aplicadores de etiquetas autoadheribles.', href: '/industria/packaging#etiquetado' },
+          { code: 'CNV', name: 'Conversión', desc: 'Rebobinado, corte y termoformado.', href: '/industria/packaging#conversion' }
         ]
       }
     ]
@@ -71,10 +71,10 @@ const industriesData = [
       {
         name: 'Categorías',
         links: [
-          { code: 'MAT', name: 'Materiales', desc: 'Dosificación y mezcla de áridos y agregados.', href: '/industrias/construccion#materiales' },
-          { code: 'CMP', name: 'Compuestos', desc: 'Líneas de extrusión de madera plástica WPC.', href: '/industrias/construccion#compuestos' },
-          { code: 'RCY', name: 'Materiales Reciclados', desc: 'Valorización de escombros y asfalto.', href: '/industrias/construccion#materiales-reciclados' },
-          { code: 'INF', name: 'Infraestructura', desc: 'Maquinaria pesada y automatización civil.', href: '/industrias/construccion#infraestructura' }
+          { code: 'MAT', name: 'Materiales', desc: 'Dosificación y mezcla de áridos y agregados.', href: '/industria/construccion#materiales' },
+          { code: 'CMP', name: 'Compuestos', desc: 'Líneas de extrusión de madera plástica WPC.', href: '/industria/construccion#compuestos' },
+          { code: 'RCY', name: 'Materiales Reciclados', desc: 'Valorización de escombros y asfalto.', href: '/industria/construccion#materiales-reciclados' },
+          { code: 'INF', name: 'Infraestructura', desc: 'Maquinaria pesada y automatización civil.', href: '/industria/construccion#infraestructura' }
         ]
       }
     ]
@@ -89,10 +89,10 @@ const industriesData = [
       {
         name: 'Categorías',
         links: [
-          { code: 'PRO', name: 'Procesamiento', desc: 'Limpieza, cribado y descascarillado.', href: '/industrias/agroindustria#procesamiento' },
-          { code: 'BAL', name: 'Balanceados', desc: 'Líneas de molienda y peletizado de alimento.', href: '/industrias/agroindustria#balanceados' },
-          { code: 'PST', name: 'Postcosecha', desc: 'Enfriamiento, clasificación y almacenamiento.', href: '/industrias/agroindustria#postcosecha' },
-          { code: 'AUT', name: 'Automatización', desc: 'Monitoreo de silos y dosificación remota.', href: '/industrias/agroindustria#automatizacion' }
+          { code: 'PRO', name: 'Procesamiento', desc: 'Limpieza, cribado y descascarillado.', href: '/industria/agroindustria#procesamiento' },
+          { code: 'BAL', name: 'Balanceados', desc: 'Líneas de molienda y peletizado de alimento.', href: '/industria/agroindustria#balanceados' },
+          { code: 'PST', name: 'Postcosecha', desc: 'Enfriamiento, clasificación y almacenamiento.', href: '/industria/agroindustria#postcosecha' },
+          { code: 'AUT', name: 'Automatización', desc: 'Monitoreo de silos y dosificación remota.', href: '/industria/agroindustria#automatizacion' }
         ]
       }
     ]
@@ -107,10 +107,10 @@ const industriesData = [
       {
         name: 'Categorías',
         links: [
-          { code: 'MED', name: 'Médico', desc: 'Fabricación de mascarillas y apósitos quirúrgicos.', href: '/industrias/manufactura#medico' },
-          { code: 'PHA', name: 'Farma', desc: 'Envasado y dosificación bajo norma GMP.', href: '/industrias/manufactura#farma' },
-          { code: 'CNV', name: 'Conversión', desc: 'Corte de materiales no tejidos y films.', href: '/industrias/manufactura#conversion' },
-          { code: 'PRD', name: 'Producción', desc: 'Líneas automatizadas de alta velocidad.', href: '/industrias/manufactura#produccion' }
+          { code: 'MED', name: 'Médico', desc: 'Fabricación de mascarillas y apósitos quirúrgicos.', href: '/industria/manufactura#medico' },
+          { code: 'PHA', name: 'Farma', desc: 'Envasado y dosificación bajo norma GMP.', href: '/industria/manufactura#farma' },
+          { code: 'CNV', name: 'Conversión', desc: 'Corte de materiales no tejidos y films.', href: '/industria/manufactura#conversion' },
+          { code: 'PRD', name: 'Producción', desc: 'Líneas automatizadas de alta velocidad.', href: '/industria/manufactura#produccion' }
         ]
       }
     ]
@@ -125,10 +125,10 @@ const industriesData = [
       {
         name: 'Categorías',
         links: [
-          { code: 'WTE', name: 'Valorización Energética', desc: 'Conversión térmica y gasificación de RSU.', href: '/industrias/energia#wte' },
-          { code: 'BIO', name: 'Biomasa', desc: 'Pelletizado de madera y residuos agrícolas.', href: '/industrias/energia#biomasa' },
-          { code: 'IND', name: 'Energía Industrial', desc: 'Co-generación y calderas de vapor.', href: '/industrias/energia#energia-industrial' },
-          { code: 'SRV', name: 'Servicios', desc: 'Eficiencia energética y auditorías térmicas.', href: '/industrias/energia#servicios' }
+          { code: 'WTE', name: 'Valorización Energética', desc: 'Conversión térmica y gasificación de RSU.', href: '/industria/energia#wte' },
+          { code: 'BIO', name: 'Biomasa', desc: 'Pelletizado de madera y residuos agrícolas.', href: '/industria/energia#biomasa' },
+          { code: 'IND', name: 'Energía Industrial', desc: 'Co-generación y calderas de vapor.', href: '/industria/energia#energia-industrial' },
+          { code: 'SRV', name: 'Servicios', desc: 'Eficiencia energética y auditorías térmicas.', href: '/industria/energia#servicios' }
         ]
       }
     ]

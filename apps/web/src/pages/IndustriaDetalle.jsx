@@ -1583,11 +1583,15 @@ const IndustriaDetalle = () => {
   
   const sector = normalizeSector(rawSector);
 
+  const location = useLocation();
+  const { cmsState, updatePages, isEditorMode, syncToCloud } = useCMS();
+
   // Resolver ruta de maquinaria de forma segura previniendo 404
   const getMachineLink = (modelStr) => {
     if (!modelStr) return '/';
     const cleanModel = modelStr.trim().toLowerCase().replace(/\s+/g, '-').replace(/-+/g, '-');
     const withSector = `${sector}-${cleanModel}`;
+    
     if (machineryDataMap && machineryDataMap[withSector]) {
       return `/maquinaria/${withSector}`;
     }
@@ -1605,11 +1609,15 @@ const IndustriaDetalle = () => {
     if (partialMatch) {
       return `/maquinaria/${partialMatch}`;
     }
-    return `/maquinaria/${sector === 'alimentos' ? 'alimentos-' + cleanModel : cleanModel}`;
+    
+    // Check if it already exists in CMS as an exact match
+    if (cmsState?.pages?.some(p => p.id === `machinery-${cleanModel}`)) {
+      return `/maquinaria/${cleanModel}`;
+    }
+    
+    // Otherwise, create a new dynamic route WITH the sector prefix to retain the industry
+    return `/maquinaria/${sector}-${cleanModel}`;
   };
-
-  const location = useLocation();
-  const { cmsState, updatePages, isEditorMode, syncToCloud } = useCMS();
   
   const combinedData = { ...sectorsData, ...technologyDataMap };
   const staticData = combinedData[sector];
@@ -3773,20 +3781,8 @@ const IndustriaDetalle = () => {
                                           }}
                                           isEditorMode={isEditorMode}
                                         />
-                                      ) : item.lockLinks ? (
-                                        <span className="font-bold text-white/70">{row.model}</span>
                                       ) : (
-                                        <Link
-                                          to={getMachineLink(row.model)}
-                                          onClick={() => {
-                                            localStorage.setItem('last_sector_path', window.location.pathname + '#' + item.id);
-                                            localStorage.setItem('last_sector_name', data.title || 'Sector');
-                                          }}
-                                          className={`inline-flex items-center gap-1.5 font-bold hover:underline decoration-2 underline-offset-4 cursor-pointer transition-all duration-300 ${colorScheme.text} hover:opacity-85 hover:scale-[1.02]`}
-                                        >
-                                          <span>{row.model}</span>
-                                          <ArrowUpRight size={12} className="opacity-70 transition-transform duration-300" />
-                                        </Link>
+                                        <span className={`font-bold ${colorScheme.text}`}>{row.model}</span>
                                       )}
                                     </td>
                                   );

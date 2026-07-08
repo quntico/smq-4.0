@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Award, Factory, Tv, TrendingUp, DownloadCloud, BookOpen, ArrowUpRight, Calculator, FileText, CheckCircle2, Play, Pause, RefreshCw, Layers, Globe, Users, Headphones, Grid, Building2, MapPin, Hammer, Cpu, Briefcase, Clock } from 'lucide-react';
+import { Award, Factory, Tv, TrendingUp, DownloadCloud, BookOpen, ArrowUpRight, Calculator, FileText, CheckCircle2, Play, Pause, RefreshCw, Layers, Globe, Users, Headphones, Grid, Building2, MapPin, Hammer, Cpu, Briefcase, Clock, Database, Activity, Thermometer, Droplets, ShieldCheck, Gauge, Waves, RotateCcw, Camera } from 'lucide-react';
 import Footer from '@/components/Footer.jsx';
+import { useCMS } from '@/context/CMSContext.jsx';
 
 const Projects = () => {
   // ROI Calculator State
@@ -11,10 +12,74 @@ const Projects = () => {
   const [calculated, setCalculated] = useState(true);
 
   // Simulation State
-  const [simActive, setSimActive] = useState(false);
+  const [simActive, setSimActive] = useState(true);
   const [simFlow, setSimFlow] = useState(75); // %
   const [simTemp, setSimTemp] = useState(82); // °C
+  const [simPressure, setSimPressure] = useState(5.6); // bar
+  const [simTime, setSimTime] = useState(768); // 12:48 starting time
+  const [simMode, setSimMode] = useState('activo');
   const [activeProjectIdx, setActiveProjectIdx] = useState(0);
+  const { isEditorMode } = useCMS();
+
+  const [nodeImages, setNodeImages] = useState(() => {
+    try {
+      const saved = localStorage.getItem('smq_sim_nodes');
+      if (saved) return JSON.parse(saved);
+    } catch(e) {}
+    return {
+      1: '/images/sim/node1.png',
+      2: '/images/sim/node2.png',
+      3: '/images/sim/node4.png',
+      4: '/images/sim/node5.png',
+      5: '/images/sim/node6.png'
+    };
+  });
+
+  const [nodeSizes, setNodeSizes] = useState(() => {
+    try {
+      const saved = localStorage.getItem('smq_sim_nodes_sizes');
+      if (saved) return JSON.parse(saved);
+    } catch(e) {}
+    return { 1: 160, 2: 160, 3: 160, 4: 160, 5: 160 }; // Default to 160% bigger
+  });
+
+  const handleNodeImageUpload = (nodeId, e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const newImages = { ...nodeImages, [nodeId]: reader.result };
+        setNodeImages(newImages);
+        localStorage.setItem('smq_sim_nodes', JSON.stringify(newImages));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleNodeSizeChange = (nodeId, e) => {
+    const newSizes = { ...nodeSizes, [nodeId]: parseInt(e.target.value) };
+    setNodeSizes(newSizes);
+    localStorage.setItem('smq_sim_nodes_sizes', JSON.stringify(newSizes));
+  };
+
+  useEffect(() => {
+    let interval = null;
+    if (simActive && simMode === 'activo') {
+      interval = setInterval(() => {
+        setSimTime(prev => prev + 1);
+      }, 1000);
+    } else if (interval) {
+      clearInterval(interval);
+    }
+    return () => { if (interval) clearInterval(interval); };
+  }, [simActive, simMode]);
+
+  const formatSimTime = (seconds) => {
+    const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
+    const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+    const s = (seconds % 60).toString().padStart(2, '0');
+    return `${h}:${m}:${s}`;
+  };
 
   // Calculamos ROI dinámicamente
   // Estimación: 1 ton/h ahorra aprox 15 kWh usando tecnología SMQ
@@ -565,136 +630,281 @@ const Projects = () => {
           </section>
 
           {/* 03. SIMULACIONES */}
-          <section id="simulaciones" className="scroll-mt-32 space-y-12">
-            <div className="flex items-center gap-4 flex-wrap justify-between border-b border-white/5 pb-6">
-              <div className="space-y-2">
+          <section id="simulaciones" className="scroll-mt-32 space-y-6">
+            <div className="flex items-center gap-4 flex-wrap justify-between border-b border-white/5 pb-4">
+              <div className="space-y-1">
                 <div className="flex items-center gap-2.5">
-                  <span className="text-[#06B6D4] text-xs font-black tracking-widest font-mono">03 / TECNOLOGÍA</span>
-                  <Tv size={14} className="text-[#06B6D4]" />
+                  <span className="text-[#06B6D4] text-[10px] font-black tracking-widest font-mono">03 / TECNOLOGÍA</span>
+                  <Tv size={12} className="text-[#06B6D4]" />
                 </div>
-                <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tight">Simulador de Procesos 3D</h2>
+                <h2 className="text-xl md:text-3xl font-bold uppercase tracking-tight">Simulador de Procesos 3D</h2>
               </div>
-              <p className="text-white/40 text-xs md:text-sm max-w-md">Interactúa con los controles del flujo de la planta para simular presiones y temperaturas en tiempo real.</p>
+              <p className="text-white/40 text-[10px] md:text-xs max-w-sm">Interactúa con los controles del flujo de la planta para simular presiones y temperaturas en tiempo real.</p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+            <div className="grid grid-cols-1 xl:grid-cols-12 gap-4 xl:gap-5 items-stretch font-['Poppins']">
               {/* Controles de Simulación */}
-              <div className="lg:col-span-4 bg-white/[0.02] border border-white/5 p-6 rounded-2xl flex flex-col justify-between space-y-6">
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-black uppercase tracking-wider text-white/40">Consola de Control</span>
-                    <button
-                      onClick={() => setSimActive(!simActive)}
-                      className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider flex items-center gap-1.5 transition-all ${
-                        simActive
-                          ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                          : 'bg-red-500/20 text-red-400 border border-red-500/30'
-                      }`}
-                    >
-                      {simActive ? <Play size={10} className="fill-emerald-400" /> : <Pause size={10} className="fill-red-400" />}
-                      <span>{simActive ? 'Operando' : 'Detenido'}</span>
-                    </button>
+              <div className="xl:col-span-4 bg-[#07111C] border border-[#009FE3]/20 p-5 md:p-6 rounded-2xl flex flex-col justify-between space-y-4 shadow-[inset_0_0_80px_rgba(0,212,255,0.03)] relative z-10">
+                <div className="absolute inset-0 bg-[#050B12]/80 rounded-2xl z-0 pointer-events-none" />
+                
+                <div className="space-y-6 relative z-10">
+                  <div className="flex items-center justify-between border-b border-[#009FE3]/20 pb-4">
+                    <span className="text-sm font-black uppercase tracking-wider text-[#EAF4FF]">Consola de Control</span>
+                    <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full border ${simMode === 'activo' ? 'bg-emerald-500/10 border-emerald-500/30' : 'bg-white/5 border-white/10'}`}>
+                      <span className={`w-1.5 h-1.5 rounded-full ${simMode === 'activo' ? 'bg-emerald-400 animate-pulse' : 'bg-white/40'}`} />
+                      <span className={`text-[9px] font-bold uppercase tracking-widest ${simMode === 'activo' ? 'text-emerald-400' : 'text-[#8E9BAA]'}`}>{simMode === 'activo' ? 'En Vivo' : 'Pausado'}</span>
+                    </div>
                   </div>
 
-                  <div className="space-y-4">
-                    <div className="space-y-2">
-                      <div className="flex justify-between text-xs">
-                        <span className="text-white/50 uppercase tracking-wider">Flujo de Entrada</span>
-                        <span className="font-bold text-white">{simFlow} %</span>
+                  <div className="space-y-6 mt-2">
+                    {/* Flujo */}
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between text-xs">
+                        <div className="flex items-center gap-3">
+                          <span className="w-7 h-7 flex items-center justify-center rounded-full bg-[#00D4FF]/10 text-[#00D4FF]"><Waves size={14} /></span>
+                          <span className="text-[#EAF4FF] uppercase tracking-wider font-bold text-[11px]">Flujo de Entrada</span>
+                        </div>
+                        <span className="font-black text-[#EAF4FF] text-lg">{simFlow} <span className="text-[10px] text-[#8E9BAA]">%</span></span>
                       </div>
-                      <input
-                        type="range"
-                        min="10"
-                        max="100"
-                        value={simFlow}
-                        onChange={(e) => setSimFlow(parseInt(e.target.value))}
-                        disabled={!simActive}
-                        className="w-full h-1 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[#06B6D4]"
-                      />
+                      <div className="flex items-center gap-3 px-1">
+                        <span className="text-[10px] text-[#8E9BAA] font-mono">0%</span>
+                        <input type="range" min="0" max="100" value={simFlow} onChange={(e) => setSimFlow(parseInt(e.target.value))} className="flex-1 h-1.5 bg-[#009FE3]/20 rounded-lg appearance-none cursor-pointer accent-[#00D4FF] hover:shadow-[0_0_15px_rgba(0,212,255,0.5)] transition-shadow" />
+                        <span className="text-[10px] text-[#8E9BAA] font-mono">100%</span>
+                      </div>
                     </div>
 
-                    <div className="space-y-2">
-                      <div className="flex justify-between text-xs">
-                        <span className="text-white/50 uppercase tracking-wider">Temperatura Reactor</span>
-                        <span className="font-bold text-white">{simTemp} °C</span>
+                    {/* Temperatura */}
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between text-xs">
+                        <div className="flex items-center gap-3">
+                          <span className="w-7 h-7 flex items-center justify-center rounded-full bg-[#00D4FF]/10 text-[#00D4FF]"><Thermometer size={14} /></span>
+                          <span className="text-[#EAF4FF] uppercase tracking-wider font-bold text-[11px]">Temperatura Reactor</span>
+                        </div>
+                        <span className="font-black text-[#EAF4FF] text-lg">{simTemp} <span className="text-[10px] text-[#8E9BAA]">°C</span></span>
                       </div>
-                      <input
-                        type="range"
-                        min="40"
-                        max="150"
-                        value={simTemp}
-                        onChange={(e) => setSimTemp(parseInt(e.target.value))}
-                        disabled={!simActive}
-                        className="w-full h-1 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[#06B6D4]"
-                      />
+                      <div className="flex items-center gap-3 px-1">
+                        <span className="text-[10px] text-[#8E9BAA] font-mono">0 °C</span>
+                        <input type="range" min="0" max="200" value={simTemp} onChange={(e) => setSimTemp(parseInt(e.target.value))} className="flex-1 h-1.5 bg-[#009FE3]/20 rounded-lg appearance-none cursor-pointer accent-[#00D4FF] hover:shadow-[0_0_15px_rgba(0,212,255,0.5)] transition-shadow" />
+                        <span className="text-[10px] text-[#8E9BAA] font-mono">200 °C</span>
+                      </div>
+                    </div>
+
+                    {/* Presión */}
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between text-xs">
+                        <div className="flex items-center gap-3">
+                          <span className="w-7 h-7 flex items-center justify-center rounded-full bg-[#00D4FF]/10 text-[#00D4FF]"><Gauge size={14} /></span>
+                          <span className="text-[#EAF4FF] uppercase tracking-wider font-bold text-[11px]">Presión del Sistema</span>
+                        </div>
+                        <span className="font-black text-[#EAF4FF] text-lg">{simPressure.toFixed(1)} <span className="text-[10px] text-[#8E9BAA]">bar</span></span>
+                      </div>
+                      <div className="flex items-center gap-3 px-1">
+                        <span className="text-[10px] text-[#8E9BAA] font-mono">0 bar</span>
+                        <input type="range" min="0" max="20" step="0.1" value={simPressure} onChange={(e) => setSimPressure(parseFloat(e.target.value))} className="flex-1 h-1.5 bg-[#009FE3]/20 rounded-lg appearance-none cursor-pointer accent-[#00D4FF] hover:shadow-[0_0_15px_rgba(0,212,255,0.5)] transition-shadow" />
+                        <span className="text-[10px] text-[#8E9BAA] font-mono">20 bar</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Modos de Operación */}
+                  <div className="pt-6 space-y-3">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-[#8E9BAA]">Modo de Operación</span>
+                    <div className="flex gap-3">
+                      <button onClick={() => { setSimActive(true); setSimMode('activo'); }} className={`flex-1 py-2.5 rounded-xl flex items-center justify-center gap-2 text-[11px] font-black uppercase tracking-wider transition-all ${simMode === 'activo' ? 'bg-[#00D4FF]/10 text-[#00D4FF] border-2 border-[#00D4FF] shadow-[0_0_20px_rgba(0,212,255,0.2)]' : 'bg-[#07111C] text-[#8E9BAA] border border-white/10 hover:bg-white/[0.05]'}`}>
+                        <Play size={14} className={simMode === 'activo' ? 'fill-[#00D4FF]' : ''} />
+                        Activo
+                      </button>
+                      <button onClick={() => setSimMode('pausa')} className={`flex-[0.8] py-2.5 rounded-xl flex items-center justify-center gap-2 text-[11px] font-black uppercase tracking-wider transition-all ${simMode === 'pausa' ? 'bg-white/10 text-[#EAF4FF] border-2 border-white/20' : 'bg-[#07111C] text-[#8E9BAA] border border-white/10 hover:bg-white/[0.05]'}`}>
+                        <Pause size={14} className={simMode === 'pausa' ? 'fill-[#EAF4FF]' : ''} />
+                        Pausa
+                      </button>
+                      <button onClick={() => { setSimMode('pausa'); setSimFlow(75); setSimTemp(82); setSimPressure(5.6); setSimTime(0); }} className="flex-[0.6] py-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[10px] font-black uppercase tracking-wider bg-[#07111C] text-[#8E9BAA] border border-white/10 hover:bg-white/[0.05] transition-all">
+                        <RotateCcw size={12} />
+                        Reset
+                      </button>
                     </div>
                   </div>
                 </div>
 
-                <div className="p-4 bg-black/45 border border-white/5 rounded-xl space-y-2 text-xs">
-                  <span className="font-bold text-white block uppercase tracking-wider">Estado de Diagnóstico:</span>
-                  <p className="text-white/60 leading-relaxed">
-                    {simActive 
-                      ? `Flujo nominal ajustado a ${simFlow}%. Carga de trabajo estable sin riesgo de cavitación o acumulación térmica.`
-                      : 'Presión en cero. Esperando pulso de arranque del motor principal para iniciar flujo volumétrico.'
+                <div className="p-4 bg-[#050B12] border border-[#009FE3]/20 rounded-xl space-y-2 text-xs relative overflow-hidden mt-6 shadow-inner z-10">
+                  <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${simMode === 'activo' ? 'bg-[#00D4FF] shadow-[0_0_12px_rgba(0,212,255,0.8)]' : 'bg-white/10'}`} />
+                  <div className="flex justify-between items-center pl-3">
+                    <span className="font-black text-[#EAF4FF] text-[11px] uppercase tracking-wider flex items-center gap-2">
+                      <ShieldCheck size={16} className={simMode === 'activo' ? 'text-[#00D4FF]' : 'text-[#8E9BAA]'} /> Diagnóstico
+                    </span>
+                    <span className={`text-[9px] font-black px-2 py-1 rounded uppercase tracking-wider ${simMode === 'activo' ? 'bg-emerald-400/10 text-emerald-400 border border-emerald-400/20' : 'bg-white/5 text-[#8E9BAA] border border-white/10'}`}>
+                      {simMode === 'activo' ? 'Normal' : 'Standby'}
+                    </span>
+                  </div>
+                  <p className="text-[#8E9BAA] leading-relaxed pl-3 font-medium text-[10px]">
+                    {simMode === 'activo' 
+                      ? `Flujo nominal al ${simFlow}%. Sin riesgo de cavitación.`
+                      : 'Esperando pulso de arranque.'
                     }
                   </p>
                 </div>
               </div>
 
-              {/* Panel de Simulación Visual Animada */}
-              <div className="lg:col-span-8 bg-black/60 border border-white/5 rounded-2xl p-8 flex flex-col justify-center items-center min-h-[300px] relative overflow-hidden group shadow-2xl">
-                {/* Rejilla técnica de fondo */}
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.08),transparent)] z-0" />
+              {/* Panel de Simulación Visual */}
+              <div className="xl:col-span-8 bg-[#07111C] border border-[#009FE3]/20 rounded-2xl p-4 md:p-6 flex flex-col justify-between relative overflow-hidden group shadow-[inset_0_0_80px_rgba(0,212,255,0.03)] z-0">
+                <div className="absolute inset-0 bg-[#050B12]/80 z-0 pointer-events-none" />
+                <div className="absolute inset-0 opacity-[0.15] pointer-events-none" style={{ backgroundImage: 'radial-gradient(rgba(234, 244, 255, 1) 1px, transparent 1px)', backgroundSize: '32px 32px' }}></div>
                 
-                {/* Elementos de simulación en movimiento */}
-                <div className="relative z-10 flex flex-col items-center gap-6">
-                  <div className="flex items-center gap-6">
-                    {/* Reactor 1 */}
-                    <div className="relative flex flex-col items-center">
-                      <div className={`w-14 h-24 rounded-xl border flex items-center justify-center transition-all duration-300 ${
-                        simActive ? 'bg-[#06B6D4]/10 border-[#06B6D4]/40 shadow-[0_0_20px_rgba(6,182,212,0.2)]' : 'bg-white/5 border-white/10'
-                      }`}>
-                        <div 
-                          className="w-full bg-[#06B6D4]/20 transition-all duration-500 rounded-b-xl absolute bottom-0" 
-                          style={{ height: simActive ? `${simFlow}%` : '0%' }}
-                        />
-                        <Layers size={24} className={simActive ? 'text-[#06B6D4] animate-pulse' : 'text-white/20'} />
-                      </div>
-                      <span className="text-[9px] font-black uppercase tracking-wider text-white/40 mt-2">Reactor A</span>
-                    </div>
+                {/* Floating Stats - Top Row */}
+                <div className="relative z-10 flex flex-wrap justify-between gap-3 mb-10 mt-2 px-8">
+                  <div className="flex-1 bg-[#050B12]/80 backdrop-blur-sm border border-[#009FE3]/30 p-3 rounded-xl text-center shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
+                    <span className="block text-[#EAF4FF] font-black text-lg mb-1">{simFlow}%</span>
+                    <span className="block text-[9px] text-[#8E9BAA] uppercase tracking-widest font-bold">Flujo</span>
+                    <div className="w-10 h-3 mx-auto mt-2 border-b border-[#00D4FF]/40 relative overflow-hidden"><div className="absolute bottom-0 w-full h-[2px] bg-[#00D4FF] opacity-60" /></div>
+                  </div>
+                  <div className="flex-1 bg-[#050B12]/80 backdrop-blur-sm border border-[#009FE3]/30 p-3 rounded-xl text-center shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
+                    <span className="block text-[#EAF4FF] font-black text-lg mb-1">{simTemp} °C</span>
+                    <span className="block text-[9px] text-[#8E9BAA] uppercase tracking-widest font-bold">Temperatura</span>
+                    <div className="w-10 h-3 mx-auto mt-2 border-b border-red-500/40 relative overflow-hidden"><div className="absolute bottom-0 w-full h-[2px] bg-red-500 opacity-60" /></div>
+                  </div>
+                  <div className="flex-1 bg-[#050B12]/80 backdrop-blur-sm border border-[#009FE3]/30 p-3 rounded-xl text-center shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
+                    <span className="block text-[#EAF4FF] font-black text-lg mb-1">{simPressure.toFixed(1)} bar</span>
+                    <span className="block text-[9px] text-[#8E9BAA] uppercase tracking-widest font-bold">Presión</span>
+                    <div className="w-10 h-3 mx-auto mt-2 border-b border-[#00D4FF]/40 relative overflow-hidden"><div className="absolute bottom-0 w-full h-[2px] bg-[#00D4FF] opacity-60" /></div>
+                  </div>
+                  <div className="flex-1 bg-[#050B12]/80 backdrop-blur-sm border border-[#009FE3]/30 p-3 rounded-xl text-center shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
+                    <span className="block text-[#EAF4FF] font-black text-lg mb-1">{simMode === 'activo' ? '98 %' : '0 %'}</span>
+                    <span className="block text-[9px] text-[#8E9BAA] uppercase tracking-widest font-bold">Eficiencia</span>
+                    <div className="w-10 h-3 mx-auto mt-2 border-b border-emerald-500/40 relative overflow-hidden"><div className="absolute bottom-0 w-full h-[2px] bg-emerald-500 opacity-60" /></div>
+                  </div>
+                </div>
 
-                    {/* Vía de comunicación / Tubería */}
-                    <div className="w-16 h-1 bg-white/10 relative">
-                      {simActive && (
-                        <div 
-                          className="h-full bg-[#06B6D4] animate-shimmer absolute left-0 top-0" 
-                          style={{
-                            width: '40px',
-                            animation: 'shimmer 1.5s infinite linear'
-                          }}
-                        />
-                      )}
-                    </div>
+                {/* The 3D Equipment Diagram */}
+                <div className="relative z-10 flex-1 flex flex-col justify-center py-6 px-4">
+                  <div className="flex items-end justify-between w-full relative h-[180px] md:h-[220px]">
+                    {/* Glowing Pipeline Background connecting all nodes */}
+                    <div className={`absolute left-10 right-10 h-[3px] top-[60%] -translate-y-1/2 z-0 transition-colors duration-500 ${simMode === 'activo' ? 'bg-[#009FE3] shadow-[0_0_12px_rgba(0,212,255,0.7)]' : 'bg-white/5'}`} />
+                    
+                    {[
+                      { id: 1, label: 'Tanque de\nAlimentación', w: 'w-16 md:w-20' },
+                      { id: 2, label: 'Reactor', w: 'w-20 md:w-24' },
+                      { id: 3, label: 'Intercambiador', w: 'w-24 md:w-32' },
+                      { id: 4, label: 'Bomba', w: 'w-12 md:w-16' },
+                      { id: 5, label: 'Salida /\nProducto', w: 'w-16 md:w-20' }
+                    ].map((node, index) => (
+                      <div key={node.id} className="relative z-10 flex flex-col items-center group h-full justify-end">
+                        
+                        {/* 3D Asset Container */}
+                        <div className={`relative flex flex-col items-center justify-end mb-4 ${node.w} flex-1 group/asset`}>
+                           {/* Ambient Blue Glow behind active equipment */}
+                           {simMode === 'activo' && <div className="absolute inset-0 bg-[#00D4FF]/20 rounded-full filter blur-[20px] mix-blend-screen opacity-70 animate-pulse" />}
+                           
+                           {/* 3D Image (User will provide these assets in public folder) */}
+                           <img 
+                             src={nodeImages[node.id]} 
+                             alt={node.label} 
+                             className={`relative z-10 max-h-full object-contain transition-all duration-500 mix-blend-screen ${simMode === 'activo' ? 'drop-shadow-[0_0_12px_rgba(0,212,255,0.4)] brightness-110' : 'opacity-50 grayscale-[40%]'}`}
+                             style={{ transform: `scale(${nodeSizes[node.id] / 100})`, transformOrigin: 'bottom center' }}
+                             onError={(e) => { 
+                               e.target.style.display = 'none'; 
+                               e.target.nextSibling.style.display = 'flex'; 
+                             }}
+                           />
+                           {/* Fallback box if image doesn't exist */}
+                           <div className={`hidden relative z-10 w-full h-[60%] border-2 rounded-lg items-center justify-center bg-black/50 ${simMode === 'activo' ? 'border-[#00D4FF] shadow-[0_0_15px_rgba(0,212,255,0.4)] text-[#00D4FF]' : 'border-white/10 text-white/20'}`}>
+                             <span className="text-[8px] uppercase font-bold text-center px-1 text-inherit">Asset 3D<br/>{node.id}</span>
+                           </div>
 
-                    {/* Reactor 2 */}
-                    <div className="relative flex flex-col items-center">
-                      <div className={`w-14 h-24 rounded-xl border flex items-center justify-center transition-all duration-300 ${
-                        simActive ? 'bg-amber-500/10 border-amber-500/40 shadow-[0_0_20px_rgba(245,158,11,0.2)]' : 'bg-white/5 border-white/10'
-                      }`}>
-                        <div 
-                          className="w-full bg-amber-500/20 transition-all duration-500 rounded-b-xl absolute bottom-0" 
-                          style={{ height: simActive ? `${(simTemp - 40) / 1.1}%` : '0%' }}
-                        />
-                        <RefreshCw size={24} className={simActive ? 'text-amber-500 animate-spin' : 'text-white/20'} style={{ animationDuration: simActive ? `${4 - (simFlow / 25)}s` : '0s' }} />
+                           {/* Editor Mode Upload Button */}
+                           {isEditorMode && (
+                             <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/70 rounded-xl opacity-0 group-hover/asset:opacity-100 transition-opacity backdrop-blur-sm border border-[#009FE3]/50 p-2">
+                               <label className="flex flex-col items-center cursor-pointer mb-2">
+                                 <input type="file" accept="image/*" className="hidden" onChange={(e) => handleNodeImageUpload(node.id, e)} />
+                                 <Camera size={14} className="text-[#00D4FF] mb-1" />
+                                 <span className="text-[7px] text-[#00D4FF] font-black uppercase text-center">Cambiar<br/>Imagen</span>
+                               </label>
+                               <div className="w-full flex flex-col items-center">
+                                 <span className="text-[7px] text-white/70 mb-1">Tamaño: {nodeSizes[node.id]}%</span>
+                                 <input 
+                                   type="range" 
+                                   min="50" 
+                                   max="350" 
+                                   value={nodeSizes[node.id]} 
+                                   onChange={(e) => handleNodeSizeChange(node.id, e)}
+                                   className="w-full h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-[#00D4FF]" 
+                                 />
+                               </div>
+                             </div>
+                           )}
+                        </div>
+
+                        {/* Node Number and Label */}
+                        <div className="flex flex-col items-center gap-2 mt-auto">
+                           <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-black border transition-colors ${simMode === 'activo' ? 'bg-[#009FE3] text-[#EAF4FF] border-[#00D4FF] shadow-[0_0_10px_rgba(0,212,255,0.5)]' : 'bg-[#07111C] text-[#8E9BAA] border-white/10'}`}>
+                             {node.id}
+                           </div>
+                           <span className="text-[9px] font-black uppercase text-[#8E9BAA] text-center whitespace-pre-line leading-tight h-6">
+                             {node.label}
+                           </span>
+                        </div>
+                        
+                        {/* Animated Arrows overlay on the pipeline */}
+                        {index < 4 && (
+                          <div className="absolute top-[60%] -right-[50%] md:-right-[40%] -translate-y-1/2 flex items-center text-[#00D4FF]">
+                             {simMode === 'activo' ? (
+                                <div className="flex gap-1 animate-shimmer" style={{ animationDuration: `${2.5 - (simFlow/100)}s` }}>
+                                  <span className="text-xs md:text-sm drop-shadow-[0_0_6px_rgba(0,212,255,1)]">&gt;</span>
+                                  <span className="text-xs md:text-sm drop-shadow-[0_0_6px_rgba(0,212,255,1)]">&gt;</span>
+                                  <span className="text-xs md:text-sm drop-shadow-[0_0_6px_rgba(0,212,255,1)]">&gt;</span>
+                                </div>
+                             ) : (
+                                <div className="flex gap-1 text-white/10">
+                                  <span className="text-xs md:text-sm">&gt;</span>
+                                  <span className="text-xs md:text-sm">&gt;</span>
+                                  <span className="text-xs md:text-sm">&gt;</span>
+                                </div>
+                             )}
+                          </div>
+                        )}
                       </div>
-                      <span className="text-[9px] font-black uppercase tracking-wider text-white/40 mt-2">Reactor B</span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Bottom Stats Bar */}
+                <div className="relative z-10 mt-10 pt-4 border-t border-[#009FE3]/20 flex flex-wrap md:flex-nowrap justify-between items-center bg-[#050B12]/80 backdrop-blur-md rounded-xl p-3 md:p-4 shadow-lg">
+                  <div className="flex items-center gap-2 w-1/2 md:w-auto mb-3 md:mb-0">
+                    <Activity size={18} className="text-[#00D4FF]" />
+                    <div>
+                      <span className="block text-[8px] text-[#8E9BAA] uppercase tracking-widest font-black">Flujo Total</span>
+                      <span className="block text-sm md:text-base font-black text-[#EAF4FF]">{(simFlow * 0.17).toFixed(1)} <span className="text-[10px] text-[#8E9BAA]">m³/h</span></span>
                     </div>
                   </div>
-
-                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40">
-                    {simActive ? 'FLUJO DINÁMICO EN EJECUCIÓN' : 'SISTEMA EN STANDBY'}
-                  </span>
+                  <div className="flex items-center gap-2 w-1/2 md:w-auto mb-3 md:mb-0">
+                    <Thermometer size={18} className="text-[#8E9BAA]/50" />
+                    <div>
+                      <span className="block text-[8px] text-[#8E9BAA] uppercase tracking-widest font-black">Temperatura Prom.</span>
+                      <span className="block text-sm md:text-base font-black text-[#EAF4FF]">{(simTemp * 0.98).toFixed(1)} <span className="text-[10px] text-[#8E9BAA]">°C</span></span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 w-1/2 md:w-auto">
+                    <Gauge size={18} className="text-[#8E9BAA]/50" />
+                    <div>
+                      <span className="block text-[8px] text-[#8E9BAA] uppercase tracking-widest font-black">Presión Sistema</span>
+                      <span className="block text-sm md:text-base font-black text-[#EAF4FF]">{simPressure.toFixed(1)} <span className="text-[10px] text-[#8E9BAA]">bar</span></span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 w-1/2 md:w-auto">
+                    <ShieldCheck size={18} className={simMode === 'activo' ? 'text-emerald-400' : 'text-[#8E9BAA]/50'} />
+                    <div>
+                      <span className="block text-[8px] text-[#8E9BAA] uppercase tracking-widest font-black">Estado Sistema</span>
+                      <span className={`block text-sm md:text-base font-black ${simMode === 'activo' ? 'text-emerald-400' : 'text-[#8E9BAA]/70'} uppercase`}>
+                        {simMode === 'activo' ? 'Normal' : 'Standby'}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 w-full md:w-auto mt-2 md:mt-0 pt-2 md:pt-0 border-t md:border-t-0 md:border-l border-[#009FE3]/20 md:pl-4">
+                    <Clock size={18} className="text-[#8E9BAA]/50" />
+                    <div>
+                      <span className="block text-[8px] text-[#8E9BAA] uppercase tracking-widest font-black">Tiempo Simulación</span>
+                      <span className="block text-base md:text-xl font-black text-[#EAF4FF] tracking-widest font-mono">{formatSimTime(simTime)}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
