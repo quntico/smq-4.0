@@ -17,7 +17,7 @@ const Carrera = () => {
 
       <div className="min-h-screen bg-[#030712] text-white flex flex-col font-sans select-none overflow-x-hidden">
         {/* HERO SECTION */}
-        <section className="relative h-[50vh] min-h-[400px] flex items-center justify-start px-[40px] border-b border-white/5 bg-gradient-to-b from-[#080b12] to-[#030712] overflow-hidden pt-20">
+        <section className="relative flex flex-col justify-center px-[40px] md:px-[80px] border-b border-white/5 bg-gradient-to-b from-[#080b12] to-[#030712] overflow-hidden pt-28 pb-6 z-10">
           {/* Sci-fi tech grid background */}
           <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(rgba(236,72,153,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(236,72,153,0.15)_1px,transparent_1px)] bg-[size:30px_30px]" />
           <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-[#EC4899]/5 rounded-full filter blur-[120px] pointer-events-none z-[1]" />
@@ -38,7 +38,7 @@ const Carrera = () => {
               <h1 className="text-4xl md:text-6xl lg:text-[75px] font-black tracking-tight leading-none uppercase font-sans">
                 <DecipherText text="CARRERA" delay={200} />
               </h1>
-              <p className="text-white/60 text-sm md:text-base tracking-wide max-w-[600px] font-mono mt-2 uppercase">
+              <p className="text-white/60 text-sm tracking-wide max-w-[600px] font-mono mt-1 uppercase">
                 Buscamos ingenieros en mecatrónica, programadores de PLC, diseñadores mecánicos CAD y líderes de proyectos industriales.
               </p>
             </div>
@@ -50,39 +50,39 @@ const Carrera = () => {
         </section>
 
         {/* CARRERA DETAILS */}
-        <section className="py-24 px-[40px] relative border-b border-white/5 bg-[#030712]">
-          <div className="max-w-[1000px] w-full mx-auto text-center flex flex-col items-center gap-8">
+        <section className="py-8 px-[40px] md:px-[80px] relative border-b border-white/5 bg-[#030712] flex-1 flex flex-col justify-center">
+          <div className="max-w-[1000px] w-full mx-auto text-center flex flex-col items-center gap-4">
             <span className="text-[11px] font-black uppercase tracking-[0.3em] text-[#EC4899]">Oportunidades</span>
-            <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white leading-tight uppercase">
+            <h2 className="text-2xl md:text-3xl font-black tracking-tight text-white leading-tight uppercase">
               DESARROLLA EL FUTURO DE LA INGENIERÍA
             </h2>
-            <div className="w-20 h-[2px] bg-[#EC4899] shadow-[0_0_8px_#EC4899] my-2" />
+            <div className="w-20 h-[2px] bg-[#EC4899] shadow-[0_0_8px_#EC4899] my-1" />
             
-            <p className="text-[#A1A8B3] text-sm md:text-base leading-relaxed max-w-[750px]">
+            <p className="text-[#A1A8B3] text-sm md:text-sm leading-relaxed max-w-[750px]">
               Forma parte de un equipo de ingenieros dedicados a resolver desafíos complejos en automatización e integración de maquinaria industrial. Ofrecemos un plan de desarrollo continuo, capacitación constante en tecnologías emergentes y participación en proyectos internacionales de gran escala.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full text-left mt-8">
-              <div className="border border-white/5 bg-[#0e131b]/30 p-6 rounded-xl">
-                <h3 className="font-bold text-white mb-2">Ingeniería Mecatrónica</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full text-left mt-4">
+              <div className="border border-white/5 bg-[#0e131b]/30 p-4 rounded-xl hover:bg-[#0e131b]/50 transition-colors">
+                <h3 className="font-bold text-white mb-1.5 text-sm">Ingeniería Mecatrónica</h3>
                 <p className="text-xs text-[#A1A8B3] leading-relaxed">Diseño, programación de PLC, parametrización de variadores de frecuencia y puesta en marcha en sitio.</p>
               </div>
-              <div className="border border-white/5 bg-[#0e131b]/30 p-6 rounded-xl">
-                <h3 className="font-bold text-white mb-2">Diseño Mecánico CAD</h3>
-                <p className="text-xs text-[#A1A8B3] leading-relaxed">Modelado tridimensional de estructuras, desarrollo de planos de manufactura y simulación de análisis por elementos finitos.</p>
+              <div className="border border-white/5 bg-[#0e131b]/30 p-4 rounded-xl hover:bg-[#0e131b]/50 transition-colors">
+                <h3 className="font-bold text-white mb-1.5 text-sm">Diseño Mecánico CAD</h3>
+                <p className="text-xs text-[#A1A8B3] leading-relaxed">Modelado tridimensional de estructuras, desarrollo de planos de manufactura y simulación CAE.</p>
               </div>
-              <div className="border border-white/5 bg-[#0e131b]/30 p-6 rounded-xl">
-                <h3 className="font-bold text-white mb-2">Soporte Técnico</h3>
+              <div className="border border-white/5 bg-[#0e131b]/30 p-4 rounded-xl hover:bg-[#0e131b]/50 transition-colors">
+                <h3 className="font-bold text-white mb-1.5 text-sm">Soporte Técnico</h3>
                 <p className="text-xs text-[#A1A8B3] leading-relaxed">Diagnóstico remoto y presencial de fallas eléctricas, neumáticas y calibraciones ópticas en campo.</p>
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-4 justify-center mt-8">
+            <div className="flex flex-wrap gap-4 justify-center mt-6">
               <a 
                 href="/contacto"
-                className="bg-[#EC4899] text-white font-bold text-xs tracking-[0.15em] uppercase py-4 px-10 rounded-lg shadow-[0_0_15px_rgba(236,72,153,0.3)] transition-all duration-300 hover:brightness-110 hover:shadow-[0_0_20px_#EC4899]"
+                className="bg-[#EC4899] text-white font-bold text-xs tracking-[0.15em] uppercase py-3 px-8 rounded-lg shadow-[0_0_15px_rgba(236,72,153,0.3)] transition-all duration-300 hover:brightness-110 hover:shadow-[0_0_20px_#EC4899]"
               >
-                Enviar currículum / portafolio
+                Enviar currículum
               </a>
             </div>
           </div>
