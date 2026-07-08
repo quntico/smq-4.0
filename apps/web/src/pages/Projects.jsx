@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Award, Factory, Tv, TrendingUp, DownloadCloud, BookOpen, ArrowUpRight, Calculator, FileText, CheckCircle2, Play, Pause, RefreshCw, Layers, Globe, Users, Headphones, Grid, Building2, MapPin, Hammer, Cpu, Briefcase, Clock, Database, Activity, Thermometer, Droplets, ShieldCheck, Gauge, Waves, RotateCcw, Camera, Loader2 } from 'lucide-react';
 import Footer from '@/components/Footer.jsx';
+import DecipherText from '@/components/DecipherText.jsx';
 import { useCMS } from '@/context/CMSContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
 
@@ -728,7 +729,7 @@ const Projects = () => {
                   transition={{ duration: 0.6, ease: "easeOut" }}
                   className="text-xl md:text-3xl font-bold uppercase tracking-tight"
                 >
-                  Simulador de Procesos 3D
+                  <DecipherText text="SIMULADOR DE PROCESOS 3D" delay={100} />
                 </motion.h2>
               </div>
               <div className="flex items-center gap-3">
