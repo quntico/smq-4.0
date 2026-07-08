@@ -6,6 +6,7 @@ import Footer from '@/components/Footer.jsx';
 import ContactSection from '@/components/ContactSection.jsx';
 import DecipherText from '@/components/DecipherText.jsx';
 import CompanySectionsNav from '@/components/CompanySectionsNav.jsx';
+import HeroBackgroundEditor from '@/components/HeroBackgroundEditor.jsx';
 
 const Carrera = () => {
   return (
@@ -17,7 +18,13 @@ const Carrera = () => {
 
       <div className="min-h-screen bg-[#030712] text-white flex flex-col font-sans select-none overflow-x-hidden">
         {/* HERO SECTION */}
-        <section className="relative flex flex-col justify-center px-[40px] md:px-[80px] border-b border-white/5 bg-gradient-to-b from-[#080b12] to-[#030712] overflow-hidden pt-28 pb-6 z-10">
+        <section className="relative flex flex-col justify-center px-[40px] md:px-[80px] border-b border-white/5 bg-[#030712] overflow-hidden pt-28 pb-6 z-10">
+          <HeroBackgroundEditor 
+            pageId="carrera" 
+            defaultMedia="" 
+            defaultOpacity={10} 
+          />
+          <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-[#080b12] to-[#030712] z-0" style={{ opacity: 0.9 }} />
           {/* Sci-fi tech grid background */}
           <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(rgba(236,72,153,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(236,72,153,0.15)_1px,transparent_1px)] bg-[size:30px_30px]" />
           <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-[#EC4899]/5 rounded-full filter blur-[120px] pointer-events-none z-[1]" />
