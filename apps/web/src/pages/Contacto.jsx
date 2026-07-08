@@ -1,13 +1,40 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
+import { Image as ImageIcon, Upload, Settings } from 'lucide-react';
 import Header from '@/components/Header.jsx';
 import Footer from '@/components/Footer.jsx';
 import ContactSection from '@/components/ContactSection.jsx';
 import DecipherText from '@/components/DecipherText.jsx';
 import CompanySectionsNav from '@/components/CompanySectionsNav.jsx';
+import { useCMS } from '@/context/CMSContext.jsx';
+import { uploadFile } from '@/lib/storage.js';
 
 const Contacto = () => {
+  const { isEditorMode, cmsState, updateSettings, syncToCloud } = useCMS();
+  const [showControls, setShowControls] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = useRef(null);
+
+  const heroImage = cmsState?.settings?.contactoHeroImage || 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1920&q=80';
+  const heroOpacity = cmsState?.settings?.contactoHeroOpacity ?? 100;
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setIsUploading(true);
+    try {
+      const url = await uploadFile(file);
+      if (url) {
+        updateSettings({ contactoHeroImage: url });
+        await syncToCloud();
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsUploading(false);
+    }
+  };
   return (
     <>
       <Helmet>
@@ -18,13 +45,61 @@ const Contacto = () => {
       <div className="min-h-screen bg-[#030712] text-white flex flex-col font-sans select-none overflow-x-hidden">
         {/* HERO SECTION */}
         <section 
-          className="relative h-[65vh] min-h-[500px] flex items-center justify-start px-[40px] md:px-[80px] border-b border-white/5 overflow-hidden pt-20"
-          style={{
-            backgroundImage: "linear-gradient(to right, rgba(3, 7, 18, 0.95) 0%, rgba(3, 7, 18, 0.7) 45%, rgba(3, 7, 18, 0.2) 75%, transparent 100%), url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1920&q=80')",
-            backgroundSize: 'cover',
-            backgroundPosition: 'center center',
-          }}
+          className="relative h-[65vh] min-h-[500px] flex items-center justify-start px-[40px] md:px-[80px] border-b border-white/5 overflow-hidden pt-20 bg-[#030712]"
         >
+          {/* Dynamic Background Image Layer */}
+          <div 
+            className="absolute inset-0 pointer-events-none z-0"
+            style={{
+              backgroundImage: `url('${heroImage}')`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center center',
+              opacity: heroOpacity / 100
+            }}
+          />
+          
+          {/* Gradient Overlay for Text Readability */}
+          <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-[#030712] via-[#030712]/70 to-[#030712]/20 z-0" />
+          
+          {/* Editor Controls */}
+          {isEditorMode && (
+            <div className="absolute top-6 right-6 z-40 flex flex-col items-end gap-2 pointer-events-auto">
+              <button
+                onClick={() => setShowControls(!showControls)}
+                className="bg-black/85 hover:bg-black text-white hover:text-[#FFD700] border border-white/10 hover:border-[#FFD700]/30 px-4 py-2.5 rounded-2xl text-[11px] font-black uppercase tracking-wider shadow-2xl backdrop-blur-md transition-all flex items-center gap-2"
+              >
+                <ImageIcon size={14} className={showControls ? 'text-[#FFD700]' : ''} />
+                <span>{showControls ? 'Cerrar Ajustes' : 'Ajustes de Fondo'}</span>
+              </button>
+
+              {showControls && (
+                <div className="bg-[#0C1017]/95 border border-white/10 p-5 rounded-2xl backdrop-blur-xl shadow-2xl w-64 mt-2">
+                  <h3 className="text-[#FFD700] text-[10px] font-black uppercase tracking-widest mb-4 border-b border-white/10 pb-2">Ajustes de Hero</h3>
+                  
+                  <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-0.5">
+                      <div className="flex justify-between text-[8px] uppercase font-black text-white/50 tracking-wider">
+                        <span>Transparencia Fondo</span>
+                        <span className="text-[#FFD700]">{heroOpacity}%</span>
+                      </div>
+                      <input 
+                        type="range" min="0" max="100" 
+                        value={heroOpacity} 
+                        onChange={(e) => updateSettings({ contactoHeroOpacity: parseInt(e.target.value) })} 
+                        className="w-full accent-[#FFD700] h-1 bg-white/10 appearance-none rounded-full cursor-pointer" 
+                      />
+                    </div>
+                    
+                    <label className="cursor-pointer flex items-center justify-center gap-2 bg-[#FFD700] hover:bg-[#FFC000] text-black rounded-lg py-2 transition-colors text-[10px] font-bold mt-2">
+                      <Upload size={14} />
+                      {isUploading ? 'Subiendo...' : 'Cambiar Imagen'}
+                      <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} disabled={isUploading} />
+                    </label>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
           {/* Subtle grid pattern overlay */}
           <div className="absolute inset-0 pointer-events-none opacity-[0.02] bg-[linear-gradient(rgba(249,115,22,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(249,115,22,0.15)_1px,transparent_1px)] bg-[size:30px_30px] z-[2]" />
           
