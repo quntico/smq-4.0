@@ -20,17 +20,15 @@ const Contacto = () => {
       <div className="min-h-screen bg-[#030712] text-white flex flex-col font-sans select-none overflow-x-hidden">
         {/* HERO SECTION */}
         <section 
-          className="relative h-[65vh] min-h-[500px] flex items-center justify-start px-[40px] md:px-[80px] border-b border-white/5 overflow-hidden pt-20 bg-[#030712]"
+          className="relative h-[65vh] min-h-[500px] flex items-center justify-start px-[40px] md:px-[80px] border-b border-white/5 overflow-hidden pt-32 bg-[#030712]"
         >
           {/* Dynamic Background Image/Video Layer & Controls */}
           <HeroBackgroundEditor 
             pageId="contacto" 
             defaultMedia="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1920&q=80" 
             defaultOpacity={100} 
+            fogGradient="bg-gradient-to-r from-[#030712] via-[#030712]/70 to-[#030712]/20"
           />
-          
-          {/* Gradient Overlay for Text Readability */}
-          <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-[#030712] via-[#030712]/70 to-[#030712]/20 z-0" />
           
           {/* Subtle grid pattern overlay */}
           <div className="absolute inset-0 pointer-events-none opacity-[0.02] bg-[linear-gradient(rgba(249,115,22,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(249,115,22,0.15)_1px,transparent_1px)] bg-[size:30px_30px] z-[2]" />

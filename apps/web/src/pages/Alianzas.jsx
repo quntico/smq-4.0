@@ -19,13 +19,13 @@ const Alianzas = () => {
 
       <div className="min-h-screen bg-[#030712] text-white flex flex-col font-sans select-none overflow-x-hidden">
         {/* HERO SECTION */}
-        <section className="relative h-[50vh] min-h-[400px] flex items-center justify-start px-[40px] border-b border-white/5 bg-[#030712] overflow-hidden pt-20 z-10">
+        <section className="relative h-[50vh] min-h-[400px] flex items-center justify-start px-[40px] border-b border-white/5 bg-[#030712] overflow-hidden pt-32 z-10">
           <HeroBackgroundEditor 
             pageId="alianzas" 
             defaultMedia="" 
             defaultOpacity={10} 
+            fogGradient="bg-gradient-to-b from-[#080b12] to-[#030712]"
           />
-          <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-[#080b12] to-[#030712] z-0" style={{ opacity: 0.9 }} />
           {/* Sci-fi tech grid background */}
           <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(rgba(139,92,246,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.15)_1px,transparent_1px)] bg-[size:30px_30px]" />
           <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-[#8B5CF6]/5 rounded-full filter blur-[120px] pointer-events-none z-[1]" />

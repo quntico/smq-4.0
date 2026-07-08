@@ -18,14 +18,14 @@ const Capacidades = () => {
       <div className="min-h-screen bg-[#030712] text-white flex flex-col font-sans select-none overflow-x-hidden">
         {/* HERO SECTION */}
         <section 
-          className="relative h-[85vh] min-h-[600px] flex items-center justify-start px-[40px] md:px-[80px] border-b border-white/5 overflow-hidden pt-20 bg-[#030712]"
+          className="relative h-[85vh] min-h-[600px] flex items-center justify-start px-[40px] md:px-[80px] border-b border-white/5 overflow-hidden pt-32 bg-[#030712]"
         >
           <HeroBackgroundEditor 
             pageId="capacidades" 
             defaultMedia="/capacidades_hero.png" 
             defaultOpacity={100} 
+            fogGradient="bg-gradient-to-r from-[#030712] via-[#030712]/60 to-[#030712]/10"
           />
-          <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-[#030712] via-[#030712]/60 to-[#030712]/10 z-0" />
           {/* Subtle grid pattern overlay */}
           <div className="absolute inset-0 pointer-events-none opacity-[0.02] bg-[linear-gradient(rgba(249,115,22,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(249,115,22,0.15)_1px,transparent_1px)] bg-[size:30px_30px] z-[2]" />
           

@@ -107,21 +107,14 @@ const Nosotros = () => {
         <div className="md:pl-[76px] transition-all duration-300">
         {/* HERO SECTION */}
         <section 
-          className="relative min-h-[60vh] md:min-h-[75vh] flex items-center justify-start py-20 px-8 md:px-16 lg:px-[80px] border-b border-white/5 overflow-hidden group bg-[#030712]"
+          className="relative min-h-[60vh] md:min-h-[75vh] flex items-center justify-start pt-32 pb-20 px-8 md:px-16 lg:px-[80px] border-b border-white/5 overflow-hidden group bg-[#030712]"
         >
           {/* Dynamic Background */}
           <HeroBackgroundEditor 
             pageId="nosotros" 
             defaultMedia="https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780095574453_cajas%20fast%20webm.webm" 
             defaultOpacity={100} 
-          />
-          
-          {/* Premium Gradient Overlay to completely hide baked-in text on the left and blend to the right */}
-          <div 
-            className="absolute inset-0 z-0 pointer-events-none"
-            style={{
-              background: "linear-gradient(90deg, #030712 0%, #030712 25%, rgba(3, 7, 18, 0.95) 45%, rgba(3, 7, 18, 0.6) 70%, rgba(3, 7, 18, 0) 100%)"
-            }}
+            fogGradient="bg-gradient-to-r from-[#030712] via-[#030712]/90 to-transparent"
           />
           
           {/* Tech Grid overlay for micro-telemetry feel */}
