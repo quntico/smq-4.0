@@ -53,6 +53,17 @@ const Projects = () => {
 
   const [isSyncing, setIsSyncing] = useState(false);
 
+  const getSafeNodeImages = (images) => {
+    const safe = {};
+    for (const [k, v] of Object.entries(images)) {
+      // Only keep normal URLs, not Base64 data strings which bloat the CMS
+      if (v && !v.startsWith('data:image')) {
+        safe[k] = v;
+      }
+    }
+    return safe;
+  };
+
   const handleSyncToCloud = async () => {
     setIsSyncing(true);
     try {
@@ -68,7 +79,9 @@ const Projects = () => {
       }
       setNodeImages(updatedImages);
       localStorage.setItem('smq_sim_nodes', JSON.stringify(updatedImages));
-      updatePageModule('projects', 'sim-nodes', { nodeImages: updatedImages, nodeSizes });
+      
+      // Clean up any existing base64 in cmsState as well
+      updatePageModule('projects', 'sim-nodes', { nodeImages: getSafeNodeImages(updatedImages), nodeSizes });
       alert("¡Assets 3D sincronizados con la nube correctamente! Ahora haz clic en el botón global de 'Publicar' para reflejarlo en producción.");
     } catch (err) {
       console.error(err);
@@ -87,7 +100,7 @@ const Projects = () => {
         const newImages = { ...nodeImages, [nodeId]: url };
         setNodeImages(newImages);
         localStorage.setItem('smq_sim_nodes', JSON.stringify(newImages));
-        updatePageModule('projects', 'sim-nodes', { nodeImages: newImages, nodeSizes });
+        updatePageModule('projects', 'sim-nodes', { nodeImages: getSafeNodeImages(newImages), nodeSizes });
       } catch (error) {
         console.error("Error uploading image:", error);
       } finally {
@@ -100,7 +113,7 @@ const Projects = () => {
     const newSizes = { ...nodeSizes, [nodeId]: parseInt(e.target.value) };
     setNodeSizes(newSizes);
     localStorage.setItem('smq_sim_nodes_sizes', JSON.stringify(newSizes));
-    updatePageModule('projects', 'sim-nodes', { nodeImages, nodeSizes: newSizes });
+    updatePageModule('projects', 'sim-nodes', { nodeImages: getSafeNodeImages(nodeImages), nodeSizes: newSizes });
   };
 
   useEffect(() => {
