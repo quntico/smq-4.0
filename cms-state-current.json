@@ -11,7 +11,7 @@
     "globalFilterOpacity": 75,
     "textJustify": true,
     "disableImageFilters": false,
-    "updatedAt": 1783473551551,
+    "updatedAt": 1783473974072,
     "footerCompanyName": "SMQ  SA de CV",
     "footerCompanyDesc": "Soluciones industriales de alta ingenieria, proyectos llave en mano y maquinaria para  procesamiento de alimentos y automatización.",
     "footerPhones": [
@@ -33,7 +33,9 @@
     "certificacionesHeroMedia": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783473322824_certs.webp",
     "certificacionesHeroOpacity": 49,
     "certificacionesHeroBrightness": 141,
-    "certificacionesHeroFogOpacity": 28
+    "certificacionesHeroFogOpacity": 28,
+    "contactoHeroMedia": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783473970342_contacto_imagne.webp",
+    "contactoHeroBrightness": 159
   },
   "menus": [
     {
