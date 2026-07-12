@@ -5,9 +5,7 @@ import { useLanguage } from '@/context/LanguageContext.jsx';
 
 const languages = [
   { code: 'es', label: 'Español', flag: '🇪🇸' },
-  { code: 'en', label: 'English', flag: '🇺🇸' },
-  { code: 'it', label: 'Italiano', flag: '🇮🇹' },
-  { code: 'ar', label: 'العربية', flag: '🇦🇪' }
+  { code: 'en', label: 'English', flag: '🇺🇸' }
 ];
 
 const LanguageSelector = () => {
