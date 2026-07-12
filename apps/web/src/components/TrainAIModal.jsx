@@ -12,7 +12,11 @@ const TrainAIModal = ({ isOpen, onClose }) => {
 
   const handleFileChange = (e) => {
     if (e.target.files) {
-      setFiles(Array.from(e.target.files));
+      // Si suben una carpeta entera, filtramos para que solo tome PDFs y TXTs
+      const validFiles = Array.from(e.target.files).filter(f => 
+        f.name.toLowerCase().endsWith('.pdf') || f.name.toLowerCase().endsWith('.txt')
+      );
+      setFiles(validFiles);
       setStatus(null);
       setProgress(0);
     }
@@ -93,7 +97,8 @@ const TrainAIModal = ({ isOpen, onClose }) => {
             ref={fileInputRef}
             onChange={handleFileChange}
             multiple
-            accept=".pdf,.txt"
+            webkitdirectory="true"
+            directory="true"
             className="hidden"
           />
 
@@ -103,7 +108,7 @@ const TrainAIModal = ({ isOpen, onClose }) => {
               className="w-full h-40 border-2 border-dashed border-white/20 hover:border-[#F5C400]/50 hover:bg-[#F5C400]/5 rounded-xl flex flex-col items-center justify-center gap-3 cursor-pointer transition-all duration-300 group"
             >
               <UploadCloud size={32} className="text-white/40 group-hover:text-[#F5C400] transition-colors" />
-              <span className="text-sm text-white/60 group-hover:text-white/90">Selecciona o arrastra tus PDFs aquí</span>
+              <span className="text-sm text-white/60 group-hover:text-white/90">Haz clic para seleccionar la CARPETA con tus PDFs</span>
             </div>
           )}
 
