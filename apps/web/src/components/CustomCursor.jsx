@@ -94,8 +94,8 @@ const CustomCursor = () => {
       }
 
       // 2. Lerp (Linear Interpolation) for snappy yet smooth trailing
-      halo.current.x += (mouse.current.x - halo.current.x) * 0.45;
-      halo.current.y += (mouse.current.y - halo.current.y) * 0.45;
+      halo.current.x += (mouse.current.x - halo.current.x) * 0.85;
+      halo.current.y += (mouse.current.y - halo.current.y) * 0.85;
 
       if (haloRef.current) {
         haloRef.current.style.transform = `translate3d(${halo.current.x}px, ${halo.current.y}px, 0) translate(-50%, -50%)`;
