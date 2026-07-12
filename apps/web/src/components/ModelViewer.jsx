@@ -40,7 +40,7 @@ const Model3ds = ({ url }) => {
 };
 
 const ModelGltf = ({ url }) => {
-    const { scene } = useGLTF(url);
+    const { scene } = useGLTF(url, 'https://www.gstatic.com/draco/versioned/decoders/1.5.5/');
     return <primitive object={scene} />;
 };
 

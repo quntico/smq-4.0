@@ -7,6 +7,7 @@ import { Html, TransformControls } from '@react-three/drei';
 import { useCMS } from '@/context/CMSContext.jsx';
 import { useLanguage } from '@/context/LanguageContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
+import { getOptimizedImageUrl } from '@/lib/utils.js';
 import ModelViewer from './ModelViewer.jsx';
 
 const defaultHotspots = [
@@ -592,7 +593,7 @@ const PlantVisualizerSection = () => {
           {/* Static rendering of Image & 2D Hotspots for buttery smooth scrolling */}
           <>
             <img
-              src={backgroundMedia}
+              src={getOptimizedImageUrl(backgroundMedia, 1920)}
               alt="Planta Industrial Isométrica"
               className={`w-full h-auto object-cover transition-all duration-700 ${bgFxMode ? 'mix-blend-screen opacity-100' : 'opacity-80 mix-blend-luminosity'}`}
               style={{ filter: bgFxMode ? 'invert(1) sepia(1) saturate(5) hue-rotate(135deg) brightness(1.2)' : backgroundFilter }}

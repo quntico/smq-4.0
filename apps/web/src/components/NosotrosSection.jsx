@@ -322,7 +322,7 @@ const NosotrosSection = () => {
       {/* 1. HERO NOSOTROS */}
       <section 
         className="relative min-h-[60vh] md:min-h-[75vh] flex items-center justify-start py-20 px-8 md:px-16 lg:px-[80px] border-b border-white/5 bg-cover bg-center bg-no-repeat overflow-hidden group"
-        style={{ backgroundImage: `url('${collageImage || '/smq_nosotros.jpg'}')` }}
+        style={{ backgroundImage: `url('${getOptimizedImageUrl(collageImage, 1920) || '/smq_nosotros.jpg'}')` }}
       >
         {/* Background Video Loop if present */}
         {collageVideo && (
@@ -998,7 +998,7 @@ const NosotrosSection = () => {
             }}
           />
           <img 
-            src={backgroundImageUrl} 
+            src={getOptimizedImageUrl(backgroundImageUrl, 1920)} 
             alt="Futuristic Industrial Plant Background" 
             className="w-full h-full object-cover transition-all duration-300"
             style={{ opacity: imageOpacity / 100 }}
