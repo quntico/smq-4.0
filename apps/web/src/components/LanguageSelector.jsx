@@ -36,7 +36,9 @@ const LanguageSelector = () => {
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-2 bg-[#0a0a0a] border border-white/10 rounded-full pl-3 pr-2 py-1.5 hover:bg-[#151515] transition-all shadow-[inset_0_1px_3px_rgba(255,255,255,0.05),_0_0_10px_rgba(0,0,0,0.3)] cursor-pointer group"
       >
-        <Globe size={14} className="text-white/60 group-hover:text-[#FFD700] transition-colors" />
+        <span className="text-[12px] leading-none mb-[1px] opacity-90 group-hover:opacity-100 transition-opacity">
+          {activeLang.flag}
+        </span>
         <span className="text-white font-bold text-[11px] tracking-wider uppercase mt-[1px]">
           {activeLang.code}
         </span>
