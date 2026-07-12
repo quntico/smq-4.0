@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { useCMS } from '@/context/CMSContext.jsx';
 import { useLanguage } from '@/context/LanguageContext.jsx';
 import { enSectorsData } from '@/data/enSectorsData.js';
+import { enEquipmentTables } from '@/data/enEquipmentTables.js';
 import { uploadFile } from '@/lib/storage.js';
 import { createPortal } from 'react-dom';
 import { getOptimizedImageUrl } from '@/lib/utils.js';
@@ -1912,6 +1913,20 @@ const IndustriaDetalle = () => {
       })) || data.stats,
       items: data.items?.map((item, i) => {
         const enItem = enData.items.find(e => e.id === item.id) || enData.items[i];
+        
+        let tableData = enEquipmentTables[item.id];
+        if (item.id === 'conversion' && sector === 'manufactura') {
+            tableData = [
+                { model: 'CN-800', width: 'Wet Wipes Cutter', capacity: '800 mm', power: '1000 mm', weight: '12 kW' },
+                { model: 'CN-1200', width: 'Surgical Drape Line', capacity: '1200 mm', power: '1200 mm', weight: '18 kW' }
+            ];
+        } else if (item.id === 'produccion' && sector === 'manufactura') {
+            tableData = [
+                { model: 'AS-150', width: 'SCARA Robotic Cell', capacity: '1.2 s/part', power: '4 Axes', weight: 'Profinet / OPC UA' },
+                { model: 'AS-80', width: 'Box Assembly Line', capacity: '2.5 s/part', power: '2 Axes', weight: 'EtherCAT' }
+            ];
+        }
+
         return enItem ? {
           ...item,
           title: enItem.title,
@@ -1929,6 +1944,17 @@ const IndustriaDetalle = () => {
             return iconMatch ? `${iconMatch[0]} ${enFeatText}` : enFeatText;
           }) || item.features,
           tableHeaders: enItem.tableHeaders || item.tableHeaders,
+          equipmentTable: tableData?.map((enRow, rIdx) => {
+             const originalRow = item.equipmentTable?.[rIdx] || {};
+             return {
+                 ...originalRow,
+                 model: enRow.model || originalRow.model,
+                 width: enRow.width || originalRow.width,
+                 capacity: enRow.capacity || originalRow.capacity,
+                 power: enRow.power || originalRow.power,
+                 weight: enRow.weight || originalRow.weight
+             };
+          }) || item.equipmentTable,
         } : item;
       }) || data.items,
       ctaTitle: "Do you have an industrial project in mind?",
