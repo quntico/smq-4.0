@@ -5,18 +5,17 @@ export function cn(...inputs) {
 	return twMerge(clsx(inputs));
 }
 
-export function getOptimizedImageUrl(url, width = 800) {
+export function getOptimizedImageUrl(url, width = 1200, quality = 75) {
   if (!url || typeof url !== 'string') return url || '';
   if (url.includes('supabase.co/storage/v1/object/')) {
-    if (url.endsWith('.webp') || url.includes('.webp?') || width >= 800) {
-      return url;
-    }
+    if (url.includes('format=webp')) return url; // Already optimized
+    
     const optimized = url.replace('/storage/v1/object/', '/storage/v1/render/image/');
     const separator = optimized.includes('?') ? '&' : '?';
-    return `${optimized}${separator}width=${width}&quality=80&format=webp`;
+    return `${optimized}${separator}width=${width}&quality=${quality}&format=webp`;
   }
   if (url.includes('unsplash.com') && !url.includes('?')) {
-    return `${url}?auto=format&fit=crop&w=${width}&q=80`;
+    return `${url}?auto=format&fit=crop&w=${width}&q=${quality}`;
   }
   return url;
 }
