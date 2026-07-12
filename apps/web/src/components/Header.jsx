@@ -13,7 +13,8 @@ import { useCMS } from '@/context/CMSContext.jsx';
 import { useLanguage } from '@/context/LanguageContext.jsx';
 import MobileMenu from '@/components/MobileMenu.jsx';
 import SmartSearch from '@/components/SmartSearch.jsx';
-import { Menu, Eye, EyeOff } from 'lucide-react';
+import TrainAIModal from '@/components/TrainAIModal.jsx';
+import { Menu, Eye, EyeOff, Brain } from 'lucide-react';
 
 const componentMap = {
   IndustriesMenu,
@@ -33,6 +34,7 @@ const Header = () => {
   const [adminTab, setAdminTab] = useState('ajustes');
   const { cmsState, isEditorMode, setIsEditorMode, updateMenus, syncFromCloud, syncToCloud, updateSettings } = useCMS();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isTrainModalOpen, setIsTrainModalOpen] = useState(false);
   const [isPublishing, setIsPublishing] = useState(false);
   const { t } = useLanguage();
   const { logoUrl, logoSize, headerHeight, headerOpacity } = cmsState.settings;
@@ -392,6 +394,15 @@ const Header = () => {
           {isEditorMode && (
             <div className="flex gap-2">
               <button
+                onClick={() => setIsTrainModalOpen(true)}
+                className="flex items-center gap-1.5 bg-[#F5C400]/20 text-[#F5C400] border border-[#F5C400]/40 rounded-full px-3 py-1.5 hover:bg-[#F5C400]/40 hover:text-white transition-all text-[10px] font-bold uppercase tracking-wider shadow-[0_0_15px_rgba(255,215,0,0.2)]"
+                title="Entrenar Inteligencia Artificial con PDFs"
+              >
+                <Brain size={12} />
+                Entrenar IA
+              </button>
+              
+              <button
                 onClick={() => {
                   syncFromCloud().then(() => alert("Descarga de la Nube Completa. Tu pantalla se ha actualizado."));
                 }}
@@ -473,6 +484,7 @@ const Header = () => {
       </header>
       <AdminModal isOpen={isAdminOpen} onClose={() => setIsAdminOpen(false)} defaultTab={adminTab} />
       <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
+      <TrainAIModal isOpen={isTrainModalOpen} onClose={() => setIsTrainModalOpen(false)} />
     </>
   );
 };
