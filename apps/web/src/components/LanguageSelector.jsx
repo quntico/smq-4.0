@@ -4,8 +4,8 @@ import { Globe, ChevronDown } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext.jsx';
 
 const languages = [
-  { code: 'es', label: 'Español', flag: '🇪🇸' },
-  { code: 'en', label: 'English', flag: '🇺🇸' }
+  { code: 'es', label: 'Español', flagUrl: 'https://flagcdn.com/w20/es.png' },
+  { code: 'en', label: 'English', flagUrl: 'https://flagcdn.com/w20/us.png' }
 ];
 
 const LanguageSelector = () => {
@@ -36,9 +36,11 @@ const LanguageSelector = () => {
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-2 bg-[#0a0a0a] border border-white/10 rounded-full pl-3 pr-2 py-1.5 hover:bg-[#151515] transition-all shadow-[inset_0_1px_3px_rgba(255,255,255,0.05),_0_0_10px_rgba(0,0,0,0.3)] cursor-pointer group"
       >
-        <span className="text-[12px] leading-none mb-[1px] opacity-90 group-hover:opacity-100 transition-opacity">
-          {activeLang.flag}
-        </span>
+        <img 
+          src={activeLang.flagUrl} 
+          alt={activeLang.code} 
+          className="w-3.5 h-auto rounded-[2px] opacity-90 group-hover:opacity-100 transition-opacity" 
+        />
         <span className="text-white font-bold text-[11px] tracking-wider uppercase mt-[1px]">
           {activeLang.code}
         </span>
@@ -66,7 +68,7 @@ const LanguageSelector = () => {
                   }`}
                 >
                   <span className="tracking-wide">{lang.label}</span>
-                  <span className="text-[14px]">{lang.flag}</span>
+                  <img src={lang.flagUrl} alt={lang.code} className="w-4 h-auto rounded-[2px]" />
                 </button>
               ))}
             </div>
