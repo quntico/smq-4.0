@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Cpu, Activity, Shield, BrainCircuit, Wifi, Factory, Zap, Recycle, ArrowRight } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext.jsx';
+import { useLanguage } from '@/context/LanguageContext.jsx';
 
 const techItems = [
   {
@@ -71,8 +72,20 @@ const techItems = [
   }
 ];
 
+const enTechItems = {
+  '01': { title: 'Artificial Intelligence', desc: 'DEEP LEARNING ALGORITHMS AND PRODUCTIVE PROCESS OPTIMIZATION.' },
+  '02': { title: 'Smart Factory', desc: 'FULLY INTERCONNECTED LINES WITH AUTONOMOUS DECISION MAKING.' },
+  '03': { title: 'Digital Twin', desc: 'VIRTUAL REPLICATION AND REAL-TIME PLANT PERFORMANCE SIMULATION.' },
+  '04': { title: 'PLC + Motion', desc: 'REAL-TIME CONTROLLERS AND EXTREME PRECISION MOTION CONTROL.' },
+  '05': { title: 'IIOT + Edge', desc: 'EDGE DATA PROCESSING AND HIGH-SECURITY TELEMETRY.' },
+  '06': { title: 'Smart Energy', desc: 'CARBON FOOTPRINT MONITORING AND ENERGY CONSUMPTION OPTIMIZATION.' },
+  '07': { title: 'SMQ OS™ Platform', desc: 'THE PROPRIETARY OPERATING SYSTEM FOR INDUSTRIAL PLANT MANAGEMENT.' },
+  '08': { title: 'Circular Economy', desc: 'WASTE VALORIZATION AND ZERO WASTE PROCESSES.' }
+};
+
 const TechnologyMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
   const { cmsState } = useCMS();
+  const { language } = useLanguage();
   const headerHeight = cmsState?.settings?.headerHeight || 80;
 
   return (
@@ -99,10 +112,10 @@ const TechnologyMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
           <div className="flex items-center justify-between mb-5 pb-3 border-b border-white/[0.07]">
             <div>
               <p className="text-[10px] font-black uppercase tracking-[0.25em] text-[#FFD700] mb-1">
-                INNOVACIÓN Y DESARROLLO
+                {language === 'en' ? 'INNOVATION & DEVELOPMENT' : 'INNOVACIÓN Y DESARROLLO'}
               </p>
               <h2 className="text-xl font-bold text-white tracking-wide">
-                Núcleo Tecnológico SMQ
+                {language === 'en' ? 'SMQ Technology Core' : 'Núcleo Tecnológico SMQ'}
               </h2>
             </div>
             {/* Opcional: un botón para ver todo */}
@@ -110,7 +123,7 @@ const TechnologyMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
               to="/tecnologia/ia"
               className="px-4 py-2 rounded-full border border-white/10 text-[10px] font-bold tracking-widest uppercase hover:bg-white/10 hover:text-[#FFD700] transition-colors text-white/70"
             >
-              Explorar Ecosistema
+              {language === 'en' ? 'Explore Ecosystem' : 'Explorar Ecosistema'}
             </Link>
           </div>
 
@@ -160,17 +173,17 @@ const TechnologyMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
                   {/* Content */}
                   <div className="flex-1">
                     <h3 className="text-[13.5px] font-bold text-white mb-2 leading-tight uppercase tracking-wide group-hover:text-white transition-colors">
-                      {item.title}
+                      {language === 'en' && enTechItems[item.num] ? enTechItems[item.num].title : item.title}
                     </h3>
                     <p className="text-[9.5px] text-white/40 leading-[1.6] font-semibold uppercase tracking-wider group-hover:text-white/60 transition-colors">
-                      {item.desc}
+                      {language === 'en' && enTechItems[item.num] ? enTechItems[item.num].desc : item.desc}
                     </p>
                   </div>
 
                   {/* Footer interaction */}
                   <div className="mt-4 flex items-center justify-between pt-3 border-t border-white/5 opacity-50 group-hover:opacity-100 transition-opacity">
                     <span className="text-[9px] font-black uppercase tracking-widest" style={{ color: item.color }}>
-                      Ver Detalles
+                      {language === 'en' ? 'View Details' : 'Ver Detalles'}
                     </span>
                     <ArrowRight size={12} color={item.color} className="transform group-hover:translate-x-1 transition-transform" />
                   </div>

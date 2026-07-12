@@ -1,8 +1,10 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { AlignLeft, AlignCenter, AlignRight, AlignJustify, Image as ImageIcon, Maximize, Minimize } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext.jsx';
+import { useLanguage } from '@/context/LanguageContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
 
 import { getOptimizedImageUrl } from '@/lib/utils.js';
@@ -105,6 +107,7 @@ const ToolbarColorPicker = ({ value, onChange, title }) => (
 
 const ProjectsSection = () => {
   const { cmsState, isEditorMode, updatePageModule } = useCMS();
+  const { language, t } = useLanguage();
   const [uploadingId, setUploadingId] = useState(null);
 
   // Find module data
@@ -172,7 +175,7 @@ const ProjectsSection = () => {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
           className={`text-[#FFFFFF] font-[700] text-[28px] md:text-[36px] lg:text-[48px] text-center mb-[40px] ${isEditorMode ? 'outline-dashed outline-2 outline-blue-400 cursor-text bg-black/20 p-2 rounded-lg' : ''}`}
-          dangerouslySetInnerHTML={{ __html: sectionTitle }}
+          dangerouslySetInnerHTML={{ __html: language === 'en' && sectionTitle.includes('Proyectos Destacados') ? t('projectsSection.title') : sectionTitle }}
           onBlur={(e) => {
             updatePageModule('home', 'projects', { title: e.target.innerHTML, items: activeProjects });
           }}
@@ -220,8 +223,17 @@ const ProjectsSection = () => {
                         textAlign: project.catAlign || 'left',
                         fontSize: project.catSize ? `${project.catSize}px` : undefined,
                         display: project.catAlign === 'center' ? 'block' : 'inline-block'
+                        display: project.catAlign === 'center' ? 'block' : 'inline-block'
                       }}
-                      dangerouslySetInnerHTML={{ __html: project.category }}
+                      dangerouslySetInnerHTML={{ __html: language === 'en' && project.category.includes('Capacidad: 600') ? t('projectsSection.p1_cat') :
+                                                         language === 'en' && project.category.includes('Capacidad: 2000') ? t('projectsSection.p2_cat') :
+                                                         language === 'en' && project.category.includes('Capacidad: 1200') ? t('projectsSection.p3_cat') :
+                                                         language === 'en' && project.category.includes('Reciclaje') ? t('projectsSection.def1_cat') :
+                                                         language === 'en' && project.category.includes('Alimentos') ? t('projectsSection.def2_cat') :
+                                                         language === 'en' && project.category.includes('Packaging') ? t('projectsSection.def3_cat') :
+                                                         language === 'en' && project.category.includes('Automatización') ? t('projectsSection.def4_cat') :
+                                                         language === 'en' && project.category.includes('Construcción') ? t('projectsSection.def6_cat') :
+                                                         project.category }}
                       contentEditable={isEditorMode}
                       suppressContentEditableWarning={true}
                       onBlur={(e) => {
@@ -236,7 +248,16 @@ const ProjectsSection = () => {
                         textAlign: project.titleAlign || 'left',
                         fontSize: project.titleSize ? `${project.titleSize}px` : undefined
                       }}
-                      dangerouslySetInnerHTML={{ __html: project.title }}
+                      dangerouslySetInnerHTML={{ __html: language === 'en' && project.title.includes('Planta de Procesamiento RSU') ? t('projectsSection.p1_title') :
+                                                         language === 'en' && project.title.includes('Línea de Procesamiento de Chocolate') ? t('projectsSection.p2_title') :
+                                                         language === 'en' && project.title.includes('Planta de Pelletizado de Plástico') ? t('projectsSection.p3_title') :
+                                                         language === 'en' && project.title.includes('Plantas de Reciclaje') ? t('projectsSection.def1_title') :
+                                                         language === 'en' && project.title.includes('Líneas de Chocolate') ? t('projectsSection.def2_title') :
+                                                         language === 'en' && project.title.includes('Sistemas de Packaging') ? t('projectsSection.def3_title') :
+                                                         language === 'en' && project.title.includes('Automatización Industrial') ? t('projectsSection.def4_title') :
+                                                         language === 'en' && project.title.includes('Plantas de Procesamiento') ? t('projectsSection.def5_title') :
+                                                         language === 'en' && project.title.includes('Sistemas Compuestos') ? t('projectsSection.def6_title') :
+                                                         project.title }}
                       contentEditable={isEditorMode}
                       suppressContentEditableWarning={true}
                       onBlur={(e) => {
@@ -251,7 +272,14 @@ const ProjectsSection = () => {
                         textAlign: project.descAlign || 'left',
                         fontSize: project.descSize ? `${project.descSize}px` : undefined
                       }}
-                      dangerouslySetInnerHTML={{ __html: project.description }}
+                      dangerouslySetInnerHTML={{ __html: language === 'en' && project.description.includes('Clasificación mecanizada') ? t('projectsSection.p1_desc') :
+                                                         language === 'en' && project.description.includes('Sistemas completos') ? t('projectsSection.def1_desc') :
+                                                         language === 'en' && project.description.includes('Equipos especializados') ? t('projectsSection.def2_desc') :
+                                                         language === 'en' && project.description.includes('Soluciones integrales') ? t('projectsSection.def3_desc') :
+                                                         language === 'en' && project.description.includes('Sistemas de control PLC') ? t('projectsSection.def4_desc') :
+                                                         language === 'en' && project.description.includes('Líneas completas') ? t('projectsSection.def5_desc') :
+                                                         language === 'en' && project.description.includes('Fabricación de materiales') ? t('projectsSection.def6_desc') :
+                                                         project.description }}
                       contentEditable={isEditorMode}
                       suppressContentEditableWarning={true}
                       onBlur={(e) => {

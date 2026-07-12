@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Factory, Flame, Eye, Recycle, Zap, HardHat, Shield, Globe, ArrowRight } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext.jsx';
+import { useLanguage } from '@/context/LanguageContext.jsx';
 
 const wasteItems = [
   {
@@ -61,8 +62,18 @@ const wasteItems = [
   }
 ];
 
+const enWasteItems = {
+  '01': { title: 'MSW PLANTS', desc: 'Comprehensive treatment and valorization of municipal solid waste through mechanical and automated processes.' },
+  '02': { title: 'RDF / SRF', desc: 'Processing of high calorific value refuse-derived fuels for industrial and energy use.' },
+  '03': { title: 'SMART SORTING', desc: 'Automated separation by NIR, induction, and multi-sensor systems with artificial intelligence.' },
+  '04': { title: 'MATERIAL RECOVERY', desc: 'Efficient extraction of metals, plastics, and recyclable materials with advanced separation technologies.' },
+  '05': { title: 'ENERGY CONVERSION', desc: 'Gasification, pyrolysis, biomass, and co-generation technologies to transform waste into useful energy.' },
+  '06': { title: 'TURNKEY PLANTS', desc: 'Complete engineering from design, manufacturing, installation, and automation to commissioning.' }
+};
+
 const WasteToEnergyMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
   const { cmsState } = useCMS();
+  const { language } = useLanguage();
   const headerHeight = cmsState?.settings?.headerHeight || 80;
 
   return (
@@ -89,20 +100,22 @@ const WasteToEnergyMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
           <div className="flex items-center justify-between mb-5 pb-3 border-b border-white/[0.06]">
             <div>
               <p className="text-[9px] font-black uppercase tracking-[0.25em] text-[#22C55E] mb-1">
-                VALORIZACIÓN ENERGÉTICA Y AMBIENTAL
+                {language === 'en' ? 'ENERGY & ENVIRONMENTAL VALORIZATION' : 'VALORIZACIÓN ENERGÉTICA Y AMBIENTAL'}
               </p>
               <h2 className="text-xl font-black text-white tracking-tight leading-none mb-1.5">
-                Soluciones de Valorización Energética
+                {language === 'en' ? 'Energy Valorization Solutions' : 'Soluciones de Valorización Energética'}
               </h2>
               <p className="text-[11px] text-white/50 max-w-2xl leading-normal">
-                Tecnologías y sistemas integrados para el tratamiento, valorización y conversión de residuos en energía y recursos.
+                {language === 'en' 
+                  ? 'Integrated technologies and systems for the treatment, valorization, and conversion of waste into energy and resources.' 
+                  : 'Tecnologías y sistemas integrados para el tratamiento, valorización y conversión de residuos en energía y recursos.'}
               </p>
             </div>
             <Link 
               to="/waste-to-energy"
               className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 text-[8.5px] font-bold tracking-widest uppercase hover:bg-emerald-500/10 hover:border-emerald-500/30 hover:text-white transition-all text-white/80 group/btn"
             >
-              <span>Ver Ecosistema WTE</span>
+              <span>{language === 'en' ? 'View WTE Ecosystem' : 'Ver Ecosistema WTE'}</span>
               <ArrowRight size={11} className="text-[#22C55E] group-hover/btn:translate-x-1 transition-transform" />
             </Link>
           </div>
@@ -154,7 +167,7 @@ const WasteToEnergyMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
                   {/* Middle: Title & Line & Desc */}
                   <div className="flex-1 relative z-10">
                     <h3 className="text-[12px] font-extrabold text-white mb-1.5 leading-tight uppercase tracking-wide group-hover:text-white transition-colors">
-                      {item.title}
+                      {language === 'en' && enWasteItems[item.num] ? enWasteItems[item.num].title : item.title}
                     </h3>
                     {/* Small Colored Line */}
                     <div 
@@ -162,14 +175,14 @@ const WasteToEnergyMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
                       style={{ backgroundColor: item.color }}
                     />
                     <p className="text-[9.5px] text-white/70 leading-relaxed font-semibold tracking-wide group-hover:text-white/95 transition-colors line-clamp-3">
-                      {item.desc}
+                      {language === 'en' && enWasteItems[item.num] ? enWasteItems[item.num].desc : item.desc}
                     </p>
                   </div>
 
                   {/* Bottom: Ver Detalles interaction */}
                   <div className="mt-3 flex items-center justify-between pt-2 border-t border-white/5 opacity-70 group-hover:opacity-100 transition-opacity relative z-10">
                     <span className="text-[8px] font-black uppercase tracking-widest" style={{ color: item.color }}>
-                      Ver Detalles
+                      {language === 'en' ? 'View Details' : 'Ver Detalles'}
                     </span>
                     <ArrowRight size={10} color={item.color} className="transform group-hover:translate-x-1 transition-transform" />
                   </div>

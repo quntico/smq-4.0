@@ -18,6 +18,7 @@ import {
   Leaf
 } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext.jsx';
+import { useLanguage } from '@/context/LanguageContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
 import { getOptimizedImageUrl } from '@/lib/utils.js';
 import DecipherText from '@/components/DecipherText.jsx';
@@ -90,6 +91,7 @@ const StatCard = ({ target, suffix = '', label }) => {
 const NosotrosSection = () => {
   const navigate = useNavigate();
   const { cmsState, isEditorMode, updatePageModule, updateMediaModule, updateMediaProp } = useCMS();
+  const { t } = useLanguage();
 
   // Extract page module data
   const homePage = cmsState.pages?.find(p => p.id === 'home');
@@ -194,8 +196,8 @@ const NosotrosSection = () => {
 
   const defaultCards = [
     {
-      title: 'Automatización Industrial',
-      desc: 'Lógica de control avanzada y sistemas de supervisión estables.',
+      title: t('about.cards.autoTitle'),
+      desc: t('about.cards.autoDesc'),
       tags: 'PLC · HMI · SCADA',
       icon: Cpu,
       defaultImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80',
@@ -203,45 +205,45 @@ const NosotrosSection = () => {
       path: '/tecnologia/automatizacion'
     },
     {
-      title: 'Robótica',
-      desc: 'Celdas dinámicas de manipulación y paletizado de alta velocidad.',
-      tags: 'Sistemas de manipulación',
+      title: t('about.cards.robotTitle'),
+      desc: t('about.cards.robotDesc'),
+      tags: t('about.cards.robotTags'),
       icon: Activity,
       defaultImage: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=600&q=80',
       color: '#F97316',
       path: '/tecnologia/robotica'
     },
     {
-      title: 'Visión Artificial',
-      desc: 'Sistemas de inspección óptica con clasificación y detección micrométrica.',
-      tags: 'Control de calidad inteligente',
+      title: t('about.cards.visionTitle'),
+      desc: t('about.cards.visionDesc'),
+      tags: t('about.cards.visionTags'),
       icon: Eye,
       defaultImage: 'https://images.unsplash.com/photo-1507146426996-ef05306b995a?auto=format&fit=crop&w=600&q=80',
       color: '#8B5CF6',
       path: '/tecnologia/vision'
     },
     {
-      title: 'Integración Mecánica',
-      desc: 'Ingeniería CAD robusta de precisión y ensamble higiénico estructural.',
-      tags: 'Diseño y fabricación',
+      title: t('about.cards.mecanicaTitle'),
+      desc: t('about.cards.mecanicaDesc'),
+      tags: t('about.cards.mecanicaTags'),
       icon: Settings,
       defaultImage: 'https://images.unsplash.com/photo-1537462715879-360eeb61a0bc?auto=format&fit=crop&w=600&q=80',
       color: '#10B981',
       path: '/tecnologia/mecanica'
     },
     {
-      title: 'Industria 4.0',
-      desc: 'Conectividad IIoT con análisis telemétrico de variables críticas de planta.',
-      tags: 'Monitoreo y analítica',
+      title: t('about.cards.industriaTitle'),
+      desc: t('about.cards.industriaDesc'),
+      tags: t('about.cards.industriaTags'),
       icon: TrendingUp,
       defaultImage: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80',
       color: '#3B82F6',
       path: '/tecnologia/industria40'
     },
     {
-      title: 'Inteligencia Artificial',
-      desc: 'Modelos de IA locales para balanceo dinámico y mantenimiento predictivo.',
-      tags: 'Optimización de procesos',
+      title: t('about.cards.iaTitle'),
+      desc: t('about.cards.iaDesc'),
+      tags: t('about.cards.iaTags'),
       icon: Zap,
       defaultImage: 'https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=600&q=80',
       color: '#EAB308',
@@ -366,7 +368,7 @@ const NosotrosSection = () => {
               transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
               className="text-5xl md:text-7xl lg:text-[90px] font-black tracking-tight text-white leading-none uppercase select-none font-sans drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]"
             >
-              NOSOTROS
+              {t('about.title')}
             </motion.h2>
 
             {/* Subtitle - Empresa integradora y desarrolladora... */}
@@ -377,7 +379,7 @@ const NosotrosSection = () => {
               transition={{ duration: 0.6, delay: 0.6 }}
               className="text-white/95 text-sm md:text-base lg:text-lg font-normal tracking-wide leading-relaxed max-w-[850px] font-sans drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]"
             >
-              SMQ Industrial Systems desarrolla maquinaria industrial especializada para reciclaje, procesamiento y valorización de materiales. Integramos sistemas completos para trituración, separación, lavado, peletizado, recuperación de recursos y soluciones de Valorización Energética. Nuestro enfoque combina ingeniería aplicada, automatización y plantas industriales llave en mano adaptadas a las necesidades de cada cliente.
+              {t('about.desc')}
             </motion.p>
 
             {/* Navigation links - Historia • Visión • Valores */}
@@ -388,13 +390,13 @@ const NosotrosSection = () => {
               transition={{ duration: 0.8, delay: 0.9 }}
               className="flex flex-wrap items-center gap-3 md:gap-4 text-xs md:text-sm font-bold uppercase tracking-wider text-white/50 mt-2 font-mono"
             >
-              <a href="/nosotros#historia" className="hover:text-[#3B82F6] hover:text-white transition-colors duration-300">Historia</a>
+              <a href="/nosotros#historia" className="hover:text-[#3B82F6] hover:text-white transition-colors duration-300">{t('about.navHistory')}</a>
               <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] shadow-[0_0_8px_#3B82F6]"></span>
-              <a href="/nosotros#mision" className="hover:text-[#3B82F6] hover:text-white transition-colors duration-300">Misión</a>
+              <a href="/nosotros#mision" className="hover:text-[#3B82F6] hover:text-white transition-colors duration-300">{t('about.navMission')}</a>
               <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] shadow-[0_0_8px_#3B82F6]"></span>
-              <a href="/nosotros#vision" className="hover:text-[#3B82F6] hover:text-white transition-colors duration-300">Visión</a>
+              <a href="/nosotros#vision" className="hover:text-[#3B82F6] hover:text-white transition-colors duration-300">{t('about.navVision')}</a>
               <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] shadow-[0_0_8px_#3B82F6]"></span>
-              <a href="/nosotros#valores" className="hover:text-[#3B82F6] hover:text-white transition-colors duration-300">Valores</a>
+              <a href="/nosotros#valores" className="hover:text-[#3B82F6] hover:text-white transition-colors duration-300">{t('about.navValores')}</a>
             </motion.div>
 
           </div>
@@ -403,7 +405,7 @@ const NosotrosSection = () => {
         {/* Technical HUD details in corners to align with SMQ 4.0 style */}
         <div className="absolute bottom-6 right-8 z-10 bg-black/60 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded font-mono text-[9px] text-white/50 select-none hidden md:flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] animate-pulse"></span>
-          <span>SISTEMA: EN LÍNEA // ASESORÍA ACTIVA</span>
+          <span>{t('about.systemOnline')}</span>
         </div>
 
         {/* Editor upload triggers */}
@@ -456,19 +458,19 @@ const NosotrosSection = () => {
       <section className="bg-[#030712] py-8 relative border-b border-white/5 mt-[-10px]">
         <div className="max-w-[1400px] mx-auto px-[40px] grid grid-cols-2 md:grid-cols-9 gap-4 text-center">
           
-          <StatCard target="20" suffix="+" label="Años de experiencia" />
+          <StatCard target="20" suffix="+" label={t('about.expYears')} />
           <div className="h-16 w-[1px] bg-gradient-to-b from-transparent via-white/15 to-transparent hidden md:block self-center justify-self-center animate-pulse" />
           
-          <StatCard target="500" suffix="+" label="Equipos suministrados" />
+          <StatCard target="500" suffix="+" label={t('about.equipments')} />
           <div className="h-16 w-[1px] bg-gradient-to-b from-transparent via-white/15 to-transparent hidden md:block self-center justify-self-center animate-pulse" />
           
-          <StatCard target="100" suffix="+" label="Proyectos ejecutados" />
+          <StatCard target="100" suffix="+" label={t('about.projects')} />
           <div className="h-16 w-[1px] bg-gradient-to-b from-transparent via-white/15 to-transparent hidden md:block self-center justify-self-center animate-pulse" />
           
-          <StatCard target="15" suffix="+" label="Industrias atendidas" />
+          <StatCard target="15" suffix="+" label={t('about.industries')} />
           <div className="h-16 w-[1px] bg-gradient-to-b from-transparent via-white/15 to-transparent hidden md:block self-center justify-self-center animate-pulse" />
           
-          <StatCard target="24/7" label="Soporte técnico" colSpan="col-span-2 md:col-span-1" />
+          <StatCard target="24/7" label={t('about.support')} colSpan="col-span-2 md:col-span-1" />
 
         </div>
       </section>
@@ -494,7 +496,7 @@ const NosotrosSection = () => {
             />
             <div className="absolute bottom-4 left-4 z-20 bg-black/80 backdrop-blur-md border border-white/15 px-3.5 py-1.5 rounded-lg flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#F5C400]"></span>
-              <span className="text-[10px] text-white/90 font-mono tracking-wider">PLANTA DE PRODUCCIÓN SMQ</span>
+              <span className="text-[10px] text-white/90 font-mono tracking-wider">{t('about.productionPlant')}</span>
             </div>
           </motion.div>
 
@@ -506,23 +508,19 @@ const NosotrosSection = () => {
             transition={{ duration: 0.8 }}
             className="flex flex-col items-start gap-6"
           >
-            <span className="text-[11px] font-black uppercase tracking-[0.3em] text-[#F5C400]">Nuestra Trayectoria</span>
+            <span className="text-[11px] font-black uppercase tracking-[0.3em] text-[#F5C400]">{t('about.trajectory')}</span>
             <h3 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tighter uppercase leading-[1.05]">
-              <span className="text-white block">DOS DÉCADAS IMPULSANDO LA</span>
-              <span className="text-[#F5C400] block">TRANSFORMACIÓN INDUSTRIAL</span>
+              <span className="text-white block">{t('about.trajectoryTitle')}</span>
             </h3>
             
             <div className="w-20 h-[2px] bg-[#F5C400] shadow-[0_0_8px_#F5C400] mb-2" />
 
             <div className="flex flex-col gap-5 text-[#A1A8B3] text-base leading-relaxed">
               <p>
-                SMQ Industrial Systems desarrolla maquinaria industrial especializada para reciclaje, procesamiento y valorización de materiales.
+                {t('about.trajectoryP1')}
               </p>
               <p>
-                Integramos sistemas completos para trituración, separación, lavado, peletizado, recuperación de recursos y soluciones de Valorización Energética.
-              </p>
-              <p>
-                Nuestro enfoque combina ingeniería aplicada, automatización y plantas industriales llave en mano adaptadas a las necesidades de cada cliente.
+                {t('about.trajectoryP2')}
               </p>
             </div>
           </motion.div>
@@ -535,10 +533,9 @@ const NosotrosSection = () => {
         <div className="max-w-[1400px] w-full mx-auto">
           
           <div className="flex flex-col items-center gap-4 text-center mb-16">
-            <span className="text-[11px] font-black uppercase tracking-[0.3em] text-[#F5C400]">Propósito Corporativo</span>
+            <span className="text-[11px] font-black uppercase tracking-[0.3em] text-[#F5C400]">{t('about.purpose')}</span>
             <h3 className="text-3xl md:text-5xl font-black tracking-tighter uppercase leading-tight text-center">
-              <span className="text-white">NUESTRA </span>
-              <span className="text-[#F5C400]">IDENTIDAD</span>
+              <span className="text-white">{t('about.identity')}</span>
             </h3>
             <div className="w-24 h-[2px] bg-[#F5C400] shadow-[0_0_8px_#F5C400]" />
           </div>
@@ -566,14 +563,14 @@ const NosotrosSection = () => {
                 <div className="w-12 h-12 rounded-lg bg-[#F5C400]/10 flex items-center justify-center border border-[#F5C400]/30 mb-6 group-hover:bg-[#F5C400]/20 transition-all duration-300 mx-auto">
                   <Cpu size={24} className="text-[#F5C400]" />
                 </div>
-                <h4 className="text-xl font-bold text-white mb-4 text-center">MISIÓN</h4>
+                <h4 className="text-xl font-bold text-white mb-4 text-center">{t('about.misionTitle')}</h4>
                 <p className="text-[#A1A8B3] text-sm leading-relaxed text-center">
-                  Automatizar procesos industriales mediante soluciones de ingeniería que incrementen productividad, calidad y competitividad.
+                  {t('about.misionDesc')}
                 </p>
               </div>
               <div className="relative z-10 text-[9px] font-mono text-white/50 mt-auto pt-8 tracking-widest uppercase text-center flex justify-between items-center w-full">
                 <span className="w-8"></span>
-                <span>MISIÓN CORPORATIVA SMQ</span>
+                <span>{t('about.misionLabel')}</span>
                 <span className="w-4"></span>
               </div>
             </motion.div>
@@ -599,14 +596,14 @@ const NosotrosSection = () => {
                 <div className="w-12 h-12 rounded-lg bg-[#06B6D4]/10 flex items-center justify-center border border-[#06B6D4]/30 mb-6 group-hover:bg-[#06B6D4]/20 transition-all duration-300 mx-auto">
                   <Eye size={24} className="text-[#06B6D4]" />
                 </div>
-                <h4 className="text-xl font-bold text-white mb-4 text-center">VISIÓN</h4>
+                <h4 className="text-xl font-bold text-white mb-4 text-center">{t('about.visionTitle')}</h4>
                 <p className="text-[#A1A8B3] text-sm leading-relaxed text-center">
-                  Convertirnos en la empresa referente de automatización e integración industrial en Latinoamérica.
+                  {t('about.visionDesc')}
                 </p>
               </div>
               <div className="relative z-10 text-[9px] font-mono text-white/50 mt-auto pt-8 tracking-widest uppercase text-center flex justify-between items-center w-full">
                 <span className="w-8"></span>
-                <span>VISIÓN DE FUTURO SMQ</span>
+                <span>{t('about.visionLabel')}</span>
                 <span className="w-4"></span>
               </div>
             </motion.div>
@@ -632,16 +629,16 @@ const NosotrosSection = () => {
                 <div className="w-12 h-12 rounded-lg bg-[#84CC16]/10 flex items-center justify-center border border-[#84CC16]/30 mb-6 group-hover:bg-[#84CC16]/20 transition-all duration-300 mx-auto">
                   <Shield size={24} className="text-[#84CC16]" />
                 </div>
-                <h4 className="text-xl font-bold text-white mb-6 text-center">VALORES</h4>
+                <h4 className="text-xl font-bold text-white mb-6 text-center">{t('about.valoresTitle')}</h4>
                 
                 <div className="grid grid-cols-2 gap-x-6 gap-y-4 max-w-[280px] w-full mx-auto">
                   {[
-                    { name: 'Innovación', icon: Lightbulb },
-                    { name: 'Excelencia', icon: Star },
-                    { name: 'Integridad', icon: Handshake },
-                    { name: 'Ingeniería', icon: Settings },
-                    { name: 'Evolución', icon: TrendingUp },
-                    { name: 'Impacto', icon: Leaf }
+                    { name: t('about.valoresList.0'), icon: Lightbulb },
+                    { name: t('about.valoresList.1'), icon: Star },
+                    { name: t('about.valoresList.2'), icon: Handshake },
+                    { name: t('about.valoresList.3'), icon: Settings },
+                    { name: t('about.valoresList.4'), icon: TrendingUp },
+                    { name: t('about.valoresList.5'), icon: Leaf }
                   ].map((v, i) => {
                     const Icon = v.icon;
                     return (
@@ -656,7 +653,7 @@ const NosotrosSection = () => {
               </div>
               <div className="relative z-10 text-[9px] font-mono text-white/50 mt-auto pt-8 tracking-widest uppercase text-center flex justify-between items-center w-full">
                 <span className="w-8"></span>
-                <span>VALORES ÉTICOS SMQ</span>
+                <span>{t('about.valoresLabel')}</span>
                 <ArrowUpRight size={16} className="text-white/60" />
               </div>
             </motion.div>
@@ -671,10 +668,9 @@ const NosotrosSection = () => {
         <div className="max-w-[1400px] w-full mx-auto">
           
           <div className="flex flex-col items-center gap-4 text-center mb-20">
-            <span className="text-[11px] font-black uppercase tracking-[0.3em] text-[#F5C400]">Línea de Tiempo Síncrona</span>
+            <span className="text-[11px] font-black uppercase tracking-[0.3em] text-[#F5C400]">{t('about.timelineLabel')}</span>
             <h3 className="text-4xl md:text-6xl font-black tracking-tighter uppercase leading-[1.05] text-center">
-              <span className="text-white block">EVOLUCIÓN</span>
-              <span className="text-[#F5C400] block">SMQ</span>
+              <span className="text-white block">{t('about.timelineTitle')}</span>
             </h3>
             <div className="w-24 h-[2px] bg-[#F5C400] shadow-[0_0_8px_#F5C400]" />
           </div>
@@ -698,8 +694,8 @@ const NosotrosSection = () => {
                 </div>
                 <div className="lg:h-4 w-[1px] bg-[#F5C400]/30 hidden lg:block" />
                 <div className="bg-[#0e131b]/60 backdrop-blur-xl border border-white/5 rounded-xl p-5 shadow-lg max-w-[240px] mt-2 group-hover:border-white/20 transition-all">
-                  <h4 className="font-bold text-sm text-[#F5C400] uppercase mb-1">Fundación</h4>
-                  <p className="text-xs text-[#A1A8B3] leading-relaxed">SMQ inicia operaciones integrando sus primeros chasis mecánicos.</p>
+                  <h4 className="font-bold text-sm text-[#F5C400] uppercase mb-1">{t('about.timeline.t2005Title')}</h4>
+                  <p className="text-xs text-[#A1A8B3] leading-relaxed">{t('about.timeline.t2005Desc')}</p>
                 </div>
               </motion.div>
 
@@ -716,8 +712,8 @@ const NosotrosSection = () => {
                 </div>
                 <div className="lg:h-4 w-[1px] bg-[#F5C400]/30 hidden lg:block" />
                 <div className="bg-[#0e131b]/60 backdrop-blur-xl border border-white/5 rounded-xl p-5 shadow-lg max-w-[240px] mt-2 group-hover:border-white/20 transition-all">
-                  <h4 className="font-bold text-sm text-[#F5C400] uppercase mb-1">Primeros Proyectos</h4>
-                  <p className="text-xs text-[#A1A8B3] leading-relaxed">Consolidación de las primeras líneas industriales integrales de ensamble.</p>
+                  <h4 className="font-bold text-sm text-[#F5C400] uppercase mb-1">{t('about.timeline.t2010Title')}</h4>
+                  <p className="text-xs text-[#A1A8B3] leading-relaxed">{t('about.timeline.t2010Desc')}</p>
                 </div>
               </motion.div>
 
@@ -734,8 +730,8 @@ const NosotrosSection = () => {
                 </div>
                 <div className="lg:h-4 w-[1px] bg-[#F5C400]/30 hidden lg:block" />
                 <div className="bg-[#0e131b]/60 backdrop-blur-xl border border-white/5 rounded-xl p-5 shadow-lg max-w-[240px] mt-2 group-hover:border-white/20 transition-all">
-                  <h4 className="font-bold text-sm text-[#F5C400] uppercase mb-1">Expansión</h4>
-                  <p className="text-xs text-[#A1A8B3] leading-relaxed">Incorporación de servo-indexadores y celdas robotizadas complejas.</p>
+                  <h4 className="font-bold text-sm text-[#F5C400] uppercase mb-1">{t('about.timeline.t2015Title')}</h4>
+                  <p className="text-xs text-[#A1A8B3] leading-relaxed">{t('about.timeline.t2015Desc')}</p>
                 </div>
               </motion.div>
 
@@ -752,8 +748,8 @@ const NosotrosSection = () => {
                 </div>
                 <div className="lg:h-4 w-[1px] bg-[#F5C400]/30 hidden lg:block" />
                 <div className="bg-[#0e131b]/60 backdrop-blur-xl border border-white/5 rounded-xl p-5 shadow-lg max-w-[240px] mt-2 group-hover:border-white/20 transition-all">
-                  <h4 className="font-bold text-sm text-[#F5C400] uppercase mb-1">Integración Avanzada</h4>
-                  <p className="text-xs text-[#A1A8B3] leading-relaxed">Migración a sistemas síncronos inteligentes con arquitectura PLC en red.</p>
+                  <h4 className="font-bold text-sm text-[#F5C400] uppercase mb-1">{t('about.timeline.t2020Title')}</h4>
+                  <p className="text-xs text-[#A1A8B3] leading-relaxed">{t('about.timeline.t2020Desc')}</p>
                 </div>
               </motion.div>
 
@@ -770,8 +766,8 @@ const NosotrosSection = () => {
                 </div>
                 <div className="lg:h-4 w-[1px] bg-[#F5C400]/50 hidden lg:block" />
                 <div className="bg-[#0e131b]/90 border border-[#F5C400]/30 rounded-xl p-5 shadow-2xl max-w-[240px] mt-2 transition-all">
-                  <h4 className="font-bold text-sm text-[#F5C400] uppercase mb-1">Industria 4.0 & IA</h4>
-                  <p className="text-xs text-white/95 leading-relaxed font-semibold">Integración de algoritmos predictivos e Inteligencia Artificial en tiempo real.</p>
+                  <h4 className="font-bold text-sm text-[#F5C400] uppercase mb-1">{t('about.timeline.t2025Title')}</h4>
+                  <p className="text-xs text-white/95 leading-relaxed font-semibold">{t('about.timeline.t2025Desc')}</p>
                 </div>
               </motion.div>
 
@@ -787,13 +783,13 @@ const NosotrosSection = () => {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(245,196,0,0.03)_0%,transparent_70%)] pointer-events-none" />
         <div className="max-w-[1000px] mx-auto relative z-10 flex flex-col items-center gap-8">
           
-          <span className="text-[11px] font-black uppercase tracking-[0.3em] text-[#F5C400]">Filosofía SMQ</span>
+          <span className="text-[11px] font-black uppercase tracking-[0.3em] text-[#F5C400]">{t('about.philosophyLabel')}</span>
           
           <h3 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white via-[#8d94a0] to-[#202530] leading-none uppercase select-none">
-            THINK.<br />
-            DESIGN.<br />
+            {t('hero.think')}<br />
+            {t('hero.design')}<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F5C400] via-yellow-400 to-[#F5C400] drop-shadow-[0_0_30px_rgba(245,196,0,0.15)] font-black">
-              AUTOMATE.
+              {t('hero.automate')}
             </span>
           </h3>
 
@@ -801,10 +797,10 @@ const NosotrosSection = () => {
 
           <div className="flex flex-col gap-4 text-base md:text-lg text-[#A1A8B3] leading-relaxed max-w-[700px]">
             <p className="font-medium text-white">
-              Creemos que la industria del futuro se construye combinando ingeniería de precisión, automatización, software robusto e inteligencia artificial aplicada.
+              {t('about.philosophyP1')}
             </p>
             <p>
-              Cada proyecto desarrollado por SMQ tiene un objetivo simple: hacer que nuestros clientes produzcan más, desperdicien menos y crezcan más rápido.
+              {t('about.philosophyP2')}
             </p>
           </div>
 
@@ -816,10 +812,10 @@ const NosotrosSection = () => {
         <div className="max-w-[1400px] w-full mx-auto">
           
           <div className="flex flex-col items-center gap-4 text-center mb-16">
-            <span className="text-[11px] font-black uppercase tracking-[0.3em] text-[#F5C400]">Capacidades Tecnológicas</span>
+            <span className="text-[11px] font-black uppercase tracking-[0.3em] text-[#F5C400]">{t('about.techCapabilities')}</span>
             <h3 className="text-4xl md:text-6xl font-black tracking-tighter uppercase leading-[1.05] text-center">
-              <span className="text-white block">CORE</span>
-              <span className="text-[#F5C400] block">TECNOLÓGICO</span>
+              <span className="text-white block">{t('about.techCore1')}</span>
+              <span className="text-[#F5C400] block">{t('about.techCore2')}</span>
             </h3>
             <div className="w-24 h-[2px] bg-[#F5C400] shadow-[0_0_8px_#F5C400]" />
           </div>
@@ -1088,17 +1084,16 @@ const NosotrosSection = () => {
         )}
 
         <div className="relative z-20 max-w-[900px] mx-auto px-5 text-center flex flex-col items-center gap-6">
-          <span className="text-[11px] font-black uppercase tracking-[0.3em] text-[#F5C400]">El Compromiso SMQ</span>
+          <span className="text-[11px] font-black uppercase tracking-[0.3em] text-[#F5C400]">{t('about.commitmentLabel')}</span>
           <h3 className="text-3xl md:text-6xl font-black tracking-tighter uppercase leading-[1.05] text-center">
-            <span className="text-white block">LO QUE CONSTRUIMOS HOY DEFINE</span>
-            <span className="text-[#F5C400] block">LA INDUSTRIA DEL MAÑANA</span>
+            <span className="text-white block">{t('about.commitmentTitle')}</span>
           </h3>
           <div className="w-20 h-[2px] bg-[#F5C400] shadow-[0_0_8px_#F5C400] my-2" />
           
           <div className="flex flex-col gap-3 text-base md:text-lg text-white/90 font-medium leading-relaxed">
-            <p>No suministramos únicamente maquinaria.</p>
+            <p>{t('about.commitmentP1')}</p>
             <p className="text-[#A1A8B3] text-sm md:text-base font-normal">
-              Diseñamos ecosistemas tecnológicos robustos y adaptables capaces de transformar procesos completos de producción.
+              {t('about.commitmentP2')}
             </p>
           </div>
 
@@ -1106,7 +1101,7 @@ const NosotrosSection = () => {
             href="#contacto"
             className="bg-[#F5C400] text-black font-black text-xs tracking-[0.2em] uppercase py-4 px-10 rounded-lg shadow-[0_0_20px_rgba(245,196,0,0.3)] transition-all duration-300 hover:brightness-110 hover:shadow-[0_0_25px_#F5C400] mt-6"
           >
-            HABLAR CON UN INGENIERO
+            {t('about.talkToEngineer')}
           </a>
         </div>
       </section>

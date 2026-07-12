@@ -5,14 +5,23 @@ const LanguageContext = createContext();
 
 export const LanguageProvider = ({ children }) => {
   const [language, setLanguage] = useState(() => {
-    const savedLang = localStorage.getItem('smq_lang_v2');
-    if (savedLang) return savedLang;
-    localStorage.setItem('smq_lang_v2', 'es');
-    return 'es';
+    try {
+      const savedLang = localStorage.getItem('smq_lang_v2');
+      if (savedLang) return savedLang;
+      localStorage.setItem('smq_lang_v2', 'es');
+      return 'es';
+    } catch (e) {
+      console.warn("[Language] Error accessing localStorage:", e);
+      return 'es';
+    }
   });
 
   useEffect(() => {
-    localStorage.setItem('smq_lang_v2', language);
+    try {
+      localStorage.setItem('smq_lang_v2', language);
+    } catch (e) {
+      console.warn("[Language] Error saving to localStorage:", e);
+    }
     document.documentElement.lang = language;
     
     // Si el idioma es árabe, cambiamos la dirección del texto (opcional, pero recomendado)

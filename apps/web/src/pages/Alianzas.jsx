@@ -8,13 +8,25 @@ import ContactSection from '@/components/ContactSection.jsx';
 import DecipherText from '@/components/DecipherText.jsx';
 import CompanySectionsNav from '@/components/CompanySectionsNav.jsx';
 import HeroBackgroundEditor from '@/components/HeroBackgroundEditor.jsx';
+import { useLanguage } from '@/context/LanguageContext.jsx';
 
 const Alianzas = () => {
+  const { t } = useLanguage();
+
+  const partnersList = [
+    { name: 'Siemens Partner', type: 'PLC & AUTOMATION SYSTEM', desc: t('alianzas.items.siemens'), logo: '/alianzas/siemens.svg' },
+    { name: 'Rockwell Integration', type: 'ALLEN-BRADLEY HARDWARE', desc: t('alianzas.items.rockwell'), logo: '/alianzas/rockwell.svg' },
+    { name: 'Festo Partner', type: 'PNEUMATICS & MOTION CONTROL', desc: t('alianzas.items.festo'), logo: '/alianzas/festo.svg' },
+    { name: 'ABB Systems', type: 'DRIVES & INDUSTRIAL ROBOTICS', desc: t('alianzas.items.abb'), logo: '/alianzas/abb.svg' },
+    { name: 'Schneider Certified', type: 'POWER DISTRIBUTION & SAFETY', desc: t('alianzas.items.schneider'), logo: '/alianzas/schneider.svg' },
+    { name: 'Fanuc Integrator', type: 'ARTICULATED ROBOTIC ARMS', desc: t('alianzas.items.fanuc'), logo: '/alianzas/fanuc.svg' }
+  ];
+
   return (
     <>
       <Helmet>
-        <title>Alianzas e Integraciones | SMQ 4.0</title>
-        <meta name="description" content="Red global de socios tecnológicos e integradores de maquinaria industrial como Siemens, Rockwell, Festo y Fanuc." />
+        <title>{t('companyNav.items.alianzasTitle')} | SMQ 4.0</title>
+        <meta name="description" content={t('companyNav.items.alianzasDesc')} />
       </Helmet>
 
       <div className="min-h-screen bg-[#030712] text-white flex flex-col font-sans select-none overflow-x-hidden">
@@ -41,13 +53,13 @@ const Alianzas = () => {
             
             <div className="pl-6 md:pl-10 flex flex-col items-start gap-4 py-2">
               <span className="text-[11px] font-black uppercase tracking-[0.35em] text-[#8B5CF6] font-mono">
-                [ SOCIOS_Y_TECNOLOGIAS ]
+                {t('alianzas.subtitle')}
               </span>
               <h1 className="text-4xl md:text-6xl lg:text-[75px] font-black tracking-tight leading-none uppercase font-sans">
-                <DecipherText text="ALIANZAS" delay={200} />
+                <DecipherText text={t('alianzas.title')} delay={200} />
               </h1>
               <p className="text-white/60 text-sm md:text-base tracking-wide max-w-[600px] font-mono mt-2 uppercase">
-                Colaboración estratégica con los fabricantes y proveedores de componentes líderes a nivel internacional.
+                {t('alianzas.desc')}
               </p>
             </div>
           </div>
@@ -62,14 +74,7 @@ const Alianzas = () => {
           <div className="max-w-[1400px] w-full mx-auto">
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[
-                { name: 'Siemens Partner', type: 'PLC & AUTOMATION SYSTEM', desc: 'Soluciones integrales de hardware de control y buses de comunicación Profinet.', logo: '/alianzas/siemens.svg' },
-                { name: 'Rockwell Integration', type: 'ALLEN-BRADLEY HARDWARE', desc: 'Desarrollo en arquitecturas Logix para sistemas redundantes de alta disponibilidad.', logo: '/alianzas/rockwell.svg' },
-                { name: 'Festo Partner', type: 'PNEUMATICS & MOTION CONTROL', desc: 'Integración neumática proporcional de alta eficiencia y actuadores servocontrolados.', logo: '/alianzas/festo.svg' },
-                { name: 'ABB Systems', type: 'DRIVES & INDUSTRIAL ROBOTICS', desc: 'Variadores de frecuencia regenerativos y controladores robóticos multieje.', logo: '/alianzas/abb.svg' },
-                { name: 'Schneider Certified', type: 'POWER DISTRIBUTION & SAFETY', desc: 'Equipamiento electromecánico robusto y sistemas de seguridad intrínseca.', logo: '/alianzas/schneider.svg' },
-                { name: 'Fanuc Integrator', type: 'ARTICULATED ROBOTIC ARMS', desc: 'Diseño de garras mecánicas y programación nativa para celdas robotizadas complejas.', logo: '/alianzas/fanuc.svg' }
-              ].map((partner, index) => (
+              {partnersList.map((partner, index) => (
                 <motion.div
                   key={index}
                   whileInView={{ opacity: 1, scale: 1 }}
@@ -90,7 +95,7 @@ const Alianzas = () => {
                     <p className="text-[10px] font-mono text-white/40 mt-1 uppercase tracking-wider text-center">{partner.type}</p>
                     <p className="text-xs text-[#A1A8B3] leading-relaxed mt-3 text-center">{partner.desc}</p>
                   </div>
-                  <div className="text-[8px] font-mono text-[#8B5CF6]/70 mt-5 tracking-wider uppercase text-center">[ VERIFIED_INTEGRATION_PARTNER ]</div>
+                  <div className="text-[8px] font-mono text-[#8B5CF6]/70 mt-5 tracking-wider uppercase text-center">{t('alianzas.verified')}</div>
                 </motion.div>
               ))}
             </div>

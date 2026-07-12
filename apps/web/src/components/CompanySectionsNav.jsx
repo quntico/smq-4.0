@@ -2,69 +2,71 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Building2, ShieldCheck, PhoneCall, ArrowRight, Briefcase, Globe, Cpu, Layers } from 'lucide-react';
-
-const navItems = [
-  {
-    num: '01',
-    title: 'NOSOTROS',
-    desc: 'HISTORIA, VISIÓN Y VALORES DE NUESTRA TRAYECTORIA INDUSTRIAL.',
-    color: '#3B82F6', // Blue
-    Icon: Building2,
-    href: '/nosotros'
-  },
-  {
-    num: '02',
-    title: 'CAPACIDADES',
-    desc: 'NUESTRA INFRAESTRUCTURA DE FABRICACIÓN Y ALCANCE TECNOLÓGICO.',
-    color: '#F59E0B', // Amber
-    Icon: Layers,
-    href: '/capacidades'
-  },
-  {
-    num: '03',
-    title: 'CERTIFICACIONES',
-    desc: 'ESTÁNDARES DE CALIDAD ISO, CERTIFICACIONES DE SEGURIDAD Y NORMATIVAS.',
-    color: '#10B981', // Green
-    Icon: ShieldCheck,
-    href: '/certificaciones'
-  },
-  {
-    num: '04',
-    title: 'ALIANZAS',
-    desc: 'RED GLOBAL DE SOCIOS E INTEGRADORES DE MAQUINARIA INDUSTRIAL.',
-    color: '#8B5CF6', // Purple
-    Icon: Globe,
-    href: '/alianzas'
-  },
-  {
-    num: '05',
-    title: 'INNOVACIÓN',
-    desc: 'CENTROS DE I+D Y DESARROLLOS TECNOLÓGICOS DE PRÓXIMA GENERACIÓN.',
-    color: '#06B6D4', // Cyan
-    Icon: Cpu,
-    href: '/innovacion'
-  },
-  {
-    num: '06',
-    title: 'CARRERA',
-    desc: 'ÚNETE A NUESTRO EQUIPO GLOBAL DE INGENIERÍA Y MANUFACTURA.',
-    color: '#EC4899', // Pink
-    Icon: Briefcase,
-    href: '/carrera'
-  },
-  {
-    num: '07',
-    title: 'CONTACTO',
-    desc: 'ASISTENCIA TÉCNICA, OFICINAS REGIONALES Y COTIZACIÓN EXPRESS.',
-    color: '#F97316', // Orange
-    Icon: PhoneCall,
-    href: '/contacto'
-  }
-];
+import { useLanguage } from '@/context/LanguageContext.jsx';
 
 const CompanySectionsNav = () => {
   const location = useLocation();
   const currentPath = location.pathname;
+  const { t } = useLanguage();
+
+  const navItems = [
+    {
+      num: '01',
+      title: t('companyNav.items.nosotrosTitle'),
+      desc: t('companyNav.items.nosotrosDesc'),
+      color: '#3B82F6', // Blue
+      Icon: Building2,
+      href: '/nosotros'
+    },
+    {
+      num: '02',
+      title: t('companyNav.items.capacidadesTitle'),
+      desc: t('companyNav.items.capacidadesDesc'),
+      color: '#F59E0B', // Amber
+      Icon: Layers,
+      href: '/capacidades'
+    },
+    {
+      num: '03',
+      title: t('companyNav.items.certificacionesTitle'),
+      desc: t('companyNav.items.certificacionesDesc'),
+      color: '#10B981', // Green
+      Icon: ShieldCheck,
+      href: '/certificaciones'
+    },
+    {
+      num: '04',
+      title: t('companyNav.items.alianzasTitle'),
+      desc: t('companyNav.items.alianzasDesc'),
+      color: '#8B5CF6', // Purple
+      Icon: Globe,
+      href: '/alianzas'
+    },
+    {
+      num: '05',
+      title: t('companyNav.items.innovacionTitle'),
+      desc: t('companyNav.items.innovacionDesc'),
+      color: '#06B6D4', // Cyan
+      Icon: Cpu,
+      href: '/innovacion'
+    },
+    {
+      num: '06',
+      title: t('companyNav.items.carreraTitle'),
+      desc: t('companyNav.items.carreraDesc'),
+      color: '#EC4899', // Pink
+      Icon: Briefcase,
+      href: '/carrera'
+    },
+    {
+      num: '07',
+      title: t('companyNav.items.contactoTitle'),
+      desc: t('companyNav.items.contactoDesc'),
+      color: '#F97316', // Orange
+      Icon: PhoneCall,
+      href: '/contacto'
+    }
+  ];
 
   return (
     <section className="py-24 px-[40px] relative border-t border-white/5 bg-[#030712] overflow-hidden">
@@ -76,10 +78,10 @@ const CompanySectionsNav = () => {
         {/* Header Title */}
         <div className="flex flex-col items-center text-center gap-2 mb-16">
           <span className="text-[11px] font-black uppercase tracking-[0.35em] text-[#A1A8B3] font-mono">
-            [ NAVEGACIÓN_INTERNA ]
+            {t('companyNav.subtitle')}
           </span>
           <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white leading-tight uppercase font-sans">
-            MÓDULOS DE LA EMPRESA
+            {t('companyNav.title')}
           </h2>
           <div className="w-20 h-[2px] bg-white/10 my-2" />
         </div>
@@ -152,7 +154,7 @@ const CompanySectionsNav = () => {
                       className="text-[9px] font-black uppercase tracking-widest transition-all duration-300 group-hover:tracking-[0.15em]"
                       style={{ color: item.color }}
                     >
-                      {isActive ? 'SECCIÓN ACTUAL' : 'IR A LA SECCIÓN'}
+                      {isActive ? t('companyNav.currentSection') : t('companyNav.goToSection')}
                     </span>
                     <ArrowRight 
                       size={12} 

@@ -5,6 +5,7 @@ import Footer from '@/components/Footer.jsx';
 import DecipherText from '@/components/DecipherText.jsx';
 import { useCMS } from '@/context/CMSContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
+import { useLanguage } from '@/context/LanguageContext.jsx';
 
 const Projects = () => {
   // ROI Calculator State
@@ -22,6 +23,7 @@ const Projects = () => {
   const [simMode, setSimMode] = useState('pausa');
   const [activeProjectIdx, setActiveProjectIdx] = useState(0);
   const { isEditorMode, cmsState, updatePageModule, updateSettings, syncToCloud } = useCMS();
+  const { language } = useLanguage();
   const [uploadingId, setUploadingId] = useState(null);
   
   // ROI Editor State
@@ -214,13 +216,17 @@ const Projects = () => {
         <section className="max-w-[1400px] mx-auto px-6 md:px-8 py-16 md:py-24 text-center relative z-10 border-b border-white/5">
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/[0.03] border border-white/10 mb-6 backdrop-blur-md">
             <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse"></span>
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/50">Centro de Recursos SMQ</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/50">
+              {language === 'en' ? 'SMQ Resource Center' : 'Centro de Recursos SMQ'}
+            </span>
           </div>
           <h1 className="text-4xl md:text-7xl font-black uppercase tracking-tight leading-none mb-6">
-            Proyectos & <span className="text-[#FFD700]">Biblioteca</span>
+            {language === 'en' ? 'Projects &' : 'Proyectos &'} <span className="text-[#FFD700]">{language === 'en' ? 'Library' : 'Biblioteca'}</span>
           </h1>
           <p className="text-white/60 leading-relaxed text-sm md:text-lg max-w-3xl mx-auto">
-            Explora nuestros casos de éxito a nivel global, interactúa con el simulador de procesos 3D, calcula el retorno de inversión de tu planta y descarga hojas técnicas de toda nuestra maquinaria.
+            {language === 'en' 
+              ? 'Explore our global success stories, interact with the 3D process simulator, calculate your plant\'s ROI, and download technical sheets for all our machinery.' 
+              : 'Explora nuestros casos de éxito a nivel global, interactúa con el simulador de procesos 3D, calcula el retorno de inversión de tu planta y descarga hojas técnicas de toda nuestra maquinaria.'}
           </p>
         </section>
 
@@ -228,12 +234,12 @@ const Projects = () => {
         <div className="sticky top-[80px] bg-[#070A0F]/80 backdrop-blur-md border-b border-white/5 z-40 py-4">
           <div className="max-w-[1400px] mx-auto px-6 md:px-8 flex items-center justify-center gap-3 md:gap-6 flex-wrap text-xs font-bold uppercase tracking-wider">
             {[
-              { label: 'Casos de Éxito', href: '#casos', icon: Award },
-              { label: 'Instalaciones', href: '#instalaciones', icon: Factory },
-              { label: 'Simulaciones', href: '#simulaciones', icon: Tv },
-              { label: 'Calculadora ROI', href: '#roi', icon: Calculator },
-              { label: 'Descargables', href: '#descargables', icon: DownloadCloud },
-              { label: 'Biblioteca', href: '#biblioteca', icon: BookOpen }
+              { label: language === 'en' ? 'Success Stories' : 'Casos de Éxito', href: '#casos', icon: Award },
+              { label: language === 'en' ? 'Installations' : 'Instalaciones', href: '#instalaciones', icon: Factory },
+              { label: language === 'en' ? 'Simulations' : 'Simulaciones', href: '#simulaciones', icon: Tv },
+              { label: language === 'en' ? 'ROI Calculator' : 'Calculadora ROI', href: '#roi', icon: Calculator },
+              { label: language === 'en' ? 'Downloads' : 'Descargables', href: '#descargables', icon: DownloadCloud },
+              { label: language === 'en' ? 'Library' : 'Biblioteca', href: '#biblioteca', icon: BookOpen }
             ].map((link, idx) => {
               const Icon = link.icon;
               return (
@@ -264,57 +270,61 @@ const Projects = () => {
                       <span className="w-10 h-10 rounded-xl bg-lime-500/10 border border-lime-500/30 flex items-center justify-center text-[#84CC16]">
                         <Award size={20} className="stroke-[1.5]" />
                       </span>
-                      <h2 className="text-[10px] font-black uppercase tracking-[0.25em] text-white/40">Estudios de Campo</h2>
+                      <h2 className="text-[10px] font-black uppercase tracking-[0.25em] text-white/40">
+                        {language === 'en' ? 'Field Studies' : 'Estudios de Campo'}
+                      </h2>
                     </div>
                     <span className="text-3xl font-black font-mono tracking-tighter opacity-15 text-[#84CC16]">01</span>
                   </div>
 
                   <h3 className="text-4xl md:text-5xl font-black uppercase tracking-tight leading-[1.05] text-white">
-                    Casos de Éxito
+                    {language === 'en' ? 'Success Stories' : 'Casos de Éxito'}
                   </h3>
                   
                   <p className="text-white/40 text-xs font-bold uppercase tracking-wider leading-relaxed">
-                    ESTUDIOS DE CASOS REALES Y RESULTADOS OPERATIVOS DE NUESTROS CLIENTES.
+                    {language === 'en' ? 'REAL CASE STUDIES AND OPERATIONAL RESULTS FROM OUR CLIENTS.' : 'ESTUDIOS DE CASOS REALES Y RESULTADOS OPERATIVOS DE NUESTROS CLIENTES.'}
                   </p>
                   
                   <div className="w-12 h-[3px] rounded-full bg-[#84CC16]" />
 
                   <p className="text-white/70 text-sm leading-relaxed">
-                    En SMQ impulsamos la eficiencia y la innovación en la industria alimentaria a nivel global. Seleccione uno de nuestros casos emblemáticos en México para analizar los datos analíticos de rendimiento en tiempo real.
+                    {language === 'en' 
+                      ? 'At SMQ, we drive efficiency and innovation in the global food industry. Select one of our flagship cases in Mexico to analyze real-time performance analytics.' 
+                      : 'En SMQ impulsamos la eficiencia y la innovación en la industria alimentaria a nivel global. Seleccione uno de nuestros casos emblemáticos en México para analizar los datos analíticos de rendimiento en tiempo real.'}
                   </p>
                 </div>
 
                 {/* Casos de Éxito Destacados en México */}
                 <div className="space-y-4 pt-4 border-t border-white/5">
                   <p className="text-[10px] font-black uppercase tracking-widest text-[#84CC16]">
-                    CASOS DE ÉXITO DESTACADOS EN MÉXICO
+                    {language === 'en' ? 'FEATURED SUCCESS STORIES IN MEXICO' : 'CASOS DE ÉXITO DESTACADOS EN MÉXICO'}
                   </p>
 
                   <div className="space-y-3">
                     {[
                       {
                         company: 'BIMBO',
-                        plant: 'Planta Azcapotzalco, CDMX',
-                        desc: 'Modernización de línea de producción de panificación.',
+                        plant: language === 'en' ? 'Azcapotzalco Plant, CDMX' : 'Planta Azcapotzalco, CDMX',
+                        desc: language === 'en' ? 'Modernization of bakery production line.' : 'Modernización de línea de producción de panificación.',
                         val: '+28%',
-                        metric: 'Eficiencia',
-                        sub: 'Operativa'
+                        metric: language === 'en' ? 'Efficiency' : 'Eficiencia',
+                        sub: language === 'en' ? 'Operational' : 'Operativa'
                       },
                       {
                         company: 'HERDEZ',
-                        plant: 'Planta Tecámac, Edo. de México',
-                        desc: 'Automatización de proceso de envasado de alimentos.',
+                        plant: language === 'en' ? 'Tecámac Plant, State of Mexico' : 'Planta Tecámac, Edo. de México',
+                        desc: language === 'en' ? 'Automation of food packaging process.' : 'Automatización de proceso de envasado de alimentos.',
                         val: '+32%',
-                        metric: 'Rendimiento',
-                        sub: 'De Línea'
+                        metric: language === 'en' ? 'Yield' : 'Rendimiento',
+                        sub: language === 'en' ? 'Line' : 'De Línea'
                       },
                       {
                         company: 'NESTLÉ',
-                        plant: 'Planta Coatepec, Veracruz',
-                        desc: 'Implementación de sistema de clasificación de granos por IA.',
+                        plant: language === 'en' ? 'Coatepec Plant, Veracruz' : 'Planta Coatepec, Veracruz',
+                        desc: language === 'en' ? 'Implementation of AI grain sorting system.' : 'Implementación de sistema de clasificación de granos por IA.',
                         val: '+24%',
-                        metric: 'Clasificación',
-                        sub: 'Automatizada'
+                        metric: language === 'en' ? 'Sorting' : 'Clasificación',
+                        sub: language === 'en' ? 'Automated' : 'Automatizada'
                       }
                     ].map((proj, pIdx) => (
                       <button
@@ -358,29 +368,29 @@ const Projects = () => {
                 {/* Cabecera del Panel */}
                 <div className="flex justify-between items-start border-b border-white/5 pb-4 relative z-10">
                   <div>
-                    <span className="text-[8px] uppercase tracking-widest text-white/40 font-bold">MONITOR OPERATIVO</span>
+                    <span className="text-[8px] uppercase tracking-widest text-white/40 font-bold">{language === 'en' ? 'OPERATIONAL MONITOR' : 'MONITOR OPERATIVO'}</span>
                     <h4 className="text-lg font-bold text-white uppercase tracking-tight">
-                      {activeProjectIdx === 0 && "BIMBO - EFICIENCIA AZCAPOTZALCO"}
-                      {activeProjectIdx === 1 && "HERDEZ - AUTOMATIZACIÓN TECÁMAC"}
-                      {activeProjectIdx === 2 && "NESTLÉ - CLASIFICACIÓN COATEPEC"}
+                      {activeProjectIdx === 0 && (language === 'en' ? "BIMBO - AZCAPOTZALCO EFFICIENCY" : "BIMBO - EFICIENCIA AZCAPOTZALCO")}
+                      {activeProjectIdx === 1 && (language === 'en' ? "HERDEZ - TECÁMAC AUTOMATION" : "HERDEZ - AUTOMATIZACIÓN TECÁMAC")}
+                      {activeProjectIdx === 2 && (language === 'en' ? "NESTLÉ - COATEPEC SORTING" : "NESTLÉ - CLASIFICACIÓN COATEPEC")}
                     </h4>
                   </div>
                   <div className="flex items-center gap-2 bg-white/[0.03] border border-white/10 rounded-lg px-2.5 py-1 text-[8px] font-bold text-white/60">
                     <span className="w-1.5 h-1.5 rounded-full bg-lime-500 animate-pulse" />
-                    ANALÍTICA ACTIVA
+                    {language === 'en' ? 'ACTIVE ANALYTICS' : 'ANALÍTICA ACTIVA'}
                   </div>
                 </div>
 
                 {/* Gráfico de Rendimiento */}
                 <div className="py-6 relative z-10 flex-1 flex flex-col justify-center">
                   <div className="flex justify-between items-center mb-3">
-                    <span className="text-[9px] font-black uppercase text-white/40 tracking-wider">INCREMENTO OPERATIVO vs BASELINE</span>
+                    <span className="text-[9px] font-black uppercase text-white/40 tracking-wider">{language === 'en' ? 'OPERATIONAL INCREASE vs BASELINE' : 'INCREMENTO OPERATIVO vs BASELINE'}</span>
                     <div className="flex gap-4">
                       <span className="flex items-center gap-1.5 text-[8px] font-bold text-white/40">
                         <span className="w-2 h-0.5 border-t border-dashed border-white/30" /> BASELINE
                       </span>
                       <span className="flex items-center gap-1.5 text-[8px] font-black text-[#84CC16]">
-                        <span className="w-2 h-0.5 rounded bg-[#84CC16]" /> OPTIMIZADO
+                        <span className="w-2 h-0.5 rounded bg-[#84CC16]" /> {language === 'en' ? 'OPTIMIZED' : 'OPTIMIZADO'}
                       </span>
                     </div>
                   </div>
@@ -465,33 +475,33 @@ const Projects = () => {
                 {/* Métricas e Impacto del Proyecto */}
                 <div className="grid grid-cols-3 gap-4 border-t border-white/5 pt-4 relative z-10 bg-black/10 p-4 rounded-xl">
                   <div className="flex flex-col text-center">
-                    <span className="text-[8px] font-black uppercase text-white/40 tracking-wider">Ahorro Energía</span>
+                    <span className="text-[8px] font-black uppercase text-white/40 tracking-wider">{language === 'en' ? 'Energy Savings' : 'Ahorro Energía'}</span>
                     <span className="text-xl font-black text-[#84CC16] mt-1">
                       {activeProjectIdx === 0 && "22%"}
                       {activeProjectIdx === 1 && "25%"}
                       {activeProjectIdx === 2 && "18%"}
                     </span>
-                    <span className="text-[7px] text-white/30 uppercase mt-0.5">Certificado Anual</span>
+                    <span className="text-[7px] text-white/30 uppercase mt-0.5">{language === 'en' ? 'Annual Certified' : 'Certificado Anual'}</span>
                   </div>
                   
                   <div className="flex flex-col text-center border-x border-white/5">
-                    <span className="text-[8px] font-black uppercase text-white/40 tracking-wider">OEE Alcanzado</span>
+                    <span className="text-[8px] font-black uppercase text-white/40 tracking-wider">{language === 'en' ? 'OEE Achieved' : 'OEE Alcanzado'}</span>
                     <span className="text-xl font-black text-white mt-1">
                       {activeProjectIdx === 0 && "94.5%"}
                       {activeProjectIdx === 1 && "96.2%"}
                       {activeProjectIdx === 2 && "93.8%"}
                     </span>
-                    <span className="text-[7px] text-white/30 uppercase mt-0.5">Disponibilidad Planta</span>
+                    <span className="text-[7px] text-white/30 uppercase mt-0.5">{language === 'en' ? 'Plant Availability' : 'Disponibilidad Planta'}</span>
                   </div>
 
                   <div className="flex flex-col text-center">
-                    <span className="text-[8px] font-black uppercase text-white/40 tracking-wider">Retorno (ROI)</span>
+                    <span className="text-[8px] font-black uppercase text-white/40 tracking-wider">{language === 'en' ? 'Return (ROI)' : 'Retorno (ROI)'}</span>
                     <span className="text-xl font-black text-white mt-1">
-                      {activeProjectIdx === 0 && "14 Meses"}
-                      {activeProjectIdx === 1 && "11 Meses"}
-                      {activeProjectIdx === 2 && "16 Meses"}
+                      {activeProjectIdx === 0 && (language === 'en' ? "14 Months" : "14 Meses")}
+                      {activeProjectIdx === 1 && (language === 'en' ? "11 Months" : "11 Meses")}
+                      {activeProjectIdx === 2 && (language === 'en' ? "16 Months" : "16 Meses")}
                     </span>
-                    <span className="text-[7px] text-white/30 uppercase mt-0.5">Periodo Payback</span>
+                    <span className="text-[7px] text-white/30 uppercase mt-0.5">{language === 'en' ? 'Payback Period' : 'Periodo Payback'}</span>
                   </div>
                 </div>
               </div>
@@ -520,15 +530,17 @@ const Projects = () => {
                   </div>
 
                   <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight text-white leading-none">
-                    Instalaciones
+                    {language === 'en' ? 'Installations' : 'Instalaciones'}
                   </h2>
 
                   <p className="text-white/40 text-[10px] font-black uppercase tracking-widest leading-relaxed">
-                    GALERÍA Y DETALLES DE PLANTAS EN FUNCIONAMIENTO A NIVEL MUNDIAL.
+                    {language === 'en' ? 'GALLERY AND DETAILS OF PLANTS IN OPERATION WORLDWIDE.' : 'GALERÍA Y DETALLES DE PLANTAS EN FUNCIONAMIENTO A NIVEL MUNDIAL.'}
                   </p>
 
                   <p className="text-white/60 text-xs md:text-sm leading-relaxed font-medium">
-                    Contamos con instalaciones de clase mundial equipadas con tecnología de última generación, diseñadas para garantizar eficiencia, calidad y escalabilidad en cada proyecto que desarrollamos.
+                    {language === 'en' 
+                      ? 'We have world-class facilities equipped with state-of-the-art technology, designed to guarantee efficiency, quality, and scalability in every project we develop.' 
+                      : 'Contamos con instalaciones de clase mundial equipadas con tecnología de última generación, diseñadas para garantizar eficiencia, calidad y escalabilidad en cada proyecto que desarrollamos.'}
                   </p>
                 </div>
 
@@ -536,10 +548,14 @@ const Projects = () => {
                   <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 space-y-3">
                     <div className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                      <span className="text-[9px] font-mono text-white/50 uppercase tracking-widest">SISTEMA INTEGRAL GLOBAL</span>
+                      <span className="text-[9px] font-mono text-white/50 uppercase tracking-widest">
+                        {language === 'en' ? 'GLOBAL INTEGRAL SYSTEM' : 'SISTEMA INTEGRAL GLOBAL'}
+                      </span>
                     </div>
                     <p className="text-[10px] text-white/40 leading-normal">
-                      Monitoreo centralizado y asistencia técnica en tiempo real para todas nuestras plantas de conversión y packaging.
+                      {language === 'en' 
+                        ? 'Centralized monitoring and real-time technical assistance for all our conversion and packaging plants.' 
+                        : 'Monitoreo centralizado y asistencia técnica en tiempo real para todas nuestras plantas de conversión y packaging.'}
                     </p>
                   </div>
                 </div>
@@ -554,7 +570,7 @@ const Projects = () => {
                     <div className="absolute top-0 left-0 right-0 h-8 bg-black/50 backdrop-blur-md border-b border-white/5 px-4 flex items-center justify-between text-[8px] font-mono text-white/50 tracking-widest z-10 pointer-events-none uppercase">
                       <div className="flex items-center gap-2">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] animate-pulse" />
-                        <span>ESTADO DE PLANTA: ACTIVO</span>
+                        <span>{language === 'en' ? 'PLANT STATUS: ACTIVE' : 'ESTADO DE PLANTA: ACTIVO'}</span>
                       </div>
                       <span>REF: SMQ-GLOBAL-HQ-SYS</span>
                     </div>
@@ -562,8 +578,12 @@ const Projects = () => {
                     {/* HUD Bottom Bar */}
                     <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-4 flex items-end justify-between z-10 pointer-events-none">
                       <div className="flex flex-col">
-                        <span className="text-[9px] font-black uppercase text-white/40 tracking-wider">MONITOREO DE PLANTA</span>
-                        <span className="text-[11px] font-black text-white mt-1">OPERACIONES GLOBALES SMQ</span>
+                        <span className="text-[9px] font-black uppercase text-white/40 tracking-wider">
+                          {language === 'en' ? 'PLANT MONITORING' : 'MONITOREO DE PLANTA'}
+                        </span>
+                        <span className="text-[11px] font-black text-white mt-1">
+                          {language === 'en' ? 'SMQ GLOBAL OPERATIONS' : 'OPERACIONES GLOBALES SMQ'}
+                        </span>
                       </div>
                       <div className="text-[8px] font-mono text-white/40">
                         SEC_ID: 02 // LAT: 31.2304° N, LON: 121.4737° E
@@ -610,7 +630,7 @@ const Projects = () => {
                             <Factory size={18} />
                           </span>
                           <div className="flex flex-col leading-none">
-                            <span className="text-[8px] font-black uppercase text-white/40 tracking-wider">PLANTA PRINCIPAL</span>
+                            <span className="text-[8px] font-black uppercase text-white/40 tracking-wider">{language === 'en' ? 'MAIN PLANT' : 'PLANTA PRINCIPAL'}</span>
                             <span className="text-sm font-black text-white tracking-tight mt-0.5">SHANGHAI, CHINA</span>
                           </div>
                         </div>
@@ -624,19 +644,19 @@ const Projects = () => {
                       <ul className="space-y-2 text-[10px] text-white/70 font-semibold pl-1">
                         <li className="flex items-center gap-2.5">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
-                          <span>5,000 m² de superficie total</span>
+                          <span>{language === 'en' ? '5,000 sqm total area' : '5,000 m² de superficie total'}</span>
                         </li>
                         <li className="flex items-center gap-2.5">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
-                          <span>Centro de manufactura y ensamblaje</span>
+                          <span>{language === 'en' ? 'Manufacturing and assembly center' : 'Centro de manufactura y ensamblaje'}</span>
                         </li>
                         <li className="flex items-center gap-2.5">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
-                          <span>Tecnología de producción de última generación</span>
+                          <span>{language === 'en' ? 'State-of-the-art production technology' : 'Tecnología de producción de última generación'}</span>
                         </li>
                         <li className="flex items-center gap-2.5">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
-                          <span>Capacidad instalada para más de 200 líneas/año</span>
+                          <span>{language === 'en' ? 'Installed capacity for more than 200 lines/year' : 'Capacidad instalada para más de 200 líneas/año'}</span>
                         </li>
                       </ul>
                     </div>
@@ -645,18 +665,18 @@ const Projects = () => {
                     <div className="grid grid-cols-3 gap-2 border-t border-white/5 pt-4 mt-5 text-center relative z-10">
                       <div className="flex flex-col items-center bg-white/[0.02] border border-white/5 hover:border-blue-500/20 hover:bg-white/[0.04] p-2.5 rounded-xl transition-all duration-200">
                         <Building2 size={13} className="text-[#3B82F6] mb-1" />
-                        <span className="text-[10px] font-black text-white">5,000 m²</span>
-                        <span className="text-[6px] text-white/30 uppercase font-bold tracking-wider mt-0.5">Superficie</span>
+                        <span className="text-[10px] font-black text-white">5,000 {language === 'en' ? 'sqm' : 'm²'}</span>
+                        <span className="text-[6px] text-white/30 uppercase font-bold tracking-wider mt-0.5">{language === 'en' ? 'Area' : 'Superficie'}</span>
                       </div>
                       <div className="flex flex-col items-center bg-white/[0.02] border border-white/5 hover:border-blue-500/20 hover:bg-white/[0.04] p-2.5 rounded-xl transition-all duration-200">
                         <Hammer size={13} className="text-[#3B82F6] mb-1" />
                         <span className="text-[10px] font-black text-white">200+</span>
-                        <span className="text-[6px] text-white/30 uppercase font-bold tracking-wider mt-0.5">Líneas/Año</span>
+                        <span className="text-[6px] text-white/30 uppercase font-bold tracking-wider mt-0.5">{language === 'en' ? 'Lines/Year' : 'Líneas/Año'}</span>
                       </div>
                       <div className="flex flex-col items-center bg-white/[0.02] border border-white/5 hover:border-blue-500/20 hover:bg-white/[0.04] p-2.5 rounded-xl transition-all duration-200">
                         <Users size={13} className="text-[#3B82F6] mb-1" />
                         <span className="text-[10px] font-black text-white">300+</span>
-                        <span className="text-[6px] text-white/30 uppercase font-bold tracking-wider mt-0.5">Equipo</span>
+                        <span className="text-[6px] text-white/30 uppercase font-bold tracking-wider mt-0.5">{language === 'en' ? 'Team' : 'Equipo'}</span>
                       </div>
                     </div>
                   </div>
@@ -687,13 +707,13 @@ const Projects = () => {
                             <Building2 size={18} />
                           </span>
                           <div className="flex flex-col leading-none">
-                            <span className="text-[8px] font-black uppercase text-white/40 tracking-wider">OFICINA COMERCIAL</span>
-                            <span className="text-sm font-black text-white tracking-tight mt-0.5">CDMX, MÉXICO</span>
+                            <span className="text-[8px] font-black uppercase text-white/40 tracking-wider">{language === 'en' ? 'COMMERCIAL OFFICE' : 'OFICINA COMERCIAL'}</span>
+                            <span className="text-sm font-black text-white tracking-tight mt-0.5">{language === 'en' ? 'CDMX, MEXICO' : 'CDMX, MÉXICO'}</span>
                           </div>
                         </div>
                         <div className="flex items-center gap-1.5 bg-cyan-500/10 border border-cyan-500/20 px-2 py-0.5 rounded-full">
                           <span className="w-1 h-1 rounded-full bg-cyan-400 animate-pulse" />
-                          <span className="text-[7px] font-mono text-cyan-400 font-bold uppercase tracking-wider">SOPORTE ACTIVO</span>
+                          <span className="text-[7px] font-mono text-cyan-400 font-bold uppercase tracking-wider">{language === 'en' ? 'ACTIVE SUPPORT' : 'SOPORTE ACTIVO'}</span>
                         </div>
                       </div>
 
@@ -701,19 +721,19 @@ const Projects = () => {
                       <ul className="space-y-2 text-[10px] text-white/70 font-semibold pl-1">
                         <li className="flex items-center gap-2.5">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
-                          <span>Atención y soporte comercial de primer nivel</span>
+                          <span>{language === 'en' ? 'First-class commercial attention and support' : 'Atención y soporte comercial de primer nivel'}</span>
                         </li>
                         <li className="flex items-center gap-2.5">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
-                          <span>Desarrollo y diseño de soluciones a la medida</span>
+                          <span>{language === 'en' ? 'Development and design of custom solutions' : 'Desarrollo y diseño de soluciones a la medida'}</span>
                         </li>
                         <li className="flex items-center gap-2.5">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
-                          <span>Showroom corporativo en Corporativo Carso</span>
+                          <span>{language === 'en' ? 'Corporate showroom at Corporativo Carso' : 'Showroom corporativo en Corporativo Carso'}</span>
                         </li>
                         <li className="flex items-center gap-2.5">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
-                          <span>Cobertura total en México y Latinoamérica</span>
+                          <span>{language === 'en' ? 'Total coverage in Mexico and Latin America' : 'Cobertura total en México y Latinoamérica'}</span>
                         </li>
                       </ul>
                     </div>
@@ -722,18 +742,18 @@ const Projects = () => {
                     <div className="grid grid-cols-3 gap-2 border-t border-white/5 pt-4 mt-5 text-center relative z-10">
                       <div className="flex flex-col items-center bg-white/[0.02] border border-white/5 hover:border-blue-500/20 hover:bg-white/[0.04] p-2.5 rounded-xl transition-all duration-200">
                         <Building2 size={13} className="text-[#3B82F6] mb-1" />
-                        <span className="text-[10px] font-black text-white">1,200 m²</span>
-                        <span className="text-[6px] text-white/30 uppercase font-bold tracking-wider mt-0.5">Oficinas</span>
+                        <span className="text-[10px] font-black text-white">1,200 {language === 'en' ? 'sqm' : 'm²'}</span>
+                        <span className="text-[6px] text-white/30 uppercase font-bold tracking-wider mt-0.5">{language === 'en' ? 'Offices' : 'Oficinas'}</span>
                       </div>
                       <div className="flex flex-col items-center bg-white/[0.02] border border-white/5 hover:border-blue-500/20 hover:bg-white/[0.04] p-2.5 rounded-xl transition-all duration-200">
                         <Briefcase size={13} className="text-[#3B82F6] mb-1" />
                         <span className="text-[10px] font-black text-white">80+</span>
-                        <span className="text-[6px] text-white/30 uppercase font-bold tracking-wider mt-0.5">Proyectos</span>
+                        <span className="text-[6px] text-white/30 uppercase font-bold tracking-wider mt-0.5">{language === 'en' ? 'Projects' : 'Proyectos'}</span>
                       </div>
                       <div className="flex flex-col items-center bg-white/[0.02] border border-white/5 hover:border-blue-500/20 hover:bg-white/[0.04] p-2.5 rounded-xl transition-all duration-200">
                         <Clock size={13} className="text-[#3B82F6] mb-1" />
                         <span className="text-[10px] font-black text-white">24/7</span>
-                        <span className="text-[6px] text-white/30 uppercase font-bold tracking-wider mt-0.5">Soporte</span>
+                        <span className="text-[6px] text-white/30 uppercase font-bold tracking-wider mt-0.5">{language === 'en' ? 'Support' : 'Soporte'}</span>
                       </div>
                     </div>
                   </div>
@@ -749,7 +769,9 @@ const Projects = () => {
             <div className="flex items-center gap-4 flex-wrap justify-between border-b border-white/5 pb-2">
               <div className="space-y-1">
                 <div className="flex items-center gap-2.5">
-                  <span className="text-[#06B6D4] text-[10px] font-black tracking-widest font-mono">03 / TECNOLOGÍA</span>
+                  <span className="text-[#06B6D4] text-[10px] font-black tracking-widest font-mono">
+                    {language === 'en' ? '03 / TECHNOLOGY' : '03 / TECNOLOGÍA'}
+                  </span>
                   <Tv size={12} className="text-[#06B6D4]" />
                 </div>
                 <motion.h2 
@@ -759,11 +781,15 @@ const Projects = () => {
                   transition={{ duration: 0.6, ease: "easeOut" }}
                   className="text-xl md:text-3xl font-bold uppercase tracking-tight"
                 >
-                  <DecipherText text="SIMULADOR DE PROCESOS 3D" delay={100} />
+                  <DecipherText text={language === 'en' ? '3D PROCESS SIMULATOR' : 'SIMULADOR DE PROCESOS 3D'} delay={100} />
                 </motion.h2>
               </div>
               <div className="flex items-center gap-3">
-                <p className="text-white/40 text-[10px] md:text-xs max-w-sm">Interactúa con los controles del flujo de la planta para simular presiones y temperaturas en tiempo real.</p>
+                <p className="text-white/40 text-[10px] md:text-xs max-w-sm">
+                  {language === 'en' 
+                    ? 'Interact with the plant flow controls to simulate pressures and temperatures in real-time.' 
+                    : 'Interactúa con los controles del flujo de la planta para simular presiones y temperaturas en tiempo real.'}
+                </p>
                 {isEditorMode && (
                   <button 
                     onClick={handleSyncToCloud} 
@@ -771,7 +797,7 @@ const Projects = () => {
                     className="flex items-center gap-2 bg-[#00D4FF]/10 border border-[#00D4FF]/30 text-[#00D4FF] px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider hover:bg-[#00D4FF]/20 transition-colors"
                   >
                     {isSyncing ? <Loader2 size={12} className="animate-spin" /> : <DownloadCloud size={12} />}
-                    {isSyncing ? 'Sincronizando...' : 'Sincronizar Assets a Producción'}
+                    {isSyncing ? (language === 'en' ? 'Syncing...' : 'Sincronizando...') : (language === 'en' ? 'Sync Assets to Production' : 'Sincronizar Assets a Producción')}
                   </button>
                 )}
               </div>
@@ -784,10 +810,12 @@ const Projects = () => {
                 
                 <div className="space-y-4 relative z-10">
                   <div className="flex items-center justify-between border-b border-[#009FE3]/20 pb-3">
-                    <span className="text-sm font-black uppercase tracking-wider text-[#EAF4FF]">Consola de Control</span>
+                    <span className="text-sm font-black uppercase tracking-wider text-[#EAF4FF]">{language === 'en' ? 'Control Console' : 'Consola de Control'}</span>
                     <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full border ${simMode === 'activo' ? 'bg-emerald-500/10 border-emerald-500/30' : 'bg-white/5 border-white/10'}`}>
                       <span className={`w-1.5 h-1.5 rounded-full ${simMode === 'activo' ? 'bg-emerald-400 animate-pulse' : 'bg-white/40'}`} />
-                      <span className={`text-[9px] font-bold uppercase tracking-widest ${simMode === 'activo' ? 'text-emerald-400' : 'text-[#8E9BAA]'}`}>{simMode === 'activo' ? 'En Vivo' : 'Pausado'}</span>
+                      <span className={`text-[9px] font-bold uppercase tracking-widest ${simMode === 'activo' ? 'text-emerald-400' : 'text-[#8E9BAA]'}`}>
+                        {simMode === 'activo' ? (language === 'en' ? 'Live' : 'En Vivo') : (language === 'en' ? 'Paused' : 'Pausado')}
+                      </span>
                     </div>
                   </div>
 
@@ -797,7 +825,7 @@ const Projects = () => {
                       <div className="flex items-center justify-between text-xs">
                         <div className="flex items-center gap-3">
                           <span className="w-7 h-7 flex items-center justify-center rounded-full bg-[#00D4FF]/10 text-[#00D4FF]"><Waves size={14} /></span>
-                          <span className="text-[#EAF4FF] uppercase tracking-wider font-bold text-[11px]">Flujo de Entrada</span>
+                          <span className="text-[#EAF4FF] uppercase tracking-wider font-bold text-[11px]">{language === 'en' ? 'Inlet Flow' : 'Flujo de Entrada'}</span>
                         </div>
                         <span className="font-black text-[#EAF4FF] text-lg">{simFlow} <span className="text-[10px] text-[#8E9BAA]">%</span></span>
                       </div>
@@ -813,7 +841,7 @@ const Projects = () => {
                       <div className="flex items-center justify-between text-xs">
                         <div className="flex items-center gap-3">
                           <span className="w-7 h-7 flex items-center justify-center rounded-full bg-[#00D4FF]/10 text-[#00D4FF]"><Thermometer size={14} /></span>
-                          <span className="text-[#EAF4FF] uppercase tracking-wider font-bold text-[11px]">Temperatura Reactor</span>
+                          <span className="text-[#EAF4FF] uppercase tracking-wider font-bold text-[11px]">{language === 'en' ? 'Reactor Temperature' : 'Temperatura Reactor'}</span>
                         </div>
                         <span className="font-black text-[#EAF4FF] text-lg">{simTemp} <span className="text-[10px] text-[#8E9BAA]">°C</span></span>
                       </div>
@@ -829,7 +857,7 @@ const Projects = () => {
                       <div className="flex items-center justify-between text-xs">
                         <div className="flex items-center gap-3">
                           <span className="w-7 h-7 flex items-center justify-center rounded-full bg-[#00D4FF]/10 text-[#00D4FF]"><Gauge size={14} /></span>
-                          <span className="text-[#EAF4FF] uppercase tracking-wider font-bold text-[11px]">Presión del Sistema</span>
+                          <span className="text-[#EAF4FF] uppercase tracking-wider font-bold text-[11px]">{language === 'en' ? 'System Pressure' : 'Presión del Sistema'}</span>
                         </div>
                         <span className="font-black text-[#EAF4FF] text-lg">{simPressure.toFixed(1)} <span className="text-[10px] text-[#8E9BAA]">bar</span></span>
                       </div>
@@ -843,15 +871,17 @@ const Projects = () => {
 
                   {/* Modos de Operación */}
                   <div className="pt-4 space-y-2">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-[#8E9BAA]">Modo de Operación</span>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-[#8E9BAA]">
+                      {language === 'en' ? 'Operation Mode' : 'Modo de Operación'}
+                    </span>
                     <div className="flex gap-3">
                       <button onClick={() => { setSimActive(true); setSimMode('activo'); }} className={`flex-1 py-2.5 rounded-xl flex items-center justify-center gap-2 text-[11px] font-black uppercase tracking-wider transition-all ${simMode === 'activo' ? 'bg-[#00D4FF]/10 text-[#00D4FF] border-2 border-[#00D4FF] shadow-[0_0_20px_rgba(0,212,255,0.2)]' : 'bg-[#07111C] text-[#8E9BAA] border border-white/10 hover:bg-white/[0.05]'}`}>
                         <Play size={14} className={simMode === 'activo' ? 'fill-[#00D4FF]' : ''} />
-                        Activo
+                        {language === 'en' ? 'Active' : 'Activo'}
                       </button>
                       <button onClick={() => setSimMode('pausa')} className={`flex-[0.8] py-2.5 rounded-xl flex items-center justify-center gap-2 text-[11px] font-black uppercase tracking-wider transition-all ${simMode === 'pausa' ? 'bg-white/10 text-[#EAF4FF] border-2 border-white/20' : 'bg-[#07111C] text-[#8E9BAA] border border-white/10 hover:bg-white/[0.05]'}`}>
                         <Pause size={14} className={simMode === 'pausa' ? 'fill-[#EAF4FF]' : ''} />
-                        Pausa
+                        {language === 'en' ? 'Pause' : 'Pausa'}
                       </button>
                       <button onClick={() => { setSimMode('pausa'); setSimFlow(75); setSimTemp(82); setSimPressure(5.6); setSimTime(0); setActiveNodeCount(0); }} className="flex-[0.6] py-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[10px] font-black uppercase tracking-wider bg-[#07111C] text-[#8E9BAA] border border-white/10 hover:bg-white/[0.05] transition-all">
                         <RotateCcw size={12} />
@@ -865,16 +895,17 @@ const Projects = () => {
                   <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${simMode === 'activo' ? 'bg-[#00D4FF] shadow-[0_0_12px_rgba(0,212,255,0.8)]' : 'bg-white/10'}`} />
                   <div className="flex justify-between items-center pl-3">
                     <span className="font-black text-[#EAF4FF] text-[11px] uppercase tracking-wider flex items-center gap-2">
-                      <ShieldCheck size={16} className={simMode === 'activo' ? 'text-[#00D4FF]' : 'text-[#8E9BAA]'} /> Diagnóstico
+                      <ShieldCheck size={16} className={simMode === 'activo' ? 'text-[#00D4FF]' : 'text-[#8E9BAA]'} /> 
+                      {language === 'en' ? 'Diagnostics' : 'Diagnóstico'}
                     </span>
                     <span className={`text-[9px] font-black px-2 py-1 rounded uppercase tracking-wider ${simMode === 'activo' ? 'bg-emerald-400/10 text-emerald-400 border border-emerald-400/20' : 'bg-white/5 text-[#8E9BAA] border border-white/10'}`}>
-                      {simMode === 'activo' ? 'Normal' : 'Standby'}
+                      {simMode === 'activo' ? (language === 'en' ? 'Normal' : 'Normal') : (language === 'en' ? 'Standby' : 'Standby')}
                     </span>
                   </div>
                   <p className="text-[#8E9BAA] leading-relaxed pl-3 font-medium text-[10px]">
                     {simMode === 'activo' 
-                      ? `Flujo nominal al ${simFlow}%. Sin riesgo de cavitación.`
-                      : 'Esperando pulso de arranque.'
+                      ? (language === 'en' ? `Nominal flow at ${simFlow}%. No cavitation risk.` : `Flujo nominal al ${simFlow}%. Sin riesgo de cavitación.`)
+                      : (language === 'en' ? 'Waiting for start pulse.' : 'Esperando pulso de arranque.')
                     }
                   </p>
                 </div>
@@ -890,22 +921,22 @@ const Projects = () => {
                 <div className="relative z-10 flex flex-wrap justify-between gap-3 mb-4 mt-0 px-2">
                   <div className="flex-1 bg-[#050B12]/80 backdrop-blur-sm border border-[#009FE3]/30 p-2 rounded-xl text-center shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
                     <span className="block text-[#EAF4FF] font-black text-sm md:text-lg mb-1">{simFlow}%</span>
-                    <span className="block text-[8px] md:text-[9px] text-[#8E9BAA] uppercase tracking-widest font-bold">Flujo</span>
+                    <span className="block text-[8px] md:text-[9px] text-[#8E9BAA] uppercase tracking-widest font-bold">{language === 'en' ? 'Flow' : 'Flujo'}</span>
                     <div className="w-10 h-2 md:h-3 mx-auto mt-2 border-b border-[#00D4FF]/40 relative overflow-hidden"><div className="absolute bottom-0 w-full h-[2px] bg-[#00D4FF] opacity-60" /></div>
                   </div>
                   <div className="flex-1 bg-[#050B12]/80 backdrop-blur-sm border border-[#009FE3]/30 p-2 md:p-3 rounded-xl text-center shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
                     <span className="block text-[#EAF4FF] font-black text-sm md:text-lg mb-1">{simTemp} °C</span>
-                    <span className="block text-[8px] md:text-[9px] text-[#8E9BAA] uppercase tracking-widest font-bold">Temperatura</span>
+                    <span className="block text-[8px] md:text-[9px] text-[#8E9BAA] uppercase tracking-widest font-bold">{language === 'en' ? 'Temperature' : 'Temperatura'}</span>
                     <div className="w-10 h-2 md:h-3 mx-auto mt-2 border-b border-red-500/40 relative overflow-hidden"><div className="absolute bottom-0 w-full h-[2px] bg-red-500 opacity-60" /></div>
                   </div>
                   <div className="flex-1 bg-[#050B12]/80 backdrop-blur-sm border border-[#009FE3]/30 p-2 md:p-3 rounded-xl text-center shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
                     <span className="block text-[#EAF4FF] font-black text-sm md:text-lg mb-1">{simPressure.toFixed(1)} bar</span>
-                    <span className="block text-[8px] md:text-[9px] text-[#8E9BAA] uppercase tracking-widest font-bold">Presión</span>
+                    <span className="block text-[8px] md:text-[9px] text-[#8E9BAA] uppercase tracking-widest font-bold">{language === 'en' ? 'Pressure' : 'Presión'}</span>
                     <div className="w-10 h-2 md:h-3 mx-auto mt-2 border-b border-[#00D4FF]/40 relative overflow-hidden"><div className="absolute bottom-0 w-full h-[2px] bg-[#00D4FF] opacity-60" /></div>
                   </div>
                   <div className="flex-1 bg-[#050B12]/80 backdrop-blur-sm border border-[#009FE3]/30 p-2 md:p-3 rounded-xl text-center shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
                     <span className="block text-[#EAF4FF] font-black text-sm md:text-lg mb-1">{simMode === 'activo' ? '98 %' : '0 %'}</span>
-                    <span className="block text-[8px] md:text-[9px] text-[#8E9BAA] uppercase tracking-widest font-bold">Eficiencia</span>
+                    <span className="block text-[8px] md:text-[9px] text-[#8E9BAA] uppercase tracking-widest font-bold">{language === 'en' ? 'Efficiency' : 'Eficiencia'}</span>
                     <div className="w-10 h-2 md:h-3 mx-auto mt-2 border-b border-emerald-500/40 relative overflow-hidden"><div className="absolute bottom-0 w-full h-[2px] bg-emerald-500 opacity-60" /></div>
                   </div>
                 </div>
@@ -917,11 +948,11 @@ const Projects = () => {
                     <div className={`absolute left-10 right-10 h-[3px] top-[60%] -translate-y-1/2 z-0 transition-colors duration-500 ${activeNodeCount > 0 ? 'bg-[#009FE3] shadow-[0_0_12px_rgba(0,212,255,0.7)]' : 'bg-white/5'}`} />
                     
                     {[
-                      { id: 1, label: 'Tanque de\nAlimentación', w: 'w-16 md:w-20' },
-                      { id: 2, label: 'Reactor', w: 'w-20 md:w-24' },
-                      { id: 3, label: 'Intercambiador', w: 'w-24 md:w-32' },
-                      { id: 4, label: 'Bomba', w: 'w-12 md:w-16' },
-                      { id: 5, label: 'Salida /\nProducto', w: 'w-16 md:w-20' }
+                      { id: 1, label: language === 'en' ? 'Feed\nTank' : 'Tanque de\nAlimentación', w: 'w-16 md:w-20' },
+                      { id: 2, label: language === 'en' ? 'Reactor' : 'Reactor', w: 'w-20 md:w-24' },
+                      { id: 3, label: language === 'en' ? 'Heat\nExchanger' : 'Intercambiador', w: 'w-24 md:w-32' },
+                      { id: 4, label: language === 'en' ? 'Pump' : 'Bomba', w: 'w-12 md:w-16' },
+                      { id: 5, label: language === 'en' ? 'Outlet /\nProduct' : 'Salida /\nProducto', w: 'w-16 md:w-20' }
                     ].map((node, index) => {
                       const isNodeActive = activeNodeCount > index;
                       const isNodeRunning = isNodeActive && simMode === 'activo';
@@ -1028,37 +1059,37 @@ const Projects = () => {
                   <div className="flex items-center gap-2 w-1/2 md:w-auto mb-3 md:mb-0">
                     <Activity size={18} className="text-[#00D4FF]" />
                     <div>
-                      <span className="block text-[8px] text-[#8E9BAA] uppercase tracking-widest font-black">Flujo Total</span>
+                      <span className="block text-[8px] text-[#8E9BAA] uppercase tracking-widest font-black">{language === 'en' ? 'Total Flow' : 'Flujo Total'}</span>
                       <span className="block text-sm md:text-base font-black text-[#EAF4FF]">{(simFlow * 0.17).toFixed(1)} <span className="text-[10px] text-[#8E9BAA]">m³/h</span></span>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 w-1/2 md:w-auto mb-3 md:mb-0">
                     <Thermometer size={18} className="text-[#8E9BAA]/50" />
                     <div>
-                      <span className="block text-[8px] text-[#8E9BAA] uppercase tracking-widest font-black">Temperatura Prom.</span>
+                      <span className="block text-[8px] text-[#8E9BAA] uppercase tracking-widest font-black">{language === 'en' ? 'Avg. Temperature' : 'Temperatura Prom.'}</span>
                       <span className="block text-sm md:text-base font-black text-[#EAF4FF]">{(simTemp * 0.98).toFixed(1)} <span className="text-[10px] text-[#8E9BAA]">°C</span></span>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 w-1/2 md:w-auto">
                     <Gauge size={18} className="text-[#8E9BAA]/50" />
                     <div>
-                      <span className="block text-[8px] text-[#8E9BAA] uppercase tracking-widest font-black">Presión Sistema</span>
+                      <span className="block text-[8px] text-[#8E9BAA] uppercase tracking-widest font-black">{language === 'en' ? 'System Pressure' : 'Presión Sistema'}</span>
                       <span className="block text-sm md:text-base font-black text-[#EAF4FF]">{simPressure.toFixed(1)} <span className="text-[10px] text-[#8E9BAA]">bar</span></span>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 w-1/2 md:w-auto">
                     <ShieldCheck size={18} className={simMode === 'activo' ? 'text-emerald-400' : 'text-[#8E9BAA]/50'} />
                     <div>
-                      <span className="block text-[8px] text-[#8E9BAA] uppercase tracking-widest font-black">Estado Sistema</span>
+                      <span className="block text-[8px] text-[#8E9BAA] uppercase tracking-widest font-black">{language === 'en' ? 'System Status' : 'Estado Sistema'}</span>
                       <span className={`block text-sm md:text-base font-black ${simMode === 'activo' ? 'text-emerald-400' : 'text-[#8E9BAA]/70'} uppercase`}>
-                        {simMode === 'activo' ? 'Normal' : 'Standby'}
+                        {simMode === 'activo' ? (language === 'en' ? 'Normal' : 'Normal') : (language === 'en' ? 'Standby' : 'Standby')}
                       </span>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 w-full md:w-auto mt-2 md:mt-0 pt-2 md:pt-0 border-t md:border-t-0 md:border-l border-[#009FE3]/20 md:pl-4">
                     <Clock size={18} className="text-[#8E9BAA]/50" />
                     <div>
-                      <span className="block text-[8px] text-[#8E9BAA] uppercase tracking-widest font-black">Tiempo Simulación</span>
+                      <span className="block text-[8px] text-[#8E9BAA] uppercase tracking-widest font-black">{language === 'en' ? 'Simulation Time' : 'Tiempo Simulación'}</span>
                       <span className="block text-base md:text-xl font-black text-[#EAF4FF] tracking-widest font-mono">{formatSimTime(simTime)}</span>
                     </div>
                   </div>
@@ -1183,28 +1214,43 @@ const Projects = () => {
               <div className="relative z-20 w-full md:w-[50%] lg:w-[45%] p-6 md:p-10 lg:p-12 flex flex-col justify-center space-y-6 md:space-y-8">
                 <div className="space-y-3">
                   <div className="flex items-center gap-2.5">
-                    <span className="text-[#F97316] text-xs font-black tracking-widest font-mono">04 / RETORNO DE INVERSIÓN</span>
+                    <span className="text-[#F97316] text-xs font-black tracking-widest font-mono">
+                      {language === 'en' ? '04 / RETURN ON INVESTMENT' : '04 / RETORNO DE INVERSIÓN'}
+                    </span>
                     <Calculator size={14} className="text-[#F97316]" />
                   </div>
                   <h2 className="text-3xl md:text-4xl lg:text-[42px] font-black uppercase tracking-tight leading-[1.1] text-white">
-                    <DecipherText text="CALCULADORA ROI" delay={100} /> <br/>
-                    <DecipherText text="Y AHORRO" delay={500} /> <span className="text-[#F97316]"><DecipherText text="ENERGÉTICO" delay={900} /></span>
+                    {language === 'en' ? (
+                      <>
+                        <DecipherText text="ROI CALCULATOR" delay={100} /> <br/>
+                        <DecipherText text="AND ENERGY" delay={500} /> <span className="text-[#F97316]"><DecipherText text="SAVINGS" delay={900} /></span>
+                      </>
+                    ) : (
+                      <>
+                        <DecipherText text="CALCULADORA ROI" delay={100} /> <br/>
+                        <DecipherText text="Y AHORRO" delay={500} /> <span className="text-[#F97316]"><DecipherText text="ENERGÉTICO" delay={900} /></span>
+                      </>
+                    )}
                   </h2>
                   <p className="text-white/60 text-sm md:text-sm max-w-sm leading-relaxed font-medium">
-                    Calcula de manera inmediata el beneficio económico y energético al integrar maquinaria en tu operación.
+                    {language === 'en' 
+                      ? 'Immediately calculate the economic and energy benefit by integrating machinery into your operation.' 
+                      : 'Calcula de manera inmediata el beneficio económico y energético al integrar maquinaria en tu operación.'}
                   </p>
                 </div>
 
                 {/* Form Card */}
                 <div className="bg-[#03060E]/80 backdrop-blur-xl border border-white/10 p-5 md:p-6 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
-                  <h3 className="text-[10px] font-black uppercase tracking-widest text-[#F97316] mb-4">Configuración Operativa</h3>
+                  <h3 className="text-[10px] font-black uppercase tracking-widest text-[#F97316] mb-4">
+                    {language === 'en' ? 'Operational Configuration' : 'Configuración Operativa'}
+                  </h3>
                   
                   <div className="space-y-4">
                     {/* Input 1 */}
                     <div className="flex items-center justify-between bg-white/[0.03] border border-white/5 rounded-xl px-4 py-3 hover:border-white/20 transition-colors">
                       <div className="flex items-center gap-3">
                         <Gauge size={16} className="text-white/40" />
-                        <label className="text-[10px] text-white/60 font-bold uppercase tracking-wider">Capacidad Nominal (ton/h)</label>
+                        <label className="text-[10px] text-white/60 font-bold uppercase tracking-wider">{language === 'en' ? 'Nominal Capacity (ton/h)' : 'Capacidad Nominal (ton/h)'}</label>
                       </div>
                       <input
                         type="number"
@@ -1219,7 +1265,7 @@ const Projects = () => {
                     <div className="flex items-center justify-between bg-white/[0.03] border border-white/5 rounded-xl px-4 py-3 hover:border-white/20 transition-colors">
                       <div className="flex items-center gap-3">
                         <Activity size={16} className="text-white/40" />
-                        <label className="text-[10px] text-white/60 font-bold uppercase tracking-wider">Costo de Energía (USD/kWh)</label>
+                        <label className="text-[10px] text-white/60 font-bold uppercase tracking-wider">{language === 'en' ? 'Energy Cost (USD/kWh)' : 'Costo de Energía (USD/kWh)'}</label>
                       </div>
                       <input
                         type="number"
@@ -1234,7 +1280,7 @@ const Projects = () => {
                     <div className="flex items-center justify-between bg-white/[0.03] border border-white/5 rounded-xl px-4 py-3 hover:border-white/20 transition-colors">
                       <div className="flex items-center gap-3">
                         <Clock size={16} className="text-white/40" />
-                        <label className="text-[10px] text-white/60 font-bold uppercase tracking-wider">Horas de Operación al Año</label>
+                        <label className="text-[10px] text-white/60 font-bold uppercase tracking-wider">{language === 'en' ? 'Operating Hours per Year' : 'Horas de Operación al Año'}</label>
                       </div>
                       <input
                         type="number"
@@ -1252,7 +1298,9 @@ const Projects = () => {
             {/* Results Bottom Bar */}
             <div className="bg-[#050914]/90 backdrop-blur-xl border border-white/10 p-5 md:p-6 rounded-2xl flex flex-col xl:flex-row gap-6 justify-between items-start xl:items-center relative z-20 -mt-6 mx-6 shadow-2xl">
               <div className="w-full xl:w-auto">
-                <h3 className="text-[10px] font-black uppercase tracking-widest text-[#F97316] mb-4">Resultados del Análisis Financiero</h3>
+                <h3 className="text-[10px] font-black uppercase tracking-widest text-[#F97316] mb-4">
+                  {language === 'en' ? 'Financial Analysis Results' : 'Resultados del Análisis Financiero'}
+                </h3>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6 xl:gap-12">
                   
                   <div className="flex items-center gap-4 border-b md:border-b-0 md:border-r border-white/10 pb-4 md:pb-0 md:pr-12">
@@ -1260,7 +1308,7 @@ const Projects = () => {
                       <TrendingUp size={20} />
                     </div>
                     <div className="flex flex-col">
-                      <span className="text-white/50 text-[9px] uppercase font-bold tracking-wider mb-1">Ahorro Anual de Energía</span>
+                      <span className="text-white/50 text-[9px] uppercase font-bold tracking-wider mb-1">{language === 'en' ? 'Annual Energy Savings' : 'Ahorro Anual de Energía'}</span>
                       <span className="text-2xl md:text-3xl font-black text-white leading-none whitespace-nowrap">
                         ${annualSavings.toLocaleString('en-US', { maximumFractionDigits: 0 })} <span className="text-xs text-white/50">USD</span>
                       </span>
@@ -1272,9 +1320,9 @@ const Projects = () => {
                       <Clock size={20} />
                     </div>
                     <div className="flex flex-col">
-                      <span className="text-white/50 text-[9px] uppercase font-bold tracking-wider mb-1">Recuperación Capital</span>
+                      <span className="text-white/50 text-[9px] uppercase font-bold tracking-wider mb-1">{language === 'en' ? 'Capital Recovery' : 'Recuperación Capital'}</span>
                       <span className="text-2xl md:text-3xl font-black text-[#F97316] leading-none whitespace-nowrap">
-                        ~{paybackMonths} <span className="text-xs text-[#F97316]/70 uppercase">Meses</span>
+                        ~{paybackMonths} <span className="text-xs text-[#F97316]/70 uppercase">{language === 'en' ? 'Months' : 'Meses'}</span>
                       </span>
                     </div>
                   </div>
@@ -1284,7 +1332,7 @@ const Projects = () => {
                       <Activity size={20} />
                     </div>
                     <div className="flex flex-col">
-                      <span className="text-white/50 text-[9px] uppercase font-bold tracking-wider mb-1">TIR Estimado</span>
+                      <span className="text-white/50 text-[9px] uppercase font-bold tracking-wider mb-1">{language === 'en' ? 'Estimated IRR' : 'TIR Estimado'}</span>
                       <span className="text-2xl md:text-3xl font-black text-[#F97316] leading-none whitespace-nowrap">
                         {Math.max(15, Math.round((annualSavings / (capacity * 120000)) * 100) + 12)}%
                       </span>
@@ -1296,7 +1344,7 @@ const Projects = () => {
                       <span className="font-serif font-black text-lg">$</span>
                     </div>
                     <div className="flex flex-col">
-                      <span className="text-white/50 text-[9px] uppercase font-bold tracking-wider mb-1">VAN (5 Años)</span>
+                      <span className="text-white/50 text-[9px] uppercase font-bold tracking-wider mb-1">{language === 'en' ? 'NPV (5 Years)' : 'VAN (5 Años)'}</span>
                       <span className="text-2xl md:text-3xl font-black text-white leading-none whitespace-nowrap">
                         ${(annualSavings * 5).toLocaleString('en-US', { maximumFractionDigits: 0 })} <span className="text-xs text-white/50">USD</span>
                       </span>
@@ -1310,25 +1358,39 @@ const Projects = () => {
             {/* Metodology Bar */}
             <div className="mt-3 bg-[#050914]/80 backdrop-blur-xl border border-white/10 p-4 md:p-5 rounded-2xl flex flex-col xl:flex-row gap-4 items-center mx-6 relative z-20 shadow-xl">
               <div className="xl:w-1/3 flex flex-col text-[10px] leading-relaxed text-white/50">
-                <span className="font-black text-[#F97316] uppercase tracking-wider mb-1">Nota Metodológica</span>
-                <p>El cálculo asume una eficiencia energética mejorada del 15% en motores con variador de frecuencia inteligente y una reducción del 8% de desperdicio operativo usando el sistema de control autónomo.</p>
+                <span className="font-black text-[#F97316] uppercase tracking-wider mb-1">
+                  {language === 'en' ? 'Methodology Note' : 'Nota Metodológica'}
+                </span>
+                <p>
+                  {language === 'en' 
+                    ? 'The calculation assumes a 15% improved energy efficiency in motors with smart frequency drives and an 8% reduction in operational waste using the autonomous control system.' 
+                    : 'El cálculo asume una eficiencia energética mejorada del 15% en motores con variador de frecuencia inteligente y una reducción del 8% de desperdicio operativo usando el sistema de control autónomo.'}
+                </p>
               </div>
               <div className="xl:w-2/3 grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-[#F97316]/10 border border-[#F97316]/20 rounded-lg text-[#F97316]"><Waves size={16} /></div>
-                  <span className="text-[9px] font-bold text-white uppercase tracking-wider leading-tight">Eficiencia<br/>Energética <span className="text-[#F97316]">+15%</span></span>
+                  <span className="text-[9px] font-bold text-white uppercase tracking-wider leading-tight">
+                    {language === 'en' ? 'Energy\nEfficiency' : 'Eficiencia\nEnergética'} <span className="text-[#F97316]">+15%</span>
+                  </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-[#F97316]/10 border border-[#F97316]/20 rounded-lg text-[#F97316]"><RotateCcw size={16} /></div>
-                  <span className="text-[9px] font-bold text-white uppercase tracking-wider leading-tight">Reducción de<br/>Desperdicio <span className="text-[#F97316]">-8%</span></span>
+                  <span className="text-[9px] font-bold text-white uppercase tracking-wider leading-tight">
+                    {language === 'en' ? 'Waste\nReduction' : 'Reducción de\nDesperdicio'} <span className="text-[#F97316]">-8%</span>
+                  </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-[#F97316]/10 border border-[#F97316]/20 rounded-lg text-[#F97316]"><Tv size={16} /></div>
-                  <span className="text-[9px] font-bold text-white uppercase tracking-wider leading-tight">Control<br/>Autónomo <span className="text-[#F97316]">SMQ OS</span></span>
+                  <span className="text-[9px] font-bold text-white uppercase tracking-wider leading-tight">
+                    {language === 'en' ? 'Autonomous\nControl' : 'Control\nAutónomo'} <span className="text-[#F97316]">SMQ OS</span>
+                  </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-[#F97316]/10 border border-[#F97316]/20 rounded-lg text-[#F97316]"><Activity size={16} /></div>
-                  <span className="text-[9px] font-bold text-white uppercase tracking-wider leading-tight">Monitoreo<br/>En Tiempo Real</span>
+                  <span className="text-[9px] font-bold text-white uppercase tracking-wider leading-tight">
+                    {language === 'en' ? 'Real-time\nMonitoring' : 'Monitoreo\nEn Tiempo Real'}
+                  </span>
                 </div>
               </div>
             </div>
@@ -1339,19 +1401,39 @@ const Projects = () => {
             <div className="flex items-center gap-4 flex-wrap justify-between border-b border-white/5 pb-6">
               <div className="space-y-2">
                 <div className="flex items-center gap-2.5">
-                  <span className="text-[#8B5CF6] text-xs font-black tracking-widest font-mono">05 / DOCUMENTACIÓN COMERCIAL</span>
+                  <span className="text-[#8B5CF6] text-xs font-black tracking-widest font-mono">
+                    {language === 'en' ? '05 / COMMERCIAL DOCUMENTATION' : '05 / DOCUMENTACIÓN COMERCIAL'}
+                  </span>
                   <DownloadCloud size={14} className="text-[#8B5CF6]" />
                 </div>
-                <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tight">Fichas y Catálogos Descargables</h2>
+                <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tight">
+                  {language === 'en' ? 'Downloadable Sheets and Catalogs' : 'Fichas y Catálogos Descargables'}
+                </h2>
               </div>
-              <p className="text-white/40 text-xs md:text-sm max-w-md">Accede a las especificaciones completas de nuestra maquinaria en formato PDF de alta resolución.</p>
+              <p className="text-white/40 text-xs md:text-sm max-w-md">
+                {language === 'en' 
+                  ? 'Access the complete specifications of our machinery in high-resolution PDF format.' 
+                  : 'Accede a las especificaciones completas de nuestra maquinaria en formato PDF de alta resolución.'}
+              </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
-                { title: 'Catálogo de Maquinaria de Alimentos', size: '12.4 MB', format: 'PDF', desc: 'Líneas completas de pelado, dosificación y empaque.' },
-                { title: 'Dossier Técnico de Extrusión PET', size: '8.7 MB', format: 'PDF', desc: 'Detalles operativos de peletizado y desgasificación.' },
-                { title: 'Guía de Integración SCADA / IoT', size: '4.2 MB', format: 'PDF', desc: 'Manual de interconexión ethernet para control de planta.' }
+                { 
+                  title: language === 'en' ? 'Food Machinery Catalog' : 'Catálogo de Maquinaria de Alimentos', 
+                  size: '12.4 MB', format: 'PDF', 
+                  desc: language === 'en' ? 'Complete lines for peeling, dosing, and packaging.' : 'Líneas completas de pelado, dosificación y empaque.' 
+                },
+                { 
+                  title: language === 'en' ? 'PET Extrusion Technical Dossier' : 'Dossier Técnico de Extrusión PET', 
+                  size: '8.7 MB', format: 'PDF', 
+                  desc: language === 'en' ? 'Operational details of pelletizing and degassing.' : 'Detalles operativos de peletizado y desgasificación.' 
+                },
+                { 
+                  title: language === 'en' ? 'SCADA / IoT Integration Guide' : 'Guía de Integración SCADA / IoT', 
+                  size: '4.2 MB', format: 'PDF', 
+                  desc: language === 'en' ? 'Ethernet interconnection manual for plant control.' : 'Manual de interconexión ethernet para control de planta.' 
+                }
               ].map((doc, idx) => (
                 <div key={idx} className="bg-white/[0.02] border border-white/5 p-6 rounded-xl hover:bg-white/[0.04] hover:border-white/10 transition-all duration-300 flex items-center justify-between gap-4">
                   <div className="space-y-2">
@@ -1372,18 +1454,36 @@ const Projects = () => {
             <div className="flex items-center gap-4 flex-wrap justify-between border-b border-white/5 pb-6">
               <div className="space-y-2">
                 <div className="flex items-center gap-2.5">
-                  <span className="text-[#EF4444] text-xs font-black tracking-widest font-mono">06 / LITERATURA CIENTÍFICA</span>
+                  <span className="text-[#EF4444] text-xs font-black tracking-widest font-mono">
+                    {language === 'en' ? '06 / SCIENTIFIC LITERATURE' : '06 / LITERATURA CIENTÍFICA'}
+                  </span>
                   <BookOpen size={14} className="text-[#EF4444]" />
                 </div>
-                <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tight">Biblioteca Técnica y Normas</h2>
+                <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tight">
+                  {language === 'en' ? 'Technical Library and Standards' : 'Biblioteca Técnica y Normas'}
+                </h2>
               </div>
-              <p className="text-white/40 text-xs md:text-sm max-w-md">Documentación oficial de cumplimiento normativo (HACCP, FDA, CE) y manuales operativos avanzados.</p>
+              <p className="text-white/40 text-xs md:text-sm max-w-md">
+                {language === 'en' 
+                  ? 'Official regulatory compliance documentation (HACCP, FDA, CE) and advanced operational manuals.' 
+                  : 'Documentación oficial de cumplimiento normativo (HACCP, FDA, CE) y manuales operativos avanzados.'}
+              </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
-                { title: 'Cumplimiento FDA / HACCP en Acero Inoxidable', type: 'Guía de Diseño Sanitario', ref: 'SMQ-FDA-2026', desc: 'Directrices constructivas para soldaduras pulidas en tanques y mezcladoras.' },
-                { title: 'Estándares de Seguridad Eléctrica CE y UL', type: 'Directiva de Seguridad', ref: 'SMQ-CE-2025', desc: 'Manual de protección en tableros eléctricos herméticos IP66 de acero.' }
+                { 
+                  title: language === 'en' ? 'FDA / HACCP Compliance in Stainless Steel' : 'Cumplimiento FDA / HACCP en Acero Inoxidable', 
+                  type: language === 'en' ? 'Sanitary Design Guide' : 'Guía de Diseño Sanitario', 
+                  ref: 'SMQ-FDA-2026', 
+                  desc: language === 'en' ? 'Construction guidelines for polished welds in tanks and mixers.' : 'Directrices constructivas para soldaduras pulidas en tanques y mezcladoras.' 
+                },
+                { 
+                  title: language === 'en' ? 'CE and UL Electrical Safety Standards' : 'Estándares de Seguridad Eléctrica CE y UL', 
+                  type: language === 'en' ? 'Safety Directive' : 'Directiva de Seguridad', 
+                  ref: 'SMQ-CE-2025', 
+                  desc: language === 'en' ? 'Protection manual in IP66 airtight steel electrical panels.' : 'Manual de protección en tableros eléctricos herméticos IP66 de acero.' 
+                }
               ].map((book, idx) => (
                 <div key={idx} className="bg-white/[0.01] border border-white/5 p-6 rounded-2xl flex items-start gap-4 hover:bg-white/[0.02] transition-colors duration-300">
                   <div className="p-3 bg-red-500/10 text-red-400 border border-red-500/20 rounded-xl">

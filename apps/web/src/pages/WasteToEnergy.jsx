@@ -6,6 +6,7 @@ import { Factory, Flame, Eye, Recycle, Zap, HardHat, ArrowRight, Shield, Setting
 import Footer from '@/components/Footer.jsx';
 import { useCMS } from '@/context/CMSContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
+import { useLanguage } from '@/context/LanguageContext.jsx';
 
 const sectionsData = [
   {
@@ -128,6 +129,76 @@ const WasteToEnergy = () => {
   const { hash } = useLocation();
   const lastScrolledHashRef = useRef('');
   const { cmsState, isEditorMode, updatePageModule } = useCMS();
+  const { language } = useLanguage();
+
+  const enTranslations = {
+    'plantas-rsu': {
+      title: 'MSW PLANTS',
+      desc: 'Integral treatment and valorization of municipal solid waste through mechanical and automated processes.',
+      longDesc: 'We design and build robust systems for the reception, separation, and classification of Municipal Solid Waste (MSW). Our plants combine high-resistance feed hoppers, size classification trommels, ballistic separators, and aspiration systems to effectively separate the organic fraction from recyclable materials.',
+      specs: [
+        'Modular capacity from 10 to 100 Ton/hour',
+        'Automatic classification of fine and organic fractions',
+        'Integrated odor and dust control systems',
+        'High-resistance conveyor belt with adjustable speed'
+      ]
+    },
+    'cdr-rdf': {
+      title: 'RDF PRODUCTION',
+      desc: 'Processing of waste-derived fuels with high calorific value for industrial and energy use.',
+      longDesc: 'We transform non-recyclable commercial and industrial waste into Refuse Derived Fuel (RDF). Through secondary shredding, thermal drying, and metal separation, we produce a high-quality alternative fuel with constant calorific value, ideal for use in cement kilns and thermoelectric plants.',
+      specs: [
+        'Net calorific value of up to 18-22 MJ/kg',
+        'Controlled final moisture below 15%',
+        'In-line chlorine and heavy metal separation systems',
+        'Homogeneous granulometry adjustable to client requirements'
+      ]
+    },
+    'clasificacion-inteligente': {
+      title: 'SMART SORTING',
+      desc: 'Automated separation by NIR, induction, and multi-sensory systems with artificial intelligence for maximum precision and purity.',
+      longDesc: 'We incorporate state-of-the-art optical sorting (NIR) and artificial vision technology. Our intelligent systems detect and separate plastics by polymers (PET, HDPE, PP, PS, PVC), cardboard, and metals at extreme speeds, optimizing purity yields up to 98% via high-precision pneumatic blowing.',
+      specs: [
+        'NIR scanning resolution up to 320 detection channels',
+        'Deep learning algorithms for shape and brand recognition',
+        'Precise pneumatic ejection rate with millisecond response',
+        'Real-time purity monitoring and telemetry in the cloud'
+      ]
+    },
+    'recuperacion-materiales': {
+      title: 'MATERIAL RECOVERY',
+      desc: 'Efficient extraction of metals, plastics, and recyclable materials with advanced separation technologies.',
+      longDesc: 'We develop integral physical separation solutions for the recovery of valuable ferrous and non-ferrous metals (aluminum, copper) using Eddy Current separators. Combined with magnetic screens and mechanical air separators, we manage to divert tons of useful resources from landfills.',
+      specs: [
+        'High-frequency Eddy Current separators',
+        'High-attraction rare earth magnetic drums',
+        'Air classification systems (Air Classifiers)',
+        'Maximum ROI due to high recovered material index'
+      ]
+    },
+    'conversion-energetica': {
+      title: 'ENERGY CONVERSION',
+      desc: 'Gasification, pyrolysis, biomass, and co-generation technologies to transform waste into useful energy.',
+      longDesc: 'We implement advanced Waste-to-Energy thermal conversion systems. Our solutions include fluidized bed gasification reactors and pyrolysis plants to convert polymer and biomass fractions into syngas, process steam, and clean electrical energy, complying with the strictest global environmental regulations.',
+      specs: [
+        'High thermodynamic efficiency thermal conversion reactors',
+        'Multi-stage flue gas washing systems (SCR/SnCR)',
+        'Combined heat and power generation (CHP / Co-generation)',
+        'Compliance with European Industrial Emissions Directive (IED)'
+      ]
+    },
+    'plantas-llave-en-mano': {
+      title: 'TURNKEY PLANTS',
+      desc: 'Complete engineering from design, manufacturing, installation, and automation to commissioning and operational support.',
+      longDesc: 'We offer Engineering, Procurement, and Construction (EPC) turnkey projects from conceptual layout design to installation, PLC/SCADA automation, and operative personnel training. We handle the entire project cycle to deliver valorization plants ready to produce value reliably, safely, and profitably.',
+      specs: [
+        'Unified civil, mechanical, and electrical 3D engineering (BIM)',
+        'Centralized control cabinets with Profinet / Ethernet protocols',
+        'Plant performance testing and commissioning (FAT / SAT)',
+        'Guaranteed after-sales technical support and spare parts stock'
+      ]
+    }
+  };
 
   // Índices de imágenes activas en los carruseles de cada sección
   const [activeImageIndices, setActiveImageIndices] = useState({});
@@ -571,11 +642,11 @@ const WasteToEnergy = () => {
               className="inline-flex items-center gap-2 text-[10px] font-bold tracking-widest text-[#22C55E] uppercase hover:text-white transition-colors"
             >
               <ArrowLeft size={12} />
-              <span>Volver a Inicio</span>
+              <span>{language === 'en' ? 'Back to Home' : 'Volver a Inicio'}</span>
             </Link>
             
             <p className="text-[11px] font-black uppercase tracking-[0.3em] text-[#22C55E]">
-              VALORIZACIÓN ENERGÉTICA Y AMBIENTAL
+              {language === 'en' ? 'ENERGY AND ENVIRONMENTAL RECOVERY' : 'VALORIZACIÓN ENERGÉTICA Y AMBIENTAL'}
             </p>
             
             <div className="space-y-2">
@@ -589,7 +660,7 @@ const WasteToEnergy = () => {
                   });
                 }}
               >
-                {activeHero.title1}
+                {language === 'en' ? (activeHero.title1.toLowerCase().includes('soluciones') ? 'INTEGRATED SOLUTIONS' : activeHero.title1) : activeHero.title1}
               </h1>
               <h2 
                 className={`text-3xl md:text-5xl font-black tracking-tight uppercase text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-white/70 ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 p-1 bg-black/25 rounded cursor-text' : ''}`}
@@ -601,7 +672,7 @@ const WasteToEnergy = () => {
                   });
                 }}
               >
-                {activeHero.title2}
+                {language === 'en' ? (activeHero.title2 === 'Valorización Energética' ? 'ENERGY RECOVERY' : activeHero.title2) : activeHero.title2}
               </h2>
             </div>
             
@@ -615,7 +686,9 @@ const WasteToEnergy = () => {
                 });
               }}
             >
-              {activeHero.subtitle}
+              {language === 'en' 
+                ? (activeHero.subtitle.includes('Tecnologías y sistemas') ? 'Integrated technologies and systems for the treatment, recovery, and conversion of waste into energy and resources. We develop high-engineering solutions to mitigate environmental impact and maximize operational profitability.' : activeHero.subtitle)
+                : activeHero.subtitle}
             </p>
 
             <div className="flex flex-wrap gap-4 pt-2">
@@ -623,14 +696,14 @@ const WasteToEnergy = () => {
                 href="#plantas-rsu"
                 className="px-6 py-3 bg-[#22C55E] hover:bg-[#1f9d4b] text-black font-black text-xs tracking-widest uppercase rounded-full transition-all shadow-[0_4px_20px_rgba(34,197,94,0.3)] flex items-center gap-2"
               >
-                <span>Explorar Soluciones</span>
+                <span>{language === 'en' ? 'Explore Solutions' : 'Explorar Soluciones'}</span>
                 <ArrowRight size={14} />
               </a>
               <Link 
                 to="/nosotros"
                 className="px-6 py-3 border border-white/10 hover:border-white/30 text-white font-black text-xs tracking-widest uppercase rounded-full transition-all bg-white/5 hover:bg-white/10"
               >
-                Nuestra Ingeniería
+                {language === 'en' ? 'Our Engineering' : 'Nuestra Ingeniería'}
               </Link>
             </div>
           </div>
@@ -638,41 +711,53 @@ const WasteToEnergy = () => {
           {/* Hero Stats */}
           {activeHero.showStats && (
             <div className="lg:col-span-5 grid grid-cols-2 gap-4 bg-white/[0.02] border border-white/10 p-6 md:p-8 rounded-3xl backdrop-blur-md shadow-2xl">
-              {activeHero.stats.map((stat, i) => (
-                <div 
-                  key={i} 
-                  className="p-4 bg-black/40 border border-white/5 rounded-2xl flex flex-col justify-center"
-                >
-                  <span 
-                    className={`text-2xl md:text-3xl font-black text-[#22C55E] tracking-tight leading-none mb-1 ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 p-0.5 rounded cursor-text' : ''}`}
-                    contentEditable={isEditorMode}
-                    suppressContentEditableWarning={true}
-                    onBlur={(e) => {
-                      const newStats = [...activeHero.stats];
-                      newStats[i] = { ...newStats[i], val: e.target.innerText };
-                      updatePageModule('wte', 'content', {
-                        hero: { ...activeHero, stats: newStats }
-                      });
-                    }}
+              {activeHero.stats.map((stat, i) => {
+                const getEnglishLabel = (lbl) => {
+                  const dict = {
+                    'Eficiencia del Proceso': 'Process Efficiency',
+                    'Estándar Tecnológico': 'Technological Standard',
+                    'Cumplimiento Ambiental': 'Environmental Compliance',
+                    'Reducción de Huella': 'Footprint Reduction'
+                  };
+                  return dict[lbl] || lbl;
+                };
+
+                return (
+                  <div 
+                    key={i} 
+                    className="p-4 bg-black/40 border border-white/5 rounded-2xl flex flex-col justify-center"
                   >
-                    {stat.val}
-                  </span>
-                  <span 
-                    className={`text-[10px] text-white/50 uppercase tracking-wider font-bold leading-tight ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 p-0.5 rounded cursor-text' : ''}`}
-                    contentEditable={isEditorMode}
-                    suppressContentEditableWarning={true}
-                    onBlur={(e) => {
-                      const newStats = [...activeHero.stats];
-                      newStats[i] = { ...newStats[i], lbl: e.target.innerText };
-                      updatePageModule('wte', 'content', {
-                        hero: { ...activeHero, stats: newStats }
-                      });
-                    }}
-                  >
-                    {stat.lbl}
-                  </span>
-                </div>
-              ))}
+                    <span 
+                      className={`text-2xl md:text-3xl font-black text-[#22C55E] tracking-tight leading-none mb-1 ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 p-0.5 rounded cursor-text' : ''}`}
+                      contentEditable={isEditorMode}
+                      suppressContentEditableWarning={true}
+                      onBlur={(e) => {
+                        const newStats = [...activeHero.stats];
+                        newStats[i] = { ...newStats[i], val: e.target.innerText };
+                        updatePageModule('wte', 'content', {
+                          hero: { ...activeHero, stats: newStats }
+                        });
+                      }}
+                    >
+                      {stat.val}
+                    </span>
+                    <span 
+                      className={`text-[10px] text-white/50 uppercase tracking-wider font-bold leading-tight ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 p-0.5 rounded cursor-text' : ''}`}
+                      contentEditable={isEditorMode}
+                      suppressContentEditableWarning={true}
+                      onBlur={(e) => {
+                        const newStats = [...activeHero.stats];
+                        newStats[i] = { ...newStats[i], lbl: e.target.innerText };
+                        updatePageModule('wte', 'content', {
+                          hero: { ...activeHero, stats: newStats }
+                        });
+                      }}
+                    >
+                      {language === 'en' ? getEnglishLabel(stat.lbl) : stat.lbl}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>
@@ -719,7 +804,7 @@ const WasteToEnergy = () => {
                       className="text-[10px] font-black uppercase tracking-[0.3em]"
                       style={{ color: sec.color }}
                     >
-                      TECNOLOGÍA {sec.num}
+                      {language === 'en' ? `TECHNOLOGY ${sec.num}` : `TECNOLOGÍA ${sec.num}`}
                     </span>
                     <h2 
                       className={`text-2xl md:text-3xl font-black tracking-tight text-white uppercase ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 p-0.5 rounded cursor-text' : ''}`}
@@ -732,7 +817,7 @@ const WasteToEnergy = () => {
                         updatePageModule('wte', 'content', { sections: updatedSections });
                       }}
                     >
-                      {sec.title}
+                      {language === 'en' ? (enTranslations[sec.id]?.title || sec.title) : sec.title}
                     </h2>
                   </div>
                 </div>
@@ -750,7 +835,7 @@ const WasteToEnergy = () => {
                     updatePageModule('wte', 'content', { sections: updatedSections });
                   }}
                 >
-                  {sec.desc}
+                  {language === 'en' ? (enTranslations[sec.id]?.desc || sec.desc) : sec.desc}
                 </p>
 
                 {/* Long detailed desc */}
@@ -765,13 +850,13 @@ const WasteToEnergy = () => {
                     updatePageModule('wte', 'content', { sections: updatedSections });
                   }}
                 >
-                  {sec.longDesc}
+                  {language === 'en' ? (enTranslations[sec.id]?.longDesc || sec.longDesc) : sec.longDesc}
                 </p>
 
                 {/* Specifications list */}
                 <div className="space-y-3 pt-3">
                   <h4 className="text-[10px] uppercase tracking-widest text-white/40 font-bold">
-                    Especificaciones Clave:
+                    {language === 'en' ? 'Key Specifications:' : 'Especificaciones Clave:'}
                   </h4>
                   <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {sec.specs.map((spec, sIdx) => (
@@ -790,7 +875,7 @@ const WasteToEnergy = () => {
                             updatePageModule('wte', 'content', { sections: updatedSections });
                           }}
                         >
-                          {spec}
+                          {language === 'en' ? (enTranslations[sec.id]?.specs?.[sIdx] || spec) : spec}
                         </span>
                       </li>
                     ))}
@@ -803,12 +888,12 @@ const WasteToEnergy = () => {
                     href="mailto:ventas@smq.com?subject=Cotizacion%20-%20Plantas%20RSU"
                     className="px-5 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white font-bold text-[10px] tracking-widest uppercase rounded-lg transition-all flex items-center gap-2"
                   >
-                    <span>Cotizar Solución</span>
+                    <span>{language === 'en' ? 'Quote Solution' : 'Cotizar Solución'}</span>
                     <ArrowRight size={12} style={{ color: sec.color }} />
                   </a>
                   <span className="text-[10px] text-white/40 font-bold uppercase tracking-wider flex items-center gap-1.5">
                     <Shield size={12} className="text-white/30" />
-                    Ingeniería Certificada
+                    {language === 'en' ? 'Certified Engineering' : 'Ingeniería Certificada'}
                   </span>
                 </div>
               </div>
@@ -934,7 +1019,7 @@ const WasteToEnergy = () => {
                   {/* Nombre del Equipo en la parte baja */}
                   <div className="absolute bottom-0 inset-x-0 p-5 bg-gradient-to-t from-black via-black/80 to-transparent pt-12 flex flex-col z-10">
                     <span className="text-[9px] uppercase tracking-[0.2em] text-white/40 font-bold mb-1">
-                      Equipo Técnico
+                      {language === 'en' ? 'Technical Equipment' : 'Equipo Técnico'}
                     </span>
                     <div className="flex items-center justify-between gap-4">
                       <h5 
@@ -945,7 +1030,7 @@ const WasteToEnergy = () => {
                           handleUpdateImageName(sec.id, activeIdx, e.target.innerText);
                         }}
                       >
-                        {currentImage.name}
+                        {language === 'en' ? (currentImage.name === sec.title ? (enTranslations[sec.id]?.title || sec.title) : currentImage.name) : currentImage.name}
                       </h5>
                       {sectionImages.length > 1 && (
                         <span className="text-[10px] font-mono text-white/40 bg-white/5 px-2 py-0.5 rounded border border-white/5 shrink-0">
@@ -977,7 +1062,7 @@ const WasteToEnergy = () => {
           
           <div className="relative z-10 max-w-2xl mx-auto space-y-4">
             <p className="text-[9px] font-black uppercase tracking-[0.25em] text-[#22C55E]">
-              CONSTRUIBLE BAJO ESPECIFICACIÓN
+              {language === 'en' ? 'BUILT TO SPECIFICATION' : 'CONSTRUIBLE BAJO ESPECIFICACIÓN'}
             </p>
             <h2 
               className={`text-3xl md:text-5xl font-black tracking-tight uppercase ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 p-1 bg-black/25 rounded cursor-text' : ''}`}
@@ -989,7 +1074,9 @@ const WasteToEnergy = () => {
                 });
               }}
             >
-              {activeFooterBanner.title}
+              {language === 'en' 
+                ? (activeFooterBanner.title.includes('¿Listo para Configurar') ? 'READY TO CONFIGURE YOUR WTE PROJECT?' : activeFooterBanner.title) 
+                : activeFooterBanner.title}
             </h2>
             <p 
               className={`text-white/60 text-sm md:text-base leading-relaxed ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 p-1 bg-black/25 rounded cursor-text' : ''}`}
@@ -1001,21 +1088,23 @@ const WasteToEnergy = () => {
                 });
               }}
             >
-              {activeFooterBanner.subtitle}
+              {language === 'en'
+                ? (activeFooterBanner.subtitle.includes('Nuestro equipo de ingeniería') ? 'Our advanced engineering team is available to create comprehensive layouts, process flow simulations, and custom-optimized quotes tailored to your recovery needs.' : activeFooterBanner.subtitle)
+                : activeFooterBanner.subtitle}
             </p>
             <div className="pt-4 flex flex-wrap justify-center gap-4">
               <a 
                 href="mailto:ingenieria@smq.com?subject=Consulta%20Valorizacion%20Energetica"
                 className="px-6 py-3 bg-[#22C55E] hover:bg-[#1f9d4b] text-black font-black text-xs tracking-widest uppercase rounded-full transition-all shadow-[0_4px_20px_rgba(34,197,94,0.3)] flex items-center gap-2"
               >
-                <span>Contactar a un Experto</span>
+                <span>{language === 'en' ? 'Contact an Expert' : 'Contactar a un Experto'}</span>
                 <ArrowRight size={14} />
               </a>
               <Link 
                 to="/nosotros"
                 className="px-6 py-3 border border-white/10 hover:border-white/30 text-white font-black text-xs tracking-widest uppercase rounded-full transition-all bg-white/5 hover:bg-white/10"
               >
-                Explorar Más Sectores
+                {language === 'en' ? 'Explore More Sectors' : 'Explorar Más Sectores'}
               </Link>
             </div>
           </div>

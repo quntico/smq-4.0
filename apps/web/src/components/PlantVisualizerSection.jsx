@@ -5,6 +5,7 @@ import { Info, Plus, Trash2, Image as ImageIcon, Box, X, Maximize2, Lock, Unlock
 import { Html, TransformControls } from '@react-three/drei';
 
 import { useCMS } from '@/context/CMSContext.jsx';
+import { useLanguage } from '@/context/LanguageContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
 import ModelViewer from './ModelViewer.jsx';
 
@@ -57,6 +58,7 @@ const PlantVisualizerSection = () => {
   const [activeHotspot, setActiveHotspot] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const [show3DModal, setShow3DModal] = useState(false);
+  const { language, t } = useLanguage();
   const imageInputRef = useRef(null);
   const modelInputRef = useRef(null);
   const containerRef = useRef(null);
@@ -433,7 +435,7 @@ const PlantVisualizerSection = () => {
               />
 
               <div className="flex items-center text-xs text-muted-foreground mt-2 border-t border-white/5 pt-2">
-                <span className="mr-1">Potencia:</span>
+                <span className="mr-1">{language === 'en' ? t('visualizerSection.powerLabel') : 'Potencia:'}</span>
                 <span
                   className={`${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 cursor-text p-0.5 min-h-[18px] inline-block min-w-[30px]' : ''}`}
                   dangerouslySetInnerHTML={{ __html: spot.power }}
@@ -480,7 +482,7 @@ const PlantVisualizerSection = () => {
           )}
           <h2
             className={`text-3xl md:text-5xl font-bold text-foreground mb-4 ${isEditorMode ? 'outline-dashed outline-2 outline-blue-400 cursor-text bg-black/20 p-2 rounded-lg inline-block' : ''}`}
-            dangerouslySetInnerHTML={{ __html: sectionTitle }}
+            dangerouslySetInnerHTML={{ __html: language === 'en' && sectionTitle.includes('Visualizador') ? `${t('visualizerSection.title1')} <span class="text-primary">${t('visualizerSection.title2')}</span>` : sectionTitle }}
             onBlur={(e) => {
               updatePageModule('home', 'visualizer', { title: e.target.innerHTML });
             }}
@@ -489,7 +491,7 @@ const PlantVisualizerSection = () => {
           />
           <p
             className={`text-lg text-muted-foreground max-w-2xl mx-auto ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 cursor-text bg-black/20 p-1 rounded backdrop-blur-sm mt-2' : ''}`}
-            dangerouslySetInnerHTML={{ __html: sectionSubtitle }}
+            dangerouslySetInnerHTML={{ __html: language === 'en' && sectionSubtitle.includes('interactiva') ? t('visualizerSection.subtitle') : sectionSubtitle }}
             onBlur={(e) => {
               updatePageModule('home', 'visualizer', { subtitle: e.target.innerHTML });
             }}
@@ -637,7 +639,7 @@ const PlantVisualizerSection = () => {
               <h3
                 className="text-white text-xl md:text-3xl lg:text-4xl font-black tracking-wider drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
                 style={{ fontFamily: designTitleFont }}
-                dangerouslySetInnerHTML={{ __html: designTitle }}
+                dangerouslySetInnerHTML={{ __html: language === 'en' && designTitle.includes('Valorización Inteligente') ? t('visualizerSection.designTitle') : designTitle }}
                 contentEditable={isEditorMode}
                 suppressContentEditableWarning={true}
                 onBlur={(e) => updatePageModule('home', 'visualizer', { designTitle: e.target.innerHTML })}
@@ -653,11 +655,11 @@ const PlantVisualizerSection = () => {
                 >
                   {model3DMedia ? (
                     <>
-                      <Maximize2 size={18} /> Entrar a Modelo 3D Interactivo
+                      <Maximize2 size={18} /> {language === 'en' ? t('visualizerSection.buttonEnter') : 'Entrar a Modelo 3D Interactivo'}
                     </>
                   ) : (
                     <>
-                      <Box size={18} /> Subir Archivo 3D para Activar
+                      <Box size={18} /> {language === 'en' ? t('visualizerSection.buttonUpload') : 'Subir Archivo 3D para Activar'}
                     </>
                   )}
                 </button>
@@ -743,7 +745,7 @@ const PlantVisualizerSection = () => {
               <h3
                 className="text-white text-xl md:text-3xl lg:text-4xl font-black tracking-wider drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] pointer-events-auto"
                 style={{ fontFamily: designTitleFont }}
-                dangerouslySetInnerHTML={{ __html: designTitle }}
+                dangerouslySetInnerHTML={{ __html: language === 'en' && designTitle.includes('Valorización Inteligente') ? t('visualizerSection.designTitle') : designTitle }}
                 contentEditable={isEditorMode}
                 suppressContentEditableWarning={true}
                 onBlur={(e) => updatePageModule('home', 'visualizer', { designTitle: e.target.innerHTML })}

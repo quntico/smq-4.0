@@ -5,6 +5,8 @@ import Footer from '@/components/Footer.jsx';
 import { ChevronRight, ArrowLeft, Cpu, Compass, Settings, Zap, Shield, ArrowUpRight, Upload, Image as ImageIcon, Plus, Trash2, Minimize2, Maximize2, ArrowLeftRight, Cloud, Save, Layers, RefreshCw, Scissors, Package, Clock, Star, Leaf, Droplet, Grid, HardHat, Recycle, Wheat, HeartPulse, Bot, Award, TrendingUp, Globe, Users, BarChart3, Headphones, Briefcase, Building2, MapPin, Hammer, Factory, Lock, Unlock } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCMS } from '@/context/CMSContext.jsx';
+import { useLanguage } from '@/context/LanguageContext.jsx';
+import { enSectorsData } from '@/data/enSectorsData.js';
 import { uploadFile } from '@/lib/storage.js';
 import { createPortal } from 'react-dom';
 import { getOptimizedImageUrl } from '@/lib/utils.js';
@@ -1585,6 +1587,7 @@ const IndustriaDetalle = () => {
 
   const location = useLocation();
   const { cmsState, updatePages, isEditorMode, syncToCloud } = useCMS();
+  const { language } = useLanguage();
 
   // Resolver ruta de maquinaria de forma segura previniendo 404
   const getMachineLink = (modelStr) => {
@@ -1895,6 +1898,43 @@ const IndustriaDetalle = () => {
 
 
   let data = industryPage?.modules?.[0]?.data || staticData;
+
+  if (language === 'en' && enSectorsData[sector]) {
+    const enData = enSectorsData[sector];
+    data = {
+      ...data,
+      title: enData.title,
+      subtitle: enData.subtitle,
+      description: enData.description,
+      stats: data.stats?.map((stat, i) => ({
+        ...stat,
+        label: enData.stats[i]?.label || stat.label
+      })) || data.stats,
+      items: data.items?.map((item, i) => {
+        const enItem = enData.items.find(e => e.id === item.id) || enData.items[i];
+        return enItem ? {
+          ...item,
+          title: enItem.title,
+          description: enItem.description,
+          longDescription: enItem.longDescription,
+          mediaLabel1: 'Real Photo',
+          mediaLabel2: 'Digital Twin',
+          mediaVideoLabel: 'Animation',
+          features: item.features?.map((feat, fIdx) => {
+            const iconMatch = typeof feat === 'string' ? feat.match(/^\[icon:\w+\]/) : null;
+            let enFeatText = enItem.features?.[fIdx] || feat;
+            if (typeof enFeatText === 'string') {
+               enFeatText = enFeatText.replace(/^\[icon:\w+\]\s*/, '');
+            }
+            return iconMatch ? `${iconMatch[0]} ${enFeatText}` : enFeatText;
+          }) || item.features,
+          tableHeaders: enItem.tableHeaders || item.tableHeaders,
+        } : item;
+      }) || data.items,
+      ctaTitle: "Do you have an industrial project in mind?",
+      ctaDesc: "Contact our engineering team to design a customized solution."
+    };
+  }
   if (sector === 'alimentos' && data && data.items) {
     const cleanedItems = data.items
       .filter(item => item.id !== 'compostaje')
@@ -2501,7 +2541,7 @@ const IndustriaDetalle = () => {
         <h1 className="text-4xl font-black text-white mb-4">Industria no encontrada</h1>
         <p className="text-white/60 mb-8 max-w-md">El sector industrial "{sector}" no está registrado en nuestro sistema.</p>
         <Link to="/" className="inline-flex items-center gap-2 bg-[#FFD700] hover:bg-[#FFC000] text-black font-semibold px-6 py-3 rounded-lg transition-all">
-          <ArrowLeft size={18} /> Volver al Inicio
+          <ArrowLeft size={18} /> {language === 'en' ? 'Back to Home' : 'Volver al Inicio'}
         </Link>
       </div>
     );
@@ -3030,12 +3070,12 @@ const IndustriaDetalle = () => {
                       className="border border-white/10 bg-white/[0.02] hover:bg-white/5 hover:border-white/20 px-3.5 py-1.5 rounded-full text-[10px] font-bold text-white/80 hover:text-white transition-all flex items-center gap-1.5 group"
                     >
                       <ArrowLeft size={11} className="transition-transform group-hover:-translate-x-0.5" />
-                      <span>Volver</span>
+                      <span>{language === 'en' ? 'Back' : 'Volver'}</span>
                     </button>
 
                     <div className="flex items-center gap-1.5 text-[10px] font-semibold text-white/40 uppercase tracking-wider">
-                      <span>Sector:</span>
-                      <span className={`${colorScheme.text} font-black`}>{sector === 'alimentos' ? 'Alimentos' : data.title}</span>
+                      <span>{language === 'en' ? 'Sector:' : 'Sector:'}</span>
+                      <span className={`${colorScheme.text} font-black`}>{sector === 'alimentos' ? (language === 'en' ? 'Food & Beverage' : 'Alimentos') : data.title}</span>
                     </div>
                   </div>
                 </div>
@@ -3179,7 +3219,7 @@ const IndustriaDetalle = () => {
                   style={{ borderColor: `${colorScheme.accent}33`, backgroundColor: `${colorScheme.accent}0d`, color: colorScheme.accent }}
                   className="inline-block border px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest"
                 >
-                  Sector Industrial
+                  {language === 'en' ? 'INDUSTRIAL SECTOR' : 'SECTOR INDUSTRIAL'}
                 </motion.span>
                 <motion.h1 
                   initial={{ opacity: 0, y: 20 }}
@@ -3263,8 +3303,8 @@ const IndustriaDetalle = () => {
           {/* Sub-sections Detail Grid */}
           <section className="max-w-[1400px] mx-auto px-6 md:px-8 py-16 md:py-24 space-y-16">
             <div className="space-y-4">
-              <h2 className="text-2xl md:text-4xl font-black uppercase tracking-tight">Especialidades e Ingeniería</h2>
-              <p className="text-white/50 text-sm max-w-xl">Explora nuestras soluciones técnicas para cada una de las ramificaciones operativas de este sector.</p>
+              <h2 className="text-2xl md:text-4xl font-black uppercase tracking-tight">{language === 'en' ? 'Specialties & Engineering' : 'Especialidades e Ingeniería'}</h2>
+              <p className="text-white/50 text-sm max-w-xl">{language === 'en' ? 'Explore our technical solutions for each operational branch of this sector.' : 'Explora nuestras soluciones técnicas para cada una de las ramificaciones operativas de este sector.'}</p>
             </div>
 
             <div className="space-y-24">
@@ -3334,7 +3374,7 @@ const IndustriaDetalle = () => {
                       {/* Features List */}
                       {item.features && item.features.length > 0 && (
                         <div className="space-y-2 pt-2">
-                          <h4 className="text-xs uppercase tracking-widest text-white/40 font-bold">Especificaciones Clave:</h4>
+                          <h4 className="text-xs uppercase tracking-widest text-white/40 font-bold">{language === 'en' ? 'Key Specifications:' : 'Especificaciones Clave:'}</h4>
                           <ul className="space-y-2">
                             {item.features.map((feat, fIdx) => {
                               const match = typeof feat === 'string' ? feat.match(/^\[icon:(\w+)\]\s*(.*)/) : null;
@@ -3685,8 +3725,8 @@ const IndustriaDetalle = () => {
                           className="mb-4 stroke-[1.2]"
                           onChange={(newIconName) => handleItemUpdate(index, 'placeholderIcon', newIconName)}
                         />
-                        <p className="font-semibold text-sm">Visualización técnica en preparación</p>
-                        <p className="text-xs text-white/20 mt-1">Contacta con soporte para hojas de especificación</p>
+                        <p className="font-semibold text-sm">{language === 'en' ? 'Technical visualization in preparation' : 'Visualización técnica en preparación'}</p>
+                        <p className="text-xs text-white/20 mt-1">{language === 'en' ? 'Contact support for specification sheets' : 'Contacta con soporte para hojas de especificación'}</p>
                       </div>
                     )}
                   </div>
@@ -3697,7 +3737,7 @@ const IndustriaDetalle = () => {
                   <div className="w-full max-w-[1100px] mx-auto space-y-4 pt-6 mt-6 border-t border-white/5">
                     <div className="flex items-center justify-between gap-4">
                       <h4 className={`text-xs uppercase tracking-widest ${colorScheme.text} font-black`}>
-                        Tabla de Equipos / Especificaciones:
+                        {language === 'en' ? 'Equipment / Specifications Table:' : 'Tabla de Equipos / Especificaciones:'}
                       </h4>
                       {isEditorMode && (
                         <div className="flex items-center gap-2">
@@ -3855,13 +3895,13 @@ const IndustriaDetalle = () => {
                   href="#contacto" 
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#FFD700] hover:bg-[#FFC000] text-black font-bold px-8 py-4 rounded-xl transition-all shadow-[0_0_30px_rgba(255,215,0,0.2)] hover:shadow-[0_0_40px_rgba(255,215,0,0.35)]"
                 >
-                  Solicitar Cotización <ArrowUpRight size={18} />
+                  {language === 'en' ? 'Request a Quote' : 'Solicitar Cotización'} <ArrowUpRight size={18} />
                 </a>
                 <Link 
                   to="/nosotros" 
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 text-white border border-white/15 font-bold px-8 py-4 rounded-xl transition-all"
                 >
-                  Conoce SMQ Systems
+                  {language === 'en' ? 'About SMQ Systems' : 'Conoce SMQ Systems'}
                 </Link>
               </div>
             </div>

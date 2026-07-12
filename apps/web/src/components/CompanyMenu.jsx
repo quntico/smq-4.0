@@ -2,6 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Building2, ShieldCheck, PhoneCall, ArrowRight, Briefcase, Globe, Cpu, Layers } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext.jsx';
+import { useLanguage } from '@/context/LanguageContext.jsx';
 
 const companyItems = [
   {
@@ -62,8 +63,19 @@ const companyItems = [
   }
 ];
 
+const enCompanyItems = {
+  '01': { title: 'ABOUT US', desc: 'HISTORY, VISION, AND VALUES OF OUR INDUSTRIAL JOURNEY.' },
+  '02': { title: 'CAPABILITIES', desc: 'OUR MANUFACTURING INFRASTRUCTURE AND TECHNOLOGICAL REACH.' },
+  '03': { title: 'CERTIFICATIONS', desc: 'ISO QUALITY STANDARDS, SAFETY CERTIFICATIONS, AND REGULATIONS.' },
+  '04': { title: 'PARTNERSHIPS', desc: 'GLOBAL NETWORK OF PARTNERS AND INDUSTRIAL MACHINERY INTEGRATORS.' },
+  '05': { title: 'INNOVATION', desc: 'R&D CENTERS AND NEXT-GENERATION TECHNOLOGICAL DEVELOPMENTS.' },
+  '06': { title: 'CAREERS', desc: 'JOIN OUR GLOBAL ENGINEERING AND MANUFACTURING TEAM.' },
+  '07': { title: 'CONTACT', desc: 'TECHNICAL SUPPORT, REGIONAL OFFICES, AND EXPRESS QUOTATION.' }
+};
+
 const CompanyMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
   const { cmsState } = useCMS();
+  const { language } = useLanguage();
   const headerHeight = cmsState?.settings?.headerHeight || 80;
 
   return (
@@ -90,10 +102,10 @@ const CompanyMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
           <div className="flex items-center justify-between mb-5 pb-3 border-b border-white/[0.07]">
             <div>
               <p className="text-[10px] font-black uppercase tracking-[0.25em] text-[#FFD700] mb-1">
-                CORPORATIVO
+                {language === 'en' ? 'CORPORATE' : 'CORPORATIVO'}
               </p>
               <h2 className="text-xl font-bold text-white tracking-wide">
-                Grupo SMQ
+                {language === 'en' ? 'SMQ Group' : 'Grupo SMQ'}
               </h2>
             </div>
             {/* Action button */}
@@ -101,7 +113,7 @@ const CompanyMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
               href="/contacto"
               className="px-4 py-2 rounded-full border border-white/10 text-[10px] font-bold tracking-widest uppercase hover:bg-white/10 hover:text-[#FFD700] transition-colors text-white/70"
             >
-              Contactar Asesor
+              {language === 'en' ? 'Contact Advisor' : 'Contactar Asesor'}
             </a>
           </div>
 
@@ -151,17 +163,17 @@ const CompanyMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
                   {/* Content */}
                   <div className="flex-1">
                     <h3 className="text-[13.5px] font-bold text-white mb-2 leading-tight uppercase tracking-wide group-hover:text-white transition-colors">
-                      {item.title}
+                      {language === 'en' && enCompanyItems[item.num] ? enCompanyItems[item.num].title : item.title}
                     </h3>
                     <p className="text-[9.5px] text-white/40 leading-[1.6] font-semibold uppercase tracking-wider group-hover:text-white/60 transition-colors">
-                      {item.desc}
+                      {language === 'en' && enCompanyItems[item.num] ? enCompanyItems[item.num].desc : item.desc}
                     </p>
                   </div>
 
                   {/* Footer interaction */}
                   <div className="mt-4 flex items-center justify-between pt-3 border-t border-white/5 opacity-50 group-hover:opacity-100 transition-opacity">
                     <span className="text-[9px] font-black uppercase tracking-widest" style={{ color: item.color }}>
-                      Ir a la sección
+                      {language === 'en' ? 'Go to section' : 'Ir a la sección'}
                     </span>
                     <ArrowRight size={12} color={item.color} className="transform group-hover:translate-x-1 transition-transform" />
                   </div>

@@ -1,72 +1,74 @@
 import React, { useState, useEffect } from 'react';
 import { Home, Factory, Box, FileText, Cpu, Layers, Mail, ChevronRight } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext.jsx';
 
 const SideNav = () => {
+    const { language, t } = useLanguage();
     const [isHovered, setIsHovered] = useState(false);
     const [activeSection, setActiveSection] = useState('inicio');
 
     const menuItems = [
         { 
             id: 'inicio', 
-            label: 'Inicio', 
+            label: language === 'en' ? t('header.home') : 'Inicio', 
             icon: Home,
             submenus: [
-                { id: 'inicio', label: 'Bienvenida' },
-                { id: 'nosotros', label: 'Nosotros' }
+                { id: 'inicio', label: language === 'en' ? 'Welcome' : 'Bienvenida' },
+                { id: 'nosotros', label: language === 'en' ? 'About Us' : 'Nosotros' }
             ]
         },
         { 
             id: 'industrias', 
-            label: 'Industrias', 
+            label: language === 'en' ? t('header.industries') : 'Industrias', 
             icon: Factory,
             submenus: [
-                { id: 'industrias', label: 'Alimentos y Bebidas' },
-                { id: 'industrias', label: 'Reciclaje' }
+                { id: 'industrias', label: language === 'en' ? 'Food & Beverage' : 'Alimentos y Bebidas' },
+                { id: 'industrias', label: language === 'en' ? 'Recycling' : 'Reciclaje' }
             ]
         },
         { 
             id: 'soluciones', 
-            label: 'Soluciones', 
+            label: language === 'en' ? t('header.solutions') : 'Soluciones', 
             icon: Box,
             submenus: [
-                { id: 'soluciones', label: 'Llave en Mano' },
-                { id: 'soluciones', label: 'Automatización' }
+                { id: 'soluciones', label: language === 'en' ? 'Turnkey' : 'Llave en Mano' },
+                { id: 'soluciones', label: language === 'en' ? 'Automation' : 'Automatización' }
             ]
         },
         { 
             id: 'proyectos', 
-            label: 'Proyectos', 
+            label: language === 'en' ? t('header.projects') : 'Proyectos', 
             icon: FileText,
             submenus: [
-                { id: 'proyectos', label: 'Casos de Éxito' },
-                { id: 'proyectos', label: 'Galería' }
+                { id: 'proyectos', label: language === 'en' ? 'Success Cases' : 'Casos de Éxito' },
+                { id: 'proyectos', label: language === 'en' ? 'Gallery' : 'Galería' }
             ]
         },
         { 
             id: 'tecnologia', 
-            label: 'Tecnología', 
+            label: language === 'en' ? t('header.technology') : 'Tecnología', 
             icon: Cpu,
             submenus: [
-                { id: 'tecnologia', label: 'Innovación' },
-                { id: 'tecnologia', label: 'Investigación' }
+                { id: 'tecnologia', label: language === 'en' ? 'Innovation' : 'Innovación' },
+                { id: 'tecnologia', label: language === 'en' ? 'Research' : 'Investigación' }
             ]
         },
         { 
             id: 'visualizador', 
-            label: 'Visualizador 3D', 
+            label: language === 'en' ? '3D Visualizer' : 'Visualizador 3D', 
             icon: Layers,
             submenus: [
-                { id: 'visualizador', label: 'Planta Interactiva' },
-                { id: 'visualizador', label: 'Modelos' }
+                { id: 'visualizador', label: language === 'en' ? 'Interactive Plant' : 'Planta Interactiva' },
+                { id: 'visualizador', label: language === 'en' ? 'Models' : 'Modelos' }
             ]
         },
         { 
-            id: 'contacto', 
-            label: 'Contacto', 
+            id: 'contact', 
+            label: language === 'en' ? t('header.contacto') : 'Contacto', 
             icon: Mail,
             submenus: [
-                { id: 'contacto', label: 'Soporte Directo', path: '/contacto' },
-                { id: 'contacto', label: 'Oficinas', path: '/contacto' }
+                { id: 'contacto', label: language === 'en' ? 'Direct Support' : 'Soporte Directo', path: '/contacto' },
+                { id: 'contacto', label: language === 'en' ? 'Offices' : 'Oficinas', path: '/contacto' }
             ]
         },
     ];

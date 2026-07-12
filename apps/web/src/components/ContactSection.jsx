@@ -8,9 +8,11 @@ import { useToast } from '@/hooks/use-toast';
 import { useCMS } from '@/context/CMSContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '@/context/LanguageContext.jsx';
 
 const ContactSection = ({ hideHeader = false }) => {
   const { isEditorMode, cmsState, updateSettings, syncToCloud } = useCMS();
+  const { language } = useLanguage();
   const fileInputRef = useRef(null);
   const [isEditing, setIsEditing] = useState(false);
   const [uploadingBg, setUploadingBg] = useState(false);
@@ -102,16 +104,18 @@ const ContactSection = ({ hideHeader = false }) => {
         {!hideHeader && (
           <div className="text-left mb-12 max-w-3xl">
             <span className="text-[#3b82f6] text-xs font-black tracking-[0.25em] uppercase font-mono">
-              Hablemos de tu próximo proyecto
+              {language === 'en' ? "Let's talk about your next project" : 'Hablemos de tu próximo proyecto'}
             </span>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mt-2 mb-3 tracking-tight uppercase">
-              Contáctanos
+              {language === 'en' ? 'Contact Us' : 'Contáctanos'}
             </h2>
             {/* Yellow accent line */}
             <div className="w-16 h-[3px] bg-[#F59E0B] rounded shadow-[0_0_10px_#F59E0B] mb-6" />
             
             <p className="text-white/60 text-sm md:text-base leading-relaxed font-sans max-w-2xl">
-              Soluciones industriales integrales para aumentar la eficiencia, la productividad y la competitividad de tu planta.
+              {language === 'en' 
+                ? 'Comprehensive industrial solutions to increase the efficiency, productivity, and competitiveness of your plant.' 
+                : 'Soluciones industriales integrales para aumentar la eficiencia, la productividad y la competitividad de tu planta.'}
             </p>
           </div>
         )}
@@ -126,8 +130,12 @@ const ContactSection = ({ hideHeader = false }) => {
                   <Send size={18} className="text-[#3b82f6]" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-white">Envíanos un mensaje</h3>
-                  <p className="text-xs text-white/50">Completa el formulario y nos pondremos en contacto contigo.</p>
+                  <h3 className="text-lg font-bold text-white">
+                    {language === 'en' ? 'Send us a message' : 'Envíanos un mensaje'}
+                  </h3>
+                  <p className="text-xs text-white/50">
+                    {language === 'en' ? 'Fill out the form and we will get back to you.' : 'Completa el formulario y nos pondremos en contacto contigo.'}
+                  </p>
                 </div>
               </div>
 
@@ -135,14 +143,14 @@ const ContactSection = ({ hideHeader = false }) => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
                     <Label htmlFor="nombre" className="text-xs text-white/80 font-semibold">
-                      Nombre completo *
+                      {language === 'en' ? 'Full Name *' : 'Nombre completo *'}
                     </Label>
                     <Input
                       id="nombre"
                       name="nombre"
                       value={formData.nombre}
                       onChange={handleChange}
-                      placeholder="Juan Pérez"
+                      placeholder={language === 'en' ? 'John Doe' : 'Juan Pérez'}
                       className="bg-white/[0.03] border-white/10 text-white placeholder:text-white/30 text-xs focus-visible:ring-[#3b82f6]/50 focus-visible:border-[#3b82f6] h-10 transition-colors"
                       required
                     />
@@ -158,7 +166,7 @@ const ContactSection = ({ hideHeader = false }) => {
                       type="email"
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder="juan@empresa.com"
+                      placeholder={language === 'en' ? 'john@company.com' : 'juan@empresa.com'}
                       className="bg-white/[0.03] border-white/10 text-white placeholder:text-white/30 text-xs focus-visible:ring-[#3b82f6]/50 focus-visible:border-[#3b82f6] h-10 transition-colors"
                       required
                     />
@@ -168,7 +176,7 @@ const ContactSection = ({ hideHeader = false }) => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
                     <Label htmlFor="telefono" className="text-xs text-white/80 font-semibold">
-                      Teléfono
+                      {language === 'en' ? 'Phone' : 'Teléfono'}
                     </Label>
                     <Input
                       id="telefono"
@@ -183,7 +191,7 @@ const ContactSection = ({ hideHeader = false }) => {
 
                   <div className="space-y-1.5">
                     <Label htmlFor="industria" className="text-xs text-white/80 font-semibold">
-                      Industria
+                      {language === 'en' ? 'Industry' : 'Industria'}
                     </Label>
                     <select
                       id="industria"
@@ -192,26 +200,26 @@ const ContactSection = ({ hideHeader = false }) => {
                       onChange={handleChange}
                       className="w-full bg-white/[0.03] border border-white/10 rounded-md text-white/95 px-3 text-xs focus:ring-[#3b82f6]/50 focus:border-[#3b82f6] h-10 transition-colors cursor-pointer outline-none"
                     >
-                      <option value="" className="bg-[#0c101a] text-white/40">Reciclaje, Alimentos, Empaque, etc.</option>
-                      <option value="Reciclaje" className="bg-[#0c101a] text-white">Reciclaje e Industria Plástica</option>
-                      <option value="Alimentos" className="bg-[#0c101a] text-white">Alimentos y Bebidas</option>
-                      <option value="Pharma" className="bg-[#0c101a] text-white">Farma y Química</option>
-                      <option value="Empaque" className="bg-[#0c101a] text-white">Empaque y Embalaje</option>
-                      <option value="Otra" className="bg-[#0c101a] text-white">Otro Sector Industrial</option>
+                      <option value="" className="bg-[#0c101a] text-white/40">{language === 'en' ? 'Recycling, Food, Packaging, etc.' : 'Reciclaje, Alimentos, Empaque, etc.'}</option>
+                      <option value="Reciclaje" className="bg-[#0c101a] text-white">{language === 'en' ? 'Recycling and Plastics Industry' : 'Reciclaje e Industria Plástica'}</option>
+                      <option value="Alimentos" className="bg-[#0c101a] text-white">{language === 'en' ? 'Food and Beverage' : 'Alimentos y Bebidas'}</option>
+                      <option value="Pharma" className="bg-[#0c101a] text-white">{language === 'en' ? 'Pharma and Chemical' : 'Farma y Química'}</option>
+                      <option value="Empaque" className="bg-[#0c101a] text-white">{language === 'en' ? 'Packaging' : 'Empaque y Embalaje'}</option>
+                      <option value="Otra" className="bg-[#0c101a] text-white">{language === 'en' ? 'Other Industrial Sector' : 'Otro Sector Industrial'}</option>
                     </select>
                   </div>
                 </div>
 
                 <div className="space-y-1.5">
                   <Label htmlFor="mensaje" className="text-xs text-white/80 font-semibold">
-                    Mensaje *
+                    {language === 'en' ? 'Message *' : 'Mensaje *'}
                   </Label>
                   <Textarea
                     id="mensaje"
                     name="mensaje"
                     value={formData.mensaje}
                     onChange={handleChange}
-                    placeholder="Cuéntanos sobre tu proyecto o requerimiento..."
+                    placeholder={language === 'en' ? 'Tell us about your project or requirement...' : 'Cuéntanos sobre tu proyecto o requerimiento...'}
                     rows={4}
                     className="bg-white/[0.03] border-white/10 text-white placeholder:text-white/30 text-xs resize-none focus-visible:ring-[#3b82f6]/50 focus-visible:border-[#3b82f6] transition-colors"
                     required
@@ -223,14 +231,14 @@ const ContactSection = ({ hideHeader = false }) => {
                   className="w-full bg-[#2563EB] text-white hover:bg-[#1D4ED8] font-bold text-xs tracking-wider uppercase py-5 transition-colors duration-300 flex items-center justify-center gap-2 mt-4 shadow-[0_0_20px_rgba(37,99,235,0.4)]"
                 >
                   <Send size={14} />
-                  Enviar mensaje
+                  {language === 'en' ? 'Send message' : 'Enviar mensaje'}
                 </Button>
               </form>
             </div>
 
             <div className="flex items-center justify-center gap-2 mt-6 text-[10px] text-white/40 font-mono">
               <span>🔒</span>
-              <span>Tu información está protegida y no será compartida.</span>
+              <span>{language === 'en' ? 'Your information is protected and will not be shared.' : 'Tu información está protegida y no será compartida.'}</span>
             </div>
           </div>
 
@@ -272,8 +280,12 @@ const ContactSection = ({ hideHeader = false }) => {
                   <Mail size={18} className="text-[#3b82f6]" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-white">{contactTitle}</h3>
-                  <p className="text-xs text-white/50">{contactSubtitle}</p>
+                  <h3 className="text-lg font-bold text-white">
+                    {language === 'en' && contactTitle === 'Información de contacto' ? 'Contact Information' : contactTitle}
+                  </h3>
+                  <p className="text-xs text-white/50">
+                    {language === 'en' && contactSubtitle === 'Estamos listos para ayudarte a transformar tu operación.' ? 'We are ready to help you transform your operation.' : contactSubtitle}
+                  </p>
                 </div>
               </div>
 
@@ -283,7 +295,9 @@ const ContactSection = ({ hideHeader = false }) => {
                     <Phone size={16} className="text-[#3b82f6]" />
                   </div>
                   <div>
-                    <span className="text-[10px] uppercase font-mono tracking-widest text-white/40 block mb-0.5">Teléfono</span>
+                    <span className="text-[10px] uppercase font-mono tracking-widest text-white/40 block mb-0.5">
+                      {language === 'en' ? 'Phone' : 'Teléfono'}
+                    </span>
                     {contactPhone1 && <p className="text-white text-xs md:text-sm font-semibold hover:text-[#3b82f6] transition-colors cursor-pointer">{contactPhone1}</p>}
                     {contactPhone2 && <p className="text-white text-xs md:text-sm font-semibold hover:text-[#3b82f6] transition-colors cursor-pointer">{contactPhone2}</p>}
                   </div>
@@ -305,8 +319,12 @@ const ContactSection = ({ hideHeader = false }) => {
                     <MapPin size={16} className="text-[#3b82f6]" />
                   </div>
                   <div>
-                    <span className="text-[10px] uppercase font-mono tracking-widest text-white/40 block mb-0.5">Ubicación</span>
-                    <p className="text-white text-xs md:text-sm font-semibold">{contactLocation}</p>
+                    <span className="text-[10px] uppercase font-mono tracking-widest text-white/40 block mb-0.5">
+                      {language === 'en' ? 'Location' : 'Ubicación'}
+                    </span>
+                    <p className="text-white text-xs md:text-sm font-semibold">
+                      {language === 'en' && contactLocation === 'Ciudad de México, México' ? 'Mexico City, Mexico' : contactLocation}
+                    </p>
                     <p className="text-white/60 text-xs mt-0.5">
                       {contactAddress}
                     </p>
@@ -318,9 +336,15 @@ const ContactSection = ({ hideHeader = false }) => {
                     <Clock size={16} className="text-[#3b82f6]" />
                   </div>
                   <div>
-                    <span className="text-[10px] uppercase font-mono tracking-widest text-white/40 block mb-0.5">Horario de atención</span>
-                    <p className="text-white text-xs font-semibold">{contactHoursWeek}</p>
-                    <p className="text-white text-xs font-semibold">{contactHoursSat}</p>
+                    <span className="text-[10px] uppercase font-mono tracking-widest text-white/40 block mb-0.5">
+                      {language === 'en' ? 'Business Hours' : 'Horario de atención'}
+                    </span>
+                    <p className="text-white text-xs font-semibold">
+                      {language === 'en' && contactHoursWeek === 'Lunes a Viernes: 8:00 - 18:00 h' ? 'Monday to Friday: 8:00 - 18:00 h' : contactHoursWeek}
+                    </p>
+                    <p className="text-white text-xs font-semibold">
+                      {language === 'en' && contactHoursSat === 'Sábados: 9:00 - 13:00 h' ? 'Saturdays: 9:00 - 13:00 h' : contactHoursSat}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -329,7 +353,9 @@ const ContactSection = ({ hideHeader = false }) => {
             <div className="flex items-center gap-2 mt-8 p-3 bg-white/[0.02] border border-white/5 rounded-lg relative z-10">
               <ShieldCheck size={18} className="text-[#3b82f6] flex-shrink-0" />
               <span className="text-[10px] text-white/70">
-                {contactBottomText}
+                {language === 'en' && contactBottomText === 'Más de 20 años integrando soluciones industriales de clase mundial.' 
+                  ? 'Over 20 years integrating world-class industrial solutions.' 
+                  : contactBottomText}
               </span>
             </div>
           </div>

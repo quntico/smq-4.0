@@ -5,6 +5,7 @@ import { AlignLeft, AlignCenter, AlignRight, AlignJustify, Image as ImageIcon, M
 import { useCMS } from '@/context/CMSContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
 import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '@/context/LanguageContext.jsx';
 
 const getOptimizedImageUrl = (url, width = 600) => {
   if (!url || typeof url !== 'string') return url || '';
@@ -105,6 +106,7 @@ const ToolbarColorPicker = ({ value, onChange, title }) => (
 
 const IndustriesSection = () => {
   const { cmsState, isEditorMode, updatePageModule } = useCMS();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const [activeUploadId, setActiveUploadId] = useState(null);
   const [uploadingId, setUploadingId] = useState(null);
@@ -182,8 +184,8 @@ const IndustriesSection = () => {
           transition={{ duration: 0.6 }}
           className="font-black tracking-tighter text-4xl md:text-6xl lg:text-7xl leading-[1.05] text-center mb-[50px] uppercase"
         >
-          <span className="text-white block">SECTORES</span>
-          <span className="text-[#F5C400] block">INDUSTRIALES</span>
+          <span className="text-white block">{t('industriesSection.label1')}</span>
+          <span className="text-[#F5C400] block">{t('industriesSection.label2')}</span>
         </motion.h2>
 
         <motion.div
@@ -234,7 +236,12 @@ const IndustriesSection = () => {
                         updatePageModule('home', 'industries', { items: newItems });
                       }}
                     >
-                      {industry.title}
+                      {industry.title === 'Reciclaje' ? t('industriesSection.card1_title') :
+                       industry.title === 'Alimentos' ? t('industriesSection.card2_title') :
+                       industry.title === 'Packaging' ? t('industriesSection.card3_title') :
+                       industry.title === 'Construcción' ? t('industriesSection.card4_title') :
+                       industry.title === 'Automatización' ? t('industriesSection.card5_title') :
+                       industry.title}
                     </h3>
                     <p
                       className={`font-[400] transition-opacity duration-250 ease-in-out mt-1 min-h-[40px] md:min-h-[48px] lg:min-h-[56px] ${isEditorMode ? 'bg-black/40 backdrop-blur-md border border-white/10 shadow-lg px-3 py-2 rounded-lg outline-dashed outline-2 outline-blue-400 cursor-text' : 'opacity-80 group-hover:opacity-100'} ${industry.descSize ? '' : 'text-[11px] md:text-[12px] lg:text-[14px]'}`}
@@ -250,7 +257,12 @@ const IndustriesSection = () => {
                         updatePageModule('home', 'industries', { items: newItems });
                       }}
                     >
-                      {industry.description}
+                      {industry.description === 'Plantas de reciclaje de plásticos' ? t('industriesSection.card1_desc') :
+                       industry.description === 'Líneas de procesamiento alimentario' ? t('industriesSection.card2_desc') :
+                       industry.description === 'Sistemas de llenado y envasado' ? t('industriesSection.card3_desc') :
+                       industry.description === 'Materiales compuestos y reciclados' ? t('industriesSection.card4_desc') :
+                       industry.description === 'Sistemas inteligentes de control' ? t('industriesSection.card5_desc') :
+                       industry.description}
                     </p>
                   </div>
                 </div>

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, X, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useCMS } from '@/context/CMSContext.jsx';
+import { useLanguage } from '@/context/LanguageContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
 import { getOptimizedImageUrl } from '@/lib/utils.js';
 
@@ -68,6 +69,7 @@ const defaultProjects = [
 
 const IndustrialProjectsSection = () => {
   const { cmsState, isEditorMode, updatePageModule } = useCMS();
+  const { language, t } = useLanguage();
   
   // States
   const [uploadingIdx, setUploadingIdx] = useState(null);
@@ -203,7 +205,7 @@ const IndustrialProjectsSection = () => {
         <div className="text-center mb-12 relative">
           <h2 
             className={`text-3xl md:text-5xl font-bold text-foreground mb-4 ${isEditorMode ? 'outline-dashed outline-2 outline-blue-400 cursor-text bg-black/20 p-2 rounded-lg' : ''}`}
-            dangerouslySetInnerHTML={{ __html: sectionTitle }}
+            dangerouslySetInnerHTML={{ __html: language === 'en' && sectionTitle.includes('Proyectos') ? t('projectsSection.title') : sectionTitle }}
             contentEditable={isEditorMode}
             suppressContentEditableWarning={true}
             onBlur={(e) => {
@@ -216,7 +218,7 @@ const IndustrialProjectsSection = () => {
           />
           <p 
             className={`text-lg text-muted-foreground max-w-2xl mx-auto ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 cursor-text bg-black/20 p-1 rounded backdrop-blur-sm' : ''}`}
-            dangerouslySetInnerHTML={{ __html: sectionSubtitle }}
+            dangerouslySetInnerHTML={{ __html: language === 'en' && sectionSubtitle.includes('Casos de éxito') ? t('projectsSection.subtitle') : sectionSubtitle }}
             contentEditable={isEditorMode}
             suppressContentEditableWarning={true}
             onBlur={(e) => {
@@ -292,7 +294,12 @@ const IndustrialProjectsSection = () => {
                     });
                   }}
                 >
-                  {project.title}
+                  {
+                    language === 'en' && project.title.includes('Planta de Procesamiento RSU') ? t('projectsSection.p1_title') :
+                    language === 'en' && project.title.includes('Línea de Procesamiento de Chocolate') ? t('projectsSection.p2_title') :
+                    language === 'en' && project.title.includes('Planta de Pelletizado de Plástico') ? t('projectsSection.p3_title') :
+                    project.title
+                  }
                 </h3>
                 
                 <p 
@@ -311,7 +318,12 @@ const IndustrialProjectsSection = () => {
                     });
                   }}
                 >
-                  {project.specs}
+                  {
+                    language === 'en' && project.specs.includes('Capacidad: 600') ? t('projectsSection.p1_cat') :
+                    language === 'en' && project.specs.includes('Capacidad: 2000') ? t('projectsSection.p2_cat') :
+                    language === 'en' && project.specs.includes('Capacidad: 1200') ? t('projectsSection.p3_cat') :
+                    project.specs
+                  }
                 </p>
                 
                 <p 
@@ -330,11 +342,16 @@ const IndustrialProjectsSection = () => {
                     });
                   }}
                 >
-                  {project.desc}
+                  {
+                    language === 'en' && project.desc.includes('Clasificación mecanizada') ? t('projectsSection.p1_desc') :
+                    language === 'en' && project.desc.includes('Automatización integral') ? t('projectsSection.def2_desc') :
+                    language === 'en' && project.desc.includes('Extrusión de alto') ? t('projectsSection.def1_desc') :
+                    project.desc
+                  }
                 </p>
                 
                 <Button className="w-full bg-[#F5C400] text-black hover:bg-[#F5C400]/90 font-bold opacity-0 group-hover:opacity-100 transition-all duration-300 delay-150">
-                  Ver Detalles <ArrowRight size={16} className="ml-2" />
+                  {language === 'en' ? 'View Details' : 'Ver Detalles'} <ArrowRight size={16} className="ml-2" />
                 </Button>
               </div>
             </motion.div>
@@ -410,13 +427,13 @@ const IndustrialProjectsSection = () => {
                     onClick={() => setActiveTab(1)} 
                     className={`px-4 py-2 rounded-md text-xs font-black tracking-wider uppercase transition-all ${activeTab === 1 ? 'bg-[#F5C400] text-black shadow-lg' : 'text-white/70 hover:text-white hover:bg-white/5'}`}
                   >
-                    VISTA PRINCIPAL
+                    {language === 'en' ? 'MAIN VIEW' : 'VISTA PRINCIPAL'}
                   </button>
                   <button 
                     onClick={() => setActiveTab(2)} 
                     className={`px-4 py-2 rounded-md text-xs font-black tracking-wider uppercase transition-all ${activeTab === 2 ? 'bg-[#F5C400] text-black shadow-lg' : 'text-white/70 hover:text-white hover:bg-white/5'}`}
                   >
-                    VISTA TÉCNICA / LAYOUT
+                    {language === 'en' ? 'TECHNICAL VIEW / LAYOUT' : 'VISTA TÉCNICA / LAYOUT'}
                   </button>
                 </div>
               </div>
@@ -427,7 +444,9 @@ const IndustrialProjectsSection = () => {
                   
                   {/* Category Pill */}
                   <div className="bg-[#F5C400]/10 border border-[#F5C400]/30 rounded-full px-3 py-1 w-max mb-4">
-                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#F5C400]">PROYECTO COMPLETADO</span>
+                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#F5C400]">
+                      {language === 'en' ? 'COMPLETED PROJECT' : 'PROYECTO COMPLETADO'}
+                    </span>
                   </div>
 
                   {/* Title */}
@@ -447,7 +466,12 @@ const IndustrialProjectsSection = () => {
                       setSelectedProject(prev => ({ ...prev, title: e.target.innerText }));
                     }}
                   >
-                    {selectedProject.title}
+                  {
+                    language === 'en' && selectedProject.title.includes('Planta de Procesamiento RSU') ? t('projectsSection.p1_title') :
+                    language === 'en' && selectedProject.title.includes('Línea de Procesamiento de Chocolate') ? t('projectsSection.p2_title') :
+                    language === 'en' && selectedProject.title.includes('Planta de Pelletizado de Plástico') ? t('projectsSection.p3_title') :
+                    selectedProject.title
+                  }
                   </h3>
 
                   {/* Specs short line */}
@@ -467,7 +491,12 @@ const IndustrialProjectsSection = () => {
                       setSelectedProject(prev => ({ ...prev, specs: e.target.innerText }));
                     }}
                   >
-                    {selectedProject.specs}
+                  {
+                    language === 'en' && selectedProject.specs.includes('Capacidad: 600') ? t('projectsSection.p1_cat') :
+                    language === 'en' && selectedProject.specs.includes('Capacidad: 2000') ? t('projectsSection.p2_cat') :
+                    language === 'en' && selectedProject.specs.includes('Capacidad: 1200') ? t('projectsSection.p3_cat') :
+                    selectedProject.specs
+                  }
                   </p>
 
                   {/* Long description text (Justified) */}
@@ -486,131 +515,210 @@ const IndustrialProjectsSection = () => {
                       });
                       setSelectedProject(prev => ({ ...prev, desc: e.target.innerHTML }));
                     }}
-                    dangerouslySetInnerHTML={{ __html: selectedProject.desc }}
+                    dangerouslySetInnerHTML={{ __html: 
+                      language === 'en' && selectedProject.desc.includes('Clasificación mecanizada') ? t('projectsSection.p1_desc') :
+                      language === 'en' && selectedProject.desc.includes('Automatización integral') ? t('projectsSection.def2_desc') :
+                      language === 'en' && selectedProject.desc.includes('Extrusión de alto') ? t('projectsSection.def1_desc') :
+                      selectedProject.desc 
+                    }}
                   />
 
                   {/* FICHA TÉCNICA GRID */}
                   <div className="border border-white/10 rounded-xl overflow-hidden bg-black/40">
                     <div className="bg-white/5 border-b border-white/10 px-4 py-2.5">
-                      <span className="text-[11px] font-black uppercase tracking-wider text-white">Especificaciones Técnicas</span>
+                      <span className="text-[11px] font-black uppercase tracking-wider text-white">
+                        {language === 'en' ? 'TECHNICAL SPECIFICATIONS' : 'Especificaciones Técnicas'}
+                      </span>
                     </div>
                     
                     <div className="divide-y divide-white/5 max-h-[320px] overflow-y-auto scrollbar-hidden">
                       
                       {/* Capacidad Row */}
                       <div className="grid grid-cols-3 px-4 py-2 text-xs">
-                        <span className="text-[#A1A8B3] font-medium self-center">Capacidad Nominal</span>
+                        <span className="text-[#A1A8B3] font-medium self-center">{language === 'en' ? 'Nominal Capacity' : 'Capacidad Nominal'}</span>
                         <span 
                           className={`col-span-2 text-white font-semibold self-center justify-self-start ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 cursor-text bg-black/40 px-1 rounded min-w-[120px]' : ''}`}
                           contentEditable={isEditorMode}
                           suppressContentEditableWarning={true}
                           onBlur={(e) => handleTableSpecChange(selectedProject.index, 'capacidad', e.target.innerText)}
                         >
-                          {selectedProject.specsTable?.capacidad || defaultProjects[selectedProject.index]?.specsTable?.capacidad || 'N/A'}
+                          {(() => {
+                            const val = selectedProject.specsTable?.capacidad || defaultProjects[selectedProject.index]?.specsTable?.capacidad || 'N/A';
+                            if (language === 'en') {
+                              if (val.includes('600 Toneladas')) return '600 Tons / Day';
+                              if (val.includes('2,000 kg/h')) return '2,000 kg/h';
+                              if (val.includes('1,200 kg/h')) return '1,200 kg/h (PTCS185)';
+                            }
+                            return val;
+                          })()}
                         </span>
                       </div>
 
                       {/* Ubicación Row */}
                       <div className="grid grid-cols-3 px-4 py-2 text-xs">
-                        <span className="text-[#A1A8B3] font-medium self-center">Ubicación Planta</span>
+                        <span className="text-[#A1A8B3] font-medium self-center">{language === 'en' ? 'Plant Location' : 'Ubicación Planta'}</span>
                         <span 
                           className={`col-span-2 text-white font-semibold self-center justify-self-start ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 cursor-text bg-black/40 px-1 rounded min-w-[120px]' : ''}`}
                           contentEditable={isEditorMode}
                           suppressContentEditableWarning={true}
                           onBlur={(e) => handleTableSpecChange(selectedProject.index, 'ubicacion', e.target.innerText)}
                         >
-                          {selectedProject.specsTable?.ubicacion || defaultProjects[selectedProject.index]?.specsTable?.ubicacion || 'N/A'}
+                          {(() => {
+                            const val = selectedProject.specsTable?.ubicacion || defaultProjects[selectedProject.index]?.specsTable?.ubicacion || 'N/A';
+                            if (language === 'en') {
+                              if (val.includes('Monterrey')) return 'Monterrey, Nuevo Leon, MX';
+                              if (val.includes('Bogotá')) return 'Bogota, Colombia';
+                              if (val.includes('Lima')) return 'Lima, Peru';
+                            }
+                            return val;
+                          })()}
                         </span>
                       </div>
 
                       {/* Aplicación Row */}
                       <div className="grid grid-cols-3 px-4 py-2 text-xs">
-                        <span className="text-[#A1A8B3] font-medium self-center">Aplicación</span>
+                        <span className="text-[#A1A8B3] font-medium self-center">{language === 'en' ? 'Application' : 'Aplicación'}</span>
                         <span 
                           className={`col-span-2 text-white font-semibold self-center justify-self-start ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 cursor-text bg-black/40 px-1 rounded min-w-[120px]' : ''}`}
                           contentEditable={isEditorMode}
                           suppressContentEditableWarning={true}
                           onBlur={(e) => handleTableSpecChange(selectedProject.index, 'aplicacion', e.target.innerText)}
                         >
-                          {selectedProject.specsTable?.aplicacion || defaultProjects[selectedProject.index]?.specsTable?.aplicacion || 'N/A'}
+                          {(() => {
+                            const val = selectedProject.specsTable?.aplicacion || defaultProjects[selectedProject.index]?.specsTable?.aplicacion || 'N/A';
+                            if (language === 'en') {
+                              if (val.includes('Clasificación y Separación')) return 'Municipal Solid Waste (MSW) Sorting and Separation';
+                              if (val.includes('Atemperado y Moldeado')) return 'Chocolate Tempering and Molding';
+                              if (val.includes('Extrusión y Pelletizado')) return 'High-Performance Extrusion and Pelletizing';
+                            }
+                            return val;
+                          })()}
                         </span>
                       </div>
 
                       {/* Control Row */}
                       <div className="grid grid-cols-3 px-4 py-2 text-xs">
-                        <span className="text-[#A1A8B3] font-medium self-center">Arquitectura Control</span>
+                        <span className="text-[#A1A8B3] font-medium self-center">{language === 'en' ? 'Control Architecture' : 'Arquitectura Control'}</span>
                         <span 
                           className={`col-span-2 text-white font-semibold self-center justify-self-start ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 cursor-text bg-black/40 px-1 rounded min-w-[120px]' : ''}`}
                           contentEditable={isEditorMode}
                           suppressContentEditableWarning={true}
                           onBlur={(e) => handleTableSpecChange(selectedProject.index, 'control', e.target.innerText)}
                         >
-                          {selectedProject.specsTable?.control || defaultProjects[selectedProject.index]?.specsTable?.control || 'N/A'}
+                          {(() => {
+                            const val = selectedProject.specsTable?.control || defaultProjects[selectedProject.index]?.specsTable?.control || 'N/A';
+                            if (language === 'en') {
+                              if (val.includes('PLC Siemens S7')) return 'PLC Siemens S7-1500 + SCADA WinCC';
+                              if (val.includes('PLC Siemens + HMI')) return 'Siemens PLC + Industrial HMI + SCADA';
+                              if (val.includes('PLC + HMI / 440')) return 'PLC + HMI / 440 VAC, 3Ph, 60 Hz';
+                            }
+                            return val;
+                          })()}
                         </span>
                       </div>
 
                       {/* Tecnología Row */}
                       <div className="grid grid-cols-3 px-4 py-2 text-xs">
-                        <span className="text-[#A1A8B3] font-medium self-center">Monitoreo / IoT</span>
+                        <span className="text-[#A1A8B3] font-medium self-center">{language === 'en' ? 'Monitoring / IoT' : 'Monitoreo / IoT'}</span>
                         <span 
                           className={`col-span-2 text-white font-semibold self-center justify-self-start ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 cursor-text bg-black/40 px-1 rounded min-w-[120px]' : ''}`}
                           contentEditable={isEditorMode}
                           suppressContentEditableWarning={true}
                           onBlur={(e) => handleTableSpecChange(selectedProject.index, 'tecnologia', e.target.innerText)}
                         >
-                          {selectedProject.specsTable?.tecnologia || defaultProjects[selectedProject.index]?.specsTable?.tecnologia || 'N/A'}
+                          {(() => {
+                            const val = selectedProject.specsTable?.tecnologia || defaultProjects[selectedProject.index]?.specsTable?.tecnologia || 'N/A';
+                            if (language === 'en') {
+                              if (val.includes('Separación Óptica')) return 'Optical Sorting (NIR) + AI Classification';
+                              if (val.includes('Industria 4.0')) return 'Industry 4.0 / SCR700 + IoT Telemetry';
+                              if (val.includes('Doble Desgasificación')) return 'Double Degassing / Active Vacuum';
+                            }
+                            return val;
+                          })()}
                         </span>
                       </div>
 
                       {/* Material Row */}
                       <div className="grid grid-cols-3 px-4 py-2 text-xs">
-                        <span className="text-[#A1A8B3] font-medium self-center">Material Construcción</span>
+                        <span className="text-[#A1A8B3] font-medium self-center">{language === 'en' ? 'Construction Material' : 'Material Construcción'}</span>
                         <span 
                           className={`col-span-2 text-white font-semibold self-center justify-self-start ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 cursor-text bg-black/40 px-1 rounded min-w-[120px]' : ''}`}
                           contentEditable={isEditorMode}
                           suppressContentEditableWarning={true}
                           onBlur={(e) => handleTableSpecChange(selectedProject.index, 'material', e.target.innerText)}
                         >
-                          {selectedProject.specsTable?.material || defaultProjects[selectedProject.index]?.specsTable?.material || 'N/A'}
+                          {(() => {
+                            const val = selectedProject.specsTable?.material || defaultProjects[selectedProject.index]?.specsTable?.material || 'N/A';
+                            if (language === 'en') {
+                              if (val.includes('Acero Anti-abrasión')) return 'High-Resistance Anti-Abrasion Steel';
+                              if (val.includes('AISI 304')) return 'AISI 304 / 316L Food Grade';
+                              if (val.includes('Tornillo de 185')) return '185 mm Screw / L/D Ratio 18-42';
+                            }
+                            return val;
+                          })()}
                         </span>
                       </div>
 
                       {/* Consumo Row */}
                       <div className="grid grid-cols-3 px-4 py-2 text-xs">
-                        <span className="text-[#A1A8B3] font-medium self-center">Consumo Energético</span>
+                        <span className="text-[#A1A8B3] font-medium self-center">{language === 'en' ? 'Power Consumption' : 'Consumo Energético'}</span>
                         <span 
                           className={`col-span-2 text-white font-semibold self-center justify-self-start ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 cursor-text bg-black/40 px-1 rounded min-w-[120px]' : ''}`}
                           contentEditable={isEditorMode}
                           suppressContentEditableWarning={true}
                           onBlur={(e) => handleTableSpecChange(selectedProject.index, 'consumo', e.target.innerText)}
                         >
-                          {selectedProject.specsTable?.consumo || defaultProjects[selectedProject.index]?.specsTable?.consumo || 'N/A'}
+                          {(() => {
+                            const val = selectedProject.specsTable?.consumo || defaultProjects[selectedProject.index]?.specsTable?.consumo || 'N/A';
+                            if (language === 'en') {
+                              if (val.includes('Operación continua')) return '≈ 980 kW (Continuous operation)';
+                              if (val.includes('Promedio de Operación')) return '≈ 196 kW (Average Operation)';
+                              if (val.includes('Aproximado')) return '≈ 366 kW (Approximate)';
+                            }
+                            return val;
+                          })()}
                         </span>
                       </div>
 
                       {/* Eficiencia Row */}
                       <div className="grid grid-cols-3 px-4 py-2 text-xs">
-                        <span className="text-[#A1A8B3] font-medium self-center">Eficiencia / Uptime</span>
+                        <span className="text-[#A1A8B3] font-medium self-center">{language === 'en' ? 'Efficiency / Uptime' : 'Eficiencia / Uptime'}</span>
                         <span 
                           className={`col-span-2 text-[#F5C400] font-black self-center justify-self-start ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 cursor-text bg-black/40 px-1 rounded min-w-[120px]' : ''}`}
                           contentEditable={isEditorMode}
                           suppressContentEditableWarning={true}
                           onBlur={(e) => handleTableSpecChange(selectedProject.index, 'eficiencia', e.target.innerText)}
                         >
-                          {selectedProject.specsTable?.eficiencia || defaultProjects[selectedProject.index]?.specsTable?.eficiencia || '98.5%'}
+                          {(() => {
+                            const val = selectedProject.specsTable?.eficiencia || defaultProjects[selectedProject.index]?.specsTable?.eficiencia || '98.5%';
+                            if (language === 'en') {
+                              if (val.includes('Disponibilidad Operativa')) return '95.0% Operational Availability';
+                              if (val.includes('98.5%')) return '98.5% (Operational Availability)';
+                              if (val.includes('Water Ring')) return 'Water Ring Die Face / Double Piston';
+                            }
+                            return val;
+                          })()}
                         </span>
                       </div>
 
                       {/* Estándares Row */}
                       <div className="grid grid-cols-3 px-4 py-2 text-xs">
-                        <span className="text-[#A1A8B3] font-medium self-center">Certificaciones</span>
+                        <span className="text-[#A1A8B3] font-medium self-center">{language === 'en' ? 'Certifications' : 'Certificaciones'}</span>
                         <span 
                           className={`col-span-2 text-white font-semibold self-center justify-self-start ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 cursor-text bg-black/40 px-1 rounded min-w-[120px]' : ''}`}
                           contentEditable={isEditorMode}
                           suppressContentEditableWarning={true}
                           onBlur={(e) => handleTableSpecChange(selectedProject.index, 'estandares', e.target.innerText)}
                         >
-                          {selectedProject.specsTable?.estandares || defaultProjects[selectedProject.index]?.specsTable?.estandares || 'N/A'}
+                          {(() => {
+                            const val = selectedProject.specsTable?.estandares || defaultProjects[selectedProject.index]?.specsTable?.estandares || 'N/A';
+                            if (language === 'en') {
+                              if (val.includes('CE • ISO 14001')) return 'CE • ISO 14001 • ISO 45001';
+                              if (val.includes('CE • HACCP')) return 'CE • HACCP • GMP';
+                              if (val.includes('Operadores:')) return 'CE • ISO 9001 (Operators: 2-4)';
+                            }
+                            return val;
+                          })()}
                         </span>
                       </div>
 
@@ -624,14 +732,14 @@ const IndustrialProjectsSection = () => {
                     onClick={() => setSelectedProject(null)}
                     className="bg-transparent border border-white/10 hover:bg-white/5 text-white font-semibold"
                   >
-                    Cerrar Detalle
+                    {language === 'en' ? 'Close Details' : 'Cerrar Detalle'}
                   </Button>
                   <a 
                     href="#contacto"
                     onClick={() => setSelectedProject(null)}
                     className="bg-[#F5C400] text-black hover:bg-[#F5C400]/90 font-bold px-6 py-2 rounded-lg flex items-center justify-center transition-all shadow-lg text-sm"
                   >
-                    Cotizar Proyecto Equiv.
+                    {language === 'en' ? 'Quote Equivalent Project' : 'Cotizar Proyecto Equiv.'}
                   </a>
                 </div>
 

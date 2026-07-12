@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Award, Factory, Tv, TrendingUp, DownloadCloud, BookOpen, ArrowRight } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext.jsx';
+import { useLanguage } from '@/context/LanguageContext.jsx';
 
 const projectItems = [
   {
@@ -55,8 +56,18 @@ const projectItems = [
   }
 ];
 
+const enProjectItems = {
+  '01': { title: 'SUCCESS STORIES', desc: 'REAL CASE STUDIES AND OPERATIONAL RESULTS FROM OUR CLIENTS.' },
+  '02': { title: 'INSTALLATIONS', desc: 'GALLERY AND DETAILS OF PLANTS IN OPERATION WORLDWIDE.' },
+  '03': { title: 'SIMULATIONS', desc: '3D INDUSTRIAL PROCESS MODELS AND CAPACITY ANALYSIS.' },
+  '04': { title: 'ROI', desc: 'RETURN ON INVESTMENT AND ENERGY SAVINGS CALCULATION TOOLS.' },
+  '05': { title: 'DOWNLOADS', desc: 'COMPLETE CATALOGS, EQUIPMENT DRAWINGS, AND PROCESS GUIDES.' },
+  '06': { title: 'TECHNICAL LIBRARY', desc: 'SCIENTIFIC DOCUMENTATION, INDUSTRIAL STANDARDS, AND OPERATION MANUALS.' }
+};
+
 const ProjectsMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
   const { cmsState } = useCMS();
+  const { language } = useLanguage();
   const headerHeight = cmsState?.settings?.headerHeight || 80;
 
   return (
@@ -83,10 +94,10 @@ const ProjectsMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
           <div className="flex items-center justify-between mb-5 pb-3 border-b border-white/[0.07]">
             <div>
               <p className="text-[10px] font-black uppercase tracking-[0.25em] text-[#FFD700] mb-1">
-                PRUEBA SOCIAL Y RECURSOS
+                {language === 'en' ? 'SOCIAL PROOF & RESOURCES' : 'PRUEBA SOCIAL Y RECURSOS'}
               </p>
               <h2 className="text-xl font-bold text-white tracking-wide">
-                Proyectos & Biblioteca
+                {language === 'en' ? 'Projects & Library' : 'Proyectos & Biblioteca'}
               </h2>
             </div>
             {/* Action button */}
@@ -94,7 +105,7 @@ const ProjectsMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
               to="/proyectos"
               className="px-4 py-2 rounded-full border border-white/10 text-[10px] font-bold tracking-widest uppercase hover:bg-white/10 hover:text-[#FFD700] transition-colors text-white/70"
             >
-              Ver Todos los Proyectos
+              {language === 'en' ? 'View All Projects' : 'Ver Todos los Proyectos'}
             </Link>
           </div>
 
@@ -144,17 +155,17 @@ const ProjectsMenu = ({ isOpen, onMouseEnter, onMouseLeave }) => {
                   {/* Content */}
                   <div className="flex-1">
                     <h3 className="text-[13.5px] font-bold text-white mb-2 leading-tight uppercase tracking-wide group-hover:text-white transition-colors">
-                      {item.title}
+                      {language === 'en' && enProjectItems[item.num] ? enProjectItems[item.num].title : item.title}
                     </h3>
                     <p className="text-[9.5px] text-white/40 leading-[1.6] font-semibold uppercase tracking-wider group-hover:text-white/60 transition-colors">
-                      {item.desc}
+                      {language === 'en' && enProjectItems[item.num] ? enProjectItems[item.num].desc : item.desc}
                     </p>
                   </div>
 
                   {/* Footer interaction */}
                   <div className="mt-4 flex items-center justify-between pt-3 border-t border-white/5 opacity-50 group-hover:opacity-100 transition-opacity">
                     <span className="text-[9px] font-black uppercase tracking-widest" style={{ color: item.color }}>
-                      Ir al recurso
+                      {language === 'en' ? 'Go to Resource' : 'Ir al recurso'}
                     </span>
                     <ArrowRight size={12} color={item.color} className="transform group-hover:translate-x-1 transition-transform" />
                   </div>

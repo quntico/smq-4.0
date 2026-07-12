@@ -6,13 +6,16 @@ import Footer from '@/components/Footer.jsx';
 import DecipherText from '@/components/DecipherText.jsx';
 import CompanySectionsNav from '@/components/CompanySectionsNav.jsx';
 import HeroBackgroundEditor from '@/components/HeroBackgroundEditor.jsx';
+import { useLanguage } from '@/context/LanguageContext.jsx';
 
 const Capacidades = () => {
+  const { t } = useLanguage();
+
   return (
     <>
       <Helmet>
-        <title>Capacidades Tecnológicas | SMQ 4.0</title>
-        <meta name="description" content="Nuestra infraestructura de fabricación y alcance tecnológico en automatización, robótica, visión artificial e integración." />
+        <title>{t('companyNav.items.capacidadesTitle')} | SMQ 4.0</title>
+        <meta name="description" content={t('companyNav.items.capacidadesDesc')} />
       </Helmet>
 
       <div className="min-h-screen bg-[#030712] text-white flex flex-col font-sans select-none overflow-x-hidden">
@@ -47,24 +50,24 @@ const Capacidades = () => {
             
             <div className="flex flex-col items-start justify-center gap-6 py-4">
               <h1 className="text-5xl md:text-7xl lg:text-[90px] font-black tracking-tight leading-none uppercase font-sans text-white">
-                <DecipherText text="CAPACIDADES" delay={200} />
+                <DecipherText text={t('capacidades.title')} delay={200} />
               </h1>
               
               <div className="flex flex-col gap-2">
                 <p className="text-white/90 text-lg md:text-2xl font-medium tracking-wide uppercase">
-                  Infraestructura de fabricación y alcance tecnológico
+                  {t('capacidades.subtitle')}
                 </p>
                 <div className="flex items-center gap-2 mt-1">
                   <span className="text-[#F59E0B] font-semibold text-sm md:text-lg tracking-widest uppercase">
-                    Ingeniería
+                    {t('capacidades.engineering')}
                   </span>
                   <span className="text-white/30 text-sm md:text-lg">•</span>
                   <span className="text-[#F59E0B] font-semibold text-sm md:text-lg tracking-widest uppercase">
-                    Integración
+                    {t('capacidades.integration')}
                   </span>
                   <span className="text-white/30 text-sm md:text-lg">•</span>
                   <span className="text-[#F59E0B] font-semibold text-sm md:text-lg tracking-widest uppercase">
-                    Ejecución
+                    {t('capacidades.execution')}
                   </span>
                 </div>
               </div>

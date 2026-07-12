@@ -123,16 +123,28 @@ const HeroSection = () => {
   const activeIndex = Math.min(currentSlideIdx, slides.length - 1 < 0 ? 0 : slides.length - 1);
   const activeSlide = slides[activeIndex] || defaultSlides[0];
 
-  const displayTitle1 = activeSlide?.title1 === 'Soluciones Industriales' || activeSlide?.title1 === 'INGENIERÍA SIN LÍMITES' 
+  const displayTitle1 = (activeSlide?.title1 === 'Soluciones Industriales' || activeSlide?.title1 === 'INGENIERÍA SIN LÍMITES') 
     ? t('hero.title1') 
+    : activeSlide?.title1 === 'SISTEMAS AVANZADOS'
+    ? t('hero.title1_s2')
+    : activeSlide?.title1 === 'ENVASADORAS'
+    ? t('hero.title1_s3')
     : (activeSlide?.title1 || '');
     
   const displayTitle2 = activeSlide?.title2 === 'de Alta Ingeniería' 
     ? t('hero.title2') 
+    : activeSlide?.title2?.includes('PELETIZADO')
+    ? t('hero.title2_s2')
+    : activeSlide?.title2 === 'DE NUEVA GENERACIÓN'
+    ? t('hero.title2_s3')
     : (activeSlide?.title2 || '');
     
-  const displaySubtitle = activeSlide?.subtitle === 'Maquinaria avanzada para reciclaje, procesamiento de alimentos y automatización industrial.' || activeSlide?.subtitle === 'Diseñamos y fabricamos maquinaria de élite para optimizar tus procesos productivos.'
+  const displaySubtitle = (activeSlide?.subtitle === 'Maquinaria avanzada para reciclaje, procesamiento de alimentos y automatización industrial.' || activeSlide?.subtitle === 'Diseñamos y fabricamos maquinaria de élite para optimizar tus procesos productivos.')
     ? t('hero.subtitle') 
+    : (activeSlide?.subtitle === 'Sistemas de alta eficiencia para la transformación de polímeros y recuperación de materiales.' || activeSlide?.subtitle === 'Descripción breve de este nuevo banner industrial.')
+    ? t('hero.subtitle_s2')
+    : activeSlide?.subtitle?.includes('VSSF 4.0')
+    ? t('hero.subtitle_s3')
     : (activeSlide?.subtitle || '');
 
   const title1Lines = (displayTitle1 || '').split('\n').filter(line => line.trim() !== '');

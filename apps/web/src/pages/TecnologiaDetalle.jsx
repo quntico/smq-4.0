@@ -11,6 +11,7 @@ import {
 import Footer from '@/components/Footer.jsx';
 import DecipherText from '@/components/DecipherText.jsx';
 import { useCMS } from '@/context/CMSContext.jsx';
+import { useLanguage } from '@/context/LanguageContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
 
 const techList = [
@@ -197,14 +198,155 @@ const technologyData = {
 technologyData['inteligencia-artificial'] = technologyData.ia;
 technologyData['economia-circular-alias'] = technologyData['economia-circular'];
 
+const enTechnologyData = {
+  ia: {
+    title: 'ARTIFICIAL INTELLIGENCE',
+    subtitle: 'DEEP LEARNING ALGORITHMS\nAND PRODUCTIVE PROCESS OPTIMIZATION.',
+    features: [
+      { title: 'DEEP LEARNING', desc: 'Advanced models that analyze large data volumes to detect patterns and improve continuously.' },
+      { title: 'OPTIMIZATION', desc: 'Algorithms that find the best process configuration to maximize performance and minimize costs.' },
+      { title: 'SMART DECISIONS', desc: 'Systems that recommend real-time actions for a safer and more efficient operation.' }
+    ],
+    footerTitle: 'APPLICATIONS',
+    applications: 'Advanced process control, anomaly detection, predictive maintenance, visual quality control, and real-time optimization.'
+  },
+  'smart-factory': {
+    title: 'SMART FACTORY',
+    subtitle: 'FULLY INTERCONNECTED LINES\nWITH AUTONOMOUS DECISION MAKING.',
+    features: [
+      { title: 'TOTAL INTERCONNECTIVITY', desc: 'Machines, sensors, and systems communicating in real-time through IIoT and industrial protocols.' },
+      { title: 'AUTONOMOUS DECISIONS', desc: 'Smart systems that analyze data and make decisions to optimize production without human intervention.' },
+      { title: 'ADAPTABLE PRODUCTION', desc: 'Flexible lines that adapt to changes in demand, products, and operational conditions.' }
+    ],
+    footerTitle: 'KEY RESULTS',
+    metrics: [
+      { label: 'Operational\nEfficiency' },
+      { label: 'Production\nCosts' },
+      { label: 'Asset\nAvailability' },
+      { label: 'Real-time\nTraceability' }
+    ]
+  },
+  'digital-twin': {
+    title: 'DIGITAL TWIN',
+    subtitle: 'VIRTUAL REPLICATION AND REAL-TIME\nPLANT PERFORMANCE SIMULATION.',
+    features: [
+      { title: 'VIRTUAL REPLICA', desc: 'Exact 3D models of assets and processes to simulate real operational conditions.' },
+      { title: 'ADVANCED SIMULATION', desc: 'What-if scenario testing to anticipate results and optimize decisions.' },
+      { title: 'REAL-TIME PERFORMANCE', desc: 'Continuous monitoring comparing real behavior against the virtual model for deviation detection.' }
+    ],
+    footerTitle: 'KEY BENEFITS',
+    metrics: [
+      { label: 'Plant\nAvailability' },
+      { label: 'Unplanned\nDowntime' },
+      { label: 'Operational\nEfficiency' },
+      { label: 'Longer Asset\nLifespan' },
+      { label: 'Maintenance Cost\nReduction' }
+    ]
+  },
+  'plc-motion': {
+    title: 'PLC + MOTION',
+    subtitle: 'REAL-TIME CONTROLLERS AND\nEXTREME PRECISION MOTION CONTROL.',
+    features: [
+      { title: 'REAL-TIME CONTROL', desc: 'Deterministic execution with ultra-fast control cycles and high reliability.' },
+      { title: 'ADVANCED MOTION CONTROL', desc: 'Precise axis synchronization, complex interpolation, and high-performance trajectory control.' },
+      { title: 'TOTAL INTEGRATION', desc: 'PLCs, drives, and industrial networks working together for maximum adaptability.' }
+    ],
+    footerTitle: 'KEY BENEFITS',
+    metrics: [
+      { label: 'Extreme precision\nin every movement' },
+      { label: 'Real-time\nresponse' },
+      { label: 'Maximum reliability\nand safety' },
+      { label: 'Higher productivity\nand efficiency' }
+    ]
+  },
+  'iiot-edge': {
+    title: 'IIOT + EDGE',
+    subtitle: 'EDGE DATA PROCESSING AND\nHIGH-SECURITY TELEMETRY.',
+    features: [
+      { title: 'DATA AT THE EDGE', desc: 'Local processing to reduce latency and cloud dependency.' },
+      { title: 'SECURE TELEMETRY', desc: 'Encrypted and authenticated transmission to ensure integrity and availability.' },
+      { title: 'INDUSTRIAL CONNECTIVITY', desc: 'Integration with IIoT, 5G, VPN, and industrial protocols.' }
+    ],
+    footerTitle: 'KEY BENEFITS',
+    metrics: [
+      { label: 'Lower latency in\ndecision making' },
+      { label: 'Higher information\nsecurity' },
+      { label: 'Operational cost\nreduction' },
+      { label: 'High availability\nand scalability' }
+    ]
+  },
+  'energia-inteligente': {
+    title: 'SMART ENERGY',
+    subtitle: 'CARBON FOOTPRINT MONITORING AND\nENERGY CONSUMPTION OPTIMIZATION.',
+    features: [
+      { title: 'SMART MONITORING', desc: 'Continuous real-time energy consumption supervision with multi-source integration.' },
+      { title: 'CONSUMPTION OPTIMIZATION', desc: 'Advanced algorithms that automatically adjust consumption to maximize efficiency.' },
+      { title: 'MEASURABLE SUSTAINABILITY', desc: 'Carbon footprint calculation and reduction with reports and environmental compliance.' }
+    ],
+    footerTitle: 'KEY BENEFITS',
+    metrics: [
+      { label: 'Energy cost\nreduction' },
+      { label: 'Lower carbon\nfootprint' },
+      { label: 'Higher operational\nefficiency' },
+      { label: 'Regulatory compliance\n& automated reports' }
+    ]
+  },
+  'smq-os': {
+    title: 'SMQ OS™ PLATFORM',
+    subtitle: 'THE PROPRIETARY OPERATING SYSTEM\nFOR INDUSTRIAL PLANT MANAGEMENT.',
+    features: [
+      { title: 'UNIFIED INTERFACE', desc: 'Centralized control of all plant processes from a single platform.' },
+      { title: 'REAL-TIME CONTROL', desc: 'Supervision and adjustment of critical parameters with immediate response.' },
+      { title: 'SMART ALARMS', desc: 'Advanced anomaly detection and priority-based notifications.' },
+      { title: 'HISTORICAL DATA', desc: 'Secure storage and data analysis for continuous improvement and traceability.' }
+    ],
+    footerTitle: 'KEY BENEFITS',
+    metrics: [
+      { label: 'Total operation\nvisibility' },
+      { label: 'Data-driven\ndecision making' },
+      { label: 'Unplanned downtime\nreduction' },
+      { label: 'Scalability and\nadaptability' }
+    ]
+  },
+  'economia-circular': {
+    title: 'CIRCULAR ECONOMY',
+    subtitle: 'WASTE VALORIZATION AND\nZERO WASTE PROCESSES.',
+    features: [
+      { title: 'VALORIZATION', desc: 'We design systems that turn industrial byproducts into valuable resources.' },
+      { title: 'OPTICAL SORTING', desc: 'High-resolution NIR spectrometry to classify polymers by chemical signature.' },
+      { title: 'ESG SUSTAINABILITY', desc: 'Washing, milling, and extrusion processes aligned with global compliance standards.' }
+    ],
+    footerTitle: 'KEY BENEFITS',
+    metrics: [
+      { label: 'Material\nRecovery' },
+      { label: 'Closed Loop\n(Bottle-to-Bottle)' },
+      { label: 'Fresh Water\nSavings' },
+      { label: 'Compliance &\nCertification' }
+    ]
+  }
+};
+enTechnologyData['inteligencia-artificial'] = enTechnologyData.ia;
+enTechnologyData['economia-circular-alias'] = enTechnologyData['economia-circular'];
+
 const TecnologiaDetalle = () => {
   const { sector } = useParams();
   const navigate = useNavigate();
   const { isEditorMode, cmsState, updatePageModule, syncToCloud } = useCMS();
+  const { language } = useLanguage();
   const [isUploading, setIsUploading] = React.useState(false);
   const [showControls, setShowControls] = React.useState(false);
   
-  const data = technologyData[sector] || technologyData.ia;
+  const rawData = technologyData[sector] || technologyData.ia;
+  const enData = enTechnologyData[sector] || enTechnologyData.ia;
+  
+  // Merge language data
+  const data = language === 'en' ? {
+    ...rawData,
+    ...enData,
+    features: rawData.features.map((f, i) => ({ ...f, ...enData.features[i] })),
+    metrics: rawData.metrics?.map((m, i) => ({ ...m, ...enData.metrics[i] }))
+  } : rawData;
+
   const Icon = data.icon;
 
   // Unify ia and inteligencia-artificial pages, and migrate customized background configurations
@@ -312,7 +454,7 @@ const TecnologiaDetalle = () => {
           className="border border-white/10 bg-white/[0.02] hover:bg-white/5 hover:border-white/20 px-4 py-2 rounded-full text-[11px] font-bold text-white/80 hover:text-white transition-all flex items-center gap-2 group shrink-0"
         >
           <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-1" />
-          <span>Volver al Menú</span>
+          <span>{language === 'en' ? 'Back to Menu' : 'Volver al Menú'}</span>
         </button>
 
         {/* Smart Technology Menu */}
@@ -343,7 +485,10 @@ const TecnologiaDetalle = () => {
                     isActive ? 'text-white' : 'text-white/40 group-hover:text-white/80'
                   }`}
                 >
-                  {tech.label}
+                  {language === 'en' && tech.id === 'ia' ? 'Artificial Intelligence' : 
+                   language === 'en' && tech.id === 'energia-inteligente' ? 'Smart Energy' : 
+                   language === 'en' && tech.id === 'economia-circular' ? 'Circular Economy' : 
+                   tech.label}
                 </span>
               </button>
             );
@@ -556,7 +701,7 @@ const TecnologiaDetalle = () => {
                       <Cpu size={24} style={{ color: data.color }} strokeWidth={2} />
                     </div>
                     <span className="text-[13px] font-black uppercase tracking-widest" style={{ color: data.color }}>
-                      APLICACIONES
+                      {data.footerTitle || (language === 'en' ? 'APPLICATIONS' : 'APLICACIONES')}
                     </span>
                   </div>
                   <p className="text-[13px] text-white/60 leading-relaxed font-medium">

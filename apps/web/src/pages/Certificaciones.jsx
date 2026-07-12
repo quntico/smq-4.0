@@ -8,13 +8,39 @@ import ContactSection from '@/components/ContactSection.jsx';
 import DecipherText from '@/components/DecipherText.jsx';
 import CompanySectionsNav from '@/components/CompanySectionsNav.jsx';
 import HeroBackgroundEditor from '@/components/HeroBackgroundEditor.jsx';
+import { useLanguage } from '@/context/LanguageContext.jsx';
 
 const Certificaciones = () => {
+  const { t } = useLanguage();
+
+  const certsList = [
+    {
+      title: t('certificaciones.items.0.title'),
+      desc: t('certificaciones.items.0.desc'),
+      badge: 'QMS_CERT_9001'
+    },
+    {
+      title: t('certificaciones.items.1.title'),
+      desc: t('certificaciones.items.1.desc'),
+      badge: 'EU_STANDARD_CE'
+    },
+    {
+      title: t('certificaciones.items.2.title'),
+      desc: t('certificaciones.items.2.desc'),
+      badge: 'US_UL_CERT'
+    },
+    {
+      title: t('certificaciones.items.3.title'),
+      desc: t('certificaciones.items.3.desc'),
+      badge: 'MX_NOM_STANDARD'
+    }
+  ];
+
   return (
     <>
       <Helmet>
-        <title>Certificaciones Industriales | SMQ 4.0</title>
-        <meta name="description" content="Estándares de calidad ISO, certificaciones de seguridad CE, UL y normativas internacionales de Grupo SMQ." />
+        <title>{t('companyNav.items.certificacionesTitle')} | SMQ 4.0</title>
+        <meta name="description" content={t('companyNav.items.certificacionesDesc')} />
       </Helmet>
 
       <div className="min-h-screen bg-[#030712] text-white flex flex-col font-sans select-none overflow-x-hidden">
@@ -41,13 +67,13 @@ const Certificaciones = () => {
             
             <div className="pl-6 md:pl-10 flex flex-col items-start gap-4 py-2">
               <span className="text-[11px] font-black uppercase tracking-[0.35em] text-[#10B981] font-mono">
-                [ ESTANDARES_DE_CALIDAD ]
+                {t('certificaciones.subtitle')}
               </span>
               <h1 className="text-4xl md:text-6xl lg:text-[75px] font-black tracking-tight leading-none uppercase font-sans">
-                <DecipherText text="CERTIFICACIONES" delay={200} />
+                <DecipherText text={t('certificaciones.title')} delay={200} />
               </h1>
               <p className="text-white/60 text-sm tracking-wide max-w-[600px] font-mono mt-1 uppercase">
-                Cumplimiento con normativas internacionales que respaldan la seguridad, calidad y confiabilidad de todos nuestros equipos industriales.
+                {t('certificaciones.desc')}
               </p>
             </div>
           </div>
@@ -62,28 +88,7 @@ const Certificaciones = () => {
           <div className="max-w-[1400px] w-full mx-auto">
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[
-                {
-                  title: 'ISO 9001:2015',
-                  desc: 'Certificación internacional de sistemas de gestión de la calidad para el diseño, fabricación e integración de maquinaria industrial.',
-                  badge: 'QMS_CERT_9001'
-                },
-                {
-                  title: 'CE Compliance',
-                  desc: 'Cumplimiento con las directivas de seguridad, salud y protección ambiental exigidas para la libre circulación en la Unión Europea.',
-                  badge: 'EU_STANDARD_CE'
-                },
-                {
-                  title: 'UL / CSA Panels',
-                  desc: 'Ensambles de tableros de control eléctrico fabricados y certificados bajo normativas UL 508A para Norteamérica.',
-                  badge: 'US_UL_CERT'
-                },
-                {
-                  title: 'Normatividad NOM',
-                  desc: 'Cumplimiento estricto con las Normas Oficiales Mexicanas de seguridad industrial, higiene y redes eléctricas.',
-                  badge: 'MX_NOM_STANDARD'
-                }
-              ].map((cert, index) => (
+              {certsList.map((cert, index) => (
                 <motion.div
                   key={index}
                   whileInView={{ opacity: 1, y: 0 }}

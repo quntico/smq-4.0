@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Cpu, Activity, Wifi, X, Shield, Brain, ArrowRight, Play, RefreshCw, Zap, Flame, Cpu as CpuIcon, Database, Lock, Unlock, Maximize2, ChevronLeft, ChevronRight, Sliders, Users, Eye, CheckSquare, FileText, Leaf } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext.jsx';
+import { useLanguage } from '@/context/LanguageContext.jsx';
 import { useLocation } from 'react-router-dom';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, OrbitControls, Center } from '@react-three/drei';
@@ -998,7 +999,9 @@ const TechnologySection = () => {
     );
   };
 
-  // Render bi-color title splitting at space or ampersand
+  // Render bi-  const { cmsState, isEditorMode, updatePageModule } = useCMS();
+  const { language, t } = useLanguage();
+
   const renderBiColorTitle = (title) => {
     if (!title) return '';
     if (title.includes(' & ')) {
@@ -1776,11 +1779,11 @@ const TechnologySection = () => {
         {/* Section Header */}
         <div className="text-center mb-20">
           <h2 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter mb-4 font-['Poppins']">
-            Tecnología de <span className="text-[#FFD700] drop-shadow-[0_0_15px_rgba(255,215,0,0.15)]">Vanguardia</span>
+            {language === 'en' ? t('technologySection.title1') : 'Tecnología de'} <span className="text-[#FFD700] drop-shadow-[0_0_15px_rgba(255,215,0,0.15)]">{language === 'en' ? t('technologySection.title2') : 'Vanguardia'}</span>
           </h2>
           <div className="w-[80px] h-[3px] bg-[#FFD700] mx-auto mb-6" />
           <p className="text-white/60 max-w-2xl mx-auto leading-relaxed text-xs md:text-sm font-black uppercase tracking-tight font-['Poppins']">
-            PRECISIÓN EN CONTROL. INTELIGENCIA EN DECISIÓN. CONFIABILIDAD EN OPERACIÓN.
+            {language === 'en' ? t('technologySection.subtitle') : 'PRECISIÓN EN CONTROL. INTELIGENCIA EN DECISIÓN. CONFIABILIDAD EN OPERACIÓN.'}
           </p>
         </div>
 
@@ -1870,10 +1873,26 @@ const TechnologySection = () => {
 
                     {/* Title & Subtitle styled with uppercase, heavy black font matching user requirements */}
                     <h3 className="text-xl font-black text-white uppercase tracking-tighter leading-tight mb-2.5 font-['Poppins']">
-                      {renderBiColorTitle(tech.title)}
+                      {renderBiColorTitle(
+                        language === 'en' && tech.id === 'plc' ? t('technologySection.card1_title') :
+                        language === 'en' && tech.id === 'sistemas-inteligentes' ? t('technologySection.card2_title') :
+                        language === 'en' && tech.id === 'control' ? t('technologySection.card3_title') :
+                        language === 'en' && tech.id === 'ia' ? t('technologySection.card4_title') :
+                        language === 'en' && tech.id === 'monitoreo' ? t('technologySection.card5_title') :
+                        language === 'en' && tech.id === 'colaborativa' ? t('technologySection.card6_title') :
+                        tech.title
+                      )}
                     </h3>
                     <p className="text-[10px] text-white/50 leading-normal font-black uppercase tracking-tight max-w-[58%] font-['Poppins'] text-justify">
-                      {tech.subtitle}
+                      {
+                        language === 'en' && tech.id === 'plc' ? t('technologySection.card1_desc') :
+                        language === 'en' && tech.id === 'sistemas-inteligentes' ? t('technologySection.card2_desc') :
+                        language === 'en' && tech.id === 'control' ? t('technologySection.card3_desc') :
+                        language === 'en' && tech.id === 'ia' ? t('technologySection.card4_desc') :
+                        language === 'en' && tech.id === 'monitoreo' ? t('technologySection.card5_desc') :
+                        language === 'en' && tech.id === 'colaborativa' ? t('technologySection.card6_desc') :
+                        tech.subtitle
+                      }
                     </p>
                   </div>
 

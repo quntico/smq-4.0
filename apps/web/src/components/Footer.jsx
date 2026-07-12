@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { useCMS } from '@/context/CMSContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '@/context/LanguageContext.jsx';
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const Footer = () => {
   const bgFileInputRef = useRef(null);
 
   const { isEditorMode, cmsState, updateSettings, syncToCloud } = useCMS();
+  const { t } = useLanguage();
 
   const [isEditing, setIsEditing] = useState(false);
   const [uploadingLogo, setUploadingLogo] = useState(false);
@@ -25,7 +27,7 @@ const Footer = () => {
   const bgOpacity = settings.footerBgOpacity !== undefined ? settings.footerBgOpacity : 40;
   
   const companyName = settings.footerCompanyName || 'SMQ Industrial Systems';
-  const companyDesc = settings.footerCompanyDesc || 'Soluciones industriales de alta ingeniería para reciclaje, procesamiento de alimentos y automatización.';
+  const companyDesc = settings.footerCompanyDesc || t('footer.desc');
   const phones = settings.footerPhones || ['+52 (55) 1234-5678', '+52 (55) 8765-4321'];
   const email = settings.footerEmail || 'contacto@smqindustrial.com';
   const address = settings.footerAddress || 'Av. Insurgentes Sur 1234, Col. Industrial, CDMX';
@@ -36,12 +38,12 @@ const Footer = () => {
   const igLink = settings.footerIgLink || '#';
 
   const quickLinks = [
-    { label: 'Inicio', href: '#inicio', icon: Home },
-    { label: 'Industrias', href: '#industrias', icon: Factory },
-    { label: 'Soluciones', href: '#soluciones', icon: Box },
-    { label: 'Proyectos', href: '#proyectos', icon: FileText },
-    { label: 'Tecnología', href: '#tecnologia', icon: Cpu },
-    { label: 'Contacto', href: '/contacto', icon: Mail },
+    { label: t('footer.menuItems.inicio'), href: '#inicio', icon: Home },
+    { label: t('footer.menuItems.industrias'), href: '#industrias', icon: Factory },
+    { label: t('footer.menuItems.soluciones'), href: '#soluciones', icon: Box },
+    { label: t('footer.menuItems.proyectos'), href: '#proyectos', icon: FileText },
+    { label: t('footer.menuItems.tecnologia'), href: '#tecnologia', icon: Cpu },
+    { label: t('footer.menuItems.contacto'), href: '/contacto', icon: Mail },
   ];
 
   const socialLinks = [
@@ -163,14 +165,14 @@ const Footer = () => {
             </div>
             
             <p className="text-[#8E9BAA] text-[13px] leading-relaxed font-light mb-5 max-w-[280px]">
-              Soluciones industriales de alta ingeniería, proyectos llave en mano y maquinaria para procesamiento de alimentos y automatización.
+              {t('footer.desc')}
             </p>
             
             <button 
               onClick={() => scrollToSection('/contacto')}
               className="group flex items-center justify-center gap-2 bg-transparent border border-[#00D4FF] text-[#00D4FF] hover:bg-[#009FE3] hover:border-[#009FE3] hover:text-[#EAF4FF] font-semibold uppercase tracking-wider text-[11px] px-5 py-2 rounded transition-all duration-300"
             >
-              Solicitar Cotización
+              {t('footer.getQuote')}
               <ArrowRight size={13} className="transition-transform group-hover:translate-x-1" />
             </button>
           </div>
@@ -178,7 +180,7 @@ const Footer = () => {
           {/* 2. Quick Links */}
           <div className="flex flex-col w-full">
             <div className="mb-4">
-              <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#00D4FF]">Menú Principal</span>
+              <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#00D4FF]">{t('footer.mainMenu')}</span>
               <div className="w-6 h-[2px] bg-[#009FE3]/40 mt-2.5" />
             </div>
             <div className="flex flex-col gap-y-3">
@@ -201,7 +203,7 @@ const Footer = () => {
           {/* 3. Contact Info */}
           <div className="flex flex-col w-full">
             <div className="mb-4">
-              <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#00D4FF]">Contacto Directo</span>
+              <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#00D4FF]">{t('footer.directContact')}</span>
               <div className="w-6 h-[2px] bg-[#009FE3]/40 mt-2.5" />
             </div>
             <div className="flex flex-col space-y-4">
@@ -231,11 +233,11 @@ const Footer = () => {
           {/* 4. Social Media */}
           <div className="flex flex-col w-full">
             <div className="mb-4">
-              <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#00D4FF]">Redes Sociales</span>
+              <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#00D4FF]">{t('footer.socialMedia')}</span>
               <div className="w-6 h-[2px] bg-[#009FE3]/40 mt-2.5" />
             </div>
             <p className="text-[13px] text-[#8E9BAA] font-light leading-relaxed mb-4 max-w-[240px]">
-              Síguenos para conocer nuestros últimos proyectos y tecnologías.
+              {t('footer.followUs')}
             </p>
             <div className="flex space-x-3">
               {socialLinks.map((social) => (
@@ -259,12 +261,12 @@ const Footer = () => {
       <div className="border-t border-[#009FE3]/20 bg-[#050B12] py-4 px-6 md:px-12 relative z-10">
         <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-[#8E9BAA] text-[11px] font-light">
-            © 2026 SMQ SA de CV. Todos los derechos reservados.
+            {t('footer.allRights')}
           </p>
           <div className="flex items-center space-x-4 text-[11px] text-[#8E9BAA] font-light">
-            <a href="#" className="hover:text-[#EAF4FF] transition-colors">Aviso de Privacidad</a>
+            <a href="#" className="hover:text-[#EAF4FF] transition-colors">{t('footer.privacy')}</a>
             <span className="text-[#009FE3]/30">|</span>
-            <a href="#" className="hover:text-[#EAF4FF] transition-colors">Términos de Servicio</a>
+            <a href="#" className="hover:text-[#EAF4FF] transition-colors">{t('footer.terms')}</a>
           </div>
         </div>
       </div>

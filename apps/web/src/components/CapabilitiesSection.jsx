@@ -3,6 +3,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Settings, Zap, Bot, AlignLeft, AlignCenter, AlignRight, AlignJustify } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext.jsx';
+import { useLanguage } from '@/context/LanguageContext.jsx';
 
 const defaultCapabilities = [
   {
@@ -84,6 +85,7 @@ const ToolbarColorPicker = ({ value, onChange, title }) => (
 
 const CapabilitiesSection = () => {
   const { cmsState, isEditorMode, updatePageModule } = useCMS();
+  const { language, t } = useLanguage();
 
   // Find module data
   const pageData = cmsState.pages.find(p => p.id === 'home');
@@ -124,8 +126,8 @@ const CapabilitiesSection = () => {
           transition={{ duration: 0.6 }}
           className={`font-black tracking-tighter text-4xl md:text-6xl lg:text-7xl leading-[1.05] text-center mb-[50px] uppercase ${isEditorMode ? 'outline-dashed outline-2 outline-blue-400 cursor-text bg-black/20 p-2 rounded-lg' : ''}`}
         >
-          <span className="text-white block">NUESTRAS</span>
-          <span className="text-[#F5C400] block">CAPACIDADES</span>
+          <span className="text-white block">{t('capabilitiesSection.label1')}</span>
+          <span className="text-[#F5C400] block">{t('capabilitiesSection.label2')}</span>
         </motion.h2>
 
         <motion.div
@@ -204,7 +206,10 @@ const CapabilitiesSection = () => {
                       textAlign: capability.titleAlign || 'center',
                       fontSize: capability.titleSize ? `${capability.titleSize}px` : undefined
                     }}
-                    dangerouslySetInnerHTML={{ __html: capability.title }}
+                    dangerouslySetInnerHTML={{ __html: language === 'en' && capability.id === 1 && capability.title.includes('Ingeniería') ? t('capabilitiesSection.card1_title') :
+                                                       language === 'en' && capability.id === 2 && capability.title.includes('Fabricación') ? t('capabilitiesSection.card2_title') :
+                                                       language === 'en' && capability.id === 3 && capability.title.includes('Automatización') ? t('capabilitiesSection.card3_title') :
+                                                       capability.title }}
                     contentEditable={isEditorMode}
                     suppressContentEditableWarning={true}
                     onBlur={(e) => {
@@ -219,7 +224,10 @@ const CapabilitiesSection = () => {
                       textAlign: capability.descAlign || 'center',
                       fontSize: capability.descSize ? `${capability.descSize}px` : undefined
                     }}
-                    dangerouslySetInnerHTML={{ __html: capability.description }}
+                    dangerouslySetInnerHTML={{ __html: language === 'en' && capability.id === 1 && capability.description.includes('Diseño') ? t('capabilitiesSection.card1_desc') :
+                                                       language === 'en' && capability.id === 2 && capability.description.includes('Fabricación') ? t('capabilitiesSection.card2_desc') :
+                                                       language === 'en' && capability.id === 3 && capability.description.includes('Implementación') ? t('capabilitiesSection.card3_desc') :
+                                                       capability.description }}
                     contentEditable={isEditorMode}
                     suppressContentEditableWarning={true}
                     onBlur={(e) => {

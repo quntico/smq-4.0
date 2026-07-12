@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { Wheat, Package, Layers, Recycle, HeartPulse, Bot, ChevronRight, HardHat, Zap, ArrowRight } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext.jsx';
+import { useLanguage } from '@/context/LanguageContext.jsx';
 
 const industriesData = [
   {
@@ -135,9 +136,78 @@ const industriesData = [
   }
 ];
 
+const enIndustriesData = {
+  alimentos: {
+    title: 'Food & Beverage',
+    links: {
+      'LAV': { name: '01 Washing and Peeling', desc: 'Washing, sanitizing and peeling systems.' },
+      'PRO': { name: '02 Food Production', desc: 'Thermal lines and food preparation.' },
+      'PKG': { name: '03 Packaging and Filling', desc: 'High-speed packing and filling.' },
+      'SEP': { name: '04 Separation Systems', desc: 'Sorting by color, size or weight.' }
+    }
+  },
+  reciclaje: {
+    title: 'Recycling & Circular Economy',
+    links: {
+      'PLA': { name: 'Plastics', desc: 'Polymer washing, extrusion, and pelletizing.' },
+      'MET': { name: 'Metals', desc: 'Magnetic separation and scrap shredding.' },
+      'RSU': { name: 'MSW', desc: 'Municipal solid waste treatment.' },
+      'REC': { name: 'Material Recovery', desc: 'Automated by-product sorting.' },
+      'ECO': { name: 'Circular Economy', desc: 'Waste valorization strategies.' }
+    }
+  },
+  packaging: {
+    title: 'Packaging & Conversion',
+    links: {
+      'FLX': { name: 'Flexible', desc: 'Doypack, vertical, and flowpack machines.' },
+      'RGD': { name: 'Rigid', desc: 'Bottle filling and capping lines.' },
+      'PRN': { name: 'Printing', desc: 'Flexographic and digital systems.' },
+      'LBL': { name: 'Labeling', desc: 'Self-adhesive label applicators.' },
+      'CNV': { name: 'Conversion', desc: 'Rewinding, cutting, and thermoforming.' }
+    }
+  },
+  construccion: {
+    title: 'Construction & Infrastructure',
+    links: {
+      'MAT': { name: 'Materials', desc: 'Dosing and mixing of aggregates.' },
+      'CMP': { name: 'Compounds', desc: 'WPC plastic wood extrusion lines.' },
+      'RCY': { name: 'Recycled Materials', desc: 'Rubble and asphalt valorization.' },
+      'INF': { name: 'Infrastructure', desc: 'Heavy machinery and civil automation.' }
+    }
+  },
+  agroindustria: {
+    title: 'Agribusiness',
+    links: {
+      'PRO': { name: 'Processing', desc: 'Cleaning, screening, and hulling.' },
+      'BAL': { name: 'Feed', desc: 'Milling and pelletizing lines.' },
+      'PST': { name: 'Post-harvest', desc: 'Cooling, sorting, and storage.' },
+      'AUT': { name: 'Automation', desc: 'Silo monitoring and remote dosing.' }
+    }
+  },
+  manufactura: {
+    title: 'Health & Adv. Manufacturing',
+    links: {
+      'MED': { name: 'Medical', desc: 'Manufacturing of masks and surgical dressings.' },
+      'PHA': { name: 'Pharma', desc: 'Packaging and dosing under GMP standards.' },
+      'CNV': { name: 'Conversion', desc: 'Cutting of non-woven materials and films.' },
+      'PRD': { name: 'Production', desc: 'High-speed automated lines.' }
+    }
+  },
+  energia: {
+    title: 'Energy & Utilities',
+    links: {
+      'WTE': { name: 'Energy Valorization', desc: 'Thermal conversion and MSW gasification.' },
+      'BIO': { name: 'Biomass', desc: 'Wood and agricultural waste pelletizing.' },
+      'IND': { name: 'Industrial Energy', desc: 'Co-generation and steam boilers.' },
+      'SRV': { name: 'Services', desc: 'Energy efficiency and thermal audits.' }
+    }
+  }
+};
+
 const IndustriesMenu = ({ isOpen, onMouseEnter, onMouseLeave, onClose }) => {
   const [activeIndustry, setActiveIndustry] = useState('alimentos');
   const { cmsState } = useCMS();
+  const { language } = useLanguage();
   const navigate = useNavigate();
   const headerHeight = cmsState?.settings?.headerHeight || 80;
   const active = industriesData.find(i => i.key === activeIndustry);
@@ -165,7 +235,7 @@ const IndustriesMenu = ({ isOpen, onMouseEnter, onMouseLeave, onClose }) => {
           {/* ── LEFT: Industry Selector ── */}
           <div className="w-[220px] shrink-0 border-r border-white/[0.07] bg-white/[0.015] flex flex-col py-5 px-3 gap-1 overflow-y-auto scrollbar-none">
             <p className="text-[10px] font-black uppercase tracking-[0.25em] text-white/20 px-2.5 mb-3">
-              SECTORES SMQ
+              {language === 'en' ? 'SMQ SECTORS' : 'SECTORES SMQ'}
             </p>
             {industriesData.map(ind => {
               const Icon = ind.Icon;
@@ -199,7 +269,7 @@ const IndustriesMenu = ({ isOpen, onMouseEnter, onMouseLeave, onClose }) => {
                     className="text-[13.5px] font-bold tracking-wide transition-colors duration-200 flex-1"
                     style={{ color: isAct ? ind.color : 'rgba(255,255,255,0.55)' }}
                   >
-                    {ind.title}
+                    {language === 'en' && enIndustriesData[ind.key] ? enIndustriesData[ind.key].title : ind.title}
                   </span>
                   {isAct && (
                     <ChevronRight size={12} style={{ color: ind.color }} className="shrink-0 animate-pulse" />
@@ -224,10 +294,12 @@ const IndustriesMenu = ({ isOpen, onMouseEnter, onMouseLeave, onClose }) => {
                 <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/[0.07]">
                   <div>
                     <p className="text-[10px] font-black uppercase tracking-[0.25em] mb-1" style={{ color: active?.color }}>
-                      SECTOR INDUSTRIAL
+                      {language === 'en' ? 'INDUSTRIAL SECTOR' : 'SECTOR INDUSTRIAL'}
                     </p>
                     <h2 className="text-xl font-black text-white tracking-wide uppercase">
-                      Industria de {active?.title}
+                      {language === 'en' 
+                        ? `${enIndustriesData[activeIndustry]?.title} Industry` 
+                        : `Industria de ${active?.title}`}
                     </h2>
                   </div>
                   {/* Link to main industry page */}
@@ -241,7 +313,7 @@ const IndustriesMenu = ({ isOpen, onMouseEnter, onMouseLeave, onClose }) => {
                       backgroundColor: `${active?.color}08` 
                     }}
                   >
-                    Ver Sector Completo
+                    {language === 'en' ? 'View Full Sector' : 'Ver Sector Completo'}
                   </Link>
                 </div>
 
@@ -293,17 +365,21 @@ const IndustriesMenu = ({ isOpen, onMouseEnter, onMouseLeave, onClose }) => {
                         {/* Content */}
                         <div className="flex-1">
                           <h3 className="text-[13.5px] font-bold text-white mb-2 leading-tight uppercase tracking-wide group-hover:text-white transition-colors">
-                            {link.name}
+                            {language === 'en' && enIndustriesData[activeIndustry]?.links[link.code] 
+                              ? enIndustriesData[activeIndustry].links[link.code].name 
+                              : link.name}
                           </h3>
                           <p className="text-[9.5px] text-white/40 leading-[1.6] font-semibold uppercase tracking-wider group-hover:text-white/60 transition-colors">
-                            {link.desc}
+                            {language === 'en' && enIndustriesData[activeIndustry]?.links[link.code] 
+                              ? enIndustriesData[activeIndustry].links[link.code].desc 
+                              : link.desc}
                           </p>
                         </div>
 
                         {/* Footer interaction */}
                         <div className="mt-4 flex items-center justify-between pt-3 border-t border-white/5 opacity-50 group-hover:opacity-100 transition-opacity">
                           <span className="text-[9px] font-black uppercase tracking-widest" style={{ color: active?.color }}>
-                            Ver Detalles
+                            {language === 'en' ? 'View Details' : 'Ver Detalles'}
                           </span>
                           <ArrowRight size={12} style={{ color: active?.color }} className="transform group-hover:translate-x-1 transition-transform" />
                         </div>

@@ -6,13 +6,35 @@ import Footer from '@/components/Footer.jsx';
 import DecipherText from '@/components/DecipherText.jsx';
 import CompanySectionsNav from '@/components/CompanySectionsNav.jsx';
 import HeroBackgroundEditor from '@/components/HeroBackgroundEditor.jsx';
+import { useLanguage } from '@/context/LanguageContext.jsx';
 
 const Innovacion = () => {
+  const { t } = useLanguage();
+
+  const innovationsList = [
+    {
+      title: t('innovacion.items.0.title'),
+      desc: t('innovacion.items.0.desc')
+    },
+    {
+      title: t('innovacion.items.1.title'),
+      desc: t('innovacion.items.1.desc')
+    },
+    {
+      title: t('innovacion.items.2.title'),
+      desc: t('innovacion.items.2.desc')
+    },
+    {
+      title: t('innovacion.items.3.title'),
+      desc: t('innovacion.items.3.desc')
+    }
+  ];
+
   return (
     <>
       <Helmet>
-        <title>Centros de Innovación I+D | SMQ 4.0</title>
-        <meta name="description" content="Laboratorios de simulación avanzada, gemelos digitales y centros de I+D tecnológica de Grupo SMQ." />
+        <title>{t('companyNav.items.innovacionTitle')} | SMQ 4.0</title>
+        <meta name="description" content={t('companyNav.items.innovacionDesc')} />
       </Helmet>
 
       <div className="min-h-screen bg-[#030712] text-white flex flex-col font-sans select-none overflow-x-hidden">
@@ -46,21 +68,21 @@ const Innovacion = () => {
               
               <div className="pl-6 md:pl-10 flex flex-col items-start gap-4 py-2">
                 <span className="text-[11px] font-black uppercase tracking-[0.35em] text-[#06B6D4] font-mono">
-                  [ INVESTIGACION_Y_DESARROLLO ]
+                  {t('innovacion.subtitle')}
                 </span>
                 <h1 className="text-4xl md:text-6xl lg:text-[70px] font-black tracking-tight leading-none uppercase font-sans">
-                  <DecipherText text="INNOVACIÓN" delay={200} />
+                  <DecipherText text={t('innovacion.title')} delay={200} />
                 </h1>
                 <p className="text-[#06B6D4] text-[11px] font-black uppercase tracking-[0.3em] mt-2">
-                  Centros de Innovación y Desarrollo (I+D)
+                  {t('innovacion.label')}
                 </p>
                 <div className="w-16 h-[2px] bg-[#06B6D4] shadow-[0_0_8px_#06B6D4] mb-2" />
                 <div className="flex flex-col gap-4 text-[#A1A8B3] text-sm md:text-base leading-relaxed max-w-[550px]">
                   <p>
-                    En SMQ no solo integramos tecnología existente; diseñamos las patentes e innovaciones que definirán la manufactura del mañana. Contamos con un laboratorio propio de simulación avanzada y pruebas de estrés mecánico.
+                    {t('innovacion.p1')}
                   </p>
                   <p className="border-l-2 border-[#06B6D4]/40 pl-4 italic text-sm">
-                    Nuestra infraestructura de I+D permite simular el comportamiento de plantas completas mediante gemelos digitales y modelos en tiempo real antes de fabricar una sola pieza física.
+                    {t('innovacion.p2')}
                   </p>
                 </div>
               </div>
@@ -68,24 +90,7 @@ const Innovacion = () => {
 
             {/* Right Column: Cards */}
             <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {[
-                {
-                  title: 'Gemelos Digitales',
-                  desc: 'Simulaciones virtuales interactivas 3D que replican fielmente la física de las líneas de producción.'
-                },
-                {
-                  title: 'Hardware-in-the-Loop',
-                  desc: 'Pruebas de software de control conectando PLCs físicos a entornos simulados avanzados.'
-                },
-                {
-                  title: 'IA y Visión Local',
-                  desc: 'Desarrollo de algoritmos de deep learning que corren en edge devices dentro de la planta.'
-                },
-                {
-                  title: 'Materiales Avanzados',
-                  desc: 'Investigación en aleaciones de alta resistencia y tratamientos térmicos contra desgaste abrasivo.'
-                }
-              ].map((item, idx) => (
+              {innovationsList.map((item, idx) => (
                 <motion.div
                   key={idx}
                   whileInView={{ opacity: 1, y: 0 }}

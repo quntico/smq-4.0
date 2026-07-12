@@ -8,8 +8,10 @@ import ContactSection from '@/components/ContactSection.jsx';
 import DecipherText from '@/components/DecipherText.jsx';
 import CompanySectionsNav from '@/components/CompanySectionsNav.jsx';
 import HeroBackgroundEditor from '@/components/HeroBackgroundEditor.jsx';
+import { useLanguage } from '@/context/LanguageContext.jsx';
 
 const Contacto = () => {
+  const { language } = useLanguage();
   return (
     <>
       <Helmet>
@@ -49,13 +51,15 @@ const Contacto = () => {
             
             <div className="flex flex-col items-start gap-4 py-2 justify-center">
               <span className="text-[11px] font-black uppercase tracking-[0.35em] text-[#F97316] font-mono">
-                [ ATENCION_GLOBAL ]
+                {language === 'en' ? '[ GLOBAL_ATTENTION ]' : '[ ATENCION_GLOBAL ]'}
               </span>
               <h1 className="text-5xl md:text-7xl lg:text-[90px] font-black tracking-tight leading-none uppercase font-sans text-white">
-                <DecipherText text="CONTACTO" delay={200} />
+                <DecipherText text={language === 'en' ? 'CONTACT' : 'CONTACTO'} delay={200} />
               </h1>
               <p className="text-white/80 text-lg md:text-xl tracking-wide max-w-[600px] font-sans mt-2">
-                Oficinas de representación comercial y centros de servicio técnico para soporte local inmediato.
+                {language === 'en' 
+                  ? 'Commercial representation offices and technical service centers for immediate local support.' 
+                  : 'Oficinas de representación comercial y centros de servicio técnico para soporte local inmediato.'}
               </p>
             </div>
           </div>

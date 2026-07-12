@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as LucideIcons from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useCMS } from '@/context/CMSContext.jsx';
+import { useLanguage } from '@/context/LanguageContext.jsx';
 
 const AlignLeft = LucideIcons.AlignLeft;
 const AlignCenter = LucideIcons.AlignCenter;
@@ -211,6 +212,7 @@ const ToolbarColorPicker = ({ value, onChange, title }) => (
 
 const SolutionsSection = () => {
   const { cmsState, isEditorMode, updatePageModule } = useCMS();
+  const { language, t } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [isIconModalOpen, setIsIconModalOpen] = useState(false);
@@ -281,7 +283,7 @@ const SolutionsSection = () => {
           )}
           <h2
             className={`text-3xl md:text-5xl font-bold text-foreground mb-4 ${isEditorMode ? 'outline-dashed outline-2 outline-blue-400 cursor-text bg-black/20 p-2 rounded-lg' : ''}`}
-            dangerouslySetInnerHTML={{ __html: sectionTitle }}
+            dangerouslySetInnerHTML={{ __html: language === 'en' && sectionTitle.includes('Soluciones') ? `${t('solutionsSection.title1')} <span class="text-[#FFD700]">${t('solutionsSection.title2')}</span>` : sectionTitle }}
             onBlur={(e) => {
               updatePageModule('home', 'solutions', { title: e.target.innerHTML, items: activeSolutions, subtitle: sectionSubtitle });
             }}
@@ -290,7 +292,7 @@ const SolutionsSection = () => {
           />
           <p
             className={`text-lg text-muted-foreground max-w-2xl mx-auto ${isEditorMode ? 'outline-dashed outline-1 outline-blue-400 cursor-text bg-black/20 p-1 rounded backdrop-blur-sm' : ''}`}
-            dangerouslySetInnerHTML={{ __html: sectionSubtitle }}
+            dangerouslySetInnerHTML={{ __html: language === 'en' && sectionSubtitle.includes('tecnología industrial') ? t('solutionsSection.subtitle') : sectionSubtitle }}
             onBlur={(e) => {
               updatePageModule('home', 'solutions', { subtitle: e.target.innerHTML, items: activeSolutions, title: sectionTitle });
             }}
@@ -439,7 +441,13 @@ const SolutionsSection = () => {
                     textAlign: solution.titleAlign || 'left',
                     fontSize: solution.titleSize ? `${solution.titleSize}px` : undefined
                   }}
-                  dangerouslySetInnerHTML={{ __html: solution.title }}
+                  dangerouslySetInnerHTML={{ __html: language === 'en' && solution.id === 1 && solution.title.includes('TRITURACIÓN') ? t('solutionsSection.card1_title') :
+                                                     language === 'en' && solution.id === 2 && solution.title.includes('LAVADO') ? t('solutionsSection.card2_title') :
+                                                     language === 'en' && solution.id === 3 && solution.title.includes('PELETIZADO') ? t('solutionsSection.card3_title') :
+                                                     language === 'en' && solution.id === 4 && solution.title.includes('VALORIZACIÓN') ? t('solutionsSection.card4_title') :
+                                                     language === 'en' && solution.id === 5 && solution.title.includes('SEPARACIÓN') ? t('solutionsSection.card5_title') :
+                                                     language === 'en' && solution.id === 6 && solution.title.includes('LLAVE EN MANO') ? t('solutionsSection.card6_title') :
+                                                     solution.title }}
                   contentEditable={isEditorMode}
                   suppressContentEditableWarning={true}
                   onBlur={(e) => {
@@ -454,7 +462,13 @@ const SolutionsSection = () => {
                     textAlign: solution.descAlign || 'left',
                     fontSize: solution.descSize ? `${solution.descSize}px` : undefined
                   }}
-                  dangerouslySetInnerHTML={{ __html: solution.description }}
+                  dangerouslySetInnerHTML={{ __html: language === 'en' && solution.id === 1 && solution.description.includes('reducción eficiente') ? t('solutionsSection.card1_desc') :
+                                                     language === 'en' && solution.id === 2 && solution.description.includes('limpieza') ? t('solutionsSection.card2_desc') :
+                                                     language === 'en' && solution.id === 3 && solution.description.includes('transformación') ? t('solutionsSection.card3_desc') :
+                                                     language === 'en' && solution.id === 4 && solution.description.includes('recuperación energética') ? t('solutionsSection.card4_desc') :
+                                                     language === 'en' && solution.id === 5 && solution.description.includes('ópticas') ? t('solutionsSection.card5_desc') :
+                                                     language === 'en' && solution.id === 6 && solution.description.includes('fabricación') ? t('solutionsSection.card6_desc') :
+                                                     solution.description }}
                   contentEditable={isEditorMode}
                   suppressContentEditableWarning={true}
                   onBlur={(e) => {
@@ -463,7 +477,7 @@ const SolutionsSection = () => {
                   }}
                 />
                 <div className="space-y-3 mt-auto">
-                  <span className="text-sm font-semibold" style={{ color: solution.benColor || 'var(--foreground)' }}>Beneficios:</span>
+                  <span className="text-sm font-semibold" style={{ color: solution.benColor || 'var(--foreground)' }}>{language === 'en' ? t('solutionsSection.benefitsLabel') : 'Beneficios:'}</span>
                   <ul className="space-y-2">
                     {solution.benefits.map((benefit, idx) => (
                       <li key={idx} className="flex items-start space-x-2">
@@ -478,7 +492,33 @@ const SolutionsSection = () => {
                             fontSize: solution.benSize ? `${solution.benSize}px` : undefined,
                             textAlign: solution.descAlign || 'left'
                           }}
-                          dangerouslySetInnerHTML={{ __html: benefit }}
+                          dangerouslySetInnerHTML={{ __html: language === 'en' ? 
+                            (benefit.includes('alto torque') ? t('solutionsSection.card1_b1') :
+                             benefit.includes('alta resistencia') ? t('solutionsSection.card1_b2') :
+                             benefit.includes('mono y doble') ? t('solutionsSection.card1_b3') :
+                             benefit.includes('sobrecarga') ? t('solutionsSection.card1_b4') :
+                             benefit.includes('Eliminación') ? t('solutionsSection.card2_b1') :
+                             benefit.includes('dinámico') ? t('solutionsSection.card2_b2') :
+                             benefit.includes('Clarificación') ? t('solutionsSection.card2_b3') :
+                             benefit.includes('térmico') ? t('solutionsSection.card2_b4') :
+                             benefit.includes('rendimiento') ? t('solutionsSection.card3_b1') :
+                             benefit.includes('bajo agua') ? t('solutionsSection.card3_b2') :
+                             benefit.includes('desgasificación') ? t('solutionsSection.card3_b3') :
+                             benefit.includes('homogéneos') ? t('solutionsSection.card3_b4') :
+                             benefit.includes('combustible alterno') ? t('solutionsSection.card4_b1') :
+                             benefit.includes('dosificación') ? t('solutionsSection.card4_b2') :
+                             benefit.includes('emisiones') ? t('solutionsSection.card4_b3') :
+                             benefit.includes('Maximización') ? t('solutionsSection.card4_b4') :
+                             benefit.includes('ópticos NIR') ? t('solutionsSection.card5_b1') :
+                             benefit.includes('robótica por IA') ? t('solutionsSection.card5_b2') :
+                             benefit.includes('Foucault') ? t('solutionsSection.card5_b3') :
+                             benefit.includes('multiespectral') ? t('solutionsSection.card5_b4') :
+                             benefit.includes('conceptual') ? t('solutionsSection.card6_b1') :
+                             benefit.includes('personalizada') ? t('solutionsSection.card6_b2') :
+                             benefit.includes('Puesta en marcha') ? t('solutionsSection.card6_b3') :
+                             benefit.includes('Soporte') ? t('solutionsSection.card6_b4') : benefit)
+                            : benefit
+                          }}
                           contentEditable={isEditorMode}
                           suppressContentEditableWarning={true}
                           onBlur={(e) => {

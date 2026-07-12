@@ -10,7 +10,7 @@ const initialCMSState = {
         logoSize: 98,
         headerHeight: 100,
         headerOpacity: 60,
-        appVersion: '7.20',
+        appVersion: '7.21',
         globalImageSharpness: 100,
         globalFilterColor: '#000000',
         globalFilterOpacity: 75,
@@ -52,7 +52,7 @@ const initialCMSState = {
                             "id": "slide-1780811107042",
                             "title1": "SISTEMAS AVANZADOS",
                             "title2": "DE  PELETIZADO.",
-                            "subtitle": "Descripción breve de este nuevo banner industrial.",
+                            "subtitle": "Sistemas de alta eficiencia para la transformación de polímeros y recuperación de materiales.",
                             "backgroundMedia": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780811371107_VID_PELLET_WEB.webm",
                             "overlayOpacity": 72
                         },
@@ -835,7 +835,12 @@ const migrateCMSState = (state) => {
 
 export const CMSProvider = ({ children }) => {
     const [cmsState, setCmsState] = useState(() => {
-        const saved = localStorage.getItem('smqCMS');
+        let saved = null;
+        try {
+            saved = localStorage.getItem('smqCMS');
+        } catch (e) {
+            console.error("[CMS] Error reading smqCMS from localStorage:", e);
+        }
         if (saved) {
             try {
                 const parsed = JSON.parse(saved);
@@ -862,7 +867,9 @@ export const CMSProvider = ({ children }) => {
                 };
                 return migrateCMSState(loadedState);
             } catch (e) {
-                localStorage.removeItem('smqCMS');
+                try {
+                    localStorage.removeItem('smqCMS');
+                } catch (err) {}
                 return initialCMSState;
             }
         }
@@ -870,7 +877,11 @@ export const CMSProvider = ({ children }) => {
     });
 
     const [isEditorMode, setIsEditorMode] = useState(() => {
-        return localStorage.getItem('editorMode') === 'true';
+        try {
+            return localStorage.getItem('editorMode') === 'true';
+        } catch (e) {
+            return false;
+        }
     });
 
     const [isLoadedFromCloud, setIsLoadedFromCloud] = useState(false);
@@ -946,7 +957,11 @@ export const CMSProvider = ({ children }) => {
     // 2. Guardar cambios en LocalStorage y EN LA NUBE (Solo si es editor)
     useEffect(() => {
         // Guardado local inmediato
-        localStorage.setItem('smqCMS', JSON.stringify(cmsState));
+        try {
+            localStorage.setItem('smqCMS', JSON.stringify(cmsState));
+        } catch (e) {
+            console.error("[CMS] Failed to save cmsState to localStorage (quota exceeded or private tab):", e);
+        }
 
         // Actualizar favicon en vivo para todos los visitantes
         if (cmsState.settings.faviconUrl) {
@@ -1017,7 +1032,11 @@ export const CMSProvider = ({ children }) => {
     }, [cmsState, isEditorMode, isLoadedFromCloud]);
 
     useEffect(() => {
-        localStorage.setItem('editorMode', isEditorMode.toString());
+        try {
+            localStorage.setItem('editorMode', isEditorMode.toString());
+        } catch (e) {
+            console.error("[CMS] Failed to save editorMode to localStorage:", e);
+        }
         window.dispatchEvent(new Event('editorModeChangedGlobal'));
     }, [isEditorMode]);
 
