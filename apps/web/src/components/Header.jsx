@@ -12,6 +12,7 @@ import LanguageSelector from '@/components/LanguageSelector.jsx';
 import { useCMS } from '@/context/CMSContext.jsx';
 import { useLanguage } from '@/context/LanguageContext.jsx';
 import MobileMenu from '@/components/MobileMenu.jsx';
+import SmartSearch from '@/components/SmartSearch.jsx';
 import { Menu, Eye, EyeOff } from 'lucide-react';
 
 const componentMap = {
@@ -427,6 +428,7 @@ const Header = () => {
             </div>
           )}
 
+          <SmartSearch />
           <LanguageSelector />
 
           <button
@@ -458,6 +460,7 @@ const Header = () => {
 
         {/* Mobile Menu Trigger */}
         <div className="flex lg:hidden items-center gap-3">
+          <SmartSearch />
           <LanguageSelector />
           <button
             onClick={() => setIsMobileMenuOpen(true)}
