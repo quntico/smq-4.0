@@ -14,7 +14,7 @@ import { useLanguage } from '@/context/LanguageContext.jsx';
 import MobileMenu from '@/components/MobileMenu.jsx';
 import SmartSearch from '@/components/SmartSearch.jsx';
 import TrainAIModal from '@/components/TrainAIModal.jsx';
-import { Menu, Eye, EyeOff, Brain } from 'lucide-react';
+import { Menu, Eye, EyeOff, Brain, Unlock, Lock } from 'lucide-react';
 
 const componentMap = {
   IndustriesMenu,
@@ -451,20 +451,14 @@ const Header = () => {
                 handleOpenAdmin('ajustes');
               }
             }}
-            className={`transition-colors p-2 rounded-full hover:bg-white/5 ${isEditorMode ? 'text-blue-400 bg-blue-400/10 shadow-[0_0_15px_rgba(96,165,250,0.5)] animate-pulse' : 'text-white/70 hover:text-[#FFD700]'
+            className={`transition-colors p-2 rounded-full hover:bg-white/5 ${isEditorMode ? 'text-[#F5C400] bg-[#F5C400]/10 shadow-[0_0_15px_rgba(245,196,0,0.5)] animate-pulse' : 'text-white/70 hover:text-[#FFD700]'
               }`}
             title={isEditorMode ? 'Desactivar Modo Editor' : 'Panel de Administración'}
           >
             {isEditorMode ? (
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
-              </svg>
+              <Unlock size={22} />
             ) : (
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-              </svg>
+              <Lock size={22} />
             )}
           </button>
         </div>
