@@ -10,6 +10,31 @@ import { ColladaLoader } from 'three/examples/jsm/loaders/ColladaLoader.js';
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader.js';
 import { TDSLoader } from 'three/examples/jsm/loaders/TDSLoader.js';
 
+export const preloadModel = (url) => {
+    if (!url) return;
+    try {
+        const extension = url.split('.').pop().toLowerCase();
+        switch (extension) {
+            case 'obj': useLoader.preload(OBJLoader, url); break;
+            case 'fbx': useLoader.preload(FBXLoader, url); break;
+            case 'dae': useLoader.preload(ColladaLoader, url); break;
+            case 'stl': useLoader.preload(STLLoader, url); break;
+            case '3ds': useLoader.preload(TDSLoader, url); break;
+            case 'gltf':
+            case 'glb':
+                useGLTF.preload(url, true);
+                break;
+            default:
+                const link = document.createElement('link');
+                link.rel = 'prefetch';
+                link.href = url;
+                document.head.appendChild(link);
+        }
+    } catch (e) {
+        console.warn("Error preloading model", e);
+    }
+};
+
 const ModelObj = ({ url }) => {
     const obj = useLoader(OBJLoader, url);
     return <primitive object={obj} />;
@@ -40,7 +65,7 @@ const Model3ds = ({ url }) => {
 };
 
 const ModelGltf = ({ url }) => {
-    const { scene } = useGLTF(url, 'https://www.gstatic.com/draco/versioned/decoders/1.5.5/');
+    const { scene } = useGLTF(url, true);
     return <primitive object={scene} />;
 };
 

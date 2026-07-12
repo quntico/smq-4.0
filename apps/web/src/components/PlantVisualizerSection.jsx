@@ -8,7 +8,7 @@ import { useCMS } from '@/context/CMSContext.jsx';
 import { useLanguage } from '@/context/LanguageContext.jsx';
 import { uploadFile } from '@/lib/storage.js';
 import { getOptimizedImageUrl } from '@/lib/utils.js';
-import ModelViewer from './ModelViewer.jsx';
+import ModelViewer, { preloadModel } from './ModelViewer.jsx';
 
 const defaultHotspots = [
   { id: 1, x: 30, y: 40, name: 'Extrusora Principal', specs: 'Capacidad: 1000 kg/h', power: '150 kW' },
@@ -120,20 +120,7 @@ const PlantVisualizerSection = () => {
   // Background Preload of the 3D Model
   useEffect(() => {
     if (model3DMedia) {
-      const extension = model3DMedia.split('.').pop()?.toLowerCase();
-      if (extension === 'glb' || extension === 'gltf') {
-        try {
-          useGLTF.preload(model3DMedia, 'https://www.gstatic.com/draco/versioned/decoders/1.5.5/');
-        } catch(e) {
-          console.warn("Preload error", e);
-        }
-      } else {
-        // Fallback prefetch for non-gltf models
-        const link = document.createElement('link');
-        link.rel = 'prefetch';
-        link.href = model3DMedia;
-        document.head.appendChild(link);
-      }
+      preloadModel(model3DMedia);
     }
   }, [model3DMedia]);
 
