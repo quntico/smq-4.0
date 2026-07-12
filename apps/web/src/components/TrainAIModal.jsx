@@ -128,7 +128,7 @@ const TrainAIModal = ({ isOpen, onClose }) => {
                 <motion.div 
                   className="h-full bg-[#F5C400]" 
                   initial={{ width: 0 }}
-                  animate={{ width: \`\${progress}%\` }}
+                  animate={{ width: `${progress}%` }}
                 />
               </div>
               <span className="text-xs text-[#F5C400] font-mono tracking-widest uppercase">Traduciendo a matemáticas ({progress}%)</span>
