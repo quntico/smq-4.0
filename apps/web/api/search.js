@@ -26,6 +26,35 @@ export default async function handler(req, res) {
     supabase = createClient(supabaseUrl, supabaseKey);
   }
 
+  let knowledgeContext = "";
+  if (supabase) {
+    try {
+      // Convertir la pregunta a vectores para buscar en los PDFs de cotizaciones
+      const embedRes = await fetch('https://api.openai.com/v1/embeddings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+        body: JSON.stringify({ input: query, model: 'text-embedding-3-small' })
+      });
+      if (embedRes.ok) {
+        const embedData = await embedRes.json();
+        const queryEmbedding = embedData.data[0].embedding;
+        
+        // Buscar las 3 páginas de cotización más relevantes
+        const { data: matchedDocs } = await supabase.rpc('match_knowledge', {
+          query_embedding: queryEmbedding,
+          match_threshold: 0.65, // Threshold flexible
+          match_count: 4
+        });
+        
+        if (matchedDocs && matchedDocs.length > 0) {
+          knowledgeContext = "\n\n--- BASE DE CONOCIMIENTO DE LA EMPRESA (Tus cotizaciones/datos técnicos) ---\n" + matchedDocs.map(doc => doc.content).join("\n\n");
+        }
+      }
+    } catch (ragError) {
+      console.error("Error en RAG:", ragError);
+    }
+  }
+
   try {
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
@@ -53,10 +82,11 @@ INSTRUCCIONES CRÍTICAS DE COMPORTAMIENTO (explanation):
 2. REGLA DE ORO: NUNCA digas "no fabricamos", "no tenemos", "no nos dedicamos a eso". Si piden algo fuera del catálogo principal, asume que SMQ lo consigue, lo diseña o lo integra.
 3. Si es algo del catálogo, resalta el beneficio y guíalos a la sección.
 4. Si es algo aparentemente FUERA del catálogo, responde con seguridad: "Absolutamente, en SMQ diseñamos e integramos soluciones de alta tecnología para [lo que pidió]. Nuestro equipo de ingeniería puede configurar el equipo exacto con las especificaciones que requieres." y envíalos a "/contacto" o "/proyectos".
-5. Mantén la respuesta ("explanation") entre 2 y 3 oraciones. Sé sumamente profesional, corporativo y orientado a CONVERTIR al cliente.
+5. Si encuentras información útil en la BASE DE CONOCIMIENTO (precios, especificaciones), MENCIÓNALAS para demostrar autoridad total.
+6. Mantén la respuesta ("explanation") entre 2 y 4 oraciones. Sé sumamente profesional, corporativo y orientado a CONVERTIR al cliente.
 
 INSTRUCCIÓN TÉCNICA: Responde ESTRICTAMENTE con este JSON:
-{"route": "/ruta", "name": "Nombre de la sección recomendada", "explanation": "Tu respuesta como consultor (2-3 oraciones)."}`
+{"route": "/ruta", "name": "Nombre de la sección recomendada", "explanation": "Tu respuesta como consultor (2-4 oraciones)."}\n\n${knowledgeContext}`
           },
           {
             role: 'user',
