@@ -1,3 +1,5 @@
+import { createClient } from '@supabase/supabase-js';
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method Not Allowed' });
@@ -11,6 +13,17 @@ export default async function handler(req, res) {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
     return res.status(500).json({ error: 'OpenAI API key not configured in Vercel' });
+  }
+
+  // Get User IP
+  const userIp = req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown';
+
+  // Init Supabase for logging
+  const supabaseUrl = process.env.VITE_SUPABASE_URL;
+  const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY;
+  let supabase = null;
+  if (supabaseUrl && supabaseKey) {
+    supabase = createClient(supabaseUrl, supabaseKey);
   }
 
   try {
@@ -59,6 +72,18 @@ Debes responder ESTRICTAMENTE con un objeto JSON válido, sin Markdown, sin bloq
         name: result.name || result.Name || 'Sección Sugerida',
         explanation: result.explanation || result.Explanation || result.Explicacion || 'Redirigiendo a la sección más adecuada.'
       };
+
+      // Log the search to Supabase asynchronously (non-blocking)
+      if (supabase) {
+        supabase.from('search_logs').insert([{
+          ip_address: userIp,
+          query: query,
+          response: normalizedResult.name
+        }]).then(({ error }) => {
+          if (error) console.error("Supabase Log Error:", error);
+        });
+      }
+
       return res.status(200).json(normalizedResult);
     } else {
       console.error("OpenAI Error:", data);
