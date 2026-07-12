@@ -21,7 +21,7 @@ export default async function handler(req, res) {
         'Authorization': `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-        model: 'gpt-3.5-turbo',
+        model: 'gpt-4o-mini',
         messages: [
           {
             role: 'system',
@@ -52,8 +52,14 @@ Debes responder ESTRICTAMENTE con un objeto JSON válido, sin Markdown, sin bloq
     const data = await response.json();
     
     if (data.choices && data.choices[0].message.content) {
-      const result = JSON.parse(data.choices[0].message.content);
-      return res.status(200).json(result);
+      let result = JSON.parse(data.choices[0].message.content);
+      // Normalize keys to lowercase just in case
+      const normalizedResult = {
+        route: result.route || result.Route || '/proyectos',
+        name: result.name || result.Name || 'Sección Sugerida',
+        explanation: result.explanation || result.Explanation || result.Explicacion || 'Redirigiendo a la sección más adecuada.'
+      };
+      return res.status(200).json(normalizedResult);
     } else {
       console.error("OpenAI Error:", data);
       throw new Error("Invalid response from OpenAI");
