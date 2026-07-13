@@ -3,9 +3,33 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Globe, ChevronDown } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext.jsx';
 
+const flags = {
+  es: () => (
+    <svg viewBox="0 0 3 2" className="w-full h-full">
+      <rect width="3" height="2" fill="#006847"/>
+      <rect width="2" height="2" x="1" fill="#fff"/>
+      <rect width="1" height="2" x="2" fill="#ce1126"/>
+      <circle cx="1.5" cy="1" r="0.25" fill="#8b5e3c"/>
+    </svg>
+  ),
+  en: () => (
+    <svg viewBox="0 0 3 2" className="w-full h-full">
+      <rect width="3" height="2" fill="#b22234"/>
+      <rect width="3" height="0.15" y="0.15" fill="#fff"/>
+      <rect width="3" height="0.15" y="0.45" fill="#fff"/>
+      <rect width="3" height="0.15" y="0.75" fill="#fff"/>
+      <rect width="3" height="0.15" y="1.05" fill="#fff"/>
+      <rect width="3" height="0.15" y="1.35" fill="#fff"/>
+      <rect width="3" height="0.15" y="1.65" fill="#fff"/>
+      <rect width="3" height="0.15" y="1.95" fill="#fff"/>
+      <rect width="1.2" height="1.05" fill="#3c3b6e"/>
+    </svg>
+  )
+};
+
 const languages = [
-  { code: 'es', label: 'Español', flagUrl: 'https://flagcdn.com/w20/es.png' },
-  { code: 'en', label: 'English', flagUrl: 'https://flagcdn.com/w20/us.png' }
+  { code: 'es', label: 'Español' },
+  { code: 'en', label: 'English' }
 ];
 
 const LanguageSelector = () => {
@@ -36,11 +60,9 @@ const LanguageSelector = () => {
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-2 bg-[#0a0a0a] border border-white/10 rounded-full pl-3 pr-2 py-1.5 hover:bg-[#151515] transition-all shadow-[inset_0_1px_3px_rgba(255,255,255,0.05),_0_0_10px_rgba(0,0,0,0.3)] cursor-pointer group"
       >
-        <img 
-          src={activeLang.flagUrl} 
-          alt={activeLang.code} 
-          className="w-3.5 h-auto rounded-[2px] opacity-90 group-hover:opacity-100 transition-opacity" 
-        />
+        <div className="w-3.5 h-auto rounded-[2px] opacity-90 group-hover:opacity-100 transition-opacity overflow-hidden">
+          {flags[activeLang.code]()}
+        </div>
         <span className="text-white font-bold text-[11px] tracking-wider uppercase mt-[1px]">
           {activeLang.code}
         </span>
@@ -68,7 +90,9 @@ const LanguageSelector = () => {
                   }`}
                 >
                   <span className="tracking-wide">{lang.label}</span>
-                  <img src={lang.flagUrl} alt={lang.code} className="w-4 h-auto rounded-[2px]" />
+                  <div className="w-4 h-auto rounded-[2px] overflow-hidden">
+                    {flags[lang.code]()}
+                  </div>
                 </button>
               ))}
             </div>

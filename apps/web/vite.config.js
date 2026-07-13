@@ -1,6 +1,6 @@
 import path from 'node:path';
 import react from '@vitejs/plugin-react';
-import { createLogger, defineConfig } from 'vite';
+import { createLogger, defineConfig, loadEnv } from 'vite';
 import inlineEditPlugin from './plugins/visual-editor/vite-plugin-react-inline-editor.js';
 import editModeDevPlugin from './plugins/visual-editor/vite-plugin-edit-mode.js';
 import selectionModePlugin from './plugins/selection-mode/vite-plugin-selection-mode.js';
@@ -8,6 +8,10 @@ import iframeRouteRestorationPlugin from './plugins/vite-plugin-iframe-route-res
 import pocketbaseAuthPlugin from './plugins/vite-plugin-pocketbase-auth.js';
 
 const isDev = process.env.NODE_ENV !== 'production';
+
+// Cargar variables de entorno para que los endpoints locales del API tengan acceso a OpenAI y Supabase
+const env = loadEnv(process.env.NODE_ENV || 'development', process.cwd(), '');
+Object.assign(process.env, env);
 
 const configHorizonsViteErrorHandler = `
 const observer = new MutationObserver((mutations) => {
@@ -279,12 +283,54 @@ logger.error = (msg, options) => {
 	loggerError(msg, options);
 }
 
+const localApiMiddleware = () => {
+	return {
+		name: 'local-api-middleware',
+		configureServer(server) {
+			server.middlewares.use(async (req, res, next) => {
+				if (req.url.startsWith('/api/')) {
+					// Inyectar helpers tipo Express/Vercel
+					res.status = (code) => {
+						res.statusCode = code;
+						return res;
+					};
+					res.json = (data) => {
+						res.setHeader('Content-Type', 'application/json');
+						res.end(JSON.stringify(data));
+					};
+					
+					try {
+						// Ignorar query params si los hay
+						const baseUrl = req.url.split('?')[0];
+						
+						if (baseUrl === '/api/train-ai') {
+							const handler = (await import('./api/train-ai.js')).default;
+							await handler(req, res);
+						} else if (baseUrl === '/api/search') {
+							const handler = (await import('./api/search.js')).default;
+							await handler(req, res);
+						} else {
+							next();
+						}
+					} catch (e) {
+						console.error('API Error:', e);
+						res.status(500).json({ error: 'Internal API Error' });
+					}
+				} else {
+					next();
+				}
+			});
+		}
+	};
+};
+
 export default defineConfig({
 	customLogger: logger,
 	plugins: [
 		...(isDev ? [inlineEditPlugin(), editModeDevPlugin(), selectionModePlugin(), iframeRouteRestorationPlugin(), pocketbaseAuthPlugin()] : []),
 		react(),
-		addTransformIndexHtml
+		addTransformIndexHtml,
+		localApiMiddleware()
 	],
 	server: {
 		port: 3000,

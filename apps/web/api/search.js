@@ -5,9 +5,23 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
-  const { query } = req.body;
-  if (!query) {
-    return res.status(400).json({ error: 'Query is required' });
+  // Parche para entorno local (Vite no parsea el JSON automáticamente como lo hace Vercel)
+  if (!req.body) {
+    const buffers = [];
+    for await (const chunk of req) {
+      buffers.push(chunk);
+    }
+    const data = Buffer.concat(buffers).toString();
+    try {
+      req.body = data ? JSON.parse(data) : {};
+    } catch (e) {
+      return res.status(400).json({ error: 'Invalid JSON body' });
+    }
+  }
+
+  const { query, history = [], customPrompt = "", image = null } = req.body;
+  if (!query && !image) {
+    return res.status(400).json({ error: 'Query or image is required' });
   }
 
   const apiKey = process.env.OPENAI_API_KEY;
@@ -67,30 +81,51 @@ export default async function handler(req, res) {
         messages: [
           {
             role: 'system',
-            content: `Eres SMQ-AI, el ingeniero consultor de élite y cerrador de ventas de SMQ 4.0 (smq.mx).
-Tu objetivo es escuchar al cliente, demostrar profundo conocimiento técnico (usando todo tu entrenamiento sobre maquinaria industrial global) y JAMÁS dejar ir una venta.
+            content: `Eres SMQ-AI, el ingeniero consultor de élite y primer filtro de ventas de SMQ 4.0 (smq.mx).
+Tu objetivo es enganchar al cliente rápidamente, perfilar su proyecto y guiarlo a contactar a un asesor.
 
 NUESTRO CATÁLOGO PRINCIPAL (Para enrutar):
-- "/industria/reciclaje-y-plasticos" : Peletizado, extrusión, lavado, molinos, shredders.
-- "/envasadoras" : Envasado, empaque, llenado, etiquetado, codificadoras, pesadoras.
-- "/waste-to-energy" : Procesamiento de basura, MSW, energía, pirólisis.
-- "/proyectos" : Automatización industrial, diseño de plantas llave en mano.
-- "/contacto" : Asesoría Técnica y cotizaciones.
+- "/industria/reciclaje-y-plasticos" : Peletizado, extrusión, lavado, molinos.
+- "/industria/packaging" : Impresoras flexográficas, bolseadoras, laminadoras, cortadoras, rebobinadoras.
+- "/envasadoras" : Envasado, empaque, llenado.
+- "/waste-to-energy" : Procesamiento de basura, MSW.
+- "/proyectos" : Automatización y plantas llave en mano.
+- "/contacto" : Asesoría y cotizaciones.
 
-INSTRUCCIONES CRÍTICAS DE COMPORTAMIENTO (explanation):
-1. Eres un experto total. Si el cliente pregunta por maquinaria específica (ej. "impresoras flexo de 6 colores de tambor central"), demuéstrale que sabes del tema usando jerga técnica correcta.
-2. REGLA DE ORO: NUNCA digas "no fabricamos", "no tenemos", "no nos dedicamos a eso". Si piden algo fuera del catálogo principal, asume que SMQ lo consigue, lo diseña o lo integra.
-3. Si es algo del catálogo, resalta el beneficio y guíalos a la sección.
-4. Si es algo aparentemente FUERA del catálogo, responde con seguridad: "Absolutamente, en SMQ diseñamos e integramos soluciones de alta tecnología para [lo que pidió]. Nuestro equipo de ingeniería puede configurar el equipo exacto con las especificaciones que requieres." y envíalos a "/contacto" o "/proyectos".
-5. Si encuentras información útil en la BASE DE CONOCIMIENTO (precios, especificaciones), MENCIÓNALAS para demostrar autoridad total.
-6. Mantén la respuesta ("explanation") entre 2 y 4 oraciones. Sé sumamente profesional, corporativo y orientado a CONVERTIR al cliente.
+INSTRUCCIONES CRÍTICAS:
+1. SÉ EXTREMADAMENTE HUMANO, CASUAL Y BREVE (Máximo 1 o 2 oraciones, menos de 30 palabras).
+2. Empieza con un tono natural y de servicio (ej: "¡Claro que sí!", "¡Por supuesto!").
+3. Confirma rápido que lo fabricamos o diseñamos.
+4. HAZ LAS PREGUNTAS DE PERFILAMIENTO SÚPER DIRECTAS:
+   - Capacidad exacta en la unidad de medida correspondiente al tipo de máquina.
+   - Tipo de material o máquina exacta.
+   - Pide fotos del material/proyecto para filtrarlo a ventas.
 
-INSTRUCCIÓN TÉCNICA: Responde ESTRICTAMENTE con este JSON:
-{"route": "/ruta", "name": "Nombre de la sección recomendada", "explanation": "Tu respuesta como consultor (2-4 oraciones)."}\n\n${knowledgeContext}`
+${customPrompt ? `\nREGLAS DE NEGOCIO PERSONALIZADAS (PRIORIDAD MÁXIMA):\n${customPrompt}\n` : ''}
+EJEMPLO DE RESPUESTA PERFECTA:
+"¡Claro que sí! Fabricamos peletizadoras a la medida. Para cotizarte rápido: ¿cuántos kilos por hora buscas y qué material es? Si tienes fotos, envíanoslas para asesorarte."
+
+Responde ESTRICTAMENTE con este JSON:
+{"route": "/ruta", "name": "Nombre de la sección", "explanation": "Tu respuesta súper humana y corta (max 30 palabras)."}\n\n${knowledgeContext}`
           },
+          ...history.map(msg => {
+            if (msg.role === 'user' && msg.image) {
+              return {
+                role: 'user',
+                content: [
+                  { type: 'text', text: msg.content },
+                  { type: 'image_url', image_url: { url: msg.image } }
+                ]
+              };
+            }
+            return { role: msg.role, content: msg.content };
+          }),
           {
             role: 'user',
-            content: query
+            content: image ? [
+              { type: 'text', text: query },
+              { type: 'image_url', image_url: { url: image } }
+            ] : query
           }
         ],
         temperature: 0.3,

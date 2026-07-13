@@ -14,6 +14,7 @@ import EnvasadoraDoypack from '@/pages/EnvasadoraDoypack.jsx';
 import Nosotros from '@/pages/Nosotros.jsx';
 import IndustriaDetalle from '@/pages/IndustriaDetalle.jsx';
 import ScrollToTopButton from '@/components/ScrollToTopButton.jsx';
+import FloatingWhatsApp from '@/components/FloatingWhatsApp.jsx';
 import MachineryDetailPage from '@/pages/MachineryDetailPage.jsx';
 import WasteToEnergy from '@/pages/WasteToEnergy.jsx';
 import Projects from '@/pages/Projects.jsx';
@@ -52,6 +53,7 @@ function AppContent() {
       <CustomCursor />
       <ScrollToTop />
       <ScrollToTopButton />
+      <FloatingWhatsApp />
       <Header />
       <SideNav />
       <Routes>

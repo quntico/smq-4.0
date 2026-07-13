@@ -297,6 +297,19 @@ const Header = () => {
           backgroundColor: `rgba(10, 15, 20, ${headerOpacity / 100})`
         }}
       >
+        {/* Admin Toggle Padlock (Far Left - SOLO EN MODO EDITOR) */}
+        {isEditorMode && (
+          <div className="absolute left-[50px] hidden lg:flex items-center z-[1001]">
+            <button
+              onClick={() => setIsEditorMode(false)}
+              className="shrink-0 flex items-center justify-center transition-colors p-2 rounded-full hover:bg-white/5 text-[#F5C400] bg-[#F5C400]/10 shadow-[0_0_15px_rgba(245,196,0,0.5)] animate-pulse"
+              title="Cerrar Modo Editor"
+            >
+              <Unlock size={20} />
+            </button>
+          </div>
+        )}
+
         {/* Left Section: Logo & Version */}
         <div className="relative flex items-center h-full lg:ml-[114px] ml-0">
           <div className="flex items-center gap-3">
@@ -346,9 +359,10 @@ const Header = () => {
                   updateSettings({ appVersion: newVersion });
                 }}
               >
-                {cmsState.settings.appVersion ? cmsState.settings.appVersion.toUpperCase() : "VER 5.3"}
+                {cmsState.settings.appVersion ? cmsState.settings.appVersion.toUpperCase() : "VER 7.30"}
               </span>
             </button>
+
           </div>
         </div>
 
@@ -393,6 +407,17 @@ const Header = () => {
           {/* Sync Buttons (Only visible in Editor Mode to manually pull/push production data) */}
           {isEditorMode && (
             <div className="flex gap-2">
+              <button
+                onClick={() => handleOpenAdmin('ajustes')}
+                className="flex items-center gap-1.5 bg-purple-500/20 text-purple-400 border border-purple-500/40 rounded-full px-3 py-1.5 hover:bg-purple-500/40 hover:text-white transition-all text-[10px] font-bold uppercase tracking-wider shadow-[0_0_15px_rgba(168,85,247,0.2)]"
+                title="Abrir Panel CMS y Ajustes"
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 3h7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-7m0-18H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7m0-18v18"></path>
+                </svg>
+                Panel CMS
+              </button>
+
               <button
                 onClick={() => setIsTrainModalOpen(true)}
                 className="flex items-center gap-1.5 bg-[#F5C400]/20 text-[#F5C400] border border-[#F5C400]/40 rounded-full px-3 py-1.5 hover:bg-[#F5C400]/40 hover:text-white transition-all text-[10px] font-bold uppercase tracking-wider shadow-[0_0_15px_rgba(255,215,0,0.2)]"
@@ -441,26 +466,17 @@ const Header = () => {
 
           <SmartSearch />
           <LanguageSelector />
-
-          <button
-            onClick={() => {
-              if (isEditorMode) {
-                // Apagado instantáneo sin pedir password ni abrir modal
-                setIsEditorMode(false);
-              } else {
-                handleOpenAdmin('ajustes');
-              }
-            }}
-            className={`transition-colors p-2 rounded-full hover:bg-white/5 ${isEditorMode ? 'text-[#F5C400] bg-[#F5C400]/10 shadow-[0_0_15px_rgba(245,196,0,0.5)] animate-pulse' : 'text-white/70 hover:text-[#FFD700]'
-              }`}
-            title={isEditorMode ? 'Desactivar Modo Editor' : 'Panel de Administración'}
-          >
-            {isEditorMode ? (
-              <Unlock size={22} />
-            ) : (
-              <Lock size={22} />
-            )}
-          </button>
+          
+          {/* Admin Toggle Padlock (Lado Derecho - MODO NORMAL) */}
+          {!isEditorMode && (
+            <button
+              onClick={() => handleOpenAdmin('ajustes')}
+              className="shrink-0 flex items-center justify-center transition-colors p-2 rounded-full text-white/70 hover:text-[#FFD700] hover:bg-white/5"
+              title="Panel de Administración"
+            >
+              <Lock size={20} />
+            </button>
+          )}
         </div>
 
         {/* Mobile Menu Trigger */}

@@ -1568,6 +1568,9 @@ const IndustriaDetalle = () => {
       const target = rawSector.toLowerCase() === 'inteligencia-artificial' ? 'ia' : rawSector.toLowerCase();
       navigate(`/tecnologia/${target}`, { replace: true });
     }
+    if (rawSector && rawSector.toLowerCase() === 'converting') {
+      navigate('/industria/packaging', { replace: true });
+    }
   }, [rawSector, navigate]);
   
   // Normalizar sector
@@ -1576,7 +1579,7 @@ const IndustriaDetalle = () => {
     const s = sec.toLowerCase();
     if (s === 'reciclaje-y-plasticos' || s === 'reciclaje') return 'reciclaje';
     if (s === 'alimentos-y-bebidas' || s === 'alimentos') return 'alimentos';
-    if (s === 'packaging-y-conversion' || s === 'packaging') return 'packaging';
+    if (s === 'packaging-y-conversion' || s === 'packaging' || s === 'converting') return 'packaging';
     if (s === 'construccion-e-infraestructura' || s === 'construccion') return 'construccion';
     if (s === 'agroindustria-y-procesamiento' || s === 'agroindustria') return 'agroindustria';
     if (s === 'salud-y-manufactura' || s === 'manufactura') return 'manufactura';
