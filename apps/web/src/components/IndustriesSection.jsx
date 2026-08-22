@@ -49,7 +49,7 @@ const industries = [
     id: 5,
     title: 'Automatización',
     description: 'Sistemas inteligentes de control',
-    image: 'https://images.unsplash.com/photo-1679986944940-c5001ec1c1da?auto=format&fit=crop&w=600&q=80'
+    image: '/automatizacion-bg.jpg'
   }
 ];
 
@@ -127,6 +127,9 @@ const IndustriesSection = () => {
     }
     if (item.id === 4 && (!item.image || item.image.includes('supabase.co') || item.image.includes('COSNTRUCCION') || item.image.includes('construccion') || item.image.includes('unsplash'))) {
       return { ...item, image: '/construccion-bg.jpg' };
+    }
+    if (item.id === 5 && (!item.image || item.image.includes('supabase.co') || item.image.includes('AUTOMATIZACION') || item.image.includes('automatizacion') || item.image.includes('unsplash'))) {
+      return { ...item, image: '/automatizacion-bg.jpg' };
     }
     return item;
   });

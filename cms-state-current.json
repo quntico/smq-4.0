@@ -167,7 +167,7 @@
                 "id": 5,
                 "title": "Automatización",
                 "description": "Sistemas inteligentes de control",
-                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1772950043878_AUTOMATIZACION.png",
+                "image": "/automatizacion-bg.jpg",
                 "titleAlign": "center",
                 "descAlign": "center",
                 "cardPadding": 15,

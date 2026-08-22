@@ -111,7 +111,7 @@ const initialCMSState = {
                             "id": 5,
                             "title": "Automatización",
                             "description": "Sistemas inteligentes de control",
-                            "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1772950043878_AUTOMATIZACION.png",
+                            "image": "/automatizacion-bg.jpg",
                             "titleAlign": "center",
                             "descAlign": "center",
                             "cardPadding": 15,
@@ -831,7 +831,8 @@ const migrateCMSState = (state) => {
             .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1783456746628_alimentos\.webp/g, '/alimentos-bg.jpg')
             .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1772950025146_PREMIER\.png/g, '/packaging-bg.jpg')
             .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1783456890873_packaging\.webp/g, '/packaging-bg.jpg')
-            .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1772950033502_COSNTRUCCION\.png/g, '/construccion-bg.jpg');
+            .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1772950033502_COSNTRUCCION\.png/g, '/construccion-bg.jpg')
+            .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1772950043878_AUTOMATIZACION\.png/g, '/automatizacion-bg.jpg');
         return JSON.parse(serialized);
     } catch (e) {
         console.error("[CMS] Error migrando estado del CMS:", e);
