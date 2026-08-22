@@ -114,7 +114,13 @@ const IndustriesSection = () => {
 
   const homePage = cmsState.pages.find(p => p.id === 'home');
   const industriesModule = homePage?.modules.find(m => m.id === 'industries') || {};
-  const activeIndustries = industriesModule.data?.items || industries;
+  const rawIndustries = industriesModule.data?.items || industries;
+  const activeIndustries = rawIndustries.map(item => {
+    if (item.id === 1 && (!item.image || item.image.includes('supabase.co') || item.image.includes('PLANTA%20DE%20RECICLAJE'))) {
+      return { ...item, image: '/reciclaje-bg.jpg' };
+    }
+    return item;
+  });
 
   // Preload all optimized images in parallel when the page starts initializing
   React.useEffect(() => {
