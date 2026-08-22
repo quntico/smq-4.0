@@ -93,7 +93,7 @@ const initialCMSState = {
                             "id": 3,
                             "title": "Packaging",
                             "description": "Sistemas de llenado y envasado",
-                            "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1772950025146_PREMIER.png",
+                            "image": "/packaging-bg.jpg",
                             "titleAlign": "center",
                             "descAlign": "center"
                         },
@@ -828,7 +828,9 @@ const migrateCMSState = (state) => {
             .replace(/"glowColor":\s*"green"/g, '"glowColor": "lime"')
             .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1772949246746_PLANTA%20DE%20RECICLAJE\.png/g, '/reciclaje-bg.jpg')
             .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1773020673672_CHOCOLATE%20A\.jpg/g, '/alimentos-bg.jpg')
-            .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1783456746628_alimentos\.webp/g, '/alimentos-bg.jpg');
+            .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1783456746628_alimentos\.webp/g, '/alimentos-bg.jpg')
+            .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1772950025146_PREMIER\.png/g, '/packaging-bg.jpg')
+            .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1783456890873_packaging\.webp/g, '/packaging-bg.jpg');
         return JSON.parse(serialized);
     } catch (e) {
         console.error("[CMS] Error migrando estado del CMS:", e);

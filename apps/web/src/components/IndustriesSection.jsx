@@ -37,7 +37,7 @@ const industries = [
     id: 3,
     title: 'Packaging',
     description: 'Sistemas de llenado y envasado',
-    image: 'https://images.unsplash.com/photo-1495716098472-4bd5c0382520?auto=format&fit=crop&w=600&q=80'
+    image: '/packaging-bg.jpg'
   },
   {
     id: 4,
@@ -121,6 +121,9 @@ const IndustriesSection = () => {
     }
     if (item.id === 2 && (!item.image || item.image.includes('supabase.co') || item.image.includes('CHOCOLATE') || item.image.includes('alimentos') || item.image.includes('unsplash'))) {
       return { ...item, image: '/alimentos-bg.jpg' };
+    }
+    if (item.id === 3 && (!item.image || item.image.includes('supabase.co') || item.image.includes('PREMIER') || item.image.includes('packaging') || item.image.includes('unsplash'))) {
+      return { ...item, image: '/packaging-bg.jpg' };
     }
     return item;
   });

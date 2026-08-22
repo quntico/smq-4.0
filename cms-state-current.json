@@ -148,7 +148,7 @@
                 "id": 3,
                 "title": "Packaging",
                 "description": "Sistemas de llenado y envasado",
-                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783456890873_packaging.webp",
+                "image": "/packaging-bg.jpg",
                 "titleAlign": "center",
                 "descAlign": "center",
                 "imageOpacity": 0.4
