@@ -143,8 +143,9 @@ const HomePage = () => {
             <NosotrosSection />
             <CapabilitiesSection />
             <SolutionsSection />
-            <PlantVisualizerSection />
-            <IndustrialProjectsSection />
+            {/* Visualizador de Planta y Proyectos Destacados ocultos temporalmente */}
+            {/* <PlantVisualizerSection /> */}
+            {/* <IndustrialProjectsSection /> */}
             <TechnologySection />
             <Footer />
           </div>
