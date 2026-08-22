@@ -105,6 +105,11 @@ const HeroSection = () => {
 
   const rawSlides = Array.isArray(heroModule?.data?.slides) ? heroModule.data.slides : defaultSlides;
   const slides = rawSlides.map(s => {
+    if (s.title2?.includes('PELETIZADO') || s.id === 'slide-1780811107042') {
+      if (!s.backgroundMedia || s.backgroundMedia.includes('supabase.co') || s.backgroundMedia.includes('hostinger.com') || s.backgroundMedia.endsWith('.webm') || s.backgroundMedia === '/hero-bg.jpg') {
+        return { ...s, backgroundMedia: '/peletizado-hero-bg.jpg' };
+      }
+    }
     if (!s.backgroundMedia || s.backgroundMedia.includes('supabase.co') || s.backgroundMedia.includes('hostinger.com') || s.backgroundMedia.endsWith('.webm')) {
       return { ...s, backgroundMedia: '/hero-bg.jpg' };
     }

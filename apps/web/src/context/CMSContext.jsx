@@ -52,7 +52,7 @@ const initialCMSState = {
                             "title1": "SISTEMAS AVANZADOS",
                             "title2": "DE PELETIZADO.",
                             "subtitle": "Sistemas de alta eficiencia para la transformación de polímeros y recuperación de materiales.",
-                            "backgroundMedia": "/hero-bg.jpg",
+                            "backgroundMedia": "/peletizado-hero-bg.jpg",
                             "overlayOpacity": 45
                         },
                         {
@@ -833,7 +833,7 @@ const migrateCMSState = (state) => {
             .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1772950033502_COSNTRUCCION\.png/g, '/construccion-bg.jpg')
             .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1772950043878_AUTOMATIZACION\.png/g, '/automatizacion-bg.jpg')
             .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1780095574453_[^"]+/g, '/hero-bg.jpg')
-            .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1780811371107_[^"]+/g, '/hero-bg.jpg')
+            .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1780811371107_[^"]+/g, '/peletizado-hero-bg.jpg')
             .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1780811567983_[^"]+/g, '/hero-bg.jpg')
             .replace(/https:\/\/horizons-cdn\.hostinger\.com\/[^"]+/g, '/hero-bg.jpg');
         return JSON.parse(serialized);
