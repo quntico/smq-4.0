@@ -1,7 +1,7 @@
 {
   "settings": {
-    "logoUrl": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1772916101912_LOGO%20ALUMINIO%20SMQ%20LIMPIO.png",
-    "faviconUrl": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1772938478587_FAVICON%20SMQ.png",
+    "logoUrl": "/smq-logo.png",
+    "faviconUrl": "/smq-logo.png",
     "logoSize": 98,
     "headerHeight": 100,
     "headerOpacity": 60,

@@ -5,8 +5,8 @@ const CMSContext = createContext();
 
 const initialCMSState = {
     settings: {
-        logoUrl: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1772916101912_LOGO%20ALUMINIO%20SMQ%20LIMPIO.png',
-        faviconUrl: 'https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1772938478587_FAVICON%20SMQ.png',
+        logoUrl: '/smq-logo.png',
+        faviconUrl: '/smq-logo.png',
         logoSize: 98,
         headerHeight: 100,
         headerOpacity: 60,
@@ -856,8 +856,8 @@ export const CMSProvider = ({ children }) => {
                     settings: {
                         ...initialCMSState.settings,
                         ...parsedSettings,
-                        logoUrl: parsedSettings.logoUrl || initialCMSState.settings.logoUrl,
-                        faviconUrl: parsedSettings.faviconUrl || initialCMSState.settings.faviconUrl,
+                        logoUrl: (!parsedSettings.logoUrl || parsedSettings.logoUrl.includes('supabase.co')) ? '/smq-logo.png' : parsedSettings.logoUrl,
+                        faviconUrl: (!parsedSettings.faviconUrl || parsedSettings.faviconUrl.includes('supabase.co')) ? '/smq-logo.png' : parsedSettings.faviconUrl,
                         appVersion: parsedSettings.appVersion || initialCMSState.settings.appVersion,
                         textJustify: parsedSettings.textJustify !== undefined ? parsedSettings.textJustify : initialCMSState.settings.textJustify,
                         disableImageFilters: parsedSettings.disableImageFilters !== undefined ? parsedSettings.disableImageFilters : initialCMSState.settings.disableImageFilters
@@ -912,8 +912,8 @@ export const CMSProvider = ({ children }) => {
                         settings: {
                             ...initialCMSState.settings,
                             ...parsedSettings,
-                            logoUrl: parsedSettings.logoUrl || initialCMSState.settings.logoUrl,
-                            faviconUrl: parsedSettings.faviconUrl || initialCMSState.settings.faviconUrl,
+                            logoUrl: (!parsedSettings.logoUrl || parsedSettings.logoUrl.includes('supabase.co')) ? '/smq-logo.png' : parsedSettings.logoUrl,
+                            faviconUrl: (!parsedSettings.faviconUrl || parsedSettings.faviconUrl.includes('supabase.co')) ? '/smq-logo.png' : parsedSettings.faviconUrl,
                             appVersion: parsedSettings.appVersion || initialCMSState.settings.appVersion,
                             textJustify: parsedSettings.textJustify !== undefined ? parsedSettings.textJustify : initialCMSState.settings.textJustify,
                             disableImageFilters: parsedSettings.disableImageFilters !== undefined ? parsedSettings.disableImageFilters : initialCMSState.settings.disableImageFilters
