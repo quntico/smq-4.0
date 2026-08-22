@@ -139,7 +139,7 @@
                 "id": 2,
                 "title": "Alimentos",
                 "description": "Líneas de procesamiento alimentario",
-                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1783456746628_alimentos.webp",
+                "image": "/alimentos-bg.jpg",
                 "titleAlign": "center",
                 "descAlign": "center",
                 "imageOpacity": 0.45

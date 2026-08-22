@@ -31,7 +31,7 @@ const industries = [
     id: 2,
     title: 'Alimentos',
     description: 'Líneas de procesamiento alimentario',
-    image: 'https://images.unsplash.com/photo-1535474035682-b50c07c2418f?auto=format&fit=crop&w=600&q=80'
+    image: '/alimentos-bg.jpg'
   },
   {
     id: 3,
@@ -118,6 +118,9 @@ const IndustriesSection = () => {
   const activeIndustries = rawIndustries.map(item => {
     if (item.id === 1 && (!item.image || item.image.includes('supabase.co') || item.image.includes('PLANTA%20DE%20RECICLAJE'))) {
       return { ...item, image: '/reciclaje-bg.jpg' };
+    }
+    if (item.id === 2 && (!item.image || item.image.includes('supabase.co') || item.image.includes('CHOCOLATE') || item.image.includes('alimentos') || item.image.includes('unsplash'))) {
+      return { ...item, image: '/alimentos-bg.jpg' };
     }
     return item;
   });

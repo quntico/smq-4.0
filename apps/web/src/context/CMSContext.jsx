@@ -84,7 +84,7 @@ const initialCMSState = {
                             "id": 2,
                             "title": "Alimentos",
                             "description": "Líneas de procesamiento alimentario",
-                            "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1773020673672_CHOCOLATE%20A.jpg",
+                            "image": "/alimentos-bg.jpg",
                             "titleAlign": "center",
                             "descAlign": "center",
                             "imageOpacity": 0.1
@@ -826,7 +826,9 @@ const migrateCMSState = (state) => {
             .replace(/rgba\(52,\s*211,\s*153/g, 'rgba(132, 204, 22')
             .replace(/"glowColor":\s*"emerald"/g, '"glowColor": "lime"')
             .replace(/"glowColor":\s*"green"/g, '"glowColor": "lime"')
-            .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1772949246746_PLANTA%20DE%20RECICLAJE\.png/g, '/reciclaje-bg.jpg');
+            .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1772949246746_PLANTA%20DE%20RECICLAJE\.png/g, '/reciclaje-bg.jpg')
+            .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1773020673672_CHOCOLATE%20A\.jpg/g, '/alimentos-bg.jpg')
+            .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1783456746628_alimentos\.webp/g, '/alimentos-bg.jpg');
         return JSON.parse(serialized);
     } catch (e) {
         console.error("[CMS] Error migrando estado del CMS:", e);
