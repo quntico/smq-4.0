@@ -157,7 +157,7 @@
                 "id": 4,
                 "title": "Construcción",
                 "description": "Materiales composites y reciclados",
-                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1772950033502_COSNTRUCCION.png",
+                "image": "/construccion-bg.jpg",
                 "titleSize": 22,
                 "cardPadding": 25,
                 "descAlign": "center",

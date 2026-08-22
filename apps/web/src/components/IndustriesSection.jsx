@@ -43,7 +43,7 @@ const industries = [
     id: 4,
     title: 'Construcción',
     description: 'Materiales compuestos y reciclados',
-    image: 'https://images.unsplash.com/photo-1576798815951-7c3ff46cf5f5?auto=format&fit=crop&w=600&q=80'
+    image: '/construccion-bg.jpg'
   },
   {
     id: 5,
@@ -124,6 +124,9 @@ const IndustriesSection = () => {
     }
     if (item.id === 3 && (!item.image || item.image.includes('supabase.co') || item.image.includes('PREMIER') || item.image.includes('packaging') || item.image.includes('unsplash'))) {
       return { ...item, image: '/packaging-bg.jpg' };
+    }
+    if (item.id === 4 && (!item.image || item.image.includes('supabase.co') || item.image.includes('COSNTRUCCION') || item.image.includes('construccion') || item.image.includes('unsplash'))) {
+      return { ...item, image: '/construccion-bg.jpg' };
     }
     return item;
   });
