@@ -103,7 +103,13 @@ const HeroSection = () => {
     }
   ];
 
-  const slides = Array.isArray(heroModule?.data?.slides) ? heroModule.data.slides : defaultSlides;
+  const rawSlides = Array.isArray(heroModule?.data?.slides) ? heroModule.data.slides : defaultSlides;
+  const slides = rawSlides.map(s => {
+    if (!s.backgroundMedia || s.backgroundMedia.includes('supabase.co') || s.backgroundMedia.includes('hostinger.com') || s.backgroundMedia.endsWith('.webm')) {
+      return { ...s, backgroundMedia: '/hero-bg.jpg' };
+    }
+    return s;
+  });
 
   const [currentSlideIdx, setCurrentSlideIdx] = useState(0);
   const [isUploading, setIsUploading] = useState(false);

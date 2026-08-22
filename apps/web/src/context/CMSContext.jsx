@@ -44,25 +44,24 @@ const initialCMSState = {
                             "title1": "Soluciones Industriales",
                             "title2": "de Alta Ingeniería",
                             "subtitle": "Maquinaria avanzada para reciclaje, procesamiento de alimentos y automatización industrial.",
-                            "backgroundMedia": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780095574453_cajas%20fast%20webm.webm",
-                            "overlayOpacity": 27,
-                            "posterUrl": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780095913256_AUTOMATIZACION.png"
+                            "backgroundMedia": "/hero-bg.jpg",
+                            "overlayOpacity": 40
                         },
                         {
                             "id": "slide-1780811107042",
                             "title1": "SISTEMAS AVANZADOS",
-                            "title2": "DE  PELETIZADO.",
+                            "title2": "DE PELETIZADO.",
                             "subtitle": "Sistemas de alta eficiencia para la transformación de polímeros y recuperación de materiales.",
-                            "backgroundMedia": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780811371107_VID_PELLET_WEB.webm",
-                            "overlayOpacity": 72
+                            "backgroundMedia": "/hero-bg.jpg",
+                            "overlayOpacity": 45
                         },
                         {
                             "id": "slide-1780811407090",
                             "title1": "ENVASADORAS",
                             "title2": "DE NUEVA GENERACIÓN",
-                            "subtitle": "Envasadoras Doy Pack, Stand up pouch pre made, Sachet, VSSF 4.0 ",
-                            "backgroundMedia": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1780811567983_pouch_12345_optimized.webm",
-                            "overlayOpacity": 50
+                            "subtitle": "Envasadoras Doy Pack, Stand up pouch pre made, Sachet, VSSF 4.0 ",
+                            "backgroundMedia": "/hero-bg.jpg",
+                            "overlayOpacity": 45
                         }
                     ]
                 }
@@ -832,7 +831,11 @@ const migrateCMSState = (state) => {
             .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1772950025146_PREMIER\.png/g, '/packaging-bg.jpg')
             .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1783456890873_packaging\.webp/g, '/packaging-bg.jpg')
             .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1772950033502_COSNTRUCCION\.png/g, '/construccion-bg.jpg')
-            .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1772950043878_AUTOMATIZACION\.png/g, '/automatizacion-bg.jpg');
+            .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1772950043878_AUTOMATIZACION\.png/g, '/automatizacion-bg.jpg')
+            .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1780095574453_[^"]+/g, '/hero-bg.jpg')
+            .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1780811371107_[^"]+/g, '/hero-bg.jpg')
+            .replace(/https:\/\/xbubebonbivunzrqeidg\.supabase\.co\/storage\/v1\/object\/public\/media\/1780811567983_[^"]+/g, '/hero-bg.jpg')
+            .replace(/https:\/\/horizons-cdn\.hostinger\.com\/[^"]+/g, '/hero-bg.jpg');
         return JSON.parse(serialized);
     } catch (e) {
         console.error("[CMS] Error migrando estado del CMS:", e);
