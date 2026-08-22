@@ -131,7 +131,7 @@
                 "id": 1,
                 "title": "Reciclaje",
                 "description": "Plantas de reciclaje de plásticos",
-                "image": "https://xbubebonbivunzrqeidg.supabase.co/storage/v1/object/public/media/1772949246746_PLANTA%20DE%20RECICLAJE.png",
+                "image": "/reciclaje-bg.jpg",
                 "titleAlign": "center",
                 "descAlign": "center"
               },

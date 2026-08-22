@@ -25,7 +25,7 @@ const industries = [
     id: 1,
     title: 'Reciclaje',
     description: 'Plantas de reciclaje de plásticos',
-    image: 'https://images.unsplash.com/photo-1680214734782-48962f9c17eb?auto=format&fit=crop&w=600&q=80'
+    image: '/reciclaje-bg.jpg'
   },
   {
     id: 2,
